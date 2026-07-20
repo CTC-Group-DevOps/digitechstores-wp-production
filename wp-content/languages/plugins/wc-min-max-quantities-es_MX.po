@@ -1,0 +1,108 @@
+# Translation of Plugins - Min Max Quantities for WooCommerce - Development (trunk) in Spanish (Mexico)
+# This file is distributed under the same license as the Plugins - Min Max Quantities for WooCommerce - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-06-01 14:17:38+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
+"Language: es_MX\n"
+"Project-Id-Version: Plugins - Min Max Quantities for WooCommerce - Development (trunk)\n"
+
+#. Author URI of the plugin/theme
+msgid "https://www.pluginever.com"
+msgstr "https://www.pluginever.com"
+
+#. Author of the plugin/theme
+msgid "pluginever"
+msgstr "pluginever"
+
+#. Description of the plugin/theme
+msgid "The Best WordPress Plugin ever made!"
+msgstr "¡El mejor plugin de WordPress jamás creado!"
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.pluginever.com/wc-minmax-qunatities"
+msgstr "https://www.pluginever.com/wc-minmax-qunatities"
+
+#. Plugin Name of the plugin/theme
+msgid "WC Min Max Quantities"
+msgstr "WC Min Max Quantities"
+
+#: wc-min-max-quantities.php:107
+msgid "Unserializing instances of this class is forbidden."
+msgstr "Se prohíbe la deserialización de instancias de esta clase."
+
+#: wc-min-max-quantities.php:98
+msgid "Cloning is forbidden."
+msgstr "Clonar está prohibido."
+
+#: includes/class-user-cart.php:87
+msgid "Maximum cart total can not be more than %s "
+msgstr "El total máximo del carrito no puede ser superior a %s"
+
+#: includes/class-user-cart.php:80
+msgid "Minimum cart total should be %s or more"
+msgstr "El total mínimo del carrito debe ser %s o más."
+
+#: includes/class-user-cart.php:73
+msgid "Quantity of products in cart must not be more than %s "
+msgstr "La cantidad de productos en el carrito no debe ser superior a %s"
+
+#: includes/class-user-cart.php:66
+msgid "Quantity of products in cart must be %s or more "
+msgstr "La cantidad de productos en el carrito debe ser superior a %s"
+
+#: includes/class-user-cart.php:57 includes/class-user-cart.php:115
+msgid "You can't buy more than %s quantities of %s"
+msgstr "No puedes comprar más de %s cantidades de %s"
+
+#: includes/class-user-cart.php:50 includes/class-user-cart.php:106
+msgid "You have to buy at least %s quantities of %s"
+msgstr "Tienes que comprar al menos %s cantidades de %s"
+
+#: includes/admin/class-settings.php:30
+msgid "Minimum Order Value"
+msgstr "Valor mínimo del pedido"
+
+#: includes/admin/class-settings.php:36
+msgid "Maximum Order Value"
+msgstr "Valor máximo del pedido"
+
+#: includes/admin/class-settings.php:24
+msgid "Maximum Order Quantity"
+msgstr "Cantidad máxima de pedido"
+
+#: includes/admin/class-settings.php:18
+msgid "Minimum Order Quantity"
+msgstr "Cantidad mínima de pedido"
+
+#: includes/admin/class-settings.php:15
+msgid "Min/Max Quantities"
+msgstr "Cantidades Min/Max"
+
+#: includes/admin/class-metabox.php:38
+msgid "Exclude this product from global minimum/maximum order quantity/value rules."
+msgstr "Excluya este producto de las reglas de cantidad / valor de pedido mínimo / máximo global."
+
+#: includes/admin/class-metabox.php:35
+msgid "Ignore Global MinMax Rules"
+msgstr "Ignorar las reglas globales de MinMax"
+
+#: includes/admin/class-metabox.php:29
+msgid "Enter a quantity to prevent  user from buying this product if they have more than the allowed quantity in their cart."
+msgstr "Ingrese una cantidad para evitar que el usuario compre este producto, si tiene más de la cantidad permitida en su carrito."
+
+#: includes/admin/class-metabox.php:26
+msgid "Product Max Quantity"
+msgstr "Cantidad máxima del producto"
+
+#: includes/admin/class-metabox.php:19
+msgid "Enter a quantity to prevent  user from buying this product if they have fewer than the allowed quantity in their cart."
+msgstr "Ingrese una cantidad para evitar que el usuario compre este producto, si tiene menos de la cantidad permitida en su carrito."
+
+#: includes/admin/class-metabox.php:14
+msgid "Product Min Quantity"
+msgstr "Cantidad mínima de producto"

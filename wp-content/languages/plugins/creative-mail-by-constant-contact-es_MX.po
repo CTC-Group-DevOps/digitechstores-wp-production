@@ -1,0 +1,602 @@
+# Translation of Plugins - Creative Mail – Easier WordPress &amp; WooCommerce Email Marketing - Stable (latest release) in Spanish (Mexico)
+# This file is distributed under the same license as the Plugins - Creative Mail – Easier WordPress &amp; WooCommerce Email Marketing - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-10-05 20:28:27+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: es_MX\n"
+"Project-Id-Version: Plugins - Creative Mail – Easier WordPress &amp; WooCommerce Email Marketing - Stable (latest release)\n"
+
+#: src/blocks/subscribe/block.json
+msgctxt "block description"
+msgid "Let your contact subscribe to a mailing list for creative mail."
+msgstr "Permite a tus contactos suscribirse a la lista de correos para Creative Mail."
+
+#: src/blocks/subscribe/block.json
+msgctxt "block title"
+msgid "Creative Mail"
+msgstr "Creative Mail"
+
+#: src/views/creative-mail-form-banner.php:62
+msgid "It’s that easy."
+msgstr "Es así de fácil."
+
+#: src/views/creative-mail-form-banner.php:57
+msgid ""
+"Just go to any page on your site in the WordPress editor and click the “Add block” button. Select the\n"
+"                                Creative Mail contact form from the block recipes and you’re set."
+msgstr ""
+"Ve a cualquier pagina de tu sitio web en el editor de WordPress y haz click en el botón “Añadir bloque”. Selecciona el\n"
+"                                formulario de contacto Creative Mail en las recetas de bloque, y listo."
+
+#: src/views/creative-mail-form-banner.php:53
+msgid "Adding a subscription form to your WordPress site is easy. Actually we’ve already prepared a form for you."
+msgstr "Agregar un formulario de suscripción a tu sitio en WordPress es fácil. Actualmente hemos preparado un formulario para ti."
+
+#: src/views/creative-mail-form-banner.php:19
+msgid "Show me how!"
+msgstr "¡Muéstrame cómo!"
+
+#: src/views/creative-mail-form-banner.php:17
+msgid "Contacts that sign up can now be assigned to a contact list automatically. Add the Creative Mail block anywhere on your site."
+msgstr "Los Contactos que se registran pueden ahora ser asignados a una lista de contactos automáticamente. Agrega el bloque Creative Mail en cualquier parte de tu sitio."
+
+#: src/views/creative-mail-form-banner.php:15
+msgid "The Creative Mail form is here!"
+msgstr "¡El formulario de Creative Mail está aquí!"
+
+#: src/Managers/FormManager.php:97
+msgid "Could not retrieve data."
+msgstr "No se han podido recuperar los datos."
+
+#: src/views/password-protected-notice.php:11
+msgid "Go to Plugin Settings"
+msgstr "Ir a los ajustes del plugin"
+
+#: src/views/password-protected-notice.php:9
+msgid "Please disable the Password Protected plugin to start using CreativeMail."
+msgstr "Por favor, desactiva el plugin Password Protected para empezar a usar Creative Mail."
+
+#: src/views/password-protected-notice.php:6
+msgid "We see that you’re using the Password Protected plugin. Creative Mail needs to interact with your WordPress site but this plugin makes that impossible."
+msgstr "Hemos visto que estás usando el plugin Password Protected. Creative Mail necesita interactuar con tu sitio WordPress, pero este plugin lo hace imposible."
+
+#: src/Modules/WooCommerce/Emails/AbandonedCartEmail.php:16
+msgid "Send customers a reminder after they abandoned their shopping cart"
+msgstr "Enviar un recordatorio a los clientes después de haber abandonado su carrito de compras"
+
+#: src/Modules/WooCommerce/Emails/AbandonedCartEmail.php:15
+msgid "Abandoned cart"
+msgstr "Carrito abandonado"
+
+#: src/Managers/AdminManager.php:471
+msgid "Please disable this plugin to start using CreativeMail."
+msgstr "Por favor, desactiva este plugin para empezar a usar Creative Mail."
+
+#: src/Managers/AdminManager.php:471
+msgid "We see that you have the Password Protected plugin installed and activated on your WordPress site. While this plugin is active, CreativeMail wont be able to complete the setup since the Password Protected plugin is prohibiting us from interacting with your WordPress site."
+msgstr "Hemos visto tienes instalado y activado en tu sitio WordPress el plugin Password Protected. Mientras este plugin esté activo, Creative Mail no podrá completar la configuración, ya que el plugin Password Protected nos prohíbe interactuar con tu sitio WordPress"
+
+#: src/Managers/AdminManager.php:463
+msgid "please update your permalink settings"
+msgstr "por favor, actualiza tus ajustes de enlaces permanentes"
+
+#: src/Managers/AdminManager.php:463
+msgid "Ohoh, pretty permalinks are disabled. To enable the CreativeMail WooCommerce integration"
+msgstr "¡Vaya! Los enlaces permanentes bonitos están desactivados. Para activar la integración de Creative Mail con WooCommerce"
+
+#: src/views/activated-integrations.php:41
+msgid "Select one or more plugins to enable the synchronization of its contacts with Creative Mail."
+msgstr "Selecciona uno o más plugins para activar la sincronización de sus contactos con Creative Mail."
+
+#: src/views/dashboard-open-creative-mail.php:12
+msgid "Open Creative Mail dashboard"
+msgstr "Abrir el escritorio de Creative Mail"
+
+#: src/Managers/AdminManager.php:430 src/Managers/AdminManager.php:431
+msgid "Automation"
+msgstr "Automatización"
+
+#: src/Managers/AdminManager.php:418 src/Managers/AdminManager.php:419
+msgid "Contacts"
+msgstr "Contactos"
+
+#: src/Managers/AdminManager.php:424 src/Managers/AdminManager.php:425
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: src/Managers/AdminManager.php:412 src/Managers/AdminManager.php:413
+msgid "Campaigns"
+msgstr "Campañas"
+
+#. translators: %d item count
+#: src/Managers/CheckoutManager.php:695
+msgid "%d item from your previous order is currently unavailable and could not be added to your cart."
+msgid_plural "%d items from your previous order are currently unavailable and could not be added to your cart."
+msgstr[0] "%d artículo de tu pedido anterior no está disponible actualmente y no puede ser añadido a tu carrito."
+msgstr[1] "%d artículos de tu pedido anterior no están disponibles actualmente y no pueden ser añadidos a tu carrito."
+
+#: src/Managers/CheckoutManager.php:259
+msgid "Invalid email."
+msgstr "Correo electrónico no válido."
+
+#: src/Managers/CheckoutManager.php:253 src/Managers/CheckoutManager.php:280
+#: src/Managers/FormManager.php:68 src/Managers/FormManager.php:90
+#: src/Managers/FormManager.php:108
+msgid "Invalid nonce."
+msgstr "Nonce no válido."
+
+#: src/Managers/CheckoutManager.php:122
+msgid "No thanks"
+msgstr "No, gracias"
+
+#: src/Managers/CheckoutManager.php:122
+msgid "Your email and cart are saved so we can send you email reminders about this order."
+msgstr "Tu correo electrónico y tu carrito están guardados, para que podamos enviarte recordatorios sobre este pedido."
+
+#: src/Managers/AdminManager.php:254
+msgid "I don’t have enough email contacts"
+msgstr "No tengo suficientes contactos de correo electrónico"
+
+#: src/Managers/AdminManager.php:253
+msgid "There were technical issues"
+msgstr "Han habido problemas técnicos"
+
+#: src/Managers/AdminManager.php:252
+msgid "It was too confusing"
+msgstr "Ha sido demasiado confuso"
+
+#: src/Managers/AdminManager.php:251
+msgid "I didn’t like the email editor"
+msgstr "No me gustó el editor de correos electrónicos"
+
+#: src/Managers/AdminManager.php:250
+msgid "It didn’t have the features I want"
+msgstr "No tenía las características que yo quería"
+
+#: src/Managers/AdminManager.php:249
+msgid "I’m not sending email campaigns right now"
+msgstr "No envío campañas por correo electrónico en este momento"
+
+#: src/Managers/AdminManager.php:248
+msgid "Sadness... why leave so soon?"
+msgstr "Estoy triste... ¿por qué te vas tan pronto?"
+
+#: src/Managers/EmailManager.php:164
+msgid "Manage all your email settings and templates with Creative Mail"
+msgstr "Gestiona todos tus ajustes y plantillas de correo electrónico con Creative Mail"
+
+#: src/Managers/EmailManager.php:159
+msgid "Customize Emails"
+msgstr "Personalizar los correos electrónicos"
+
+#: src/views/pending-setup.php:16
+msgid "Having problems setting up your account, click the 'reset' button below to start over."
+msgstr "¿Tienes problemas para configurar tu cuenta? Haz click en el botón \"reiniciar\" para empezar desde cero."
+
+#: src/views/dashboard-open-creative-mail.php:33
+msgid "Engage your audience without lifting a finger."
+msgstr "Involucra a tu audiencia sin mover un dedo."
+
+#: src/views/dashboard-open-creative-mail.php:32
+msgid "Email Automations"
+msgstr "Automatizaciones de Correos Electrónicos"
+
+#: src/Clients/CreativeMailClient.php:86
+msgid "Sent on %s"
+msgstr "Enviada el %s"
+
+#: src/Clients/CreativeMailClient.php:82
+msgid "Scheduled on %s"
+msgstr "Programado el %s"
+
+#: src/Clients/CreativeMailClient.php:78
+msgid "Draft"
+msgstr "Borrador"
+
+#: src/views/settings-internal.php:35
+msgid "App Gateway"
+msgstr "Puerta de Enlace de la Aplicación"
+
+#: src/views/settings-internal.php:30
+msgid "App"
+msgstr "Aplicación"
+
+#: src/views/settings-internal.php:25
+msgid "Plugin version"
+msgstr "Versión del Plugin"
+
+#: src/views/settings-internal.php:20
+msgid "Environment"
+msgstr "Entorno"
+
+#: src/views/settings-internal.php:15
+msgid "Instance Id"
+msgstr "ID de la Instancia"
+
+#: src/views/settings-internal.php:10
+msgid "Instance UUID"
+msgstr "UUID de la instancia"
+
+#: src/views/settings-internal.php:7
+msgid "Technical details"
+msgstr "Detalles técnicos"
+
+#: src/views/unlink.php:5
+msgid "Unlinking your account is permanent and cannot be undone."
+msgstr "Desvincular tu cuenta es permanente y no se puede deshacer."
+
+#: src/views/unlink.php:3
+msgid ""
+"Your WordPress instance is connected to your Creative Mail account. If you would like to\n"
+"\t\tunlink your WordPress instance from your account, please click the \"Unlink\" button below."
+msgstr ""
+"Tu instancia de WordPress está conectada a tu cuenta de Creative Mail. Si deseas \n"
+"\t\tdesvincular tu instancia de WordPress de tu cuenta, por favor haz click en el botón \"Desvincular\"."
+
+#: src/views/settings.php:79
+msgid "Customer Email Marketing"
+msgstr "Marketing a Clientes por Correo Electrónico"
+
+#: src/views/contact-sync.php:15
+msgid "Contact Sync"
+msgstr "Sincronizar Contactos"
+
+#: src/views/activated-integrations.php:143
+msgid "Got it!"
+msgstr "¡Lo tengo!"
+
+#: src/views/activated-integrations.php:135
+msgid "Getting your email delivered is important to us. We may contact you to review your list before we send your email, if you add contacts that are likely to cause higher than normal bounces or for other reasons that we know may cause spam complaints. Thanks for helping to eliminate spam."
+msgstr "Hacer que sus correos electrón sea enviado es importante para nosotros. Nosotros le contactaremos para revisar su lista antes de nosotros enviar sus correos, en caso de agregar contactos que puedan causar saltos mayores de lo normal of por otras razones que conocemos podrían causar quejas por spam (correos maliciosos). Gracias por ayudarnos a eliminar el spam (correos maliciosos)."
+
+#: src/views/activated-integrations.php:132
+msgid "Role addresses, such as sales@ or marketing@, and distribution lists often mail to more than one person and result in higher than normal spam complaints. You must remove these from your list prior to upload."
+msgstr "Las direcciones de perfiles, como ventas@ o marketing@, y las listas de distribución suelen enviar correo a más de una persona y dan como resultado mayores quejas de spam de las normales. Debes eliminarlas de tu lista antes de subirla."
+
+#: src/views/activated-integrations.php:131
+msgid "I am not adding role addresses or distribution lists"
+msgstr "No estoy añadiendo direcciones de perfiles o listas de distribución"
+
+#: src/views/activated-integrations.php:129
+msgid "You must have the prior consent of each contact added to your Constant Contact account. Your account cannot contain purchased, rented, third party or appended lists. In addition, you may not add auto-response addresses, transactional addresses, or user group addresses."
+msgstr "Debes tener añadido el consentimiento previo de cada contacto a tu cuenta de Constant Contact. Tu cuenta no debe contener listas compradas, alquiladas, de terceros o adjuntas. Además, no debes añadir direcciones de respuesta automática, direcciones transaccionales o direcciones de grupos de usuarios."
+
+#: src/views/activated-integrations.php:128
+msgid "I have the consent of each contact on my list"
+msgstr "Tengo el consentimiento de cada contacto en mi lista"
+
+#: src/views/activated-integrations.php:124
+msgid "Each time you add contacts, they must meet the following conditions."
+msgstr "Cada vez que añadas contactos, deben cumplir las siguientes condiciones."
+
+#: src/views/activated-integrations.php:98
+msgid "Yes, these contacts expect to hear from me"
+msgstr "Sí, estos contactos esperan tener noticias mías"
+
+#: src/views/pending-setup.php:11
+msgid "Get free email marketing, 98% deliverability, and Constant Contact rock solid reliability all without ever needing to leave your WP Admin."
+msgstr "Obtén marketing gratuito por correo electrónico, con una tasa de entrega del 98 % y la sólida fiabilidad de Constant Contact, todo sin salir de tu administración de WordPress."
+
+#: src/views/pending-setup.php:7
+msgid ""
+"Our included CRM also intelligently pulls in and identifies your WordPress site contacts and WooCommerce store customers.\n"
+"  That makes it easy to build audiences and send targeted customer campaigns."
+msgstr ""
+"Nuestro CRM incluido, también extrae e identifica de forma inteligente los contactos de tu sitio WordPress y los clientes de la tienda WooCommerce.\n"
+"  Esto hace fácil crear audiencias y enviar campañas dirigidas a los clientes."
+
+#: src/views/pending-setup.php:2
+msgid ""
+"Power your WooCommerce Store or WordPress Blog with simple & free email marketing from Constant Contact.\n"
+"  With the official Creative Mail for WooCommerce plugin, your products, blog posts, images and store links\n"
+"  are automatically included as rich shoppable email marketing content for your customers."
+msgstr ""
+"Potencia tu tienda WooCommerce o tu blog de WordPress con el marketing por correo electrónico, sencillo y gratuito, de Constant Contact.\n"
+" Con el plugin oficial de Creative Mail para WooCommerce, tus productos, entradas del blog, imágenes y enlaces de la tienda son incluidos automáticamente como contenido de marketing por correo electrónico para la posibilidad de compra de tus clientes."
+
+#: src/views/admin-dashboard-widget/most-recent-campaigns.php:88
+msgid "Open Rate"
+msgstr "Tarifa Abierta"
+
+#: src/views/admin-dashboard-widget/no-campaign.php:6
+msgid "Create a campaign"
+msgstr "Crear una campaña"
+
+#: src/views/admin-dashboard-widget/no-campaign.php:4
+msgid "Thanks for signing up with Creative Mail. Let’s create your first campaign!"
+msgstr "Gracias por registrarte con Creative Mail. ¡Vamos a crear tu primera campaña!"
+
+#: src/views/admin-dashboard-widget/exception.php:5
+msgid "Please try again at a later time."
+msgstr "Por favor, inténtalo de nuevo más tarde."
+
+#: src/views/admin-dashboard-widget/exception.php:4
+msgid "Creative Mail ran into an error."
+msgstr "Creative Mail se ha encontrado con un error."
+
+#: src/views/admin-dashboard-widget/exception.php:3
+msgid "Well... this is embarrassing!"
+msgstr "Bueno... ¡esto es vergonzoso!"
+
+#: src/views/admin-dashboard-widget/campaigns.php:44
+#: src/views/admin-dashboard-widget/most-recent-campaigns.php:99
+msgid "View all campaigns"
+msgstr "Ver todas las campañas"
+
+#: src/views/admin-dashboard-widget/campaigns.php:43
+#: src/views/admin-dashboard-widget/most-recent-campaigns.php:96
+msgid "Create a new campaign"
+msgstr "Crear una nueva campaña"
+
+#: src/views/admin-dashboard-widget/campaigns.php:36
+msgid "Inactive:"
+msgstr "Inactivo:"
+
+#: src/views/admin-dashboard-widget/campaigns.php:30
+msgid "Active:"
+msgstr "Activo:"
+
+#: src/views/admin-dashboard-widget/campaigns.php:27
+#: src/views/admin-dashboard-widget/most-recent-campaigns.php:61
+msgid "Your recent campaigns"
+msgstr "Tus campañas recientes"
+
+#: src/views/admin-dashboard-widget/no-woocommerce.php:4
+msgid "Easily manage and brand all of your important transactional WooCommerce store emails."
+msgstr "Gestiona y pon tu marca fácilmente en todos los correos electrónicos importantes de tu tienda WooCommerce."
+
+#: src/views/admin-dashboard-widget/woocommerce.php:28
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: src/views/admin-dashboard-widget/woocommerce.php:22
+msgid "Active"
+msgstr "Activo"
+
+#: src/views/admin-dashboard-widget/woocommerce.php:19
+msgid "Transactional WooCommerce email"
+msgstr "Correos transaccionales de WooCommerce"
+
+#: src/views/admin-dashboard-widget/no-ce-account.php:7
+#: src/views/admin-dashboard-widget/no-woocommerce.php:7
+msgid "Let's go!"
+msgstr "¡Vamos allá!"
+
+#: src/views/admin-dashboard-widget/no-ce-account.php:4
+msgid "Our intelligent email editor makes it easy to create professional emails to engage your audience."
+msgstr "Nuestro editor de correos inteligentes hace fácil la creación de correos profesionales que cautiven la audiencia."
+
+#: src/views/admin-get-started-banner.php:51
+msgid "Start free"
+msgstr "Empieza gratis"
+
+#: src/views/admin-get-started-banner.php:49
+msgid "Our intelligent email editor makes it easy to create a professional email."
+msgstr "Nuestro editor de correos inteligentes hace fácil la creación de correos profesionales."
+
+#: src/views/admin-get-started-banner.php:47
+msgid "Grow your business with Creative Mail"
+msgstr "Haz que tu negocio crezca con Creative Mail"
+
+#: src/views/admin-feedback-notice/few-contacts.php:7
+msgid "These contacts are already in Creative Mail, send a quick campaign..."
+msgstr "Estos contactos ya están en Creative Mail, envía una campaña rápida..."
+
+#: src/views/admin-feedback-notice/few-contacts.php:5
+msgid "Time for an audience shout out?"
+msgstr "¿Es hora de contactar con la audiencia?"
+
+#: src/views/admin-feedback-notice/few-contacts.php:9
+#: src/views/admin-feedback-notice/many-contacts.php:13
+msgid "Get started"
+msgstr "Empecemos"
+
+#: src/views/admin-feedback-notice/many-contacts.php:10
+msgid "contacts are ready for a Creative Mail email campaign. Send one now!"
+msgstr "contactos están listos para una campaña de correos en Creative Mail. ¡Envía una ahora!"
+
+#: src/views/admin-feedback-notice/many-contacts.php:8
+msgid "Your"
+msgstr "Tus"
+
+#: src/views/admin-feedback-notice/many-contacts.php:5
+msgid "Awesome... your audience is growing!"
+msgstr "¡Asombroso!... ¡Tu audiencia esta creciendo!"
+
+#: src/views/admin-feedback-notice/sync-disabled.php:14
+msgid "Sync my contacts"
+msgstr "Sincronizar mis contactos"
+
+#: src/views/admin-feedback-notice/sync-disabled.php:11
+msgid "Grow your business or blog with the power of email marketing."
+msgstr "Haz crecer tu negocio o blog con el poder del marketing por correo electrónico."
+
+#: src/views/admin-feedback-notice/sync-disabled.php:6
+msgid "Should we sync your contacts with"
+msgstr "Podemos sincronizar tus contactos con"
+
+#: src/views/onboarding-content.php:41
+msgid "I Agree and let's get started!"
+msgstr "¡Acepto y empecemos!"
+
+#: src/views/onboarding-content.php:28
+msgid "privacy notice"
+msgstr "aviso de privacidad"
+
+#: src/views/onboarding-content.php:28
+msgid "Creative Mail uses tools, including cookies, to improve the performance and experience of the product. For more information you can read our"
+msgstr "Creative Mail utiliza herramientas, incluyendo cookies, para mejorar el rendimiento y experiencia del producto. Para más información puedes leer nuestro"
+
+#: src/views/onboarding-content.php:16
+msgid "By using Creative Mail you’ll share basic information about your site (including your site name and URL) with Constant Contact so that we can retrieve your blog posts, media files and store products for use in your emails;"
+msgstr "Al usar Creative Mail compartirás información básica acerca de tu sitio (incluyendo el nombre del sitio y URL) con Constant Contact de manera que podamos utilizar tus publicaciones del blog, archivos de medios y productos guardados para usarlos en tus correos electrónicos;"
+
+#: src/views/onboarding-content.php:5
+msgid "The fine print:"
+msgstr "La letra pequeña:"
+
+#: src/views/onboarding-content.php:2 src/views/password-protected-notice.php:2
+msgid "With Creative Mail your blog posts, store promotions, announcements, event updates and more can be delivered straight into the inbox of your customers and prospects."
+msgstr "Con Creative Mail, tus entradas del blog, las promociones de la tienda, los anuncios, las actualizaciones de eventos y más, pueden ser entregados directamente en la bandeja de entrada de tus clientes y candidatos."
+
+#: src/views/dashboard.php:29
+msgid "Loading your account..."
+msgstr "Cargando tu cuenta..."
+
+#: src/views/dashboard-open-creative-mail.php:42
+msgid "Manage your contacts and email lists, all in one place."
+msgstr "Administra tus contactos y listas de correos, todo en un solo lugar."
+
+#: src/views/dashboard-open-creative-mail.php:41
+msgid "Contact Management"
+msgstr "Gestión de contactos"
+
+#: src/views/dashboard-open-creative-mail.php:24
+msgid "Spice up your transactional WooCommerce store emails."
+msgstr "Dale vida a tus correos transaccionales de la tienda de WooCommerce."
+
+#: src/views/dashboard-open-creative-mail.php:23
+msgid "WooCommerce emails"
+msgstr "Correos de WooCommerce"
+
+#: src/views/dashboard-open-creative-mail.php:16
+msgid "Or jump straight into:"
+msgstr "O ve directo a:"
+
+#: src/views/dashboard-open-creative-mail.php:6
+msgid "Open your Creative Mail dashboard"
+msgstr "Abre tu escritorio de Creative Mail"
+
+#: src/views/dashboard-open-creative-mail.php:2
+msgid "You’re all set! Creative Mail and WordPress have been linked."
+msgstr "¡Estás listo! Creative Mail y WordPress han sido enlazados."
+
+#: src/views/dashboard.php:17 src/views/onboarding.php:17
+msgid "WordPress and WooCommerce"
+msgstr "WordPress y WooCommerce"
+
+#: src/views/dashboard.php:17 src/views/onboarding.php:17
+msgid "Intelligent email marketing for"
+msgstr "Marketing inteligente por correo electrónico para"
+
+#. translators: Placeholder is a CreativeMail logo.
+#: src/Managers/AdminManager.php:502
+msgid "Email Marketing <span class=\"floater\">By<div class=\"ce4wp_dashboard_icon\"></div></span>"
+msgstr "Marketing por correo electrónico <span class=\"floater\">de<div class=\"ce4wp_dashboard_icon\"></div></span>"
+
+#: src/Managers/AdminManager.php:258
+msgid "Close this window and deactivate Creative Mail"
+msgstr "Cierra esta ventana y desactiva Creative Mail"
+
+#: src/Managers/AdminManager.php:257
+msgid "Thank you"
+msgstr "Gracias"
+
+#: src/Managers/AdminManager.php:256
+msgid "Other"
+msgstr "Otro"
+
+#: src/Managers/AdminManager.php:255
+msgid "It’s a temporary deactivation"
+msgstr "Es una desactivación temporal"
+
+#: src/views/settings.php:99
+msgid "Consent Text"
+msgstr "Texto de Consentimiento"
+
+#: src/views/settings.php:90
+msgid "Yes I want to ask my customers in the WooCommerce Checkout for consent to send marketing emails."
+msgstr "Sí, quiero pedir a mis clientes en la finalización de compra de WooCommerce su consentimiento para el envío de correos electrónicos de marketing."
+
+#: src/Managers/AdminManager.php:321
+msgid "Thank You"
+msgstr "Gracias"
+
+#: src/Managers/AdminManager.php:319
+msgid "If you like %1$s please leave us a %2$s rating. A huge thanks in advance!"
+msgstr "Si te gusta %1$s, por favor, déjanos una valoración de %2$s. ¡Muchas gracias por adelantado!"
+
+#: src/Managers/AdminManager.php:285
+msgid "Awesome, you've been using <a href=\"admin.php?page=creativemail\">Creative Mail</a> for more than 1 week. May we ask you to give it a 5-star rating on WordPress? | <a href=\"%2$s\" target=\"_blank\">Ok, you deserved it</a> | <a href=\"%1$s\">I already did</a> | <a href=\"%1$s\">No, not good enough</a>"
+msgstr "Fantástico, has estado usando <a href=\"admin.php?page=creativemail\">Creative Mail</a> durante más de 1 semana. ¿Podemos pedirte que le des una valoración de 5 estrellas en WordPress? | <a href=\"%2$s\" target=\"_blank\">Vale, lo merecen</a> | <a href=\"%1$s\">Ya lo he hecho</a> | <a href=\"%1$s\">No, no es tan bueno</a>"
+
+#. Description of the plugin
+msgid "Free email marketing designed specifically for WordPress, Jetpack and WooCommerce. Send newsletters, promotions, updates and transactional e-commerce emails. Simple and easy, powered by Constant Contact’s rock solid reliability."
+msgstr "Márketing por correo electrónico gratuito, diseñado específicamente para WordPress, Jetpack y WooCommerce. Envía boletines, promociones, actualizaciones y correos electrónicos transaccionales de comercio electrónico. Sencillo y fácil, funcionando con la sólida fiabilidad de Constant Contact."
+
+#: src/Managers/EmailManager.php:663
+msgid " This email is being managed and sent by Creative Mail."
+msgstr "Este correo está siendo administrado y enviado por Creative Mail."
+
+#: src/Managers/EmailManager.php:641
+msgid " (Managed by Creative Mail)"
+msgstr "(Administrado por Creative Mail)"
+
+#: src/Managers/EmailManager.php:206 src/Managers/EmailManager.php:212
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: src/Managers/EmailManager.php:210
+msgid "Yes"
+msgstr "Sí"
+
+#: src/Managers/EmailManager.php:210
+msgid "Enabled"
+msgstr "Activado"
+
+#: src/Managers/EmailManager.php:208
+msgid "Manual"
+msgstr "Manual"
+
+#: src/Managers/EmailManager.php:208
+msgid "Manually sent"
+msgstr "Enviado manualmente"
+
+#: src/Managers/EmailManager.php:204
+msgid "Managed by CreativeMail"
+msgstr "Administrado por CreativeMail"
+
+#: src/Managers/EmailManager.php:204
+msgid "Managed by Creative Mail"
+msgstr "Administrado por Creative Mail"
+
+#: src/Managers/EmailManager.php:162
+msgid "Manage"
+msgstr "Administrar"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/creative-mail-by-constant-contact/"
+msgstr "https://es-mx.wordpress.org/plugins/creative-mail-by-constant-contact/"
+
+#: src/Managers/ApiManager.php:57 src/Managers/ApiManager.php:69
+#: src/Managers/ApiManager.php:79 src/Managers/ApiManager.php:88
+msgid "Sorry, you are not allowed to do that."
+msgstr "Lo siento, no tienes permiso para hacer eso."
+
+#: src/Managers/AdminManager.php:438 src/Managers/AdminManager.php:439
+msgid "Settings"
+msgstr "Ajustes"
+
+#: src/Managers/AdminManager.php:320 src/Managers/AdminManager.php:406
+#: src/Managers/AdminManager.php:451 src/Managers/AdminManager.php:452
+#: src/Managers/EmailManager.php:141
+msgid "Creative Mail"
+msgstr "Creative Mail"
+
+#. Author URI of the plugin
+msgid "https://www.constantcontact.com"
+msgstr "https://www.constantcontact.com"
+
+#. Author of the plugin
+msgid "Constant Contact"
+msgstr "Constant Contact"
+
+#. Plugin Name of the plugin
+#: src/views/settings.php:56
+msgid "Creative Mail by Constant Contact"
+msgstr "Creative Mail por Constant Contact"

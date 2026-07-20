@@ -1,0 +1,607 @@
+# Copyright (C) 2026 WooCommerce Conditional Content
+# This file is distributed under the same license as the WooCommerce Conditional Content package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Conditional Content\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Element Stark\n"
+"Last-Translator: Element Stark\n"
+"POT-Creation-Date: 2026-06-29 08:57+0000\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../woocommerce-conditional-content-main.php:91
+msgid "General"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:92
+msgid "Always"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:94
+msgid "Product"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:95, ../../classes/inputs/cart-product-select.php:26
+msgid "Products"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:96
+msgid "Product Type"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:97
+msgid "Product Category"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:98
+msgid "Product Attributes"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:99
+msgid "Product Tag"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:100
+msgid "Product Price"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:101
+msgid "Product Custom Field"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:103
+msgid "Schedule"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:104
+msgid "Date"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:105
+msgid "Day"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:106
+msgid "Time"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:108
+msgid "Stock"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:109
+msgid "Stock Status"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:110
+msgid "Stock Level"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:112
+msgid "Sales"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:113
+msgid "Sale Date"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:114
+msgid "Sale Status"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:116
+msgid "Membership"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:117
+msgid "User"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:118
+msgid "Role"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:119
+msgid "Authentication"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:121
+msgid "Store"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:122
+msgid "Order Count and Status"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:123
+msgid "Ordered Product(s)"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:125
+msgid "Cart"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:126
+msgid "Cart Total Quantity"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:127
+msgid "Cart Total Monetary Amount"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:128
+msgid "Cart Products"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:129
+msgid "Cart Categories"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:130
+msgid "Cart Line Item Product"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:131
+msgid "Cart Line Item Quantity"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:133
+msgid "Geography"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:134
+msgid "Country"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:135
+msgid "WPML Language Code"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:137
+msgid "Taxonomy"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:154, ../../classes/rules/base.php:37, ../../classes/rules/cart.php:11, ../../classes/rules/cart.php:73, ../../classes/rules/cart.php:308, ../../classes/rules/products.php:324, ../../classes/rules/products.php:390, ../../classes/rules/schedule.php:115, ../../classes/rules/stock.php:58, ../../classes/rules/store.php:11
+msgid "is equal to"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:155, ../../classes/rules/base.php:38, ../../classes/rules/cart.php:12, ../../classes/rules/cart.php:74, ../../classes/rules/cart.php:309, ../../classes/rules/products.php:325, ../../classes/rules/products.php:391, ../../classes/rules/schedule.php:116, ../../classes/rules/stock.php:59, ../../classes/rules/store.php:12
+msgid "is not equal to"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:172
+msgid "WooCommerce"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:173, ../../woocommerce-conditional-content-main.php:191, ../../woocommerce-conditional-content-main.php:209
+msgid "The single product page"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:178
+msgid "Before main content"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:184
+msgid "After main content"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:190
+msgid "Shop"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:196
+msgid "Before shop loop"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:202
+msgid "After shop loop"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:208
+msgid "Single Product"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:214
+msgid "Before single product summary"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:220
+msgid "After single product summary"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:226
+msgid "Before sale flash"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:232
+msgid "Before product images"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:238
+msgid "After product title"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:244
+msgid "After product price"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:250
+msgid "After product description"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:256
+msgid "After add to cart"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:262
+msgid "After product meta"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:268
+msgid "After product sharing"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:274
+msgid "After product data tabs"
+msgstr ""
+
+#: ../../woocommerce-conditional-content-main.php:280
+msgid "After related products"
+msgstr ""
+
+#: ../../admin/class-wc-conditional-content-admin-controller.php:148, ../../admin/views/metabox-rules.php:48
+msgid "or"
+msgstr ""
+
+#: ../../admin/class-wc-conditional-content-admin-controller.php:149
+msgid "Apply this content when these conditions are matched"
+msgstr ""
+
+#: ../../admin/class-wc-conditional-content-admin-controller.php:150, ../../admin/views/metabox-rules.php:51
+msgid "Remove"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:30
+msgctxt "Admin menu name"
+msgid "Content Blocks"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:34
+msgid "Content Blocks"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:35
+msgid "Content Block"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:36
+msgid "Add Content Block"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:37
+msgid "Add New Content Block"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:38
+msgid "Edit"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:39
+msgid "Edit Content Block"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:40
+msgid "New Content Blocks"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:41, ../../classes/class-wc-conditional-content-taxonomy.php:42
+msgid "View Content Block"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:43
+msgid "Search Content Blocks"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:44
+msgid "No Content Blocks found"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:45
+msgid "No Content Blocks found in trash"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:46
+msgid "Parent Content Blocks"
+msgstr ""
+
+#: ../../classes/class-wc-conditional-content-taxonomy.php:49
+msgid "This is where conditional content blocks and their assoicated rules are stored."
+msgstr ""
+
+#: ../../admin/views/metabox-rules-rule-template.php:26, ../../admin/views/metabox-rules.php:89
+msgid "Loading..."
+msgstr ""
+
+#: ../../admin/views/metabox-rules-rule-template.php:27, ../../admin/views/metabox-rules.php:92
+msgid "and"
+msgstr ""
+
+#: ../../admin/views/metabox-rules-rule-template.php:28, ../../admin/views/metabox-rules.php:97
+msgid "Remove condition"
+msgstr ""
+
+#: ../../admin/views/metabox-rules-rule-template.php:28, ../../admin/views/metabox-rules.php:97
+msgid "remove"
+msgstr ""
+
+#: ../../admin/views/metabox-rules.php:28
+msgid "Rules"
+msgstr ""
+
+#: ../../admin/views/metabox-rules.php:29
+msgid "Create a set of rules to determine when the content defined above will be displayed."
+msgstr ""
+
+#: ../../admin/views/metabox-rules.php:46
+msgid "Apply this content when these conditions are matched:"
+msgstr ""
+
+#: ../../admin/views/metabox-rules.php:111
+msgid "or when these conditions are matched"
+msgstr ""
+
+#: ../../admin/views/metabox-rules.php:113
+msgid "Add a set of conditions"
+msgstr ""
+
+#: ../../admin/views/metabox-rules.php:113
+msgid "Add Rule Set"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:21
+msgid "Show Content"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:23
+msgid "Type:"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:25
+msgid "Once"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:26
+msgid "In Loop"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:28
+msgid "Is this content displayed in a loop?."
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:30
+msgid "Location:"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:41
+msgid "Custom"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:42
+msgid "Custom Action"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:47
+msgid "Choose where you would like this content to be displayed."
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:54
+msgid "Action Hook Name"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:59
+msgid "Priority"
+msgstr ""
+
+#. translators: %s: documentation URL
+#: ../../admin/views/metabox-settings.php:67
+msgid "Enter the name and priority of an action where this content should be output. See the <a href=\"%s\">woocommerce hooks and filter reference</a> for a full list of all template actions and filters."
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:74
+msgid "Accepted Function Args"
+msgstr ""
+
+#: ../../admin/views/metabox-settings.php:77
+msgid "Optional. The number of arguments the function accepts. Default 0."
+msgstr ""
+
+#: ../../classes/inputs/cart-category-select.php:39, ../../classes/inputs/cart-category-select.php:44, ../../classes/inputs/cart-product-select.php:25, ../../classes/inputs/cart-product-select.php:30, ../../classes/inputs/geo-postal-code-entry.php:33, ../../classes/inputs/order-status.php:37
+msgid "Quantity"
+msgstr ""
+
+#: ../../classes/inputs/cart-category-select.php:40
+msgid "Categories"
+msgstr ""
+
+#: ../../classes/inputs/cart-category-select.php:50
+msgid "Category"
+msgstr ""
+
+#: ../../classes/inputs/cart-category-select.php:55
+msgid "Search..."
+msgstr ""
+
+#: ../../classes/inputs/cart-product-select.php:37
+msgid "Select a product"
+msgstr ""
+
+#: ../../classes/inputs/cart-product-select.php:61, ../../classes/inputs/cart-product-select.php:52
+msgid "Any"
+msgstr ""
+
+#: ../../classes/inputs/chosen-select.php:29, ../../classes/inputs/product-select.php:27
+msgid "Select Product"
+msgstr ""
+
+#: ../../classes/inputs/geo-postal-code-entry.php:27
+msgid "Distance ( km )"
+msgstr ""
+
+#: ../../classes/inputs/geo-postal-code-entry.php:28, ../../classes/inputs/geo-postal-code-entry.php:40
+msgid "Zip/Postalcode ( One per line )"
+msgstr ""
+
+#: ../../classes/inputs/html-always.php:16
+msgid "Content will always display for all shoppers on your site. This will override any other rule you define."
+msgstr ""
+
+#: ../../classes/inputs/order-status.php:31
+msgid "Order Count"
+msgstr ""
+
+#: ../../classes/inputs/order-status.php:32
+msgid "Order Status"
+msgstr ""
+
+#: ../../classes/inputs/text-text.php:23, ../../classes/inputs/text-text.php:29
+msgid "Field Key"
+msgstr ""
+
+#: ../../classes/inputs/text-text.php:24, ../../classes/inputs/text-text.php:36
+msgid "Field Value"
+msgstr ""
+
+#: ../../classes/rules/cart.php:13, ../../classes/rules/cart.php:75, ../../classes/rules/cart.php:310, ../../classes/rules/products.php:326, ../../classes/rules/products.php:392, ../../classes/rules/schedule.php:117, ../../classes/rules/stock.php:60, ../../classes/rules/store.php:13
+msgid "is greater than"
+msgstr ""
+
+#: ../../classes/rules/cart.php:14, ../../classes/rules/cart.php:76, ../../classes/rules/cart.php:311, ../../classes/rules/products.php:327, ../../classes/rules/products.php:393, ../../classes/rules/schedule.php:118, ../../classes/rules/stock.php:61, ../../classes/rules/store.php:14
+msgid "is less than"
+msgstr ""
+
+#: ../../classes/rules/cart.php:15, ../../classes/rules/cart.php:77, ../../classes/rules/cart.php:312, ../../classes/rules/products.php:328, ../../classes/rules/products.php:394, ../../classes/rules/schedule.php:119, ../../classes/rules/stock.php:62, ../../classes/rules/store.php:15
+msgid "is greater or equal to"
+msgstr ""
+
+#: ../../classes/rules/cart.php:16, ../../classes/rules/cart.php:78, ../../classes/rules/cart.php:313, ../../classes/rules/products.php:329, ../../classes/rules/products.php:395, ../../classes/rules/schedule.php:120, ../../classes/rules/stock.php:63, ../../classes/rules/store.php:16
+msgid "is less or equal to"
+msgstr ""
+
+#: ../../classes/rules/cart.php:137, ../../classes/rules/cart.php:198
+msgid "contains less than"
+msgstr ""
+
+#: ../../classes/rules/cart.php:138, ../../classes/rules/cart.php:199
+msgid "contains at least"
+msgstr ""
+
+#: ../../classes/rules/cart.php:139, ../../classes/rules/cart.php:200
+msgid "contains exactly"
+msgstr ""
+
+#: ../../classes/rules/cart.php:276, ../../classes/rules/products.php:140, ../../classes/rules/products.php:272
+msgid "in"
+msgstr ""
+
+#: ../../classes/rules/cart.php:277, ../../classes/rules/products.php:141, ../../classes/rules/products.php:273
+msgid "not in"
+msgstr ""
+
+#: ../../classes/rules/geo.php:12, ../../classes/rules/products.php:52, ../../classes/rules/products.php:87, ../../classes/rules/sales.php:12, ../../classes/rules/schedule.php:55, ../../classes/rules/stock.php:11, ../../classes/rules/taxonomy.php:12, ../../classes/rules/users.php:12, ../../classes/rules/users.php:63, ../../classes/rules/users.php:116, ../../classes/rules/wordpress.php:11, ../../classes/rules/wordpress.php:114, ../../classes/rules/wpml.php:12
+msgid "is"
+msgstr ""
+
+#: ../../classes/rules/geo.php:13, ../../classes/rules/products.php:53, ../../classes/rules/products.php:88, ../../classes/rules/sales.php:13, ../../classes/rules/schedule.php:56, ../../classes/rules/stock.php:12, ../../classes/rules/taxonomy.php:13, ../../classes/rules/users.php:13, ../../classes/rules/users.php:64, ../../classes/rules/users.php:117, ../../classes/rules/wordpress.php:12, ../../classes/rules/wpml.php:13
+msgid "is not"
+msgstr ""
+
+#: ../../classes/rules/products.php:192
+msgid "has"
+msgstr ""
+
+#: ../../classes/rules/products.php:193
+msgid "does not have"
+msgstr ""
+
+#: ../../classes/rules/products.php:388
+msgid "is empty"
+msgstr ""
+
+#: ../../classes/rules/products.php:389
+msgid "is not empty"
+msgstr ""
+
+#: ../../classes/rules/sales.php:21
+msgid "Not On Sale"
+msgstr ""
+
+#: ../../classes/rules/sales.php:22
+msgid "On Sale"
+msgstr ""
+
+#: ../../classes/rules/sales.php:60, ../../classes/rules/schedule.php:11
+msgid "starts"
+msgstr ""
+
+#: ../../classes/rules/sales.php:61, ../../classes/rules/schedule.php:12
+msgid "ends"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:65
+msgid "Sunday"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:66
+msgid "Monday"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:67
+msgid "Tuesday"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:68
+msgid "Wednesday"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:69
+msgid "Thursday"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:70
+msgid "Friday"
+msgstr ""
+
+#: ../../classes/rules/schedule.php:71
+msgid "Saturday"
+msgstr ""
+
+#: ../../classes/rules/stock.php:19
+msgid "Out of Stock"
+msgstr ""
+
+#: ../../classes/rules/stock.php:20
+msgid "In Stock"
+msgstr ""
+
+#: ../../classes/rules/store.php:105
+msgid "has purchased"
+msgstr ""
+
+#: ../../classes/rules/store.php:106
+msgid "has not purchased"
+msgstr ""
+
+#: ../../classes/rules/wordpress.php:64
+msgid "is one of"
+msgstr ""
+
+#: ../../classes/rules/wordpress.php:65
+msgid "is not one of"
+msgstr ""

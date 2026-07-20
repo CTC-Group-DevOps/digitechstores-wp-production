@@ -1,0 +1,80 @@
+# Translation of Plugins - Change wp-admin login - Stable (latest release) in Spanish (Mexico)
+# This file is distributed under the same license as the Plugins - Change wp-admin login - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-01-13 14:18:57+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: es_MX\n"
+"Project-Id-Version: Plugins - Change wp-admin login - Stable (latest release)\n"
+
+#: includes/class-change-wp-admin-login.php:235
+msgid "If you leave the above field empty the plugin will add a redirect to the website homepage."
+msgstr "Si dejas vacío el campo anterior, el plugin añadirá una redirección a la página de inicio de la web."
+
+#: includes/class-change-wp-admin-login.php:183
+msgid "Redirect URL"
+msgstr "URL de redirección"
+
+#: includes/class-change-wp-admin-login.php:175
+msgid "Login URL"
+msgstr "URL de acceso"
+
+#: includes/class-change-wp-admin-login.php:275
+msgid "This feature is not enabled."
+msgstr "Esta función esta deshabilitada"
+
+#: includes/class-change-wp-admin-login.php:256
+#: includes/class-change-wp-admin-login.php:258
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class-change-wp-admin-login.php:250
+msgid "Your login page is now here: %s. Bookmark this page!"
+msgstr "Ahora, tu página de acceso está aquí: %s. ¡Guárdala en tus favoritos!"
+
+#: includes/class-change-wp-admin-login.php:226
+msgid "Network Settings"
+msgstr "Ajustes de red"
+
+#: includes/class-change-wp-admin-login.php:226
+msgid "To set a networkwide default, go to %s."
+msgstr "Para establecer un valor predeterminado para toda la red, ve a %s."
+
+#: includes/class-change-wp-admin-login.php:145
+msgid "Networkwide default"
+msgstr "Predeterminado para toda la red"
+
+#: includes/class-change-wp-admin-login.php:142
+msgid "This option allows you to set a networkwide default, which can be overridden by individual sites. Simply go to to the site’s permalink settings to change the url."
+msgstr "Esta opción te permite establecer un valor predeterminado para toda la red, que puede ser anulado por sitios individuales. Simplemente ve a los ajustes de los enlaces permanentes del sitio para cambiar la URL."
+
+#: includes/class-change-wp-admin-login.php:108
+msgid "Please upgrade to the latest version of WordPress to activate %s."
+msgstr "Por favor instala la ultima versión de WordPress para activar %s"
+
+#. Author URI of the plugin
+msgid "https://www.nuno-sarmento.com"
+msgstr "https://www.nuno-sarmento.com"
+
+#. Author of the plugin
+msgid "Nuno Morais Sarmento"
+msgstr "Nuno Morais Sarmento"
+
+#. Description of the plugin
+msgid "Change wp-admin login to whatever you want. example: http://www.example.com/my-login. Go under Settings and then click on \"Permalinks\" and change your URL under \"Change wp-admin login\"."
+msgstr "Cambia el acceso a \"wp-admin\" a lo que quieras. Ejemplo: https://www.ejemplo.com/mi-acceso. Ve a \"Ajustes\" y después haz clic en \"Enlaces permanentes\" y cambia tu URL en \"Cambiar el acceso a wp-admin\"."
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/change-wp-admin-login/"
+msgstr "https://es-mx.wordpress.org/plugins/change-wp-admin-login/"
+
+#. Plugin Name of the plugin
+#: includes/class-change-wp-admin-login.php:108
+#: includes/class-change-wp-admin-login.php:141
+#: includes/class-change-wp-admin-login.php:168
+msgid "Change wp-admin login"
+msgstr "Change wp-admin login"

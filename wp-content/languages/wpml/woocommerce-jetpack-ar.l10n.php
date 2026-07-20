@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['Country'=>'الدولة','First Name'=>'الاسم الأول','Floor'=>'الطابق','Last Name'=>'الاسم الأخير','Login'=>'تسجيل الدخول','Message'=>'الرسالة','My Account'=>'حسابي','Or'=>'أو','Order Notes'=>'ملاحظات','Password'=>'كلمة المرور','Phone'=>'الهاتف','Product Categories'=>'اقسام المنتجات','Product categories'=>'تصنيفات المنتج','Products'=>'المنتجات','Show'=>'عرض','State'=>'الولاية']];

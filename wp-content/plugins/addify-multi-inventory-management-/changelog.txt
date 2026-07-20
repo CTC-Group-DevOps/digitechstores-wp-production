@@ -1,0 +1,42 @@
+*** Multi Inventory Management Change log ***
+
+2025-10-05 - version 2.0.3
+* Update - Updated compatibility for latest WooCommerce versions.
+
+2025-03-21 - version 2.0.2
+* Fix - Fixed bug with home page loading in some themes.
+
+2025-02-03 - version 2.0.1
+* Fix - Fixed bug with CSV export.
+ 
+2024-12-31 - version 2.0.0
+* Update - Multi location on product level.
+* add - add sum of all stock to main product stock.
+* add - option to change location of item from cart/checkout page .
+* Update - compatible with product option.
+* add - Add Popup to menu to choose location.
+* add - popup setting.
+* add - choose nearest location.
+* add - choose most stock inventory.
+* add - country base restrictions.
+* Fix - Graph, CSV, manage table issue fixed.
+* Fix - multi shipping and payment selection issue.
+* add - Add Longitude and latitude in location.
+* add - filter of over/low stock.
+
+
+2024-08-08 - version 1.2.0
+* Update - Design improvements with manage stock grid.
+* Fix - Fixed bug with location price.
+
+2024-05-14 - version 1.1.1
+* Fix - Fixed nonce issue.
+
+2024-04-15 - version 1.1.0
+* Update - Improve UI of default stock handing.
+* Add - Added support to restrict multiple shipping and payment methods.
+* Update - Option label changes.
+* Update - Improved dropdown and radio button layout.
+
+2024-02-13 - version 1.0.0
+* Other - Initial release of the plugin.

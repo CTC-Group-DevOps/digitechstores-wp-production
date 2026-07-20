@@ -1,0 +1,194 @@
+# Copyright (C) 2026 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Admin Custom Order Fields 1.17.3\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-04-23T11:33:30+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: woocommerce-admin-custom-order-fields\n"
+
+#. Plugin Name of the plugin
+#: woocommerce-admin-custom-order-fields.php
+#: class-wc-admin-custom-order-fields.php:492
+msgid "WooCommerce Admin Custom Order Fields"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: woocommerce-admin-custom-order-fields.php
+msgid "http://www.woocommerce.com/products/woocommerce-admin-custom-order-fields/"
+msgstr ""
+
+#. Description of the plugin
+#: woocommerce-admin-custom-order-fields.php
+msgid "Easily add custom fields to your WooCommerce orders and display them in the Orders admin, the My Orders section, and even order emails!"
+msgstr ""
+
+#. Author of the plugin
+#: woocommerce-admin-custom-order-fields.php
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin
+#: woocommerce-admin-custom-order-fields.php
+msgid "http://www.woocommerce.com"
+msgstr ""
+
+#: class-wc-admin-custom-order-fields.php:219
+msgid "You created your first fields!"
+msgstr ""
+
+#: class-wc-admin-custom-order-fields.php:221
+msgid "You created your first field!"
+msgstr ""
+
+#: class-wc-admin-custom-order-fields.php:233
+msgid "You have set custom fields to your first order!"
+msgstr ""
+
+#: class-wc-admin-custom-order-fields.php:235
+msgid "You have set a custom field to your first order!"
+msgstr ""
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a> link tag
+#: class-wc-admin-custom-order-fields.php:305
+msgid "Thanks for installing Admin Custom Order Fields! Before you get started, please %1$sread the documentation%2$s"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:96
+msgid "Text"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:97
+msgid "Text Area"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:98
+msgid "Select"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:99
+msgid "Multiselect"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:100
+msgid "Radio"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:101
+msgid "Checkbox"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:102
+msgid "Date"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:127
+msgid "Show in My Orders / Emails"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:128
+msgid "Required"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:129
+msgid "Display in View Orders screen"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:130
+msgid "Allow Sorting on View Orders screen"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:131
+msgid "Allow Filtering on View Orders screen"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:164
+msgid "Label is a required field"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:165
+msgid "A select/multiselect/checkbox/radio field must have at least one option"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:166
+#: src/admin/views/html-field-editor-table-row.php:80
+msgid "Pipe (|) separates options"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:210
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:211
+msgid "Custom Order Fields"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:233
+msgid "Custom Order Fields Editor"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:267
+msgid "Label"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:268
+msgid "Type"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:269
+msgid "Description"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:270
+msgid "Default / Values"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:271
+msgid "Attributes"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:279
+msgid "Add Field"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:280
+msgid "Remove Selected"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:282
+msgid "Save Fields"
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:365
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: src/admin/class-wc-admin-custom-order-fields-admin.php:463
+msgid "Custom Fields Saved"
+msgstr ""
+
+#: src/admin/orders/meta-boxes/class-wc-admin-custom-order-fields-meta-box.php:62
+msgid "Order Custom Fields"
+msgstr ""
+
+#: src/admin/orders/meta-boxes/views/html-dropdown-field.php:47
+msgid "Select Some Options"
+msgstr ""
+
+#: src/admin/orders/meta-boxes/views/html-dropdown-field.php:49
+msgid "Select an Option"
+msgstr ""
+
+#: src/admin/views/html-field-editor-table-row.php:81
+msgid "Use Pipe (|) to separate options and surround options with double stars (**) to set as a default."
+msgstr ""
+
+#: templates/emails/custom-order-fields.php:60
+#: templates/emails/plain/custom-order-fields.php:49
+#: templates/order/custom-order-fields.php:59
+msgid "Additional Order Details"
+msgstr ""

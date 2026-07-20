@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['no'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['_acfw_enable_date_range_schedule','_acfw_enable_shipping_overrides'],'urls'=>[['kind'=>7,'url'=>'/product/digi-refrigerator-double-door-dg-rf-td2hab641i/?lang=ar'],['kind'=>7,'url'=>'/product/digi-refrigerator-double-door-dg-rf-td2hab410w/?lang=ar'],['kind'=>7,'url'=>'/wp-admin/post.php?post=6903&action=edit&lang=ar'],['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=78612b7197']]]]];

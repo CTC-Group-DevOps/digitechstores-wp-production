@@ -1,0 +1,2323 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2026-06-26 13:54:12+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: ar\n"
+"Project-Id-Version: WooCommerce - Extensions - woocommerce-product-bundles\n"
+
+#: includes/class-wc-pb-query-bundles-ability.php:644
+msgid "Bundled item stock availability after evaluating the child product and minimum bundled quantity."
+msgstr "مدى توفر مخزون العنصر المضمن في الحزمة بعد تقييم المنتج الفرعي والحد الأدنى للكمية داخل الحزمة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:610
+msgid "Selected default attribute option slug or value."
+msgstr "الاسم اللطيف لخيار السمة الافتراضي المحدد أو قيمته."
+
+#: includes/class-wc-pb-query-bundles-ability.php:606
+msgid "Attribute name displayed in the bundle configuration."
+msgstr "اسم السمة المعروض في تهيئة الحزمة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:602
+msgid "Attribute taxonomy ID, or 0 for custom product attributes."
+msgstr "معرِّف فئة السمة، أو القيمة 0 لسمات المنتج المخصصة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:596
+msgid "Default variable-product attributes selected for this bundled item when variation defaults are overridden."
+msgstr "سمات المنتج المتغير  الافتراضية المستخدمة لهذا العنصر المضمن في الحزمة عند تجاوز الإعدادات الافتراضية للإصدار."
+
+#: includes/class-wc-pb-query-bundles-ability.php:570
+msgid "Whether the bundled product still exists and is supported by Product Bundles."
+msgstr "سواء أكان المنتج المضمن في الحزمة لا يزال موجودًا ومدعومًا من قبل حزم المنتجات أم لا."
+
+#: includes/class-wc-pb-query-bundles-ability.php:420
+msgid "Maximum number of bundles returned per page."
+msgstr "الحد الأقصى لعدد الحزم التي يتم عرضها لكل صفحة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:416
+msgid "Current result page."
+msgstr "صفحة النتائج الحالية."
+
+#: includes/class-wc-pb-query-bundles-ability.php:412
+msgid "Total pages available for this query."
+msgstr "إجمالي الصفحات المتاحة لهذا الاستعلام."
+
+#: includes/class-wc-pb-query-bundles-ability.php:407
+msgid "Product bundles matching the query."
+msgstr "حزم المنتجات المطابقة للاستعلام."
+
+#: includes/class-wc-pb-query-bundles-ability.php:388
+msgid "Maximum number of bundles to return for collection queries."
+msgstr "الحد الأقصى لعدد الحزم التي يتم عرضها في استعلامات المجموعة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:381
+msgid "Result page for collection queries."
+msgstr "صفحة النتائج الخاصة باستعلامات المجموعة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:375
+msgid "Limit results to bundles with this parent bundle stock status."
+msgstr "يمكنك تقييد النتائج على الحزم التي تضم حالة مخزون الحزمة الأصلي هذه."
+
+#: includes/class-wc-pb-query-bundles-ability.php:370
+msgid "Limit results to bundles with this product status."
+msgstr "تقييد النتائج على الحزم التي تحمل حالة المنتج هذه فقط."
+
+#: includes/class-wc-pb-query-bundles-ability.php:365
+msgid "Limit results to bundles matching this SKU."
+msgstr "تقييد النتائج على الحزم التي تطابق وحدة حفظ المخزون (SKU) هذه."
+
+#: includes/class-wc-pb-query-bundles-ability.php:361
+msgid "Search bundle names and descriptions."
+msgstr "البحث عن أسماء الحزم وأوصافها."
+
+#: includes/class-wc-pb-query-bundles-ability.php:357
+msgid "Limit results to bundles that contain this product ID."
+msgstr "تقييد النتائج في الحزم التي تحمل معرِّف المنتج هذا فقط."
+
+#: includes/class-wc-pb-query-bundles-ability.php:352
+msgid "Return one bundle by product ID."
+msgstr "يمكنك عرض حزمة واحدة باستخدام معرِّف المنتج."
+
+#: includes/class-wc-pb-query-bundles-ability.php:84
+msgid "Bundle not found."
+msgstr "يتعذر العثور على الحزمة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:48
+msgid "Find product bundles by ID or common bundle filters, including bundled item configuration."
+msgstr "البحث عن حزم المنتجات باستخدام المعرِّف أو عوامل تصفية الحزم الشائعة، بما في ذلك تهيئة العناصر المضمنة في الحزمة."
+
+#: includes/class-wc-pb-query-bundles-ability.php:47
+msgid "Query product bundles"
+msgstr "الاستعلام عن حزم المنتجات"
+
+#. translators: %s: Product title
+#: templates/single-product/bundled-item-title.php:40
+msgid "View %s, opens in a new tab"
+msgstr "عرض الموقع (يفتح في علامة تبويب جديدة)%s"
+
+#. translators: Product title
+#: templates/single-product/bundled-item-optional.php:24
+msgid "Add %s"
+msgstr "اضافة %s"
+
+#. translators: Product title
+#: templates/single-product/bundled-item-image.php:26
+msgid "View full screen image for %s"
+msgstr "عرض الصورة على الشاشة الكاملة %s"
+
+#. translators: Product title and attributes
+#: includes/wc-pb-template-functions.php:970
+msgid "Clear %s"
+msgstr "صافي %s"
+
+#. translators: 1: Dropdown label, 2: Bundled item title
+#: includes/wc-pb-template-functions.php:897
+msgctxt "product-variation-aria-label"
+msgid "%1$s for %2$s"
+msgstr "⁦%1$s⁩ لمدة ⁦%2$s⁩"
+
+#: includes/admin/meta-boxes/views/html-bundle-edit-form.php:18
+#: includes/wc-pb-template-functions.php:800
+msgid "Image"
+msgstr "صورة"
+
+#. translators: %1$s: Bundled item title, %2$s: Bundle title
+#: includes/class-wc-pb-order.php:1246
+msgid "%1$s (Part of: %2$s)"
+msgstr "⁦%1$s⁩ (جزء من: ⁦%2$s⁩)"
+
+#. translators: %1$s: Bundled product name
+#: includes/class-wc-pb-cart.php:954
+msgid "&quot;%s&quot; is missing some required options. Please remove it from the cart and re-configure the missing options."
+msgstr "يفقد \"%s\" بعض الخيارات المطلوبة. يرجى إزالته من عربة التسوق وإعادة تكوين الخيارات المفقودة."
+
+#. translators: %1$s: Product title
+#: includes/class-wc-pb-cart.php:792
+msgid "&quot;%1$s&quot; cannot be purchased &ndash; some of its contents are missing from your cart. Please remove it from the cart and re-configure the missing options."
+msgstr "يتعذر شراء \"⁦%1$s⁩\" - يعد بعض محتوياته مفقودًا من عربة التسوق الخاصة بك. يرجى إزالته من عربة التسوق وإعادة تكوين الخيارات المفقودة."
+
+#. translators: %1$s: Item name, %2$s: Bundle name.
+#: includes/class-wc-pb-cart.php:2113
+msgid "%1$s cannot be removed. The item is a mandatory part of %2$s."
+msgstr "تتعذر إزالة ⁦%1$s⁩. العنصر هو جزء إلزامي من ⁦%2$s⁩."
+
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-cart.php:288
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-cart.php:342
+msgid "Invalid product data encountered in cart."
+msgstr "تمت مصادفة بيانات منتج غير صالحة في عربة التسوق."
+
+#. Author URI of the plugin
+#: woocommerce-product-bundles.php
+msgid "https://woocommerce.com/"
+msgstr "https://woocommerce.com/"
+
+#. translators: Unassambled bundle documentation link
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:334
+msgid "<a href=\"%s\" target=\"_blank\">Unassembled</a> bundles do not have any shipping options to configure. The contents of this bundle preserve their dimensions, weight and shipping classes."
+msgstr "لا تحتوي الحِزم <a href=\"%s\" target=\"_blank\">غير المجمعة</a> على أي خيارات شحن مطلوب تكوينها. تحتفظ محتويات هذه الحزمة بأبعادها ووزنها وفئات الشحن الخاصة بها."
+
+#. translators: %s: Learn more link
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:214
+msgid "Enable this option to track stock for this SKU only. This option does not affect the inventory management of bundled products. <a class=\"bundles-inventory-learn-more-link\" href=\"%1$s\" target=\"_blank\" rel=\"noreferrer\">Learn more</a>"
+msgstr "قم بتمكين هذا الخيار لتتبع لمخزون الخاص بوحدة SKU هذه فقط. لا يؤثر هذا الخيار في إدارة المخزون للمنتجات المجمّعة. <a class=\"bundles-inventory-learn-more-link\" href=\"%1$s\" target=\"_blank\" rel=\"noreferrer\">معرفة المزيد</a>"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:142
+msgid "Allow only one of this bundle to be bought in a single order. Choose the <strong>Matching configurations</strong> option to prevent customers from purchasing <strong>identically configured</strong> bundles in the same order."
+msgstr "اسمح لمنتج واحد فقط في هذه الحزمة مطلوب شراؤه في طلب فردي. اختر خيار <strong>مطابقة التكوينات</strong> لمنع العملاء من شراء الحِزم <strong>المكوّنة بشكل مماثل</strong> في الطلب نفسه."
+
+#: includes/api/class-wc-pb-rest-api.php:279
+msgid "Maximum Bundle regular price excluding tax."
+msgstr "الحد الأقصى للسعر العادي للحزمة باستثناء الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:273
+msgid "Maximum Bundle regular price including tax."
+msgstr "الحد الأقصى للسعر العادي للحزمة بما في ذلك الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:265
+msgid "Minimum Bundle regular price excluding tax."
+msgstr "الحد الأدنى للسعر العادي للحزمة باستثناء الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:259
+msgid "Minimum Bundle regular price including tax."
+msgstr "الحد الأنى للسعر العادي للحزمة بما في ذلك الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:248
+msgid "Maximum Bundle price excluding tax."
+msgstr "الحد الأقصى لسعر الحزمة باستثناء الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:242
+msgid "Maximum Bundle price including tax."
+msgstr "الحد الأقصى لسعر الحزمة بما في ذلك الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:234
+msgid "Minimum Bundle price excluding tax."
+msgstr "الحد الأدنى لسعر الحزمة باستثناء الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:228
+msgid "Minimum Bundle price including tax."
+msgstr "الحد الأدنى لسعر الحزمة بما في ذلك الضريبة."
+
+#: includes/api/class-wc-pb-rest-api.php:221
+msgid "Bundle price."
+msgstr "سعر الحزمة."
+
+#. translators: %1$s: Version %, %2$s: Update PHP doc URL
+#: woocommerce-product-bundles.php:226
+msgid "WooCommerce Product Bundles requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
+msgstr "تتطلب حِزم المنتجات من WooCommerce وجود PHP <strong>%1$s</strong> على الأقل.  تعرّف على <a href=\"%2$s\">كيفية تحديث PHP</a>."
+
+#. translators: Version
+#: woocommerce-product-bundles.php:215
+msgid "WooCommerce Product Bundles requires at least WooCommerce <strong>%s</strong>."
+msgstr "تتطلب حِزم المنتجات من Woo وجود WooCommerce <strong>%s</strong> على الأقل."
+
+#: templates/single-product/bundled-product-variable.php:53
+msgid "Required option"
+msgstr "الخيار المطلوب"
+
+#: templates/single-product/bundled-product-unavailable.php:39
+msgid "Temporarily unavailable"
+msgstr "غير متوافر مؤقتًا"
+
+#. translators: %1$s: Product title %, %2$s: Product price, %3$s: Deprecated
+#: templates/single-product/bundled-item-optional.php:34
+msgid "Add%1$s%2$s%3$s"
+msgstr "إضافة⁦%1$s⁩%2$s%3$s"
+
+#: templates/single-product/bundled-item-image.php:58
+msgid "Bundled product placeholder image"
+msgstr "صورة العنصر النائب للمنتج المجمع"
+
+#. translators: Product title
+#: includes/wc-pb-template-functions.php:578
+msgid " &quot;%s&quot;"
+msgstr " \"%s\""
+
+#. translators: Product price
+#: includes/wc-pb-template-functions.php:563
+msgid " from %s"
+msgstr "  من %s"
+
+#. translators: Product price
+#: includes/wc-pb-template-functions.php:558
+msgid " for %s"
+msgstr " لمدة %s"
+
+#: includes/wc-pb-template-functions.php:172
+msgid "Please enable <strong>Mixed Checkout</strong> under <strong>WooCommerce > Settings > Subscriptions</strong>. Bundles that contain subscription-type products cannot be purchased when <strong>Mixed Checkout</strong> is disabled. Note: This message is visible to store managers only."
+msgstr "يرجى تمكين ميزة <strong>السداد المختلط</strong> ضمن <strong>WooCommerce > الإعدادات > الاشتراكات</strong>. يتعذر شراء الحِزم التي تحتوي على منتجات من نوع الاشتراكات عند تعطيل ميزة <strong>السداد المختلط</strong>. ملحوظة: تُعد هذه الرسالة مرئية لتخزين المديرين فقط."
+
+#: includes/wc-pb-template-functions.php:170
+msgid "Please make sure that all products contained in this bundle have a price. WooCommerce does not allow products with a blank price to be purchased. Note: This message is visible to store managers only."
+msgstr "يرجى التأكد من وجود سعر على كل المنتجات المضمّنة في هذه الحِزمة.  لا يسمح WooCommerce بشراء المنتجات التي لا تتضمن أسعارًا. ملحوظة: تُعد هذه الرسالة مرئية لتخزين المديرين فقط."
+
+#. translators: %1$s: Product title %, %2$s: Pricing options doc URL
+#: includes/wc-pb-template-functions.php:168
+msgid "&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href=\"%2$s\" target=\"_blank\">pricing options</a> only takes a minute! <ul class=\"pb_notice_list\"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of individual bundled products, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for each bundled product whose price must be preserved.</li></ul>Note: This message is visible to store managers only."
+msgstr "يتعذر شراء \"⁦%1$s⁩\" حتى الآن. لكن، لا تقلق - لا يستغرق إعداد <a href=\"%2$s\" target=\"_blank\">خيارات الأسعار</a> سوى دقيقة! <ul class=\"pb_notice_list\"><li>لمنح \"⁦%1$s⁩\" سعرًا أساسيًا ثابتًا، انتقل إلى <strong>بيانات المنتج > عام</strong> واملأ حقل <strong>السعر العادي</strong>.</li><li>للحفاظ على أسعار المنتجات المجمعة الفردية والضرائب المفروضة عليها، انتقل إلى <strong>بيانات المنتج > المنتجات المجمعة</strong> وقم بتمكين <strong>يتم التسعير على حدة</strong> لكل منتج من المنتجات المجمعة التي يجب الحفاظ على سعرها.</li></ul>ملحوظة: تُعد هذه الرسالة مرئية لتخزين المديرين فقط."
+
+#. translators: Ticket form URL
+#: includes/wc-pb-template-functions.php:165
+msgid "The Product Bundles database is updating in the background. During this time, all bundles on your site will be unavailable. If this message persists, please <a href=\"%s\" target=\"_blank\">get in touch</a> with our support team. Note: This message is visible to store managers only."
+msgstr "يتم تحديث قاعدة بيانات حِزم المنتجات في الخلفية. في أثناء هذه الفترة الزمنية، ستصبح كل الحِزم الموجودة على موقعك غير متوافرة. إذا استمرت هذه الرسالة في الظهور، فيرجى <a href=\"%s\" target=\"_blank\">التواصل</a> مع فريق الدعم لدينا. ملحوظة: تُعد هذه الرسالة مرئية لتخزين المديرين فقط."
+
+#. translators: Status
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:72
+msgctxt "validation error status format"
+msgid "<span class=\"bundled_items_selection_status\">%s</span>"
+msgstr ""
+
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:70
+msgid "1 item selected"
+msgstr "تم تحديد عنصر واحد"
+
+#. translators: Item count
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:69
+msgid "%s items selected"
+msgstr "%s تم تحديد عناصر"
+
+#. translators: %1$s: Item count, %2$s: Details
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:67
+msgid "Please choose %1$s items.%2$s"
+msgstr "يرجى اختيار ⁦%1$s⁩ من العناصر.⁦%2$s⁩"
+
+#. translators: %1$s: Item count, %2$s: Details
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:65
+msgid "Please choose up to %1$s items.%2$s"
+msgstr "يرجى اختيار ما يصل إلى ⁦%1$s⁩ من العناصر.⁦%2$s⁩"
+
+#. translators: %1$s: Item count, %2$s: Details
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:63
+msgid "Please choose at least %1$s items.%2$s"
+msgstr "يرجى اختيار ⁦%1$s⁩ من العناصر على الأقل.⁦%2$s⁩"
+
+#. translators: Details
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:61
+msgid "Please choose up to 1 item.%s"
+msgstr "يرجى اختيار ما يصل إلى عنصر واحد.%s"
+
+#. translators: Details
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:59
+msgid "Please choose at least 1 item.%s"
+msgstr "يرجى اختيار عنصر واحد على الأقل.%s"
+
+#. translators: Details
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:57
+msgid "Please choose 1 item.%s"
+msgstr "يرجى اختيار عنصر واحد.%s"
+
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-display.php:55
+msgid "Please choose an item."
+msgstr "يرجى اختيار عنصر."
+
+#. translators: %1$s: Action, %2$s: Resolution
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:163
+msgctxt "cart validation error: action, resolution"
+msgid "%1$s &ndash; %2$s."
+msgstr "%1$s – %2$s."
+
+#. translators: Product title
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:149
+msgid "&quot;%s&quot; cannot be purchased"
+msgstr "يتعذر شراء \"%s\""
+
+#. translators: %1$s: Action, %2$s: Resolution, %3$s: Status
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:99
+msgctxt "add-to-cart validation error: action, resolution, status"
+msgid "%1$s &ndash; %2$s%3$s."
+msgstr "%1$s – %2$s%3$s."
+
+#. translators: Item count
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:95
+msgid " (you have chosen %s)"
+msgstr " لقد اخترت %s)"
+
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:92
+msgid " (you have chosen 1)"
+msgstr " (لقد اخترت 1)"
+
+#. translators: Item count
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:88
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:159
+msgid "please limit your selection to %s item"
+msgid_plural "please choose up to %s items"
+msgstr[0] "يرجى أن يقتصر تحديدك على %s من العناصر"
+msgstr[1] "يرجى أن يقتصر تحديدك على %s من العناصر"
+msgstr[2] "يرجى اختيار ما يصل إلى %s من العناصر"
+msgstr[3] "يرجى اختيار ما يصل إلى %s من العناصر"
+msgstr[4] "يرجى اختيار ما يصل إلى %s من العناصر"
+msgstr[5] "يرجى اختيار ما يصل إلى %s من العناصر"
+
+#. translators: Item count
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:85
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:156
+msgid "please choose at least %s item"
+msgid_plural "please choose at least %s items"
+msgstr[0] "يرجى اختيار %s من العناصر على الأقل"
+msgstr[1] "يرجى اختيار %s من العناصر على الأقل"
+msgstr[2] "يرجى اختيار %s من العناصر على الأقل"
+msgstr[3] "يرجى اختيار %s من العناصر على الأقل"
+msgstr[4] "يرجى اختيار %s من العناصر على الأقل"
+msgstr[5] "يرجى اختيار %s من العناصر على الأقل"
+
+#. translators: Item count
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:82
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:153
+msgid "please choose %s item"
+msgid_plural "please choose %s items"
+msgstr[0] "يرجى اختيار %s من العناصر"
+msgstr[1] "يرجى اختيار %s من العناصر"
+msgstr[2] "يرجى اختيار %s من العناصر"
+msgstr[3] "يرجى اختيار %s من العناصر"
+msgstr[4] "يرجى اختيار %s من العناصر"
+msgstr[5] "يرجى اختيار %s من العناصر"
+
+#. translators: Product name
+#: includes/modules/min-max-items/includes/class-wc-pb-mmi-cart.php:77
+msgid "&quot;%s&quot; cannot be added to the cart"
+msgstr "تتعذر إضافة \"%s\" إلى عربة التسوق"
+
+#: includes/modules/min-max-items/includes/admin/class-wc-pb-mmi-admin.php:67
+msgid "Maximum combined quantity of bundled items."
+msgstr "الحد الأقصى للكمية المجتمعة من العناصر المجمعة."
+
+#: includes/modules/min-max-items/includes/admin/class-wc-pb-mmi-admin.php:55
+msgid "Minimum combined quantity of bundled items."
+msgstr "الحد الأدنى للكمية المجتمعة من العناصر المجمعة."
+
+#. translators: %1$s: Product ID, %2$s: Product type
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-rest-api.php:194
+msgid "Bundle sell product ID %1$s is of unsupported type %2$s. Supported product types: Simple, Simple subscription."
+msgstr "يكون معرّف المنتج عند بيع الحزمة ⁦%1$s⁩ من النوع غير المدعوم ⁦%2$s⁩. أنوع المنتجات المدعومة: بسيط، اشتراك بسيط."
+
+#. translators: Product ID
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-rest-api.php:182
+msgid "Bundle sell product ID #%s is invalid."
+msgstr "يكون رقم معرّف المنتج عند بيع الحزمة %s غير صالح."
+
+#. translators: %1$s: Product ID, %2$s: Product type
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-rest-api.php:154
+msgid "Product is of type %1$s. Bundle sells are not supported for product types: %2$s."
+msgstr "المنتج من نوع ⁦%1$s⁩. تُعد عمليات بيع الحِزم غير مدعومة لأنواع المنتجات: ⁦%2$s⁩."
+
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-rest-api.php:85
+msgid "List of bundle-sells product IDs."
+msgstr "قائمة معرّفات المنتجات عند إجراء عمليات بيع الحِزم."
+
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-display.php:294
+msgid "Discount"
+msgstr "خصم"
+
+#. translators: %1$s: Discount % (Use encoded value when translating the %
+#. character. Use &#37; instead of %.), %2$s: Product title
+#: includes/modules/bundle-sells/includes/class-wc-pb-bs-display.php:285
+msgctxt "bundle-sell discount"
+msgid "%1$s&#37; (applied by %2$s)"
+msgstr "⁦%1$s⁩&#37; (تم تقديم الطلب بواسطة ⁦%2$s⁩)"
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:155
+msgid "Invalid bundle-sells discount value. Please enter a positive number between 0-100."
+msgstr "قيمة الخصم عند إجراء عمليات بيع الحِزم غير صالحة يرجى إدخال رقم موجب يتراوح بين 0 و100."
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:100
+msgid "Discount to apply to bundle-sells (%). Accepts values from 0 to 100."
+msgstr "خصم عند تقديم طلب لإجراء عمليات بيع الحِزم (%). قبول القيم من 0 إلى 100."
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:99
+msgid "Bundle-sells discount"
+msgstr "خصم عند إجراء عمليات بيع الحِزم"
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:87
+msgid "e.g. \"Frequently Bought Together\""
+msgstr "على سبيل المثال، \"تم الشراء معًا مرارًا وتكرارًا\""
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:86
+msgid "Text to display above the bundle-sells section."
+msgstr "نص مطلوب عرضه فوق قسم عمليات بيع الحِزم."
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:85
+msgid "Bundle-sells title"
+msgstr "عنوان عمليات بيع الحِزم"
+
+#. translators: Additional notice details
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:75
+msgid "Bundle-sells are optional products that can be selected and added to the cart along with this product. %s"
+msgstr "عمليات بيع الحِزم هي منتجات اختيارية يمكن تحديدها وإضافتها إلى عربة التسوق إلى جانب هذا المنتج. %s"
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:73
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:77
+msgid "Supports Simple products only."
+msgstr "دعم المنتجات البسيطة فقط."
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:73
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:77
+msgid "Supported product types: Simple, Simple subscription."
+msgstr "أنوع المنتجات المدعومة: بسيط، اشتراك بسيط."
+
+#: includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php:53
+msgid "Bundle-sells"
+msgstr "عمليات بيع الحِزم"
+
+#: includes/compatibility/modules/class-wc-pb-wl-compatibility.php:176
+msgid "For up-to-date pricing details, please add the product to your cart."
+msgstr "للحصول على تفاصيل الأسعار المُحدّثة، ترجى إضافة المنتج إلى عربة التسوق لديك."
+
+#: includes/compatibility/modules/class-wc-pb-wl-compatibility.php:176
+#: includes/compatibility/modules/class-wc-pb-wl-compatibility.php:191
+msgid "*"
+msgstr "*"
+
+#. translators: %1$s: Product name
+#: includes/compatibility/modules/class-wc-pb-subscriptions-compatibility.php:87
+msgid "&quot;%1$s&quot; cannot be purchased due to payment gateway restrictions."
+msgstr "يتعذر شراء \"⁦%1$s⁩\" بسبب القيود على بوابة الدفع."
+
+#: includes/compatibility/modules/class-wc-pb-pip-compatibility.php:396
+#: includes/compatibility/modules/class-wc-pb-pip-compatibility.php:398
+msgid "Packaged in:"
+msgstr "تمت التعبئة والتغليف في:"
+
+#. translators: %1$s: Bundled product name, %2$s: Group of quantity
+#: includes/compatibility/modules/class-wc-pb-min-max-compatibility.php:205
+msgid "The <strong>Max Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Please adjust its value and save your changes."
+msgstr "يجب أن يكون <strong>الحد الأقصى</strong> لكمية <strong>%1$s</strong> أحد مضاعفات <strong>%2$s</strong>. يرجى تعديل قيمته وحفظ التغييرات التي أجريتها."
+
+#. translators: %1$s: Bundled product name, %2$s: Group of quantity
+#: includes/compatibility/modules/class-wc-pb-min-max-compatibility.php:200
+msgid "The <strong>Default Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Please adjust its value and save your changes."
+msgstr "يجب أن تساوي <strong>الكمية الافتراضية</strong> لـ <strong>%1$s</strong> أحد مضاعفات <strong>%2$s</strong>.  يرجى تعديل قيمته وحفظ التغييرات التي أجريتها."
+
+#. translators: %1$s: Bundled product name, %2$s: Group of quantity
+#: includes/compatibility/modules/class-wc-pb-min-max-compatibility.php:195
+msgid "The <strong>Min Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Please adjust its value and save your changes."
+msgstr "يجب أن يكون <strong>الحد الأدنى</strong> لكمية <strong>%1$s</strong> أحد مضاعفات <strong>%2$s</strong>. يرجى تعديل قيمته وحفظ التغييرات التي أجريتها."
+
+#. translators: %1$s: Bundled product name, %2$s: Group of quantity
+#: includes/compatibility/modules/class-wc-pb-min-max-compatibility.php:139
+msgid "The <strong>Max Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Its value has been adjusted."
+msgstr "يجب أن يكون <strong>الحد الأقصى</strong> لكمية <strong>%1$s</strong> أحد مضاعفات <strong>%2$s</strong>. تم تعديل قيمته."
+
+#. translators: %1$s: Bundled product name, %2$s: Group of quantity
+#: includes/compatibility/modules/class-wc-pb-min-max-compatibility.php:131
+msgid "The <strong>Default Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Its value has been adjusted."
+msgstr "يجب أن تساوي <strong>الكمية الافتراضية</strong> لـ <strong>%1$s</strong> أحد مضاعفات <strong>%2$s</strong>.  تم تعديل قيمته."
+
+#. translators: %1$s: Bundled product name, %2$s: Group of quantity
+#: includes/compatibility/modules/class-wc-pb-min-max-compatibility.php:123
+msgid "The <strong>Min Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Its value has been adjusted."
+msgstr "يجب أن يكون <strong>الحد الأدنى</strong> لكمية <strong>%1$s</strong> أحد مضاعفات <strong>%2$s</strong>. تم تعديل قيمته."
+
+#: includes/compatibility/modules/class-wc-pb-et-compatibility.php:112
+msgid "Unavailable when using the Divi builder."
+msgstr "يصبح غير متوافر عند استخدام منشئ Divi."
+
+#: includes/compatibility/modules/class-wc-pb-cp-compatibility.php:913
+#: includes/compatibility/modules/class-wc-pb-cp-compatibility.php:949
+msgid "No selection"
+msgstr "بدون تحديد"
+
+#: includes/compatibility/modules/class-wc-pb-cp-compatibility.php:553
+msgid "This item cannot be purchased at the moment."
+msgstr "يتعذر شراء هذا العنصر في الوقت الحالي."
+
+#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:180
+msgid "Check this option to disable any Product Add-Ons associated with this bundled product."
+msgstr "حدد هذا الخيار لتعطيل أي وظائف إضافية للمنتجات ترتبط بهذا المنتج المجمع."
+
+#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:178
+msgid "Disable Add-Ons"
+msgstr "تعطيل الوظائف الإضافية"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:544
+msgid "WooCommerce Min/Max Quantities"
+msgstr "الحد الأدنى/الأقصى للكميات في WooCommerce"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:543
+msgid "Min/Max Quantities"
+msgstr "الحد الأدنى/الأقصى للكميات"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:529
+msgid "Product Bundles - Bulk Discounts"
+msgstr "حِزم المنتجات - خصومات مجمعة"
+
+#. translators: %1$s: Plugin name, %2$s: Plugin name full, %3$s: Plugin version
+#: includes/compatibility/class-wc-pb-compatibility.php:518
+msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <strong>%1$s</strong> to version <strong>%2$s</strong> or higher."
+msgstr "الإصدار المُثبّت من <strong>%1$s</strong> غير مدعوم من <strong>حِزم المنتجات</strong>. يرجى تحديث <strong>%1$s</strong> إلى الإصدار <strong>%2$s</strong> أو أعلى."
+
+#: includes/compatibility/class-wc-pb-compatibility.php:516
+msgid "Product Bundles - Top Add to Cart Button"
+msgstr "حِزم المنتجات - زر إضافة الأهم إلى عربة التسوق"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:507
+msgid "The <strong>Min/Max Items</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Min/Max Items</strong> feature plugin. If you have localized Min/Max Items in your language, please be aware that all localizable strings have been moved into the Product Bundles text domain."
+msgstr "تم إدخال الامتداد الصغير <strong>للحد الأدنى/الحد الأقصى من العناصر</strong> في <strong>حِزم المنتجات</strong>. يرجى تعطيل إضافة ميزة <strong>حِزم المنتجات - الحد الأدنى/الحد الأقصى من العناصر</strong> وإزالتها. إذا ترجمتَ الحد الأدنى/الحد الأقصى من العناصر بلغتك، فكن على دراية رجاءً بأن كل السلاسل القابلة للترجمة قد نُقلت إلى نطاق نص حِزم المنتجات."
+
+#: includes/compatibility/class-wc-pb-compatibility.php:501
+msgid "The <strong>Bundle-Sells</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Bundle-Sells</strong> feature plugin."
+msgstr "تم إدخال الامتداد الصغير <strong>لعمليات بيع الحِزم</strong> في <strong>حِزم المنتجات</strong>. يرجى تعطيل إضافة ميزة <strong>حِزم المنتجات - عمليات بيع الحِزم</strong> وإزالتها."
+
+#: includes/compatibility/class-wc-pb-compatibility.php:495
+msgid "The <strong>Tabular Layout</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Tabular Layout</strong> feature plugin."
+msgstr "تم إدخال الامتداد الصغير <strong>للتخطيط الجدولي</strong> في <strong>حِزم المنتجات</strong>. يرجى تعطيل إضافة ميزة <strong>حِزم المنتجات - التخطيط الجدولي</strong> وإزالتها."
+
+#. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full,
+#. %4$s: Plugin version
+#: includes/compatibility/class-wc-pb-compatibility.php:481
+msgid "The installed version of <strong>%1$s</strong> does not support <strong>Product Bundles</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
+msgstr "لا يدعم الإصدار المُثبّت من <strong>%1$s</strong> <strong>حِزم المنتجات</strong>. يرجى تحديث <a href=\"%2$s\" target=\"_blank\">%3$s</a> إلى الإصدار <strong>%4$s</strong> أو أعلى."
+
+#: includes/compatibility/class-wc-pb-compatibility.php:478
+msgid "WooCommerce Blocks"
+msgstr "مكوّنات WooCommerce"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:458
+msgid "WooCommerce Product Add-Ons"
+msgstr "WooCommerce Product Add-Ons"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:457
+msgid "Product Add-Ons"
+msgstr "الوظائف الإضافية للمنتجات"
+
+#. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full,
+#. %4$s: Plugin version
+#. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full
+#. name, %4$s: Required version.
+#: includes/compatibility/class-wc-pb-compatibility.php:440
+#: includes/compatibility/class-wc-pb-compatibility.php:461
+#: includes/compatibility/class-wc-pb-compatibility.php:533
+#: includes/compatibility/class-wc-pb-compatibility.php:547
+msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
+msgstr "الإصدار المُثبّت من <strong>%1$s</strong> غير مدعوم من <strong>حِزم المنتجات</strong>. يرجى تحديث <a href=\"%2$s\" target=\"_blank\">%3$s</a> إلى الإصدار <strong>%4$s</strong> أو أعلى."
+
+#: includes/compatibility/class-wc-pb-compatibility.php:437
+msgid "WooCommerce Composite Products"
+msgstr "WooCommerce Composite Products"
+
+#: includes/compatibility/class-wc-pb-compatibility.php:436
+msgid "Composite Products"
+msgstr "المنتجات المركَّبة"
+
+#: includes/class-wc-product-bundle.php:3264
+msgid "None"
+msgstr "لا"
+
+#: includes/class-wc-product-bundle.php:3259
+msgid "Flat"
+msgstr "مسطح"
+
+#: includes/class-wc-product-bundle.php:3254
+msgid "Grouped"
+msgstr "مجمَّع"
+
+#: includes/class-wc-product-bundle.php:3180
+msgid "Grid"
+msgstr "شبكة"
+
+#: includes/class-wc-product-bundle.php:3179
+msgid "Tabular"
+msgstr "جدولي"
+
+#: includes/class-wc-product-bundle.php:3178
+msgid "Standard"
+msgstr "قياسي"
+
+#: includes/class-wc-product-bundle.php:3161
+msgid "The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option."
+msgstr "يتم عرض نموذج الإضافة إلى عربة التسوق قبل علامات تبويب المنتج الفردي. يخصِّص عادةً عرض الصفحة بالكامل لعرض محتوى النموذج. لاحظ أن بعض القوالب قد لا تدعم هذا الخيار."
+
+#: includes/class-wc-product-bundle.php:3160
+msgid "Before Tabs"
+msgstr "قبل علامات التبويب"
+
+#: includes/class-wc-product-bundle.php:3157
+msgid "The add-to-cart form is displayed inside the single-product summary."
+msgstr "يتم عرض نموذج الإضافة إلى عربة التسوق داخل ملخص المنتج الفردي."
+
+#: includes/class-wc-product-bundle.php:3156
+msgid "Default"
+msgstr "الافتراضي"
+
+#: includes/class-wc-product-bundle.php:1664
+msgid "Update Cart"
+msgstr "تحديث عربة التسوق"
+
+#. translators: %1$s: "From" string, %2$s: Product price
+#. translators: %1$s: Regular price, %2$s: Sale price.
+#: includes/class-wc-product-bundle.php:1243
+#: includes/class-wc-product-bundle.php:1412
+#: includes/class-wc-product-bundle.php:1449
+msgctxt "Price range: from"
+msgid "%1$s%2$s"
+msgstr ""
+
+#. translators: %1$s: price, %2$s: recurring price html.
+#. translators: %1$s: Product one-time price, %2$s: Product recurring price
+#: includes/class-wc-product-bundle.php:832
+#: includes/class-wc-product-bundle.php:1236
+msgctxt "subscription price html"
+msgid "%1$s<span class=\"bundled_subscriptions_price_html\"> one time%2$s</span>"
+msgstr "%1$s<span class=\"bundled_subscriptions_price_html\"> مرة واحدة%2$s</span>"
+
+#. translators: %s: key.
+#: includes/class-wc-pb-tracker.php:1517
+msgid "Invalid key &quot;%1$s&quot; passed to get_reusable_data."
+msgstr "تم تمرير مفتاح \"⁦%1$s⁩\" غير صالح إلى get_reusable_data."
+
+#. translators: %1$s: Product title, %2$s: Stock quantity
+#: includes/class-wc-pb-stock-notifications.php:274
+msgid "%1$s is low in stock (%2$d left). Please restock its contents."
+msgid_plural "%1$s is low in stock (%2$d left). Please restock its contents."
+msgstr[0] "أصبح ⁦%1$s⁩ منخفضًا في المخزون (⁦%2$d⁩ متبقٍ). ترجى إعادة التزويد بمحتوياته."
+msgstr[1] "أصبح ⁦%1$s⁩ منخفضًا في المخزون (⁦%2$d⁩ متبقٍ). ترجى إعادة التزويد بمحتوياته."
+msgstr[2] "أصبح ⁦%1$s⁩ منخفضًا في المخزون (⁦%2$d⁩ متبقٍ). ترجى إعادة التزويد بمحتوياته."
+msgstr[3] "أصبح ⁦%1$s⁩ منخفضًا في المخزون (⁦%2$d⁩ متبقٍ). ترجى إعادة التزويد بمحتوياته."
+msgstr[4] "أصبح ⁦%1$s⁩ منخفضًا في المخزون (⁦%2$d⁩ متبقٍ). ترجى إعادة التزويد بمحتوياته."
+msgstr[5] "أصبح ⁦%1$s⁩ منخفضًا في المخزون (⁦%2$d⁩ متبقٍ). ترجى إعادة التزويد بمحتوياته."
+
+#. translators: %s: Product title
+#: includes/class-wc-pb-stock-notifications.php:257
+msgid "%s is out of stock. Please restock its contents."
+msgstr "نفد %s من المخزون. ترجى إعادة التزويد بمحتوياته."
+
+#: includes/class-wc-pb-stock-manager.php:325
+msgid "The product is currently unavailable."
+msgstr "هذا المنتج غير متوافر حاليًا."
+
+#. translators: %1$s: Product name, %2$s: Remaining stock quantity, %2$s: Stock
+#. quantity in cart
+#: includes/class-wc-pb-stock-manager.php:299
+msgid "There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart)."
+msgstr "ليس هناك مخزون كافٍ من \"⁦%1$s⁩\" (⁦%2$s⁩ في المخزون، ⁦%3$s⁩ في عربة التسوق لديك)."
+
+#. translators: %1$s: Product name, %2$s: Remaining stock quantity
+#: includes/class-wc-pb-stock-manager.php:276
+msgid "There is not enough stock of &quot;%1$s&quot; (%2$s remaining)."
+msgstr "ليس هناك مخزون كافٍ من \"⁦%1$s⁩\" (⁦%2$s⁩ متبقٍ)."
+
+#. translators: Product name
+#: includes/class-wc-pb-stock-manager.php:259
+msgid "&quot;%s&quot; is out of stock."
+msgstr "نفد \"%s\" من المخزون."
+
+#. translators: Product name
+#: includes/class-wc-pb-stock-manager.php:239
+msgid "Only 1 &quot;%s&quot; may be purchased."
+msgstr "يمكن شراء \"%s\" واحد فقط."
+
+#. translators: %1$s: Product price, %2$s: Product quantity
+#: includes/class-wc-pb-product-prices.php:824
+msgid "%1$s <span class=\"bundled_item_price_quantity\">each</span>"
+msgstr "%1$s <span class=\"bundled_item_price_quantity\">لكل منها</span>"
+
+#: includes/class-wc-pb-order.php:546
+msgctxt "bundled order item SKU meta key"
+msgid "SKU"
+msgstr "وحدة SKU"
+
+#: includes/class-wc-pb-order.php:539
+msgctxt "bundled order item qty meta key"
+msgid "Qty"
+msgstr "الكمية"
+
+#: includes/class-wc-pb-install.php:648
+msgid "Support"
+msgstr "دعم"
+
+#: includes/class-wc-pb-install.php:647
+msgid "Documentation"
+msgstr "التعليمات"
+
+#: includes/class-wc-pb-install.php:111
+msgid "Product bundle"
+msgstr "حزمة المنتجات"
+
+#. translators: Suffix
+#: includes/class-wc-pb-helpers.php:310
+msgctxt "suffix"
+msgid " &ndash; %s"
+msgstr " – %s"
+
+#. translators: Price
+#: includes/class-wc-pb-helpers.php:305
+msgctxt "price suffix"
+msgid " &ndash; %s"
+msgstr " – %s"
+
+#. translators: %1$s: Product title, %2$s: Product meta
+#: includes/class-wc-pb-helpers.php:276
+msgctxt "product title followed by meta"
+msgid "%1$s &ndash; %2$s"
+msgstr "%1$s – %2$s"
+
+#. translators: %1$s: Product title, %2$s: Product meta
+#: includes/class-wc-pb-helpers.php:273
+msgctxt "product title followed by meta in parenthesis"
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#. translators: %1$s: Product sku, %2$s: Product title
+#: includes/class-wc-pb-helpers.php:268
+msgctxt "sku followed by product title"
+msgid "%1$s &ndash; %2$s"
+msgstr "%1$s – %2$s"
+
+#. translators: %1$s: Product title, %2$s: Product SKU
+#: includes/class-wc-pb-helpers.php:265
+msgctxt "product title followed by sku in parenthesis"
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#. translators: %1$s: Product sku, %2$s: Product title, %3$s: Product meta
+#: includes/class-wc-pb-helpers.php:260
+msgctxt "sku followed by product title and meta"
+msgid "%1$s &ndash; %2$s &ndash; %3$s"
+msgstr "%1$s – %2$s – %3$s"
+
+#. translators: %1$s: Product title, %2$s: Product meta, %3$s: Product SKU
+#: includes/class-wc-pb-helpers.php:257
+msgctxt "product title followed by meta and sku in parenthesis"
+msgid "%1$s &ndash; %2$s (%3$s)"
+msgstr "%1$s – %2$s (%3$s)"
+
+#: includes/class-wc-pb-display.php:1263 includes/class-wc-pb-order.php:1111
+msgid "Part of"
+msgstr "جزء من"
+
+#. translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart
+#. text
+#: includes/class-wc-pb-display.php:1150
+msgctxt "edit in cart text"
+msgid "%1$s<br/><a class=\"edit_bundle_in_cart_text edit_in_cart_text\" href=\"%2$s\"><small>%3$s</small></a>"
+msgstr ""
+
+#. translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart
+#. text
+#: includes/class-wc-pb-display.php:1126
+msgctxt "edit in cart text"
+msgid "%1$s<br/><a class=\"edit_bundle_in_cart_text edit_in_cart_text\" rel=\"no-follow\" href=\"%2$s\"><small>%3$s</small></a>"
+msgstr ""
+
+#: includes/class-wc-pb-display.php:1124 includes/class-wc-pb-display.php:1148
+msgctxt "edit in cart link text"
+msgid "Edit"
+msgstr "تحرير"
+
+#: includes/class-wc-pb-display.php:1039
+msgid "Remove this bundle"
+msgstr "إزالة هذه الحزمة"
+
+#: includes/class-wc-pb-display.php:459
+msgid "You are currently editing this bundle. When finished, click the <strong>Update Cart</strong> button."
+msgstr "تقوم حاليًا بتحرير هذه الحزمة. عند الانتهاء، انقر على زر <strong>تحديث عربة التسوق</strong>."
+
+#. translators: %1$s: Bundle title
+#: includes/class-wc-pb-display.php:457
+msgid "You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button."
+msgstr "تقوم حاليًا بتحرير \"⁦%1$s⁩\". عند الانتهاء، انقر على زر <strong>تحديث عربة التسوق</strong>."
+
+#. translators: %1$s: Recurring price part before end, %2$s: Recurring price
+#. part at end
+#. translators: %1$s: Subscription price html, %2$s: Subscription details html.
+#: includes/class-wc-pb-display.php:280
+#: includes/class-wc-product-bundle.php:1222
+msgctxt "subscription price html"
+msgid "%1$s, and<br>%2$s"
+msgstr "⁦%1$s⁩، و<br>%2$s"
+
+#. translators: %1$s: Recurring price part before comma, %2$s: Recurring price
+#. part after comma
+#. translators: %1$s: Subscription price html, %2$s: Subscription details html.
+#: includes/class-wc-pb-display.php:278
+#: includes/class-wc-product-bundle.php:1228
+msgctxt "subscription price html"
+msgid "%1$s,<br>%2$s"
+msgstr "%1$s،<br>%2$s"
+
+#: includes/class-wc-pb-display.php:275
+msgid "Please resolve all pending issues before adding this product to your cart."
+msgstr "يرجى حل كل المشكلات المعلّقة قبل إضافة هذا المنتج إلى عربة التسوق الخاصة بك."
+
+#. translators: %1$s: Product titles, %2$s: Resolution message
+#: includes/class-wc-pb-display.php:274
+msgid "<span class=\"msg-source\">%1$s</span> &rarr; <span class=\"msg-content\">%2$s</span>"
+msgstr "<span class=\"msg-source\">%1$s</span> ← <span class=\"msg-content\">%2$s</span>"
+
+#. translators: %1$s: Regular price, %2$s: Discounted price
+#: includes/class-wc-pb-display.php:272
+#: includes/wc-pb-template-functions.php:156
+msgid "This product is currently unavailable."
+msgstr "هذا المنتج غير متوافر حاليًا."
+
+#. translators: %1$s: Product title, %2$s: Product quantity, %3$s: Product
+#. price, %4$s: Product suffix
+#: includes/class-wc-pb-display.php:270 includes/class-wc-pb-helpers.php:314
+msgctxt "title, quantity, price, suffix"
+msgid "%1$s%2$s%3$s%4$s"
+msgstr ""
+
+#. translators: %1$s: Product title, %2$s: Product meta
+#: includes/class-wc-pb-display.php:268
+msgctxt "title followed by meta"
+msgid "%1$s &ndash; %2$s"
+msgstr "%1$s – %2$s"
+
+#. translators: Optional item suffix
+#: includes/class-wc-pb-display.php:264
+msgctxt "suffix"
+msgid " &mdash; %s"
+msgstr " — %s"
+
+#. translators: Quantity
+#: includes/class-wc-pb-display.php:262 includes/class-wc-pb-helpers.php:300
+msgctxt "qty string"
+msgid " &times; %s"
+msgstr " × %s"
+
+#. translators: %1$s: Item before "and", %2$s: Item after "and"
+#. translators: %1$s: List of items, %2$s: Last item
+#: includes/class-wc-pb-display.php:260 includes/class-wc-pb-helpers.php:338
+msgctxt "string list item last separator"
+msgid "%1$s and %2$s"
+msgstr "⁦%1$s⁩ و⁦%2$s⁩"
+
+#. translators: %1$s: Item before comma, %2$s: Item after comma
+#. translators: %1$s: List of items, %2$s: Item
+#: includes/class-wc-pb-display.php:258 includes/class-wc-pb-helpers.php:341
+msgctxt "string list item separator"
+msgid "%1$s, %2$s"
+msgstr "%1$s، %2$s"
+
+#. translators: Item name
+#: includes/class-wc-pb-display.php:256
+msgctxt "string list item"
+msgid "&quot;%s&quot;"
+msgstr "\"%s\""
+
+#. translators: Bundled product
+#: includes/class-wc-pb-display.php:254
+msgid "Please enter a valid amount."
+msgstr "يرجى إدخال مبلغ صالح."
+
+#: includes/class-wc-pb-display.php:252
+msgid "Please enter valid amounts."
+msgstr "يرجى إدخال مبالغ صالحة."
+
+#: includes/class-wc-pb-display.php:251
+msgid "Please review product options."
+msgstr "ترجى مراجعة خيارات المنتجات."
+
+#. translators: Bundled product
+#: includes/class-wc-pb-display.php:250
+msgid "Please choose %s options."
+msgstr "يرجى اختيار %s من الخيارات."
+
+#: includes/class-wc-pb-display.php:248
+msgid "Please choose product options."
+msgstr "يرجى اختيار خيارات المنتجات."
+
+#. translators: backorder stock status, %s: Backorder stock string
+#: includes/class-wc-pb-display.php:247
+msgctxt "backordered item exists template"
+msgid "<p class=\"stock available-on-backorder\">%s</p>"
+msgstr ""
+
+#. translators: stock status, %s: Insufficient stock string
+#: includes/class-wc-pb-display.php:245
+msgctxt "insufficiently stocked item exists template"
+msgid "<p class=\"stock out-of-stock insufficient-stock\">%s</p>"
+msgstr ""
+
+#. translators: %1$s: Backorder status, %2$s: List of bundled products
+#: includes/class-wc-pb-display.php:243
+msgctxt "backordered items template"
+msgid "<p class=\"stock available-on-backorder\">%1$s &rarr; %2$s</p>"
+msgstr "<p class=\"stock available-on-backorder\">%1$s ← %2$s</p>"
+
+#. translators: %1$s: Stock status, %2$s: List of bundled products
+#: includes/class-wc-pb-display.php:241
+msgctxt "insufficiently stocked items template"
+msgid "<p class=\"stock out-of-stock insufficient-stock\">%1$s &rarr; %2$s</p>"
+msgstr "<p class=\"stock out-of-stock insufficient-stock\">%1$s ← %2$s</p>"
+
+#. translators: %1$s: Regular price, %2$s: Discounted price
+#: includes/class-wc-pb-display.php:239
+msgctxt "Sale/strikeout price"
+msgid "<del>%1$s</del> <ins>%2$s</ins>"
+msgstr ""
+
+#. translators: %1$s: "Total/Subtotal" string, %2$s: Price, %2$s: Price suffix
+#: includes/class-wc-pb-display.php:237
+msgctxt "\"Total/Subtotal\" string followed by price followed by price suffix"
+msgid "%1$s%2$s%3$s"
+msgstr ""
+
+#: includes/class-wc-pb-display.php:235
+msgid "Subtotal: "
+msgstr "الإجمالي الفرعي: "
+
+#: includes/class-wc-pb-display.php:234
+msgid "Total: "
+msgstr "الإجمالي: "
+
+#. translators: %1$s: Product title
+#: includes/class-wc-pb-cart.php:2552
+msgid "You have already added an identical &quot;%s&quot; to your cart. You cannot add another one."
+msgstr "لقد أضفت بالفعل \"%s\" متطابقًا إلى عربة التسوق الخاصة بك. تتعذر عليك إضافة واحد آخر."
+
+#. translators: %s: Bundle name.
+#: includes/class-wc-pb-cart.php:2111
+msgctxt "Bundle name in quotes"
+msgid "&ldquo;%s&rdquo;"
+msgstr "\"%s\""
+
+#. translators: Bundled product name
+#: includes/class-wc-pb-cart.php:1767 includes/class-wc-pb-cart.php:1775
+#: includes/class-wc-pb-cart.php:1808
+msgid "The requested configuration of &quot;%s&quot; cannot be purchased at the moment."
+msgstr "يتعذر شراء التكوين المطلوب لـ \"%s\" في الوقت الحالي."
+
+#. translators: %1$s: Bundled product name, %2$s: Integer
+#: includes/class-wc-pb-cart.php:1625
+msgid "Cart update failed. The quantity of &quot;%1$s&quot; cannot be higher than %2$d."
+msgstr "فشل تحديث عربة التسوق. يتعذر أن تكون كمية \"⁦%1$s⁩\" أكبر من ⁦%2$d⁩."
+
+#. translators: %1$s: Bundled product name, %2$s: Integer
+#: includes/class-wc-pb-cart.php:1618
+msgid "Cart update failed. The quantity of &quot;%1$s&quot; must be at least %2$d."
+msgstr "فشل تحديث عربة التسوق. يجب أن تصل كمية \"⁦%1$s⁩\" إلى ⁦%2$d⁩ على الأقل."
+
+#. translators: %1$s: Bundled product name, %2$s: Integer
+#: includes/class-wc-pb-cart.php:1610
+msgid "Cart update failed. The quantity of &quot;%1$s&quot; must be a multiple of %2$d."
+msgstr "فشل تحديث عربة التسوق. يجب أن تساوي كمية \"⁦%1$s⁩\" مضاعف ⁦%2$d⁩."
+
+#: includes/class-wc-pb-cart.php:1003 includes/class-wc-pb-display.php:276
+msgid "Please choose at least 1 item."
+msgstr "يرجى اختيار عنصر واحد على الأقل."
+
+#. translators: %1$s: Bundled product name
+#: includes/class-wc-pb-cart.php:951
+msgid "Please choose &quot;%s&quot; options&hellip;"
+msgstr "يرجى اختيار \"%s\" من الخيارات..."
+
+#. translators: %1$s: Field name, Product title
+#: includes/class-wc-pb-cart.php:948
+msgid "%1$s is a required &quot;%2$s&quot; field."
+msgid_plural "%1$s are required &quot;%2$s&quot; fields."
+msgstr[0] "⁦%1$s⁩ هو حقل \"⁦%2$s⁩\" مطلوب."
+msgstr[1] "⁦%1$s⁩ هو حقل \"⁦%2$s⁩\" مطلوب."
+msgstr[2] "يكون ⁦%1$s⁩ مطلوبًا لحقول \"⁦%2$s⁩\"."
+msgstr[3] "يكون ⁦%1$s⁩ مطلوبًا لحقول \"⁦%2$s⁩\"."
+msgstr[4] "يكون ⁦%1$s⁩ مطلوبًا لحقول \"⁦%2$s⁩\"."
+msgstr[5] "يكون ⁦%1$s⁩ مطلوبًا لحقول \"⁦%2$s⁩\"."
+
+#. translators: Product title
+#: includes/class-wc-pb-cart.php:884
+msgid "The chosen &quot;%s&quot; variation is unavailable."
+msgstr "يكون تباين \"%s\" المختار غير متوافر."
+
+#. translators: Product title
+#: includes/class-wc-pb-cart.php:881
+msgid "The chosen &quot;%s&quot; variation cannot be purchased."
+msgstr "يتعذر شراء تباين \"%s\" المختار."
+
+#. translators: Product title
+#: includes/class-wc-pb-cart.php:854
+msgid "&quot;%s&quot; cannot be purchased."
+msgstr "يتعذر شراء \"%s\"."
+
+#. translators: %1$s: Bundled product title, %2$s: Bundled item max quantity
+#: includes/class-wc-pb-cart.php:828
+msgid "The quantity of &quot;%1$s&quot; cannot be higher than %2$d."
+msgstr "يتعذر أن تكون كمية \"⁦%1$s⁩\" أكبر من ⁦%2$d⁩."
+
+#. translators: %1$s: Product name, %2$s: Reason
+#: includes/class-wc-pb-cart.php:818 includes/class-wc-pb-cart.php:835
+#: includes/class-wc-pb-cart.php:892 includes/class-wc-pb-cart.php:962
+#: includes/class-wc-pb-cart.php:1010
+#: includes/class-wc-pb-stock-manager.php:266
+#: includes/class-wc-pb-stock-manager.php:283
+#: includes/class-wc-pb-stock-manager.php:306
+#: includes/class-wc-pb-stock-manager.php:332
+msgid "&quot;%1$s&quot; cannot be purchased. %2$s"
+msgstr "يتعذر شراء \"⁦%1$s⁩\". %2$s"
+
+#. translators: %1$s: Product name, %2$s: Reason
+#: includes/class-wc-pb-cart.php:815 includes/class-wc-pb-cart.php:832
+#: includes/class-wc-pb-cart.php:858 includes/class-wc-pb-cart.php:889
+#: includes/class-wc-pb-cart.php:959 includes/class-wc-pb-cart.php:1007
+#: includes/class-wc-pb-stock-manager.php:243
+#: includes/class-wc-pb-stock-manager.php:263
+#: includes/class-wc-pb-stock-manager.php:280
+#: includes/class-wc-pb-stock-manager.php:303
+#: includes/class-wc-pb-stock-manager.php:329
+msgid "&quot;%1$s&quot; cannot be added to your cart. %2$s"
+msgstr "تتعذر إضافة \"⁦%1$s⁩\" إلى عربة التسوق الخاصة بك. %2$s"
+
+#. translators: %1$s: Bundled product title, %2$s: Bundled item min quantity
+#: includes/class-wc-pb-cart.php:811
+msgid "The quantity of &quot;%1$s&quot; cannot be lower than %2$d."
+msgstr "يتعذر أن تكون كمية \"⁦%1$s⁩\" أقل من ⁦%2$d⁩."
+
+#: includes/class-wc-pb-cart.php:247
+msgid "The submitted bundle configuration could not be added to the cart."
+msgstr "تتعذر إضافة تكوين الحزمة المرسَل إلى عربة التسوق."
+
+#. translators: Item count
+#: includes/class-wc-bundled-item.php:2600
+#: includes/class-wc-bundled-item.php:2616
+msgid "(only %s left in stock)"
+msgstr "(%s متبقٍ فقط في المخزون)"
+
+#: includes/class-wc-bundled-item.php:2256 includes/class-wc-pb-display.php:265
+msgid "optional"
+msgstr "اختياري"
+
+#: includes/blocks/class-wc-pb-checkout-blocks-integration.php:123
+#: includes/class-wc-pb-display.php:266 includes/class-wc-pb-display.php:1547
+#: includes/class-wc-pb-display.php:1558
+msgid "Includes"
+msgstr "يتضمن"
+
+#: includes/blocks/class-wc-pb-checkout-blocks-integration.php:49
+#: includes/blocks/class-wc-pb-checkout-blocks-integration.php:56
+#: includes/class-wc-pb-cart.php:67 includes/class-wc-pb-cart.php:76
+#: includes/class-wc-pb-display.php:79 includes/class-wc-pb-display.php:88
+#: includes/class-wc-pb-order.php:67 includes/class-wc-pb-order.php:76
+#: includes/class-wc-pb-product-data.php:71
+#: includes/class-wc-pb-product-data.php:80
+#: includes/compatibility/class-wc-pb-compatibility.php:96
+#: includes/compatibility/class-wc-pb-compatibility.php:105
+#: includes/modules/class-wc-pb-modules.php:52
+#: includes/modules/class-wc-pb-modules.php:59
+#: woocommerce-product-bundles.php:96 woocommerce-product-bundles.php:105
+msgid "Foul!"
+msgstr "تالف"
+
+#: includes/api/class-wc-pb-store-api.php:875
+#: includes/class-wc-pb-cart.php:2248
+msgid "This product is a mandatory part of a bundle and cannot be removed."
+msgstr "يكون هذا المنتج جزءًا إلزاميًا من إحدى الحِزم وتتعذر إزالته."
+
+#: includes/api/class-wc-pb-store-api.php:518
+msgid "Edit item"
+msgstr "تحرير العنصر"
+
+#: includes/api/class-wc-pb-store-api.php:370
+msgid "ID of this bundled item."
+msgstr "معرّف هذا العنصر المجمع."
+
+#: includes/api/class-wc-pb-store-api.php:364
+msgid "Bundle data."
+msgstr "بيانات الحزمة."
+
+#: includes/api/class-wc-pb-store-api.php:358
+msgid "List of cart item keys grouped by this bundle."
+msgstr "قائمة مفاتيح عناصر عربة التسوق المجتمعة بواسطة هذه الحزمة."
+
+#: includes/api/class-wc-pb-store-api.php:352
+msgid "Cart item key of bundle that contains this item."
+msgstr "مفتاح عنصر عربة التسوق للحزمة التي تحتوي على هذا العنصر."
+
+#: includes/api/class-wc-pb-rest-api.php:1239 includes/class-wc-pb-cart.php:252
+#: includes/class-wc-pb-order.php:432
+msgid "A bundle with this ID does not exist."
+msgstr "لا توجد حزمة تتضمن هذا المعرّف."
+
+#. translators: %1$s: Error message
+#: includes/api/class-wc-pb-rest-api.php:1235
+#: includes/class-wc-pb-order.php:428
+#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:723
+#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:762
+msgid "The submitted bundle configuration could not be added to this order: %s"
+msgstr "تتعذر إضافة تكوين الحزمة المرسَل إلى هذا الطلب: %s"
+
+#: includes/api/class-wc-pb-rest-api.php:1021
+msgid "Additional arguments to pass into 'WC_Order::add_product', if applicable."
+msgstr "وسيطات إضافية مطلوب تمريرها إلى \"WC_Order::add_product\"، إذا كان قابلاً للتطبيق."
+
+#: includes/api/class-wc-pb-rest-api.php:1016
+msgid "Chosen variation data to pass into 'WC_Order::add_product', if applicable."
+msgstr "بيانات التباين المختارة المطلوب تمريرها إلى \"WC_Order::add_product\"، إذا كان قابلاً للتطبيق."
+
+#: includes/api/class-wc-pb-rest-api.php:1011
+msgid "Chosen variation ID, if applicable."
+msgstr "مُعرّف النوع، إذا كان ذلك ممكنًا."
+
+#: includes/api/class-wc-pb-rest-api.php:1006
+msgid "Indicates whether the bundled product is selected. Applicable to optional bundled items."
+msgstr "يشير إلى ما إذا تم تحديد المنتج المجمع أم لا. قابل للتطبيق على العناصر المجمعة الاختيارية."
+
+#: includes/api/class-wc-pb-rest-api.php:996
+msgid "Chosen bundled item quantity."
+msgstr "كمية العناصر المجمعة المختارة."
+
+#: includes/api/class-wc-pb-rest-api.php:979
+msgid "Bundle configuration array. Must be defined when adding a bundle-type line item to an order, to ensure bundled line items are added to the order as well."
+msgstr "مصفوفة تكوين الحزمة. يجب تحديدها عند إضافة عنصر سطر من نوع الحزمة إلى طلب ما، وذلك لضمان إضافة عناصر السطر المجمع إلى الطلب كذلك."
+
+#: includes/api/class-wc-pb-rest-api.php:973
+msgid "Title of the bundled product to display instead of the original product title."
+msgstr "عنوان المنتج المجمع المطلوب عرضه بدلاً من عنوان المنتج الأصلي."
+
+#: includes/api/class-wc-pb-rest-api.php:964
+msgid "Item IDs of bundled line items, applicable if the item is a Bundle container."
+msgstr "معرّفات العناصر لعناصر الأسطر المجمعة، تكون قابلة للتطبيق إذا كان العنصر حاوية الحزمة."
+
+#: includes/api/class-wc-pb-rest-api.php:958
+msgid "Item ID of parent line item, applicable if the item is part of a Bundle."
+msgstr "معرّف العنصر لعنصر السطر الأصل، قابل للتطبيق إذا كان العنصر جزءًا من الحزمة."
+
+#. translators: Product ID
+#: includes/api/class-wc-pb-rest-api.php:623
+msgid "Product ID #%s is invalid."
+msgstr "رقم معرّف المنتج %s غير صالح."
+
+#: includes/api/class-wc-pb-rest-api.php:602
+msgid "Bundled product ID undefined."
+msgstr "لم يتم تحديد معرّف المنتج المجمع."
+
+#. translators: Bundled item ID
+#: includes/api/class-wc-pb-rest-api.php:598
+msgid "Bundled item ID #%s does not exist in bundle."
+msgstr "رقم معرّف العنصر المجمع %s غير موجود في الحزمة."
+
+#: includes/api/class-wc-pb-rest-api.php:455
+msgid "Stock status of the bundled item, taking minimum quantity into account."
+msgstr "حالة المخزون للعنصر المجمع، مع وضع الحد الأدنى للكمية في الحسبان."
+
+#: includes/api/class-wc-pb-rest-api.php:449
+msgid "Indicates whether the bundled product price is visible in order/e-mail templates, applicable when the Priced Individually option is enabled."
+msgstr "يشير إلى ما إذا كان سعر المنتج المجمع مرئيًا في قولب الطلبات/رسائل البريد الإلكتروني أم لا، يكون قابلاً للتطبيق عند تمكين خيار \"تم التسعير على حدة\". "
+
+#: includes/api/class-wc-pb-rest-api.php:443
+msgid "Indicates whether the bundled product price is visible in cart templates, applicable when the Priced Individually option is enabled."
+msgstr "يشير إلى ما إذا كان سعر المنتج المجمع مرئيًا في قولب عربة التسوق أم لا، يكون قابلاً للتطبيق عند تمكين خيار \"تم التسعير على حدة\"."
+
+#: includes/api/class-wc-pb-rest-api.php:437
+msgid "Indicates whether the bundled product price is visible in the single-product template, applicable when the Priced Individually option is enabled."
+msgstr "يشير إلى ما إذا كان سعر المنتج المجمع مرئيًا في قالب المنتج الفردي أم لا، يكون قابلاً للتطبيق عند تمكين خيار \"تم التسعير على حدة\". "
+
+#: includes/api/class-wc-pb-rest-api.php:431
+msgid "Indicates whether the bundled product is visible in order/e-mail templates."
+msgstr "يشير إلى ما إذا كان المنتج المجمع مرئيًا في قوالب الطلبات/عناوين البريد الإلكتروني أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:425
+msgid "Indicates whether the bundled product is visible in cart templates."
+msgstr "يشير إلى ما إذا كان المنتج المجمع مرئيًا في قوالب عربة التسوق أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:419
+msgid "Indicates whether the bundled product is visible in the single-product template."
+msgstr "يشير إلى ما إذا كان المنتج المجمع مرئيًا في قالب المنتج الفردي أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:394
+msgid "Overridden default variation attribute values, if applicable."
+msgstr "تم تجاوز قيم سمات التباين الافتراضي، إذا كان قابلاً للتطبيق."
+
+#: includes/api/class-wc-pb-rest-api.php:389
+msgid "Indicates whether the default variation attribute values are overridden, applicable for variable bundled products only."
+msgstr "يشير إلى ما إذا تم تجاوز قيم سمة التباين الافتراضي أم لا، يكون قابلاً للتطبيق للمنتجات المجمعة المتغيرة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:381
+msgid "List of enabled variation IDs, applicable when variations filtering is active."
+msgstr "قائمة معرّفات التباين التي تم تمكينها، تكون قابلة للتطبيق عندما تكون تصفية التباينات نشطة."
+
+#: includes/api/class-wc-pb-rest-api.php:376
+msgid "Indicates whether variations filtering is active, applicable for variable bundled products only."
+msgstr "يشير إلى ما إذا كانت تصفية التباينات نشطة أم لا، يكون قابلاً للتطبيق في المنتجات المجمعة المتغيرة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:371
+msgid "Discount applied to the bundled product, applicable when the Priced Individually option is enabled."
+msgstr "الخصم المطبَّق على المنتج المجمع، يكون قابلاً للتطبيق عند تمكين خيار \"تم التسعير على حدة\"."
+
+#: includes/api/class-wc-pb-rest-api.php:366
+msgid "Indicates whether the bundled product thumbnail is hidden in the single-product template."
+msgstr "يشير إلى ما إذا كان المنتج المجمع مرئيًا في قالب المنتج الفردي أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:361
+msgid "Indicates whether the bundled item is optional."
+msgstr "يشير إلى ما إذا كان العنصر المجمع اختياريًا أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:356
+msgid "Short description of the bundled product to display instead of the original product short description, if overridden."
+msgstr "وصف مختصر للمنتج المجمع المطلوب عرضه بدلاً من الوصف المختصر للمنتج الأصلي، في حال تجاوزه."
+
+#: includes/api/class-wc-pb-rest-api.php:351
+msgid "Indicates whether the short description of the bundled product is overridden in front-end templates."
+msgstr "يشير إلى ما إذا تم تجاوز الوصف المختصر للمنتج المجمع في قوالب الواجهة الأمامية أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:346
+#: includes/api/class-wc-pb-rest-api.php:1001
+msgid "Title of the bundled product to display instead of the original product title, if overridden."
+msgstr "عنوان المنتج المجمع المطلوب عرضه بدلاً من عنوان المنتج الأصلي، في حال تجاوزه."
+
+#: includes/api/class-wc-pb-rest-api.php:341
+msgid "Indicates whether the title of the bundled product is overridden in front-end and e-mail templates."
+msgstr "يشير إلى ما إذا تم تجاوز عنوان المنتج المجمع في قوالب الواجهة الأمامية وعناوين البريد الإلكتروني أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:336
+msgid "Indicates whether the bundled product is shipped separately from the bundle."
+msgstr "يشير إلى ما إذا تم شحن المنتج المجمع على حدة من الحزمة أم لا."
+
+#: includes/api/class-wc-pb-rest-api.php:331
+msgid "Indicates whether the price of this bundled item is added to the base price of the bundle."
+msgstr "يشير إلى ما إذ تمت إضافة سعر هذا العنصر المجمع إلى السعر الأساسي للحزمة."
+
+#: includes/api/class-wc-pb-rest-api.php:326
+msgid "Default bundled item quantity."
+msgstr "كمية العناصر المجمعة الافتراضية."
+
+#: includes/api/class-wc-pb-rest-api.php:321
+msgid "Maximum bundled item quantity."
+msgstr "الحد الأقصى لكمية العناصر المجمعة."
+
+#: includes/api/class-wc-pb-rest-api.php:316
+msgid "Minimum bundled item quantity."
+msgstr "الحد الأدنى لكمية العناصر المجمعة."
+
+#: includes/api/class-wc-pb-rest-api.php:311
+msgid "Bundled item menu order."
+msgstr "طلب قائمة العناصر المجمعة."
+
+#: includes/api/class-wc-pb-rest-api.php:306
+#: includes/api/class-wc-pb-rest-api.php:991
+msgid "Bundled product ID."
+msgstr "معرّف المنتج المجمع."
+
+#: includes/api/class-wc-pb-rest-api.php:301
+msgid "Set to true to delete the bundled item with the specified ID."
+msgstr "قم بالتعيين إلى القيمة الصحيحة لحذف العنصر المجمع مع المعرّف المحدد."
+
+#: includes/api/class-wc-pb-rest-api.php:295
+#: includes/api/class-wc-pb-rest-api.php:986
+msgid "Bundled item ID."
+msgstr "معرّف العنصر المجمع."
+
+#: includes/api/class-wc-pb-rest-api.php:288
+msgid "List of bundled items contained in this product. Applicable for bundle-type products only."
+msgstr "قائمة العناصر المجمعة المضمّنة في هذا المنتج. قابل للتطبيق في المنتجات التي من نوع الحزمة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:216
+msgid "Max bundle size. Applicable for bundle-type products only."
+msgstr "الحد الأقصى لحجم الحزمة. قابل للتطبيق في المنتجات التي من نوع الحزمة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:211
+msgid "Min bundle size. Applicable for bundle-type products only."
+msgstr "الحد الأدنى لحجم الحزمة. قابل للتطبيق في المنتجات من نوع الحزمة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:205
+msgid "Controls the display of bundle container/child items in cart/order templates. Applicable for bundle-type products only."
+msgstr "يتحكم في عرض حاوية الحزمة/العناصر التابعة في قوالب عربة التسوق/الطلب. قابل للتطبيق في المنتجات من نوع الحزمة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:199
+msgid "Sold Individually option context. Applicable to bundle-type products."
+msgstr "سياق خيار البيع على حدة. قابل للتطبيق على المنتجات من نوع الحزمة."
+
+#: includes/api/class-wc-pb-rest-api.php:194
+msgid "Controls whether the configuration of this product can be modified from the cart page. Applicable to bundle-type products."
+msgstr "يتحكم في ما إذا كان بالإمكان تعديل تكوين هذا المنتج من صفحة عربة التسوق أم لا. قابل للتطبيق على المنتجات من نوع الحزمة."
+
+#: includes/api/class-wc-pb-rest-api.php:188
+msgid "Controls the form location of the product in the single-product page. Applicable to bundle-type products."
+msgstr "يتحكم في موقع نموذج المنتج في صفحة المنتج الفردي. قابل للتطبيق على المنتجات من نوع الحزمة."
+
+#: includes/api/class-wc-pb-rest-api.php:182
+msgid "Single-product details page layout. Applicable for bundle-type products only."
+msgstr "تخطيط صفحة تفاصيل المنتج الفردي. قابل للتطبيق في المنتجات من نوع الحزمة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:177
+msgid "Forces all contents of this bundle to be treated as virtual."
+msgstr "يفرض أن تتعامل كل محتويات هذه الحزمة على أنها افتراضية."
+
+#: includes/api/class-wc-pb-rest-api.php:171
+msgid "Quantity of bundles left in stock, taking bundled product quantity requirements into account. Applicable for bundle-type products only. Read only."
+msgstr "كمية الحِزم المتبقية في المخزون، مع وضع متطلبات كمية المنتجات المجمعة في الحسبان. قابل للتطبيق في المنتجات من نوع الحزمة فقط. القراءة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:164
+msgid "Stock status of this bundle, taking bundled product quantity requirements and limitations into account. Applicable for bundle-type products only. Read only."
+msgstr "حالة المخزون لهذه الحزمة، مع وضع متطلبات كمية المنتجات المجمعة والقيود المفروضة عليها في الحسبان. قابل للتطبيق في المنتجات من نوع الحزمة فقط. القراءة فقط."
+
+#: includes/api/class-wc-pb-rest-api.php:155
+msgid "List of product bundle IDs that contain this product."
+msgstr "قائمة معرّفات حِزم المنتجات التي تحتوي على هذا المنتج."
+
+#. Translators: %1$s: Template name, %2$s: Template version, %3$s: Core
+#. version.
+#: includes/admin/views/html-admin-page-status-report.php:72
+msgid "%1$s version %2$s (out of date)"
+msgstr "أصبح الإصدار ⁦%1$s⁩ ⁦%2$s⁩ (قديمًا)"
+
+#: includes/admin/views/html-admin-page-status-report.php:54
+msgid "Shows any files overriding the default Product Bundles templates."
+msgstr "يعرض أي ملفات تتجاوز قوالب حِزم المنتجات الافتراضية."
+
+#: includes/admin/views/html-admin-page-status-report.php:53
+msgid "Template overrides"
+msgstr "تم تجاوز القالب"
+
+#: includes/admin/views/html-admin-page-status-report.php:47
+msgid "Loopback test failed."
+msgstr "فشل اختبار الاسترجاع"
+
+#: includes/admin/views/html-admin-page-status-report.php:38
+msgid "Loopback requests are used by Product Bundles to process tasks in the background."
+msgstr "تستخدم حِزم المنتجات طلبات الاسترجاع لمعالجة المهام الموجودة في الخلفية."
+
+#: includes/admin/views/html-admin-page-status-report.php:37
+msgid "Loopback test"
+msgstr "اختبار الاسترجاع"
+
+#: includes/admin/views/html-admin-page-status-report.php:31
+msgid "Database version mismatch."
+msgstr "عدم تطابق إصدار قاعدة البيانات."
+
+#: includes/admin/views/html-admin-page-status-report.php:24
+msgid "The version of Product Bundles reported by the database. This should be the same as the plugin version."
+msgstr "إصدار حِزم المنتجات الذي أبلغت به قاعدة البيانات. ينبغي أن يكون هذا الإصدار هو إصدار الإضافة نفسه."
+
+#: includes/admin/views/html-admin-page-status-report.php:23
+msgid "Database version"
+msgstr "إصدار قاعدة البيانات"
+
+#: includes/admin/views/html-admin-page-status-report.php:18
+msgid "Product Bundles"
+msgstr "حزم المنتجات"
+
+#: includes/admin/reports/class-wc-pb-report-insufficient-stock.php:205
+msgid "Units required"
+msgstr "الوحدات المطلوبة"
+
+#: includes/admin/reports/class-wc-pb-report-insufficient-stock.php:204
+msgid "Bundle"
+msgstr "حزمة"
+
+#: includes/admin/reports/class-wc-pb-report-insufficient-stock.php:203
+msgid "Bundled product"
+msgstr "المنتج المجمع"
+
+#: includes/admin/reports/class-wc-pb-report-insufficient-stock.php:38
+msgid "No products found with insufficient stock."
+msgstr "لم يتم العثور على منتجات ذات مخزون غير كافٍ. "
+
+#: includes/admin/meta-boxes/views/html-bundled-product.php:36
+msgid "Drag and drop to set order"
+msgstr "السحب والإفلات لتعيين طلب"
+
+#. translators: Bundled product SKU
+#: includes/admin/meta-boxes/views/html-bundled-product.php:31
+msgctxt "bundled product sku"
+msgid "SKU: %s"
+msgstr "وحدة SKU: %s"
+
+#: includes/admin/meta-boxes/views/html-bundled-product.php:24
+msgid "This product will be treated as virtual when purchased in this bundle."
+msgstr "سيُعامل هذا المنتج على أنه افتراضي عند شرائه في هذه الحِزمة."
+
+#: includes/admin/meta-boxes/views/html-bundle-edit-form.php:20
+#: includes/wc-pb-template-functions.php:802
+msgid "Quantity"
+msgstr "الكمية"
+
+#: includes/admin/meta-boxes/views/html-bundle-edit-form.php:19
+#: includes/wc-pb-template-functions.php:801
+msgid "Product"
+msgstr "المنتج"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1639
+msgid "Advanced Settings"
+msgstr "إعدادات متقدمة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1635
+msgid "Basic Settings"
+msgstr "الإعدادات الأساسية"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1604
+msgid "Search for a product&hellip;"
+msgstr "البحث عن منتج..."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1603
+msgctxt "new bundled product button"
+msgid "Add Product"
+msgstr "إضافة منتج"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1596
+msgid "Add a bundled product&hellip;"
+msgstr "إضافة منتج مجمع..."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1574
+msgid "Add some now?"
+msgstr "هل تريد إضافة بعضها الآن؟"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1573
+msgid "You have not added any products to this bundle."
+msgstr "لم تُضِف أي منتجات إلى هذه الحِزمة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1558
+msgid "Low stock"
+msgstr "مخزون منخفض"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1480
+msgid "Enable this option to allow changing the configuration of this bundle in the cart. Applicable to bundles with configurable attributes and/or quantities."
+msgstr "قم بتمكين هذا الخيار للسماح بتغيير تكوين هذه الحزمة في عربة التسوق. يكون قابلاً للتطبيق مع السمات و/أو الكميات القابلة للتخزين."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1478
+msgid "Edit in Cart"
+msgstr "التحرير في عربة التسوق"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1460
+msgid "Controls the grouping of parent/child line items in cart/order templates."
+msgstr "يتحكم في تجميع عناصر السطور الأصل/التابعة في قوالب عربة التسوق/الطلب."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1459
+msgid "Item Grouping"
+msgstr "تجميع العنصر"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1428
+msgid "Form Location"
+msgstr "موقع النموذج"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1387
+msgid "Select the <strong>Tabular</strong> option to have the thumbnails, descriptions and quantities of bundled products arranged in a table. Recommended for displaying multiple bundled products with configurable quantities."
+msgstr "حدد الخيار <strong>جدولي</strong> لترتيب الصور المصغّرة للمنتجات المجمعة وأوصافها وكمياتها في جدول. يوصى به لعرض العديد من المنتجات المجمعة ذات الكميات القابلة للتكوين."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1386
+msgid "Layout"
+msgstr "التخطيط"
+
+#. translators: Bundled item ID
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1367
+msgctxt "bundled product id"
+msgid "Item ID: %s"
+msgstr "معرّف العنصر: %s"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1341
+msgid "Check this option to hide the thumbnail image of this bundled product."
+msgstr "حدد هذا الخيار لإخفاء صورة الصورة المصغّرة لهذا المنتج المجمع."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1339
+msgid "Hide Thumbnail"
+msgstr "إخفاء الصورة المصغّرة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1324
+msgid "Check this option to override the default short product description."
+msgstr "حدد هذا الخيار لتجاوز وصف المنتج المختصر الافتراضي."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1322
+msgid "Override Short Description"
+msgstr "تجاوز الوصف المختصر"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1307
+msgid "Check this option to override the default product title."
+msgstr "حدد هذا الخيار لتجاوز عنوان المنتج الافتراضي."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1305
+msgid "Override Title"
+msgstr "تجاوز العنوان"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1299
+msgid "Controls the visibility of the bundled-item price in order-details and e-mail templates."
+msgstr "يتحكم في إمكانية رؤية سعر العنصر المجمع في تفاصيل الطلبات وقوالب عناوين البريد الإلكتروني."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1294
+msgid "Controls the visibility of the bundled-item price in cart/checkout templates."
+msgstr "يتحكم في إمكانية رؤية سعر العنصر المجمع في قوالب عربة التسوق/السداد."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1289
+msgid "Controls the visibility of the bundled-item price in the single-product template of this bundle."
+msgstr "يتحكم في إمكانية رؤية سعر العنصر المجمع في قوالب المنتج الفردي لهذه الحزمة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1285
+msgid "Price Visibility"
+msgstr "إمكانية رؤية السعر"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1279
+msgid "Controls the visibility of the bundled item in order-details and e-mail templates."
+msgstr "يتحكم في إمكانية رؤية العنصر المجمع في تفاصيل الطلبات وقوالب عناوين البريد الإلكتروني."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1278
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1298
+msgid "Order details"
+msgstr "تفاصيل الأمر"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1274
+msgid "Controls the visibility of the bundled item in cart/checkout templates."
+msgstr "يتحكم في إمكانية رؤية العنصر المجمع في قوالب عربة التسوق/السداد."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1273
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1293
+msgid "Cart/checkout"
+msgstr "عربة التسوق/السداد"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1269
+msgid "Controls the visibility of the bundled item in the single-product template of this bundle."
+msgstr "يتحكم في إمكانية رؤية العنصر المجمع في قالب المنتج الفردي لهذه الحزمة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1268
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1288
+msgid "Product details"
+msgstr "تفاصيل المنتج"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1265
+msgid "Visibility"
+msgstr "الظهور"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1229
+msgid "Discount applied to the price of this bundled product when Priced Individually is checked. If the bundled product has a Sale Price, the discount is applied on top of the Sale Price."
+msgstr "الخصم المطبَّق على سعر هذا المنتج المجمع عند تحديد \"تم التسعير على حدة\". في حال وجود سعر مخفَّض على المنتج المجمع، يتم تطبيق الخصم فوق السعر المخفّض."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1227
+msgid "Discount %"
+msgstr "النسبة المئوية للخصم"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1221
+msgid "Check this option to have the price of this bundled item added to the base price of the bundle."
+msgstr "حدد هذا الخيار لإضافة سعر هذا العنصر المجمع إلى السعر الأساسي للحزمة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1219
+msgid "Priced Individually"
+msgstr "تم التسعير على حدة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1211
+msgid "Check this option if this bundled item is shipped separately from the bundle."
+msgstr "حدد هذا الخيار في حال شحن هذا العنصر المجمع على حدة من الحزمة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1209
+msgid "Shipped Individually"
+msgstr "تم الشحن على حدة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1201
+msgid "Check this option to mark the bundled product as optional."
+msgstr "حدد هذا الخيار لوضع علامة على المنتج المجمع بأنه اختياري."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1199
+msgid "Optional"
+msgstr "اختياري"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1193
+msgid "The default quantity of this bundled product."
+msgstr "الكمية الافتراضية لهذا المنتج المجمع."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1191
+msgid "Default Quantity"
+msgstr "الكمية الافتراضية"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1185
+msgid "The maximum quantity of this bundled product. Leave the field empty for an unlimited maximum quantity."
+msgstr "الحد الأقصى لكمية هذا المنتج المجمع. اترك الحقل فارغًا لأقصى كمية غير محدودة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1183
+msgid "Max Quantity"
+msgstr "الحد الأقصى للكمية"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1177
+msgid "The minimum quantity of this bundled product."
+msgstr "الحد الأدنى لكمية هذا المنتج المجمع."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1175
+msgid "Min Quantity"
+msgstr "الحد الأدنى للكمية"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1084
+msgid "In effect for this bundle only. When <strong>Filter Variations</strong> is enabled, double-check your selections to make sure they correspond to an active variation."
+msgstr "ساري المفعول لهذه الحزمة فقط. عند تمكين <strong>تصفية التباينات</strong>، تحقق مجددًا من اختياراتك للتأكد من انسجامها مع تباين نشط."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1082
+msgid "Override Default Selections"
+msgstr "تجاوز الاختيارات الافتراضية"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1066
+msgid "Search for variations&hellip;"
+msgstr "البحث عن التباينات..."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1022
+msgid "Choose variations&hellip;"
+msgstr "اختيار التباينات"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1005
+msgid "Check to enable only a subset of the available variations."
+msgstr "تحقق لتمكين مجموعة فرعية من التباينات المتوفرة فقط."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1002
+msgid "Filter Variations"
+msgstr "تصفية التباينات"
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:929
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:938
+msgid "To hide <strong>%s</strong> from the single-product template, please enable the <strong>Override Default Selections</strong> option and choose default variation attribute values."
+msgstr "لإخفاء <strong>%s</strong> من قالب المنتج الفردي، يرجى تمكين خيار <strong>تجاوز الاختيارات الافتراضية</strong> واختيار قيم سمات التباينات الافتراضية."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:892
+msgid "The default variation attribute values of <strong>%s</strong> are inconsistent with the set of active variations and have been reset."
+msgstr "تكون قيم سمات التباينات الافتراضية لـ <strong>%s</strong> غير متوافقة مع مجموعة التباينات النشطة، وتتم إعادة تعيينها."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:841
+msgid "Failed to save <strong>Filter Variations</strong> for <strong>%s</strong>. Please choose at least one variation."
+msgstr "فشل حفظ <strong>تصفية التباينات</strong> لـ <strong>%s</strong>. يرجى اختيار تباين واحد على الأقل."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:801
+msgid "The <strong>Discount</strong> of <strong>%s</strong> was not valid and has been reset. Please enter a positive number between 0-100."
+msgstr "كان <strong>خصم</strong> <strong>%s</strong> غير صالح، وتمت إعادة تعيينه. يرجى إدخال رقم موجب يتراوح بين 0 و100."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:783
+msgid "The default quantity of <strong>%s</strong> was not valid and has been reset. Please enter an integer between the <strong>Min Quantity</strong> and <strong>Max Quantity</strong>."
+msgstr "كانت الكمية الافتراضية لـ <strong>%s</strong> غير صالحة وتمت إعادة تعيينها. يرجى إدخال عدد صحيح بين <strong>الحد الأدنى للكمية</strong> و<strong>الحد الأقصى للكمية</strong>."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:760
+msgid "The maximum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a positive integer equal to or higher than <strong>Min Quantity</strong>, or leave the <strong>Max Quantity</strong> field empty for an unlimited maximum quantity."
+msgstr "كان الحد الأقصى لكمية <strong>%s</strong> غير صالح، وتمت إعادة تعيينه. يرجى إدخال عدد صحيح موجب يساوي <strong>الحد الأدنى للكمية</strong> أو أكبر منه، أو اترك حقل <strong>الحد الأقصى للكمية</strong> فارغًا للحصول على حد أقصى للكمية غير محدود."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:752
+msgid "<strong>%s</strong> is sold individually &ndash; <strong>Max Quantity</strong> cannot be higher than 1."
+msgstr "تم بيع <strong>%s</strong> على حدة - يتعذر أن يكون <strong>الحد الأقصى للكمية</strong> أكبر من 1."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:733
+msgid "The minimum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a non-negative integer <strong>Min Quantity</strong> value."
+msgstr "كان الحد الأدنى لكمية <strong>%s</strong> غير صالح، وتمت إعادة تعيينه. يرجى إدخال قيمة <strong>الحد الأدنى للكمية</strong> بعدد صحيح غير سالب."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:726
+msgid "<strong>%s</strong> is sold individually &ndash; its <strong>Min Quantity</strong> cannot be higher than 1."
+msgstr "تم بيع <strong>%s</strong> على حدة - يتعذر أن يكون <strong>الحد الأدنى للكمية</strong> أكبر من 1."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:653
+msgid "<strong>%s</strong> is sold individually and cannot be bundled more than once."
+msgstr "تم بيع <strong>%s</strong> على حدة، ويتعذر تجميعه أكثر من مرة."
+
+#. translators: Bundled product name
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:642
+msgid "<strong>%s</strong> was not saved. WooCommerce Subscriptions version 2.0 or higher is required in order to bundle Subscription products."
+msgstr "لم يتم حفظ <strong>%s</strong>. يلزم وجود الإصدار 2.0 من WooCommerce Subscriptions أو إصدار أعلى من أجل تجميع منتجات الاشتراكات."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:567
+msgid "This bundle does not contain any mandatory items. To control the minimum and/or maximum number of items that customers must choose in this bundle, use the <strong>Min Bundle Size</strong> and <strong>Max Bundle Size</strong> fields under <strong>Product Data > Bundled Products</strong>."
+msgstr "لا تحتوي هذه الحزمة على أي عناصر إلزامية. للتحكم في الحد الأدنى و/أو الحد الأقصى من عدد العناصر التي يجب على العملاء اختيارها في هذه الحزمة، استخدم الحقلين <strong>الحد الأدنى لحجم الحزمة</strong> و<strong>الحد الأقصى لحجم الحزمة</strong> ضمن <strong>بيانات المنتج > المنتجات المجمعة</strong>. "
+
+#. translators: Reason
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:558
+msgid "The chosen <strong>Item Grouping</strong> option is invalid. %s"
+msgstr "خيار <strong>تجميع العناصر</strong> المختار غير صالح. %s"
+
+#. translators: %1$s: Item Grouping option name, %2$s: Unassembled bundle docs
+#. URL, %3$s: Pricing URL link
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:556
+msgid "%1$s is only supported by <a href=\"%2$s\" target=\"_blank\">unassembled</a> bundles with an empty <a href=\"%3$s\" target=\"_blank\">base price</a>."
+msgid_plural "%1$s are only supported by <a href=\"%2$s\" target=\"_blank\">unassembled</a> bundles with an empty <a href=\"%3$s\" target=\"_blank\">base price</a>."
+msgstr[0] "لا يكون ⁦%1$s⁩ مدعومًا إلا من حِزم <a href=\"%2$s\" target=\"_blank\">غير مجمعة</a> ذات <a href=\"%3$s\" target=\"_blank\">سعر أساسي فارغ</a>. "
+msgstr[1] "لا يكون ⁦%1$s⁩ مدعومًا إلا من حِزم <a href=\"%2$s\" target=\"_blank\">غير مجمعة</a> ذات <a href=\"%3$s\" target=\"_blank\">سعر أساسي فارغ</a>. "
+msgstr[2] "لا تكون ⁦%1$s⁩ مدعومة إلا من حِزم <a href=\"%2$s\" target=\"_blank\">غير مجمعة</a> ذات <a href=\"%3$s\" target=\"_blank\">سعر أساسي فارغ</a>. "
+msgstr[3] "لا تكون ⁦%1$s⁩ مدعومة إلا من حِزم <a href=\"%2$s\" target=\"_blank\">غير مجمعة</a> ذات <a href=\"%3$s\" target=\"_blank\">سعر أساسي فارغ</a>. "
+msgstr[4] "لا تكون ⁦%1$s⁩ مدعومة إلا من حِزم <a href=\"%2$s\" target=\"_blank\">غير مجمعة</a> ذات <a href=\"%3$s\" target=\"_blank\">سعر أساسي فارغ</a>. "
+msgstr[5] "لا تكون ⁦%1$s⁩ مدعومة إلا من حِزم <a href=\"%2$s\" target=\"_blank\">غير مجمعة</a> ذات <a href=\"%3$s\" target=\"_blank\">سعر أساسي فارغ</a>. "
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:535
+msgid "Your changes have not been saved &ndash; please wait for the <strong>WooCommerce Product Bundles Data Update</strong> routine to complete before creating new bundles or making changes to existing ones."
+msgstr "لم يتم حفظ تغييراتك - يرجى انتظار اكتمال روتين <strong>تحديث بيانات حِزم المنتجات من WooCommerce</strong> قبل إنشاء حِزم جديدة أو إجراء تغييرات على الأخرى الموجودة."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:507
+msgid "Please add at least one product to the bundle before publishing. To add products, click on the <strong>Bundled Products</strong> tab."
+msgstr "ترجى إضافة منتج واحد على الأقل إلى الحزمة قبل النشر. لإضافة المنتجات، انقر على علامة تبويب <strong>المنتجات المجمعة</strong>."
+
+#. translators: %1$s: Increase max input vars link, %2$s: Max input vars value
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:412
+msgid " (currently %s)"
+msgstr " (%s حاليًا)"
+
+#. translators: %1$s: Increase max input vars link, %2$s: Max input vars value
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:412
+msgid "Product Bundles has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server's host or administrator and (kindly) ask them to <a href=\"%1$s\" target=\"_blank\">increase the number of variables</a> that PHP scripts can post and process%2$s."
+msgstr "اكتشفت حِزم المنتجات أن خادمك ربما فشل في معالجة بعض البيانات وحفظها على هذه الصفحة. يرجى التواصل مع مضيف الخادم أو مسؤوله واطلب منه (بلطف) <a href=\"%1$s\" target=\"_blank\">زيادة عدد المتغيرات</a> التي يمكن لبرامج PHP النصية نشرها ومعالجتها%2$s."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:352
+msgid "Preserve"
+msgstr "احتفاظ"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:351
+msgid "Ignore"
+msgstr "تجاهل"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:348
+msgid "Controls whether to ignore or preserve the weight of assembled bundled items.<br><br> <strong>Ignore</strong> &ndash; The specified Weight is the total weight of the entire bundle.<br><br> <strong>Preserve</strong> &ndash; The specified Weight is treated as a container weight. The total weight of the bundle is the sum of: i) the container weight, and ii) the weight of all assembled bundled items."
+msgstr "التحكم فيما إذا كان سيتم تجاهل وزن العناصر المجمعة في حِزَم أم الحفاظ عليه.<br><br> <strong>تجاهل</strong> - الوزن المحدد هو الوزن الإجمالي للحزمة الكاملة.<br><br> <strong>احتفاظ</strong> - يتم التعامل مع الوزن المحدد على أنه وزن الحاوية. الوزن الإجمالي للحزمة هو مجموع: 1) وزن الحاوية، و2) وزن جميع العناصر المجمعة في حِزَم."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:347
+msgid "Assembled weight"
+msgstr "الوزن المجمع"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:308
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:309
+msgid "Bundle type"
+msgstr "نوع الحزمة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:298
+msgid "Bundled products are assembled and shipped in a new physical container with the specified dimensions, weight and shipping class. The entire bundle appears as a single physical item.<br><br>To ship a bundled product outside this container, navigate to the <strong>Bundled Products</strong> tab, expand its settings and enable <strong>Shipped Individually</strong>. Bundled products that are <strong>Shipped Individually</strong> preserve their own dimensions, weight and shipping classes."
+msgstr "يتم تجميع المنتجات المجمعة في حِزَم وشحنها داخل حاوية مادية جديدة بالأبعاد والوزن وفئة الشحن المحددة. تظهر الحزمة الكاملة كعنصر مادي واحد.<br><br>لشحن منتج مجمع خارج هذه الحاوية، انتقل إلى علامة تبويب <strong>المنتجات المجمعة</strong>، وقم بتوسيع إعداداته وتمكين <strong>تم الشحن على حدة</strong>. تحتفظ المنتجات المجمعة في حِزَم، والتي <strong>يتم شحنها بشكل فردي</strong>، بأبعادها وأوزانها وفئات الشحن الخاصة بها."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:297
+msgid "Assembled"
+msgstr "مجمع"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:292
+msgid "Bundled products preserve their individual dimensions, weight and shipping classes. A virtual container item keeps them grouped together in the cart."
+msgstr "تحتفظ المنتجات المجمعة بأبعادها الفردية ووزنها وفئات الشحن الخاصة بها. يُبقيها عنصر الحاوية الافتراضي مجتمعة معًا في عربة التسوق."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:291
+msgid "Unassembled"
+msgstr "غير مجمعة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:267
+msgid "Virtual bundles are intangible and are not shipped. When this option is enabled, any physical products added to this bundle will be treated as virtual."
+msgstr "تُعد الحِزم الافتراضية غير ملموسة ولا يتم شحنها. عند تمكين هذا الخيار، ستُعامل أي منتجات مادية مضافة إلى هذه الحزمة على أنها افتراضية."
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:155
+msgid "Bundled Products"
+msgstr "المنتجات المجمعة"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:138
+msgid "Matching configurations"
+msgstr "مطابقة التكوينات"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:137
+msgid "Yes"
+msgstr "نعم"
+
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:136
+msgid "No"
+msgstr "لا"
+
+#. translators: %1$s: Product title, %2$s: Pricing options docs
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:102
+msgid "&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href=\"%2$s\" target=\"_blank\">pricing options</a> only takes a minute! <ul class=\"pb_notice_list\"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of individual bundled products, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for each bundled product whose price must be preserved.</li></ul> Then, save your changes."
+msgstr "يتعذر شراء \"⁦%1$s⁩\" حتى الآن. لكن، لا تقلق - لا يستغرق إعداد <a href=\"%2$s\" target=\"_blank\">خيارات الأسعار</a> سوى دقيقة! <ul class=\"pb_notice_list\"><li>لمنح \"⁦%1$s⁩\" سعرًا أساسيًا ثابتًا، انتقل إلى <strong>بيانات المنتج > عام</strong> واملأ حقل <strong>السعر العادي</strong>.</li><li>للحفاظ على أسعار المنتجات المجمعة الفردية والضرائب المفروضة عليها، انتقل إلى <strong>بيانات المنتج > المنتجات المجمعة</strong> وقم بتمكين <strong>يتم التسعير على حدة</strong> لكل منتج من المنتجات المجمعة التي يجب الحفاظ على سعرها.</li></ul> بعد ذلك، احفظ تغييراتك."
+
+#: includes/admin/export/class-wc-pb-product-export.php:67
+#: includes/admin/import/class-wc-pb-product-import.php:62
+#: includes/admin/import/class-wc-pb-product-import.php:87
+msgid "Bundle Sells Discount"
+msgstr "خصم على عمليات بيع الحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:66
+#: includes/admin/import/class-wc-pb-product-import.php:61
+#: includes/admin/import/class-wc-pb-product-import.php:86
+msgid "Bundle Sells Title"
+msgstr "عنوان عمليات بيع الحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:65
+#: includes/admin/import/class-wc-pb-product-import.php:60
+#: includes/admin/import/class-wc-pb-product-import.php:85
+msgid "Bundle Sells"
+msgstr "عمليات بيع الحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:64
+#: includes/admin/import/class-wc-pb-product-import.php:59
+#: includes/admin/import/class-wc-pb-product-import.php:84
+msgid "Bundle Form Location"
+msgstr "موقع نموذج الحزمة"
+
+#: includes/admin/export/class-wc-pb-product-export.php:63
+#: includes/admin/import/class-wc-pb-product-import.php:58
+#: includes/admin/import/class-wc-pb-product-import.php:83
+msgid "Bundle Sold Individually"
+msgstr "تباع الحزمة على حدة"
+
+#: includes/admin/export/class-wc-pb-product-export.php:62
+#: includes/admin/import/class-wc-pb-product-import.php:57
+#: includes/admin/import/class-wc-pb-product-import.php:82
+msgid "Bundle Cart Editing"
+msgstr "تحرير عربة تسوق الحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:61
+#: includes/admin/import/class-wc-pb-product-import.php:56
+#: includes/admin/import/class-wc-pb-product-import.php:81
+msgid "Bundle Group Mode"
+msgstr "وضع مجموعة الحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:60
+#: includes/admin/import/class-wc-pb-product-import.php:55
+#: includes/admin/import/class-wc-pb-product-import.php:80
+msgid "Bundle Layout"
+msgstr "تخطيط الحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:59
+#: includes/admin/import/class-wc-pb-product-import.php:54
+#: includes/admin/import/class-wc-pb-product-import.php:79
+msgid "Bundle Aggregate Weight"
+msgstr "الوزن الكلي للحِزم"
+
+#: includes/admin/export/class-wc-pb-product-export.php:58
+#: includes/admin/import/class-wc-pb-product-import.php:53
+#: includes/admin/import/class-wc-pb-product-import.php:78
+msgid "Bundle Contents Virtual"
+msgstr "محتويات الحِزم الافتراضية"
+
+#: includes/admin/export/class-wc-pb-product-export.php:57
+#: includes/admin/import/class-wc-pb-product-import.php:52
+#: includes/admin/import/class-wc-pb-product-import.php:77
+#: includes/modules/min-max-items/includes/admin/class-wc-pb-mmi-admin.php:65
+msgid "Max Bundle Size"
+msgstr "الحد الأقصى لحجم الحزمة"
+
+#: includes/admin/export/class-wc-pb-product-export.php:56
+#: includes/admin/import/class-wc-pb-product-import.php:51
+#: includes/admin/import/class-wc-pb-product-import.php:76
+#: includes/modules/min-max-items/includes/admin/class-wc-pb-mmi-admin.php:53
+msgid "Min Bundle Size"
+msgstr "الحد الأدنى لحجم الحزمة"
+
+#: includes/admin/export/class-wc-pb-product-export.php:55
+#: includes/admin/import/class-wc-pb-product-import.php:50
+#: includes/admin/import/class-wc-pb-product-import.php:75
+msgid "Bundled Items (JSON-encoded)"
+msgstr "العناصر المجمعة (ذات ترميز JSON)"
+
+#. translators: %1$s: Product title, %2$s: Product "clear filter" link
+#: includes/admin/class-wc-pb-admin.php:531
+msgid "You are currently viewing a filtered version of this report for <strong>%1$s</strong>. <a href=\"%2$s\" class=\"wc_pb_forward\">Clear Filter</a>"
+msgstr "أنت تشاهد حاليًا إصدارًا تمت تصفيته لهذا التقرير الخاص بـ <strong>%1$s</strong>. <a href=\"%2$s\" class=\"wc_pb_forward\">مسح التصفية</a>"
+
+#: includes/admin/class-wc-pb-admin.php:312
+msgid "Failed to validate configuration. If this issue persists, please reload the page and try again."
+msgstr "فشل التحقق من التكوين. إذا استمرت هذه المشكلة، فترجى إعادة تحميل الصفحة والمحاولة مجددًا."
+
+#: includes/admin/class-wc-pb-admin.php:311
+msgid "Failed to initialize form. If this issue persists, please reload the page and try again."
+msgstr "فشلت تهيئة النموذج. إذا استمرت هذه المشكلة، فترجى إعادة تحميل الصفحة والمحاولة مجددًا."
+
+#. translators: %s: Required step qty value.
+#: includes/admin/class-wc-pb-admin.php:268
+msgid "Please enter an integer that is a multiple of %s."
+msgstr "يرجى إدخال عدد صحيح يساوي مضاعف %s."
+
+#. translators: %s: Highest allowed qty value.
+#: includes/admin/class-wc-pb-admin.php:266
+msgid "Please enter an integer lower than or equal to %s."
+msgstr "يرجى إدخال عدد صحيح أقل من %s أو يساويه."
+
+#. translators: %s: Lowest required qty value.
+#: includes/admin/class-wc-pb-admin.php:264
+msgid "Please enter an integer higher than or equal to %s."
+msgstr "يرجى إدخال عدد صحيح أعلى من %s أو يساويه."
+
+#: includes/admin/class-wc-pb-admin.php:190
+msgid "Product Bundles does not collect, store or share any personal data."
+msgstr "لا تجمع حِزم المنتجات أي بيانات شخصية أو تُخزّنها أو تشاركها."
+
+#: includes/admin/class-wc-pb-admin.php:153
+msgid "The installed version of <strong>Product Bundles</strong> is not compatible with the <code>selectSW</code> library found on your system. Please update Product Bundles to the latest version."
+msgstr "الإصدار المثبَّت من <strong>حِزم المنتجات</strong> غير متوافق مع مكتبة <code>selectSW</code> الموجودة على نظامك. يرجى تحديث حِزم المنتجات إلى أحدث إصدار."
+
+#: includes/admin/class-wc-pb-admin-post-types.php:65
+msgid "View Report"
+msgstr "عرض التقرير"
+
+#: includes/admin/class-wc-pb-admin-post-types.php:54
+#: includes/admin/class-wc-pb-admin.php:485
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1552
+#: includes/class-wc-bundled-item.php:2593 includes/class-wc-pb-display.php:222
+#: includes/class-wc-product-bundle.php:1534
+msgid "Insufficient stock"
+msgstr "مخزون غير كافٍ"
+
+#: includes/admin/class-wc-pb-admin-order.php:291
+msgid "Done"
+msgstr "تم"
+
+#: includes/admin/class-wc-pb-admin-order.php:256
+#: includes/admin/class-wc-pb-admin.php:309
+msgid "Configure"
+msgstr "ضبط"
+
+#: includes/admin/class-wc-pb-admin-order.php:254
+#: includes/admin/class-wc-pb-admin.php:310
+msgid "Edit"
+msgstr "تعديل"
+
+#. translators: %1$s: Product title, %2$s: Product identifier
+#: includes/admin/class-wc-pb-admin-order.php:187
+msgctxt "bundled items stock change note format"
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#: includes/admin/class-wc-pb-admin-notices.php:743
+msgid "Learn more"
+msgstr "أعرف أكثر"
+
+#: includes/admin/class-wc-pb-admin-notices.php:734
+msgid "Ready to start offering bulk discounts?"
+msgstr "هل أنت مستعد لبدء عرض الخصومات المجمعة؟"
+
+#: includes/admin/class-wc-pb-admin-notices.php:727
+msgid "Grab the free <strong>Bulk Discounts</strong> add-on, and offer lower prices to those who purchase more!"
+msgstr "احصل على الوظيفة الإضافية المجانية <strong>للخصومات المجمعة</strong>، واعرض أسعارًا أقل لأولئك الذين يشترون المزيد!"
+
+#: includes/admin/class-wc-pb-admin-notices.php:726
+msgid "Did you know that you can use <strong>Product Bundles</strong> to offer bulk quantity discounts? "
+msgstr "هل كنت على دراية بأنه يمكنك استخدام <strong>حِزم المنتجات</strong> لعرض خصومات على الكميات المجمعة؟ "
+
+#. translators: Get in touch link
+#: includes/admin/class-wc-pb-admin-notices.php:581
+msgid " If this message persists, please restore your database from a backup, or %s."
+msgstr " إذا استمرت هذا الرسالة، فترجى استعادة قاعدة بيانتك من النسخة الاحتياطية، أو %s."
+
+#: includes/admin/class-wc-pb-admin-notices.php:579
+msgid "get in touch with us"
+msgstr "تواصل معنا"
+
+#. translators: Run manually link
+#: includes/admin/class-wc-pb-admin-notices.php:564
+msgid " The process seems to be taking a little longer than usual, so let's try to %s."
+msgstr " يبدو أن العملية ستستغرق وقتًا أطول بقليل عن المعتاد، لذا لنجرب %s."
+
+#: includes/admin/class-wc-pb-admin-notices.php:562
+msgid "run it manually"
+msgstr "تشغيله يدويًا"
+
+#: includes/admin/class-wc-pb-admin-notices.php:542
+msgid "Update database"
+msgstr "تحديث قاعدة البيانات"
+
+#: includes/admin/class-wc-pb-admin-notices.php:523
+msgid "<strong>WooCommerce Product Bundles</strong> has finished updating your revenue Analytics data!"
+msgstr "انتهت <strong>حِزم المنتجات من WooCommerce</strong> من تحديث بيانات تحليلات الإيرادات!"
+
+#: includes/admin/class-wc-pb-admin-notices.php:518
+msgid "<strong>WooCommerce Product Bundles</strong> is updating your historical revenue Analytics data. This may take a while, so please be patient!"
+msgstr "تقوم <strong>حِزم المنتجات من WooCommerce</strong> بتحديث بيانات تحليلات الإيرادات المحفوظة لديك. قد يستغرق ذلك بعض اللحظات، لذا يرجى التحلي بالصبر!"
+
+#. translators: onboarding url
+#: includes/admin/class-wc-pb-admin-notices.php:420
+msgid "Thank you for installing <strong>WooCommerce Product Bundles</strong>. Ready to get started? <a href=\"%s\">Click here to create your first bundle</a>."
+msgstr "شكرًا لك لتثبيت <strong>حِزم المنتجات من WooCommerce</strong>. هل أنت مستعد للبدء؟ <a href=\"%s\">انقر هنا لإنشاء أول حزمة لك</a>."
+
+#: includes/admin/class-wc-pb-admin-notices.php:384
+msgid "<strong>WooCommerce Product Bundles</strong> database update complete. Thank you for updating to the latest version!"
+msgstr "اكتمل تحديث قاعدة بيانات <strong>حِزم المنتجات من WooCommerce</strong>. شكرًا لك على التحديث إلى الإصدار الأحدث!"
+
+#. translators: Failed update prompt
+#: includes/admin/class-wc-pb-admin-notices.php:375
+msgid "<strong>WooCommerce Product Bundles</strong> has not finished updating your database.%s"
+msgstr "لم تنتهِ <strong>حِزم المنتجات من WooCommerce</strong> من تحديث قاعدة بياناتك.%s"
+
+#. translators: Learn more link
+#: includes/admin/class-wc-pb-admin-notices.php:369
+msgid "Before you proceed, please take a few minutes to <a href=\"%s\" target=\"_blank\">learn more</a> about best practices when updating."
+msgstr "قبل المتابعة، يرجى تخصيص بعض الدقائق <a href=\"%s\" target=\"_blank\">لمعرفة المزيد</a> حول أفضل الممارسات عند التحديث."
+
+#: includes/admin/class-wc-pb-admin-notices.php:367
+msgid "<strong>WooCommerce Product Bundles</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well."
+msgstr "تم تحديث <strong>حِزم المنتجات من WooCommerce</strong>! للحفاظ على سير الأمور بسلاسة، يتعين عليك كذلك تحديث قاعدة بياناتك."
+
+#. translators: Force update prompt
+#: includes/admin/class-wc-pb-admin-notices.php:362
+msgid "<strong>WooCommerce Product Bundles</strong> is updating your database.%s"
+msgstr "تقوم <strong>حِزم المنتجات من WooCommerce</strong> بتحديث قاعدة بياناتك.%s"
+
+#. translators: List of items
+#: includes/admin/class-wc-pb-admin-ajax.php:627
+msgid "Adjusted bundled line items: %s"
+msgstr "عناصر الأسطر المجمعة التي تم ضبطها: %s"
+
+#. translators: List of items
+#. translators: %s: List of added items
+#: includes/admin/class-wc-pb-admin-ajax.php:622
+#: includes/admin/class-wc-pb-admin-order.php:192
+msgid "Added bundled line items: %s"
+msgstr "عناصر الأسطر المجمعة المضافة: %s"
+
+#. translators: List of items
+#: includes/admin/class-wc-pb-admin-ajax.php:617
+msgid "Deleted bundled line items: %s"
+msgstr "عناصر الأسطر المجمعة المحذوفة: %s"
+
+#. translators: %1$s: Product title, %2$s: SKU
+#: includes/admin/class-wc-pb-admin-ajax.php:610
+msgctxt "bundled items change note format"
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#. translators: %1$s: SKU, %2$s: Bundled item ID
+#. translators: %1$s: Product SKU, %2$s: Product identifier
+#: includes/admin/class-wc-pb-admin-ajax.php:604
+#: includes/admin/class-wc-pb-admin-order.php:181
+msgctxt "bundled items stock change note sku with id format"
+msgid "%1$s:%2$s"
+msgstr "%1$s:%2$s"
+
+#. translators: %1$s: error, %2$s: reason
+#: includes/admin/class-wc-pb-admin-ajax.php:480
+msgctxt "edit bundle in order: formatted validation message"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: includes/admin/class-wc-pb-admin-ajax.php:475
+msgid "The submitted configuration is invalid."
+msgstr "التكوين المرسَل غير صالح."
+
+#: includes/admin/class-wc-pb-admin-ajax.php:266
+msgid "The selected product is invalid."
+msgstr "المنتج المحدد غير صالح."
+
+#: includes/admin/class-wc-pb-admin-ajax.php:263
+msgid "The selected product cannot be bundled. Please select a simple product, a variable product, or a simple/variable subscription."
+msgstr "يتعذر تجميع المنتج المحدد. يرجى تحديد منتج بسيط أو منتج متغير أو اشتراك بسيط/متغير."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:320
+msgid "Units Required"
+msgstr "الوحدات المطلوبة"
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:319
+msgid "Bundled Product Title"
+msgstr "عنوان المنتج المجمع"
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:318
+msgid "Bundle Title"
+msgstr "عنوان الحزمة"
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:225
+msgid "Quantity required."
+msgstr "الكمية المطلوبة."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:221
+msgid "Bundled Product SKU."
+msgstr "وحدة SKU للمنتج المجمع"
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:213
+msgid "Manage stock."
+msgstr "إدارة المخزون."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:207
+msgid "Stock quantity."
+msgstr "كمية المخزون."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:203
+msgid "Bundled Product inventory status."
+msgstr "حالة المخزون من المنتج المجمع."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:197
+msgid "Bundled Product link."
+msgstr "رابط المنتج المجمع."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:191
+msgid "Bundled Product name."
+msgstr "اسم المنتج المجمع."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:185
+msgid "Bundle name."
+msgstr "اسم الحزمة."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:178
+msgid "Bundled Item ID."
+msgstr "معرّف العنصر المجمع."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:172
+msgid "Bundled Product ID."
+msgstr "معرّف المنتج المجمع."
+
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:166
+msgid "Bundle ID."
+msgstr "معرّف الحزمة."
+
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-data-store.php:168
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-data-store.php:184
+msgid "Sorry, fetching revenue data failed."
+msgstr "عذرًا، فشل إحضار بيانات العائدات."
+
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:403
+msgid "Limit stats fields to the specified items."
+msgstr "حدِّد حقول الإحصاءات على عناصر محدَّدة."
+
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:393
+msgid "Segment the response by additional constraint."
+msgstr "يمكنك تقسيم الرد حسب القيد الإضافي."
+
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:370
+msgid "Time interval to use for buckets in the returned data."
+msgstr "الفاصل الزمني المطلوب استخدامه للفترات في البيانات التي تم إرجاعها."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:356
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:324
+msgid "Status"
+msgstr "الحالة"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:352
+msgid "Orders"
+msgstr "الطلبات"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:351
+msgid "N. Revenue"
+msgstr "N. الإيراد"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:350
+msgid "Bundled Items Sold"
+msgstr "العناصر المجمعة المبيعة"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:349
+msgid "Items Sold"
+msgstr "العناصر المباعة"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:348
+msgid "SKU"
+msgstr "وحدة الاحتفاظ بالمخزون"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:347
+msgid "Product Title"
+msgstr "عنوان المنتج"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:318
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:290
+msgid "Add additional piece of info about each product to the report."
+msgstr "أضف المزيد من المعلومات إلى التقرير حول كل منتج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:308
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:384
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:281
+msgid "Limit result to items with specified product ids."
+msgstr "يمكنك حصر النتيجة على العناصر ذات مُعرِّفات المنتجات المُحدَّدة."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:298
+msgid "Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories"
+msgstr "يشير إلى ما إذا كانت جميع الشروط ينبغي أن تكون صحيحة لمجموعة النتائج أم لا، أو إذا كان أي شرط منها كافيًا. يؤثر التطابق في المعلمات الآتية: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories"
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:283
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:357
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:270
+msgid "Sort collection by object attribute."
+msgstr "ترتيب المجموعة باستخدام خاصية الكائن."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:276
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:350
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:263
+msgid "Order sort attribute ascending or descending."
+msgstr "خاصية الترتيب إما تصاعدي أو تنازلي."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:270
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:344
+msgid "Limit response to resources published before a given ISO8601 compliant date."
+msgstr "حصر الرد على المصادر المنشورة قبل تاريخ مُعطى ومتوافق مع معيار ISO8601."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:264
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:338
+msgid "Limit response to resources published after a given ISO8601 compliant date."
+msgstr "حصر الرد على المصادر المنشورة بعد تاريخ مُعطى ومتوافق مع معيار ISO8601."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:255
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:329
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:254
+msgid "Maximum number of items to be returned in result set."
+msgstr "العدد الأقصى للعناصر ليتم إرجاعه في النتائج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:247
+#: includes/admin/analytics/reports/revenue/stats/class-wc-pb-analytics-revenue-stats-rest-controller.php:321
+#: includes/admin/analytics/reports/stock/class-wc-pb-analytics-stock-rest-controller.php:246
+msgid "Current page of the collection."
+msgstr "الصفحة الحالية للمجموعة."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:229
+msgid "Product SKU."
+msgstr "رمز المنتج (SKU)."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:223
+msgid "Product inventory status."
+msgstr "حالة المخزون من المنتج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:217
+msgid "Product link."
+msgstr "رابط المنتج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:211
+msgid "Product image."
+msgstr "صورة المنتج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:205
+msgid "Product price."
+msgstr "سعر المنتج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:199
+msgid "Product name."
+msgstr "اسم المنتج."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:192
+msgid "Number of orders product appeared in."
+msgstr "عدد طلبات المنتج الظاهرة."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:186
+msgid "Total Net Sales of all items sold."
+msgstr "إجمالي صافي المبيعات لجميع العناصر المباعة."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:180
+msgid "Number of bundled items sold."
+msgstr "عدد العناصر المجمعة المبيعة."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:174
+msgid "Number of items sold."
+msgstr "عدد العناصر المباعة."
+
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-rest-controller.php:168
+msgid "Product ID."
+msgstr "مُعرف المنتج."
+
+#. translators: %s is product name
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-data-store.php:219
+msgid "(Deleted)"
+msgstr "(محذوف)"
+
+#. translators: %s is product name
+#: includes/admin/analytics/reports/revenue/class-wc-pb-analytics-revenue-data-store.php:219
+msgid "%s (Deleted)"
+msgstr "%s (محذوف)"
+
+#: includes/admin/analytics/class-wc-pb-admin-analytics.php:95
+msgid "Bundles"
+msgstr "الحزم"
+
+#: includes/admin/analytics/class-wc-pb-admin-analytics-sync.php:523
+msgid "Regenerates historical Revenue data under <strong>Analytics > Bundles</strong>."
+msgstr "يعيد إنشاء بيانات الإيرادات المحفوظة أسفل <strong>التحليلات > الحِزم</strong>."
+
+#: includes/admin/analytics/class-wc-pb-admin-analytics-sync.php:522
+msgid "Regenerate data"
+msgstr "إعادة إنشاء البيانات"
+
+#: includes/admin/analytics/class-wc-pb-admin-analytics-sync.php:521
+msgid "Regenerate Product Bundles revenue analytics data"
+msgstr "إعادة إنشاء بيانات تحليلات إيرادات حِزم المنتجات"
+
+#: includes/admin/analytics/class-wc-pb-admin-analytics-sync.php:146
+msgid "Tool ran."
+msgstr "تم تشغيل الأداة."
+
+#: includes/admin/analytics/class-wc-pb-admin-analytics-sync.php:129
+msgid "Tool ran. No orders found to process."
+msgstr "تم تشغيل الأداة. لم يتم العثور على طلبات لمعالجتها."
+
+#. Author of the plugin
+#: woocommerce-product-bundles.php
+msgid "WooCommerce"
+msgstr "ووكومرس "
+
+#. Description of the plugin
+#: woocommerce-product-bundles.php
+msgid "Offer product bundles, bulk discount packages, and assembled products."
+msgstr "اعرض حِزم المنتجات وحِزم الخصومات المجمعة والمنتجات المجمعة."
+
+#. Plugin URI of the plugin
+#: woocommerce-product-bundles.php
+msgid "https://woocommerce.com/products/product-bundles/"
+msgstr "https://woocommerce.com/products/product-bundles/"
+
+#. Plugin Name of the plugin
+#: woocommerce-product-bundles.php
+msgid "WooCommerce Product Bundles"
+msgstr "WooCommerce Product Bundles"

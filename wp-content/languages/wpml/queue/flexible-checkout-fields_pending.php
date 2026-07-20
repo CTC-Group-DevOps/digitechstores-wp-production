@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['الاسم الثالث'=>['urls'=>[['kind'=>7,'url'=>'/%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d9%8a%d9%86%d8%a9/order-received/450238/?lang=ar&key=wc_order_GgwKqRBV5ZM1h']]],'الطابق'=>['urls'=>[['kind'=>7,'url'=>'/%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d9%8a%d9%86%d8%a9/order-received/450238/?lang=ar&key=wc_order_GgwKqRBV5ZM1h']]],'رقم تلفون اضافي'=>['urls'=>[['kind'=>7,'url'=>'/%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d9%8a%d9%86%d8%a9/order-received/450238/?lang=ar&key=wc_order_GgwKqRBV5ZM1h']]]]];

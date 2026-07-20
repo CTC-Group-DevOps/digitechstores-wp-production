@@ -1,0 +1,1424 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Flexible Checkout Fields PRO 4.0.28\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-checkout-fields-pro\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-21T01:17:40+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: pl_PL\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: flexible-checkout-fields-pro\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Basepath: ../src\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Loco-Source-Locale: en_PL\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Poedit-SearchPathExcluded-1: vendor_prefixed\n"
+
+#. Plugin Name of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "Flexible Checkout Fields PRO"
+msgstr "Flexible Checkout Fields Pro"
+
+#. Plugin URI of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "https://www.wpdesk.net/sk/flexible-checkout-fields-pro-plugin/"
+msgstr ""
+
+#. Description of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "Extension to the free version. Adds new field types, custom sections and more."
+msgstr "Rozszerzenie do wersji darmowej. Dodaje nowe typy pól, niestandardowe sekcje i nie tylko."
+
+#. Author of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "WP Desk"
+msgstr "WP Desk"
+
+#. Author URI of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "https://www.wpdesk.net/sk/flexible-checkout-fields-pro-author/"
+msgstr ""
+
+#: classes/flexible-checkout-fields-order-metabox.php:65
+msgid "Flexible Checkout Fields"
+msgstr "Flexible Checkout Fields"
+
+#: classes/flexible-checkout-fields-pro-plugin.php:156
+#: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:188
+#: Plugin/AbstractPlugin.php:208
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: classes/flexible-checkout-fields-pro-plugin.php:157
+#: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:184
+#: Plugin/AbstractPlugin.php:201
+msgid "Docs"
+msgstr "Dokumentacja"
+
+#: classes/flexible-checkout-fields-pro-plugin.php:158
+#: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:181
+#: Plugin/AbstractPlugin.php:195
+msgid "Support"
+msgstr "Wsparcie"
+
+#: classes/flexible-checkout-fields-pro.php:91
+msgid "Yes"
+msgstr "Tak"
+
+#: classes/flexible-checkout-fields-pro.php:204
+#: classes/flexible-checkout-fields-pro.php:208
+msgid "Before Customer Details"
+msgstr "Przed danymi klienta"
+
+#. translators: %1$s: section title
+#: classes/flexible-checkout-fields-pro.php:207
+#: classes/flexible-checkout-fields-pro.php:220
+#: classes/flexible-checkout-fields-pro.php:234
+#: classes/flexible-checkout-fields-pro.php:247
+#: classes/flexible-checkout-fields-pro.php:260
+#: classes/flexible-checkout-fields-pro.php:273
+#: classes/flexible-checkout-fields-pro.php:286
+#: classes/flexible-checkout-fields-pro.php:300
+#: classes/flexible-checkout-fields-pro.php:313
+#: classes/flexible-checkout-fields-pro.php:326
+#: classes/flexible-checkout-fields-pro.php:339
+#: classes/flexible-checkout-fields-pro.php:352
+#: classes/flexible-checkout-fields-pro.php:365
+#: classes/flexible-checkout-fields-pro.php:378
+#: classes/flexible-checkout-fields-pro.php:391
+#: classes/flexible-checkout-fields-pro.php:404
+#: classes/flexible-checkout-fields-pro.php:417
+#, php-format
+msgid "%s Fields"
+msgstr "Pola dla sekcji \"%s\""
+
+#: classes/flexible-checkout-fields-pro.php:217
+#: classes/flexible-checkout-fields-pro.php:221
+msgid "Before Billing Heading"
+msgstr "Przed nagłówkiem formularza płatności"
+
+#: classes/flexible-checkout-fields-pro.php:231
+#: classes/flexible-checkout-fields-pro.php:235
+msgid "Before Billing Form"
+msgstr "Przed formularzem płatności"
+
+#: classes/flexible-checkout-fields-pro.php:244
+#: classes/flexible-checkout-fields-pro.php:248
+msgid "After Billing Form"
+msgstr "Po formularzu płatności"
+
+#: classes/flexible-checkout-fields-pro.php:257
+#: classes/flexible-checkout-fields-pro.php:261
+msgid "Before Registration Form"
+msgstr "Przed formularzem rejestracji"
+
+#: classes/flexible-checkout-fields-pro.php:270
+#: classes/flexible-checkout-fields-pro.php:274
+msgid "After Registration Form"
+msgstr "Po formularzu rejestracji"
+
+#: classes/flexible-checkout-fields-pro.php:283
+#: classes/flexible-checkout-fields-pro.php:287
+msgid "Before Shipping Heading"
+msgstr "Przed nagłówkiem formularza wysyłki"
+
+#: classes/flexible-checkout-fields-pro.php:297
+#: classes/flexible-checkout-fields-pro.php:301
+msgid "Before Shipping Form"
+msgstr "Przed formularzem wysyłki"
+
+#: classes/flexible-checkout-fields-pro.php:310
+#: classes/flexible-checkout-fields-pro.php:314
+msgid "After Shipping Form"
+msgstr "Po formularzu wysyłki"
+
+#: classes/flexible-checkout-fields-pro.php:323
+#: classes/flexible-checkout-fields-pro.php:327
+msgid "Before Order Notes"
+msgstr "Przed notatkami do zamówienia"
+
+#: classes/flexible-checkout-fields-pro.php:336
+#: classes/flexible-checkout-fields-pro.php:340
+msgid "After Customer Details"
+msgstr "Po danych klienta"
+
+#: classes/flexible-checkout-fields-pro.php:349
+#: classes/flexible-checkout-fields-pro.php:353
+msgid "After Order Notes"
+msgstr "Po notatkach do zamówienia"
+
+#: classes/flexible-checkout-fields-pro.php:362
+#: classes/flexible-checkout-fields-pro.php:366
+msgid "Before Payment"
+msgstr "Przed płatnością"
+
+#: classes/flexible-checkout-fields-pro.php:375
+#: classes/flexible-checkout-fields-pro.php:379
+msgid "Before Submit"
+msgstr "Przed potwierdzeniem zamówienia"
+
+#: classes/flexible-checkout-fields-pro.php:388
+#: classes/flexible-checkout-fields-pro.php:392
+msgid "After Submit"
+msgstr "Po potwierdzeniu zamówienia"
+
+#: classes/flexible-checkout-fields-pro.php:401
+#: classes/flexible-checkout-fields-pro.php:405
+msgid "After Payment"
+msgstr "Po płatności"
+
+#: classes/flexible-checkout-fields-pro.php:414
+#: classes/flexible-checkout-fields-pro.php:418
+msgid "After Order Review"
+msgstr "Po weryfikacji zamówienia"
+
+#: classes/views/order-additional-fields.php:7
+msgid "Additional checkout fields"
+msgstr "Dodatkowe pola formularza"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:20
+msgid "Enable Shipping Methods Logic"
+msgstr "Włącz logikę warunkową dla metod wysyłki"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:33
+msgid "Show this field if"
+msgstr "Pokaż to pole jeśli"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:40
+msgid "Hide this field if"
+msgstr "Ukryj to pole jeśli"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:49
+#: src/Settings/Option/LogicFieldsGroupOperatorOption.php:58
+#: src/Settings/Option/LogicProductsGroupOperatorOption.php:58
+#: src/Settings/Option/LogicShippingGroupOperatorOption.php:57
+msgid "One or more rules match (or)"
+msgstr "Spełniona jest jedna lub kilka reguł (lub)"
+
+#. translators: %s: rule index
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:59
+#: src/Settings/Option/LogicFieldsRulesOption.php:43
+#: src/Settings/Option/LogicGroupRules.php:29
+#: src/Settings/Option/LogicProductsRulesOption.php:43
+#: src/Settings/Option/LogicShippingRulesOption.php:43
+#, php-format
+msgid "Rule #%s"
+msgstr "Reguła #%s"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:62
+msgid "Shipping Zone"
+msgstr "Strefa wysyłki"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:67
+msgid "No shipping zone selected"
+msgstr "Nie wybrano strefy wysyłki"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:69
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Shipping.php:54
+msgid "No Shipping Zones or Global Methods"
+msgstr "Brak stref wysyłki lub metod globalnych"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:86
+msgid "Shipping Method"
+msgstr "Metoda wysyłki"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:90
+msgid "No Shipping Method was selected"
+msgstr "Nie wybrano metody wysyłki"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:108
+msgid "Shipping Method was disabled or deleted"
+msgstr "Metoda wysyłki została wyłączona lub usunięta"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:112
+msgid "No methods found for this zone"
+msgstr "Nie znaleziono metod dla tej strefy"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:149
+msgid "Delete rule"
+msgstr "Usuń regułę"
+
+#: classes/views/shipping-conditional-logic/shipping-conditional-logic.php:157
+msgid "Add rule"
+msgstr "Dodaj regułę"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Cart.php:13
+msgid "Cart"
+msgstr "Koszyk ma"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Cart.php:22
+msgid "Total value"
+msgstr "Wartość całkowita"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Cart.php:28
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:36
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleCheckoutFields.php:82
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleProductFields.php:70
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Payment.php:33
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Shipping.php:64
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/User.php:39
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/WooFields.php:55
+msgid "Is"
+msgstr "Jest"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Cart.php:29
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:37
+msgid "More than"
+msgstr "Większą niż"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Cart.php:30
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:38
+msgid "Less than"
+msgstr "Niższą niż"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:13
+#: src/Settings/Option/LogicProductsRulesConditionOption.php:57
+msgid "Cart contains"
+msgstr "Koszyk zawiera"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:22
+#: src/Settings/Option/LogicProductsRulesWhatOption.php:66
+msgid "Product"
+msgstr "Produkt"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:23
+msgid "Category"
+msgstr "Kategorię"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:24
+msgid "Product type"
+msgstr "Typ produktu"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:25
+msgid "Number of items"
+msgstr "Liczbę elementów"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:43
+msgid "Which is"
+msgstr "Jest"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/CartContains.php:44
+msgid "Which is not"
+msgstr "Nie jest"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Date.php:15
+msgid "Date"
+msgstr "Data"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Date.php:31
+msgid "From"
+msgstr "Od"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Date.php:32
+msgid "Until"
+msgstr "Do"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleCheckoutFields.php:48
+msgid "FCF Field"
+msgstr "Pole FCF"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleCheckoutFields.php:83
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleProductFields.php:71
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Payment.php:34
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Shipping.php:65
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/User.php:40
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/WooFields.php:56
+msgid "Is not"
+msgstr "Nie jest"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleCheckoutFields.php:116
+msgid "Checked"
+msgstr "Zaznaczone"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleCheckoutFields.php:117
+msgid "Unchecked"
+msgstr "Niezaznaczne"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/FlexibleProductFields.php:42
+msgid "FPF Field"
+msgstr "Pole FPF"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Payment.php:17
+msgid "Payment method"
+msgstr "Metoda płatności"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/Shipping.php:35
+#: src/Settings/Option/LogicShippingRulesMethodOption.php:41
+msgid "Shipping method"
+msgstr "Metoda wysyłki"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/User.php:16
+msgid "User"
+msgstr "Użytkownik"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/User.php:33
+msgid "Role"
+msgstr "Rola"
+
+#: src/ConditionalLogic/Settings/Rule/OptionsProvider/WooFields.php:20
+msgid "Woo fields"
+msgstr "Pola Woo"
+
+#: src/Field/File/FileUploader.php:33
+#: src/Field/File/FileUploader.php:40
+#: src/Field/File/FileUploader.php:185
+msgid "An error occurred while uploading the file."
+msgstr "Wystąpił błąd podczas przesyłania pliku."
+
+#: src/Field/File/FileUploader.php:57
+msgid "Invalid extension of the uploaded file."
+msgstr "Nieprawidłowe rozszerzenie przesłanego pliku."
+
+#. translators: %s: file size
+#: src/Field/File/FileUploader.php:66
+#, php-format
+msgid "The maximum allowed file weight is %sMB."
+msgstr "Dopuszczalny rozmiar pliku to %s MB."
+
+#: src/Field/File/PreviewGenerator.php:118
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Przykro nam ale nie masz dostępu do tej strony."
+
+#: src/Form/Assets.php:105
+msgid "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
+msgstr "Niedziela,Poniedziałek,Wtorek,Środa,Czwartek,Piątek,Sobota"
+
+#: src/Form/Assets.php:106
+msgid "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
+msgstr "Nie,Pon,Wt,Śr,Czw,Pt,Sob"
+
+#: src/Form/Assets.php:107
+msgid "Su,Mo,Tu,We,Th,Fr,Sa"
+msgstr "Nd,Pn,Wt,Śr,Cz,Pt,So"
+
+#: src/Form/Assets.php:108
+msgid "January,February,March,April,May,June,July,August,September,October,November,December"
+msgstr "Styczeń,Luty,Marzec,Kwiecień,Maj,Czerwiec,Lipiec,Sierpień,Wrzesień,Październik,Listopad,Grudzień"
+
+#: src/Form/Assets.php:109
+msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+msgstr "Sty,Lut,Mar,Kwi,Maj,Cze,Lip,Sie,Wrz,Paź,Lis,Gru"
+
+#: src/Form/Assets.php:110
+msgid "Today"
+msgstr "Dzisiaj"
+
+#: src/Form/Assets.php:111
+msgid "Clear"
+msgstr "Wyczyść"
+
+#: src/Plugin/Compatibility.php:163
+msgid "Flexible Checkout Fields and Flexible Checkout Fields PRO plugins are not compatible with each other!"
+msgstr "Wtyczki Flexible Checkout Fields oraz Flexible Checkout Fields PRO są ze sobą niekompatybilne!"
+
+#. translators: %s: break-line char
+#: src/Plugin/Compatibility.php:183
+#, php-format
+msgid "Update both plugins to the latest versions for trouble-free use of all functionalities. Working with plugins now comes with limitations and risks. %sWe improve both versions on a regular basis. Updating the free and PRO versions at the same time guarantees their correct operation."
+msgstr "Zaktualizuj obie wtyczki do najnowszych wersji, aby móc bez problemów korzystać ze wszystkich funkcjonalności. Obecnie funkcjonowanie wtyczek jest ograniczone i obarczone ryzykiem. %sObie wersje wtyczek są przez nas stale ulepszane i tylko aktualizowanie obu wtyczek jednocześnie gwarantuje ich prawidłowe działanie."
+
+#. translators: %s: break-line char
+#: src/Plugin/Compatibility.php:196
+#, php-format
+msgid "Update both plugins to the latest versions to use all the features of the PRO plugin. This plugin has now been deactivated as it is not compatible. %sWe improve both versions on a regular basis. Updating the free and PRO versions at the same time guarantees their correct operation."
+msgstr "Zaktualizuj obie wtyczki do najnowszych wersji, aby móc korzystać z funkcjonalności wtyczki Flexible Checkout Fields PRO, która została wyłączona z powodu niekompatybilności. %sObie wersje wtyczek są przez nas stale ulepszane i tylko aktualizowanie obu wtyczek jednocześnie gwarantuje ich prawidłowe działanie."
+
+#: src/Plugin/Compatibility.php:230
+msgid "Flexible Checkout Fields PRO update needed!"
+msgstr "Flexible Checkout Fields PRO wymaga aktualizacji!"
+
+#. translators: %s: Plugins screen URL.
+#: src/Plugin/Compatibility.php:238
+#, php-format
+msgid "To manage plugins on your site, visit the Plugins page: %s"
+msgstr "Aby zarządzać wtyczkami na swojej witrynie, odwiedź stronę Wtyczki: %s"
+
+#. translators: %s: field label
+#: src/Pricing/Field/FieldAbstract.php:84
+#, php-format
+msgid "Pricing options for %s"
+msgstr "Opcje ceny dla %s"
+
+#. translators: %$1s: price operator (+ or -), %$2s: formatted price
+#: src/Pricing/Type/TypeFixed.php:27
+#, php-format
+msgid "(%1$s %2$s ex. VAT)"
+msgstr "(%1$s %2$s bez VAT)"
+
+#. translators: %s: percentage value
+#: src/Pricing/Type/TypePercentSubtotalTaxed.php:30
+#, php-format
+msgid "%s%% of Subtotal incl. VAT"
+msgstr "%s%% sumy koszyka z VAT"
+
+#. translators: %s: percentage value
+#: src/Pricing/Type/TypePercentSubtotalTaxed.php:33
+#: src/Pricing/Type/TypePercentSubtotalUntaxed.php:30
+#, php-format
+msgid "%s%% of Subtotal"
+msgstr "%s%% sumy koszyka"
+
+#. translators: %s: percentage value
+#: src/Pricing/Type/TypePercentSubtotalUntaxed.php:33
+#, php-format
+msgid "%s%% of Subtotal ex. VAT"
+msgstr "%s%% sumy koszyka bez VAT"
+
+#. translators: %s: percentage value
+#: src/Pricing/Type/TypePercentTotal.php:28
+#, php-format
+msgid "%s%% of Total"
+msgstr "%s%% sumy całkowitej"
+
+#: src/Settings/Option/DateFormatOption.php:41
+msgid "Date format"
+msgstr "Format daty"
+
+#: src/Settings/Option/DateFormatOption.php:48
+msgid "Use a combination of day, month and year (dd, mm, yy or d, m, y) and insert a separator (dot, dash or slash) like dd.mm.yy or yy-mm-dd or m/d/yy."
+msgstr "Użyj kombinacji dnia, miesiąca i roku (dd, mm, yy lub d, m, y) i wstaw separator (kropka, myślnik lub ukośnik) np. dd.mm.yy lub yy-mm-dd lub m/d/yy."
+
+#: src/Settings/Option/DateFormatOption.php:56
+#: src/Settings/Option/FileTypesOption.php:48
+#: src/Settings/Option/FirstWeekDayOption.php:49
+#: src/Settings/Option/LogicFieldsGroupActionOption.php:48
+#: src/Settings/Option/LogicFieldsGroupOperatorOption.php:48
+#: src/Settings/Option/LogicFieldsRulesConditionOption.php:49
+#: src/Settings/Option/LogicFieldsRulesFieldOption.php:49
+#: src/Settings/Option/LogicFieldsRulesValueOption.php:49
+#: src/Settings/Option/LogicProductsGroupActionOption.php:48
+#: src/Settings/Option/LogicProductsGroupOperatorOption.php:48
+#: src/Settings/Option/LogicProductsRulesConditionOption.php:48
+#: src/Settings/Option/LogicProductsRulesValueCatsOption.php:49
+#: src/Settings/Option/LogicProductsRulesValueProductsOption.php:49
+#: src/Settings/Option/LogicProductsRulesWhatOption.php:48
+#: src/Settings/Option/LogicRuleCategory.php:34
+#: src/Settings/Option/LogicRuleComparison.php:45
+#: src/Settings/Option/LogicRuleValues.php:42
+#: src/Settings/Option/LogicShippingGroupActionOption.php:48
+#: src/Settings/Option/LogicShippingGroupOperatorOption.php:48
+#: src/Settings/Option/LogicShippingRulesMethodOption.php:49
+#: src/Settings/Option/LogicShippingRulesZoneOption.php:49
+#: src/Settings/Option/OptionsColorOption.php:41
+#: src/Settings/Option/OptionsImageOption.php:41
+#: src/Settings/Option/OptionsKeyOption.php:41
+#: src/Settings/Option/OptionsValueOption.php:41
+#: src/Settings/Option/PricingValuesTypeOption.php:57
+#: src/Settings/Option/PricingValuesValueOption.php:61
+msgid "This field is required."
+msgstr "Pole wymagane."
+
+#: src/Settings/Option/DaysAfterOption.php:40
+msgid "Days after"
+msgstr "Dni po"
+
+#: src/Settings/Option/DaysAfterOption.php:47
+msgid "Enter the range of days available in the calendar after the current date. Leave blank if the choice is not to be limited. The setting will not skip weekends and holidays."
+msgstr "Wprowadź zakres dni dostępnych w kalendarzu po bieżącej dacie. Pozostaw puste, jeśli wybór nie ma być ograniczany. To ustawienie nie pominie weekendów i świąt."
+
+#: src/Settings/Option/DaysBeforeOption.php:40
+msgid "Days before"
+msgstr "Dni przed"
+
+#: src/Settings/Option/DaysBeforeOption.php:47
+msgid "Enter the range of days available in the calendar before the current date. Leave blank if the choice is not to be limited. The setting will not skip weekends and holidays."
+msgstr "Wprowadź zakres dni dostępnych w kalendarzu przed bieżącą datą. Pozostaw puste, jeśli wybór nie ma być ograniczany. To ustawienie nie pominie weekendów i świąt."
+
+#: src/Settings/Option/DefaultCheckboxOption.php:14
+#: src/Settings/Option/DefaultOption.php:23
+#: src/Settings/Option/DefaultOptionsOption.php:14
+msgid "Default value"
+msgstr "Domyślna wartość"
+
+#: src/Settings/Option/DefaultCheckboxOption.php:21
+msgid "Enter \"Yes\" if the checkbox is to be selected by default."
+msgstr "Wpisz „Tak”, jeśli pole wyboru ma być domyślnie zaznaczone."
+
+#: src/Settings/Option/DefaultOptionsOption.php:21
+msgid "Enter the value of the option to be set as default."
+msgstr "Wprowadź wartość opcji, która ma zostać ustawiona jako domyślna."
+
+#: src/Settings/Option/ExcludedDates.php:40
+msgid "Excluded dates"
+msgstr "Wykluczone daty"
+
+#: src/Settings/Option/ExcludedDates.php:47
+msgid "Enter specific dates separating them with commas. Use this date format: yy-mm-dd (for example 1999-12-31)."
+msgstr "Wpisz konkretne daty oddzielając je przecinkami. Użyj formatu daty: yy-mm-dd (dla przykładu 1999-12-31)."
+
+#: src/Settings/Option/ExcludedWeekDays.php:40
+msgid "Excluded days of week"
+msgstr "Wykluczone dni tygodnia"
+
+#: src/Settings/Option/ExcludedWeekDays.php:48
+#: src/Settings/Option/FirstWeekDayOption.php:58
+msgid "Sunday"
+msgstr "Niedziela"
+
+#: src/Settings/Option/ExcludedWeekDays.php:49
+#: src/Settings/Option/FirstWeekDayOption.php:59
+msgid "Monday"
+msgstr "Poniedziałek"
+
+#: src/Settings/Option/ExcludedWeekDays.php:50
+#: src/Settings/Option/FirstWeekDayOption.php:60
+msgid "Tuesday"
+msgstr "Wtorek"
+
+#: src/Settings/Option/ExcludedWeekDays.php:51
+#: src/Settings/Option/FirstWeekDayOption.php:61
+msgid "Wednesday"
+msgstr "Środa"
+
+#: src/Settings/Option/ExcludedWeekDays.php:52
+#: src/Settings/Option/FirstWeekDayOption.php:62
+msgid "Thursday"
+msgstr "Czwartek"
+
+#: src/Settings/Option/ExcludedWeekDays.php:53
+#: src/Settings/Option/FirstWeekDayOption.php:63
+msgid "Friday"
+msgstr "Piątek"
+
+#: src/Settings/Option/ExcludedWeekDays.php:54
+#: src/Settings/Option/FirstWeekDayOption.php:64
+msgid "Saturday"
+msgstr "Sobota"
+
+#: src/Settings/Option/FileSizeOption.php:40
+msgid "Maximum file size in MB"
+msgstr "Maksymalny rozmiar pliku w MB"
+
+#: src/Settings/Option/FilesLimitOption.php:40
+msgid "Selected files limit"
+msgstr "Limit wybranych plików"
+
+#: src/Settings/Option/FilesLimitOption.php:48
+msgid "Invalid number value."
+msgstr "Nieprawidłowa wartość liczbowa."
+
+#: src/Settings/Option/FileTypesOption.php:40
+msgid "Allowed file types"
+msgstr "Dozwolone typu plików"
+
+#: src/Settings/Option/FirstWeekDayOption.php:41
+msgid "First day of week"
+msgstr "Pierwszy dzień tygodnia"
+
+#. translators: %1$s: anchor opening tag, %2$s: anchor closing tag
+#: src/Settings/Option/HiddenFieldInfoOption.php:43
+#, php-format
+msgid "The value of this field is set using the filter in functions.php. %1$sRead more%2$s"
+msgstr "Wartość tego pola jest ustawiana za pomocą filtra w functions.php. %1$sCzytaj więcej%2$s"
+
+#: src/Settings/Option/Hour12ClockOption.php:40
+msgid "Use 12-hour clock"
+msgstr "Użyj zegara 12-godzinnego"
+
+#: src/Settings/Option/HourMaxOption.php:40
+msgid "Maximum hour"
+msgstr "Godzina końcowa"
+
+#: src/Settings/Option/HourMaxOption.php:48
+#: src/Settings/Option/HourMinOption.php:48
+msgid "The required value format is HH:MM."
+msgstr "Wprowadź wartość w formacie GG:MM."
+
+#: src/Settings/Option/HourMinOption.php:40
+msgid "Minimum hour"
+msgstr "Godzina początkowa"
+
+#: src/Settings/Option/LogicFieldsEnabledOption.php:40
+msgid "Enable conditional logic based on FCF fields"
+msgstr "Włącz logikę warunkową opartą na polach FCF"
+
+#: src/Settings/Option/LogicFieldsEnabledOption.php:47
+msgid "This logic supports fields with values added using FCF. Default WooCommerce fields are not taken into account."
+msgstr "Ta logika obsługuje pola z wartościami dodanymi za pomocą FCF. Domyślne pola WooCommerce nie są brane pod uwagę."
+
+#: src/Settings/Option/LogicFieldsGroupActionOption.php:40
+#: src/Settings/Option/LogicGroupAction.php:40
+#: src/Settings/Option/LogicProductsGroupActionOption.php:40
+#: src/Settings/Option/LogicShippingGroupActionOption.php:40
+msgid "What to do?"
+msgstr "Co zrobić?"
+
+#: src/Settings/Option/LogicFieldsGroupActionOption.php:57
+#: src/Settings/Option/LogicGroupAction.php:49
+#: src/Settings/Option/LogicProductsGroupActionOption.php:57
+#: src/Settings/Option/LogicShippingGroupActionOption.php:57
+msgid "Show this field"
+msgstr "Pokaż to pole"
+
+#: src/Settings/Option/LogicFieldsGroupActionOption.php:58
+#: src/Settings/Option/LogicGroupAction.php:50
+#: src/Settings/Option/LogicProductsGroupActionOption.php:58
+#: src/Settings/Option/LogicShippingGroupActionOption.php:58
+msgid "Hide this field"
+msgstr "Ukryj to pole"
+
+#: src/Settings/Option/LogicFieldsGroupOperatorOption.php:40
+#: src/Settings/Option/LogicProductsGroupOperatorOption.php:40
+#: src/Settings/Option/LogicShippingGroupOperatorOption.php:40
+msgid "When to do?"
+msgstr "Kiedy?"
+
+#: src/Settings/Option/LogicFieldsGroupOperatorOption.php:57
+#: src/Settings/Option/LogicProductsGroupOperatorOption.php:57
+msgid "All rules match (and)"
+msgstr "Spełnione są wszystkie reguły (i)"
+
+#: src/Settings/Option/LogicFieldsRulesConditionOption.php:41
+#: src/Settings/Option/LogicProductsRulesConditionOption.php:40
+msgid "Condition"
+msgstr "Warunek"
+
+#: src/Settings/Option/LogicFieldsRulesFieldOption.php:41
+msgid "Field"
+msgstr "Pole"
+
+#: src/Settings/Option/LogicFieldsRulesValueOption.php:41
+#: src/Settings/Option/OptionsKeyOption.php:49
+#: src/Settings/Option/PlaceholderCheckboxOption.php:24
+#: src/Settings/Option/PricingValuesValueOption.php:40
+msgid "Value"
+msgstr "Wartość"
+
+#. translators: %s: rule index
+#: src/Settings/Option/LogicGroup.php:43
+#, php-format
+msgid "Group %s"
+msgstr "Grupa %s"
+
+#: src/Settings/Option/LogicGroupAction.php:48
+msgid "No action"
+msgstr "Brak akcji"
+
+#: src/Settings/Option/LogicGroupAction.php:51
+msgid "Set as required"
+msgstr "Ustaw jako wymagane"
+
+#. translators: %1$s: anchor opening tag, %2$s: anchor closing tag
+#: src/Settings/Option/LogicInfoOption.php:43
+#, php-format
+msgid "You can combine rules from different logic groups. In this case the logic will work when the conditions from each of the active groups are met. %1$sRead more%2$s"
+msgstr "Możesz łączyć reguły z różnych grup logicznych. W takim przypadku logika warunkowa zadziała, gdy zostaną spełnione warunki z każdej z aktywnych grup. %1$sCzytaj więcej%2$s"
+
+#. translators:  %1$s: anchor opening tag, %2$s: anchor closing tag, %3$s: anchor opening tag, %4$s: anchor closing tag
+#: src/Settings/Option/LogicInfoWcOption.php:18
+#, php-format
+msgid "You can combine rules from different logic groups. In this case the logic will work when the conditions from each of the active groups are met. WooCommerce forces this field to be %1$srequired%2$s. Make sure hiding is possible and will not cause a validation error. %3$sRead more%4$s"
+msgstr "Możesz łączyć reguły z różnych grup logicznych. W takim przypadku logika zadziała, gdy zostaną spełnione warunki z każdej z aktywnych grup. WooCommerce wymusza, aby to pole było %1$swymagane%2$s. Upewnij się, że ukrywanie jest możliwe i nie spowoduje błędu walidacji. %3$sCzytaj więcej%4$s"
+
+#: src/Settings/Option/LogicProductsEnabledOption.php:40
+msgid "Enable conditional logic based on product/category"
+msgstr "Włącz logikę warunkową opartą na produkcie/kategorii"
+
+#: src/Settings/Option/LogicProductsRulesValueCatsOption.php:41
+msgid "Categories"
+msgstr "Kategorie"
+
+#: src/Settings/Option/LogicProductsRulesValueProductsOption.php:41
+msgid "Products"
+msgstr "Produkty"
+
+#: src/Settings/Option/LogicProductsRulesWhatOption.php:40
+msgid "Cart item"
+msgstr "Zawartość koszyka"
+
+#: src/Settings/Option/LogicProductsRulesWhatOption.php:67
+msgid "Product category"
+msgstr "Kategoria produktu"
+
+#: src/Settings/Option/LogicShippingEnabledOption.php:40
+msgid "Enable conditional logic based on shipping methods"
+msgstr "Włącz logikę warunkową opartą na metodach wysyłki"
+
+#: src/Settings/Option/LogicShippingRulesZoneOption.php:41
+msgid "Shipping zone"
+msgstr "Strefa wysyłki"
+
+#: src/Settings/Option/MinuteStepOption.php:40
+msgid "Step minute"
+msgstr "Przedział minut"
+
+#: src/Settings/Option/OptionsCheckedOption.php:40
+msgid "Checked by default"
+msgstr "Domyślnie zaznaczone"
+
+#: src/Settings/Option/OptionsColorOption.php:49
+msgid "Color"
+msgstr "Kolor"
+
+#: src/Settings/Option/OptionsImageOption.php:49
+msgid "Image"
+msgstr "Obrazek"
+
+#: src/Settings/Option/OptionsOption.php:40
+#: src/Settings/Option/OptionsWithCheckedOption.php:40
+#: src/Settings/Option/OptionsWithColorOption.php:40
+#: src/Settings/Option/OptionsWithImageOption.php:40
+msgid "Options"
+msgstr "Opcje"
+
+#: src/Settings/Option/OptionsOption.php:47
+#: src/Settings/Option/OptionsWithCheckedOption.php:47
+#: src/Settings/Option/OptionsWithColorOption.php:47
+#: src/Settings/Option/OptionsWithImageOption.php:47
+msgid "Enter a value and a label for each field option. The value will not be visible in the form. The label will be visible."
+msgstr "Wprowadź wartość i etykietę dla każdej opcji pola. Wartość nie będzie widoczna w formularzu. Etykieta będzie widoczna."
+
+#. translators: %s row index
+#: src/Settings/Option/OptionsOption.php:57
+#: src/Settings/Option/OptionsWithCheckedOption.php:57
+#: src/Settings/Option/OptionsWithColorOption.php:57
+#: src/Settings/Option/OptionsWithImageOption.php:57
+#, php-format
+msgid "Option #%s"
+msgstr "Opcja #%s"
+
+#: src/Settings/Option/OptionsValueOption.php:49
+msgid "Label"
+msgstr "Etykieta"
+
+#: src/Settings/Option/PreviewLabelOption.php:40
+msgid "Hide labels for Options"
+msgstr "Ukryj etykiety opcji"
+
+#: src/Settings/Option/PreviewWidthOption.php:40
+msgid "Single item width in px"
+msgstr "Rozmiar elementu w pikselach"
+
+#: src/Settings/Option/PricingEnabledOption.php:40
+msgid "Enable pricing"
+msgstr "Włącz ceny"
+
+#. translators: %1$s: anchor opening tag, %2$s: anchor closing tag
+#: src/Settings/Option/PricingInfoOption.php:43
+#, php-format
+msgid "The impact on the final purchase amount depends on the selected price type and its value. %1$sRead more%2$s"
+msgstr "Wpływ na ostateczną kwotę zakupu zależy od wybranego rodzaju ceny i jej wartości. %1$sCzytaj więcej%2$s"
+
+#. translators: %s: option value
+#: src/Settings/Option/PricingValuesOption.php:43
+#, php-format
+msgid "Pricing options for \"%s\""
+msgstr "Opcje ceny dla \"%s\""
+
+#: src/Settings/Option/PricingValuesTaxesOption.php:40
+msgid "Tax class"
+msgstr "Klasa podatkowa"
+
+#: src/Settings/Option/PricingValuesTaxesOption.php:64
+msgid "Standard rates"
+msgstr "Standardowe stawki"
+
+#: src/Settings/Option/PricingValuesTypeOption.php:40
+msgid "Price basis"
+msgstr "Podstawa ceny"
+
+#: src/Settings/Option/PricingValuesTypeOption.php:48
+msgid "Fixed"
+msgstr "Stała kwota"
+
+#: src/Settings/Option/PricingValuesTypeOption.php:49
+msgid "Percentage of Subtotal (ex. VAT)"
+msgstr "Procent sumy koszyka (bez VAT)"
+
+#: src/Settings/Option/PricingValuesTypeOption.php:50
+msgid "Percentage of Subtotal (incl. VAT)"
+msgstr "Procent sumy koszyka (z VAT)"
+
+#: src/Settings/Option/PricingValuesTypeOption.php:51
+msgid "Percentage of Total"
+msgstr "Procent sumy całkowitej"
+
+#: src/Settings/Option/SectionCssOption.php:32
+msgid "CSS class"
+msgstr "Klasa CSS"
+
+#: src/Settings/Option/SectionTagOption.php:32
+msgid "Section title tag"
+msgstr "Tag tytułu sekcji"
+
+#: src/Settings/Option/SectionTitleOption.php:32
+msgid "Section title"
+msgstr "Tytuł sekcji"
+
+#: src/Settings/Option/SelectedDatesLimit.php:41
+msgid "Selected days limit"
+msgstr "Limit wybranych dni"
+
+#: src/Settings/Option/SelectedMaxOption.php:40
+msgid "Maximum number of selected values"
+msgstr "Maksymalna liczba do wyboru"
+
+#: src/Settings/Option/SelectedMinOption.php:40
+msgid "Minimum of selected values"
+msgstr "Minimalna liczba do wyboru"
+
+#: src/Settings/Option/SelectedMinOption.php:47
+msgid "Check the \"Required field\" option in the \"General\" tab for the following setting to work."
+msgstr "Zaznacz opcję \"Pole wymagane\" w zakładce \"Ogólne\" aby poniższe ustawienie działało."
+
+#: src/Settings/Option/SettingSectionsOption.php:32
+msgid "Custom Sections"
+msgstr "Dodatkowe sekcje"
+
+#: src/Settings/Option/SettingSectionsOption.php:41
+msgid "Selected sections appear as tabs in the plugin menu."
+msgstr "Wybrane sekcje pojawiają się jako zakładki w menu wtyczki."
+
+#: src/Settings/Option/TodayMaxHour.php:40
+msgid "Time of day closing"
+msgstr "Godzina zamknięcia"
+
+#: src/Settings/Option/TodayMaxHour.php:47
+msgid "Enter the value in the HH:MM format. Selecting the current date will not be possible after this time is exceeded."
+msgstr "Wprowadź wartość w formacie GG:MM. Po jej przekroczeniu wybranie dzisiejszej daty nie będzie możliwe."
+
+#: src/Settings/Option/TodayMaxHour.php:55
+msgid "Invalid hour format."
+msgstr "Nieprawidłowy format godziny."
+
+#. translators: %s: field label
+#: src/Validator/Error/DatesLimitError.php:16
+#, php-format
+msgid "%s field has too many dates."
+msgstr "Pole %s zawiera zbyt wiele dat."
+
+#. translators: %s: field label
+#: src/Validator/Error/DateTooEarlyError.php:16
+#, php-format
+msgid "%s field has a date set too early."
+msgstr "Pole %s zawiera zbyt wczesną datę."
+
+#. translators: %s: field label
+#: src/Validator/Error/DateTooLateError.php:16
+#, php-format
+msgid "%s field has a date set too late."
+msgstr "Pole %s zawiera zbyt późną datę."
+
+#. translators: %s: field label
+#: src/Validator/Error/ExcludedDateError.php:16
+#, php-format
+msgid "%s field has an excluded date."
+msgstr "Pole %s zawiera wykluczoną datę."
+
+#. translators: %s: field label
+#: src/Validator/Error/ExcludedWeekDayError.php:16
+#, php-format
+msgid "%s field has a date with an excluded day of the week."
+msgstr "Pole %s zawiera datę z wykluczonym dniem tygodnia."
+
+#. translators: %1$s: field label
+#: src/Validator/Error/FieldRequiredError.php:16
+#, php-format
+msgid "%1$s is a required field."
+msgstr "%1$s jest wymaganym polem."
+
+#. translators: %1$s: field label, %2$s: maximum hour
+#: src/Validator/Error/HourMaxError.php:24
+#, php-format
+msgid "The maximum time allowed for the %1$s field is %2$s."
+msgstr "Godzina nie może być późniejsza niż %2$s dla pola %1$s."
+
+#. translators: %1$s: field label, %2$s: minimum hour
+#: src/Validator/Error/HourMinError.php:24
+#, php-format
+msgid "The minimum time allowed for the %1$s field is %2$s."
+msgstr "Godzina nie może być wcześniejsza niż %2$s dla pola %1$s."
+
+#. translators: %s: field label
+#: src/Validator/Error/InvalidDateFormatError.php:16
+#, php-format
+msgid "%s field has an invalid date format."
+msgstr "Pole %s zawiera nieprawidłowy format daty."
+
+#. translators: %1$s: field label, %2$s: maximum of values
+#: src/Validator/Error/SelectedMaxError.php:18
+#, php-format
+msgid "The number of selected options for the %1$s is field greater than allowed %2$s."
+msgstr "Liczba wybranych opcji w polu %1$s jest za duża. Maksymalna liczba to %2$s."
+
+#. translators: %1$s: field label, %2$s: minimum of values
+#: src/Validator/Error/SelectedMinError.php:18
+#, php-format
+msgid "The number of selected options for the %1$s is field less than required %2$s."
+msgstr "\"Liczba wybranych opcji w polu %1$s jest za mała. Minimalna liczba to %2$s."
+
+#. translators: %s: field label
+#: src/Validator/Error/UnavailableTodayDateError.php:16
+#, php-format
+msgid "%sfield has a current date that is no longer available."
+msgstr "Pole %s zawiera dzisiejszą datę, która nie jest już dostępna."
+
+#: templates/fields/datepicker.php:22
+#: templates/fields/file.php:28
+#: templates/fields/inspireradio.php:22
+#: templates/fields/multicheckbox.php:24
+#: templates/fields/radiocolors.php:22
+#: templates/fields/radioimages.php:22
+#: templates/fields/select.php:22
+#: templates/fields/timepicker.php:22
+#: templates/fields/wpdeskmultiselect.php:24
+msgid "Required Field"
+msgstr "Pole wymagane"
+
+#: templates/fields/file.php:36
+msgid "An unknown error has occurred. Try again."
+msgstr "Wystąpił nieznany błąd. Spróbuj ponownie."
+
+#: templates/fields/file.php:50
+msgid "Select File or Drag & Drop"
+msgstr "Wybierz plik lub przeciągnij go i upuść"
+
+#: templates/fields/file.php:53
+msgid "Uploading..."
+msgstr "Przesyłanie pliku..."
+
+#: templates/fields/file.php:63
+msgid "Delete"
+msgstr "Usuń"
+
+#. translators: %s: minimum value
+#: templates/fields/multicheckbox.php:34
+#, php-format
+msgid "Minimum: %s."
+msgstr "Minimum: %s."
+
+#. translators: %s: maximum value
+#: templates/fields/multicheckbox.php:40
+#, php-format
+msgid "Limit: %s."
+msgstr "Limit: %s."
+
+#: templates/notices/compatibility-error.php:19
+msgid "Learn more"
+msgstr "Zobacz więcej"
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:206
+#: Basic_Requirement_Checker.php:202
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run on PHP versions older than %s. Please contact your host and ask them to upgrade."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać na wersjach PHP starszych niż %s. Skontaktuj się z administratorem hostingu i poproś o aktualizację wersji PHP."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:209
+#: Basic_Requirement_Checker.php:206
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run on WordPress versions older than %s. Please update WordPress."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać na wersjach WordPressa starszych niż %s. Wykonaj aktualizację WordPressa."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:212
+#: Basic_Requirement_Checker.php:210
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run on WooCommerce versions older than %s. Please update WooCommerce."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać na wersjach WooCommerce starszych niż %s. Wykonaj aktualizację WooCommerce."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:215
+#: Basic_Requirement_Checker.php:214
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run without OpenSSL module version at least %s. Please update OpenSSL module."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać bez aktywacji OpenSSL co najmniej w wersji %s. Wykonaj aktualizację OpenSSL."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:303
+#: Basic_Requirement_Checker.php:308
+#, php-format
+msgid "The &#8220;%1$s&#8221; plugin requires at least %2$s version of %3$s to work correctly. Please update it to its latest release."
+msgstr "Do poprawnego działania wtyczki &#8220;%1$s&#8221; wymagana jest wtyczka %3$s co najmniej w wersji %2$s. Wykonaj jej aktualizację."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:409
+#: Basic_Requirement_Checker.php:395
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run without %s active. Please install and activate %s plugin."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać bez aktywacji %s. Zainstaluj i aktywuj wtyczkę %s."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:461
+#, php-format
+msgid "The &#8220;%s&#8221; plugin requires free %s plugin. <a href=\"%s\">Install %s</a>"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:467
+#: Basic_Requirement_Checker.php:465
+#, php-format
+msgid "The &#8220;%s&#8221; plugin requires activating %s plugin. <a href=\"%s\">Activate %s</a>"
+msgstr "Wtyczka &#8220;%s&#8221; wymaga aktywnej wtyczki %s. <a href=\"%s\">Włącz %s</a>"
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:509
+#: Basic_Requirement_Checker.php:512
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run without %s PHP module installed. Please contact your host and ask them to install %s."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać bez modułu PHP: %s. Skontaktuj się z administratorem hostingu i poproś o instalację %s."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:534
+#: Basic_Requirement_Checker.php:540
+#, php-format
+msgid "The &#8220;%s&#8221; plugin cannot run without %s PHP setting set to %s. Please contact your host and ask them to set %s."
+msgstr "Wtyczka &#8220;%s&#8221; nie może działać bez ustawienia PHP %s ustawionego na %s. Skontaktuj się z administratorem hostingu i poproś o ustawienie %s."
+
+#: vendor_prefixed/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker_With_Update_Disable.php:29
+#: Basic_Requirement_Checker_With_Update_Disable.php:27
+#, php-format
+msgid "The &#8220;%s&#8221; plugin is temporarily disabled since the required %s plugin is being upgraded."
+msgstr "Wtyczka &#8220;%s&#8221; została chwilowo wyłączona, ponieważ wymagana wtyczka %s jest właśnie aktualizowana."
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:70
+msgid "Disabled"
+msgstr "Wyłączono"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:71
+msgid "Emergency"
+msgstr "Wypadek"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:72
+msgid "Alert"
+msgstr "Ostrzeżenie"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:73
+msgid "Critical"
+msgstr "Błąd krytyczny"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:74
+msgid "Error"
+msgstr "Błąd"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:75
+msgid "Warning"
+msgstr "Ostrzeżenie"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:76
+msgid "Notice"
+msgstr "Powiadomienie"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:77
+msgid "Info"
+msgstr "Informacja"
+
+#: vendor_prefixed/wpdesk/wp-logs/src/deprecated/wpdesk-logger.php:59
+#: deprecated/wpdesk-logger.php:78
+msgid "Debug"
+msgstr "Debugowanie"
+
+#. Translators: directory.
+#: vendor_prefixed/wpdesk/wp-logs/src/WP/WPCapture.php:23
+#: WP/WPCapture.php:25
+#, php-format
+msgid "Can not enable WP Desk Debug log! Cannot create directory %s or this directory is not writeable!"
+msgstr "Nie można włączyć WP Desk Debug log! Nie można utworzyć katalogu %s lub brak uprawnień do zapisu w tym katalogu!"
+
+#. Translators: directory.
+#: vendor_prefixed/wpdesk/wp-logs/src/WP/WPCapture.php:36
+#: WP/WPCapture.php:44
+#, php-format
+msgid "Can not enable WP Desk Debug log! Cannot create file %s!"
+msgstr "Nie można włączyć logowania błędów za pomocą WP Desk Debug! Nie można utworzyć pliku %s!"
+
+#: vendor_prefixed/wpdesk/wp-plugin-update-reminder/src/NoticeReminder.php:53
+#: NoticeReminder.php
+#, php-format
+msgid "You're using an outdated version of the following plugin: %s This may cause serious compatibility issues with WooCommerce. Update it immediately to avoid potential disruptions."
+msgid_plural "You're using outdated versions of the following plugins: %s This may cause serious compatibility issues with WooCommerce. Update them immediately to avoid potential disruptions."
+msgstr[0] "Używasz przestarzałej wersji następującej wtyczki: %s Może to powodować poważne problemy z kompatybilnością z WooCommerce. Zaktualizuj ją natychmiast, aby uniknąć potencjalnych problemów."
+msgstr[1] ""
+msgstr[2] ""
+
+#: vendor_prefixed/wpdesk/wp-plugin-update-reminder/src/NoticeReminder.php:60
+#: NoticeReminder.php
+#, php-format
+msgid "You're using an older version of the following plugin: %s This version hasn't been tested with the latest WooCommerce versions. Please update it to the latest version to ensure smooth compatibility."
+msgid_plural "You're using older versions of the following plugins: %s These versions haven't been tested with the latest WooCommerce versions. Please update them to the latest version to ensure smooth compatibility."
+msgstr[0] "Używasz starszej wersji następującej wtyczki: %s Ta wersja nie była testowana z najnowszymi wersjami WooCommerce. Zaktualizuj ją do najnowszej wersji, aby zapewnić pełną kompatybilność."
+msgstr[1] ""
+msgstr[2] ""
+
+#: vendor_prefixed/wpdesk/wp-plugin-update-reminder/src/ReminderData.php:65
+#: AbstractReminder.php:70
+#: PluginsListReminder.php:31
+#, php-format
+msgid "You're using an outdated version of %1$s plugin, which may cause serious compatibility issues with WooCommerce. %2$sUpdate immediately%3$s to avoid potential disruptions."
+msgstr "Używasz przestarzałej wersji wtyczki %1$s która może powodować poważne problemy z kompatybilnością z WooCommerce. %2$sZaktualizuj wtyczkę natychmiast%3$s, aby uniknąć potencjalnych problemów."
+
+#: vendor_prefixed/wpdesk/wp-plugin-update-reminder/src/ReminderData.php:69
+#: AbstractReminder.php:82
+#: PluginsListReminder.php:43
+#, php-format
+msgid "You're using an older version of %1$s plugin that hasn't been tested with the latest WooCommerce versions. Please %2$supdate to the latest version%3$s to ensure smooth compatibility."
+msgstr "Używasz starszej wersji wtyczki %1$s  która nie była testowana z najnowszymi wersjami WooCommerce. Proszę %2$szaktualizuj wtyczkę%3$s, aby zapewnić pełną kompatybilność."
+
+#: vendor_prefixed/wpdesk/wp-plugin-update-reminder/src/SiteHealthReminder.php:39
+#: SiteHealthReminder.php:39
+msgid "You should update plugin"
+msgstr "Zaktualizuj wtyczkę"
+
+#: vendor_prefixed/wpdesk/wp-plugin-update-reminder/src/SiteHealthReminder.php:39
+#: SiteHealthReminder.php:42
+msgid "Compatibility"
+msgstr "Kompatybilność"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-license/src/LicenseServer/PluginExternalBlocking.php:32
+#: src/LicenseServer/PluginExternalBlocking.php:39
+#, php-format
+msgid "<b>Warning!</b> You're blocking external requests which means you won't be able to get %1$s updates. Please add %2$s to %3$s."
+msgstr "<b>Ostrzeżenie!</b> Blokujesz zewnętrzne żądania, co oznacza, że nie będziesz mógł otrzymywać aktualizacji %1$s. Proszę dodać %2$s do %3$s."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-license/src/LicenseServer/PluginUpgrade.php:83
+#: LicenseServer/PluginUpgrade.php:93
+#, php-format
+msgid "Error while connecting to remote server %s. Please contact your hosting provider or try again later. Errors:  "
+msgstr "Błąd podczas łączenia się ze zdalnym serwerem %s. Skontaktuj się z dostawcą usługi hostingowej lub spróbuj ponownie później. Błędy:"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-license/src/LicenseServer/PluginUpgrade.php:172
+msgid "License server is currently unavailable. Please, try again later."
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-license/src/LicenseServer/PluginUpgrade.php:174
+#, php-format
+msgid "Error while connecting to remote server %1$s. Please contact with your hosting provider. Cannot parse response. Response code: %2$s Message: %3$s"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-license/src/LicenseServer/PluginUpgrade.php:177
+#, php-format
+msgid "Error while connecting to remote server %1$s. Please contact with your hosting provider. Cannot parse response: %2$s"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-license/templates/impossible-to-upgrade.php:12
+#: templates/impossible-to-upgrade.php:10
+#, php-format
+msgid "This version of %1$s plugin cannot be automatically upgraded. Download the plugin from %2$syour account%3$s to receive automatic updates in future."
+msgstr "Ta wersja wtyczki %1$s nie może być automatycznie zaktualizowana. Pobierz wtyczkę ze %2$sswojego konta%3$s, aby otrzymywać automatyczne aktualizacje w przyszłości."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/class-wpdesk-tracker.php:164
+#: src/class-wpdesk-tracker.php:253
+msgid "Submit &amp; Deactivate"
+msgstr "Wyślij i dezaktywuj"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/OptOut.php:42
+#: src/PSR/WPDesk/Tracker/OptOut.php:45
+#, php-format
+msgid "You successfully opted out of collecting usage data by %1$s. If you change your mind, you can always opt in later in the plugin's quick links."
+msgstr "Twoja rezygnacja ze zbierania danych użytkowania wtyczek przez %1$s została przyjęta. Jeśli zmienisz zdanie, zawsze możesz włączyć zgodę ponownie za pomocą szybkich linków na liście wtyczek."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/PluginActionLinks.php:70
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:41
+#: src/PSR/WPDesk/Tracker/PluginActionLinks.php:55
+msgid "Enable usage tracking"
+msgstr "Włącz śledzenie użycia"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/PluginActionLinks.php:75
+#: src/PSR/WPDesk/Tracker/PluginActionLinks.php:58
+msgid "Disable usage tracking"
+msgstr "Wyłącz śledzenie użycia"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:23
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:15
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:19
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:15
+#: src/views/tracker-connect.php:7
+#: src/views/tracker-notice.php:7
+#, php-format
+msgid "Hey %s,"
+msgstr "Hej %s,"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:26
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:18
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:16
+#: src/views/tracker-connect.php:8
+msgid "Please help us improve our plugins! If you opt-in, we will collect some non-sensitive data and usage information anonymously. If you skip this, that's okay! All plugins will work just fine."
+msgstr "Proszę pomóż nam udoskonalić nasze wtyczki! Jeśli się zgodzisz, będziemy zbierać niewrażliwe dane użytkowania anonimowo. Jeśli pominiesz ten krok, w porządku! Wszystkie wtyczki będą działać niezależnie od Twojej decyzji."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:35
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:27
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:21
+#: src/views/tracker-connect.php:13
+msgid "Allow & Continue &rarr;"
+msgstr "Pozwól i kontynuuj &rarr;"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:40
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:32
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:22
+#: src/views/tracker-connect.php:14
+msgid "Skip"
+msgstr "Pomiń"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:47
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:39
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:27
+#: src/views/tracker-connect.php:19
+msgid "What permissions are being granted?"
+msgstr "Jakie uprawnienia są przyznawane?"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:56
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:48
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:34
+#: src/views/tracker-connect.php:26
+msgid "Your Site Overview"
+msgstr "Dane witryny"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:59
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:51
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:35
+#: src/views/tracker-connect.php:27
+msgid "WP version, PHP info"
+msgstr "Wersja WP, wersja PHP"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:67
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:59
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:41
+#: src/views/tracker-connect.php:33
+msgid "Plugin Usage"
+msgstr "Dane użytkowania wtyczek"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:70
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:42
+#, php-format
+msgid "Current settings and usage information of %1$s plugins"
+msgstr "Ustawienia i informacje o użytkowaniu wtyczek %1$s"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:78
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:70
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:48
+#: src/views/tracker-connect.php:40
+msgid "Your Store Overview"
+msgstr "Dane sklepu"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:81
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:73
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:49
+#: src/views/tracker-connect.php:41
+msgid "Anonymized and non-sensitive store usage information"
+msgstr "Tylko niewrażliwe i anonimowe dane o użytkowaniu sklepu"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:91
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:83
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:27
+#: src/PSR/WPDesk/Tracker/views/tracker-connect.php:55
+#: src/views/tracker-connect.php:47
+#: src/views/tracker-notice.php:9
+msgid "Find out more &raquo;"
+msgstr "Dowiedz się więcej &raquo;"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:62
+#: src/views/tracker-connect.php:34
+msgid "Current settings and usage information of WP Desk plugins"
+msgstr "Ustawienia i informacje o użytkowaniu wtyczek WP Desk"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:11
+#: src/views/tracker-deactivate.php:3
+#, php-format
+msgid "You are deactivating %s plugin."
+msgstr "Dezaktywujesz wtyczkę %s."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:19
+#: src/views/tracker-deactivate.php:9
+msgid " If you have a moment, please let us know why you are deactivating plugin (anonymous feedback):"
+msgstr " Jeśli masz chwilę, prosimy daj nam znać dlaczego dezaktywujesz wtyczkę (anonimowa opinia):"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:28
+#: src/views/tracker-deactivate.php:16
+msgid "The plugin suddenly stopped working"
+msgstr "Wtyczka nagle przestała działać"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:38
+#: src/views/tracker-deactivate.php:24
+msgid "The plugin broke my site"
+msgstr "Wtyczka zepsuła moją stronę"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:48
+#: src/views/tracker-deactivate.php:32
+msgid "I found a better plugin"
+msgstr "Znalazłem lepszą wtyczkę"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:53
+#: src/views/tracker-deactivate.php:35
+msgid "What's the plugin's name?"
+msgstr "Jaka to wtyczka?"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:63
+#: src/views/tracker-deactivate.php:43
+msgid "I only needed the plugin for a short period"
+msgstr "Potrzebowałem wtyczki tylko przez krótki okres"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:73
+#: src/views/tracker-deactivate.php:51
+msgid "I no longer need the plugin"
+msgstr "Nie potrzebuję już wtyczki"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:83
+#: src/views/tracker-deactivate.php:59
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr "Jest to tymczasowa dezaktywacja, debuguję problem."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:93
+#: src/views/tracker-deactivate.php:67
+msgid "Other"
+msgstr "Inny"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:98
+#: src/views/tracker-deactivate.php:70
+msgid "Kindly tell us the reason so we can improve"
+msgstr "Napisz nam powód abyśmy mogli go poprawić"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:107
+#: src/views/tracker-deactivate.php:77
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:110
+#: src/views/tracker-deactivate.php:78
+msgid "Skip &amp; Deactivate"
+msgstr "Pomiń i dezaktywuj"
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:22
+#: src/views/tracker-notice.php:8
+msgid "We need your help to improve <strong>WP Desk plugins</strong>, so they are more useful for you and the rest of <strong>30,000+ users</strong>. By collecting data on how you use our plugins, you will help us a lot. We will not collect any sensitive data, so you can feel safe."
+msgstr "Potrzebujemy Twojej pomocy, aby dalej rozwijać <strong>wtyczki WP Desk</strong> i były one jeszcze bardziej pomocne dla Ciebie i pozostałych ponad <strong>30 000 użytkowników</strong>. Zbierając dane na temat tego jak korzystasz z naszych wtyczek bardzo nam w tym pomożesz. Nie będziemy zbierać żadnych danych wrażliwych, więc możesz czuć się bezpiecznie."
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-opt-out-notice.php:11
+#: src/views/tracker-opt-out-notice.php:3
+msgid "You successfully opted out of collecting usage data by WP Desk. If you change your mind, you can always opt in later in the plugin's quick links."
+msgstr "Twoja rezygnacja ze zbierania danych użytkowania wtyczek przez WP Desk została przyjęta. Jeśli zmienisz zdanie, zawsze możesz włączyć zgodę ponownie za pomocą szybkich linków na liście wtyczek."
+
+#. Plugin URI of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/"
+msgstr "https://www.wpdesk.pl/sklep/woocommerce-checkout-fields/"
+
+#. Author URI of the plugin
+#: flexible-checkout-fields-pro.php
+msgid "https://www.wpdesk.net/"
+msgstr "https://www.wpdesk.pl/"
+
+#: Basic_Requirement_Checker.php:456
+#, php-format
+msgid "The &#8220;%s&#8221; plugin requires free %s plugin. <a href=\"%s\">Install%s</a>"
+msgstr "Wtyczka &#8220;%s&#8221; wymaga bezpłatnej wtyczki %s. <a href=\"%s\">Zainstaluj %s</a>"
+
+#: LicenseServer/PluginUpgrade.php:175
+#, php-format
+msgid "Error while connecting to remote server %s. Please contact with your hosting provider. Cannot parse response. Response code: %s Message: %s"
+msgstr "Błąd podczas łączenia się ze zdalnym serwerem %s. Skontaktuj się z dostawcą usługi hostingowej. Nie można przeanalizować odpowiedzi. Kod odpowiedzi: %s Wiadomość: %s"
+
+#: LicenseServer/PluginUpgrade.php:179
+#, php-format
+msgid "Error while connecting to remote server %s. Please contact with your hosting provider. Cannot parse response: %s"
+msgstr "Błąd podczas łączenia się ze zdalnym serwerem %s. Skontaktuj się z dostawcą usługi hostingowej. Nie można przeanalizować odpowiedzi: %s"
+
+#: src/views/tracker-notice.php:15
+msgid "Allow"
+msgstr "Pozwól"

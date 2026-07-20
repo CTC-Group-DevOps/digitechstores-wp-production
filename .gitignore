@@ -1,0 +1,30 @@
+
+ --- Sensitive ---
+wp-config.php
+.htpasswd
+.htaccess.bak
+*.log
+error_log
+debug.log
+
+# --- Cache / temp ---
+wp-content/cache/
+wp-content/uploads/cache/
+wp-content/wflogs/
+wp-content/backup*/
+wp-content/updraft/
+wp-content/ai1wm-backups/
+wp-content/upgrade/
+wp-content/backups-*/
+wp-content/et-cache/
+
+# --- Large media (remove line if you WANT uploads pushed) ---
+wp-content/uploads/
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Node/Composer ---
+node_modules/
+vendor/

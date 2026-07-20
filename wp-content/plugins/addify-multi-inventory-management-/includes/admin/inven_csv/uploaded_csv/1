@@ -1,0 +1,11 @@
+Product ID,Product Name,Inventory ID,Inventory Name,Inventory Location Slug,Inventory Priority,Inventory SKU,Inventory Date,Inventory Expiry Date,Inventory Price,Inventory Sale Price,Inventory Stock Quantity,Inventory Low Stock Threshold
+3660,Smoothie White,4928,For E Sector,islamabad,0,,,,100,90,90,
+3700,"ACME - M, mint","5278,5297","chakwal,raja bazar","chakwal,chakwal",",",",",",",",","50,","45,","9,0",","
+3837,Beverage,4945,old airport,rawalpindi,,,,,98,,300,
+4230,CD,5272,22 number,,,,,,,,,
+4413,Album,"5275,5349,5078,4922","darra adam khel,lakshmi chowk,gauri town,kpk","rawalpindi,lahore,islamabad,chakwal","0,1,2,4",",,,",",,,",",,,","70,0,90,80","67,0,89,70","8,0,10,10",",,,"
+4434,Fire Lamb ACME,4936,22 number chunge,rawalpindi,,,,,81,71,9986,
+4495,Bed Prince Green,"4940,4942,4943","gulberg,lashkmi chowk lahore,22 number chungi","islamabad,lahore,rawalpindi",",,",",,",",,",",,",106106106,",,","800,597,0",",,"
+4575,Apple White Towel,4988,faizabad,chakwal,,,,,83,62,39,
+4825,Lavender Pink Beverage - XXL,"5182,5183,5184","22 number,rajabazar,dhoke hasse","rawalpindi,rawalpindi,islamabad",",,",",,",",,",",,",",,",",,","20,8,1010",",,1"
+4569,Lavender Pink Beverage - XXL,"5182,5183,5184","6th road,badami bag,gulberg","rawalpindi,lahore,islamabad","10,9,1",",,",",,",",,","989,789,",",01,","40,90,",",1,"

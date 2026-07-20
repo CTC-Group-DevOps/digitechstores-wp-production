@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['Maintenance'=>['saveStringInDb'=>true,'cmp'=>['maintenance',1],'names'=>[],'urls'=>[['kind'=>7,'url'=>'/test-page/?lang=ar'],['kind'=>7,'url'=>'/test-post/?lang=ar'],['kind'=>7,'url'=>'/product/test-product-june/?lang=ar']]],' is '=>['saveStringInDb'=>true,'cmp'=>['maintenance',1],'names'=>[],'urls'=>[['kind'=>7,'url'=>'/test-page/?lang=ar'],['kind'=>7,'url'=>'/test-post/?lang=ar'],['kind'=>7,'url'=>'/product/test-product-june/?lang=ar']]]]];
