@@ -1,27 +1,30 @@
-# Ignore everything in the root folder
-/*
 
-# But do not ignore these specific root files
-!.gitignore
-!README.md
-
-# Allow the wp-content directory structure
-!wp-content/
-
-# Ignore everything inside wp-content EXCEPT your custom folders
-wp-content/*
-!wp-content/themes/
-!wp-content/plugins/
-
-# Ignore default WordPress themes/plugins if you don't edit them
-wp-content/themes/twentytwenty*
-wp-content/plugins/akismet/
-wp-content/plugins/hello.php
-
-# Ignore uploads, cache, and system logs completely
-wp-content/uploads/
-wp-content/cache/
-wp-content/upgrade/
+ --- Sensitive ---
+wp-config.php
+.htpasswd
+.htaccess.bak
 *.log
 error_log
-.ftpquota
+debug.log
+
+# --- Cache / temp ---
+wp-content/cache/
+wp-content/uploads/cache/
+wp-content/wflogs/
+wp-content/backup*/
+wp-content/updraft/
+wp-content/ai1wm-backups/
+wp-content/upgrade/
+wp-content/backups-*/
+wp-content/et-cache/
+
+# --- Large media (remove line if you WANT uploads pushed) ---
+wp-content/uploads/
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Node/Composer ---
+node_modules/
+vendor/
