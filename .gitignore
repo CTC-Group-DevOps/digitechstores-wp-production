@@ -1,6 +1,6 @@
 
  --- Sensitive ---
-wp-config.php
+# wp-config.php
 .htpasswd
 .htaccess.bak
 *.log
