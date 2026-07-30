@@ -15,7 +15,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
-
+Header always set Content-Security-Policy 
 Options -Indexes
 
 ####################### CSP START ###########################
@@ -37,7 +37,9 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
 #Header always set Content-Security-Policy "default-src 'self' data: 'unsafe-inline' 'unsafe-eval' www.google.com www.google-analytics.com; img-src 'self' data: www.google.com simihost.net secure.gravatar.com digitechstoress.com; font-src 'self' data: www.google.com fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: www.google.com www.googletagmanager.com www.google-analytics.com; style-src 'self' 'unsafe-inline' data: www.google.com fonts.googleapis.com; frame-src 'self' www.google.com www.youtube.com www.youtube-nocookie.com"
 
-Header always set Content-Security-Policy "default-src 'self' data: 'unsafe-inline' 'unsafe-eval' www.google.com www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; img-src 'self' data: www.google.com simihost.net secure.gravatar.com digitechstoress.com https://commctc.ctc.sd; font-src 'self' data: www.google.com fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: www.google.com www.googletagmanager.com www.google-analytics.com; style-src 'self' 'unsafe-inline' data: www.google.com fonts.googleapis.com; frame-src 'self' www.google.com www.youtube.com www.youtube-nocookie.com"
+Header always set Content-Security-Policy "default-src 'self' data: 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.google-analytics.com; connect-src 'self' https://www.google.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; img-src 'self' data: https://www.google.com simihost.net secure.gravatar.com digitechstoress.com https://commctc.ctc.sd; font-src 'self' data: https://www.google.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://www.google.com https://www.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' data: https://www.google.com https://fonts.googleapis.com; frame-src 'self' https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com"
+
+# Header always set Content-Security-Policy "default-src 'self' data: 'unsafe-inline' 'unsafe-eval' www.google.com www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; img-src 'self' data: www.google.com simihost.net secure.gravatar.com digitechstoress.com https://commctc.ctc.sd; font-src 'self' data: www.google.com fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: www.google.com www.googletagmanager.com www.google-analytics.com; style-src 'self' 'unsafe-inline' data: www.google.com fonts.googleapis.com; frame-src 'self' www.google.com www.youtube.com www.youtube-nocookie.com"
 
 
 # Strict Transport Security (ONLY if HTTPS is enabled)
@@ -47,15 +49,7 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
 </IfModule>
-####################### CSP END ###########################
-
-
-# php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php82” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
-</IfModule>
-# php -- END cPanel-generated handler, do not edit
+####################### CSP END
 
 # BEGIN cPanel-generated php ini directives, do not edit
 # Manual editing of this file may result in unexpected behavior.
@@ -90,3 +84,10 @@ Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
    php_flag log_errors On
 </IfModule>
 # END cPanel-generated php ini directives, do not edit
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php82” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
