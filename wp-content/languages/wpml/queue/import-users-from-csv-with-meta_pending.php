@@ -1,2 +1,2 @@
 <?php
-return ['items'=>[]];
+return ['items'=>['Import and export users and customers'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>[],'urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]],'Attachment'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>[],'urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]]]];

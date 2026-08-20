@@ -1,2 +1,2 @@
 <?php
-return ['items'=>[]];
+return ['items'=>['Advanced Coupons'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=c163ca4513']]],'Orders with coupons'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=c163ca4513']]],'List of orders that had used coupon in them'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=c163ca4513']]]]];

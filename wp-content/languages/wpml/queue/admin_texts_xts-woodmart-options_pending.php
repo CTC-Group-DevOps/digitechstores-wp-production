@@ -1,2 +1,2 @@
 <?php
-return ['items'=>[]];
+return ['items'=>[1=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]],'No products added in the compare list. You must add some products to compare them.<br> You will find a lot of interesting products on our "Shop" page.'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]],'Shipping & Delivery'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]],'Register'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]],'Login'=>['urls'=>[['kind'=>9,'url'=>'/wp-admin/post.php?action=edit&post=450844&wpb-backend-editor']]]]];
