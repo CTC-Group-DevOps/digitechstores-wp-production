@@ -1,0 +1,3 @@
+sep=,
+Status,Action,Date,IP,Browser,Poll,"User ID","User login","User name","User email",Entry,Details,Question,Choices,"Log ID"
+accepted,vote,"2022-11-29 08:24:09",196.1.224.19,"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:107.0) Gecko/20100101 Firefox/107.0",match1,2368,mustafaa,"Mustafa Anwar",Mustafa.anwar@ctcgroupltd.com,"{""id"":1,""user"":{""id"":2368,""login"":""mustafaa"",""name"":""Mustafa Anwar"",""email"":""Mustafa.anwar@ctcgroupltd.com""},""poll_id"":74234,""log_id"":1,""fields"":{""select"":""spain 0 - 0 brazil;""},""details"":[],""date"":""2022-11-29T08:24:09+02:00""}","{&quot;choices&quot;:[&quot;Team 1&quot;]}",,"Team 1",1

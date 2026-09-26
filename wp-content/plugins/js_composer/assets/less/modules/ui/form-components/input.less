@@ -1,0 +1,39 @@
+input[type="text"].wpb-form-input,
+.edit_form_line input[type="text"].wpb-form-input,
+input[type="number"].wpb-form-input,
+// for b.c. with 3-party we keep here wpb-textinput old class name
+input[type="text"].wpb-textinput,
+// basic textarea param shares the same styles
+textarea.wpb-form-textarea {
+    .wpb-form-input-styles();
+    width: 100%;
+}
+
+input:disabled[type="text"].wpb-form-input,
+input:disabled[type="number"].wpb-form-input {
+  border-color: #e6e6e7;
+  color: #9fa3a6;
+}
+
+.wpb-search-input {
+  position: relative;
+
+  &::after {
+    content: @vc-c-icon-search;
+    .wpb-icon-font();
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    color: @textGray;
+    pointer-events: none;
+  }
+
+  input {
+    padding-right: 32px;
+  }
+}

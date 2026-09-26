@@ -1,0 +1,136 @@
+/**
+ * Button group parameter type styles
+ *
+ * Button group selector with support for text labels and icons.
+ * Flexible width to work with edit_field_class column sizes.
+ *
+ * @package WPBakeryPageBuilder
+ * @since 9.0
+ */
+
+
+.wpb_button_group-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.wpb_button_group-buttons {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  border: 1px solid @vc_input_border_color;
+  border-radius: @vc_border_radius;
+  background-color: @white;
+  padding: 4px;
+  gap: 3px;
+  min-height: 40px;
+  box-sizing: border-box;
+  width: fit-content;
+}
+
+.wpb_button_group-buttons:focus {
+  border-color: @vc_input_hover_border_color;
+}
+
+.wpb_button_group-button-wrapper {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-width: 50px;
+}
+
+.wpb_button_group-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+
+  &:focus-visible + .wpb_button_group-button {
+    .wpb_param_focus_outline();
+  }
+
+  &:checked + .wpb_button_group-button {
+    background-color: @vc_main_color;
+
+    &:hover {
+      background-color: @vc_main_color_hover;
+    }
+
+    .wpb_button_group-text,
+    .wpb_button_group-icon {
+      color: @white;
+    }
+  }
+}
+
+.wpb_button_group-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: @vc_border_radius;
+  background-color: transparent;
+  cursor: pointer;
+  .wpb_transition();
+  user-select: none;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  &:hover {
+    background-color: @vc_main_color_hover;
+
+    .wpb_button_group-text,
+    .wpb_button_group-icon {
+      color: @white;
+    }
+
+    .wpb_button_group-icon-img {
+      filter: brightness(0) invert(1);
+    }
+  }
+}
+
+.wpb_button_group-button--text {
+  .wpb_button_group-text {
+    display: block;
+    .wpb_param_label_text(@wpb_font-size-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+  }
+}
+
+.wpb_button_group-button--icon {
+  .wpb_button_group-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1;
+    color: @textGray;
+    transform: scale(1.05);
+
+    &::before {
+      color: inherit;
+    }
+  }
+
+  .wpb_button_group-icon-img {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
+    .wpb_transition();
+  }
+}
+
+.wpb_button_group-input:checked + .wpb_button_group-button {
+  .wpb_button_group-icon-img {
+    filter: brightness(0) invert(1);
+  }
+}

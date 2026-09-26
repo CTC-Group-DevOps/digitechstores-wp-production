@@ -1,0 +1,20 @@
+<?php
+
+namespace WPDesk\FCF\Pro\Validator\Error;
+
+/**
+ * {@inheritdoc}
+ */
+class InvalidDateFormatError extends ErrorAbstract {
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_error_message(): string {
+		return sprintf(
+		/* translators: %s: field label */
+			__( '%s field has an invalid date format.', 'flexible-checkout-fields-pro' ),
+			sprintf( '<strong>%s</strong>', strip_tags( $this->field_data['label'] ) )
+		);
+	}
+}

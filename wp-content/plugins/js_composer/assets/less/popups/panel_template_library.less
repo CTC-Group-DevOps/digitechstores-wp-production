@@ -1,0 +1,384 @@
+.vc_ui-template-panel-header-container .wpb-search-input {
+  width: 190px;
+}
+
+@vcui-template-card-size: 100px;
+@vcui-template-card-radius: 3px;
+@vcui-template-card-placeholder-bg: #0972ce;
+@vcui-template-card-hover-bg: #f5f5f5;
+@vcui-template-card-hover-pad: 10px;
+@vcui-template-card-action-size: 32px;
+@vcui-template-card-action-bg: #fff;
+@vcui-template-card-action-color: #5e5e5e;
+
+.vc_ui-templates-content {
+  position: relative;
+  flex: 1 1 100%;
+  width: 100%;
+  padding: 7.5px 10px 15px;
+}
+
+.vc_ui-templates-grid-column {
+  padding: 0 10px 15px;
+}
+
+.vc_ui-template-section + .vc_ui-template-section {
+  margin-top: 15px;
+}
+
+[data-vc-template-search="true"] .vc_ui-templates-grid-column,
+[data-vc-template-search="true"] .vc_ui-templates-content {
+  padding-top: 15px;
+}
+
+[data-vc-template-search="true"] .vc_ui-template-section:not(:has([data-template_name][style*="display: block"])) {
+  display: none;
+}
+
+[data-vc-template-search="true"] .vc_ui-template-section:not(:has([data-template_name][style*="display: block"])) + .vc_ui-template-section {
+  margin-top: 0;
+}
+
+.vc_ui-template-section-title {
+  color: #5e5e5e;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0 0 25px;
+}
+
+.vc_ui-template-section[data-section="my_templates"] > .vc_ui-template-section-title {
+  display: none;
+}
+
+[data-vc-template-search="true"] .vc_ui-template-section[data-section="my_templates"] > .vc_ui-template-section-title {
+  display: block;
+}
+
+.vc_ui-template-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, @vcui-template-card-size);
+  gap: 40px;
+  padding: 10px;
+  margin: 0;
+
+  &:not(:has(.vc_ui-template-card)) {
+    display: none;
+  }
+}
+
+.vc_ui-template-grid-empty {
+  margin: 0;
+  color: #5e5e5e;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+
+  &.vc_ui-hidden {
+    display: none;
+  }
+}
+
+.vc_ui-template-card-grid:has(.vc_ui-template-card) + .vc_ui-template-grid-empty {
+  display: none;
+}
+
+.vc_ui-template-card {
+  width: @vcui-template-card-size;
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -@vcui-template-card-hover-pad;
+    right: -@vcui-template-card-hover-pad;
+    bottom: -@vcui-template-card-hover-pad;
+    left: -@vcui-template-card-hover-pad;
+    background: @vcui-template-card-hover-bg;
+    border-radius: 6px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity @wpb_transition_duration @wpb_transition_easing;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.vc_ui-template-card-thumb {
+  position: relative;
+  display: block;
+  width: @vcui-template-card-size;
+  height: @vcui-template-card-size;
+  border-radius: @vcui-template-card-radius;
+  background-color: @vcui-template-card-placeholder-bg;
+
+  &::after {
+    content: @vc-c-wpb-logo;
+    .wpb-icon-font();
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: @vc_main_color_hover;
+    pointer-events: none;
+  }
+
+  img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
+  }
+}
+
+.vc_ui-template-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: transparent;
+  opacity: 0;
+  transition: opacity @wpb_transition_duration @wpb_transition_easing;
+  pointer-events: none;
+}
+
+.vc_ui-template-card:hover {
+  .vc_ui-template-card-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.vc_ui-template-card-action {
+  width: @vcui-template-card-action-size;
+  height: @vcui-template-card-action-size;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: @vcui-template-card-action-bg;
+  border: 0;
+  border-radius: 50%;
+  color: @vcui-template-card-action-color;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  transition: color @wpb_transition_duration @wpb_transition_easing;
+
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &:active {
+    background: @vcui-template-card-action-bg;
+    color: @vc_main_color_hover;
+    text-decoration: none;
+    outline: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+  }
+
+  &--static,
+  &--static:hover,
+  &--static:focus {
+    cursor: default;
+    color: @vcui-template-card-action-color;
+  }
+
+  .vc-composer-icon {
+    font-size: 12px;
+    line-height: 1;
+  }
+}
+
+.vc_ui-template-card-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  margin-top: 10px;
+  padding: 0 4px;
+  color: #5e5e5e;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vc_ui-template-card-menu {
+  display: inline-flex;
+  position: relative;
+}
+
+.vc_template-options-dropdown.select2-dropdown {
+  position: absolute;
+  top: 10% !important;
+  left: -72px;
+  min-width: 132px;
+  z-index: 10;
+
+  &[hidden] {
+    display: none;
+  }
+
+  .select2-results__option {
+    padding: 1px 10px !important;
+    transition: background-color @wpb_transition_duration @wpb_transition_easing;
+  }
+  .select2-results__option:hover {
+    background-color: @wpb_dropdown-highlight;
+  }
+}
+
+#vc_ui-panel-templates {
+  .vc_ui-template-library-cta {
+    margin: 0 0 30px;
+
+    .vc_ui-panel-title {
+      padding-top: 15px;
+      color: #34444b;
+      font-family: @wpb_font-family-secondary;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0 0 10px;
+    }
+
+    .vc_description {
+      color: #5e5e5e;
+      font-size: 12px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: 18px;
+      margin: 0 0 15px;
+    }
+  }
+
+  .vc_ui-template-library-cta-btn {
+    background-color: #10c248;
+    border-color: #10c248;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+
+    &:hover,
+    &:focus {
+      background-color: #0eaa3f;
+      border-color: #0eaa3f;
+      color: #fff;
+    }
+  }
+}
+
+.vc_ui-panel-message {
+  background: #f5f5f5;
+  padding: 10px 15px 17px;
+  border-radius: 5px;
+  border: #ebebeb solid 1px;
+  margin-top: 10px;
+
+  &--error {
+    padding: 15px;
+    background: #ffe0e0;
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    &.vc_ui-hidden {
+      display: none;
+    }
+  }
+}
+
+.vc_ui-panel-content {
+  position: relative;
+}
+
+.vc_ui-panel-download,
+.vc_ui-panel-loading {
+  flex: 1 1 100%;
+  width: 100%;
+  min-height: 320px;
+  background: #fff;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &.vc_ui-hidden {
+    display: none;
+  }
+}
+
+.vc_ui-panel-loading:not(.vc_ui-hidden) ~ .vc_ui-templates-content,
+.vc_ui-panel-download:not(.vc_ui-hidden) ~ .vc_ui-templates-content {
+  display: none;
+}
+
+[data-vc-template-search="true"] .vc_panel-tabs:has(.vc_ui-panel-download:not(.vc_ui-hidden)) > .vc_edit-form-tab:not(:has(.vc_ui-panel-download)),
+[data-vc-template-search="true"] .vc_panel-tabs:has(.vc_ui-panel-loading:not(.vc_ui-hidden)) > .vc_edit-form-tab:not(:has(.vc_ui-panel-loading)) {
+  display: none !important;
+}
+
+.vc_preloader-box {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  background: url('../vc/loaders/wizzy.svg') no-repeat center;
+  background-size: 36px;
+}
+
+.vc_ui-panel-loading-content {
+  max-width: 360px;
+}
+
+.vc_ui-panel-title {
+  color: #34444b;
+  font-family: @wpb_font-family-secondary;
+  font-size: 18px;
+  font-weight: @wpb_font-weight;
+  line-height: 1.4em;
+  margin-top: .5em;
+}
+
+.vc_ui-panel-download .vc_description {
+  color: @textGray;
+  font-size: 12px;
+  font-weight: @wpb_font-weight;
+  font-style: normal;
+  line-height: 18px;
+}
+
+.vc_ui-save-template-form {
+  padding: 7.5px 10px 0;
+  margin: 0 0 15px;
+}
+
+.vc-panel-no-templates-message {
+  display: none;
+  text-align: center;
+  color: #5e5e5e;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  margin: 50px 0;
+}

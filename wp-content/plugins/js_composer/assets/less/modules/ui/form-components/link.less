@@ -1,0 +1,164 @@
+// Link param field styles
+
+.wpb_link-field {
+  position: relative;
+}
+
+// Input + button wrapper
+.wpb_link-input-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+
+  .wpb_link-search-wrap {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+  }
+
+  .wpb_link-edit-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    min-height: @vc_elemnet_container_min_height;
+    background: none;
+    border: none;
+    cursor: pointer;
+    .wpb_transition(color);
+
+    .vc-composer-icon {
+      font-size: @wpb_font-size-sm;
+      color: @textGray;
+    }
+
+    &:hover .vc-composer-icon,
+    &:focus .vc-composer-icon {
+      color: @vc_main_color;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+// Search dropdown positioning
+.wpb_link-field .wpb-input-dropdown {
+  position: absolute;
+  z-index: 999999;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 2px;
+}
+
+.wpb_link-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.wpb_link-result-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.wpb_link-result-title {
+  color: @white;
+  font-family: @wpb_font-family-primary;
+  font-size: @wpb_font-size-sm;
+  font-weight: @wpb_font-weight;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wpb_link-result-slug,
+.wpb_link-result-hint {
+  color: @wpb_dropdown-group-color;
+  font-family: @wpb_font-family-primary;
+  font-size: @wpb_font-size-xs;
+  font-weight: @wpb_font-weight;
+  line-height: 1;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .select2-results__option--highlighted &,
+  .select2-results__option--selected & {
+    color: @white;
+  }
+}
+
+.wpb_link-result-badge {
+  flex-shrink: 0;
+  margin-left: 10px;
+  color: @white;
+  font-family: @wpb_font-family-primary;
+  font-size: @wpb_font-size-xs;
+  font-weight: @wpb_font-weight;
+  text-transform: uppercase;
+}
+
+// Popup
+.wpb_link-popup {
+  .wpb_link-popup-content {
+    width: 480px;
+    max-height: 80vh;
+    margin: auto;
+  }
+}
+
+.wpb_link-popup-body {
+  .vc_ui-panel-content {
+    padding: 18px;
+  }
+}
+
+.wpb_link-popup-field {
+  margin-bottom: 14px;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.wpb_link-popup-label {
+  display: block;
+  .wpb_param_label_text();
+  margin-bottom: 6px;
+}
+
+.wpb_link-popup-text,
+.wpb_link-popup-select {
+  .wpb-form-input-styles();
+  width: 100%;
+}
+
+input[type="text"].wpb_link-popup-select {
+  padding: 10px 30px 10px 10px;
+}
+
+.wpb_link-popup-toggles {
+  margin-top: 14px;
+
+  .wpb_toggle-switch {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .wpb_element_label {
+      flex: 1 1 auto;
+      margin-left: 8px;
+      margin-bottom: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,441 @@
+// Select styles (single select / dropdown)
+
+// Dark dropdown theme variables (shared with link.less)
+@wpb_dropdown-bg: #616464;
+@wpb_dropdown-border: #818484;
+@wpb_dropdown-highlight: #599CEC;
+@wpb_dropdown-item-radius: 7px;
+@wpb_dropdown-padding: 4px;
+@wpb_dropdown-item-padding-x: 25px;
+@wpb_dropdown-input-border-radius: 3px;
+@wpb_dropdown-item-active-radius: 3px;
+@wpb_dropdown-group-color: #BECBD1;
+@wpb_dropdown-outline: #1F1F1F;
+
+// ==========================================================================
+// Shared dropdown mixins (used by Select2 and input-dropdown)
+// ==========================================================================
+
+// Dark dropdown container.
+.wpb-dropdown-container-styles() {
+  z-index: 999999;
+  background-color: @wpb_dropdown-bg;
+  border: none;
+  box-shadow: inset 0 0 0 1px @wpb_dropdown-border;
+  border-radius: @wpb_dropdown-input-border-radius;
+  overflow: hidden;
+  padding: 10px 0 10px @wpb_dropdown-padding;
+}
+
+// Results list with custom scrollbar.
+.wpb-dropdown-results-styles() {
+  margin: 0;
+  padding: 0;
+  overflow-y: overlay;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar { width: 14px; }
+  &::-webkit-scrollbar-track { background-color: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 7px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+// Option item base styles.
+.wpb-dropdown-option-styles() {
+  padding: 1px @wpb_dropdown-item-padding-x;
+  margin: 0 @wpb_dropdown-padding 0 0;
+  color: #fff;
+  font-family: @wpb_font-family-primary;
+  font-size: @wpb_font-size-sm;
+  font-weight: 500;
+  line-height: 26px;
+  min-height: 26px;
+  position: relative;
+  background-color: transparent;
+  border-radius: @wpb_dropdown-item-active-radius;
+  transition: background-color @wpb_transition_duration @wpb_transition_easing;
+  cursor: pointer;
+
+  // Checkmark space.
+  &::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 13px;
+    text-align: center;
+  }
+}
+
+// Highlighted option.
+.wpb-dropdown-option-highlighted-styles() {
+  background-color: @wpb_dropdown-highlight !important; // Override woocommerce admin styles
+  color: #fff;
+}
+
+// Selected option with checkmark.
+.wpb-dropdown-option-selected-styles() {
+  background-color: transparent;
+
+  &::before {
+    content: @vc-c-icon-check;
+    .wpb-icon-font();
+    font-size: 10px;
+    color: #fff;
+  }
+}
+
+// Loading indicator text.
+.wpb-dropdown-loading-styles() {
+  padding: 8px @wpb_dropdown-item-padding-x;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: @wpb_font-family-primary;
+  font-size: @wpb_font-size-sm;
+  font-style: italic;
+}
+
+// Native select fallback (used when Select2 is not initialized)
+.wpb-form-select {
+  height: auto;
+  padding-right: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23666' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  appearance: none;
+  cursor: pointer;
+
+  &.wpb-form-select--full {
+    max-width: 100%;
+  }
+}
+
+// ==========================================================================
+// Select2 Styles
+// ==========================================================================
+// Single Select Trigger (Container)
+.wpb-form-select + .select2-container.select2-container--default,
+.wpb-form-select-search + .select2-container.select2-container--default {
+  max-width: 100%;
+
+  .select2-selection--single {
+    min-height: 40px;
+    height: auto;
+    padding: 10px;
+    padding-right: 30px;
+    border: 1px solid @grayLight;
+    border-radius: @wpb_dropdown-input-border-radius;
+    background-color: #fff;
+    margin: 0;
+
+    .select2-selection__rendered {
+      .wpb_param_label_text();
+      padding: 0;
+    }
+
+    .select2-selection__arrow {
+      position: absolute;
+      height: 100%;
+      width: auto;
+      top: 0;
+      right: 10px;
+      display: flex;
+      align-items: center;
+
+      b {
+        display: none;
+      }
+
+      &::after {
+        content: @vc-c-chevron-down;
+        .wpb-icon-font();
+        font-size: 8px;
+        color: #666;
+        .wpb_transition(transform, @wpb_transition_duration_slow);
+      }
+    }
+
+    .select2-selection__placeholder {
+      color: #999;
+    }
+  }
+
+  // Focus/open state
+  &.select2-container--focus,
+  &.select2-container--open {
+    .select2-selection--single {
+      border-color: @vc_main_color_hover !important; // Override woocommerce admin styles
+      outline: none;
+      box-shadow: none !important; // Override woocommerce admin styles
+      border-radius: @wpb_dropdown-input-border-radius;
+    }
+  }
+
+  // Rotate arrow when open.
+  &.select2-container--open .select2-selection__arrow::after {
+    transform: scaleY(-1);
+  }
+}
+
+// Single Select Dropdown (dark style)
+.wpb-form-select-dropdown.select2-dropdown {
+  .wpb-dropdown-container-styles();
+  min-width: max-content;
+  max-width: calc(100vw - 40px);
+
+  &.select2-dropdown--below,
+  &.select2-dropdown--above {
+    border-radius: @wpb_dropdown-input-border-radius; // Override Select2 default that removes corner radius
+    border: 1px solid @wpb_dropdown-outline !important;  // Override woocommerce admin styles
+    box-shadow: inset 0 0 0 1px #818484 !important; // Override woocommerce admin styles
+  }
+  &.select2-dropdown--below {
+    top: 2px;
+  }
+  &.select2-dropdown--above {
+    top: -2px;
+  }
+
+  // Search box styling
+  .select2-search--dropdown {
+    padding: 0 0 @wpb_dropdown-padding 0;
+
+    .select2-search__field {
+      .wpb_param_label_text();
+      background-color: #fff;
+      border: 1px solid @wpb_dropdown-border;
+      border-radius: @wpb_dropdown-input-border-radius;
+      padding: 8px 12px;
+      color: #333;
+      outline: none;
+
+      &:focus {
+        border-color: @wpb_dropdown-highlight;
+      }
+    }
+  }
+
+  // Searchable dropdown variant
+  &.wpb-form-select-dropdown--searchable {
+    padding-left: 0;
+    padding-top: 0;
+
+    .select2-search--dropdown {
+      position: relative;
+      padding: 6px;
+
+      &::before {
+        content: @vc-c-icon-search;
+        .wpb-icon-font();
+        position: absolute;
+        right: 17px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+        line-height: 12px;
+        color: @wpb_dropdown-group-color;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .select2-search__field {
+        .wpb_param_label_text();
+        height: 40px;
+        padding: 8px 12px;
+        margin: 0;
+        border: none;
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+    }
+
+    .select2-results {
+      padding-top: 10px;
+      padding-left: @wpb_dropdown-padding;
+    }
+  }
+
+  .select2-results {
+    padding-right: 3px;
+  }
+
+  .select2-results__options {
+    .wpb-dropdown-results-styles();
+  }
+
+  // Option items
+  .select2-results__option {
+    .wpb-dropdown-option-styles();
+    white-space: normal;
+    word-break: break-word;
+
+    .select2-results__option {
+      padding-left: @wpb_dropdown-item-padding-x;
+    }
+
+    &.select2-results__option--highlighted,
+    &.vc_ui-dropdown-item:hover {
+      .wpb-dropdown-option-highlighted-styles();
+    }
+
+    &.select2-results__option--selected {
+      .wpb-dropdown-option-selected-styles();
+
+      &.select2-results__option--highlighted {
+        .wpb-dropdown-option-highlighted-styles();
+      }
+    }
+
+    &.select2-results__option--disabled,
+    &.select2-results__option--disabled.vc_ui-dropdown-item {
+      color: rgba(255, 255, 255, 0.5);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  // Optgroup styling
+  .select2-results__option--group {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border-radius: 0;
+    &::before { display: none; }
+  }
+
+  .select2-results__group {
+    padding: 1px @wpb_dropdown-item-padding-x;
+    color: #fff;
+    font-family: @wpb_font-family-primary;
+    font-size: @wpb_font-size-sm;
+    font-weight: 500;
+    line-height: 24px;
+    cursor: default;
+    border-radius: @wpb_dropdown-item-radius;
+    margin: 0;
+  }
+
+  strong.select2-results__group {
+      color: @wpb_dropdown-group-color;
+  }
+
+  .select2-results__group:not(:empty) + .select2-results__options--nested .select2-results__option {
+    padding-left: calc(@wpb_dropdown-item-padding-x + 20px);
+  }
+}
+
+// Multi-select Dropdown (light style with checkboxes) - Category select only
+#vc_ui-panel-post-settings .select2-dropdown:not(.wpb-form-select-dropdown) {
+  border: 1px solid @grayLight;
+  border-radius: @wpb_dropdown-input-border-radius;
+
+  &.select2-dropdown--below,
+  &.select2-dropdown--above {
+    border-radius: @wpb_dropdown-input-border-radius; // Override Select2 default that removes corner radius
+  }
+  &.select2-dropdown--below {
+    top: 5px;
+  }
+  &.select2-dropdown--above {
+    top: -5px;
+  }
+
+  .select2-results__options {
+    margin: 0.5px;
+
+    .select2-results__option--selectable.select2-results__option {
+      position: relative;
+      margin-bottom: 0;
+      padding: 16px 12px;
+      font-size: 14px;
+      color: @textGray;
+
+      &--highlighted,
+      &--highlighted.select2-results__option--selected {
+        background-color: @vc_grey_hover;
+        color: @textGray;
+      }
+
+      .wpb_select2-option-checkbox {
+        padding-left: 24px;
+
+        .option-text {
+          position: relative;
+
+          &::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 1px solid @grayLight;
+            border-radius: 2px;
+            background-color: @white;
+            position: absolute;
+            left: -22px;
+            top: 50%;
+            transform: translateY(-50%);
+            .wpb_transition(background-color);
+          }
+        }
+      }
+
+      &--selected {
+        background-color: fade(@vc_main_color, 20%);
+
+        .wpb_select2-option-checkbox .option-text::before {
+          content: @vc-c-icon-check;
+          .wpb-icon-font();
+          font-size: 11px;
+          line-height: 12px;
+          text-align: center;
+          color: @white;
+          background-color: @vc_main_color_hover;
+          border-color: @vc_main_color_hover;
+        }
+      }
+    }
+  }
+}
+
+// Param Styles
+
+.vc_shortcode-param[data-param_type="dropdown"] select.wpb_vc_param_value {
+  .reset() {
+    display: inline-block;
+    .opacity(1);
+    margin: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; // override WordPress admin CSS
+    float: none;
+    position: inherit;
+    text-align: left;
+  }
+  &, & option {
+    .reset();
+  }
+  option {
+    display: block;
+    padding: 0;
+    width: 100%;
+  }
+}
+
+.vc_select2_dropdown_hide_dropdown {
+  display: none !important;
+}
+
+.wpb-form-select-dropdown--hide-selected .select2-results__option--selected {
+  display: none;
+}

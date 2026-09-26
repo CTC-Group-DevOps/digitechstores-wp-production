@@ -1,0 +1,525 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-04-28 13:54:04+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: ar\n"
+"Project-Id-Version: WooCommerce - WooCommerce Product Add-ons\n"
+
+#: includes/admin/views/html-addon.php:230
+msgid "unlimited"
+msgstr "غير محدود"
+
+#: includes/class-wc-product-addons-display.php:88
+msgid "%s characters remaining"
+msgstr "%s الأحرف المتبقية"
+
+#: woocommerce-product-addons.php:178
+msgid "Find products"
+msgstr "العثور على المنتجات"
+
+#: woocommerce-product-addons.php:178
+msgid "Create an add-on that applies to every product, or apply it to specific categories. Create an add-on for an individual product by editing the product."
+msgstr "أنشئ وظيفة إضافية تنطبق على جميع المنتجات، أو يمكنك تطبيقها على تصنيفات محدَّدة. أنشئ وظيفة إضافية لمنتج فردي عن طريق تحرير المنتج."
+
+#: woocommerce-product-addons.php:178
+msgid "WooCommerce Product Add-ons is ready to go!"
+msgstr "أصبحت الوظائف الإضافية للمنتجات في WooCommerce جاهزة للعمل!"
+
+#: woocommerce-product-addons.php:165
+msgid "Documentation"
+msgstr "التعليمات"
+
+#: woocommerce-product-addons.php:164
+msgid "Support"
+msgstr "الدعم"
+
+#. translators: %s WC download URL link.
+#: woocommerce-product-addons.php:35
+msgid "Product Add-ons requires WooCommerce to be installed and active. You can download %s here."
+msgstr "تتطلب الوظائف الإضافية للمنتجات تثبيت WooCommerce وأن يكون نشطًا. يمكنك تنزيل %s هنا."
+
+#: includes/groups/class-wc-product-addons-groups.php:83
+msgid "Unable to delete group. Invalid global add ons group ID."
+msgstr "يتعذر حذف المجموعة. معرِّف مجموعة الوظائف الإضافية العالمية غير صالح."
+
+#: includes/groups/class-wc-product-addons-groups.php:51
+msgid "Unable to retrieve data. Invalid global add ons group or product ID."
+msgstr "يتعذر استرداد البيانات. معرِّف مجموعة الوظائف الإضافية العالمية أو المنتج غير صالح."
+
+#: includes/fields/class-wc-product-addons-field-file-upload.php:34
+msgid "Filesize exceeds the limit."
+msgstr "يتجاوز حجم الملف الحد المسموح به."
+
+#. translators: %s Addon name
+#: includes/fields/class-wc-product-addons-field-custom.php:61
+msgid "Please enter a value greater than 0 for \"%s\"."
+msgstr "يرجى إدخال قيمة أكبر من 0 لـ \"%s\"."
+
+#. translators: 1 Addon name 2 Maximum amount
+#: includes/fields/class-wc-product-addons-field-custom.php:47
+msgid "The maximum allowed amount for \"%1$s\" is %2$s."
+msgstr "الحد الأقصى للمبلغ المسموح به لـ \"⁦%1$s⁩\" هو ⁦%2$s⁩."
+
+#. translators: 1 Addon name 2 minimum amount
+#: includes/fields/class-wc-product-addons-field-custom.php:40
+msgid "The minimum amount required for \"%1$s\" is %2$s."
+msgstr "الحد الأدنى للمبلغ المطلوب لـ \"⁦%1$s⁩\" هو ⁦%2$s⁩."
+
+#. translators: 1 Addon name 2 Maximum amount
+#: includes/fields/class-wc-product-addons-field-custom.php:32
+msgid "The maximum allowed characters for \"%1$s\" is %2$s."
+msgstr "الحد الأقصى للأحرف المسموح بها لـ \"⁦%1$s⁩\" هو ⁦%2$s⁩."
+
+#. translators: 1 Addon name 2 Minimum amount
+#: includes/fields/class-wc-product-addons-field-custom.php:27
+msgid "The minimum characters required for \"%1$s\" is %2$s."
+msgstr "الحد الأدنى للأحرف المطلوبة لـ \"⁦%1$s⁩\" هو ⁦%2$s⁩."
+
+#: includes/class-wc-product-addons-display.php:87
+msgid "Subtotal"
+msgstr "المجموع"
+
+#: includes/admin/views/html-global-admin.php:67
+msgid "Need help with add-ons? Visit the <a href=\"https://docs.woocommerce.com/document/product-add-ons\" target=\"_blank\">Documentation</a>."
+msgstr "هل تحتاج إلى مساعدة في الوظائف الإضافية؟ يمكنك زيارة <a href=\"https://docs.woocommerce.com/document/product-add-ons\" target=\"_blank\">الوثائق</a>."
+
+#: includes/admin/views/html-global-admin.php:60
+msgid "Create add-ons."
+msgstr "أنشئ وظائف إضافية."
+
+#: includes/admin/views/html-global-admin.php:60
+msgid "No add-ons found."
+msgstr "لم يتم العثور على وظائف إضافية."
+
+#: includes/admin/views/html-global-admin.php:44
+msgid "No Products Assigned"
+msgstr "لم يتم تعيين منتجات"
+
+#: includes/admin/views/html-global-admin.php:9
+msgid "Create New"
+msgstr "إنشاء جديد"
+
+#: includes/admin/views/html-global-admin.php:9
+msgid "Add-Ons"
+msgstr "الوظائف الإضافية"
+
+#: includes/admin/views/html-global-admin-add.php:59
+msgid "Select which categories this add-on should apply to. Create add-ons for a single product when editing that product."
+msgstr "حدِّد التصنيفات التي ينبغي أن تنطبق عليها هذه الوظيفة الإضافية. أنشئ وظائف إضافية لمنتج واحد عند تحرير ذلك المنتج."
+
+#: includes/admin/views/html-global-admin-add.php:48
+msgid "Product categories"
+msgstr "تصنيفات المنتج"
+
+#: includes/admin/views/html-global-admin-add.php:46
+msgid "Choose categories&hellip;"
+msgstr "اختيار التصنيفات"
+
+#: includes/admin/views/html-global-admin-add.php:43
+#: includes/admin/views/html-global-admin.php:16
+msgid "Product Categories"
+msgstr "اقسام المنتجات"
+
+#: includes/admin/views/html-global-admin-add.php:38
+msgid "This determines the order when there are multiple add-ons. Add-ons for individual products are set to order 10."
+msgstr "يُحدِّد هذا الترتيب عند وجود وظائف إضافية متعددة. تم تعيين الوظائف الإضافية للمنتجات الفردية على الترتيب 10."
+
+#: includes/admin/views/html-global-admin-add.php:29
+msgid "This name is for your reference only and will not be visible to customers."
+msgstr "هذا الاسم لكي ترجع إليه فقط، ولن يكون مرئيًا للعملاء."
+
+#: includes/admin/views/html-global-admin-add.php:25
+#: includes/admin/views/html-global-admin.php:14
+msgid "Name"
+msgstr "الاسم"
+
+#: includes/admin/views/html-global-admin-add.php:19
+msgid "Set up add-ons that apply to all products or specific product categories."
+msgstr "يمكنك إعداد الوظائف الإضافية التي تنطبق على جميع المنتجات أو تصنيفات المنتجات المحدَّدة."
+
+#: includes/admin/views/html-global-admin-add.php:11
+msgid "Update"
+msgstr "تحديث"
+
+#: includes/admin/views/html-global-admin-add.php:10
+msgid "Edit Add-on"
+msgstr "تحرير وظيفة إضافية"
+
+#: includes/admin/views/html-global-admin-add.php:7
+msgid "Publish"
+msgstr "نشر"
+
+#: includes/admin/views/html-global-admin-add.php:6
+#: woocommerce-product-addons.php:178
+msgid "Create add-ons"
+msgstr "إنشاء وظائف إضافية"
+
+#: includes/admin/views/html-addon.php:243
+msgid "Adjust price"
+msgstr "تعديل السعر"
+
+#: includes/admin/views/html-addon.php:231
+msgid "Enter a minimum and maximum value for the limit range."
+msgstr "أدخل الحد الأدنى والحد الأقصى لقيمة نطاق الحد."
+
+#: includes/admin/views/html-addon.php:184
+msgid "Add Option"
+msgstr "إضافة خيار"
+
+#: includes/admin/views/html-addon.php:166
+#: includes/admin/views/html-addon.php:244
+msgid "Choose how to calculate price: apply a flat fee regardless of quantity, charge per quantity ordered, or charge a percentage of the total"
+msgstr "اختيار كيفية حساب السعر: تطبيق رسوم ثابتة بغض النظر عن الكمية، أو فرض رسوم على الكمية المطلوبة، أو فرض نسبة مئوية من الإجمالي"
+
+#: includes/admin/views/html-addon.php:160
+msgid "Option"
+msgstr "الخيار"
+
+#: includes/admin/views/html-addon.php:139
+msgid "Add description"
+msgstr "إضافة وصف"
+
+#: includes/admin/views/html-addon.php:129
+msgid "Hide"
+msgstr "إخفاء"
+
+#: includes/admin/views/html-addon.php:127
+msgid "Label"
+msgstr "التسمية"
+
+#: includes/admin/views/html-addon.php:123
+msgid "Format title"
+msgstr "عنوان التنسيق"
+
+#: includes/admin/views/html-addon.php:114
+msgid "Title"
+msgstr "العنوان"
+
+#: includes/admin/views/html-addon.php:105
+msgid "Only Email Address"
+msgstr "عنوان البريد الإلكتروني فقط"
+
+#: includes/admin/views/html-addon.php:104
+msgid "Only Letters and Numbers"
+msgstr "الأحرف والأرقام فقط"
+
+#: includes/admin/views/html-addon.php:103
+msgid "Only Numbers"
+msgstr "الأرقام فقط"
+
+#: includes/admin/views/html-addon.php:102
+msgid "Only Letters"
+msgstr "الأحرف فقط"
+
+#: includes/admin/views/html-addon.php:101
+msgid "Any Text"
+msgstr "أي نص"
+
+#: includes/admin/views/html-addon.php:97
+msgid "Restriction"
+msgstr "القيود"
+
+#: includes/admin/views/html-addon.php:90
+msgid "Images"
+msgstr "الصور"
+
+#: includes/admin/views/html-addon.php:89
+msgid "Radio Buttons"
+msgstr "أزرار الاختيار"
+
+#: includes/admin/views/html-addon.php:88
+msgid "Dropdowns"
+msgstr "القوائم المنسدلة"
+
+#: includes/admin/views/html-addon.php:84
+msgid "Display as"
+msgstr "عرض باسم"
+
+#: includes/admin/views/html-addon.php:77
+#: includes/admin/views/html-addon.php:128
+msgid "Heading"
+msgstr "عنوان"
+
+#: includes/admin/views/html-addon.php:75
+msgid "Customer Defined Price"
+msgstr "سعر حدَّده العميل"
+
+#: includes/admin/views/html-addon.php:66
+msgid "Type"
+msgstr "النوع"
+
+#: includes/admin/views/html-addon.php:9
+msgid "Multiple choice"
+msgstr "خيارات متعددة"
+
+#: includes/admin/views/html-addon-panel.php:56
+msgid "Hide additional add-ons that may apply to this product."
+msgstr "يمكنك إخفاء الوظائف الإضافية التي قد تنطبق على هذا المنتج."
+
+#: includes/admin/views/html-addon-panel.php:55
+msgid "Exclude add-ons"
+msgstr "استبعاد الوظائف الإضافية"
+
+#. translators: %s URL to addons page
+#: includes/admin/views/html-addon-panel.php:50
+msgid "You can create additional <a href=\"%s\">add-ons</a> that apply to all products or to certain categories."
+msgstr "يمكنك إنشاء <a href=\"%s\">وظائف إضافية</a> تنطبق على جميع المنتجات أو بعض التصنيفات."
+
+#: includes/admin/views/html-addon-panel.php:46
+msgid "Additional add-ons"
+msgstr "الوظائف الإضافية"
+
+#: includes/admin/views/html-addon-panel.php:32
+msgid "Add Field"
+msgstr "إضافة حقل"
+
+#: includes/admin/views/html-addon-panel.php:11
+msgid "Add fields to get additional information from customers"
+msgstr "إضافة حقول للحصول على معلومات إضافية من العملاء"
+
+#: includes/admin/views/html-addon-panel.php:11
+msgid "Add-on fields"
+msgstr "حقول الوظائف الإضافية"
+
+#: includes/admin/views/html-addon-option.php:40
+#: includes/admin/views/html-addon.php:251
+msgid "Percentage Based"
+msgstr "على أساس النسبة المئوية"
+
+#: includes/admin/views/html-addon-option.php:39
+#: includes/admin/views/html-addon.php:250
+msgid "Quantity Based"
+msgstr "على أساس الكمية"
+
+#: includes/admin/views/html-addon-option.php:38
+#: includes/admin/views/html-addon.php:249
+msgid "Flat Fee"
+msgstr "سعر ثابت"
+
+#: includes/admin/views/html-addon-option.php:33
+msgid "Enter an option"
+msgstr "إدخال خيار"
+
+#: includes/admin/class-wc-product-addons-privacy.php:20
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
+msgstr "يعني استخدام هذا الملحق أنه يجوز لك تخزين البيانات الشخصية أو مشاركة البيانات مع خدمة خارجية. <a href=\"%s\" target=\"_blank\">تعرَّف على المزيد حول كيفية عمل هذا، بما في ذلك ما قد تريد تضمينه في سياسة الخصوصية لديك.</a>"
+
+#: includes/admin/class-wc-product-addons-admin.php:60
+#: includes/admin/class-wc-product-addons-privacy.php:12
+msgid "Product Add-ons"
+msgstr "الوظائف الإضافية للمنتجات"
+
+#: includes/admin/class-wc-product-addons-admin.php:648
+msgid "Variation ID:"
+msgstr "مُعرف النوع:"
+
+#. translators: %s ID of variation
+#: includes/admin/class-wc-product-addons-admin.php:645
+msgid "%s (No longer exists)"
+msgstr "%s (لا يكون موجودًا بعد الآن)"
+
+#: includes/admin/class-wc-product-addons-admin.php:636
+msgid "SKU:"
+msgstr "رمز المنتج:"
+
+#: includes/admin/class-wc-product-addons-admin.php:291
+#: includes/admin/views/html-addon.php:70
+msgid "Multiple Choice"
+msgstr "اختيار من متعدد"
+
+#: includes/admin/class-wc-product-addons-admin.php:287
+msgid "Dropdown"
+msgstr "قائمة منسدلة"
+
+#: includes/admin/class-wc-product-addons-admin.php:284
+#: includes/admin/views/html-addon.php:74
+msgid "File Upload"
+msgstr "رفع ملف"
+
+#: includes/admin/class-wc-product-addons-admin.php:281
+#: includes/admin/views/html-addon.php:73
+msgid "Long Text"
+msgstr "نص طويل"
+
+#: includes/admin/class-wc-product-addons-admin.php:278
+#: includes/admin/views/html-addon.php:72
+msgid "Short Text"
+msgstr "نص قصير"
+
+#: includes/admin/class-wc-product-addons-admin.php:275
+#: includes/admin/views/html-addon.php:76
+msgid "Quantity"
+msgstr "الكمية"
+
+#: includes/admin/class-wc-product-addons-admin.php:272
+#: includes/admin/views/html-addon.php:165
+msgid "Price"
+msgstr "السعر"
+
+#: includes/admin/class-wc-product-addons-admin.php:269
+msgid "Checkbox"
+msgstr "مربع اختيار"
+
+#: includes/admin/class-wc-product-addons-admin.php:240
+#: includes/admin/class-wc-product-addons-admin.php:312
+msgid "Add-ons Group"
+msgstr "مجموعة الوظائف الإضافية"
+
+#: includes/admin/class-wc-product-addons-admin.php:214
+msgid "Error: Add-on not found"
+msgstr "خطأ: لم يتم العثور على وظيفة إضافية"
+
+#: includes/admin/class-wc-product-addons-admin.php:168
+msgid "Add Image"
+msgstr "إضافة صورة"
+
+#: includes/admin/class-wc-product-addons-admin.php:167
+msgid "Add Image Swatch"
+msgstr "إضافة عينات ألوان الصور"
+
+#: includes/admin/class-wc-product-addons-admin.php:165
+msgid "Are you sure you want remove this add-on field?"
+msgstr "هل تريد بالتأكيد إزالة حقل الوظيفة الإضافية هذا؟"
+
+#: includes/admin/class-wc-product-addons-admin.php:164
+#: includes/admin/views/html-addon.php:193
+msgid "Restrictions"
+msgstr "القيود"
+
+#: includes/admin/class-wc-product-addons-admin.php:163
+#: includes/admin/views/html-addon.php:206
+#: includes/admin/views/html-addon.php:209
+msgid "Limit character length"
+msgstr "تقييد طول الأحرف"
+
+#: includes/admin/class-wc-product-addons-admin.php:162
+#: includes/admin/views/html-addon.php:203
+msgid "Limit quantity range"
+msgstr "تقييد نطاق الكمية"
+
+#: includes/admin/class-wc-product-addons-admin.php:161
+#: includes/admin/views/html-addon.php:199
+msgid "Limit price range"
+msgstr "تقييد نطاق السعر"
+
+#: includes/admin/class-wc-product-addons-admin.php:160
+msgid "All fields must have a title and/or option name. Please review the settings highlighted in red border."
+msgstr "يجب تحديد عنوان و/أو اسم خيار لجميع الحقول. يرجى مراجعة الإعدادات المميَّزة بالحد الأحمر."
+
+#: templates/addons/image.php:56 templates/addons/select.php:19
+msgid "Select an option..."
+msgstr "تحديد خيار..."
+
+#: templates/addons/image.php:16 templates/addons/image.php:54
+#: templates/addons/radiobutton.php:18 templates/addons/select.php:17
+msgid "None"
+msgstr "بدون"
+
+#: templates/addons/file-upload.php:30
+msgid "(max file size %s)"
+msgstr "(الحد الأقصى لحجم الملف %s)"
+
+#: includes/admin/views/html-addon.php:149 templates/addons/addon-start.php:59
+#: templates/addons/addon-start.php:70
+msgid "Required field"
+msgstr "الحقل المطلوب"
+
+#. translators: %s Name of the addon
+#. translators: %s Addon name
+#: includes/fields/class-wc-product-addons-field-custom.php:17
+#: includes/fields/class-wc-product-addons-field-file-upload.php:29
+#: includes/fields/class-wc-product-addons-field-list.php:15
+#: includes/fields/class-wc-product-addons-field-select.php:14
+msgid "\"%s\" is a required field."
+msgstr "\"%s\" هو حقل مطلوب."
+
+#: includes/class-wc-product-addons-display.php:472
+msgid "Select options"
+msgstr "تحديد أحد الخيارات"
+
+#: includes/admin/views/html-global-admin.php:33
+msgid "Delete"
+msgstr "حذف"
+
+#: includes/admin/views/html-global-admin.php:33
+msgid "Edit"
+msgstr "تحرير"
+
+#: includes/admin/views/html-global-admin.php:17
+msgid "Number of Fields"
+msgstr "عدد الحقول"
+
+#: includes/admin/views/html-global-admin-add.php:47
+#: includes/admin/views/html-global-admin.php:42
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+#: includes/admin/views/html-global-admin-add.php:34
+#: includes/admin/views/html-global-admin.php:15
+msgid "Priority"
+msgstr "الأولوية"
+
+#: templates/addons/custom-text.php:36
+msgid "Only letters and numbers"
+msgstr "الأحرف والأرقام فقط"
+
+#: templates/addons/custom-text.php:32
+msgid "Only numbers"
+msgstr "الأرقام فقط"
+
+#: templates/addons/custom-text.php:28
+msgid "Only letters"
+msgstr "الأحرف فقط"
+
+#: includes/admin/views/html-addon.php:71
+msgid "Checkboxes"
+msgstr "مربعات الاختيار"
+
+#: includes/admin/views/html-addon.php:56
+msgid "Click to toggle"
+msgstr "أضغط للتبديل"
+
+#: includes/admin/views/html-addon.php:55
+msgid "Remove"
+msgstr "إزالة"
+
+#: includes/admin/class-wc-product-addons-admin.php:166
+msgid "Are you sure you want delete this option?"
+msgstr "هل تريد بالتأكيد حذف هذا الخيار؟"
+
+#: includes/admin/views/html-addon-panel.php:42
+msgid "Paste exported form data here and then save to import fields. The imported fields will be appended."
+msgstr "ألصق بيانات النموذج الذي تم تصديره هنا ثم احفظ لاستيراد الحقول. سيتم إلحاق الحقول التي تم استيرادها."
+
+#: includes/admin/views/html-addon-panel.php:36
+msgid "Export"
+msgstr "تصدير"
+
+#: includes/admin/views/html-addon-panel.php:35
+msgid "Import"
+msgstr "استيراد"
+
+#: includes/admin/views/html-addon-panel.php:13
+msgid "Expand all"
+msgstr "توسعة الكل"
+
+#: includes/admin/views/html-addon-panel.php:13
+msgid "Close all"
+msgstr "إغلاق الكل"
+
+#: includes/admin/class-wc-product-addons-admin.php:45
+#: includes/admin/class-wc-product-addons-admin.php:358
+msgid "Add-ons"
+msgstr "الوظائف الإضافية"
+
+#: includes/admin/class-wc-product-addons-admin.php:252
+msgid "Add-on deleted successfully"
+msgstr "تم حذف الوظيفة الإضافية بنجاح"
+
+#: includes/admin/class-wc-product-addons-admin.php:199
+msgid "Add-on saved successfully"
+msgstr "تم حفظ الوظيفة الإضافية بنجاح"

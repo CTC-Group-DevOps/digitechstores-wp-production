@@ -1,0 +1,152 @@
+// Tag Input / Multi-select Pill styles
+// Styles for the input field with pill tags (used by tag inputs and multi-select)
+
+// Variables
+@wpb-select2-item-height: 28px;
+
+.vc_ui-panel,
+#vc_inline-frame-wrapper,
+#wpb_wpbakery,
+.vc_settings {
+  .select2-container.select2-container--default {
+
+    // Focus state for multi-select
+    &.select2-container--focus .select2-selection--multiple {
+      border-color: @vc_input_hover_border_color !important; // Override woocommerce admin styles
+      box-shadow: none !important; // Override woocommerce admin styles
+    }
+
+    // Multi-select rendered items container
+    .select2-selection--multiple .select2-selection__rendered {
+      margin: 0;
+      padding: 5px 0 0 0;
+      box-sizing: border-box;
+
+      > li {
+        vertical-align: middle;
+        margin: 5px 10px 5px 0;
+
+        &.select2-selection__choice {
+          display: inline-flex;
+        }
+      }
+
+    }
+
+    .select2-search--inline .select2-search__field {
+      .wpb_param_label_text();
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    // Border radius when dropdown is open
+    &.select2-container--open.select2-container--above .select2-selection--multiple {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    &.select2-container--open.select2-container--below .select2-selection--multiple {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    // Multi-select input field container
+    .select2-selection--multiple {
+      padding: 0 10px;
+      border: 1px solid @vc_input_border_color;
+      border-radius: 4px;
+      min-height: 40px;
+      box-sizing: border-box;
+
+      // Selected choice pills
+      .select2-selection__choice {
+        .wpb_param_label_text();
+        display: inline-flex;
+        align-items: center;
+        height: @wpb-select2-item-height;
+        max-width: 100%;
+        margin: 0;
+        padding: 0 4px 0 15px;
+        border: none;
+        border-radius: 15px;
+        background-color: @vc_main_color;
+        box-sizing: border-box;
+        color: @white;
+        line-height: 1;
+
+        &:hover {
+          background-color: @vc_main_color_hover;
+        }
+
+        &__display {
+          padding: 0;
+          display: block;
+          order: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          min-width: 0;
+        }
+
+        &__remove {
+          line-height: 0;
+          order: 2;
+          flex-shrink: 0;
+
+          &:focus {
+            outline: none;
+            background-color: transparent;
+          }
+
+          &:hover {
+            background-color: @vc_main_color_hover;
+          }
+
+          &,
+          &:hover {
+            position: static;
+            border-right: none;
+            padding: 7px 10px 7px 7px;
+
+            span {
+              display: none;
+            }
+
+            &::before {
+              content: @vc-c-icon-close;
+              display: inline-block;
+              font-family: 'vcpb-plugin-icons', sans-serif;
+              font-size: 8px;
+              color: @white;
+              line-height: 1;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// "Add new..." option should not show check icon
+.wpb-tag-input-dropdown {
+  .select2-results__option:has(.wpb-tag-add-new-option) {
+    &::before {
+      display: none !important;
+    }
+  }
+}
+
+// Fix inline element sometimes taking space when no items are selected just for autocomplete param fields
+.vc_autocomplete-field .select2-selection > ul.select2-selection__rendered:empty {
+    display: none;
+}
+
+// Hide the empty Select2 loading row when a cache hit suppresses "Searching…".
+.wpb-form-select-dropdown,
+.wpb-tag-input-dropdown {
+    .select2-results__option.loading-results:empty {
+        display: none;
+    }
+}

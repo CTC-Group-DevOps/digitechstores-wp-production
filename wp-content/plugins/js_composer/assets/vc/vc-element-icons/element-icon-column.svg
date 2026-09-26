@@ -1,0 +1,10 @@
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g id="Attributes" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="drag-handle-column-example" transform="translate(-13, -13)" stroke="#00447F" stroke-width="1.7">
+            <g id="column-ico" transform="translate(13, 13)">
+                <rect id="Rectangle" x="0.849976" y="0.850098" width="14" height="32" rx="1"></rect>
+                <path d="M23.85,0.8501 L19.849976,0.8501 C19.29769,0.8501 18.849976,1.2978 18.849976,1.8501 L18.849976,31.8501 C18.849976,32.4024 19.29769,32.8501 19.849976,32.8501 L31.85,32.8501 C32.4023,32.8501 32.85,32.4024 32.85,31.8501 L32.85,1.8501 C32.85,1.2978 32.4023,0.8501 31.85,0.8501 L29.85,0.8501" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

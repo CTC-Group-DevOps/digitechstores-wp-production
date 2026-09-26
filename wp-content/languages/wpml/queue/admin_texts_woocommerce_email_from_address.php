@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['noreply@digitechstores.com'=>['urls'=>['/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1770117842','/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1770127861','/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1770145966','/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1770197995','/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1770198732','/?lang=ar&wc-ajax=update_order_review'],'names'=>['woocommerce_email_from_address'],'cmp'=>['wpml-string-translation',1]]]];

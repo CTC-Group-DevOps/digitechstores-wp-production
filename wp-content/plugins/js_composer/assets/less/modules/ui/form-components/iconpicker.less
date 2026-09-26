@@ -1,0 +1,186 @@
+// Icon Picker Styles - overrides for vendor vcIconPicker grey theme
+
+@wpb_iconpicker-border: #BECBD1;
+
+.vc-iconpicker-wrapper .fip-vc-theme-grey.vc-icons-selector {
+	margin: 0;
+
+	.selector {
+		box-sizing: border-box;
+		.wpb-form-input-styles();
+		width: 80px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 9px 10px 9px 20px;
+		height: unset;
+	}
+
+	.selected-icon {
+		width: unset;
+		line-height: unset;
+		height: 20px;
+		i {
+			line-height: 20px;
+			font-size: 20px;
+		}
+	}
+
+	&.vc-iconpicker-open .selector-button::after {
+		transform: scaleY(-1);
+	}
+
+	// Selector button arrow - use chevron icon matching Select2 dropdowns.
+	.selector-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-left: none;
+		background: none;
+		width: unset;
+		height: unset;
+		line-height: unset;
+
+		i {
+			display: none;
+		}
+
+		&::after {
+			content: @vc-c-chevron-down;
+			.wpb-icon-font();
+			font-size: 8px;
+			color: @textGray;
+			.wpb_transition(transform, @wpb_transition_duration_slow);
+		}
+
+		&:hover {
+			background-color: @white;
+		}
+	}
+
+
+
+	// Popup container.
+	.selector-popup {
+		margin-top: 0;
+		border: none;
+		padding: 0;
+		padding-top: 15px;
+		box-shadow: none;
+
+		.selector-pages {
+			.wpb_param_label_text();
+		}
+
+		.selector-search {
+			margin-bottom: 15px;
+
+			input[type="text"] {
+				.wpb-form-input-styles();
+				width: 100%;
+				padding-right: 12px;
+			}
+
+			i {
+				top: 50%;
+				right: 12px;
+				transform: translateY(-50%);
+				font-size: 12px;
+				color: @textGray;
+			}
+		}
+
+		.selector-category .select2-container.select2-container--default {
+			width: 100% !important;
+			margin-bottom: 15px;
+		}
+
+		// Pagination arrows - use vc icon font instead of FA icons.
+		.selector-arrow-left,
+		.selector-arrow-right {
+			cursor: pointer;
+			background: none;
+			border: none;
+			padding: 0;
+			line-height: inherit;
+
+			i {
+				display: none;
+			}
+
+			&::after {
+				.wpb-icon-font();
+				font-size: 12px;
+				color: @textGray;
+				.wpb_transition(color, @wpb_transition_duration);
+			}
+
+			&:hover::after {
+				color: @wpb_iconpicker-border;
+			}
+		}
+
+		.selector-arrow-left {
+			margin-right: 20px;
+		}
+
+		.selector-arrow-left::after {
+			content: @vc-c-arrow-left;
+		}
+
+		.selector-arrow-right::after {
+			content: @vc-c-arrow-right;
+		}
+
+		// Icon container.
+		.fip-icons-container {
+			border: none;
+			padding: 0;
+			max-height: 220px;
+
+			&::-webkit-scrollbar {
+				width: 5px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background-color: transparent;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: @wpb_iconpicker-border;
+				border-radius: 7px;
+			}
+
+			.fip-box {
+				width: 58px;
+				height: 38px;
+				line-height: 38px;
+				margin: 0 5px 5px 0;
+				border-radius: 3px;
+				border: 1px solid @wpb_iconpicker-border;
+				.wpb_transition(all, @wpb_transition_duration);
+
+				i {
+					width: 20px;
+					height: 20px;
+				}
+
+				&:hover {
+					background-color: @vc_main_color_hover;
+					border: 1px solid @vc_main_color_hover;
+					color: @white;
+				}
+				&.current-icon {
+					background-color:  @vc_main_color;
+					border: 1px solid @vc_main_color;
+					color: @white;
+				}
+			}
+		}
+
+		.selector-footer {
+			padding: 0;
+			padding-top: 8px;
+		}
+	}
+}

@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['•	I have read and agreed to the website’s  <a href="https://digitechstores.com/terms-of-use/">Terms and Conditions</a>'=>['urls'=>['/%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d9%8a%d9%86%d8%a9/?lang=ar','/%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d9%8a%d9%86%d8%a9/?lang=ar&vc_editable=true&vc_post_id=3970&_vcnonce=88d6fba3cb','/checkout-2/?lang=ar&vc_editable=true&vc_post_id=61634&_vcnonce=88d6fba3cb','/checkout-2/?lang=ar'],'names'=>['woocommerce_checkout_terms_and_conditions_checkbox_text'],'cmp'=>['wpml-string-translation',1]]]];

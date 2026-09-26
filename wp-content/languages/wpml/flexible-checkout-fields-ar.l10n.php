@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['Address'=>'العنوان','Country / Region'=>'البلد','Email address'=>'البريد الالكتروني','First floor'=>'الطابق الاول','First name'=>'الاسم الاول','Floor'=>'الطابق','Fourth floor and above'=>'الطابق الرابع فأعلى','Ground'=>'الطابق الأرضي','Ground '=>'الطابق الأرضي','Ground floor'=>'الطابق الأرضي','Primary Phone'=>'رقم التلفون','Second floor'=>'الطابق الثاني','Second name'=>'الاسم الثاني','Secondary Phone Number'=>'رقم تلفون اضافي','State / Region'=>'الولاية','Third Name'=>'الاسم الثالث','Third floor'=>'الطابق الثالث','Town / City'=>'المدينة']];

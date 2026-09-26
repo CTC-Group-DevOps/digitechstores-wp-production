@@ -1,0 +1,18 @@
+.wpb-settings-container {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.wpb-settings-header {
+  padding: 0 !important; // override default WP header padding
+  margin: 0 !important; // override default WP header padding
+}
+
+@media screen and (max-width: 782px) {
+  .wpb-settings-container {
+    flex-direction: column;
+  }
+}

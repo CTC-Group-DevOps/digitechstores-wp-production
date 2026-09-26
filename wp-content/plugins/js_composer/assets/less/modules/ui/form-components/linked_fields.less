@@ -1,0 +1,106 @@
+.wpb_linked_fields_container {
+	font-family: @wpb_font-family-primary;
+	font-weight: @wpb_font-weight;
+	display: inline-flex;
+	align-items: flex-start;
+
+	.wpb_linked_field_item {
+		display: flex;
+		flex-direction: column;
+		flex: 0 1 60px;
+
+		&:not(:first-of-type) {
+			margin-left: -1px;
+		}
+
+		&:first-of-type .wpb_linked_field_input {
+			border-top-left-radius: @vc_border_radius;
+			border-bottom-left-radius: @vc_border_radius;
+		}
+
+		&:nth-last-of-type(2) .wpb_linked_field_input {
+			border-top-right-radius: @vc_border_radius;
+			border-bottom-right-radius: @vc_border_radius;
+		}
+	}
+
+	input[type="number"].wpb_linked_field_input {
+		-moz-appearance: textfield;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		text-align: center;
+		border-radius: 0;
+		width: 100%;
+		min-width: 40px;
+		padding-right: 6px;
+
+		&:focus {
+			position: relative;
+			z-index: 2;
+		}
+	}
+
+	.wpb_linked_field_label {
+		font-size: @wpb_font-size-xs;
+		line-height: 1.7;
+		text-align: center;
+		margin-top: 4px;
+	}
+
+	.wpb_linked_fields_control {
+		display: flex;
+		align-items: center;
+		height: 40px;
+		margin-left: 8px;
+	}
+}
+
+.wpb_linked_fields_toggle {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 5px;
+	color: @textGray;
+	.wpb_transition(color);
+
+	.vc-composer-icon {
+		font-size: 12px;
+		width: 12px;
+		height: 12px;
+		vertical-align: middle;
+	}
+
+	&:hover {
+		color: @vc_main_color;
+	}
+
+	&:focus {
+		outline: 2px solid @vc_main_color;
+	}
+
+	&.linked {
+		color: @vc_main_color;
+
+		.vc-c-linked {
+			display: inline-block;
+		}
+
+		.vc-c-not-linked {
+			display: none;
+		}
+	}
+
+	&:not(.linked) {
+		.vc-c-linked {
+			display: none;
+		}
+
+		.vc-c-not-linked {
+			display: inline-block;
+		}
+	}
+}

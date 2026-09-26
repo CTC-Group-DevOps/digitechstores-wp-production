@@ -1,0 +1,244 @@
+<?php
+/**
+ * Abstract class for WPBakery shortcode containers.
+ *
+ * This class serves as a base for creating container-type shortcodes in WPBakery.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
+/**
+ * Class WPBakeryShortCodesContainer
+ */
+abstract class WPBakeryShortCodesContainer extends WPBakeryShortCode {
+	/**
+	 * Predefined attributes.
+	 *
+	 * @var array
+	 */
+	protected $predefined_atts = [];
+
+	/**
+	 * Prepend controls to the backend editor.
+	 *
+	 * @var bool
+	 */
+	protected $backened_editor_prepend_controls = true;
+
+	/**
+	 * Set custom admin block params.
+	 *
+	 * @return string
+	 */
+	public function customAdminBlockParams() {
+		return '';
+	}
+
+	/**
+	 * Get main attributes.
+	 *
+	 * @param string $width
+	 * @param int $i
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function mainHtmlBlockParams( $width, $i ) {
+		$sortable = ( vc_user_access_check_shortcode_all( $this->shortcode ) ? 'wpb_sortable' : $this->nonDraggableClass );
+
+		return 'data-element_type="' . esc_attr( $this->settings['base'] ) . '" class="wpb_' . esc_attr( $this->settings['base'] ) . ' ' . esc_attr( $sortable ) . '' . ( ! empty( $this->settings['class'] ) ? ' ' . esc_attr( $this->settings['class'] ) : '' ) . ' wpb_content_holder vc_shortcodes_container"' . $this->customAdminBlockParams();
+	}
+
+	/**
+	 * Add container classes.
+	 *
+	 * @param string $width
+	 * @param int $i
+	 *
+	 * @return string
+	 */
+	public function containerHtmlBlockParams( $width, $i ) {
+		return 'class="' . $this->containerContentClass() . '"';
+	}
+
+	/**
+	 * Get container content classes.
+	 *
+	 * @return string
+	 */
+	public function containerContentClass() {
+		return 'wpb_column_container vc_container_for_children vc_clearfix';
+	}
+
+	/**
+	 * Get column control settings.
+	 *
+	 * @since 9.0
+	 * @param string $extended_css
+	 * @return array
+	 */
+	public function get_column_control_settings( $extended_css = '' ) {
+		if ( false !== strpos( $extended_css, 'bottom-controls' ) ) {
+			$title = sprintf( esc_attr__( 'Append to this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) );
+		} else {
+			$title = sprintf( esc_attr__( 'Prepend to this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) );
+		}
+		$add_icon = 'vc-c-add-circle';
+
+		$settings = [
+			'add' => [
+				'classes' => 'column_add',
+				'title' => $title,
+				'icon' => $add_icon,
+			],
+			'clone' => [
+				'classes' => 'column_clone',
+				'title' => sprintf( esc_html__( 'Clone this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ),
+				'icon' => 'vc-c-icon-content_copy',
+			],
+			'edit' => [
+				'classes' => 'column_edit',
+				'title' => sprintf( esc_html__( 'Edit this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ),
+				'icon' => 'vc-c-edit',
+			],
+			'delete' => [
+				'classes' => 'column_delete',
+				'title' => sprintf( esc_html__( 'Delete this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ),
+				'icon' => 'vc-c-trash',
+			],
+		];
+
+		$move_access = vc_user_access()->part( 'dragndrop' )->checkStateAny( true, null )->get();
+		if ( $move_access ) {
+			$settings['move'] = [
+				'classes' => 'column_move vc_column-move',
+				'title' => sprintf( esc_html__( 'Move this %s', 'js_composer' ), strtolower( $this->settings( 'name' ) ) ),
+				'icon' => 'vc-c-param-group-dragndrop',
+			];
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Get colum controls html.
+	 *
+	 * @param string $controls
+	 * @param string $extended_css
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function getColumnControls( $controls = 'full', $extended_css = '' ) { // phpcs:ignore:Generic.Metrics.CyclomaticComplexity.TooHigh, CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
+		$controls_html = $this->get_column_controls_html_list( $extended_css );
+		$controls_html['move'] = isset( $controls_html['move'] ) ? $controls_html['move'] : '';
+
+		$controls_html['start'] = '<div class="vc_controls vc_controls-visible controls_column' . ( ! empty( $extended_css ) ? " {$extended_css}" : '' ) . '">';
+		$controls_html['end'] = '</div>';
+
+		$controls_html['full'] = $controls_html['move'] . $controls_html['add'] . $controls_html['edit'] . $controls_html['clone'] . $controls_html['delete'];
+
+		$editAccess = vc_user_access_check_shortcode_edit( $this->shortcode );
+		$allAccess = vc_user_access_check_shortcode_all( $this->shortcode );
+
+		if ( ! empty( $controls ) ) {
+			if ( is_string( $controls ) ) {
+				$controls = [ $controls ];
+			}
+			$controls_string = $controls_html['start'];
+			foreach ( $controls as $control ) {
+				if ( ( $editAccess && 'edit' === $control ) || $allAccess ) {
+					if ( isset( $controls_html[ $control ] ) ) {
+						$controls_string .= $controls_html[ $control ];
+					}
+				}
+			}
+
+			return $controls_string . $controls_html['end'];
+		}
+
+		if ( $allAccess ) {
+			return $controls_html['start'] . $controls_html['full'] . $controls_html['end'];
+		} elseif ( $editAccess ) {
+			return $controls_html['start'] . $controls_html['edit'] . $controls_html['end'];
+		}
+
+		return $controls_html['start'] . $controls_html['end'];
+	}
+
+	/**
+	 * Get admin output.
+	 *
+	 * @param array $atts
+	 * @param null $content
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function contentAdmin( $atts, $content = null ) {
+		$width = '';
+
+		$atts = shortcode_atts( $this->predefined_atts, $atts );
+		extract( $atts );
+		$this->atts = $atts;
+		$output = '';
+
+		$output .= '<div ' . $this->mainHtmlBlockParams( $width, 1 ) . '>';
+		if ( $this->backened_editor_prepend_controls ) {
+			$output .= $this->getColumnControls( $this->settings( 'controls' ) );
+		}
+		$output .= '<div class="wpb_element_wrapper">';
+
+		if ( isset( $this->settings['custom_markup'] ) && '' !== $this->settings['custom_markup'] ) {
+			$markup = $this->settings['custom_markup'];
+			$output .= $this->customMarkup( $markup );
+		} else {
+			$output .= $this->outputTitle( $this->settings['name'] );
+			$output .= '<div ' . $this->containerHtmlBlockParams( $width, 1 ) . '>';
+			$output .= do_shortcode( shortcode_unautop( $content ) );
+			$output .= '</div>';
+			$output .= $this->paramsHtmlHolders( $atts );
+		}
+
+		$output .= '</div>';
+		if ( $this->backened_editor_prepend_controls ) {
+			$output .= $this->getColumnControls( 'add', 'bottom-controls' );
+
+		}
+		$output .= '</div>';
+
+		return $output; // nosemgrep - we already escaped everything on this step.
+	}
+
+	/**
+	 * Get title output.
+	 *
+	 * @param string $title
+	 *
+	 * @return string
+	 */
+	protected function outputTitle( $title ) {
+		$icon = $this->settings( 'icon' );
+		if ( filter_var( $icon, FILTER_VALIDATE_URL ) ) {
+			$icon = '';
+		}
+		$params = [
+			'icon' => $icon,
+			'is_container' => $this->settings( 'is_container' ),
+			'title' => $title,
+		];
+
+		return '<h4 class="wpb_element_title"> ' . $this->getIcon( $params ) . '</h4>';
+	}
+
+	/**
+	 * Get child element class.
+	 *
+	 * @return string
+	 */
+	public function getBackendEditorChildControlsElementCssClass() {
+		return 'vc_element-name';
+	}
+}

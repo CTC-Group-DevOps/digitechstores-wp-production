@@ -1,0 +1,67 @@
+// Checkbox styles
+.vc_checkbox {
+  &-label {
+    font-family: @wpb_font-family-primary;
+    font-size: @wpb_font-size-sm;
+    font-weight: @wpb_font-weight;
+    color: @textGray;
+    cursor: pointer;
+    width: fit-content;
+    white-space: nowrap;
+    display: inline-block;
+
+    // When checkbox follows a tooltip, use inline-block to keep them on the same line
+    .tooltip-content + & {
+      display: inline-block;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      border: 1px solid @vc_input_border_color;
+      box-shadow: none;
+      border-radius: 3px;
+      display: inline-block;
+      margin: -2px 10px 0 0;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      &:focus-visible {
+        outline: 1px solid @vc_main_color;
+        outline-offset: 1px;
+      }
+
+      &:checked {
+        background-color: @vc_main_color;
+        border-color: @vc_main_color;
+
+        &:before {
+          background-image: url(../images/icons/check.svg);
+          content: '';
+          background-position: center;
+          background-repeat: no-repeat;
+          width: 18px;
+          height: 18px;
+          border-radius: 3px;
+          margin: -1px 0 0 -1px;
+        }
+      }
+    }
+  }
+}
+
+.wpb_checkbox {
+  &-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 30px;
+    margin-top: 10px;
+
+    &-vertical {
+      flex-direction: column;
+    }
+  }
+}

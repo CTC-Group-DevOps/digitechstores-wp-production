@@ -1,0 +1,114 @@
+.wpb-unit-selector {
+  display: none;
+}
+
+.wpb-unit-label {
+  font-family: @wpb_font-family-primary;
+  font-size: @wpb_font-size-xs;
+  font-weight: @wpb_font-weight;
+  text-transform: uppercase;
+  color: @textGray;
+  line-height: 18px;
+}
+
+.wpb-unit-selector-select2() {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 5px);
+
+  .select2-selection--single {
+    min-height: 18px;
+    height: 18px;
+    padding: 0;
+    padding-right: 12px;
+    border: none;
+    border-radius: @vc_border_radius;
+    background-color: transparent;
+
+    .select2-selection__rendered {
+      font-family: @wpb_font-family-primary;
+      font-size: @wpb_font-size-xs;
+      font-weight: @wpb_font-weight;
+      text-transform: uppercase;
+      color: @textGray;
+      line-height: 18px;
+      padding: 0;
+    }
+
+    .select2-selection__arrow {
+      position: absolute;
+      right: 0;
+      top: 47%;
+      transform: translateY(-50%);
+      height: 6px;
+      width: 6px;
+      display: flex;
+      align-items: center;
+
+      b {
+        display: none;
+      }
+
+      &::after {
+        content: @vc-c-chevron-down;
+        .wpb-icon-font();
+        font-size: 6px;
+        color: @textGray;
+      }
+    }
+  }
+
+  &.select2-container--focus .select2-selection--single,
+  &.select2-container--open .select2-selection--single {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:hover .select2-selection__rendered,
+  &:hover .select2-selection__arrow::after,
+  &.select2-container--focus .select2-selection__rendered,
+  &.select2-container--focus .select2-selection__arrow::after,
+  &.select2-container--open .select2-selection__rendered,
+  &.select2-container--open .select2-selection__arrow::after {
+    color: @vc_main_color_hover;
+  }
+}
+
+.wpb-range-container {
+  > .wpb-unit-label {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 5px);
+  }
+}
+
+.vc_param_type_number_inner_wrapper {
+  > .wpb-unit-selector + .select2-container.select2-container--default {
+    .wpb-unit-selector-select2();
+  }
+
+  > .wpb-unit-label {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 5px);
+  }
+}
+
+.wpb_linked_fields_container {
+  position: relative;
+
+  > .wpb-unit-selector + .select2-container.select2-container--default {
+    .wpb-unit-selector-select2();
+    right: 30px;
+  }
+
+  > .wpb-unit-label {
+    position: absolute;
+    right: 30px;
+    bottom: calc(100% + 5px);
+  }
+}
+
+.wpb-unit-selector-dropdown.select2-dropdown {
+  width: max-content;
+}

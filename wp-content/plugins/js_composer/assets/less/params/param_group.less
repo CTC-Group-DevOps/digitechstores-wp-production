@@ -1,0 +1,157 @@
+@import "backend_shortcodes/rows_columns.less";
+@import "modules/vc_placeholder.less";
+
+.vc_wrapper-param-type-param_group {
+
+  .wpb_row_container > .wpb_vc_column > .wpb_element_wrapper {
+    background: none !important;
+    padding: 0 7.5px;
+  }
+
+  .wpb_row_container > .wpb_vc_column {
+    margin-bottom: 7.5px;
+  }
+
+  li.vc_param {
+    border: 1px solid #BECBD1;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    background-color: #fff;
+
+    &.ui-sortable-helper {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .vc_param_group-controls {
+      align-items: center;
+      min-height: 40px;
+      justify-content: unset;
+      flex-wrap: unset;
+      cursor: grab;
+
+      .ui-sortable-helper & {
+        cursor: grabbing;
+      }
+
+      .vc_controls {
+        width: 100%;
+        height: 20px;
+        margin-bottom: 15px;
+        background: #fff;
+      }
+
+      .vc_control {
+        padding: 3px 5px;
+        color: @vc-param-group-text-color;
+        background: none;
+
+        &:hover {
+          color: @vc_main_color_hover;
+        }
+
+        &.column_toggle {
+          .vc_icon {
+            background-position: -16px -114px;
+          }
+
+          .vc-c-icon-arrow_drop_down {
+            &:extend(.vc-c-icon-arrow_drop_up all);
+          }
+        }
+      }
+
+      .vc_move-param {
+        border-radius: @vc_border_radius;
+      }
+
+      .vc_param-group-admin-labels {
+        flex: 0 1 auto;
+        min-width: 0;
+        margin-right: auto;
+        overflow-wrap: anywhere;
+        cursor: text; // Allow text selection
+        user-select: text;
+      }
+
+      .vc_row_edit_clone_delete {
+
+        .vc_delete-param {
+          font-size: 9px;
+        }
+
+        .column_clone {
+          font-size: 11px;
+        }
+      }
+
+      .column_move {
+        padding: 0 15px;
+        cursor: inherit;
+
+        &:hover {
+          color: @vc_main_color_hover;
+        }
+      }
+    }
+  }
+
+  .vc_param_group-collapsed {
+    margin-bottom: 0;
+
+    > .wpb_element_wrapper {
+      display: none;
+    }
+
+    .vc_control.column_toggle .vc_icon {
+      background-position: -16px -96px;
+    }
+  }
+
+  .vc_hidden-label {
+    display: none;
+  }
+
+  .vc_param-group-admin-labels {
+    line-height: 24px;
+    font: @wpb_font-weight 12px Inter, sans-serif;
+    color: @vc-param-group-text-color;
+
+    label {
+      cursor: default;
+      vertical-align: inherit;
+    }
+  }
+
+  .vc_param_group-wrapper {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .vc_param_group-list {
+    margin: 0;
+  }
+
+  .vc_empty-container {
+    min-height: 40px;
+    margin-top: 5px;
+    border: 1px dashed @vc_input_border_color;
+    border-radius: 3px;
+    outline: none;
+
+    &:after {
+      content: "\e943";
+      color: @vc-param-group-text-color;
+      font-weight: normal;
+      font-size: 10px;
+    }
+
+    &:hover {
+      border: 1px dashed @vc_input_hover_border_color;
+      opacity: unset;
+    }
+    &:hover:after {
+      color: @vc_input_hover_border_color;
+    }
+  }
+}

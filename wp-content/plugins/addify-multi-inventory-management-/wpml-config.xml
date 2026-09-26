@@ -1,0 +1,16 @@
+<wpml-config>
+  <taxonomies>
+    <taxonomy translate="1" display-as-translated="1">mli_location</taxonomy>
+  </taxonomies>
+  <custom-fields>
+    <custom-field action="translate">in_location</custom-field>
+    <custom-field action="translate">af_prod_and_inven_stock_log</custom-field>
+  </custom-fields>
+  <admin-texts>
+    <key name="af_mli_back_order_color"/>
+    <key name="af_mli_in_stock_color"/>
+    <key name="af_mli_low_stock_color"/>
+    <key name="af_mli_out_of_stock_color"/>
+    <key name="af_mli_over_stock_color"/>
+  </admin-texts>
+</wpml-config>

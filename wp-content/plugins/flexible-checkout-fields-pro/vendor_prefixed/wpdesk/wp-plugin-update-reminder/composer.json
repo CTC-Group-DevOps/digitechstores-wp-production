@@ -1,0 +1,48 @@
+{
+    "name": "wpdesk\/wp-plugin-update-reminder",
+    "authors": [
+        {
+            "name": "Marcin Kolanko",
+            "email": "marcin.kolanko@wpdesk.eu"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4"
+        },
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require": {
+        "php": ">=7.4 | ^8",
+        "wpdesk\/wp-notice": "^3.2"
+    },
+    "require-dev": {
+        "10up\/wp_mock": "*",
+        "mockery\/mockery": "*",
+        "php-stubs\/wordpress-stubs": "*",
+        "phpunit\/phpunit": "^7||^8||^9",
+        "wpdesk\/wp-code-sniffer": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "FCFProVendor\\WPDesk\\Library\\PluginUpdateReminder\\": "src"
+        }
+    },
+    "extra": {
+        "text-domain": "wp-plugin-update-reminder",
+        "translations-folder": "lang",
+        "po-files": {
+            "pl_PL": "pl_PL.po"
+        }
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpunit-unit": "phpunit --configuration phpunit-unit.xml --coverage-html build-coverage",
+        "phpunit-unit-fast": "phpunit --configuration phpunit-unit.xml --no-coverage",
+        "phpunit-integration": "phpunit --configuration phpunit-integration.xml --coverage-text --colors=never",
+        "phpunit-integration-fast": "phpunit --configuration phpunit-integration.xml --no-coverage"
+    }
+}

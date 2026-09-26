@@ -1,0 +1,401 @@
+.vc_shortcode-edit-form {
+  padding-bottom: 61px;
+  .vc_panel-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.vc_properties-list {
+  // overflow-y: auto;
+  &.vc_properties-list-init {
+    //overflow-y: auto;
+  }
+}
+
+.vc_edit-form-tab {
+  padding-top: 0;
+  margin-left: -18px;
+  margin-right: -18px;
+  padding-bottom: 0;
+
+  &:not(:has(> .wpb-modal-section)) {
+    padding-bottom: 7.5px;
+  }
+}
+
+#vc_setting-custom-code-form > .vc_panel-tabs > .vc_panel-tab.vc_row {
+  padding: 0;
+  margin-left: -18px;
+  margin-right: -18px;
+}
+
+/* Content element Edit screen
+---------------------------------------------------------- */
+@teaser_checkbox_radius: 2px;
+
+.vc_dependent-hidden {
+  display: none !important;
+}
+
+.vc_param-spacer > * {
+  visibility: hidden;
+}
+
+// Expands a half-width param to full width when the immediately following param is hidden by a dependency.
+.vc_col-expand-next-hidden:has(+ .vc_dependent-hidden) {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+// Makes a param occupy a full row alone while keeping its own width from vc_col-xs-6.
+// Uses a definite 50% right margin so flex line-breaking sees 100% outer size and wraps the next item.
+// auto margin won't work here — flex places items before resolving auto margins.
+.vc_col-xs-6-expand {
+  margin-right: 50%;
+}
+
+// Grid layout
+.wpb-modal-section:has(.wpb-grid) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+
+  .vc_shortcode-param {
+    width: 100%;
+  }
+
+  .wpb-grid-column-1 {
+    grid-column: 1;
+    grid-row: 1 / -1;
+  }
+
+  .wpb-grid-column-2 {
+    grid-column: 2;
+  }
+}
+
+// Max-width utility for param fields.
+.vc_shortcode-param.wpb_max-w-70 .edit_form_line {
+  max-width: 70px;
+}
+
+.vc_shortcode-param {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // default position is middle, can be overridden by modifiers
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.wpb-param-container {
+  flex: 1 0 100%;
+}
+
+.vc_shortcode-param.vc_align-with-labeled-field--bottom {
+  justify-content: flex-end;
+
+  &.vc_wrapper-param-type-toggle.wpb_el_type_toggle,
+  &.vc_wrapper-param-type-colorpicker.wpb_el_type_colorpicker {
+    align-items: flex-end;
+    justify-content: unset;
+  }
+
+  &.vc_wrapper-param-type-colorpicker.wpb_el_type_colorpicker .wpb-param-heading {
+    margin-bottom: 5px;
+  }
+}
+
+.vc_shortcode-param.vc_align-with-labeled-field--top {
+  justify-content: flex-start;
+
+  &.vc_wrapper-param-type-toggle.wpb_el_type_toggle,
+  &.vc_wrapper-param-type-colorpicker.wpb_el_type_colorpicker {
+    align-items: flex-start;
+    justify-content: unset;
+  }
+
+  &.vc_wrapper-param-type-toggle.wpb_el_type_toggle {
+    margin-top: 18px;
+  }
+
+  &.vc_wrapper-param-type-colorpicker.wpb_el_type_colorpicker .wpb-param-heading {
+    margin-top: 5px;
+  }
+}
+
+.wpb_element_label, .vc_element_label {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: @wpb_font-weight;
+  line-height: 18px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.vc_ui-media-min-width .vc_column[class*=vc_col-] {
+  width: 100%;
+}
+
+.vc_edit_form_elements {
+  .vc_column, .vc_column-with-padding {
+    padding: 7.5px 10px;
+    .vc_column:not(.vc_param_group-list .vc_column),
+    .vc_column-with-padding:not(.vc_param_group-list .vc_column-with-padding) {
+      padding: 7.5px 0; // inner columns should not have padding to avoid compounding
+
+      &:first-of-type {
+        padding-top: 0;
+      }
+      &:last-of-type {
+          padding-bottom: 0;
+      }
+      &.wpb-half-width-field-left {
+        padding: 7.5px 10px 7.5px 0;
+      }
+      &.wpb-half-width-field-right {
+        padding: 7.5px 0 7.5px 10px;
+      }
+    }
+  }
+  .quicktags-toolbar {
+    input {
+      width: auto;
+      padding: 2px 4px;
+    }
+  }
+  input.wp-color-picker[type="text"] {
+    width: 90px !important;
+    padding: 4px 3px 3px;
+    height: 24px;
+    float: left;
+    position: relative;
+  }
+  .wp-color-result.wp-picker-open:after {
+    content: "";
+    border: none;
+  }
+
+  input.wp-picker-clear {
+    width: auto;
+  }
+  .wp-picker-input-wrap input.wp-picker-clear[type="button"] {
+    min-height: 30px;
+  }
+  @media screen and (max-width: 782px) {
+    .wp-picker-input-wrap input.wp-picker-clear[type="button"] {
+      min-height: 32px;
+    }
+  }
+  .vc_ui-button.vc_param-animation-style-trigger {
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    background-color: #EBEBEB;
+  }
+  // will be prefixed by autoprefixer package
+  input::placeholder {
+    color: #999;
+  }
+}
+
+.edit_form_line {
+  position: relative;
+}
+
+.wpb_vc_tab,
+.wpb_vc_accordion_tab {
+  display: none;
+}
+
+.vc_hidden-placeholder {
+  display: none;
+}
+
+#TB_overlay {
+  z-index: 1055;
+}
+
+#TB_window {
+  z-index: 1060;
+}
+
+// Color field
+.vc_colored-dropdown {
+  .vc_edit_color_option_variants(~'blue', @blue, #ffffff);
+  .vc_edit_color_option_variants(~'turquoise', @turquoise, #ffffff);
+  .vc_edit_color_option_variants(~'pink', @pink, #ffffff);
+  .vc_edit_color_option_variants(~'violet', @violet, #ffffff);
+  .vc_edit_color_option_variants(~'peacoc', @peacoc, #ffffff);
+  .vc_edit_color_option_variants(~'chino', @chino, #ffffff);
+  .vc_edit_color_option_variants(~'mulled_wine', @mulled_wine, #ffffff);
+  .vc_edit_color_option_variants(~'mulled-wine', @mulled_wine, #ffffff);
+  .vc_edit_color_option_variants(~'vista_blue', @vista_blue, #ffffff);
+  .vc_edit_color_option_variants(~'vista-blue', @vista_blue, #ffffff);
+  .vc_edit_color_option_variants(~'black', @black, #ffffff);
+  .vc_edit_color_option_variants(~'grey', @grey, #666666);
+  .vc_edit_color_option_variants(~'orange', @orange, #ffffff);
+  .vc_edit_color_option_variants(~'sky', @sky, #ffffff);
+  .vc_edit_color_option_variants(~'green', @green, #ffffff);
+  .vc_edit_color_option_variants(~'juicy_pink', @juicy_pink, #ffffff);
+  .vc_edit_color_option_variants(~'juicy-pink', @juicy_pink, #ffffff);
+  .vc_edit_color_option_variants(~'sandy_brown', @sandy_brown, #ffffff);
+  .vc_edit_color_option_variants(~'sandy-brown', @sandy_brown, #ffffff);
+  .vc_edit_color_option_variants(~'purple', @purple, #ffffff);
+  .vc_edit_color_option_variants(~'white', @white, #666666);
+  .vc_edit_color_option_variants(~'custom', @white, #000000);
+}
+
+// Color field extension for progress bar shortcode only
+[data-vc-shortcode="vc_progress_bar"] .vc_colored-dropdown {
+  .vc_edit_color_option_variants(~'bar_blue', #0074CC, #ffffff);
+  .vc_edit_color_option_variants(~'bar_turquoise', #49afcd, #ffffff);
+  .vc_edit_color_option_variants(~'bar_green', #5bb75b, #ffffff);
+  .vc_edit_color_option_variants(~'bar_orange', #faa732, #ffffff);
+  .vc_edit_color_option_variants(~'bar_red', #da4f49, #ffffff);
+  .vc_edit_color_option_variants(~'bar_black', #414141, #ffffff);
+  .vc_edit_color_option_variants(~'bar_grey', #e0e0e0, #ffffff);
+}
+
+option, select {
+  &.btn-primary {
+    &:extend(.wpb_vc_button .btn-primary);
+    border-width: 0;
+  }
+  &.btn-info {
+    &:extend(.wpb_vc_button .btn-info);
+    border-width: 0;
+    text-shadow: none;
+  }
+  &.btn-success {
+    &:extend(.wpb_vc_button .btn-success);
+    border-width: 0;
+  }
+  &.btn-warning {
+    &:extend(.wpb_vc_button .btn-warning);
+    border-width: 0;
+  }
+  &.btn-inverse {
+    &:extend(.wpb_vc_button .btn-inverse);
+    border-width: 0;
+  }
+  &.btn-danger {
+    &:extend(.wpb_vc_button .btn-danger);
+    border-width: 0;
+  }
+}
+
+.vc_shortcode-edit-form-deprecated-message {
+  padding-bottom: 15px;
+  .wpb_element_wrapper .vc_message_box {
+    margin: 0;
+    padding: 0 1em 1em 4em;
+  }
+}
+
+@import "../params/sorted_list.less";
+@import "../params/css_editor.less";
+@import "../params/options_field.less";
+@import "../params/vc_message_color.less";
+@import "../params/vc_link.less";
+@import "../params/loop.less";
+@import "../params/column_offset.less";
+@import "../params/autocomplete.less";
+@import "../params/param_group.less";
+@import "../params/vc_grid.less";
+@import "../params/vc_grid_element.less";
+@import "../lib/pixel_icons.less";
+@import "../params/hidden.less";
+@import "../params/gutenberg.less";
+@import "../params/font_container.less";
+@import "../lib/css3_animations.less";
+@import "../../less/modules/ui/form-components/index.less";
+
+// Fix link height due to rel noopener
+.has-text-field.vc-link-wrapper #wp-link #search-panel .query-results {
+  top: 215px;
+}
+.vc-link-nofollow {
+  display: none;
+}
+.vc-link-wrapper {
+  .vc-link-nofollow {
+    display: block;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+#vc_settings-post_author .vc_post_author, #vc_settings-post_status .vc_post_status {
+  width: 100%;
+  max-width: unset;
+}
+
+.vc_settings-comments {
+  display: flex;
+  align-items: center;
+
+  .wpb_element_label {
+    flex: 1 1 auto;
+    margin-left: 8px;
+    margin-bottom: 0;
+  }
+}
+
+.wpb-modal-section {
+  border-bottom: none;
+  position: relative;
+  width: 100%;
+  padding: 7.5px 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  clear: both;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -@vcui-panel-content-padding-horizontal;
+    right: -@vcui-panel-content-padding-horizontal;
+    border-bottom: 1px solid @vc_border_color;
+  }
+}
+
+.wpb-modal-section:not(:has(> :not(.vc_edit-form-hidden-field-wrapper))) {
+  padding: 0;
+}
+
+.wpb-modal-section:has(+ .vc_shortcode-param) {
+  margin-bottom: 7.5px;
+}
+
+.wpb-modal-section:first-of-type {
+  padding-top: 0
+}
+
+.wpb-modal-section:last-of-type {
+  padding-bottom: 7.5px;
+
+  &::after {
+    display: none;
+  }
+}
+
+#vc_ui-panel-post-settings .wpb_form-link-container {
+  margin-bottom: 0;
+}
+
+.vc_wrapper-param-type-attach_image[data-vc-shortcode-param-name="image"].vc_dependent-hidden + .wpb-single-image-add-caption,
+.wpb-modal-section:has(.vc_wrapper-param-type-attach_image[data-vc-shortcode-param-name="image"].vc_dependent-hidden) .wpb-single-image-add-caption {
+  width: 100% !important;
+  margin-top: 0;
+}

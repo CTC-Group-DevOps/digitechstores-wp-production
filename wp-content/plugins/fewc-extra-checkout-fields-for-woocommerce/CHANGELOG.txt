@@ -1,0 +1,57 @@
+*** FEWC - Extra Checkout Fields For WooCommerce Changelog ***
+
+2026.08.22 - version 1.0.15
+- Updated: Compatibility check with WP 7.1 and WC 11.0
+- Updated: VillaThem support
+
+2026.06.20 - version 1.0.14
+- Updated: VillaTheme support
+– Updated: Compatible with WP 7.0 and  WC 10.8.1
+
+2026.01.23 - version 1.0.13
+- Updated: VillaTheme support
+
+2025.09.18 - version 1.0.12
+- Added: Add and edit checkout fields in the admin page
+– Added: A link in the TMDS Fulfill tab that auto-generates for custom field when clicked
+
+2025.07.24 - version 1.0.11
+- Updated: VillaTheme support
+
+2025.04.23 - version 1.0.10
+- Updated: VillaTheme support
+
+2025.02.27 - version 1.0.9
+– Updated: Compatible with WC 9.7
+
+2025.01.03 - version 1.0.8
+- Updated: VillaTheme support
+
+2024.11.23 - version 1.0.7
+– Added: Add a link to customize in the plugin's menu
+– Updated: Update support class
+– Updated: Compatible with WP 6.7 and  WC 9.4
+
+2024.06.14 - version 1.0.6
+– Updated: Compatible with WC 8.9
+
+2024.04.13 - version 1.0.5
+– Updated: Compatible with WP 6.5 and  WC 8.7
+– Updated: Update support class
+
+2023.04.12 - version 1.0.4
+– Updated: Update support class
+
+2023.04.12 - version 1.0.3
+-Fixed: Can not display shortcode with Html/paragraph type
+
+2023.03.24 - version 1.0.2
+– Removed: Remove the option enable in the settings page
+– Added: Add a link to customize in the setting plugin page
+– Updated: Compatible with 'High-Performance order storage (COT)'
+
+2022.12.15 - version 1.0.1
+– Updated: Update support class
+
+/*1.0.0  - 2022.*/
+- Release version 1.0.0

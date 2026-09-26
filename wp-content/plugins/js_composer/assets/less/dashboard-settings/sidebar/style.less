@@ -1,0 +1,178 @@
+.wpb-nav-container {
+  box-sizing: border-box;
+  min-height: calc(100vh - 32px);
+  flex: 0 0 @wpb-navbar-width;
+  padding: 20px;
+  background: @vc_main_color;
+  position: relative;
+  z-index: 9; // to override adminbar
+}
+
+.wpb-logo-container {
+  margin: 0 0 30px;
+}
+
+.wpb-nav {
+  display: flex;
+  flex-direction: column;
+  z-index: 9;
+
+  &--desktop {
+    display: flex;
+    gap: 1px;
+  }
+
+  &--mobile {
+    display: none;
+    position: relative;
+    max-width: 100%;
+    margin-bottom: 10px;
+
+    &::after {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      content: "\e941";
+      font-family: 'vcpb-plugin-icons', sans-serif;
+      font-weight: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 8px;
+      color: @textGray;
+      transition: transform 0.3s ease;
+      z-index: 0;
+    }
+  }
+}
+
+// Mobile dropdown styling
+// Select2 styles for navigation dropdown
+.wpb-nav--mobile {
+  .wpb-nav-select {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 11px;
+    border: 1px solid @grayLight;
+    border-radius: 3px;
+    background: @white;
+    color: @textGray;
+    font-family: @wpb_font-family-primary;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    cursor: pointer;
+
+    &:focus {
+      outline: 1px solid @wpb-focus-color;
+      outline-offset: 1px;
+    }
+
+    option {
+      background: @vc_main_color;
+      color: @white;
+      padding: 10px;
+    }
+  }
+
+  .select2-container {
+    z-index: 9; // override the arrow
+  }
+
+  .select2-selection--single {
+    border: none !important;
+    display: flex; // compensate for missing border
+    align-items: center; // center the text vertically
+  }
+}
+
+.wpb-nav-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 20px 0 10px;
+  border-radius: 3px;
+  color: @white;
+  text-decoration: none;
+  font-family: @wpb_font-family-primary;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 41px;
+  cursor: pointer;
+  transition: background @wpb_transition_duration @wpb_transition_easing;
+
+  &--active,
+  &:hover,
+  &:focus {
+    background: @vc_main_color_hover;
+    color: @white;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: 1px solid @wpb-focus-color;
+    outline-offset: 1px;
+    z-index: 1;
+  }
+}
+
+// Navigation item icon styles
+.wpb-nav-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 11px;
+  width: 18px;
+  height: 18px;
+
+  svg {
+    display: block;
+  }
+}
+
+.wpb-nav-item__title {
+  display: inline;
+}
+
+// Mobile responsive - hide desktop nav, show mobile dropdown below 783px
+@media (max-width: 782px) {
+  .wpb-nav-container {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
+
+  .wpb-nav--desktop {
+    display: none;
+  }
+
+  .wpb-nav--mobile {
+    display: block;
+  }
+}
+
+.wpb-logo-link {
+  &, &:hover, &:focus {
+    display: inline-flex;
+    text-decoration: none;
+    box-shadow: none;
+    border: none;
+    outline: none;
+  }
+}
+
+// Welcome page inside settings container
+.vc_settings--welcome {
+  .vc-page-welcome {
+    margin: 0;
+    padding: 0;
+
+    .wp-badge.vc-page-logo {
+      float: right;
+      margin-left: 20px;
+      top: 20px;
+      right: 20px;
+    }
+  }
+}

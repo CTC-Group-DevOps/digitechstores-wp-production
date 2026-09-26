@@ -1,0 +1,26 @@
+// Override WordPress dashboard default styles
+
+#wpcontent:has(.wpb-settings-container) {
+  position: relative;
+  padding: 0;
+}
+
+@media screen and (max-width: 782px) {
+  #wpbody-content {
+    float: none; // prevent the jumping of our sidebar
+  }
+
+  // hide adminbar on resize, to avoid it still being visible
+  #wpwrap:not(.wp-responsive-open) {
+    #adminmenu,
+    #adminmenuback,
+    #adminmenuwrap {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  .wp-responsive-open #wpbody {
+    right: -14.6em; // to fit with the admin menu width
+  }
+}

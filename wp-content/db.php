@@ -1,0 +1,1 @@
+/home/dev-php/AllProject/digitechstores-dev/wp-content/plugins/query-monitor/wp-content/db.php

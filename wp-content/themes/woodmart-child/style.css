@@ -1,0 +1,96 @@
+/*
+ Theme Name:   Woodmart Child
+ Description:  Woodmart Child Theme
+ Author:       XTemos
+ Author URI:   http://xtemos.com
+ Template:     woodmart
+ Version:      1.0.0
+ Text Domain:  woodmart
+*/
+
+
+
+
+
+
+/*.vc_row.wpb_row.vc_row-fluid:first-child {
+  margin: 0 !important;
+}*/
+.vc_row.wpb_row.vc_row-fluid.desktop-slider {
+  margin-top: 0 !important;
+}
+
+.vc_row.wpb_row.vc_row-fluid.mobile-slider {
+  margin: 0 !important;
+}
+
+.scrollToTop {
+  right: 33px;
+}
+
+@media (max-width: 1250px) and (min-width: 1024px) {
+  .wd-nav-header>li>a {
+    font-size: 12px;
+  }
+
+  .wd-nav {
+    gap: 10px;
+  }
+}
+
+
+
+
+@media (max-width: 1024px) {
+
+  .wd-toolbar.wd-toolbar-label-show>a,
+  .wd-toolbar.wd-toolbar-label-show>div a {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .wd-nav-tabs-wrapper {
+    padding: 0px 50px;
+  }
+}
+
+.cart-widget-side a.button.btn-cart.wc-forward {
+  background: #f47933;
+  color: #fff;
+}
+
+/*Custom add to cart start*/
+.wd-product.wd-hover-standard .wd-add-btn>a {
+  height: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wd-product.wd-hover-standard .wd-add-btn>a:before {
+  content: "\f11a";
+  font-family: "woodmart-font";
+  position: absolute;
+  inset: 0;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 20px;
+  transition: opacity .15s ease, transform .25s ease;
+  transform: translateY(100%);
+}
+
+.wd-product.wd-hover-standard .wd-add-btn>a:hover:before {
+  transform: translateY(0%);
+}
+
+.wd-product.wd-hover-standard .wd-add-btn>a span {
+  transition: opacity .15s ease, transform .25s ease;
+  transform: translateY(0%);
+}
+
+.wd-product.wd-hover-standard .wd-add-btn>a:hover span {
+  transform: translateY(-50px);
+}
+
+/*Custom add to cart end*/

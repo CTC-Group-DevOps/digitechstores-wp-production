@@ -1,0 +1,39 @@
+<?php
+
+namespace WCML\Rest\Wrapper\Reports;
+
+use WCML\Rest\Exceptions\InvalidLanguage;
+use WCML\Rest\Wrapper\Handler;
+use WPML\FP\Obj;
+
+class TopSeller extends Handler {
+
+	private $sitepress;
+
+	public function __construct( \SitePress $sitepress ) {
+		$this->sitepress = $sitepress;
+	}
+
+	public function prepare( $response, $object, $request ) {
+
+		$language = Obj::prop( 'lang', $request->get_params() );
+
+		if ( $language ) {
+
+			if ( ! $this->sitepress->is_active_language( $language ) ) {
+				throw new InvalidLanguage( $language );
+			}
+
+			$response->data['lang'] = $language;
+
+			$product_lang = $this->sitepress->get_language_for_element( $object->product_id, 'post_' . get_post_type( $object->product_id ) );
+
+			if( $product_lang !== $language ){
+				return false;
+			}
+		}
+
+		return $response;
+	}
+
+}

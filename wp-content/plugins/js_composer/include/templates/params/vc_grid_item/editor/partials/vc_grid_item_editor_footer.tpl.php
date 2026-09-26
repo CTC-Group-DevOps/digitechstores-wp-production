@@ -1,0 +1,54 @@
+<?php
+/**
+ * Grid item editor footer template.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/editor/popups/class-vc-add-element-box-grid-item.php' );
+$add_element_box = new Vc_Add_Element_Box_Grid_Item();
+$add_element_box->render();
+// Edit form for mapped shortcode.
+wpbakery()->editForm()->render();
+require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/editor/popups/class-vc-templates-editor-grid-item.php' );
+$templates_editor = new Vc_Templates_Editor_Grid_Item();
+$templates_editor->renderUITemplate();
+
+$grid_item = new Vc_Grid_Item();
+$shortcodes = $grid_item->shortcodes();
+$modules = vc_modules_manager()->get_settings();
+
+if ( vc_user_access()->part( 'presets' )->can()->get() ) {
+	require_once vc_path_dir( 'CORE_DIR', 'presets/class-vc-settings-presets.php' );
+	$vc_vendor_settings_presets = Vc_Settings_Preset::listDefaultVendorSettingsPresets();
+	$vc_all_presets = Vc_Settings_Preset::listAllPresets();
+} else {
+	$vc_vendor_settings_presets = [];
+	$vc_all_presets = [];
+}
+$custom_tag = 'script';
+?>
+	<<?php echo esc_attr( $custom_tag ); ?>>
+		window.vc_mapper = <?php echo wp_json_encode( WpbMap_Grid_Item::getShortCodes() ); ?>;
+		window.vc_vendor_settings_presets = <?php echo wp_json_encode( $vc_vendor_settings_presets ); ?>;
+		window.vc_all_presets = <?php echo wp_json_encode( $vc_all_presets ); ?>;
+		window.vc_frontend_enabled = false;
+		window.vc_mode = '<?php echo esc_js( vc_mode() ); ?>';
+		window.vcAdminNonce = '<?php echo esc_js( vc_generate_nonce( 'vc-admin-nonce' ) ); ?>';
+		window.vc_auto_save = <?php echo wp_json_encode( get_option( 'wpb_js_auto_save' ) ); ?>;
+		window.vc_modules = <?php echo wp_json_encode( $modules ); ?>;
+	</<?php echo esc_attr( $custom_tag ); ?>>
+
+<?php vc_include_template( 'editors/partials/vc_settings-single-image-block.tpl.php' ); ?>
+<?php foreach ( WpbMap_Grid_Item::getShortCodes() as $sc_base => $el ) : ?>
+	<<?php echo esc_attr( $custom_tag ); ?> type="text/html" id="vc_shortcode-template-<?php echo esc_attr( $sc_base ); ?>">
+		<?php
+		// @codingStandardsIgnoreLine
+		print wpbakery()->getShortCode( $sc_base )->template();
+		?>
+	</<?php echo esc_attr( $custom_tag ); ?>>
+<?php endforeach ?>
+
+<?php
+vc_include_template( 'editors/partials/access-manager-js.tpl.php' );

@@ -1,0 +1,7 @@
+salt : 5Ylg71PeG
+key  : zTm9r0mK
+serviceId : 001002000101
+appId : 0000000004
+Description : Pay securely Via SyberPay in Sudan: Use your bank physical or virtual cards.
+Title : SyberPay
+enabled 

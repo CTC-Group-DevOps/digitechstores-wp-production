@@ -1,0 +1,1130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Addify Product Multi Location Inventory\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-04 10:04+0000\n"
+"PO-Revision-Date: 2024-01-04 10:05+0000\n"
+"Last-Translator: \n"
+"Language-Team: Dutch\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.2\n"
+"X-Domain: addify_mli"
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:89
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:92
+msgid "/"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:63
+msgid "1"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:249
+msgid "1. Location with most inventory in stock : "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:70
+msgid "100"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:251
+msgid "2. Location as per priority in stock: "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:65
+msgid "2/102022"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:66
+msgid "2/27/2022"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:69
+#: includes/admin/af-mli-csv-tab-design.php:71
+msgid "20"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:60
+msgid "200"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:58
+msgid "27"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:68
+msgid "50"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:77
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:80
+msgid "Add"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:44
+msgid "Add Inventory Price?"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:190
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:84
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:86
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:193
+msgid "Add inventory price?"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:191
+msgid "Add New"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:270
+msgid "Add New Location"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:230
+msgid "Add New Log"
+msgstr ""
+
+#. Author of the plugin
+msgid "Addify"
+msgstr ""
+
+#. Name of the plugin
+#. Description of the plugin
+msgid "Addify Product Multi Location Inventory"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:53
+#: includes/admin/class-addify-mli-taxonomy.php:312
+msgid "Address"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:59
+msgid "Album"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:61
+msgid "Album Inventory"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:133
+#: includes/admin/af-mli-manage-stock.php:371
+msgid "All Locations"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:234
+msgid "All Logs"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:335
+#: includes/admin/af-mli-manage-stock.php:361
+msgid "All Products"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:349
+msgid "All Stock"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:185
+msgid "Allow Back Orders"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:137
+msgid "Allow Back Orders: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:516
+msgid "Allow Back Orders?"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:236
+#: includes/admin/class-addify-mli-woo-tab.php:244
+msgid "Allow to Work plugin from Backend Only"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:251
+msgid ""
+"Assign location as per priority set and availability stock is automatically "
+"chosen."
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:183
+msgid "Bottom"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:144
+msgid "Bottom Left"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:151
+msgid "Bottom Right"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:78
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:81
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:123
+msgid "Check if Manage Stock will enabled or not in inventory"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:69
+#: includes/admin/class-addify-mli-taxonomy.php:336
+msgid "City"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:90
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:93
+msgid "Close all"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:93
+#: includes/admin/class-addify-mli-taxonomy.php:372
+msgid "Country"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:23
+msgid "CSV file should have these columns in it."
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:179
+msgid "CSV Import/Export"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:337
+#: includes/admin/dashboard/af-mli-over-stock.php:22
+#: includes/admin/dashboard/af-mli-out-of-stock.php:22
+#: includes/admin/dashboard/af-mli-low-stock.php:22
+msgid "Current Stock"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:341
+msgid "Current Stock on this"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:73
+msgid "Current Value "
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:76
+msgid "Current value of stock based on manage stock products (qty * price)"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:203
+msgid "Custom Inventory"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:89
+#: includes/admin/class-af-mli-admin-gen-settings.php:167
+msgid "Dashboard"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:19
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:17
+msgid "Date"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:291
+msgid "Date "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:112
+msgid "Date: "
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:198
+msgid "Drop down Option Color"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:206
+msgid "Drop down Option Font Size"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:193
+msgid "Edit Inventory"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:268
+msgid "Edit Location"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:232
+msgid "Edit Log"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:29
+#: includes/admin/class-addify-mli-taxonomy.php:278
+msgid "Email"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:72
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:75
+msgid "Enter Name of New Inventory"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:117
+#: includes/admin/class-addify-mli-taxonomy.php:408
+msgid "Except order in specific time"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:88
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:91
+msgid "Expand all"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:25
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:25
+msgid "Expiry Date"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:117
+msgid "Expiry Date: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:341
+msgid "External/Affiliate product"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:190
+msgid "Field Background Color"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:158
+msgid "Field Border"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:166
+msgid "Field Border Color"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:174
+msgid "Field Border Radius"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:182
+msgid "Field Padding"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:27
+msgid "File format"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:154
+#: includes/admin/af-mli-manage-stock.php:390
+msgid "Filter"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:287
+msgid "Filter By Stock QTY"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:120
+msgid "From"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:339
+msgid "Grouped product"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:118
+msgid "Heading"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:126
+msgid "Heading Color"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:110
+msgid "Heading Display"
+msgstr ""
+
+#: includes/admin/class-af-mli-shop-manager-email.php:37
+msgid "Heading for Email"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:218
+msgid "Hide Locations if they are Out Of Stock"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:282
+msgid "Hide out of stock products"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:120
+#: includes/admin/af-mli-manage-stock.php:233
+#: includes/admin/af-mli-manage-stock.php:522
+msgid "History"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://www.addify.co"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:484
+#: includes/admin/dashboard/af-mli-over-stock.php:16
+#: includes/admin/dashboard/af-mli-out-of-stock.php:16
+#: includes/admin/dashboard/af-mli-low-stock.php:16
+msgid "ID"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:92
+msgid "ID: "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:138
+msgid "If Back Orders are allowed or not of inventory"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:493
+msgid ""
+"If pickup at location store wasn’t available or enable service for user."
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:143
+msgid "If Sold Individually is available or not for inventory"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:145
+msgid "Import Export CSV"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:351
+msgid "In stock"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:11
+msgid ""
+"Increase memory if export is not working(this may happen if there are alot "
+"of products)"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:25
+msgid ""
+"Increase memory if Import is not working (this may happen if there are alot "
+"of products)"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:347
+msgid "InStock Color"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:64
+msgid "inv-album"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:190
+#: class-addify-multi-location-inventory-main.php:192
+#: class-addify-multi-location-inventory-main.php:195
+msgid "Inventories"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:188
+#: class-addify-multi-location-inventory-main.php:189
+msgid "Inventory"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:42
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:174
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:68
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:70
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:177
+msgid "Inventory Date"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:113
+msgid "Inventory Date, The Date of Inventory"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:43
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:182
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:76
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:78
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:185
+msgid "Inventory Expiry Date"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:118
+msgid "Inventory Expiry Date, the date on which inventory will expire"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:37
+msgid "Inventory ID"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:93
+msgid "Inventory ID, Required for identification of inventory"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:39
+msgid "Inventory Location"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:48
+msgid "Inventory Low Stock Threshold"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:38
+#: includes/admin/af-mli-manage-stock.php:506
+#: includes/admin/dashboard/af-mli-over-stock.php:20
+#: includes/admin/dashboard/af-mli-out-of-stock.php:20
+#: includes/admin/dashboard/af-mli-low-stock.php:20
+msgid "Inventory Name"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:137
+msgid "Inventory name"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:266
+msgid "Inventory name and stock"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:98
+msgid "Inventory Name, Required for identification of inventory"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:274
+#: includes/admin/af-mli-csv-tab-design.php:45
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:202
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:96
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:99
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:206
+msgid "Inventory Price"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:40
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:157
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:51
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:55
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:162
+msgid "Inventory Priority"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:103
+msgid "Inventory Priority, for prioritize the inventory"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:46
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:210
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:104
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:107
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:214
+msgid "Inventory Sale Price"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:41
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:165
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:59
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:62
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:169
+msgid "Inventory SKU"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:108
+msgid "Inventory SKU (Stock Keeping Unit)"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:47
+msgid "Inventory Stock Quantity"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:101
+#: includes/admin/class-addify-mli-taxonomy.php:384
+msgid "Latitude"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:190
+msgid "Left"
+msgstr ""
+
+#. Base ID of your widget.
+#: class-addify-multi-location-inventory-main.php:263
+#: includes/front/class-addify-loc-widget.php:9
+#: includes/admin/af-mli-manage-stock.php:221
+#: includes/admin/af-mli-manage-stock.php:520
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:43
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:129
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:23
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:27
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:46
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:134
+msgid "Location"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:299
+msgid "Location "
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:290
+msgid "Location Filter Widget"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:37
+#: includes/admin/class-addify-mli-taxonomy.php:289
+msgid "Location Shop Manager Name"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:132
+#: includes/admin/class-addify-mli-taxonomy.php:428
+msgid "Location Time"
+msgstr ""
+
+#: includes/front/class-addify-loc-widget.php:11
+msgid "Location widget based on Location filters"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:147
+msgid "Location: "
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:262
+#: class-addify-multi-location-inventory-main.php:272
+#: includes/admin/class-addify-mli-woo-tab.php:99
+#: includes/admin/class-af-mli-admin-gen-settings.php:171
+msgid "Locations"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:109
+#: includes/admin/class-addify-mli-taxonomy.php:396
+msgid "Longitude"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:371
+#: includes/admin/af-mli-dashboard-design.php:176
+#: includes/admin/dashboard/af-mli-low-stock.php:5
+msgid "Low Stock"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:173
+#: includes/admin/af-mli-manage-stock.php:514
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:226
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:120
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:123
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:230
+msgid "Low Stock Threshold"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:132
+msgid "Low Stock Threshold: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:373
+msgid "Main Stock"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:265
+msgid "Manage Locations"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:131
+#: includes/admin/class-af-mli-admin-gen-settings.php:175
+#: includes/admin/af-mli-manage-stock.php:149
+#: includes/admin/af-mli-manage-stock.php:508
+msgid "Manage Stock"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:122
+msgid "Manage Stock: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:363
+msgid "Managed"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:62
+msgid "Maxico"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:33
+msgid "Multi Location Inventory plugin is inactive."
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:69
+#: includes/admin/class-af-mli-admin-gen-settings.php:70
+msgid "Multi Locations"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:33
+msgid ""
+"must be active for this plugin to work. Please install &amp; activate "
+"WooCommerce."
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:97
+msgid "Name: "
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:271
+msgid "New Location Name"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:297
+msgid "New Stock "
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:197
+msgid "No Inventory found"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:236
+msgid "No Log found"
+msgstr ""
+
+#: includes/admin/class-addify-mli-ajax.php:275
+#: includes/admin/dashboard/af-mli-over-stock.php:10
+#: includes/admin/dashboard/af-mli-out-of-stock.php:10
+#: includes/admin/dashboard/af-mli-low-stock.php:10
+msgid "No Products Found"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:355
+msgid "No Records Found"
+msgstr ""
+
+#: includes/admin/class-addify-mli-ajax.php:548
+msgid "Ok"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:295
+msgid "Old Stock "
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:363
+msgid "On Backorder"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:355
+msgid "On backorder"
+msgstr ""
+
+#: includes/admin/dashboard/af-mli-out-of-stock.php:5
+msgid "Out of Stock"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:353
+msgid "Out of stock"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:192
+msgid "Out Of Stock (Products)"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:355
+msgid "Out of Stock Color"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:97
+msgid "Out Of Stock Products "
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:379
+#: includes/admin/dashboard/af-mli-over-stock.php:5
+msgid "Over Stock"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:185
+msgid "Over Stock (Products)"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:387
+#: includes/admin/dashboard/af-mli-over-stock.php:21
+#: includes/admin/dashboard/af-mli-out-of-stock.php:21
+#: includes/admin/dashboard/af-mli-low-stock.php:21
+msgid "Over Stock Threshold"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:266
+msgid "Parent Location"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:267
+msgid "Parent Location:"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:236
+#: includes/admin/class-addify-mli-taxonomy.php:545
+msgid "Payment Methods"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:327
+msgid "Payment methods to location"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:45
+#: includes/admin/class-addify-mli-taxonomy.php:300
+msgid "Phone"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:101
+#: includes/admin/af-mli-manage-stock.php:500
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:31
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:32
+msgid "Price"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:102
+msgid "Priority: "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:35
+msgid "Product ID"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:83
+msgid "product id, required. Necessary for import and export."
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:82
+msgid "Product ID: "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:36
+#: includes/admin/af-mli-manage-stock.php:41
+#: includes/admin/af-mli-manage-stock.php:490
+#: includes/admin/dashboard/af-mli-over-stock.php:18
+#: includes/admin/dashboard/af-mli-out-of-stock.php:18
+#: includes/admin/dashboard/af-mli-low-stock.php:18
+msgid "Product Name"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:88
+msgid "product name, required. Necessary for import and export."
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:87
+msgid "Product Name: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:488
+msgid "Product SKU"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:53
+#: includes/admin/af-mli-manage-stock.php:492
+#: includes/admin/dashboard/af-mli-over-stock.php:19
+#: includes/admin/dashboard/af-mli-out-of-stock.php:19
+#: includes/admin/dashboard/af-mli-low-stock.php:19
+msgid "Product Thumbnail"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:486
+#: includes/admin/dashboard/af-mli-over-stock.php:17
+#: includes/admin/dashboard/af-mli-out-of-stock.php:17
+#: includes/admin/dashboard/af-mli-low-stock.php:17
+msgid "Product Type"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:100
+msgid "Products which are out of stock"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:155
+#: includes/admin/class-addify-multi-location-inventory-admin.php:201
+msgid "px"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:155
+msgid "Refresh"
+msgstr ""
+
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:118
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:12
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:14
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:121
+msgid "Remove"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:91
+msgid "Restrict Users to Specific Locations"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:197
+msgid "Right"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:61
+#: includes/admin/class-addify-mli-taxonomy.php:324
+msgid "Route"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:247
+msgid "Rule description :"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:113
+#: includes/admin/af-mli-manage-stock.php:502
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:37
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:39
+msgid "Sale Price"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:274
+msgid "Search"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:250
+msgid "Search By SKU"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:196
+msgid "Search Inventories"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:264
+msgid "Search Locations"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:235
+msgid "Search Log"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:264
+msgid "Search Products"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:89
+#: includes/admin/af-mli-manage-stock.php:498
+msgid "Shipping Class"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:209
+#: includes/admin/class-addify-mli-taxonomy.php:497
+msgid "Shipping Methods"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:319
+msgid "Shipping Methods to each location"
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:155
+#: includes/admin/class-addify-mli-taxonomy.php:455
+msgid "Shipping Zones"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:311
+msgid "Shipping zones to each location"
+msgstr ""
+
+#: includes/admin/class-af-mli-shop-manager-email.php:9
+msgid "Shop Manager Order Email"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:71
+msgid "Show Locations"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:79
+msgid "Show Locations in"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:337
+msgid "Simple product"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:29
+msgid "SKU"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:107
+msgid "SKU: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:209
+#: includes/admin/af-mli-manage-stock.php:518
+msgid "Sold Individually"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:142
+msgid "Sold Individually: "
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:77
+#: includes/admin/class-addify-mli-taxonomy.php:348
+msgid "State"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:327
+msgid "Stock"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:227
+msgid "Stock Log"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:228
+#: class-addify-multi-location-inventory-main.php:229
+#: class-addify-multi-location-inventory-main.php:231
+#: class-addify-multi-location-inventory-main.php:242
+msgid "Stock Logs"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:161
+#: includes/admin/af-mli-manage-stock.php:510
+#: includes/admin/prod_level/af-mli-inventory-fields-prd-lvl.php:218
+#: includes/admin/prod_level/af-mli-prod-lvl-ajax-inventory-template.php:112
+#: includes/admin/variation/af-mli-variation-inventory-fields-template.php:115
+#: includes/admin/variation/af-mli-variation-inventory-fields.php:222
+msgid "Stock Quantity"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:127
+msgid "Stock Quantity: "
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:197
+#: includes/admin/af-mli-manage-stock.php:512
+msgid "Stock Status"
+msgstr ""
+
+#: includes/admin/class-af-mli-shop-manager-email.php:33
+msgid "Subject for Email"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:77
+#: includes/admin/af-mli-manage-stock.php:496
+msgid "Tax Class"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:65
+#: includes/admin/af-mli-manage-stock.php:494
+msgid "Tax Status"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:249
+msgid ""
+"The location is automatically chosen with availability of most number of "
+"stock ."
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:148
+msgid "The Location of inventory"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:133
+msgid "The Low Stock Threshold of inventory"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:128
+msgid "The Stock Quantity of inventory"
+msgstr ""
+
+#: includes/admin/class-af-mli-shop-manager-email.php:11
+msgid ""
+"This will help shop manager to let know when order is placed from his/her "
+"location"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:289
+msgid "Time"
+msgstr ""
+
+#: includes/front/class-addify-loc-widget.php:107
+#: includes/admin/class-addify-mli-woo-tab.php:142
+msgid "Title"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:150
+msgid "Title Color"
+msgstr ""
+
+#: includes/admin/class-addify-mli-woo-tab.php:134
+msgid "Title Display"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:124
+msgid "To"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:176
+msgid "Top"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:130
+msgid "Top Left"
+msgstr ""
+
+#: includes/admin/class-addify-multi-location-inventory-admin.php:137
+msgid "Top Right"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:85
+msgid "Total Stock "
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:88
+msgid "Total stock of products"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:365
+msgid "Unmanaged"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:269
+msgid "Update Location"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:162
+msgid "Upload CSV"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:155
+msgid "Upload csv file"
+msgstr ""
+
+#: includes/admin/class-af-mli-admin-gen-settings.php:293
+msgid "User Name"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:343
+msgid "Variable product"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:179
+#: includes/admin/af-mli-dashboard-design.php:187
+#: includes/admin/af-mli-dashboard-design.php:194
+msgid "View All"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:194
+msgid "View Inventory"
+msgstr ""
+
+#: class-addify-multi-location-inventory-main.php:233
+msgid "View Log"
+msgstr ""
+
+#: includes/admin/af-mli-dashboard-design.php:129
+msgid "Warehouse"
+msgstr ""
+
+#: includes/admin/af-mli-manage-stock.php:125
+#: includes/admin/af-mli-manage-stock.php:504
+msgid "Weight"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:67
+msgid "yes"
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:9
+msgid "You can Export csv file, with your stock data. "
+msgstr ""
+
+#: includes/admin/af-mli-csv-tab-design.php:21
+msgid "You can upload csv file, with your stock data. "
+msgstr ""
+
+#: includes/admin/class-addify-mli-ajax.php:546
+msgid "You have entered wrong date, kindly enter it in correct format "
+msgstr ""
+
+#: includes/admin/class-addify-mli-taxonomy.php:85
+#: includes/admin/class-addify-mli-taxonomy.php:360
+msgid "Zip Code"
+msgstr ""

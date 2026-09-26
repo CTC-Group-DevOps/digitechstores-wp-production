@@ -1,0 +1,30 @@
+
+.wpb_el_type_attach_images {
+  .gallery_widget_add_images,
+  .gallery_widget_attached_image{
+    width: 100px;
+  }
+
+  .edit_form_line {
+    display: flex;
+  }
+}
+
+.gallery_widget_attached_images_list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0;
+
+  &:has(.added) {
+    margin-right: 10px;
+  }
+}
+
+.gallery_widget_attached_images_list .added {
+  position: relative;
+}
+
+.gallery_widget_attached_image.ui-sortable-handle {
+  cursor: move;
+}

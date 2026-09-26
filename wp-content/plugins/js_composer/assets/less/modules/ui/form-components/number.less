@@ -1,0 +1,58 @@
+.wpb-inner-number {
+  input.wpb-form-input {
+    min-height: @vc_elemnet_container_min_height;
+    border: 1px solid @vc_input_border_color;
+    border-radius: @vc_border_radius;
+    padding-right: 20px;
+    -moz-appearance: textfield;
+
+    &:focus {
+      border-color: @vc_input_hover_border_color;
+      box-shadow: unset;
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  .vc_param_type_number_inner_wrapper {
+    position: relative;
+  }
+
+  .vc_param_type_number_arrows {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .vc_param_type_number_chevron {
+    border: none;
+    background: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: @textGray;
+    width: 12px;
+    height: 9px;
+    overflow: hidden;
+    color: @vc-param-group-text-color;
+
+    &:hover i {
+      color: @vc_input_hover_border_color;
+    }
+  }
+}
+
+.vc_shortcode-param[data-param_type="number"] {
+  .wpb-inner-number;
+}
+

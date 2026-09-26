@@ -1,0 +1,53 @@
+@import "config/variables.less";
+@import "modules/ui/form-components/index.less";
+@import "lib/utils.less";
+@import "modules/ui/vc_ui-loaders.less";
+@import "../fonts/vc_icons/init.less";
+@import "modules/wpb_notifications.less";
+
+.vc_settings {
+  margin: 0;
+  padding: 20px;
+  flex: 1 1 auto;
+
+  @import "modules/vc_modals.less";
+  // UI panel header
+  @import "modules/ui/vc_ui-panel/vc_ui-panel-header.less";
+  // UI panel window
+  @import "modules/ui/vc_ui-panel/vc_ui-panel-window.less";
+  // UI panel footer
+  @import "modules/ui/vc_ui-panel/vc_ui-panel-footer.less";
+  // UI panel content
+  @import "modules/ui/vc_ui-panel/vc_ui-panel-content.less";
+  // UI gaps
+  @import "modules/ui/vc_ui-gaps.less";
+  // UI panels
+  @import "modules/vc_panels.less";
+  // Info Tooltip
+  @import "modules/vc_info_tooltip.less";
+  // Popup edit panel
+  @import "popups/panel_edit_form.less";
+  // Grid
+  @import "lib/grid.less";
+  // Load default tabs rules.
+  @import "dashboard-settings/tabs/tabs_ui.less";
+  // General settings
+  @import "dashboard-settings/tabs/general_settings.less";
+  // Modules
+  @import "dashboard-settings/tabs/modules.less";
+  // Product license
+  @import "dashboard-settings/tabs/product_license.less";
+  @import "dashboard-settings/tabs/vc_roles.less";
+}
+
+// Load settings container styles.
+@import "dashboard-settings/settings-layout.less";
+// Load sidebar styles.
+@import "dashboard-settings/sidebar/init.less";
+// Load WordPress dashboard overrides.
+@import "dashboard-settings/wp-overrides.less";
+
+@import "dashboard-settings/tabs/user-group.less";
+@import "pages/vc_welcome.less";
+@import "wp/accordion.less";
+@import "wp/form.less";

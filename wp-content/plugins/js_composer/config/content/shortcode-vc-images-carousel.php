@@ -1,0 +1,170 @@
+<?php
+/**
+ * Configuration file for [vc_images_carousel] shortcode of 'Image carousel' element.
+ *
+ * @see https://kb.wpbakery.com/docs/inner-api/vc_map/ for more detailed information about element attributes.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
+$params = [
+	[
+		'type' => 'attach_images',
+		'heading' => esc_html__( 'Images', 'js_composer' ),
+		'param_name' => 'images',
+		'value' => '',
+		'description' => esc_html__( 'Select images from media library.', 'js_composer' ),
+		'section' => 'images',
+	],
+	[
+		'type' => 'textfield',
+		'heading' => esc_html__( 'Carousel size', 'js_composer' ),
+		'param_name' => 'img_size',
+		'value' => 'thumbnail',
+		'description' => esc_html__( 'Enter image size. Example: thumbnail, medium, large, full or other sizes defined by current theme. Alternatively enter image size in pixels: 200x100 (Width x Height). Leave empty to use "thumbnail" size. If used slides per view, this will be used to define carousel wrapper size.', 'js_composer' ),
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images',
+	],
+	[
+		'type' => 'dropdown',
+		'heading' => esc_html__( 'On click action', 'js_composer' ),
+		'param_name' => 'onclick',
+		'value' => [
+			esc_html__( 'Open Lightbox', 'js_composer' ) => 'link_image',
+			esc_html__( 'None', 'js_composer' ) => 'link_no',
+			esc_html__( 'Open custom links', 'js_composer' ) => 'custom_link',
+		],
+		'description' => esc_html__( 'Select action for click event.', 'js_composer' ),
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'exploded_textarea_safe',
+		'heading' => esc_html__( 'Custom links', 'js_composer' ),
+		'param_name' => 'custom_links',
+		'description' => esc_html__( 'Enter links for each slide (Note: divide links with linebreaks (Enter)).', 'js_composer' ),
+		'dependency' => [
+			'element' => 'onclick',
+			'value' => [ 'custom_link' ],
+		],
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'dropdown',
+		'heading' => esc_html__( 'Custom link target', 'js_composer' ),
+		'param_name' => 'custom_links_target',
+		'description' => esc_html__( 'Select how to open custom links.', 'js_composer' ),
+		'dependency' => [
+			'element' => 'onclick',
+			'value' => [ 'custom_link' ],
+		],
+		'value' => vc_get_shared( 'target param list' ),
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'dropdown',
+		'heading' => esc_html__( 'Slider orientation', 'js_composer' ),
+		'param_name' => 'mode',
+		'value' => [
+			esc_html__( 'Horizontal', 'js_composer' ) => 'horizontal',
+			esc_html__( 'Vertical', 'js_composer' ) => 'vertical',
+		],
+		'description' => esc_html__( 'Select slider position (Note: this affects swiping orientation).', 'js_composer' ),
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'number',
+		'heading' => esc_html__( 'Slider speed', 'js_composer' ),
+		'param_name' => 'speed',
+		'value' => '5000',
+		'settings' => [
+			'min' => 0,
+			'step' => 1000,
+			'units' => [ 'ms' ],
+		],
+		'description' => esc_html__( 'Duration of animation between slides (in ms).', 'js_composer' ),
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'number',
+		'heading' => esc_html__( 'Slides per view', 'js_composer' ),
+		'param_name' => 'slides_per_view',
+		'value' => '1',
+		'settings' => [
+			'min' => 1,
+		],
+		'description' => esc_html__( 'Enter number of slides to display at the same time.', 'js_composer' ),
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'toggle',
+		'heading' => esc_html__( 'Enable slider autoplay', 'js_composer' ),
+		'param_name' => 'autoplay',
+		'description' => esc_html__( 'Enable autoplay mode.', 'js_composer' ),
+		'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
+		'std' => '',
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'toggle',
+		'heading' => esc_html__( 'Hide pagination', 'js_composer' ),
+		'param_name' => 'hide_pagination_control',
+		'description' => esc_html__( 'If checked, pagination controls will be hidden.', 'js_composer' ),
+		'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
+		'std' => '',
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'toggle',
+		'heading' => esc_html__( 'Hide prev/next buttons', 'js_composer' ),
+		'param_name' => 'hide_prev_next_buttons',
+		'description' => esc_html__( 'If checked, prev/next buttons will be hidden.', 'js_composer' ),
+		'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
+		'std' => '',
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'toggle',
+		'heading' => esc_html__( 'Enable partial view', 'js_composer' ),
+		'param_name' => 'partial_view',
+		'description' => esc_html__( 'If checked, part of the next slide will be visible.', 'js_composer' ),
+		'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
+		'std' => '',
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'toggle',
+		'heading' => esc_html__( 'Enable slider loop', 'js_composer' ),
+		'param_name' => 'wrap',
+		'description' => esc_html__( 'Enable slider loop mode.', 'js_composer' ),
+		'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
+		'std' => '',
+		'edit_field_class' => 'vc_col-xs-6',
+		'section' => 'images-options',
+	],
+	[
+		'type' => 'textfield',
+		'heading' => esc_html__( 'Widget title', 'js_composer' ),
+		'param_name' => 'title',
+		'description' => esc_html__( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+	],
+];
+
+return [
+	'name' => esc_html__( 'Image carousel', 'js_composer' ),
+	'base' => 'vc_images_carousel',
+	'icon' => 'icon-wpb-images-carousel',
+	'element_default_class' => 'wpb_content_element',
+	'category' => esc_html__( 'Content', 'js_composer' ),
+	'description' => esc_html__( 'Animated carousel with images', 'js_composer' ),
+	'params' => vc_config()->merge_default_params( $params, [ 'margin-bottom' => '35px' ] ),
+	'sections' => array_merge( [ 'images', 'images-options' ], vc_config()->get_advanced_sections() ),
+];
