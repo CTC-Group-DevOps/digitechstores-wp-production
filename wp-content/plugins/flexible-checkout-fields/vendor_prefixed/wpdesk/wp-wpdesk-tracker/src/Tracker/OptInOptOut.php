@@ -2,8 +2,6 @@
 
 namespace FcfVendor\WPDesk\Tracker;
 
-use FcfVendor\WPDesk\PluginBuilder\Plugin\HookableCollection;
-use FcfVendor\WPDesk\PluginBuilder\Plugin\HookableParent;
 class OptInOptOut implements HookableCollection
 {
     use HookableParent;

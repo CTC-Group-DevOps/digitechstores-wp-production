@@ -88,25 +88,6 @@ if ( !function_exists( 'wpdesk__e' ) ) {
 	}
 }
 
-add_action( 'plugins_loaded', 'flexible_chekout_fields_plugins_loaded', 9 );
-function flexible_chekout_fields_plugins_loaded() {
-	if ( ! function_exists( 'should_enable_wpdesk_tracker' ) ) {
-		function should_enable_wpdesk_tracker() {
-			$tracker_enabled = true;
-			if ( ! empty( $_SERVER['SERVER_ADDR'] ) && $_SERVER['SERVER_ADDR'] === '127.0.0.1' ) {
-				$tracker_enabled = false;
-			}
-
-			return apply_filters( 'wpdesk_tracker_enabled', $tracker_enabled );
-		}
-	}
-	if ( class_exists( 'WPDesk_Tracker_Factory' ) ) {
-		$tracker_factory = new WPDesk_Tracker_Factory();
-		$tracker_factory->create_tracker( basename( dirname( __FILE__ ) ) );
-	}
-}
-
-
 if ( !function_exists( 'wpdesk_get_order_id' ) ) {
 	function wpdesk_get_order_id( $order ) {
 		if ( version_compare( WC_VERSION, '2.7', '<' ) ) {

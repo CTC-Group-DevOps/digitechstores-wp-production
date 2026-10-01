@@ -4,7 +4,7 @@ Donate link: https://codection.com/go/donate-import-users-from-csv-with-meta/
 Tags: import users, export users, csv, migrate users, bulk import
 Requires at least: 5.5
 Tested up to: 7.1
-Stable tag: 2.5
+Stable tag: 2.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,23 @@ By default they are sent to their WordPress profile page. If WooCommerce or WP U
 5. Extra profile information (user meta)
 
 == Changelog ==
+
+= 2.5.5 =
+*   The "Update roles for existing users?" option in the Cron import tab is now a selector with the same three choices as the manual importer: "No", "Yes, update and override existing roles" and "Yes, add new roles and do not override existing ones". Until now it was a checkbox that could only override the existing roles, so recurring imports had no way to add the roles from the CSV while keeping the ones users already had. Existing settings are kept: a checked box is read as "Yes, update and override existing roles" and an unchecked one as "No"
+*   Fixed "Yes, add new roles and do not override existing ones" still replacing the roles of existing users on multisite when the row had no role to assign (no `role` column and role assignment disabled): the user was re-added to the current site as Subscriber, which removed the roles they already had there. Existing members of the site now keep their roles in that case, and only users that are not yet members of the site are added as Subscriber
+
+= 2.5.4 =
+*   Security fix (privilege escalation): batched imports (both the manual "Import" tab, which runs in batches once the file is large enough, and the recurring Cron import) resumed the next batch with `SplFileObject::seek()`, which counts physical lines in the file, while the resume position handed between batches was a count of CSV records. Any exported column whose value can contain a newline — for example the Biographical Info profile field, which is editable by every role and stored verbatim by WordPress core — could make those two counts diverge once such a value was present before the batch boundary. When they diverged, the next batch could resume in the middle of an open quoted field, and the remaining lines that a user had put inside that one cell were then parsed as top-level CSV records in their own right, under the importing administrator's own role/password-assignment capabilities. The resume position is now the exact byte offset (`ftell()`/`fseek()`) at which the last fully parsed CSV record ended, so a batch can only ever resume at a genuine record boundary
+
+= 2.5.2 =
+*   Security fix (privilege escalation): the role-assignment guards in the importer honoured a `caller_can_promote_users` value taken straight from the submitted form data instead of checking the current user's capability. That value is only legitimate on the Action Scheduler cron path, where it is derived from a capability at schedule time; on every request-driven import path (the manual backend importer and the AJAX batch import action the plugin UI uses) the form data is the raw request, so a user with only `create_users` could add `caller_can_promote_users=1` to the request themselves and get the `administrator` role applied, including to their own account. The pre-recorded decision is now only trusted on the cron path; every request-driven path re-derives it from the current user's own capabilities (reported by yzx001)
+*   Security fix (privilege escalation): the front-end shortcode importer's "change role of users that are not present in the CSV" feature read the `acui_frontend_change_role_not_present` / `acui_frontend_change_role_not_present_role` options with no capability check of its own, and those options could be set by anyone able to reach the settings screen, which is gated only on `create_users`. A user with only `create_users` could point the option at `administrator` and then run the front-end importer to promote every existing editable-role user omitted from the CSV to administrator. Saving those two options now requires `promote_users`, matching the equivalent Cron tab option, and the front-end import path now also requires `promote_users` before honouring the option at run time (reported by BINESH MADHARAPU)
+
+= 2.5.3 =
+*   Fixed the `[export-users]` shortcode's `columns` attribute whitelist (added in 2.5.1 to allow the `key=>Label` renaming syntax) still stripping the whole attribute to empty when the custom label contained accented or other non-ASCII letters (for example `columns="first_name=>Prénom"`), since the whitelist only matched plain ASCII letters
+
+= 2.5.1 =
+*   Fixed the `[export-users]` shortcode dropping the `columns` attribute when it used the `key=>Label` renaming syntax (for example `columns="user_email=>Email,first_name=>First name"`), which caused all columns to be exported instead of just the selected ones. The `=` and `>` characters were not part of the shortcode attribute's whitelist and made it get sanitized down to an empty value
 
 = 2.5 =
 *   Security hardening: exporting users is now gated by its own `acui_export_capability` filter (default `edit_users`) instead of sharing the `acui_capability` filter used by import. Previously, any site that lowered `acui_capability` to give a role import-only access (for example, to `add_users`) was also handing that same role access to the Export tab and its download/save endpoints, since both checks resolved to the exact same filter call with no way to tell them apart. The Export tab, its nav link, the plugin list "Export" action link and the export AJAX/download handlers now check the new filter independently, so an import-only role stays import-only unless the new filter is explicitly overridden

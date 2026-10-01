@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Flexible Checkout Fields plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Checkout Fields 4.1.41\n"
+"Project-Id-Version: Flexible Checkout Fields 4.1.42\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-checkout-fields\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-19T10:20:48+00:00\n"
+"POT-Creation-Date: 2026-09-21T06:44:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: flexible-checkout-fields\n"
@@ -968,17 +968,17 @@ msgstr ""
 msgid "Submit &amp; Deactivate"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/Tracker/OptOut.php:42
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/Tracker/OptOut.php:41
 #, php-format
 msgid "You successfully opted out of collecting usage data by %1$s. If you change your mind, you can always opt in later in the plugin's quick links."
 msgstr ""
 
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/Tracker/PluginActionLinks.php:70
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/Tracker/PluginActionLinks.php:69
 #: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:43
 msgid "Enable usage tracking"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/Tracker/PluginActionLinks.php:75
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/Tracker/PluginActionLinks.php:74
 msgid "Disable usage tracking"
 msgstr ""
 
