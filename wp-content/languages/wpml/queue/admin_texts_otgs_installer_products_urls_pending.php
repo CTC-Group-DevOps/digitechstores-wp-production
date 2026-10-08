@@ -1,2 +1,2 @@
 <?php
-return ['items'=>[]];
+return ['items'=>['https://wpml.org/feeds/wpml-bucket-29.json'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['[otgs_installer_products_urls]wpml'],'urls'=>[['kind'=>8,'url'=>'/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1791397315'],['kind'=>9,'url'=>'/'],['kind'=>8,'url'=>'/wp-json/wpml/v1/rest/status?test_get_parameter=1&cachebuster=1791441174'],['kind'=>9,'url'=>'/product-category/home-appliances/refrigerators/']]]]];

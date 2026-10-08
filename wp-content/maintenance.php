@@ -24,10 +24,10 @@ header('Retry-After: 600');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="icon" href="https://digitechstores.com/wp-content/uploads/2019/02/cropped-LOO-1-32x32.jpg">
-    <link rel="stylesheet" href="https://digitechstores.com/wp-content/maintenance/assets/styles.css?1790216170">
-    <script src="https://digitechstores.com/wp-content/maintenance/assets/timer.js?1790216170"></script>
+    <link rel="stylesheet" href="https://digitechstores.com/wp-content/maintenance/assets/styles.css?1791339325">
+    <script src="https://digitechstores.com/wp-content/maintenance/assets/timer.js?1791339325"></script>
     <title>Scheduled Maintenance</title>
-    <style>body {background-image: url("https://digitechstores.com/wp-content/maintenance/assets/images/bg.jpg?1790216170");}</style>
+    <style>body {background-image: url("https://digitechstores.com/wp-content/maintenance/assets/images/bg.jpg?1791339325");}</style>
 </head>
 
 <body>
@@ -45,13 +45,13 @@ header('Retry-After: 600');
     <!--START_SOCIAL_LINKS_BLOCK-->
     <section class="social-links">
                     <a class="social-links__link" href="https://www.facebook.com/cPanel" target="_blank" title="Facebook">
-                <span class="icon"><img src="https://digitechstores.com/wp-content/maintenance/assets/images/facebook.svg?1790216170" alt="Facebook"></span>
+                <span class="icon"><img src="https://digitechstores.com/wp-content/maintenance/assets/images/facebook.svg?1791339325" alt="Facebook"></span>
             </a>
                     <a class="social-links__link" href="https://x.com/cPanel" target="_blank" title="Twitter">
-                <span class="icon"><img src="https://digitechstores.com/wp-content/maintenance/assets/images/twitter.svg?1790216170" alt="Twitter"></span>
+                <span class="icon"><img src="https://digitechstores.com/wp-content/maintenance/assets/images/twitter.svg?1791339325" alt="Twitter"></span>
             </a>
                     <a class="social-links__link" href="https://instagram.com/cPanel" target="_blank" title="Instagram">
-                <span class="icon"><img src="https://digitechstores.com/wp-content/maintenance/assets/images/instagram.svg?1790216170" alt="Instagram"></span>
+                <span class="icon"><img src="https://digitechstores.com/wp-content/maintenance/assets/images/instagram.svg?1791339325" alt="Instagram"></span>
             </a>
             </section>
     <!--END_SOCIAL_LINKS_BLOCK-->
