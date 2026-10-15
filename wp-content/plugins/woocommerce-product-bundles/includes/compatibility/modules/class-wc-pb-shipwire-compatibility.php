@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Shipwire Integration.
  *
- * @version  5.1.0
+ * @version  8.5.13
  */
 class WC_PB_Shipwire_Compatibility {
 
@@ -46,8 +46,8 @@ class WC_PB_Shipwire_Compatibility {
 	 */
 	public static function remove_filters() {
 
-		remove_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10, 2 );
-		remove_filter( 'woocommerce_get_product_from_item', array( WC_PB()->order, 'get_product_from_item' ), 10, 3 );
+		remove_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10 );
+		remove_filter( 'woocommerce_get_product_from_item', array( WC_PB()->order, 'get_product_from_item' ), 10 );
 	}
 }
 

@@ -14,9 +14,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_PB_Query_Bundles_Ability ability definition.
  *
- * @version 8.5.9
+ * @version 8.5.13
  */
 class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\AbilityDefinition {
+
+	/**
+	 * Maximum number of raw products read in one collection query.
+	 *
+	 * @var int
+	 */
+	private const COLLECTION_QUERY_BATCH_SIZE = 100;
+
+	/**
+	 * Maximum number of raw product batches read in one collection query.
+	 *
+	 * @var int
+	 */
+	private const COLLECTION_QUERY_MAX_BATCHES = 100;
+
+	/**
+	 * Maximum number of readable products returned per collection page.
+	 *
+	 * @var int
+	 */
+	private const COLLECTION_QUERY_MAX_RESULTS = 100;
 
 	/**
 	 * Product Bundles ability category.
@@ -91,18 +112,20 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 				'total_pages' => 1,
 				'page'        => 1,
 				'per_page'    => 1,
+				'has_more'    => false,
 			);
 		}
 
-		$page     = isset( $input['page'] ) ? absint( $input['page'] ) : 1;
-		$per_page = isset( $input['per_page'] ) ? absint( $input['per_page'] ) : 10;
+		$page     = isset( $input['page'] ) ? max( 1, absint( $input['page'] ) ) : 1;
+		$per_page = isset( $input['per_page'] )
+			? min( self::COLLECTION_QUERY_MAX_RESULTS, max( 1, absint( $input['per_page'] ) ) )
+			: 10;
 
 		$args = array(
 			'type'     => 'bundle',
-			'limit'    => $per_page,
-			'page'     => $page,
+			'limit'    => self::COLLECTION_QUERY_BATCH_SIZE,
 			'paginate' => true,
-			'return'   => 'objects',
+			'return'   => 'ids',
 			'orderby'  => 'ID',
 			'order'    => 'ASC',
 		);
@@ -126,26 +149,122 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 					'total_pages' => 0,
 					'page'        => $page,
 					'per_page'    => $per_page,
+					'has_more'    => false,
 				);
 			}
 
 			$args['include'] = $bundle_ids;
 		}
 
-		$results     = wc_get_products( $args );
-		$bundles     = is_object( $results ) && isset( $results->products ) ? $results->products : array();
-		$total_pages = is_object( $results ) && isset( $results->max_num_pages ) ? absint( $results->max_num_pages ) : ( count( $bundles ) > 0 ? 1 : 0 );
+		$readable_page = self::get_readable_bundle_ids_page( $args, $page, $per_page );
+		if ( $readable_page['ids'] ) {
+			if ( function_exists( '_prime_post_caches' ) ) {
+				_prime_post_caches( $readable_page['ids'], true, true );
+			} else {
+				update_meta_cache( 'post', $readable_page['ids'] );
+			}
+		}
+		$bundles = array_values(
+			array_filter(
+				array_map( 'wc_get_product', $readable_page['ids'] ),
+				function ( $product ) {
+					return $product instanceof WC_Product_Bundle;
+				}
+			)
+		);
+
+		$total_pages = null === $readable_page['total'] ? null : (int) ceil( $readable_page['total'] / $per_page );
 
 		return array(
 			'bundles'     => array_map( array( __CLASS__, 'format_bundle_for_response' ), $bundles ),
+			// The exact total is available only when the bounded permission scan exhausts the query.
 			'total_pages' => $total_pages,
 			'page'        => $page,
 			'per_page'    => $per_page,
+			'has_more'    => ! empty( $bundles ) && $readable_page['has_more'],
 		);
 	}
 
 	/**
-	 * Check product bundle query permissions.
+	 * Get one page from the permission-filtered bundle ID sequence.
+	 *
+	 * Database reads stay capped per batch and per request. Earlier raw pages
+	 * must be checked without exposing their unreadable counts, so the public
+	 * page and raw batch budgets prevent unbounded work.
+	 *
+	 * @since  8.5.13
+	 *
+	 * @param  array $args     Product query arguments.
+	 * @param  int   $page     Requested readable page.
+	 * @param  int   $per_page Readable products per page.
+	 * @return array Bundle IDs, continuation state, and the readable result total when known.
+	 */
+	private static function get_readable_bundle_ids_page( $args, $page, $per_page ) {
+
+		$readable_ids    = array();
+		$readable_seen   = 0;
+		$raw_page        = 1;
+		$readable_offset = ( $page - 1 ) * $per_page;
+		$has_more        = false;
+		$scan_exhausted  = false;
+
+		$args['limit'] = self::COLLECTION_QUERY_BATCH_SIZE;
+
+		do {
+			$args['page'] = $raw_page;
+			$results      = wc_get_products( $args );
+			$bundle_ids   = is_object( $results ) && isset( $results->products ) && is_array( $results->products )
+				? array_map( 'absint', $results->products )
+				: array();
+
+			if ( $bundle_ids && function_exists( '_prime_post_caches' ) ) {
+				_prime_post_caches( $bundle_ids, false, false );
+			}
+
+			foreach ( $bundle_ids as $bundle_id ) {
+				if ( ! self::can_read_product( $bundle_id ) ) {
+					continue;
+				}
+
+				if ( $readable_seen >= $readable_offset && count( $readable_ids ) < $per_page ) {
+					$readable_ids[] = $bundle_id;
+				}
+
+				++$readable_seen;
+
+				if ( $readable_seen > $readable_offset + $per_page ) {
+					$has_more = true;
+					break 2;
+				}
+			}
+
+			$reported_raw_pages = is_object( $results ) && isset( $results->max_num_pages ) ? $results->max_num_pages : null;
+			$raw_pages          = is_scalar( $reported_raw_pages ) && is_numeric( $reported_raw_pages ) && 0 < (int) $reported_raw_pages ? absint( $reported_raw_pages ) : 0;
+
+			// Filtered query results may omit or corrupt their pagination metadata.
+			// Continue conservatively when the reported page count falls behind the current batch.
+			if ( $raw_pages < $raw_page ) {
+				$raw_pages = empty( $bundle_ids ) ? $raw_page : $raw_page + 1;
+			}
+
+			// Only a scanned extra readable product can advertise a reachable next page.
+			if ( $raw_page >= self::COLLECTION_QUERY_MAX_BATCHES && $raw_page < $raw_pages ) {
+				break;
+			}
+
+			$scan_exhausted = $raw_page >= $raw_pages;
+			++$raw_page;
+		} while ( $raw_page <= $raw_pages && $raw_page <= self::COLLECTION_QUERY_MAX_BATCHES );
+
+		return array(
+			'ids'      => $readable_ids,
+			'has_more' => $has_more,
+			'total'    => $scan_exhausted ? $readable_seen : null,
+		);
+	}
+
+	/**
+	 * Check store-management bundle query permissions.
 	 *
 	 * @param  mixed $input Ability input.
 	 * @return bool
@@ -153,13 +272,59 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 	public static function can_query_bundles( $input = array() ) {
 		$input = is_array( $input ) ? $input : array();
 
-		if ( ! empty( $input['contains_product_id'] ) && ! wc_rest_check_post_permissions( 'product', 'read', absint( $input['contains_product_id'] ) ) ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return false;
+		}
+
+		if ( ! empty( $input['contains_product_id'] ) && ! self::can_read_product( absint( $input['contains_product_id'] ) ) ) {
 			return false;
 		}
 
 		$product_id = ! empty( $input['id'] ) ? absint( $input['id'] ) : 0;
 
-		return wc_rest_check_post_permissions( 'product', 'read', $product_id );
+		if ( $product_id ) {
+			return self::can_read_product( $product_id );
+		}
+
+		$permission = wc_rest_check_post_permissions( 'product', 'read' );
+
+		return ! is_wp_error( $permission ) && $permission;
+	}
+
+	/**
+	 * Check whether the current caller may read a product.
+	 *
+	 * WooCommerce's collection-level REST permission maps `read` to the
+	 * primitive `read_private_products` capability. The post-level check also
+	 * enforces author and status rules for individual drafts and pending items.
+	 * Compose both checks before the standard filter so third parties can make
+	 * the final permission decision; the WooCommerce helper applies it too early.
+	 *
+	 * @since 8.5.13
+	 *
+	 * @param  int $product_id Product ID.
+	 * @return bool
+	 */
+	private static function can_read_product( $product_id ) {
+		$post_type = get_post_type( $product_id );
+		if ( 'product_variation' === $post_type ) {
+			$product_id = wp_get_post_parent_id( $product_id );
+		} elseif ( 'product' !== $post_type ) {
+			return false;
+		}
+
+		if ( ! $product_id ) {
+			return false;
+		}
+
+		$product_post_type = get_post_type_object( 'product' );
+		$permission        = $product_post_type instanceof WP_Post_Type
+			&& current_user_can( $product_post_type->cap->read_private_posts, $product_id )
+			&& current_user_can( 'read_post', $product_id );
+		/** This filter is documented in woocommerce/includes/wc-rest-functions.php. */
+		$permission = apply_filters( 'woocommerce_rest_check_permissions', $permission, 'read', $product_id, 'product' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+
+		return ! is_wp_error( $permission ) && $permission;
 	}
 
 	/**
@@ -384,7 +549,7 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 					'type'        => 'integer',
 					'default'     => 10,
 					'minimum'     => 1,
-					'maximum'     => 100,
+					'maximum'     => self::COLLECTION_QUERY_MAX_RESULTS,
 					'description' => __( 'Maximum number of bundles to return for collection queries.', 'woocommerce-product-bundles' ),
 				),
 			),
@@ -408,8 +573,8 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 					'items'       => self::get_bundle_output_schema(),
 				),
 				'total_pages' => array(
-					'type'        => 'integer',
-					'description' => __( 'Total pages available for this query.', 'woocommerce-product-bundles' ),
+					'type'        => array( 'integer', 'null' ),
+					'description' => __( 'Total readable pages when known, or null when the bounded query did not exhaust all results.', 'woocommerce-product-bundles' ),
 				),
 				'page'        => array(
 					'type'        => 'integer',
@@ -418,6 +583,10 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 				'per_page'    => array(
 					'type'        => 'integer',
 					'description' => __( 'Maximum number of bundles returned per page.', 'woocommerce-product-bundles' ),
+				),
+				'has_more'    => array(
+					'type'        => 'boolean',
+					'description' => __( 'Whether the client should request the next readable page.', 'woocommerce-product-bundles' ),
 				),
 			),
 			'required'             => array( 'bundles', 'total_pages', 'page', 'per_page' ),

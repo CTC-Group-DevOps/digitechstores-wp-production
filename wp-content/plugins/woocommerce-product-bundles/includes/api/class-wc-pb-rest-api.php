@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_REST_API {
 
@@ -288,7 +288,7 @@ class WC_PB_REST_API {
 				),
 			),
 			'bundled_items'                    => array(
-				'description' => __( 'List of bundled items contained in this product. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
+				'description' => __( 'List of bundled items whose child products are readable by the current user. Missing child products are included only for users who can edit the bundle. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'items'       => array(
@@ -514,6 +514,19 @@ class WC_PB_REST_API {
 		if ( isset( $response['id'] ) ) {
 			$product = wc_get_product( $response['id'] );
 			$data    = self::get_product_field( $field_name, $product );
+
+			if ( 'bundled_items' === $field_name && is_array( $data ) ) {
+				$data = array_values(
+					array_filter(
+						$data,
+						function ( $item ) use ( $product ) {
+							$product_id = isset( $item['product_id'] ) ? absint( $item['product_id'] ) : 0;
+							$post       = $product_id ? get_post( $product_id ) : null;
+							return $post ? ( is_post_status_viewable( $post->post_status ) || current_user_can( 'read_post', $post->ID ) ) : current_user_can( 'edit_post', $product->get_id() );
+						}
+					)
+				);
+			}
 		}
 
 		return $data;
@@ -653,6 +666,25 @@ class WC_PB_REST_API {
 							throw new WC_REST_Exception( 'woocommerce_rest_invalid_bundled_product_id', esc_html( sprintf( __( 'Product ID #%s is invalid.', 'woocommerce-product-bundles' ), $bundled_product_id ) ), 400 );
 						}
 
+						$variation_ids = isset( $data['allowed_variations'] ) ? $data['allowed_variations'] : array();
+						if ( 'update' === $action && ! empty( $variation_ids ) && is_array( $variation_ids ) ) {
+							$stored_item = WC_PB_DB::get_bundled_item( $bundled_item_id );
+							if ( $stored_item && $stored_item->get_product_id() === $bundled_product_id ) {
+								$stored_variation_ids = array_map( 'absint', (array) $stored_item->get_meta( 'allowed_variations' ) );
+								// Deleted variations can remain in saved filters; retaining their IDs creates no new reference.
+								$variation_ids = array_filter(
+									$variation_ids,
+									function ( $variation_id ) use ( $stored_variation_ids ) {
+										$variation_id = absint( $variation_id );
+										return ( $variation_id && get_post( $variation_id ) ) || ! in_array( $variation_id, $stored_variation_ids, true );
+									}
+								);
+							}
+						}
+						if ( ! WC_PB_Helpers::can_reference_product( $bundled_product_id, $variation_ids ) ) {
+							throw new WC_REST_Exception( 'woocommerce_rest_cannot_read_bundled_product', esc_html__( 'You do not have permission to use a selected product or variation.', 'woocommerce-product-bundles' ), 403 );
+						}
+
 						// Parse default variation attributes options.
 						if ( isset( $data['default_variation_attributes'] ) ) {
 							$data['default_variation_attributes'] = self::process_default_attributes( $bundled_product, $data['default_variation_attributes'] );
@@ -726,10 +758,10 @@ class WC_PB_REST_API {
 
 					// Add new items.
 					$bundled_data_items_array = array_merge( $bundled_data_items_array, $new );
-				}
 
-				// Set bundled items on object. Neat.
-				$product->set_bundled_data_items( $bundled_data_items_array );
+					// Set bundled items on object. Neat.
+					$product->set_bundled_data_items( $bundled_data_items_array );
+				}
 				$product->save();
 			}
 		}
@@ -1371,7 +1403,7 @@ class WC_PB_REST_API {
 
 				add_filter( 'woocommerce_order_item_product', array( WC_PB()->order, 'get_product_from_item' ), 10, 2 );
 				$product = $order_items[ $order_data_item_id ]->get_product();
-				remove_filter( 'woocommerce_order_item_product', array( WC_PB()->order, 'get_product_from_item' ), 10, 2 );
+				remove_filter( 'woocommerce_order_item_product', array( WC_PB()->order, 'get_product_from_item' ), 10 );
 
 				$order_data['line_items'][ $order_data_item_index ]['product_data']['price']         = $product->get_price();
 				$order_data['line_items'][ $order_data_item_index ]['product_data']['sale_price']    = $product->get_sale_price() ? $product->get_sale_price() : null;

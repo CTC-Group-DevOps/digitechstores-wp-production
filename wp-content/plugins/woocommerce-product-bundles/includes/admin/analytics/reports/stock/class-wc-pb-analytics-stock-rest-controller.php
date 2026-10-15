@@ -17,7 +17,7 @@ use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
 /**
  * REST API Reports bundles controller class.
  *
- * @version 6.9.0
+ * @version 8.5.13
  */
 class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller implements ExportableInterface {
 
@@ -124,7 +124,7 @@ class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller i
 		 *
 		 * @since 6.9.0
 		 * @param WP_REST_Response $response The response object.
-		 * @param object           $report   The original report object.
+		 * @param array            $report   The original report data.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
 		return apply_filters( 'woocommerce_rest_prepare_report_bundles', $response, $report, $request );

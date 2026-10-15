@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Addons Compatibility.
  *
- * @version  8.2.1
+ * @version  8.5.13
  */
 class WC_PB_Addons_Compatibility {
 
@@ -41,6 +41,9 @@ class WC_PB_Addons_Compatibility {
 		// Add addons identifier to bundled item stamp.
 		add_filter( 'woocommerce_bundled_item_cart_item_identifier', array( __CLASS__, 'bundled_item_addons_stamp' ), 10, 2 );
 
+		// Prepare and validate child add-ons after the Store API bundle mapper.
+		add_filter( 'woocommerce_store_api_add_to_cart_data', array( __CLASS__, 'store_api_addons' ), 20, 2 );
+
 		// Add option to disable Addons at component level.
 		add_action( 'woocommerce_bundled_product_admin_advanced_html', array( __CLASS__, 'display_addons_disable_option' ), 15, 4 );
 
@@ -55,7 +58,7 @@ class WC_PB_Addons_Compatibility {
 		add_filter( 'woocommerce_bundled_item_cart_data', array( __CLASS__, 'get_bundled_cart_item_data_from_parent' ), 10, 2 );
 
 		// Separate support for Product Addons in the admin.
-		add_action( 'woocommerce_bundle_after_order_item_form', array( __CLASS__, 'admin_render_bundle_addons' ), 10, 4 );
+		add_action( 'woocommerce_bundle_after_order_item_form', array( __CLASS__, 'admin_render_bundle_addons' ), 10, 3 );
 		add_action( 'woocommerce_bundled_product_add_to_cart', array( __CLASS__, 'admin_render_bundled_item_addons' ), 10, 2 );
 		add_filter( 'woocommerce_bundled_item_add_to_order_validation', array( __CLASS__, 'admin_validate_bundled_item_addons' ), 10, 6 );
 
@@ -65,16 +68,16 @@ class WC_PB_Addons_Compatibility {
 
 		add_action( 'woocommerce_bundle_added_to_order', array( __CLASS__, 'store_bundled_item_addons' ), 10, 5 );
 
-		add_action( 'woocommerce_product_addons_display_editing_in_order_button', array( __CLASS__, 'maybe_hide_edit_button' ), 10, 2 );
+		add_filter( 'woocommerce_product_addons_display_editing_in_order_button', array( __CLASS__, 'maybe_hide_edit_button' ), 10, 2 );
 
 		// Special case for addons for bundles inside composite products when manually editing an order.
-		add_filter( 'woocommerce_posted_composite_configuration', array( __CLASS__, 'get_composited_bundle_configuration' ), 20, 3 );
+		add_filter( 'woocommerce_posted_composite_configuration', array( __CLASS__, 'get_composited_bundle_configuration' ), 20, 2 );
 
 		// Enable edit-in-cart feature if any items have addons.
 		add_filter( 'woocommerce_is_bundle_container_order_item_editable', array( __CLASS__, 'addon_bundle_editable_in_cart' ), 10, 3 );
 
 		// Allow pre-populate of add-on fields based on cart key.
-		add_action( 'woocommerce_product_addons_parse_cart_addons', array( __CLASS__, 'parse_bundle_addons' ), 10, 3 );
+		add_filter( 'woocommerce_product_addons_parse_cart_addons', array( __CLASS__, 'parse_bundle_addons' ), 10, 3 );
 		add_filter( 'woocommerce_product_addons_cart_permalink', array( __CLASS__, 'add_cart_key_to_permalink' ), 10, 2 );
 		add_filter( 'woocommerce_bundle_cart_permalink_args', array( __CLASS__, 'maybe_add_cart_key_to_permalink_args' ), 10, 2 );
 
@@ -274,6 +277,11 @@ class WC_PB_Addons_Compatibility {
 	 */
 	public static function bundled_item_addons_stamp( $bundled_item_stamp, $bundled_item_id ) {
 
+		// Store API add-ons are prepared from the validated request, not classic form fields.
+		if ( WC_PB_Core_Compatibility::is_store_api_request() ) {
+			return $bundled_item_stamp;
+		}
+
 		global $Product_Addon_Cart;
 
 		// Store bundled item addons add-ons config in stamp to avoid generating the same bundle cart id.
@@ -297,6 +305,131 @@ class WC_PB_Addons_Compatibility {
 		}
 
 		return $bundled_item_stamp;
+	}
+
+	/**
+	 * Map each child's addons_configuration (add-on ID => value) using Product Add-Ons.
+	 *
+	 * @since 8.5.13
+	 *
+	 * @param array           $data    Store API cart data.
+	 * @param WP_REST_Request $request Store API request.
+	 * @return array
+	 * @throws \Automattic\WooCommerce\StoreApi\Exceptions\RouteException For invalid or unsupported add-ons.
+	 * @throws Exception When Product Add-Ons rejects a child.
+	 */
+	public static function store_api_addons( $data, $request ) {
+		global $Product_Addon_Cart;
+
+		if ( ! is_array( $data ) || empty( $data['id'] ) || ! $request instanceof WP_REST_Request || ( isset( $data['cart_item_data'] ) && ! is_array( $data['cart_item_data'] ) ) ) {
+			return $data;
+		}
+
+		$bundle = wc_get_product( $data['id'] );
+		if ( ! $bundle || ! $bundle->is_type( 'bundle' ) ) {
+			return $data;
+		}
+
+		$stamp = isset( $data['cart_item_data']['stamp'] ) ? $data['cart_item_data']['stamp'] : WC_PB()->cart->get_posted_bundle_configuration( $bundle );
+		if ( ! is_array( $stamp ) ) {
+			return $data;
+		}
+
+		$params = $request->get_json_params();
+		$items  = array();
+		if ( isset( $params['bundle_configuration'] ) && is_array( $params['bundle_configuration'] ) ) {
+			foreach ( $params['bundle_configuration'] as $row ) {
+				if ( is_array( $row ) && isset( $row['bundled_item_id'] ) && is_scalar( $row['bundled_item_id'] ) ) {
+					$items[ absint( $row['bundled_item_id'] ) ] = $row;
+				}
+			}
+		}
+
+		foreach ( $bundle->get_bundled_items() as $item_id => $item ) {
+			if ( ! isset( $stamp[ $item_id ] ) || ! is_array( $stamp[ $item_id ] ) ) {
+				continue;
+			}
+			$config = $stamp[ $item_id ];
+			if ( $item->disable_addons() || 'no' === ( $config['optional_selected'] ?? '' ) || 0 === (int) ( $config['quantity'] ?? $item->get_quantity( 'default' ) ) ) {
+				continue;
+			}
+
+			$addons = $items[ $item_id ]['addons_configuration'] ?? array();
+			if ( ! is_array( $addons ) ) {
+				// @phpstan-ignore class.notFound (WooCommerce Store API class is missing from the installed stubs.)
+				throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException( 'woocommerce_bundle_addons_invalid', esc_html__( 'Invalid bundled add-on configuration.', 'woocommerce-product-bundles' ), 400 );
+			}
+
+			if ( empty( $addons ) && ! self::has_addons( $item->get_product() ) ) {
+				continue;
+			}
+
+			if ( ! is_object( $Product_Addon_Cart ) || ! method_exists( $Product_Addon_Cart, 'handle_store_api_add_to_cart_request' ) || ! method_exists( $Product_Addon_Cart, 'validate_add_to_cart_store_api' ) ) {
+				if ( ! empty( $addons ) || self::has_addons( $item->get_product(), true ) ) {
+					// @phpstan-ignore class.notFound (WooCommerce Store API class is missing from the installed stubs.)
+					throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException( 'woocommerce_bundle_addons_unsupported', esc_html__( 'Sorry, this product cannot be added to the cart right now.', 'woocommerce-product-bundles' ), 400 );
+				}
+				continue;
+			}
+
+			$prefix = WC_PB_Compatibility::$addons_prefix;
+			try {
+				WC_PB_Compatibility::$addons_prefix = $item_id;
+				$product_id                         = $item->get_product_id();
+				$child_request                      = new WP_REST_Request( 'POST' );
+				$child_request->set_header( 'Content-Type', 'application/json' );
+				$child_request->set_body(
+					wp_json_encode(
+						array(
+							'id'                   => $product_id,
+							'addons_configuration' => $addons,
+						)
+					)
+				);
+
+				// Keep validation data nonempty: older Add-Ons versions skip an empty array.
+				$child_data = $Product_Addon_Cart->handle_store_api_add_to_cart_request(
+					array(
+						'id'             => $product_id,
+						'cart_item_data' => array( 'product_id' => $product_id ),
+					),
+					$child_request
+				);
+				$notices    = wc_get_notices();
+				try {
+					$Product_Addon_Cart->validate_add_to_cart_store_api( $item->get_product(), $child_data );
+				} catch ( Exception $e ) {
+					// Older Add-Ons versions leave classic notices behind after a Store API error.
+					wc_set_notices( $notices );
+					throw $e;
+				}
+
+				// The legacy builder also reads classic form fields; only use validated child data.
+				// phpcs:disable WordPress.Security.NonceVerification -- Preserve request state without treating it as add-on input.
+				$posted_data       = $_POST;
+				$had_add_to_cart   = array_key_exists( 'add-to-cart', $_GET );
+				$query_add_to_cart = $had_add_to_cart ? $_GET['add-to-cart'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Restore the original value without using it as input.
+				try {
+					$_POST = array();
+					unset( $_GET['add-to-cart'] );
+					$addon_data = $Product_Addon_Cart->add_cart_item_data( $child_data['cart_item_data'], $product_id );
+				} finally {
+					$_POST = $posted_data;
+					if ( $had_add_to_cart ) {
+						$_GET['add-to-cart'] = $query_add_to_cart;
+					}
+				}
+				// phpcs:enable WordPress.Security.NonceVerification
+				if ( ! empty( $addon_data['addons'] ) ) {
+					$stamp[ $item_id ]['addons']     = $addon_data['addons'];
+					$data['cart_item_data']['stamp'] = $stamp;
+				}
+			} finally {
+				WC_PB_Compatibility::$addons_prefix = $prefix;
+			}
+		}
+
+		return $data;
 	}
 
 	/**
@@ -382,7 +515,7 @@ class WC_PB_Addons_Compatibility {
 		// Not doing so results in issues with file upload validation.
 
 		if ( ! empty( $Product_Addon_Cart ) ) {
-			remove_filter( 'woocommerce_add_cart_item_data', array( $Product_Addon_Cart, 'add_cart_item_data' ), 10, 2 );
+			remove_filter( 'woocommerce_add_cart_item_data', array( $Product_Addon_Cart, 'add_cart_item_data' ), 10 );
 		}
 	}
 
@@ -802,14 +935,16 @@ class WC_PB_Addons_Compatibility {
 		}
 		$new_item->add_meta_data( '_pao_ids', $pao_ids );
 		$new_item->add_meta_data( '_pao_total', $pao_total );
-		$new_item['subtotal'] = wc_get_price_excluding_tax(
-			$product,
-			array(
-				'price' => $product->get_price(),
-				'qty'   => $new_item['qty'],
-			)
-		) + $pao_total;
-		$new_item['total']    = $new_item['subtotal'];
+		$new_item->set_subtotal(
+			wc_get_price_excluding_tax(
+				$product,
+				array(
+					'price' => $product->get_price(),
+					'qty'   => $new_item['qty'],
+				)
+			) + $pao_total
+		);
+		$new_item->set_total( $new_item->get_subtotal() );
 
 		$new_item->save_meta_data();
 		$new_item->save();
@@ -823,7 +958,7 @@ class WC_PB_Addons_Compatibility {
 	 * @param WC_Order_Item     $container_order_item  The container order item.
 	 * @param WC_Order          $order                 The order.
 	 * @param WC_Product_Bundle $bundle                The bundle product.
-	 * @param in                $bundled_item_quantity The bundled item quantity.
+	 * @param int               $bundled_item_quantity The bundled item quantity.
 	 * @param array             $args                  The arguments.
 	 *
 	 * @return void
@@ -883,14 +1018,16 @@ class WC_PB_Addons_Compatibility {
 			WC_PB()->product_data->set( $bundled_product, 'bundled_cart_item', $bundled_item );
 			$Product_Addon_Cart->order_line_item( $bundled_order_item, null, $item_data );
 
-			$bundled_order_item['subtotal'] = wc_get_price_excluding_tax(
-				$bundled_product,
-				array(
-					'price' => $bundled_product->get_price(),
-					'qty'   => $bundled_order_item['qty'],
+			$bundled_order_item->set_subtotal(
+				wc_get_price_excluding_tax(
+					$bundled_product,
+					array(
+						'price' => $bundled_product->get_price(),
+						'qty'   => $bundled_order_item['qty'],
+					)
 				)
 			);
-			$bundled_order_item['total']    = $bundled_order_item['subtotal'];
+			$bundled_order_item->set_total( $bundled_order_item->get_subtotal() );
 
 			$bundled_order_item->save_meta_data();
 			$bundled_order_item->save();

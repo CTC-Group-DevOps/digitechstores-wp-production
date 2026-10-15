@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -365,7 +365,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  6.5.2
 		 *
 		 * @param  array              $contains
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$this->contains = apply_filters( 'woocommerce_bundles_synced_contents_data', $this->contains, $this );
 
@@ -403,7 +403,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * 'woocommerce_bundles_synced_bundle' action.
 		 *
 		 * @since 4.11.5
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		do_action( 'woocommerce_bundles_synced_bundle', $this );
 
@@ -492,7 +492,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  5.8.1
 		 *
 		 * @param  mixed              $price
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$min_raw_price = apply_filters( 'woocommerce_bundle_min_raw_price', $min_raw_price, $this );
 		/**
@@ -501,7 +501,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  5.8.1
 		 *
 		 * @param  mixed              $price
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$min_raw_regular_price = apply_filters( 'woocommerce_bundle_min_raw_regular_price', $min_raw_regular_price, $this );
 		/**
@@ -510,7 +510,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  5.8.1
 		 *
 		 * @param  mixed              $price
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$max_raw_price = apply_filters( 'woocommerce_bundle_max_raw_price', $max_raw_price, $this );
 		/**
@@ -519,7 +519,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  5.8.1
 		 *
 		 * @param  mixed              $price
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$max_raw_regular_price = apply_filters( 'woocommerce_bundle_max_raw_regular_price', $max_raw_regular_price, $this );
 
@@ -581,7 +581,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  6.5.0
 		 *
 		 * @param  string             $bundled_items_stock_status
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$bundled_items_stock_status = apply_filters( 'woocommerce_synced_bundled_items_stock_status', $bundled_items_in_stock ? 'instock' : 'outofstock', $this );
 
@@ -661,7 +661,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since  6.5.0
 		 *
 		 * @param  int                $bundle_stock_quantity
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$bundle_stock_quantity = apply_filters( 'woocommerce_synced_bundle_stock_quantity', $bundle_stock_quantity, $this );
 
@@ -767,7 +767,7 @@ class WC_Product_Bundle extends WC_Product {
 
 			foreach ( $bundled_items as $bundled_item ) {
 
-				if ( ! $bundled_item->is_purchasable() ) {
+				if ( ! $bundled_item->is_purchasable() || ! WC_PB_Helpers::can_read_product( $bundled_item->get_product_id() ) ) {
 					continue;
 				}
 
@@ -853,7 +853,7 @@ class WC_Product_Bundle extends WC_Product {
 			 *
 			 * @since 6.4.1
 			 * @param  array              $bundle_price_data
-			 * @param  WC_Product_Bundle  $this
+			 * @param  WC_Product_Bundle  $bundle
 			 */
 			$this->bundle_form_data = apply_filters( 'woocommerce_bundle_price_data', $data, $this );
 		}
@@ -992,22 +992,30 @@ class WC_Product_Bundle extends WC_Product {
 
 		if ( $this->contains( 'priced_individually' ) ) {
 
+			// When 'Round tax at subtotal level' is enabled, sum item values raw and round once at the end, mirroring WC_Cart_Totals::round_item_subtotal() so the displayed bundle total matches the cart total.
+			$round_at_subtotal = 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+
 			$cache_key = md5(
 				wp_json_encode(
 					/**
 					 * 'woocommerce_bundle_prices_hash' filter.
 					 *
 					 * @since 5.4.0
-					 * @param array $args Array of arguments.
+					 * @since 8.5.13 Added the 'round_at_subtotal' key to the hashed arguments.
+					 *
+					 * @param array             $args   Array of arguments.
+					 * @param WC_Product_Bundle $bundle Bundle product.
 					 */
 					apply_filters(
 						'woocommerce_bundle_prices_hash',
 						array(
-							'prop'       => $price_prop,
-							'min_or_max' => $min_or_max,
-							'calc'       => $price_calc,
-							'qty'        => $qty,
-							'strict'     => $strict,
+							'prop'              => $price_prop,
+							'min_or_max'        => $min_or_max,
+							'calc'              => $price_calc,
+							'qty'               => $qty,
+							'strict'            => $strict,
+							// Selects a different arithmetic path below, so a cached value from one mode must not be served in the other.
+							'round_at_subtotal' => $round_at_subtotal,
 						),
 						$this
 					)
@@ -1024,18 +1032,24 @@ class WC_Product_Bundle extends WC_Product {
 					$price = '';
 				} else {
 
-					$price_fn = 'get_' . $price_prop;
-					$price    = wc_format_decimal(
-						(float) WC_PB_Product_Prices::get_product_price(
-							$this,
-							array(
-								'price' => $this->$price_fn(),
-								'qty'   => $qty,
-								'calc'  => $price_calc,
-							)
-						),
-						wc_pb_price_num_decimals()
+					$price_decimals = wc_pb_price_num_decimals();
+
+					// WC core's wc_get_price_including_tax() rounds each price to the display precision regardless of the option, which would pre-round the values we sum below. Compute the component prices at extended precision so that only the final aggregate is rounded to the display precision.
+					if ( $round_at_subtotal ) {
+						WC_PB_Product_Prices::extend_price_display_precision();
+					}
+
+					$price_fn   = 'get_' . $price_prop;
+					$base_price = (float) WC_PB_Product_Prices::get_product_price(
+						$this,
+						array(
+							'price' => $this->$price_fn(),
+							'qty'   => $qty,
+							'calc'  => $price_calc,
+						)
 					);
+
+					$price = $round_at_subtotal ? $base_price : (float) wc_format_decimal( $base_price, $price_decimals );
 
 					$bundled_items = $this->get_bundled_items();
 
@@ -1060,18 +1074,17 @@ class WC_Product_Bundle extends WC_Product {
 
 							if ( $bundled_item_qty ) {
 
-								$price += wc_format_decimal(
-									(float) $bundled_item->calculate_price(
-										array(
-											'min_or_max' => $min_or_max,
-											'qty'        => $bundled_item_qty,
-											'strict'     => $strict,
-											'calc'       => $price_calc,
-											'prop'       => $price_prop,
-										)
-									),
-									wc_pb_price_num_decimals()
+								$bundled_item_price = (float) $bundled_item->calculate_price(
+									array(
+										'min_or_max' => $min_or_max,
+										'qty'        => $bundled_item_qty,
+										'strict'     => $strict,
+										'calc'       => $price_calc,
+										'prop'       => $price_prop,
+									)
 								);
+
+								$price += $round_at_subtotal ? $bundled_item_price : (float) wc_format_decimal( $bundled_item_price, $price_decimals );
 							}
 						}
 
@@ -1113,6 +1126,12 @@ class WC_Product_Bundle extends WC_Product {
 								$price = $min_price;
 							}
 						}
+					}
+
+					// Round the aggregated value once when rounding at subtotal level.
+					if ( $round_at_subtotal ) {
+						WC_PB_Product_Prices::reset_price_display_precision();
+						$price = (float) wc_format_decimal( $price, $price_decimals );
 					}
 				}
 
@@ -1173,7 +1192,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.10.2
 		 * @param  string             $suffix_html
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 * @param  mixed              $price
 		 * @param  int                $qty
 		 */
@@ -1376,7 +1395,7 @@ class WC_Product_Bundle extends WC_Product {
 			 *
 			 * @since 5.0.0
 			 * @param  string             $price_html
-			 * @param  WC_Product_Bundle  $this
+			 * @param  WC_Product_Bundle  $bundle
 			 */
 			return apply_filters( 'woocommerce_bundle_empty_price_html', '', $this );
 		}
@@ -1401,7 +1420,7 @@ class WC_Product_Bundle extends WC_Product {
 				 *
 				 * @since 4.7.0
 				 * @param  boolean            $force_suppress_range_format
-				 * @param  WC_Product_Bundle  $this
+				 * @param  WC_Product_Bundle  $bundle
 				 */
 				if ( $suppress_range_price_html || apply_filters( 'woocommerce_bundle_force_old_style_price_html', false, $this ) ) {
 
@@ -1425,7 +1444,7 @@ class WC_Product_Bundle extends WC_Product {
 						 *
 						 * @since 5.0.0
 						 * @param  string             $sale_price_html
-						 * @param  WC_Product_Bundle  $this
+						 * @param  WC_Product_Bundle  $bundle
 						 */
 						$price = apply_filters( 'woocommerce_bundle_sale_price_html', $price, $this );
 
@@ -1435,7 +1454,7 @@ class WC_Product_Bundle extends WC_Product {
 						 *
 						 * @since 5.0.0
 						 * @param  boolean             $free_string
-						 * @param  WC_Product_Bundle  $this
+						 * @param  WC_Product_Bundle  $bundle
 						 */
 						$free_string = apply_filters( 'woocommerce_bundle_show_free_string', false, $this ) ? __( 'Free!', 'woocommerce' ) : $price;
 
@@ -1444,7 +1463,7 @@ class WC_Product_Bundle extends WC_Product {
 						 *
 						 * @since 5.0.0
 						 * @param  string             $free_string
-						 * @param  WC_Product_Bundle  $this
+						 * @param  WC_Product_Bundle  $bundle
 						 */
 						$price = apply_filters( 'woocommerce_bundle_free_price_html', $free_string, $this );
 
@@ -1462,7 +1481,7 @@ class WC_Product_Bundle extends WC_Product {
 						 *
 						 * @since 5.0.0
 						 * @param  string             $price_html
-						 * @param  WC_Product_Bundle  $this
+						 * @param  WC_Product_Bundle  $bundle
 						 */
 						$price = apply_filters( 'woocommerce_bundle_price_html', $price, $this );
 					}
@@ -1507,7 +1526,7 @@ class WC_Product_Bundle extends WC_Product {
 			 *
 			 * @since 5.0.0
 			 * @param  string             $price_html
-			 * @param  WC_Product_Bundle  $this
+			 * @param  WC_Product_Bundle  $bundle
 			 */
 			$price = apply_filters( 'woocommerce_get_bundle_price_html', $price, $this );
 
@@ -1588,7 +1607,7 @@ class WC_Product_Bundle extends WC_Product {
 				 *
 				 * @since 6.3.2
 				 * @param boolean  $display_bundle_stock_quantity
-				 * @param WC_Product_Bundle  $this
+				 * @param WC_Product_Bundle  $bundle
 				 */
 				if ( apply_filters( 'woocommerce_bundle_display_bundled_items_stock_quantity', $display_bundle_stock_quantity, $this ) ) {
 
@@ -1610,7 +1629,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.4.0
 		 * @param array $availability
-		 * @param WC_Product_Bundle $this
+		 * @param WC_Product_Bundle $bundle
 		 */
 		return apply_filters( 'woocommerce_get_bundle_availability', $availability, $this );
 	}
@@ -1699,7 +1718,7 @@ class WC_Product_Bundle extends WC_Product {
 				 * @since 5.0.0
 				 * @param  array              $args
 				 * @param  array              $cart_item
-				 * @param  WC_Product_Bundle  $this
+				 * @param  WC_Product_Bundle  $bundle
 				 */
 				$args = apply_filters( 'woocommerce_bundle_cart_permalink_args', WC_PB()->cart->rebuild_posted_bundle_form_data( $config_data ), $cart_item, $this );
 
@@ -2088,7 +2107,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.0.0
 		 * @param array              $bundled_data_items
-		 * @param WC_Product_Bundle  $this
+		 * @param WC_Product_Bundle  $bundle
 		 */
 		return 'view' === $context ? apply_filters( 'woocommerce_bundled_data_items', $this->bundled_data_items, $this ) : $this->bundled_data_items;
 	}
@@ -2114,9 +2133,25 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.0.0
 		 * @param  array              $ids
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		return 'view' === $context ? apply_filters( 'woocommerce_bundled_item_ids', $bundled_item_ids, $this ) : $bundled_item_ids;
+	}
+
+	/**
+	 * Get readable storefront items while preserving the view getter's extension contract.
+	 *
+	 * @since 8.5.13
+	 * @return WC_Bundled_Item[]
+	 */
+	public function get_displayed_bundled_items() {
+		$items = $this->get_bundled_items();
+		return is_array( $items ) ? array_filter(
+			$items,
+			function ( $item ) {
+				return is_object( $item ) && method_exists( $item, 'get_product_id' ) && WC_PB_Helpers::can_read_product( $item->get_product_id() );
+			}
+		) : array();
 	}
 
 	/**
@@ -2159,7 +2194,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.0.0
 		 * @param  array              $bundled_items
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		return 'view' === $context ? apply_filters( 'woocommerce_bundled_items', $bundled_items, $this ) : $bundled_items;
 	}
@@ -2219,7 +2254,7 @@ class WC_Product_Bundle extends WC_Product {
 			 *
 			 * @since 5.4.0
 			 * @param array $hash
-			 * @param WC_Product_Bundle $this
+			 * @param WC_Product_Bundle $bundle
 			 */
 			$cache_key = md5( wp_json_encode( apply_filters( 'woocommerce_bundled_item_hash', $hash, $this ) ) );
 
@@ -2646,7 +2681,7 @@ class WC_Product_Bundle extends WC_Product {
 				 *
 				 * @since 5.0.0
 				 * @param  boolean            $priced_items_exist
-				 * @param  WC_Product_Bundle  $this
+				 * @param  WC_Product_Bundle  $bundle
 				 */
 				$this->contains['priced_individually'] = apply_filters( 'woocommerce_bundle_contains_priced_items', $priced_items_exist, $this );
 			}
@@ -2676,7 +2711,7 @@ class WC_Product_Bundle extends WC_Product {
 				 *
 				 * @since 5.0.0
 				 * @param  boolean            $shipped_items_exist
-				 * @param  WC_Product_Bundle  $this
+				 * @param  WC_Product_Bundle  $bundle
 				 */
 				$this->contains['shipped_individually'] = apply_filters( 'woocommerce_bundle_contains_shipped_items', $shipped_items_exist, $this );
 			}
@@ -2706,7 +2741,7 @@ class WC_Product_Bundle extends WC_Product {
 				 *
 				 * @since 5.0.0
 				 * @param  boolean            $assembled_items_exist
-				 * @param  WC_Product_Bundle  $this
+				 * @param  WC_Product_Bundle  $bundle
 				 */
 				$this->contains['assembled'] = apply_filters( 'woocommerce_bundle_contains_assembled_items', $assembled_items_exist, $this );
 			}
@@ -2800,7 +2835,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 1.0.0
 		 * @param  boolean            $is_on_sale
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		return 'view' === $context ? apply_filters( 'woocommerce_product_is_on_sale', $is_on_sale, $this ) : $is_on_sale;
 	}
@@ -2898,7 +2933,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Indicates whether the product configuration can be edited in the cart.
 	 * Optionally pass a cart item array to check.
 	 *
-	 * @param  array $cart_item The cart item array.
+	 * @param  array|false $cart_item The cart item array.
 	 * @return boolean
 	 */
 	public function is_editable_in_cart( $cart_item = false ) {
@@ -2907,7 +2942,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.0.0
 		 * @param  boolean            $is
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 * @param  array              $cart_item
 		 */
 		return apply_filters( 'woocommerce_bundle_is_editable_in_cart', method_exists( $this, 'supports' ) && $this->supports( 'edit_in_cart' ) && $this->is_in_stock(), $this, $cart_item );
@@ -2974,7 +3009,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since 5.0.0
 		 * @param  boolean            $requires_input
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $bundle
 		 */
 		return apply_filters( 'woocommerce_bundle_requires_input', $requires_input, $this );
 	}

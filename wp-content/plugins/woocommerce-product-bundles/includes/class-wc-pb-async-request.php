@@ -12,6 +12,8 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Abstract WC_PB_Async_Request class.
+ *
+ * @version 8.5.13
  */
 abstract class WC_PB_Async_Request {
 
@@ -127,9 +129,9 @@ abstract class WC_PB_Async_Request {
 			'timeout'   => 0.01,
 			'blocking'  => false,
 			'body'      => $this->data,
-			'cookies'   => $_COOKIE,
+			'cookies'   => array_intersect_key( $_COOKIE, array_flip( array( AUTH_COOKIE, SECURE_AUTH_COOKIE, LOGGED_IN_COOKIE ) ) ),
 			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-			'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
+			'sslverify' => apply_filters( 'https_local_ssl_verify', true, $this->get_query_url() ),
 		);
 	}
 

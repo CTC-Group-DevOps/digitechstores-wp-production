@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Could be modified to extend WC_Data in the future. For now, all required functionality is self-contained to maintain WC back-compat.
  *
  * @class    WC_Bundled_Item_Data
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_Bundled_Item_Data {
 
@@ -288,6 +288,9 @@ class WC_Bundled_Item_Data {
 	/**
 	 * Sanitizes bundled item metadata received from an external writer.
 	 *
+	 * Used by REST, CSV and WXR imports. Only keys defined in $meta_data_type_fn are kept; metadata that other
+	 * extensions add to bundled items is dropped on import and must be migrated by those extensions.
+	 *
 	 * Database reads continue to use the legacy decoder in sanitize_meta_value().
 	 *
 	 * @since  8.5.12
@@ -328,7 +331,8 @@ class WC_Bundled_Item_Data {
 
 					$attribute_name = sanitize_title( $attribute_name );
 					if ( $attribute_name ) {
-						$attributes[ $attribute_name ] = wc_clean( (string) $attribute_value );
+						// Taxonomy defaults are term slugs, which may contain encoded characters.
+						$attributes[ $attribute_name ] = 0 === strpos( $attribute_name, 'pa_' ) ? sanitize_title( (string) $attribute_value ) : html_entity_decode( wc_clean( (string) $attribute_value ), ENT_QUOTES, get_bloginfo( 'charset' ) );
 					}
 				}
 
@@ -372,7 +376,7 @@ class WC_Bundled_Item_Data {
 		 * Action hook triggered after a bundled item is created.
 		 *
 		 * @since 5.0.0
-		 * @param WC_Bundled_Item_Data $this
+		 * @param WC_Bundled_Item_Data $bundled_item_data
 		 */
 		do_action( 'woocommerce_new_bundled_item', $this );
 	}
@@ -398,7 +402,7 @@ class WC_Bundled_Item_Data {
 		 * Action hook triggered after a bundled item is updated.
 		 *
 		 * @since 5.0.0
-		 * @param  WC_Bundled_Item_Data  $this
+		 * @param  WC_Bundled_Item_Data  $bundled_item_data
 		 */
 		do_action( 'woocommerce_update_bundled_item', $this );
 	}
@@ -406,7 +410,7 @@ class WC_Bundled_Item_Data {
 	/**
 	 * Read from the database.
 	 *
-	 * @param  int $item ID to read.
+	 * @param  int|stdClass $item ID to read.
 	 */
 	public function read( $item ) {
 
@@ -493,7 +497,7 @@ class WC_Bundled_Item_Data {
 			 * Action hook triggered before a bundled item is deleted.
 			 *
 			 * @since 5.0.0
-			 * @param WC_Bundled_Item_Data $this
+			 * @param WC_Bundled_Item_Data $bundled_item_data
 			 */
 			do_action( 'woocommerce_before_delete_bundled_item', $this );
 			$wpdb->delete( $wpdb->prefix . 'woocommerce_bundled_items', array( 'bundled_item_id' => $this->get_id() ) );
@@ -502,7 +506,7 @@ class WC_Bundled_Item_Data {
 			 * Action hook triggered after a bundled item is deleted.
 			 *
 			 * @since 5.0.0
-			 * @param WC_Bundled_Item_Data $this
+			 * @param WC_Bundled_Item_Data $bundled_item_data
 			 */
 			do_action( 'woocommerce_delete_bundled_item', $this );
 		}

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order-again functions and filters.
  *
  * @class    WC_PB_Order_Again
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_Order_Again {
 
@@ -27,7 +27,7 @@ class WC_PB_Order_Again {
 	private static $refreshed_bundle_configurations = array();
 
 	/**
-	 * Initilize.
+	 * Initialize.
 	 */
 	public static function init() {
 
@@ -51,7 +51,7 @@ class WC_PB_Order_Again {
 	*/
 
 	/**
-	 * Inialize cart item data when re-ordering.
+	 * Initialize cart item data when re-ordering.
 	 * Depending on whether cart session data is loaded, a different technique is needed.
 	 *
 	 * @param  array               $cart_item Cart item data.

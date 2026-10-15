@@ -133,9 +133,9 @@ function wc_pb_get_bundled_product_map( $product, $allow_cache = true ) {
  *
  * @since  5.0.0
  *
- * @param  array   $bundled_cart_item The cart item to check.
- * @param  array   $cart_contents    The cart contents array.
- * @param  boolean $return_id     Whether to return the container cart item id.
+ * @param  array       $bundled_cart_item The cart item to check.
+ * @param  array|false $cart_contents    The cart contents array.
+ * @param  boolean     $return_id     Whether to return the container cart item id.
  * @return mixed
  */
 function wc_pb_get_bundled_cart_item_container( $bundled_cart_item, $cart_contents = false, $return_id = false ) {
@@ -163,9 +163,9 @@ function wc_pb_get_bundled_cart_item_container( $bundled_cart_item, $cart_conten
  *
  * @since  5.0.0
  *
- * @param  array   $container_cart_item The cart item to check.
- * @param  array   $cart_contents    The cart contents array.
- * @param  boolean $return_ids       Whether to return the bundled cart item ids.
+ * @param  array       $container_cart_item The cart item to check.
+ * @param  array|false $cart_contents    The cart contents array.
+ * @param  boolean     $return_ids       Whether to return the bundled cart item ids.
  * @return mixed
  */
 function wc_pb_get_bundled_cart_items( $container_cart_item, $cart_contents = false, $return_ids = false ) {
@@ -198,8 +198,8 @@ function wc_pb_get_bundled_cart_items( $container_cart_item, $cart_contents = fa
  *
  * @since  5.0.0
  *
- * @param  array $cart_item The cart item to check.
- * @param  array $cart_contents The cart contents array.
+ * @param  array       $cart_item The cart item to check.
+ * @param  array|false $cart_contents The cart contents array.
  * @return boolean
  */
 function wc_pb_is_bundled_cart_item( $cart_item, $cart_contents = false ) {
@@ -263,9 +263,9 @@ function wc_pb_is_bundle_container_cart_item( $cart_item ) {
  *
  * @since  5.0.0
  *
- * @param  WC_Order_Item $bundled_order_item The order item to check.
- * @param  WC_Order      $order            The order object.
- * @param  boolean       $return_id        Whether to return the container order item id.
+ * @param  WC_Order_Item  $bundled_order_item The order item to check.
+ * @param  WC_Order|false $order            The order object.
+ * @param  boolean        $return_id        Whether to return the container order item id.
  * @return mixed
  */
 function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = false, $return_id = false ) {
@@ -331,9 +331,9 @@ function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = f
  *
  * @since  5.0.0
  *
- * @param  WC_Order_Item $container_order_item The order item to check.
- * @param  WC_Order      $order                The order object.
- * @param  boolean       $return_ids           Whether to return the bundled order item ids.
+ * @param  WC_Order_Item  $container_order_item The order item to check.
+ * @param  WC_Order|false $order                The order object.
+ * @param  boolean        $return_ids           Whether to return the bundled order item ids.
  * @return mixed
  */
 function wc_pb_get_bundled_order_items( $container_order_item, $order = false, $return_ids = false ) {
@@ -392,8 +392,8 @@ function wc_pb_get_bundled_order_items( $container_order_item, $order = false, $
  *
  * @since  5.0.0
  *
- * @param  WC_Order_Item $order_item The order item to check.
- * @param  WC_Order      $order        The order object.
+ * @param  WC_Order_Item  $order_item The order item to check.
+ * @param  WC_Order|false $order        The order object.
  * @return boolean
  */
 function wc_pb_is_bundled_order_item( $order_item, $order = false ) {

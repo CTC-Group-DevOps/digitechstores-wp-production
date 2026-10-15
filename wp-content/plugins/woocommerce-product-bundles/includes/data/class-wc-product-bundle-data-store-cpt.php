@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bundle data stored as Custom Post Type. For use with the WC 2.7+ CRUD API.
  *
  * @class    WC_Product_Bundle_Data_Store_CPT
- * @version  8.5.2
+ * @version  8.5.13
  */
 class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
@@ -359,7 +359,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		 *
 		 * @since 6.5.0
 		 * @param  boolean            $update
-		 * @param  WC_Product_Bundle  $this
+		 * @param  WC_Product_Bundle  $product
 		 */
 		$update_raw_price_meta = apply_filters( 'woocommerce_bundles_update_price_meta', true, $product );
 

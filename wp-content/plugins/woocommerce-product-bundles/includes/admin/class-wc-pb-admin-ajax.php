@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_Admin_Ajax {
 
@@ -133,7 +133,7 @@ class WC_PB_Admin_Ajax {
 			require_once ABSPATH . 'wp-admin/includes/class-wp-site-health.php';
 		}
 
-		$site_health = method_exists( 'WP_Site_Health', 'get_instance' ) ? WP_Site_Health::get_instance() : new WP_Site_Health();
+		$site_health = WP_Site_Health::get_instance();
 		$result      = $site_health->can_perform_loopback();
 		$passes_test = 'good' === $result->status;
 
@@ -256,9 +256,9 @@ class WC_PB_Admin_Ajax {
 		 * Use this filter to modify the bundled item data when the product is first added.
 		 *
 		 * @since  5.0.0
-		 * @param  $item_data   array
-		 * @param  $context     string
-		 * @param  $product_id  int
+		 * @param  array   $item_data
+		 * @param  string  $context
+		 * @param  int     $product_id
 		 */
 		$item_data = apply_filters( 'woocommerce_add_bundled_product_item_data', array(), 'create', $product_id );
 
@@ -307,20 +307,7 @@ class WC_PB_Admin_Ajax {
 	 * @return bool
 	 */
 	private static function can_edit_order( $order ) {
-		$order_id       = $order->get_id();
-		$order_post     = get_post( $order_id );
-		$has_order_post = $order_post instanceof WP_Post && in_array( $order_post->post_type, wc_get_order_types(), true );
-
-		// WooCommerce 10.7 added object-capability mapping for HPOS orders that do
-		// not have a real order post. Older HPOS versions require the primitive
-		// fallback, but it must never override an object-level denial when either
-		// WordPress or WooCommerce can map the order.
-		$can_map_order = $has_order_post || ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '10.7.0', '>=' ) );
-		$can_edit      = $can_map_order
-			? current_user_can( 'edit_post', $order_id )
-			: current_user_can( 'edit_shop_orders' );
-
-		return $can_edit && $order->is_editable();
+		return current_user_can( 'edit_post', $order->get_id() ) && $order->is_editable();
 	}
 
 	/**
@@ -452,7 +439,7 @@ class WC_PB_Admin_Ajax {
 			wp_send_json( $failure );
 		}
 
-		$item = $order->get_item( $item_id );
+		$item = $order->get_item( $item_id, false );
 
 		if ( ! ( $item instanceof WC_Order_Item ) ) {
 			wp_send_json( $failure );
@@ -495,10 +482,10 @@ class WC_PB_Admin_Ajax {
 		 *
 		 * @since  5.8.0
 		 *
-		 * @param  $config   array
-		 * @param  $product  WC_Product_Bundle
-		 * @param  $item     WC_Order_Item
-		 * @param  $order    WC_Order
+		 * @param  array              $config
+		 * @param  WC_Product_Bundle  $product
+		 * @param  WC_Order_Item      $item
+		 * @param  WC_Order           $order
 		 */
 		$posted_configuration  = apply_filters( 'woocommerce_editing_bundle_in_order_configuration', WC_PB()->cart->get_posted_bundle_configuration( $product ), $product, $item, $order );
 		$current_configuration = WC_PB_Order::get_current_bundle_configuration( $item, $order );

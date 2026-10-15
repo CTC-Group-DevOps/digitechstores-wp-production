@@ -165,7 +165,7 @@ function wc_pb_update_500_delete_unused_meta() {
 /**
  * Update the DB version to 5.0.0.
  *
- * @param WC_PB_Background_Updater $updater Background updater instance.
+ * @param WC_PB_Background_Updater|false $updater Background updater instance.
  * @return void|int
  */
 function wc_pb_update_500_main( $updater = false ) {
@@ -454,7 +454,7 @@ function wc_pb_update_500_db_version() {
 /**
  * Update the DB version to 5.1.0.
  *
- * @param WC_PB_Background_Updater $updater Background updater instance.
+ * @param WC_PB_Background_Updater|false $updater Background updater instance.
  * @return void|int
  */
 function wc_pb_update_510_main( $updater = false ) {

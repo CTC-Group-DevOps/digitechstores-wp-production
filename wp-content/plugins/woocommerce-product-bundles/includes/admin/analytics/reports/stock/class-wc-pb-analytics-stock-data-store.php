@@ -17,7 +17,7 @@ use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
 /**
  * WC_PB_REST_Reports_Bundles_Data_Store class.
  *
- * @version 6.12.2
+ * @version 8.5.13
  */
 class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 
@@ -134,7 +134,7 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 
 				$extended_info['units_required'] = absint( $bundled_item->get_quantity() );
 
-				// Lastly, grap the bundle name, the easy way.
+				// Lastly, grab the bundle name, the easy way.
 				$extended_info['bundle_name'] = wp_strip_all_tags( get_the_title( $product_data['bundle_id'] ) );
 
 				$extended_info = $this->cast_numbers( $extended_info );
@@ -366,7 +366,7 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 	/**
 	 * Checks if any unsynced Bundles and fix it.
 	 *
-	 * @return void.
+	 * @return void
 	 */
 	protected function maybe_sync_stock_data() {
 

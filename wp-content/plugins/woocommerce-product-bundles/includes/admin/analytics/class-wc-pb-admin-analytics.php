@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Bundles WooCommerce Analytics.
  *
- * @version  8.5.10
+ * @version  8.5.13
  */
 class WC_PB_Admin_Analytics {
 
@@ -160,7 +160,7 @@ class WC_PB_Admin_Analytics {
 	}
 
 	/**
-	 * Analytics includes and register REST contollers.
+	 * Analytics includes and register REST controllers.
 	 *
 	 * @param  array $controllers REST controllers.
 	 * @return array

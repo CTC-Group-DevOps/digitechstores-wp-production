@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  8.5.3
+ * @version  8.5.13
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -402,6 +402,8 @@ class WC_PB_Meta_Box_Product_Data {
 	 */
 	public static function process_bundle_data( $product ) {
 
+		WC_PB_Admin_Notices::start_product_save( $product->get_id() );
+
 		//phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( $product->is_type( 'bundle' ) ) {
 			/*
@@ -499,34 +501,53 @@ class WC_PB_Meta_Box_Product_Data {
 
 			if ( ! defined( 'WC_PB_UPDATING' ) ) {
 
-				$posted_bundle_data    = isset( $_POST['bundle_data'] ) ? $_POST['bundle_data'] : false; // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				$processed_bundle_data = self::process_posted_bundle_data( $posted_bundle_data, $product->get_id() );
-
-				if ( empty( $processed_bundle_data ) ) {
-
-					self::add_admin_error( __( 'Please add at least one product to the bundle before publishing. To add products, click on the <strong>Bundled Products</strong> tab.', 'woocommerce-product-bundles' ) );
-					$props['bundled_data_items'] = array();
-
-				} else {
-
-					foreach ( $processed_bundle_data as $key => $data ) {
-						$processed_bundle_data[ $key ] = array(
-							'bundled_item_id' => $data['item_id'],
-							'bundle_id'       => $product->get_id(),
-							'product_id'      => $data['product_id'],
-							'menu_order'      => $data['menu_order'],
-							'meta_data'       => array_diff_key(
-								$data,
-								array(
-									'item_id'    => 1,
-									'product_id' => 1,
-									'menu_order' => 1,
-								)
-							),
-						);
+				$posted_bundle_data   = isset( $_POST['bundle_data'] ) && is_array( $_POST['bundle_data'] ) ? $_POST['bundle_data'] : array(); // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				$relationships_denied = false;
+				// Reject the batch before processing, so denied references cannot erase saved relationships.
+				foreach ( (array) $posted_bundle_data as $data ) {
+					$product_id = isset( $data['product_id'] ) ? absint( $data['product_id'] ) : 0;
+					// The existing processor discards products deleted since the form loaded.
+					if ( ! $product_id || ! wc_get_product( $product_id ) ) {
+						continue;
 					}
+					$variation_ids = isset( $data['override_variations'], $data['allowed_variations'] ) ? $data['allowed_variations'] : array();
+					$variation_ids = is_array( $variation_ids ) ? $variation_ids : array_filter( array_map( 'intval', explode( ',', $variation_ids ) ) );
+					if ( ! WC_PB_Helpers::can_reference_product( $product_id, $variation_ids ) ) {
+						self::add_admin_error( __( 'Your bundled product changes were not saved. You do not have permission to use a selected product or variation.', 'woocommerce-product-bundles' ) );
+						$relationships_denied = true;
+						break;
+					}
+				}
 
-					$props['bundled_data_items'] = $processed_bundle_data;
+				if ( ! $relationships_denied ) {
+					$processed_bundle_data = self::process_posted_bundle_data( $posted_bundle_data, $product->get_id() );
+
+					if ( empty( $processed_bundle_data ) ) {
+
+						self::add_admin_error( __( 'Please add at least one product to the bundle before publishing. To add products, click on the <strong>Bundled Products</strong> tab.', 'woocommerce-product-bundles' ) );
+						$props['bundled_data_items'] = array();
+
+					} else {
+
+						foreach ( $processed_bundle_data as $key => $data ) {
+							$processed_bundle_data[ $key ] = array(
+								'bundled_item_id' => $data['item_id'],
+								'bundle_id'       => $product->get_id(),
+								'product_id'      => $data['product_id'],
+								'menu_order'      => $data['menu_order'],
+								'meta_data'       => array_diff_key(
+									$data,
+									array(
+										'item_id'    => 1,
+										'product_id' => 1,
+										'menu_order' => 1,
+									)
+								),
+							);
+						}
+
+						$props['bundled_data_items'] = $processed_bundle_data;
+					}
 				}
 
 				$product->set( $props );
@@ -638,8 +659,8 @@ class WC_PB_Meta_Box_Product_Data {
 					// Bundling subscription products requires Subs v2.0+.
 					if ( $is_subscription ) {
 						if ( ( ! class_exists( 'WC_Subscriptions' ) && ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) || ( class_exists( 'WC_Subscriptions' ) && version_compare( WC_Subscriptions::$version, '2.0.0', '<' ) ) ) {
-							/* translators: Bundled product name */
-							self::add_admin_error( sprintf( __( '<strong>%s</strong> was not saved. WooCommerce Subscriptions version 2.0 or higher is required in order to bundle Subscription products.', 'woocommerce-product-bundles' ), $product_title ) );
+							/* translators: %d: Bundled item position. */
+							self::add_admin_error( sprintf( __( 'Bundled item %d was not saved. WooCommerce Subscriptions version 2.0 or higher is required in order to bundle Subscription products.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 							continue;
 						}
 					}
@@ -649,8 +670,8 @@ class WC_PB_Meta_Box_Product_Data {
 						$times[ $product_id ] = 1;
 					} else {
 						if ( $product->is_sold_individually() ) {
-							/* translators: Bundled product name */
-							self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually and cannot be bundled more than once.', 'woocommerce-product-bundles' ), $product_title ) );
+							/* translators: %d: Bundled item position. */
+							self::add_admin_error( sprintf( __( 'Bundled item %d is sold individually and cannot be bundled more than once.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 							// Make sure we only display the notice once for every id.
 							$sold_individually_notices[ $product_id ] = 'yes';
 							continue;
@@ -661,8 +682,7 @@ class WC_PB_Meta_Box_Product_Data {
 					// Now start processing the posted data.
 					++$loop;
 
-					$item_data  = array();
-					$item_title = $product_title;
+					$item_data = array();
 
 					$item_data['product_id'] = $product_id;
 					$item_data['item_id']    = $item_id;
@@ -722,15 +742,15 @@ class WC_PB_Meta_Box_Product_Data {
 							if ( $quantity >= 0 && 0 === $data['quantity_min'] - $quantity ) {
 
 								if ( $quantity > 1 && $product->is_sold_individually() ) {
-									/* translators: Bundled product name */
-									self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; its <strong>Min Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
+									/* translators: %d: Bundled item position. */
+									self::add_admin_error( sprintf( __( 'Bundled item %d is sold individually &ndash; its <strong>Min Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 									$item_data['quantity_min'] = 1;
 								} else {
 									$item_data['quantity_min'] = $quantity;
 								}
 							} else {
-								/* translators: Bundled product name */
-								self::add_admin_error( sprintf( __( 'The minimum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a non-negative integer <strong>Min Quantity</strong> value.', 'woocommerce-product-bundles' ), $item_title ) );
+								/* translators: %d: Bundled item position. */
+								self::add_admin_error( sprintf( __( 'The minimum quantity of bundled item %d was not valid and has been reset. Please enter a non-negative integer <strong>Min Quantity</strong> value.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 								$item_data['quantity_min'] = 1;
 							}
 						}
@@ -748,16 +768,16 @@ class WC_PB_Meta_Box_Product_Data {
 						if ( '' === $quantity || ( $quantity > 0 && $quantity >= $quantity_min && 0 === (int) $data['quantity_max'] - $quantity ) ) {
 
 							if ( 1 !== $quantity && $product->is_sold_individually() ) {
-								/* translators: Bundled product name */
-								self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; <strong>Max Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
+								/* translators: %d: Bundled item position. */
+								self::add_admin_error( sprintf( __( 'Bundled item %d is sold individually &ndash; <strong>Max Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 								$item_data['quantity_max'] = 1;
 							} else {
 								$item_data['quantity_max'] = $quantity;
 							}
 						} else {
 
-							/* translators: Bundled product name */
-							self::add_admin_error( sprintf( __( 'The maximum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a positive integer equal to or higher than <strong>Min Quantity</strong>, or leave the <strong>Max Quantity</strong> field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ), $item_title ) );
+							/* translators: %d: Bundled item position. */
+							self::add_admin_error( sprintf( __( 'The maximum quantity of bundled item %d was not valid and has been reset. Please enter a positive integer equal to or higher than <strong>Min Quantity</strong>, or leave the <strong>Max Quantity</strong> field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 
 							if ( 0 === $quantity_min ) {
 								$item_data['quantity_max'] = 1;
@@ -779,8 +799,8 @@ class WC_PB_Meta_Box_Product_Data {
 						if ( $quantity >= $quantity_min && ( $quantity <= $quantity_max || '' === $quantity_max ) ) {
 							$item_data['quantity_default'] = $quantity;
 						} else {
-							/* translators: Bundled product name */
-							self::add_admin_error( sprintf( __( 'The default quantity of <strong>%s</strong> was not valid and has been reset. Please enter an integer between the <strong>Min Quantity</strong> and <strong>Max Quantity</strong>.', 'woocommerce-product-bundles' ), $item_title ) );
+							/* translators: %d: Bundled item position. */
+							self::add_admin_error( sprintf( __( 'The default quantity of bundled item %d was not valid and has been reset. Please enter an integer between the <strong>Min Quantity</strong> and <strong>Max Quantity</strong>.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 							$item_data['quantity_default'] = $quantity_min;
 						}
 					} else {
@@ -797,8 +817,8 @@ class WC_PB_Meta_Box_Product_Data {
 
 						// Throw error if discount is not within the 0-100 range or if a string was passed to wc_format_decimal.
 						if ( empty( $discount ) || $discount < 0 || $discount > 100 ) {
-							/* translators: Bundled product name */
-							self::add_admin_error( sprintf( __( 'The <strong>Discount</strong> of <strong>%s</strong> was not valid and has been reset. Please enter a positive number between 0-100.', 'woocommerce-product-bundles' ), $item_title ) );
+							/* translators: %d: Bundled item position. */
+							self::add_admin_error( sprintf( __( 'The <strong>Discount</strong> of bundled item %d was not valid and has been reset. Please enter a positive number between 0-100.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 							$item_data['discount'] = '';
 						} else {
 							$item_data['discount'] = $discount;
@@ -837,8 +857,8 @@ class WC_PB_Meta_Box_Product_Data {
 								}
 							} else {
 								$item_data['override_variations'] = 'no';
-								/* translators: Bundled product name */
-								self::add_admin_error( sprintf( __( 'Failed to save <strong>Filter Variations</strong> for <strong>%s</strong>. Please choose at least one variation.', 'woocommerce-product-bundles' ), $item_title ) );
+								/* translators: %d: Bundled item position. */
+								self::add_admin_error( sprintf( __( 'Failed to save <strong>Filter Variations</strong> for bundled item %d. Please choose at least one variation.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 							}
 						} else {
 							$item_data['override_variations'] = 'no';
@@ -888,8 +908,8 @@ class WC_PB_Meta_Box_Product_Data {
 											// Set option to "Any".
 											$data['default_variation_attributes'][ $name ] = '';
 											// Show an error.
-											/* translators: Bundled product name */
-											self::add_admin_error( sprintf( __( 'The default variation attribute values of <strong>%s</strong> are inconsistent with the set of active variations and have been reset.', 'woocommerce-product-bundles' ), $item_title ) );
+											/* translators: %d: Bundled item position. */
+											self::add_admin_error( sprintf( __( 'The default variation attribute values of bundled item %d are inconsistent with the set of active variations and have been reset.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 											continue;
 										}
 									}
@@ -925,8 +945,8 @@ class WC_PB_Meta_Box_Product_Data {
 									foreach ( $data['default_variation_attributes'] as $default_name => $default_value ) {
 										if ( '' === $default_value ) {
 											$visibility['product'] = 'visible';
-											/* translators: Bundled product name */
-											self::add_admin_error( sprintf( __( 'To hide <strong>%s</strong> from the single-product template, please enable the <strong>Override Default Selections</strong> option and choose default variation attribute values.', 'woocommerce-product-bundles' ), $item_title ) );
+											/* translators: %d: Bundled item position. */
+											self::add_admin_error( sprintf( __( 'To hide bundled item %d from the single-product template, please enable the <strong>Override Default Selections</strong> option and choose default variation attribute values.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 											break;
 										}
 									}
@@ -934,8 +954,8 @@ class WC_PB_Meta_Box_Product_Data {
 									$visibility['product'] = 'visible';
 								}
 							} else {
-								/* translators: Bundled product name */
-								self::add_admin_error( sprintf( __( 'To hide <strong>%s</strong> from the single-product template, please enable the <strong>Override Default Selections</strong> option and choose default variation attribute values.', 'woocommerce-product-bundles' ), $item_title ) );
+								/* translators: %d: Bundled item position. */
+								self::add_admin_error( sprintf( __( 'To hide bundled item %d from the single-product template, please enable the <strong>Override Default Selections</strong> option and choose default variation attribute values.', 'woocommerce-product-bundles' ), absint( $data['menu_order'] ?? 0 ) + 1 ) );
 								$visibility['product'] = 'visible';
 							}
 						}
@@ -1530,9 +1550,9 @@ class WC_PB_Meta_Box_Product_Data {
 						 * Use this filter to modify the bundled item data when the product is being edited.
 						 *
 						 * @since 5.8.0
-						 * @param  $item_data   array
-						 * @param  $context     string
-						 * @param  $product_id  int
+						 * @param  array   $item_data
+						 * @param  string  $context
+						 * @param  int     $product_id
 						 */
 						$item_data = apply_filters( 'woocommerce_add_bundled_product_item_data', $item->get_data(), 'edit', $item->get_product_id() );
 

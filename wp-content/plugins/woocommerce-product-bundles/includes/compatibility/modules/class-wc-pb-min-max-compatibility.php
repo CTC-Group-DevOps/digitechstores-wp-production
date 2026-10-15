@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  8.4.2
+ * @version  8.5.13
  */
 class WC_PB_Min_Max_Compatibility {
 
@@ -33,7 +33,7 @@ class WC_PB_Min_Max_Compatibility {
 	public static $unfiltered_args = false;
 
 	/**
-	 * Initilize hooks.
+	 * Initialize hooks.
 	 */
 	public static function init() {
 		/*
@@ -119,24 +119,24 @@ class WC_PB_Min_Max_Compatibility {
 
 				$item_data['quantity_min'] = $adjusted_min_quantity;
 
-				/* translators: %1$s: Bundled product name, %2$s: Group of quantity */
-				WC_PB_Meta_Box_Product_Data::add_admin_error( sprintf( __( 'The <strong>Min Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Its value has been adjusted.', 'woocommerce-product-bundles' ), $item_data['title'], $group_of_quantity ) );
+				/* translators: %1$d: Bundled item position, %2$s: Group of quantity. */
+				WC_PB_Meta_Box_Product_Data::add_admin_error( sprintf( __( 'The <strong>Min Quantity</strong> of bundled item %1$d must be a multiple of <strong>%2$s</strong>. Its value has been adjusted.', 'woocommerce-product-bundles' ), absint( $item_data['menu_order'] ?? 0 ) + 1, $group_of_quantity ) );
 			}
 
 			if ( $item_data['quantity_default'] !== $adjusted_default_quantity ) {
 
 				$item_data['quantity_default'] = $adjusted_default_quantity;
 
-				/* translators: %1$s: Bundled product name, %2$s: Group of quantity */
-				WC_PB_Meta_Box_Product_Data::add_admin_error( sprintf( __( 'The <strong>Default Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Its value has been adjusted.', 'woocommerce-product-bundles' ), $item_data['title'], $group_of_quantity ) );
+				/* translators: %1$d: Bundled item position, %2$s: Group of quantity. */
+				WC_PB_Meta_Box_Product_Data::add_admin_error( sprintf( __( 'The <strong>Default Quantity</strong> of bundled item %1$d must be a multiple of <strong>%2$s</strong>. Its value has been adjusted.', 'woocommerce-product-bundles' ), absint( $item_data['menu_order'] ?? 0 ) + 1, $group_of_quantity ) );
 			}
 
 			if ( $item_data['quantity_max'] !== $adjusted_max_quantity ) {
 
 				$item_data['quantity_max'] = $adjusted_max_quantity;
 
-				/* translators: %1$s: Bundled product name, %2$s: Group of quantity */
-				WC_PB_Meta_Box_Product_Data::add_admin_error( sprintf( __( 'The <strong>Max Quantity</strong> of <strong>%1$s</strong> must be a multiple of <strong>%2$s</strong>. Its value has been adjusted.', 'woocommerce-product-bundles' ), $item_data['title'], $group_of_quantity ) );
+				/* translators: %1$d: Bundled item position, %2$s: Group of quantity. */
+				WC_PB_Meta_Box_Product_Data::add_admin_error( sprintf( __( 'The <strong>Max Quantity</strong> of bundled item %1$d must be a multiple of <strong>%2$s</strong>. Its value has been adjusted.', 'woocommerce-product-bundles' ), absint( $item_data['menu_order'] ?? 0 ) + 1, $group_of_quantity ) );
 			}
 		}
 
@@ -146,7 +146,7 @@ class WC_PB_Min_Max_Compatibility {
 	/**
 	 * Add a notice if Min/Max bundled item quantities are not compatible with the "Group of" option.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public static function maybe_add_group_of_notice() {
 

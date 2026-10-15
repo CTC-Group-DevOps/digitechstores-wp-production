@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Used to create and store a product_id / variation_id representation of a product collection based on the included items' inventory requirements.
  *
  * @class    WC_PB_Stock_Manager
- * @version  6.19.0
+ * @version  8.5.13
  */
 class WC_PB_Stock_Manager {
 
@@ -34,7 +34,7 @@ class WC_PB_Stock_Manager {
 	public $product;
 
 	/**
-	 * Contructor.
+	 * Constructor.
 	 *
 	 * @param boolean|WC_Product $product Product object.
 	 */
@@ -154,14 +154,14 @@ class WC_PB_Stock_Manager {
 
 		$quantities_in_cart = WC()->cart->get_cart_item_quantities();
 
-		// If we are updating a bundle in-cart, subtract the bundled item cart quantites that belong to the bundle being updated, since it's going to be removed later on.
+		// If we are updating a bundle in-cart, subtract the bundled item cart quantities that belong to the bundle being updated, since it's going to be removed later on.
 		//phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['update-bundle'] ) ) {
 
-			//phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-			$updating_cart_key = wc_clean( $_POST['update-bundle'] );
+			//phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$updating_cart_key = WC_PB()->cart->get_valid_bundle_update_cart_key( wc_clean( wp_unslash( $_POST['update-bundle'] ) ), $this->product ? $this->product->get_id() : 0 );
 
-			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
+			if ( '' !== $updating_cart_key ) {
 
 				$bundle_cart_item   = WC()->cart->cart_contents[ $updating_cart_key ];
 				$bundled_cart_items = wc_pb_get_bundled_cart_items( $bundle_cart_item );

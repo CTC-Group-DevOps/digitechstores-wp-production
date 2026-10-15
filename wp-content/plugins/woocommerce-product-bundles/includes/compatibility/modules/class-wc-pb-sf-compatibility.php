@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Storefront 2.3+ integration.
  *
- * @version  5.7.9
+ * @version  8.5.13
  */
 class WC_PB_SF_Compatibility {
 
@@ -42,7 +42,7 @@ class WC_PB_SF_Compatibility {
 	}
 
 	/**
-	 * Set corrent sticky add to cart button trigger element when "Form Location" is "After Summary".
+	 * Set correct sticky add to cart button trigger element when "Form Location" is "After Summary".
 	 *
 	 * @param  array $params Sticky add to cart button parameters.
 	 * @return array

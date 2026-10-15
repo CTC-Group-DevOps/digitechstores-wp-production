@@ -15,7 +15,7 @@ const external_wp_element_namespaceObject = window["wp"]["element"];
 
 
 (0,external_wp_hooks_namespaceObject.addFilter)('experimental_woocommerce_admin_product_tour_steps', 'woocommerce-product-bundles', (tourSteps, tourType) => {
-  if ('product-bundles' !== tourType) {
+  if (tourType !== 'product-bundles') {
     return tourSteps;
   }
   const steps = [{

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    5.7.9
- * @version  6.21.0
+ * @version  8.5.13
  */
 
 // Exit if accessed directly.
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tr>
 		<tr>
 			<td data-export-label="Loopback Test"><?php esc_html_e( 'Loopback test', 'woocommerce-product-bundles' ); ?>:</td>
-			<td class="help"><?php echo wc_help_tip( esc_html__( 'Loopback requests are used by Product Bundles to process tasks in the background.', 'woocommerce-product-bundles' ) ); ?></td>
+			<td class="help"><?php echo wc_help_tip( esc_html__( 'Checks WordPress loopback requests. A passing result does not confirm the certificate trust required for Product Bundles database updates.', 'woocommerce-product-bundles' ) ); ?></td>
 			<td>
 			<?php
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for DB lifecycle management of products, bundles, bundled items and their meta.
  *
  * @class    WC_PB_DB_Sync
- * @version  8.5.8
+ * @version  8.5.13
  */
 class WC_PB_DB_Sync {
 
@@ -619,7 +619,7 @@ class WC_PB_DB_Sync {
 	 */
 	private static function update_bundled_items_max_stock_meta( $stock_meta_map ) {
 
-		$max_stoke_formatted = array();
+		$stock_status_formatted = array();
 
 		foreach ( $stock_meta_map as $item_id => $data ) {
 

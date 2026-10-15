@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Elementor compatibility.
  *
- * @version  6.5.0
+ * @version  8.5.13
  */
 class WC_PB_Elementor_Compatibility {
 
 	/**
-	 * Initilize.
+	 * Initialize.
 	 */
 	public static function init() {
 		add_filter( 'woocommerce_bundle_form_classes', array( __CLASS__, 'additional_form_classes' ), 10, 2 );

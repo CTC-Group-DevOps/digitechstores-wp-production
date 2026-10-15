@@ -18,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataS
  * Admin Reports Class for syncing the lookup table.
  *
  * @class    WC_PB_Admin_Analytics_Sync
- * @version  7.2.0
+ * @version  8.5.13
  */
 class WC_PB_Admin_Analytics_Sync {
 
@@ -62,20 +62,17 @@ class WC_PB_Admin_Analytics_Sync {
 		 */
 		add_action( 'woocommerce_product_object_updated_props', array( __CLASS__, 'sync_product_updated_props' ), 10, 2 );
 
-		if ( method_exists( WC(), 'queue' ) ) {
+		if ( is_admin() ) {
 
-			if ( is_admin() ) {
+			// Add status tool to regenerate order stats table.
+			add_filter( 'woocommerce_debug_tools', array( __CLASS__, 'add_regenerate_order_item_stats_tool' ) );
 
-				// Add status tool to regenerate order stats table.
-				add_filter( 'woocommerce_debug_tools', array( __CLASS__, 'add_regenerate_order_item_stats_tool' ) );
-
-				// Handle regenerate button clicks.
-				add_action( 'admin_init', array( __CLASS__, 'handle_trigger_order_item_stats_update' ) );
-			}
-
-			// AS action for regenerating order stats for a batch of orders.
-			add_action( 'wc_pb_process_order_item_stats_update_batch', array( __CLASS__, 'process_order_item_stats_update_batch' ), 10, 2 );
+			// Handle regenerate button clicks.
+			add_action( 'admin_init', array( __CLASS__, 'handle_trigger_order_item_stats_update' ) );
 		}
+
+		// AS action for regenerating order stats for a batch of orders.
+		add_action( 'wc_pb_process_order_item_stats_update_batch', array( __CLASS__, 'process_order_item_stats_update_batch' ), 10, 2 );
 	}
 
 	/**

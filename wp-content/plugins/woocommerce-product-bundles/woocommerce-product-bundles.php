@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Product Bundles
  * Plugin URI: https://woocommerce.com/products/product-bundles/
  * Description: Offer product bundles, bulk discount packages, and assembled products.
- * Version: 8.5.12
+ * Version: 8.5.13
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  *
@@ -12,11 +12,10 @@
  *
  * Requires PHP: 7.4
  *
- * Requires at least: 6.8
- * Tested up to: 7.0
+ * Requires at least: 6.9
  *
- * WC requires at least: 10.6
- * WC tested up to: 11.0
+ * WC requires at least: 10.9
+ * WC tested up to: 11.2
  *
  * Requires Plugins: woocommerce
  *
@@ -37,7 +36,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  8.5.12
+ * @version  8.5.13
+ *
+ * @property-read WC_PB_Compatibility $compatibility
+ * @property-read WC_PB_Modules       $modules
+ * @property-read WC_PB_Cart          $cart
+ * @property-read WC_PB_Order         $order
+ * @property-read WC_PB_Display       $display
  */
 class WC_Bundles {
 
@@ -46,14 +51,14 @@ class WC_Bundles {
 	 *
 	 * @var string
 	 */
-	public $version = '8.5.12';
+	public $version = '8.5.13';
 
 	/**
 	 * Minimum WooCommerce version required.
 	 *
 	 * @var string
 	 */
-	public $required = '10.6.0';
+	public $required = '10.9.0';
 
 	/**
 	 * The single instance of the class.
@@ -329,7 +334,7 @@ class WC_Bundles {
 	}
 
 	/**
-	 * A simple dumb datastore for sharing information accross our plugins.
+	 * A simple dumb datastore for sharing information across our plugins.
 	 *
 	 * @since  6.3.0
 	 *

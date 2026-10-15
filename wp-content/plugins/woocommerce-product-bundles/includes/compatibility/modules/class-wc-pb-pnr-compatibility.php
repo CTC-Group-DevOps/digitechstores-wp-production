@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Points and Rewards Compatibility.
  *
- * @version  6.22.0
+ * @version  8.5.13
  */
 class WC_PB_PnR_Compatibility {
 
@@ -166,7 +166,7 @@ class WC_PB_PnR_Compatibility {
 					}
 				}
 
-				remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'replace_price' ), 9999, 2 );
+				remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'replace_price' ), 9999 );
 
 				self::$bundle_price_min = false;
 				self::$bundle_price_max = false;

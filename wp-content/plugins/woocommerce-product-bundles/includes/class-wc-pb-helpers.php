@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Helper Functions.
  *
  * @class    WC_PB_Helpers
- * @version  6.15.2
+ * @version  8.5.13
  */
 class WC_PB_Helpers {
 
@@ -25,6 +25,45 @@ class WC_PB_Helpers {
 	 * @var array
 	 */
 	public static $cache = array();
+
+	/**
+	 * Whether a product may be included in a public response.
+	 *
+	 * @since 8.5.13
+	 * @param int $product_id Product ID.
+	 * @return bool
+	 */
+	public static function can_read_product( $product_id ) {
+		$post = is_numeric( $product_id ) && $product_id > 0 ? get_post( $product_id ) : null;
+		return $post && ( is_post_status_viewable( $post->post_status ) || current_user_can( 'read_post', $post->ID ) );
+	}
+
+	/**
+	 * Check whether the current editor can reference a product and its variations.
+	 *
+	 * @since 8.5.13
+	 * @param int   $product_id Referenced product ID.
+	 * @param array $variation_ids Referenced variation IDs.
+	 * @return boolean
+	 */
+	public static function can_reference_product( $product_id, $variation_ids = array() ) {
+		$product_id = absint( $product_id );
+		if ( ! $product_id || ! is_array( $variation_ids ) || ! current_user_can( 'read_post', $product_id ) ) {
+			return false;
+		}
+
+		if ( $variation_ids && is_callable( '_prime_post_caches' ) ) {
+			_prime_post_caches( array_map( 'absint', $variation_ids ), false, false );
+		}
+		foreach ( $variation_ids as $variation_id ) {
+			$variation_id = absint( $variation_id );
+			if ( 'product_variation' !== get_post_type( $variation_id ) || wp_get_post_parent_id( $variation_id ) !== $product_id || ! current_user_can( 'read_post', $variation_id ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	/**
 	 * Simple runtime cache getter.

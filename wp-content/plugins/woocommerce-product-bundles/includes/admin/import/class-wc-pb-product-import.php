@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_PB_Product_Import
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_Product_Import {
 
@@ -233,6 +233,18 @@ class WC_PB_Product_Import {
 	 * @return array
 	 */
 	public static function set_bundle_props( $product, $data ) {
+
+		if ( $product instanceof WC_Product && ! empty( $data['wc_pb_bundle_sells'] ) ) {
+			$bundle_sell_ids = $product->get_meta( '_wc_pb_bundle_sell_ids', true, 'edit' );
+			if ( is_array( $bundle_sell_ids ) ) {
+				$bundle_sell_ids = array_values( array_diff( $bundle_sell_ids, array( $product->get_id() ) ) );
+				if ( $bundle_sell_ids ) {
+					$product->update_meta_data( '_wc_pb_bundle_sell_ids', $bundle_sell_ids );
+				} else {
+					$product->delete_meta_data( '_wc_pb_bundle_sell_ids' );
+				}
+			}
+		}
 
 		if ( ( $product instanceof WC_Product ) && $product->is_type( 'bundle' ) ) {
 

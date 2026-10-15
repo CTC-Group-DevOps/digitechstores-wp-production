@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Price functions and hooks.
  *
  * @class    WC_PB_Product_Prices
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_Product_Prices {
 
@@ -381,21 +381,21 @@ class WC_PB_Product_Prices {
 
 		if ( $bundled_item && empty( self::$bundled_item ) ) {
 
-			remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price' ), 15, 2 );
-			remove_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_get_sale_price' ), 15, 2 );
-			remove_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_get_regular_price' ), 15, 2 );
-			remove_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_get_price' ), 15, 2 );
-			remove_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_get_sale_price' ), 15, 2 );
-			remove_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_get_regular_price' ), 15, 2 );
+			remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price' ), 15 );
+			remove_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_get_sale_price' ), 15 );
+			remove_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_get_regular_price' ), 15 );
+			remove_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_get_price' ), 15 );
+			remove_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_get_sale_price' ), 15 );
+			remove_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_get_regular_price' ), 15 );
 
-			remove_filter( 'woocommerce_get_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
-			remove_filter( 'woocommerce_get_children', array( __CLASS__, 'filter_children' ), 10, 2 );
-			remove_filter( 'woocommerce_variable_price_html', array( __CLASS__, 'filter_variable_price_html' ), 10, 2 );
-			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 15, 2 );
-			remove_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
-			remove_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 10, 2 );
+			remove_filter( 'woocommerce_get_price_html', array( __CLASS__, 'filter_get_price_html' ), 10 );
+			remove_filter( 'woocommerce_get_children', array( __CLASS__, 'filter_children' ), 10 );
+			remove_filter( 'woocommerce_variable_price_html', array( __CLASS__, 'filter_variable_price_html' ), 10 );
+			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 15 );
+			remove_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10 );
+			remove_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 10 );
 
-			remove_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 99, 2 );
+			remove_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 99 );
 
 			/**
 			 * 'woocommerce_bundled_product_price_filters_removed' hook.
@@ -816,6 +816,7 @@ class WC_PB_Product_Prices {
 			 *
 			 * @since 4.2.0
 			 * @param  string           $price_html
+			 * @param  string           $original_price_html
 			 * @param  WC_Bundled_Item  $bundled_item
 			 */
 			$price_html = apply_filters(

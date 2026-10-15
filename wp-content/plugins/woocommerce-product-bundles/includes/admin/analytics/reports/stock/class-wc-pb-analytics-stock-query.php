@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_PB_REST_Reports_Stock_Query class.
  *
- * @version 8.2.0
+ * @version 8.5.13
  */
 class WC_PB_Analytics_Stock_Query extends Automattic\WooCommerce\Admin\API\Reports\GenericQuery {
 
@@ -32,7 +32,7 @@ class WC_PB_Analytics_Stock_Query extends Automattic\WooCommerce\Admin\API\Repor
 	/**
 	 * Get product data based on the current query vars.
 	 *
-	 * @return array
+	 * @return stdClass|WP_Error
 	 */
 	public function get_data() {
 		/**

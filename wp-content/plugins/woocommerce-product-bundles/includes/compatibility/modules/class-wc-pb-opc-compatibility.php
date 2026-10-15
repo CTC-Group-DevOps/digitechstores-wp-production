@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * One Page Checkout Compatibility.
  *
- * @version  6.21.0
+ * @version  8.5.13
  */
 class WC_PB_OPC_Compatibility {
 
@@ -44,10 +44,10 @@ class WC_PB_OPC_Compatibility {
 
 		if ( $product->is_purchasable() ) {
 
-			$bundled_items = $product->get_bundled_items();
+			$bundled_items = $product->get_displayed_bundled_items();
 			$form_classes  = array( 'layout_' . $product->get_layout(), 'group_mode_' . $product->get_group_mode() );
 
-			if ( ! empty( $bundled_items ) ) {
+			if ( ! empty( $product->get_bundled_items() ) ) {
 
 				ob_start();
 

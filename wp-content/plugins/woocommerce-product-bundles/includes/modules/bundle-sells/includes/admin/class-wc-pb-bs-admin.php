@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin functions and filters.
  *
  * @class    WC_PB_BS_Admin
- * @version  6.21.0
+ * @version  8.5.13
  */
 class WC_PB_BS_Admin {
 
@@ -120,11 +120,23 @@ class WC_PB_BS_Admin {
 		 */
 
 		$bundle_sell_ids = ! empty( $_POST['bundle_sell_ids'] ) && is_array( $_POST['bundle_sell_ids'] ) ? array_map( 'intval', (array) $_POST['bundle_sell_ids'] ) : array();
+		$bundle_sell_ids = array_values( array_diff( $bundle_sell_ids, array( $product->get_id() ) ) );
 
-		if ( ! empty( $bundle_sell_ids ) ) {
-			$product->update_meta_data( '_wc_pb_bundle_sell_ids', $bundle_sell_ids );
-		} else {
-			$product->delete_meta_data( '_wc_pb_bundle_sell_ids' );
+		$relationships_denied = false;
+		foreach ( $bundle_sell_ids as $bundle_sell_id ) {
+			if ( ! WC_PB_Helpers::can_reference_product( $bundle_sell_id ) ) {
+				WC_PB_Meta_Box_Product_Data::add_admin_error( __( 'Your bundle-sell changes were not saved. You do not have permission to use a selected product.', 'woocommerce-product-bundles' ) );
+				$relationships_denied = true;
+				break;
+			}
+		}
+
+		if ( ! $relationships_denied ) {
+			if ( ! empty( $bundle_sell_ids ) ) {
+				$product->update_meta_data( '_wc_pb_bundle_sell_ids', $bundle_sell_ids );
+			} else {
+				$product->delete_meta_data( '_wc_pb_bundle_sell_ids' );
+			}
 		}
 
 		/*

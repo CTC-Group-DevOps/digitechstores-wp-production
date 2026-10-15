@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Coupon functions and filters.
  *
  * @class    WC_PB_Coupon
- * @version  8.5.11
+ * @version  8.5.13
  */
 class WC_PB_Coupon {
 
@@ -29,7 +29,7 @@ class WC_PB_Coupon {
 	private static $checking_bundled_items = false;
 
 	/**
-	 * Initilize.
+	 * Initialize.
 	 */
 	public static function init() {
 
@@ -86,14 +86,14 @@ class WC_PB_Coupon {
 		/**
 		 * 'woocommerce_bundles_inherit_coupon_validity' filter.
 		 *
-		 * Use this to prevent coupon valididty inheritance for bundled products.
+		 * Use this to prevent coupon validity inheritance for bundled products.
 		 *
 		 * @since 5.8.0
-		 * @param  boolean     $inherit
-		 * @param  WC_Product  $product
-		 * @param  WC_Coupon   $coupon
-		 * @param  array       $item
-		 * @param  array       $container_item
+		 * @param  boolean                      $inherit
+		 * @param  WC_Product                   $product
+		 * @param  WC_Coupon                    $coupon
+		 * @param  array|WC_Order_Item_Product  $item
+		 * @param  array                        $container_item
 		 */
 		if ( apply_filters( 'woocommerce_bundles_inherit_coupon_validity', true, $product, $coupon, $item, $container_item ) ) {
 			/*

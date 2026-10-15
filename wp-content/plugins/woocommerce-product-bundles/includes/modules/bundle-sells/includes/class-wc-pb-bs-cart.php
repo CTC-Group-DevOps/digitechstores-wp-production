@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart-related functions and filters.
  *
  * @class    WC_PB_BS_Cart
- * @version  8.5.11
+ * @version  8.5.13
  */
 class WC_PB_BS_Cart {
 
@@ -176,7 +176,10 @@ class WC_PB_BS_Cart {
 		if ( ! empty( $bundle_sells_configuration ) ) {
 			foreach ( $bundle_sells_configuration as $bundle_sell_id => $bundle_sell_configuration ) {
 
-				// add some validation here:
+				// Ignore self-references left in saved data or supplied by extensions.
+				if ( absint( $bundle_sell_configuration['product_id'] ) === absint( $parent_id ) ) {
+					continue;
+				}
 
 				$bundled_item_cart_data = array( 'bundle_sell_id' => $bundle_sell_id );
 
@@ -243,6 +246,9 @@ class WC_PB_BS_Cart {
 		if ( ! empty( $bundle_sells_configuration ) ) {
 
 			foreach ( $bundle_sells_configuration as $bundle_sell_configuration ) {
+				if ( absint( $bundle_sell_configuration['product_id'] ) === absint( $parent_product_id ) ) {
+					continue;
+				}
 				$products[ $bundle_sell_configuration['product_id'] ] = $bundle_sell_configuration['quantity'];
 			}
 
@@ -340,8 +346,6 @@ class WC_PB_BS_Cart {
 		 * @since  6.6.0
 		 *
 		 * @param  array   $cart_item_keys  Cart item keys.
-		 * @param  string  $parent_item    Parent item.
-		 * @param  array   $parent_item_name Parent item name.
 		 */
 		$search_cart_item_keys = apply_filters( 'woocommerce_bundle_sells_search_cart_items', $search_cart_item_keys );
 
@@ -350,9 +354,7 @@ class WC_PB_BS_Cart {
 		 *
 		 * @since  6.6.0
 		 *
-		 * @param  bool    $cart_item
-		 * @param  string  $parent_item
-		 * @param  array  $parent_item_name
+		 * @param  array  $cart_item_keys  Cart item keys.
 		 */
 		$apply_to_cart_item_keys = apply_filters( 'woocommerce_bundle_sells_apply_to_cart_items', $apply_to_cart_item_keys );
 

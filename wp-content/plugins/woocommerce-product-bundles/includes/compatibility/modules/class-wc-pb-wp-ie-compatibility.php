@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Data is imported again using the WC_Bundled_Item_Data class.
  * Supports import of existing v4 data from post meta.
  *
- * @version  7.1.2
+ * @version  8.5.13
  */
 class WC_PB_WP_IE_Compatibility {
 
@@ -103,16 +103,19 @@ class WC_PB_WP_IE_Compatibility {
 			}
 		}
 
-		if ( ! empty( $bundle_data ) ) {
+		if ( is_array( $bundle_data ) && ! empty( $bundle_data ) ) {
 			foreach ( $bundle_data as $bundled_item_id => $bundled_item_data ) {
+				if ( ! is_array( $bundled_item_data ) || ! isset( $bundled_item_data['product_id'] ) ) {
+					continue;
+				}
 
 				// Create bundled item.
 				WC_PB_DB::add_bundled_item(
 					array(
 						'bundle_id'  => $imported_post_id,                  // Use the new bundle id.
 						'product_id' => $bundled_item_data['product_id'], // May get modified during import - @see 'wp_import_end().
-						'menu_order' => $bundled_item_data['menu_order'],
-						'meta_data'  => $bundled_item_data['meta_data'],
+						'menu_order' => $bundled_item_data['menu_order'] ?? 0,
+						'meta_data'  => WC_Bundled_Item_Data::sanitize_external_meta_data( $bundled_item_data['meta_data'] ?? array() ),
 						'force_add'  => true,                                // Bundled product may not exist in the DB yet, but get created later during import.
 					)
 				);

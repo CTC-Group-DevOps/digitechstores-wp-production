@@ -15,16 +15,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Admin_Notices
- * @version  8.5.4
+ * @version  8.5.13
  */
 class WC_PB_Admin_Notices {
 
 	/**
-	 * Notices presisting on the next request.
+	 * Notices persisting on the next request.
 	 *
 	 * @var array
 	 */
 	public static $meta_box_notices = array();
+
+	/**
+	 * Product currently being saved by a validated editor request.
+	 *
+	 * @var int
+	 */
+	private static $product_save_id = 0;
 
 	/**
 	 * Notices displayed on the current request.
@@ -195,10 +202,36 @@ class WC_PB_Admin_Notices {
 	}
 
 	/**
-	 * Save notices to the DB.
+	 * Begin a product save and discard its previous validation messages.
+	 *
+	 * @since 8.5.13
+	 * @param int $product_id Product being saved.
+	 */
+	public static function start_product_save( $product_id ) {
+		self::$product_save_id = absint( $product_id );
+		$saved_notices         = get_user_option( 'wc_pb_meta_box_notices' );
+		if ( is_array( $saved_notices ) && isset( $saved_notices['product_id'] ) && absint( $saved_notices['product_id'] ) === self::$product_save_id ) {
+			delete_user_option( get_current_user_id(), 'wc_pb_meta_box_notices' );
+		}
+	}
+
+	/**
+	 * Save notices for the current authenticated user.
+	 * Deferred notices queued without a current user are not persisted.
 	 */
 	public static function save_notices() {
-		update_option( 'wc_pb_meta_box_notices', self::$meta_box_notices );
+		if ( get_current_user_id() && ! empty( self::$meta_box_notices ) ) {
+			$product_id = self::$product_save_id;
+			update_user_option(
+				get_current_user_id(),
+				'wc_pb_meta_box_notices',
+				array(
+					'product_id'       => 'product' === get_post_type( $product_id ) ? $product_id : 0,
+					'product_modified' => $product_id ? get_post_field( 'post_modified_gmt', $product_id ) : '',
+					'notices'          => self::$meta_box_notices,
+				)
+			);
+		}
 		update_option( 'wc_pb_maintenance_notices', self::$maintenance_notices );
 	}
 
@@ -207,8 +240,20 @@ class WC_PB_Admin_Notices {
 	 */
 	public static function output_notices() {
 
-		$saved_notices = get_option( 'wc_pb_meta_box_notices', array() );
-		$notices       = array_merge( self::$admin_notices, $saved_notices );
+		$saved_notices = get_user_option( 'wc_pb_meta_box_notices' );
+		$notices       = self::$admin_notices;
+
+		if ( is_array( $saved_notices ) && isset( $saved_notices['product_id'], $saved_notices['notices'] ) && is_array( $saved_notices['notices'] ) ) {
+			$product_id = absint( $saved_notices['product_id'] );
+			$screen     = get_current_screen();
+
+			if ( ! $product_id || ( $screen && 'product' === $screen->id && get_the_ID() === $product_id ) ) {
+				if ( ! $product_id || ( current_user_can( 'edit_post', $product_id ) && ( ! isset( $saved_notices['product_modified'] ) || get_post_field( 'post_modified_gmt', $product_id ) === $saved_notices['product_modified'] ) ) ) {
+					$notices = array_merge( $notices, $saved_notices['notices'] );
+				}
+				delete_user_option( get_current_user_id(), 'wc_pb_meta_box_notices' );
+			}
+		}
 
 		if ( ! empty( $notices ) ) {
 
@@ -246,8 +291,6 @@ class WC_PB_Admin_Notices {
 				"
 			);
 
-			// Clear.
-			delete_option( 'wc_pb_meta_box_notices' );
 		}
 	}
 
@@ -497,7 +540,7 @@ class WC_PB_Admin_Notices {
 	 */
 	public static function update_order_item_stats_notice() {
 
-		if ( ! method_exists( WC(), 'queue' ) || ! class_exists( 'WC_PB_Admin_Analytics_Sync' ) || ! WC_PB_Core_Compatibility::is_wc_admin_active() ) {
+		if ( ! class_exists( 'WC_PB_Admin_Analytics_Sync' ) || ! WC_PB_Core_Compatibility::is_wc_admin_active() ) {
 			return;
 		}
 

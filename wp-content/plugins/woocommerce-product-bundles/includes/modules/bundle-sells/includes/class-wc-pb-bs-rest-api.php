@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Extend REST API to support bundle-sells.
  *
  * @class    WC_PB_BS_REST_API
- * @version  6.14.0
+ * @version  8.5.13
  */
 class WC_PB_BS_REST_API {
 
@@ -173,7 +173,7 @@ class WC_PB_BS_REST_API {
 					$bundle_sell_product = $bundle_sell_id > 0 ? wc_get_product( $bundle_sell_id ) : false;
 
 					// Ensure product exists when updating/creating and is of supported type.
-					if ( false === $bundle_sell_product ) {
+					if ( false === $bundle_sell_product || $product_id === $bundle_sell_id ) {
 						throw new WC_REST_Exception(
 							'woocommerce_rest_invalid_bundle_sell_product_id',
 							esc_html(
@@ -185,6 +185,8 @@ class WC_PB_BS_REST_API {
 							),
 							400
 						);
+					} elseif ( ! WC_PB_Helpers::can_reference_product( $bundle_sell_id ) ) {
+						throw new WC_REST_Exception( 'woocommerce_rest_cannot_read_bundle_sell_product', esc_html__( 'You do not have permission to use a selected product.', 'woocommerce-product-bundles' ), 403 );
 					} elseif ( $bundle_sell_product instanceof WC_Product && ! $bundle_sell_product->is_type( array( 'simple', 'subscription' ) ) ) {
 						throw new WC_REST_Exception(
 							'woocommerce_rest_invalid_bundle_sell_product_type',

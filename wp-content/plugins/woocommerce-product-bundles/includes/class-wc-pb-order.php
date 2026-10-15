@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle order-related functions and filters.
  *
  * @class    WC_PB_Order
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_Order {
 
@@ -421,6 +421,7 @@ class WC_PB_Order {
 				 * @param  WC_Order_Item      $bundled_order_item
 				 * @param  WC_Order           $order
 				 * @param  WC_Product_Bundle  $bundle
+				 * @param  int                $quantity
 				 * @param  array              $args
 				 */
 				do_action( 'woocommerce_bundle_added_to_order', $container_order_item, $order, $bundle, $quantity, $args );
@@ -749,9 +750,9 @@ class WC_PB_Order {
 	 *
 	 * Used in combination with 'get_order_items', right above.
 	 *
-	 * @param WC_Product    $product The product.
-	 * @param WC_Order_Item $item    The order item.
-	 * @param WC_Order      $order   The order.
+	 * @param WC_Product     $product The product.
+	 * @param WC_Order_Item  $item    The order item.
+	 * @param WC_Order|false $order   The order.
 	 * @return WC_Product
 	 */
 	public function get_product_from_item( $product, $item, $order = false ) {
@@ -895,9 +896,9 @@ class WC_PB_Order {
 	 * - ensure that they are included in the exported data, by having 'needs_shipping' return 'true', but also
 	 * - minimize the impact of their inclusion on shipping costs.
 	 *
-	 * @param  WC_Product $product The product.
-	 * @param  array      $item   The order item.
-	 * @param  WC_Order   $order The order.
+	 * @param  WC_Product    $product The product.
+	 * @param  WC_Order_Item $item   The order item.
+	 * @param  WC_Order      $order The order.
 	 * @return WC_Product
 	 */
 	public function get_legacy_shipstation_product_from_item( $product, $item, $order ) {
@@ -1153,7 +1154,7 @@ class WC_PB_Order {
 	 */
 	private function bundled_items_need_processing( $item_values ) {
 
-		$child_keys        = wc_pb_get_bundled_cart_items( $item_values, WC()->cart->cart_contents, true, true );
+		$child_keys        = wc_pb_get_bundled_cart_items( $item_values, WC()->cart->cart_contents, true );
 		$processing_needed = false;
 
 		if ( ! empty( $child_keys ) && is_array( $child_keys ) ) {
@@ -1186,14 +1187,14 @@ class WC_PB_Order {
 	 * @return void
 	 */
 	public function remove_order_item_product_filter( $order_id ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		remove_filter( 'woocommerce_order_item_product', array( $this, 'get_processing_order_item_product' ), 10, 2 );
+		remove_filter( 'woocommerce_order_item_product', array( $this, 'get_processing_order_item_product' ), 10 );
 	}
 
 	/**
 	 * Filters 'woocommerce_order_item_product' to add data used by 'woocommerce_order_item_needs_processing'.
 	 *
-	 * @param  WC_Product $product The product.
-	 * @param  array      $item   The order item.
+	 * @param  WC_Product    $product The product.
+	 * @param  WC_Order_Item $item   The order item.
 	 * @return WC_Product
 	 */
 	public function get_processing_order_item_product( $product, $item ) {

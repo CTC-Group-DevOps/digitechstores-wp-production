@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  8.0.2
+ * @version  8.5.13
  */
 class WC_PB_Install {
 
@@ -325,6 +325,9 @@ class WC_PB_Install {
 		// Add feature plugin recommendations in the Inbox: These are only added once.
 		WC_PB_Admin_Notices::add_note( 'bulk-discounts' );
 
+		// Legacy notices have no owner or product context and cannot be displayed safely.
+		delete_option( 'wc_pb_meta_box_notices' );
+
 		// Update plugin version - once set, 'maybe_install' will not call 'install' again.
 		self::update_version();
 	}
@@ -601,7 +604,7 @@ class WC_PB_Install {
 	 * @return boolean
 	 */
 	public static function is_update_cli_process_running() {
-		return false !== get_transient( 'wc_pb_update_cli_init', false );
+		return false !== get_transient( 'wc_pb_update_cli_init' );
 	}
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    4.11.0
- * @version  8.5.10
+ * @version  8.5.13
  */
 
 // Exit if accessed directly.
@@ -105,7 +105,7 @@ function wc_pb_template_add_to_cart() {
 
 	wp_enqueue_style( 'wc-bundle-css' );
 
-	$bundled_items = $product->get_bundled_items();
+	$bundled_items = $product->get_displayed_bundled_items();
 	$form_classes  = array( 'layout_' . $product->get_layout(), 'group_mode_' . $product->get_group_mode() );
 
 	if ( ! $product->is_in_stock() ) {
@@ -116,7 +116,7 @@ function wc_pb_template_add_to_cart() {
 		$form_classes[] = 'bundle_insufficient_stock';
 	}
 
-	if ( ! empty( $bundled_items ) ) {
+	if ( ! empty( $product->get_bundled_items() ) ) {
 
 		wc_get_template(
 			'single-product/add-to-cart/bundle.php',
@@ -200,7 +200,7 @@ function wc_pb_template_add_to_cart_wrap( $product ) {
 /**
  * Add-to-cart button and quantity input.
  *
- * @param WC_Product_Bundle $bundle Product bundle instance.
+ * @param WC_Product_Bundle|false $bundle Product bundle instance.
  *
  * @return void
  */
@@ -838,7 +838,7 @@ function wc_pb_template_bundled_item_attributes( $product ) {
 
 	if ( $product->is_type( 'bundle' ) ) {
 
-		$bundled_items = $product->get_bundled_items();
+		$bundled_items = $product->get_displayed_bundled_items();
 
 		if ( ! empty( $bundled_items ) ) {
 

@@ -14,10 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bundled Item Product Container class.
  *
- * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
+ * The bundled item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_Bundled_Item {
 
@@ -437,7 +437,7 @@ class WC_Bundled_Item {
 			 * 'woocommerce_before_init_bundled_item' action.
 			 *
 			 * @since 5.0.0
-			 * @param  WC_Bundled_Item  $this
+			 * @param  WC_Bundled_Item  $bundled_item
 			 */
 			do_action( 'woocommerce_before_init_bundled_item', $this );
 
@@ -459,7 +459,7 @@ class WC_Bundled_Item {
 			 * 'woocommerce_after_init_bundled_item' action.
 			 *
 			 * @since 5.0.0
-			 * @param  WC_Bundled_Item  $this
+			 * @param  WC_Bundled_Item  $bundled_item
 			 */
 			do_action( 'woocommerce_after_init_bundled_item', $this );
 		}
@@ -953,7 +953,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.3
 		 * @param  boolean          $discount_from_regular
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		$discount_from_regular = $this->product->is_type( 'variable-subscription' ) ? false : (bool) apply_filters( 'woocommerce_bundled_item_discount_from_regular', false, $this );
 
@@ -1032,7 +1032,7 @@ class WC_Bundled_Item {
 		 * @param  mixed            $price
 		 * @param  WC_Product       $product
 		 * @param  mixed            $discount
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 * @param  string           $context
 		 */
 		$price = apply_filters( 'woocommerce_bundled_item_raw_price', $bundled_item_price, $product, $discount, $this, $context );
@@ -1300,7 +1300,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  boolean          $is_priced_individually
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'woocommerce_bundled_item_is_priced_individually', $is_priced_individually, $this );
 	}
@@ -1325,7 +1325,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  boolean          $is_shipped_individually
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'woocommerce_bundled_item_is_shipped_individually', $is_shipped_individually, $this );
 	}
@@ -1333,7 +1333,7 @@ class WC_Bundled_Item {
 	/**
 	 * True if the weight of the composited product is added to the weight of the container.
 	 *
-	 * @param  WC_Product $product Optional product.
+	 * @param  WC_Product|false $product Optional product.
 	 * @return boolean
 	 */
 	public function is_weight_aggregated( $product = false ) {
@@ -1629,8 +1629,9 @@ class WC_Bundled_Item {
 		 * 'woocommerce_force_show_bundled_variation_attribute_option_dropdown' filter.
 		 *
 		 * @since 5.8.0
-		 * @param  boolean  $force_show
-		 * @param  array    $args
+		 * @param  boolean          $force_show
+		 * @param  string           $variation_attribute_name
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return $display_dropdown ? $display_dropdown : apply_filters( 'woocommerce_force_show_bundled_variation_attribute_option_dropdown', false, $variation_attribute_name, $this );
 	}
@@ -1854,6 +1855,10 @@ class WC_Bundled_Item {
 	 */
 	public function get_product_variations() {
 
+		if ( $this->product->is_type( array( 'variable', 'variable-subscription' ) ) && ! WC_PB_Helpers::can_read_product( $this->get_product_id() ) ) {
+			return array();
+		}
+
 		if ( ! empty( $this->product_variations ) ) {
 			return $this->product_variations;
 		}
@@ -1869,7 +1874,7 @@ class WC_Bundled_Item {
 
 			$this->remove_price_filters();
 
-			remove_filter( 'woocommerce_available_variation', array( $this, 'filter_variation' ), 10, 3 );
+			remove_filter( 'woocommerce_available_variation', array( $this, 'filter_variation' ), 10 );
 
 			// Add only active variations.
 			foreach ( $bundled_item_variations as $variation_data ) {
@@ -1923,7 +1928,7 @@ class WC_Bundled_Item {
 			 *
 			 * @since 5.0.0
 			 * @param  boolean          $use_ajax
-			 * @param  WC_Bundled_Item  $this
+			 * @param  WC_Bundled_Item  $bundled_item
 			 */
 		} elseif ( $this->has_filtered_variations() && apply_filters( 'woocommerce_bundled_item_filtered_variations_disable_ajax', true, $this ) ) {
 			$use_ajax = false;
@@ -1932,7 +1937,7 @@ class WC_Bundled_Item {
 			 *
 			 * @since 5.0.0
 			 * @param  int              $threshold
-			 * @param  WC_Bundled_Item  $this
+			 * @param  WC_Bundled_Item  $bundled_item
 			 */
 		} elseif ( count( $this->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $this->product ) ) {
 			$use_ajax = false;
@@ -1998,6 +2003,10 @@ class WC_Bundled_Item {
 	 * @return array
 	 */
 	public function filter_variation( $variation_data, $bundled_product, $bundled_variation ) {
+
+		if ( ! WC_PB_Helpers::can_read_product( $this->get_product_id() ) || ! WC_PB_Helpers::can_read_product( $bundled_variation->get_id() ) ) {
+			return false;
+		}
 
 		$bundled_item_id = $this->get_id();
 
@@ -2130,7 +2139,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  string           $title
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'woocommerce_bundled_item_title', $this->title, $this );
 	}
@@ -2157,7 +2166,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  string           $title
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'woocommerce_bundled_item_raw_title', $strip_tags ? wp_strip_all_tags( $title ) : $title, $this );
 	}
@@ -2173,7 +2182,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  string           $title
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'woocommerce_bundled_item_description', wpautop( do_shortcode( wp_kses_post( $this->description ) ) ), $this );
 	}
@@ -2191,7 +2200,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.5.0
 		 * @param  string           $permalink
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'woocommerce_bundled_item_permalink', $this->is_visible() && $this->product->is_visible() ? $this->product->get_permalink() : '', $this );
 	}
@@ -2211,7 +2220,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  bool             $visible
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 * @param string            $where
 		 */
 		return apply_filters( 'woocommerce_bundles_bundled_item_visibility', $visible, $this, $where );
@@ -2258,7 +2267,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 6.3.0
 		 * @param  boolean          $add_suffix
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return $this->is_optional() && apply_filters( 'woocommerce_bundles_optional_bundled_item_add_suffix', false, $this ) && $this->get_bundle() && $this->get_bundle()->contains( 'mandatory' ) ? apply_filters( 'woocommerce_bundles_optional_bundled_item_suffix', __( 'optional', 'woocommerce-product-bundles' ) ) : '';
 	}
@@ -2306,7 +2315,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  mixed            $qty
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 * @param  array            $args
 		 */
 		$qty = apply_filters( 'woocommerce_bundled_item_quantity', $qty, $this, $args );
@@ -2361,7 +2370,7 @@ class WC_Bundled_Item {
 				 *
 				 * @since 5.0.0
 				 * @param  mixed            $qty_max
-				 * @param  WC_Bundled_Item  $this
+				 * @param  WC_Bundled_Item  $bundled_item
 				 * @param  array            $args
 				 */
 				$qty = apply_filters( 'woocommerce_bundled_item_quantity_max', $qty_max, $this, $args );
@@ -2375,7 +2384,7 @@ class WC_Bundled_Item {
 				 *
 				 * @since 5.0.0
 				 * @param  mixed            $qty_default
-				 * @param  WC_Bundled_Item  $this
+				 * @param  WC_Bundled_Item  $bundled_item
 				 * @param  array            $args
 				 */
 				$qty = apply_filters( 'woocommerce_bundled_item_quantity_default', $qty_default, $this, $args );
@@ -2446,7 +2455,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  mixed            $sign_up_discount
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return $this->is_priced_individually() ? apply_filters( 'woocommerce_bundled_item_sign_up_discount', $this->sign_up_discount, $this ) : '';
 	}
@@ -2469,7 +2478,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  boolean          $checked
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		$checked = apply_filters( 'woocommerce_bundled_item_is_optional_checked', false, $this );
 
@@ -2536,7 +2545,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.0.0
 		 * @param  array            $classes
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		$classes = apply_filters( 'woocommerce_bundled_item_classes', $classes, $this );
 
@@ -2586,7 +2595,8 @@ class WC_Bundled_Item {
 		 * @since 5.2.0
 		 * @param  string           $availability_html
 		 * @param  array            $availability
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
+		 * @param  WC_Product       $product
 		 */
 		return apply_filters( 'woocommerce_get_bundled_item_stock_html', $availability_html, $availability, $this, $product );
 	}
@@ -2676,7 +2686,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.2.0
 		 * @param  string           $availability_class
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 * @param  WC_Product       $product
 		 */
 		$availability_class = apply_filters( 'woocommerce_get_bundled_item_availability_class', $availability_class, $this, $product );
@@ -2686,7 +2696,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.2.0
 		 * @param  string           $availability_text
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 * @param  WC_Product       $product
 		 */
 		$availability_text = apply_filters( 'woocommerce_get_bundled_item_availability_text', $availability_text, $this, $product );
@@ -2698,7 +2708,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.2.0
 		 * @param  array            $availability
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 * @param  WC_Product       $product
 		 */
 		return apply_filters(
@@ -2741,9 +2751,9 @@ class WC_Bundled_Item {
 	 *
 	 * @since  4.14.6
 	 *
-	 * @param  double     $recurring_price Optional recurring price.
-	 * @param  double     $sign_up_fee  Optional sign-up fee.
-	 * @param  WC_Product $product  Optional product instance.
+	 * @param  double           $recurring_price Optional recurring price.
+	 * @param  double           $sign_up_fee  Optional sign-up fee.
+	 * @param  WC_Product|false $product  Optional product instance.
 	 *
 	 * @return double
 	 */
@@ -3038,9 +3048,9 @@ class WC_Bundled_Item {
 	/**
 	 * Filters bundled product attributes, hiding attributes that correspond to filtered-out variations. Useful up to WC 3.5 only.
 	 *
-	 * @param  string $output   The attribute value.
-	 * @param  array  $attribute The attribute object.
-	 * @param  array  $values   The attribute values.
+	 * @param  string               $output   The attribute value.
+	 * @param  WC_Product_Attribute $attribute The attribute object.
+	 * @param  array                $values   The attribute values.
 	 * @return string
 	 */
 	public function filter_bundled_item_attribute( $output, $attribute, $values ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
@@ -3070,7 +3080,7 @@ class WC_Bundled_Item {
 		 *
 		 * @since 5.7.3
 		 * @param  string           $size
-		 * @param  WC_Bundled_Item  $this
+		 * @param  WC_Bundled_Item  $bundled_item
 		 */
 		return apply_filters( 'bundled_product_large_thumbnail_size', 'woocommerce_thumbnail', $this );
 	}

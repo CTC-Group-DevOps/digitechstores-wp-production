@@ -18,9 +18,16 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
 /**
  * Extends the store public API with bundle related data for each bundle parent and child item.
  *
- * @version 8.5.12
+ * @version 8.5.13
  */
 class WC_PB_Store_API {
+
+	/**
+	 * Core and extension maxima before normalization rounds them to a minimum.
+	 *
+	 * @var array
+	 */
+	private static $bundled_quantity_maxima = array();
 
 	/**
 	 * Stores the cart item key of the last bundled item.
@@ -108,6 +115,14 @@ class WC_PB_Store_API {
 		// Aggregate cart item prices/subtotals and filter min/max/multipleof quantities.
 		add_filter( 'rest_request_after_callbacks', array( __CLASS__, 'filter_cart_item_data' ), 10, 3 );
 		add_filter( 'woocommerce_hydration_request_after_callbacks', array( __CLASS__, 'filter_cart_item_data' ), 10, 3 );
+
+		// Enforce the same bundled quantities before mutation and in responses.
+		foreach ( array( 'minimum', 'maximum', 'multiple_of', 'editable' ) as $limit ) {
+			add_filter( 'woocommerce_store_api_product_quantity_' . $limit, array( __CLASS__, 'filter_bundled_quantity_limit' ), 20, 3 );
+		}
+
+		// Reject decimal-extension ratios before bundle stamps and totals are synchronized.
+		add_action( 'woocommerce_after_cart_item_quantity_update', array( __CLASS__, 'validate_bundled_quantity_update' ), 0, 4 );
 
 		// Validate bundles in the Store API and add cart errors.
 		add_action( 'woocommerce_store_api_validate_cart_item', array( __CLASS__, 'validate_cart_item' ), 10, 2 );
@@ -455,25 +470,9 @@ class WC_PB_Store_API {
 		$bundled_cart_items = wc_pb_get_bundled_cart_items( $cart_item );
 		if ( $bundled_cart_items ) {
 
-			foreach ( $bundled_cart_items as $bundled_cart_item_key => $bundled_cart_item ) {
-
-				$bundled_item_id = $bundled_cart_item['bundled_item_id'];
-				$bundled_item    = $cart_item['data']->get_bundled_item( $bundled_item_id );
-
-				$min_bundled_item_quantity = $bundled_item->get_quantity( 'min' );
-				$max_bundled_item_quantity = $bundled_item->get_quantity( 'max' );
+			foreach ( $bundled_cart_items as $bundled_cart_item ) {
 
 				$bundle_quantity = $cart_item['quantity'];
-
-				// Let's cache this now, as we'll need it later.
-				WC_PB_Helpers::cache_set(
-					'bundled_item_quantity_limits_' . $bundled_cart_item_key,
-					array(
-						'multiple_of' => $bundle_quantity,
-						'minimum'     => $bundle_quantity * $min_bundled_item_quantity,
-						'maximum'     => '' !== $max_bundled_item_quantity ? $bundle_quantity * $max_bundled_item_quantity : false,
-					)
-				);
 
 				if ( $bundled_cart_item['data']->managing_stock() && ! $bundled_cart_item['data']->backorders_allowed() ) {
 
@@ -521,31 +520,114 @@ class WC_PB_Store_API {
 	}
 
 	/**
-	 * Adjust bundled item quantity limits to account for min/max quantity settings and parent quantity.
+	 * Apply bundle-relative limits before Store API quantity updates.
 	 *
-	 * @param array $item_data Cart item data.
-	 * @param array $cart_item Cart item.
+	 * @since 8.5.13
+	 * @param mixed      $value     Quantity limit.
+	 * @param WC_Product $product   Cart product.
+	 * @param array|null $cart_item Cart item, when present.
+	 * @return mixed
 	 */
-	private static function filter_bundled_cart_item_quantity_limits( &$item_data, $cart_item ) {
-
-		$bundled_cart_item_key        = $cart_item['key'];
-		$bundled_item_quantity_limits = WC_PB_Helpers::cache_get( 'bundled_item_quantity_limits_' . $bundled_cart_item_key );
-
-		if ( is_null( $bundled_item_quantity_limits ) ) {
-			return;
+	public static function filter_bundled_quantity_limit( $value, $product, $cart_item ) {
+		if ( ! is_array( $cart_item ) || ! $product instanceof WC_Product || $product->is_sold_individually() || ! wc_pb_is_bundled_cart_item( $cart_item ) ) {
+			return $value;
 		}
 
-		$step = $item_data['quantity_limits']->multiple_of;
-		$min  = $bundled_item_quantity_limits['minimum'];
-		$max  = $bundled_item_quantity_limits['maximum'];
+		// Core normalization holds a snapshot while a parent update synchronizes live children.
+		if ( isset( $cart_item['key'], $cart_item['quantity'], WC()->cart->cart_contents[ $cart_item['key'] ]['quantity'] ) && WC()->cart->cart_contents[ $cart_item['key'] ]['quantity'] !== $cart_item['quantity'] ) {
+			if ( is_numeric( $value ) && 'woocommerce_store_api_product_quantity_editable' !== current_filter() ) {
+				return WC()->cart->cart_contents[ $cart_item['key'] ]['quantity'];
+			}
+			return $value;
+		}
 
-		$item_data['quantity_limits']->multiple_of = $step * $bundled_item_quantity_limits['multiple_of'];
-		$item_data['quantity_limits']->minimum     = $min;
+		$parent = wc_pb_get_bundled_cart_item_container( $cart_item );
+		if ( ! $parent || ! $parent['data']->is_type( 'bundle' ) || ! is_numeric( $parent['quantity'] ) || $parent['quantity'] <= 0 ) {
+			return $value;
+		}
+		$item = $parent['data']->get_bundled_item( $cart_item['bundled_item_id'] );
+		if ( ! $item ) {
+			return $value;
+		}
 
-		if ( $max ) {
-			// Limit child item max quantity.
-			$item_data['quantity_limits']->maximum = min( $item_data['quantity_limits']->maximum, $max );
-			$item_data['quantity_limits']->maximum = floor( $item_data['quantity_limits']->maximum / $step ) * $step;
+		$minimum = $item->get_quantity( 'min' );
+		$maximum = $item->get_quantity( 'max' );
+		if ( ! is_numeric( $minimum ) || ( '' !== $maximum && ! is_numeric( $maximum ) ) ) {
+			return $value;
+		}
+
+		$limit = current_filter();
+		if ( 'woocommerce_store_api_product_quantity_editable' === $limit ) {
+			return is_bool( $value ) ? $value && ( '' === $maximum || (float) $minimum !== (float) $maximum ) : $value;
+		}
+		if ( ! is_numeric( $value ) ) {
+			return $value;
+		}
+		if ( 'woocommerce_store_api_product_quantity_minimum' === $limit ) {
+			return max( $value, $minimum * $parent['quantity'] );
+		}
+		if ( 'woocommerce_store_api_product_quantity_maximum' === $limit ) {
+			if ( isset( $cart_item['key'] ) ) {
+				self::$bundled_quantity_maxima[ $cart_item['key'] ] = $value;
+			}
+			return '' === $maximum ? $value : min( $value, $maximum * $parent['quantity'] );
+		}
+
+		// An extension step applies per bundle, as in the classic cart, so it scales with the bundle quantity.
+		// Bundled quantities are whole numbers per bundle: a decimal step is first raised to its smallest whole multiple.
+		if ( $value > 0 && $value <= PHP_INT_MAX && $parent['quantity'] <= PHP_INT_MAX ) {
+			$step_per_bundle = $value;
+			if ( floor( $value ) !== (float) $value ) {
+				$divisor   = (float) $value;
+				$remainder = 1.0;
+				while ( $remainder ) {
+					$next      = round( fmod( $divisor, $remainder ), 8 );
+					$divisor   = $remainder;
+					$remainder = $next;
+				}
+				$step_per_bundle = $value / $divisor;
+			}
+			return $step_per_bundle * $parent['quantity'];
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Roll back invalid ratios before the changed quantity reaches bundle synchronization.
+	 *
+	 * @since 8.5.13
+	 * @throws RouteException When a child quantity violates its bundle configuration.
+	 * @param string  $key          Cart item key.
+	 * @param mixed   $quantity     New quantity.
+	 * @param mixed   $old_quantity Previous quantity.
+	 * @param WC_Cart $cart         Cart instance.
+	 * @return void
+	 */
+	public static function validate_bundled_quantity_update( $key, $quantity, $old_quantity, $cart ) {
+		$request = WC_PB_Core_Compatibility::get_api_request();
+		if ( ! WC_PB_Core_Compatibility::is_store_api_request() || ! $request || $request['key'] !== $key || ! $cart instanceof WC_Cart || ! is_numeric( $quantity ) ) {
+			return;
+		}
+		$cart_item = $cart->get_cart_item( $key );
+		$parent    = wc_pb_get_bundled_cart_item_container( $cart_item );
+		if ( ! $parent || ! $parent['data']->is_type( 'bundle' ) || $cart_item['data']->is_sold_individually() || ! is_numeric( $parent['quantity'] ) || $parent['quantity'] <= 0 ) {
+			return;
+		}
+		$item = $parent['data']->get_bundled_item( $cart_item['bundled_item_id'] );
+		if ( ! $item ) {
+			return;
+		}
+		$ratio   = $quantity / $parent['quantity'];
+		$minimum = $item->get_quantity( 'min' );
+		$maximum = $item->get_quantity( 'max' );
+		if ( ! is_numeric( $minimum ) || ( '' !== $maximum && ! is_numeric( $maximum ) ) ) {
+			return;
+		}
+		if ( $ratio < $minimum || ( '' !== $maximum && $ratio > $maximum ) || abs( $ratio - round( $ratio ) ) > 0.00000001 || ( isset( self::$bundled_quantity_maxima[ $key ] ) && $quantity > self::$bundled_quantity_maxima[ $key ] ) ) {
+			// WC_Cart has only assigned quantity at this point; avoid re-entering its update hooks.
+			$cart->cart_contents[ $key ]['quantity'] = $old_quantity;
+			throw new RouteException( 'woocommerce_rest_cart_invalid_product_bundle', esc_html__( 'The bundle contains an invalid item quantity.', 'woocommerce-product-bundles' ), 400 );
 		}
 	}
 
@@ -720,9 +802,7 @@ class WC_PB_Store_API {
 	 * @return bool
 	 */
 	private static function can_read_bundled_product( $product_id ) {
-		$post = $product_id ? get_post( $product_id ) : null;
-
-		return $post && ( is_post_status_viewable( $post->post_status ) || current_user_can( 'read_post', $product_id ) );
+		return WC_PB_Helpers::can_read_product( $product_id );
 	}
 
 	/**
@@ -836,9 +916,6 @@ class WC_PB_Store_API {
 				self::filter_container_cart_item_quantity_limits( $item_data, $cart_item );
 				self::filter_container_cart_item_permalink( $item_data, $cart_item );
 
-			} elseif ( wc_pb_is_bundled_cart_item( $cart_item ) ) {
-
-				self::filter_bundled_cart_item_quantity_limits( $item_data, $cart_item );
 			}
 		}
 
@@ -898,6 +975,7 @@ class WC_PB_Store_API {
 		}
 
 		$notice = __( 'This product is a mandatory part of a bundle and cannot be removed.', 'woocommerce-product-bundles' );
+		// @phpstan-ignore class.notFound (WooCommerce Store API class is missing from the installed stubs.)
 		throw new RouteException( 'woocommerce_store_api_mandatory_bundled_item', esc_html( $notice ) );
 	}
 }

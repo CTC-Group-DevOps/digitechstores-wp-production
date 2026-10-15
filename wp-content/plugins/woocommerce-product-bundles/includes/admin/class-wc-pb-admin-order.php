@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles edit-order functions and filters.
  *
  * @class    WC_PB_Admin_Order
- * @version  8.5.10
+ * @version  8.5.13
  */
 class WC_PB_Admin_Order {
 
@@ -180,10 +180,10 @@ class WC_PB_Admin_Order {
 				 *
 				 * In some cases you might want to auto-add a default configuration that's "good enough" and work from there, e.g. adjust quantities or remove items.
 				 *
-				 * @param  $auto_add  boolean
-				 * @param  $product   WC_Product_Bundle
-				 * @param  $item      WC_Order_Item
-				 * @param  $order     WC_Order
+				 * @param  boolean            $auto_add
+				 * @param  WC_Product_Bundle  $product
+				 * @param  WC_Order_Item      $item
+				 * @param  WC_Order           $order
 				 *
 				 * @since 5.8.0
 				 */
@@ -200,10 +200,10 @@ class WC_PB_Admin_Order {
 							 *
 							 * See 'woocommerce_auto_add_bundled_items' filter above. Use this filter to define the default configuration you want to use.
 							 *
-							 * @param  $config   array
-							 * @param  $product  WC_Product_Bundle
-							 * @param  $item     WC_Order_Item
-							 * @param  $order    WC_Order
+							 * @param  array              $config
+							 * @param  WC_Product_Bundle  $product
+							 * @param  WC_Order_Item      $item
+							 * @param  WC_Order           $order
 							 *
 							 * @since 5.8.0
 							 */
@@ -313,7 +313,7 @@ class WC_PB_Admin_Order {
 				if ( apply_filters( 'woocommerce_is_bundle_container_order_item_editable', self::is_bundle_configurable( $product ), $product, $item, self::$order ) ) {
 
 					// Already configured?
-					$is_configured = wc_pb_is_bundle_container_order_item( $item, self::$order );
+					$is_configured = wc_pb_is_bundle_container_order_item( $item );
 
 					?>
 					<div class="configure_order_item">

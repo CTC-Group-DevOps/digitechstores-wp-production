@@ -21,7 +21,7 @@ if ( ! class_exists( 'WC_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_PB_DB_Sync_Task_Runner
- * @version  8.5.9
+ * @version  8.5.13
  */
 class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 
@@ -162,7 +162,7 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 		 *
 		 * @since 6.14.1
 		 *
-		 * @param string $escaped Whether to escape the prefix.
+		 * @param bool $escaped Whether to escape the prefix.
 		 */
 		return apply_filters( 'woocommerce_bundles_sync_task_runner_esc_batch_query_prefix', $escaped ) ? $wpdb->esc_like( $this->identifier . '_batch_' ) : $this->identifier . '_batch_';
 	}

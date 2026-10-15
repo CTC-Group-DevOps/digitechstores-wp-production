@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  8.5.7
+ * @version  8.5.13
  */
 class WC_PB_Display {
 
@@ -172,7 +172,7 @@ class WC_PB_Display {
 		add_filter( 'woocommerce_get_item_count', array( $this, 'order_item_count' ), 10, 3 );
 
 		// Indentation of bundled items in emails.
-		add_action( 'woocommerce_email_styles', array( $this, 'email_styles' ) );
+		add_filter( 'woocommerce_email_styles', array( $this, 'email_styles' ) );
 
 		/*
 		 * Archives.
@@ -225,7 +225,7 @@ class WC_PB_Display {
 		 * 'woocommerce_bundle_front_end_params' filter.
 		 *
 		 * @since 4.14.1
-		 * @param  array
+		 * @param  array  $params
 		 */
 		$params = apply_filters(
 			'woocommerce_bundle_front_end_params',
@@ -289,6 +289,7 @@ class WC_PB_Display {
 				'price_display_suffix'           => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
 				'prices_include_tax'             => esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
 				'tax_display_shop'               => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),
+				'tax_round_at_subtotal'          => esc_attr( get_option( 'woocommerce_tax_round_at_subtotal' ) ),
 				'calc_taxes'                     => esc_attr( get_option( 'woocommerce_calc_taxes' ) ),
 				'photoswipe_enabled'             => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'yes' : 'no',
 				'responsive_breakpoint'          => 380,
@@ -598,10 +599,10 @@ class WC_PB_Display {
 	 *
 	 * @since  5.8.0
 	 *
-	 * @param  string $price The price.
-	 * @param  array  $cart_item The cart item.
-	 * @param  string $cart_item_key The cart item key.
-	 * @param array  $bundle_container_item The bundle container item.
+	 * @param  string      $price The price.
+	 * @param  array       $cart_item The cart item.
+	 * @param  string      $cart_item_key The cart item key.
+	 * @param array|false $bundle_container_item The bundle container item.
 	 * @return string
 	 */
 	public function get_child_cart_item_price( $price, $cart_item, $cart_item_key, $bundle_container_item = false ) {
@@ -701,7 +702,7 @@ class WC_PB_Display {
 	 * Aggregates parent + child cart item prices.
 	 *
 	 * @since   6.15.0
-	 * @version 8.5.7
+	 * @version 8.5.13
 	 *
 	 * @param  array  $cart_item The cart item.
 	 * @param  string $type The price type.
@@ -709,18 +710,24 @@ class WC_PB_Display {
 	 */
 	public function get_container_cart_item_price_amount( $cart_item, $type ) {
 
-		$calc_type           = ! WC_PB()->display->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
+		$round_at_subtotal = 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+		$price_decimals    = wc_pb_price_num_decimals();
+		$calc_type         = ! WC_PB()->display->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
+
+		// WC core's wc_get_price_including_tax() rounds each price to the display precision regardless of the option, which would pre-round the values we sum below. Compute the component prices at extended precision so that only the final aggregate is rounded to the display precision.
+		if ( $round_at_subtotal ) {
+			WC_PB_Product_Prices::extend_price_display_precision();
+		}
+
 		$price_fn            = 'get_' . $type;
-		$bundle_price        = (float) wc_format_decimal(
-			WC_PB_Product_Prices::get_product_price(
-				$cart_item['data'],
-				array(
-					'price' => $cart_item['data']->$price_fn(),
-					'calc'  => $calc_type,
-				)
-			),
-			wc_pb_price_num_decimals()
+		$bundle_raw_price    = (float) WC_PB_Product_Prices::get_product_price(
+			$cart_item['data'],
+			array(
+				'price' => $cart_item['data']->$price_fn(),
+				'calc'  => $calc_type,
+			)
 		);
+		$bundle_price        = $round_at_subtotal ? $bundle_raw_price : (float) wc_format_decimal( $bundle_raw_price, $price_decimals );
 		$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
 		$bundled_items_price = 0.0;
 
@@ -746,7 +753,7 @@ class WC_PB_Display {
 			} elseif ( $cart_item['quantity'] > 0 ) {
 				$bundled_item_qty = $bundled_cart_item['quantity'] / $cart_item['quantity'];
 			}
-			$bundled_item_price   = WC_PB_Product_Prices::get_product_price(
+			$bundled_item_price = WC_PB_Product_Prices::get_product_price(
 				$bundled_cart_item['data'],
 				array(
 					'price' => $bundled_item_raw_price,
@@ -754,10 +761,18 @@ class WC_PB_Display {
 					'qty'   => $bundled_item_qty,
 				)
 			);
-			$bundled_items_price += wc_format_decimal( (float) $bundled_item_price, wc_pb_price_num_decimals() );
+			// When rounding at subtotal level, aggregate raw and round once at the end to match the cart total.
+			$bundled_items_price += $round_at_subtotal ? (float) $bundled_item_price : (float) wc_format_decimal( (float) $bundled_item_price, $price_decimals );
 		}
 
-		return $bundle_price + $bundled_items_price;
+		$aggregated_price = $bundle_price + $bundled_items_price;
+
+		if ( $round_at_subtotal ) {
+			WC_PB_Product_Prices::reset_price_display_precision();
+			$aggregated_price = (float) wc_format_decimal( $aggregated_price, $price_decimals );
+		}
+
+		return $aggregated_price;
 	}
 
 	/**
@@ -765,10 +780,10 @@ class WC_PB_Display {
 	 *
 	 * @since  5.8.0
 	 *
-	 * @param  string $subtotal The subtotal.
-	 * @param  array  $cart_item The cart item.
-	 * @param  string $cart_item_key The cart item key.
-	 * @param array  $bundle_container_item The bundle container item.
+	 * @param  string      $subtotal The subtotal.
+	 * @param  array       $cart_item The cart item.
+	 * @param  string      $cart_item_key The cart item key.
+	 * @param array|false $bundle_container_item The bundle container item.
 	 * @return string
 	 */
 	public function get_child_cart_item_subtotal( $subtotal, $cart_item, $cart_item_key, $bundle_container_item = false ) {
@@ -848,7 +863,16 @@ class WC_PB_Display {
 
 			if ( $aggregate_subtotals ) {
 
-				$calc_type           = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
+				$calc_type         = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
+				$round_at_subtotal = 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+				// Read the display precision before extending it below - wc_pb_price_num_decimals() memoizes per request, so a first call made while the filter is up would pin every later price to the extended precision.
+				$price_decimals = wc_pb_price_num_decimals();
+
+				// WC core's wc_get_price_including_tax() rounds each price to the display precision regardless of the option, which would pre-round the values we sum below. Compute the component prices at extended precision so that format_subtotal() rounds only the final aggregate to the display precision.
+				if ( $round_at_subtotal ) {
+					WC_PB_Product_Prices::extend_price_display_precision();
+				}
+
 				$bundle_price        = WC_PB_Product_Prices::get_product_price(
 					$cart_item['data'],
 					array(
@@ -876,7 +900,7 @@ class WC_PB_Display {
 						}
 					}
 
-					$bundled_item_price   = WC_PB_Product_Prices::get_product_price(
+					$bundled_item_price = WC_PB_Product_Prices::get_product_price(
 						$bundled_cart_item['data'],
 						array(
 							'price' => $bundled_item_raw_price,
@@ -884,7 +908,12 @@ class WC_PB_Display {
 							'qty'   => $bundled_cart_item['quantity'],
 						)
 					);
-					$bundled_items_price += wc_format_decimal( (float) $bundled_item_price, wc_pb_price_num_decimals() );
+					// When rounding at subtotal level, aggregate raw and let format_subtotal() round once to match the cart total.
+					$bundled_items_price += $round_at_subtotal ? (float) $bundled_item_price : (float) wc_format_decimal( (float) $bundled_item_price, $price_decimals );
+				}
+
+				if ( $round_at_subtotal ) {
+					WC_PB_Product_Prices::reset_price_display_precision();
 				}
 
 				$subtotal = $this->format_subtotal( $cart_item['data'], (float) $bundle_price + $bundled_items_price );
@@ -908,16 +937,24 @@ class WC_PB_Display {
 	 */
 	public static function get_container_cart_item_subtotal_amount( $cart_item, $type ) {
 
-		$bundle_price        = wc_format_decimal( (float) $cart_item[ 'line_' . $type ], wc_pb_price_num_decimals() );
+		// When rounding at subtotal level, aggregate raw and round once at the end to match the cart total.
+		$round_at_subtotal   = 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+		$bundle_price        = $round_at_subtotal ? (float) $cart_item[ 'line_' . $type ] : (float) wc_format_decimal( (float) $cart_item[ 'line_' . $type ], wc_pb_price_num_decimals() );
 		$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
 		$bundled_items_price = 0.0;
 
 		foreach ( $bundled_cart_items as $bundled_cart_item ) {
 			$bundled_item_price   = $bundled_cart_item[ 'line_' . $type ];
-			$bundled_items_price += wc_format_decimal( (float) $bundled_item_price, wc_pb_price_num_decimals() );
+			$bundled_items_price += $round_at_subtotal ? (float) $bundled_item_price : (float) wc_format_decimal( (float) $bundled_item_price, wc_pb_price_num_decimals() );
 		}
 
-		return $bundle_price + $bundled_items_price;
+		$aggregated_price = $bundle_price + $bundled_items_price;
+
+		if ( $round_at_subtotal ) {
+			$aggregated_price = (float) wc_format_decimal( $aggregated_price, wc_pb_price_num_decimals() );
+		}
+
+		return $aggregated_price;
 	}
 
 	/**
@@ -1343,11 +1380,11 @@ class WC_PB_Display {
 	 * @return void
 	 */
 	public function remove_cart_widget_filters() {
-		remove_filter( 'woocommerce_mini_cart_item_class', array( $this, 'mini_cart_item_class' ), 10, 2 );
-		remove_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'cart_widget_item_visible' ), 10, 3 );
-		remove_filter( 'woocommerce_widget_cart_item_quantity', array( $this, 'cart_widget_item_qty' ), 10, 3 );
-		remove_filter( 'woocommerce_cart_item_name', array( $this, 'cart_widget_container_item_name' ), 10, 3 );
-		remove_filter( 'woocommerce_get_item_data', array( $this, 'cart_widget_container_item_data' ), 10, 2 );
+		remove_filter( 'woocommerce_mini_cart_item_class', array( $this, 'mini_cart_item_class' ), 10 );
+		remove_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'cart_widget_item_visible' ), 10 );
+		remove_filter( 'woocommerce_widget_cart_item_quantity', array( $this, 'cart_widget_item_qty' ), 10 );
+		remove_filter( 'woocommerce_cart_item_name', array( $this, 'cart_widget_container_item_name' ), 10 );
+		remove_filter( 'woocommerce_get_item_data', array( $this, 'cart_widget_container_item_data' ), 10 );
 	}
 
 	/**
@@ -1591,7 +1628,7 @@ class WC_PB_Display {
 		 *
 		 * @param  string  $bundled_item_description
 		 * @param  array   $bundled_cart_item
-		 * @param  string  $bundled_cart_item_key
+		 * @param  array   $args
 		 */
 		return apply_filters( 'woocommerce_bundle_container_cart_item_data', $data, $cart_item, $args );
 	}
@@ -1705,9 +1742,15 @@ class WC_PB_Display {
 						// Create a clone to ensure the original item will not be modified.
 						$cloned_item = clone $item;
 
+						// When rounding at subtotal level, order items store raw sub-cent subtotals and the order total is the once-rounded sum, so aggregate raw and let get_formatted_line_subtotal() round once to match the order total.
+						$round_at_subtotal = 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' );
+
 						foreach ( $children as $child ) {
-							$cloned_item->set_subtotal( $cloned_item->get_subtotal( 'edit' ) + round( $child->get_subtotal( 'edit' ), wc_pb_price_num_decimals() ) );
-							$cloned_item->set_subtotal_tax( $cloned_item->get_subtotal_tax( 'edit' ) + round( $child->get_subtotal_tax( 'edit' ), wc_pb_price_num_decimals() ) );
+							$child_subtotal     = $round_at_subtotal ? (float) $child->get_subtotal( 'edit' ) : round( (float) $child->get_subtotal( 'edit' ), wc_pb_price_num_decimals() );
+							$child_subtotal_tax = $round_at_subtotal ? (float) $child->get_subtotal_tax( 'edit' ) : round( (float) $child->get_subtotal_tax( 'edit' ), wc_pb_price_num_decimals() );
+
+							$cloned_item->set_subtotal( (float) $cloned_item->get_subtotal( 'edit' ) + $child_subtotal );
+							$cloned_item->set_subtotal_tax( (float) $cloned_item->get_subtotal_tax( 'edit' ) + $child_subtotal_tax );
 						}
 
 						WC_PB()->product_data->set( $cloned_item, 'child_subtotals_added', 'yes' );
@@ -1724,8 +1767,8 @@ class WC_PB_Display {
 	/**
 	 * Visibility of bundled item in orders.
 	 *
-	 * @param  boolean $visible Whether the item is visible.
-	 * @param  array   $order_item The order item.
+	 * @param  boolean       $visible Whether the item is visible.
+	 * @param  WC_Order_Item $order_item The order item.
 	 * @return boolean
 	 */
 	public function order_item_visible( $visible, $order_item ) {
@@ -1753,8 +1796,8 @@ class WC_PB_Display {
 	/**
 	 * Override bundled item title in order-details template.
 	 *
-	 * @param  string $content The content.
-	 * @param  array  $order_item The order item.
+	 * @param  string        $content The content.
+	 * @param  WC_Order_Item $order_item The order item.
 	 * @return string
 	 */
 	public function order_item_title( $content, $order_item ) {
@@ -1779,9 +1822,9 @@ class WC_PB_Display {
 	/**
 	 * Add class to bundled items in order templates.
 	 *
-	 * @param  string   $classname The class name.
-	 * @param  array    $order_item The order item.
-	 * @param  WC_Order $order The order.
+	 * @param  string        $classname The class name.
+	 * @param  WC_Order_Item $order_item The order item.
+	 * @param  WC_Order      $order The order.
 	 * @return string
 	 */
 	public function order_item_class( $classname, $order_item, $order ) {
@@ -1834,7 +1877,7 @@ class WC_PB_Display {
 		if ( function_exists( 'is_account_page' ) && is_account_page() ) {
 
 			foreach ( $order->get_items() as $item ) {
-				if ( wc_pb_is_bundle_container_order_item( $item, $order ) ) {
+				if ( wc_pb_is_bundle_container_order_item( $item ) ) {
 
 					$parent_item_visible = $this->order_item_visible( true, $item );
 

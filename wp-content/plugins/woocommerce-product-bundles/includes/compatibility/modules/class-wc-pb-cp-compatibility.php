@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version 8.5.12
+ * @version 8.5.13
  */
 class WC_PB_CP_Compatibility {
 
@@ -33,8 +33,8 @@ class WC_PB_CP_Compatibility {
 		 * Form Data.
 		 */
 
-		add_filter( 'woocommerce_rebuild_posted_composite_form_data', array( __CLASS__, 'rebuild_composited_bundle_form_data' ), 10, 3 );
-		add_filter( 'woocommerce_posted_composite_configuration', array( __CLASS__, 'get_composited_bundle_configuration' ), 10, 3 );
+		add_filter( 'woocommerce_rebuild_posted_composite_form_data', array( __CLASS__, 'rebuild_composited_bundle_form_data' ), 10, 2 );
+		add_filter( 'woocommerce_posted_composite_configuration', array( __CLASS__, 'get_composited_bundle_configuration' ), 10, 2 );
 
 		/*
 		 * Prices.
@@ -61,7 +61,7 @@ class WC_PB_CP_Compatibility {
 		add_filter( 'woocommerce_bundled_item_has_bundled_weight', array( __CLASS__, 'bundled_item_has_bundled_weight' ), 10, 4 );
 
 		// Value & weight aggregation in packages.
-		add_filter( 'woocommerce_bundle_container_cart_item', array( __CLASS__, 'composited_bundle_container_cart_item' ), 10, 3 );
+		add_filter( 'woocommerce_bundle_container_cart_item', array( __CLASS__, 'composited_bundle_container_cart_item' ), 10, 2 );
 		add_filter( 'woocommerce_composited_package_item', array( __CLASS__, 'composited_bundle_container_package_item' ), 10, 3 );
 
 		/*
@@ -77,7 +77,7 @@ class WC_PB_CP_Compatibility {
 
 		// Extend PB group modes to support group modes of composited bundles.
 		add_filter( 'woocommerce_bundles_group_mode_options_data', array( __CLASS__, 'composited_group_mode_options_data' ) );
-		add_filter( 'woocommerce_bundle_container_cart_item', array( __CLASS__, 'composited_bundle_group_mode' ), 0, 3 );
+		add_filter( 'woocommerce_bundle_container_cart_item', array( __CLASS__, 'composited_bundle_group_mode' ), 0 );
 
 		// Inherit component discounts - 'props' method implementation.
 		if ( 'props' === WC_PB_Product_Prices::get_bundled_cart_item_discount_method() ) {
@@ -86,8 +86,8 @@ class WC_PB_CP_Compatibility {
 		}
 
 		// Validate bundle type component selections.
-		add_action( 'woocommerce_composite_component_validation_add_to_cart', array( __CLASS__, 'validate_component_configuration' ), 10, 8 );
-		add_action( 'woocommerce_composite_component_validation_add_to_order', array( __CLASS__, 'validate_component_configuration' ), 10, 8 );
+		add_action( 'woocommerce_composite_component_validation_add_to_cart', array( __CLASS__, 'validate_component_configuration' ), 10, 5 );
+		add_action( 'woocommerce_composite_component_validation_add_to_order', array( __CLASS__, 'validate_component_configuration' ), 10, 5 );
 
 		// Apply component prefix to bundle input fields.
 		add_filter( 'woocommerce_product_bundle_field_prefix', array( __CLASS__, 'bundle_field_prefix' ), 10, 2 );
@@ -593,7 +593,7 @@ class WC_PB_CP_Compatibility {
 				'quantity_min'       => $quantity_min,
 				'quantity_max'       => $quantity_max,
 				'bundle_form_data'   => $form_data,
-				'bundled_items'      => $product->get_bundled_items(),
+				'bundled_items'      => $product->get_displayed_bundled_items(),
 				'component_id'       => $component_id,
 				'composited_product' => $component_option,
 				'composite_product'  => $composite,
@@ -1171,9 +1171,9 @@ class WC_PB_CP_Compatibility {
 	/**
 	 * Edit composited bundle container cart qty.
 	 *
-	 * @param  int    $quantity Quantity.
-	 * @param  string $cart_item Cart item.
-	 * @param  string $cart_item_key Cart item key.
+	 * @param  int          $quantity Quantity.
+	 * @param  array        $cart_item Cart item.
+	 * @param  string|false $cart_item_key Cart item key.
 	 * @return int
 	 */
 	public static function composited_bundle_checkout_item_quantity( $quantity, $cart_item, $cart_item_key = false ) {
@@ -1297,8 +1297,8 @@ class WC_PB_CP_Compatibility {
 		 * 'woocommerce_composited_bundle_container_order_item_hide_title' filter.
 		 *
 		 * @since 6.0.0
-		 * @param  boolean  $hide_title
-		 * @param  array    $order_item
+		 * @param  boolean        $hide_title
+		 * @param  WC_Order_Item  $order_item
 		 */
 		if ( apply_filters( 'woocommerce_composited_bundle_container_order_item_hide_title', $hide_title, $order_item ) ) {
 			$desc = '';

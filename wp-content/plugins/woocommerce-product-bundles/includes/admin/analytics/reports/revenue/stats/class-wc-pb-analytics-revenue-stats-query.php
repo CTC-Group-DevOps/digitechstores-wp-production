@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_PB_Analytics_Revenue_Stats_Query class.
  *
- * @version 8.2.0
+ * @version 8.5.13
  */
 class WC_PB_Analytics_Revenue_Stats_Query extends Automattic\WooCommerce\Admin\API\Reports\GenericQuery {
 
@@ -31,7 +31,7 @@ class WC_PB_Analytics_Revenue_Stats_Query extends Automattic\WooCommerce\Admin\A
 	/**
 	 * Get product data based on the current query vars.
 	 *
-	 * @return array
+	 * @return stdClass|WP_Error
 	 */
 	public function get_data() {
 		/**

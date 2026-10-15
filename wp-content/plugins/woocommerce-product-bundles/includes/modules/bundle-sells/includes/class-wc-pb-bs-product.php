@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_BS_Product
- * @version  6.15.4
+ * @version 8.5.13
  */
 class WC_PB_BS_Product {
 	/*
@@ -64,6 +64,9 @@ class WC_PB_BS_Product {
 			 * @param  WC_Product  $product          Product containing the bundle-sells.
 			 */
 			$bundle_sell_ids = 'view' === $context ? apply_filters( 'wc_pb_bundle_sell_ids', $bundle_sell_ids, $product ) : $bundle_sell_ids;
+			if ( is_array( $bundle_sell_ids ) ) {
+				$bundle_sell_ids = array_values( array_diff( $bundle_sell_ids, array( $product->get_id() ) ) );
+			}
 		}
 
 		return $bundle_sell_ids;

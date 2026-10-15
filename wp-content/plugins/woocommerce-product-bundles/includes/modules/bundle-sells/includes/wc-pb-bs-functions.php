@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since  5.8.0
  *
- * @param  array $cart_item    Cart item data.
- * @param  array $cart_contents Cart contents.
+ * @param  array       $cart_item    Cart item data.
+ * @param  array|false $cart_contents Cart contents.
  * @return boolean
  */
 function wc_pb_is_bundle_sell_cart_item( $cart_item, $cart_contents = false ) {
@@ -44,9 +44,9 @@ function wc_pb_is_bundle_sell_cart_item( $cart_item, $cart_contents = false ) {
  *
  * @since  5.8.0
  *
- * @param  array   $cart_item   Cart item data.
- * @param  array   $cart_contents Cart contents.
- * @param  boolean $return_id  Whether to return the cart key of the parent cart item.
+ * @param  array       $cart_item   Cart item data.
+ * @param  array|false $cart_contents Cart contents.
+ * @param  boolean     $return_id  Whether to return the cart key of the parent cart item.
  * @return mixed
  */
 function wc_pb_get_bundle_sell_cart_item_container( $cart_item, $cart_contents = false, $return_id = false ) {
@@ -74,9 +74,9 @@ function wc_pb_get_bundle_sell_cart_item_container( $cart_item, $cart_contents =
  *
  * @since  5.8.0
  *
- * @param  array   $cart_item Cart item data.
- * @param  array   $cart_contents Cart contents.
- * @param  boolean $return_ids Whether to return the cart ids of the child cart items.
+ * @param  array       $cart_item Cart item data.
+ * @param  array|false $cart_contents Cart contents.
+ * @param  boolean     $return_ids Whether to return the cart ids of the child cart items.
  * @return mixed
  */
 function wc_pb_get_bundle_sell_cart_items( $cart_item, $cart_contents = false, $return_ids = false ) {

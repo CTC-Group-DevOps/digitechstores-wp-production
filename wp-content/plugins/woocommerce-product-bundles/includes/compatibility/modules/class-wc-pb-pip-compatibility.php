@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Print Invoices & Packing Lists Integration.
  *
- * @version  8.3.5
+ * @version  8.5.13
  */
 class WC_PB_PIP_Compatibility {
 
@@ -61,7 +61,7 @@ class WC_PB_PIP_Compatibility {
 		// Add assembly info to bundled item meta.
 		add_action( 'wc_pip_order_item_meta_end', array( __CLASS__, 'add_assembled_order_item_meta' ), 10, 2 );
 
-		// Ensure bundle container line items are always dislpayed.
+		// Ensure bundle container line items are always displayed.
 		add_filter( 'wc_pip_packing-list_hide_virtual_item', array( __CLASS__, 'hide_item' ), 10, 4 );
 
 		// Prevent bundled order items from being sorted/categorized.
@@ -416,10 +416,10 @@ class WC_PB_PIP_Compatibility {
 	/**
 	 * Ensure bundle container line items are always displayed, otherwise we will not be able to collect their children in 'table_rows'.
 	 *
-	 * @param  boolean    $hide Whether to hide the item.
-	 * @param  WC_Product $product Product object.
-	 * @param  array      $order_item Order item.
-	 * @param  WC_Order   $order Order object.
+	 * @param  boolean               $hide Whether to hide the item.
+	 * @param  WC_Product            $product Product object.
+	 * @param  WC_Order_Item_Product $order_item Order item.
+	 * @param  WC_Order              $order Order object.
 	 * @return boolean
 	 */
 	public static function hide_item( $hide, $product, $order_item, $order ) {

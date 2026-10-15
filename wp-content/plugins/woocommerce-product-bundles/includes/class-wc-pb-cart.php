@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  8.5.12
+ * @version  8.5.13
  */
 class WC_PB_Cart {
 	/**
@@ -761,7 +761,7 @@ class WC_PB_Cart {
 
 	 * @param  array $configuration  Initial configuration array to rebuild.
 	 *
-	 * @return boolean
+	 * @return array
 	 */
 	public function rebuild_posted_bundle_form_data( $configuration ) {
 
@@ -841,7 +841,7 @@ class WC_PB_Cart {
 				 * @since  5.7.4
 				 *
 				 * @param  string             $context
-				 * @param  WC_Product_Bundle  $context
+				 * @param  WC_Product_Bundle  $product
 				 */
 				$context = '' === $args['context'] ? apply_filters( 'woocommerce_bundle_validation_context', 'add-to-cart', $product ) : $args['context'];
 
@@ -904,7 +904,12 @@ class WC_PB_Cart {
 						$item_quantity_max = $bundled_item->get_quantity( 'max' );
 
 						if ( isset( $configuration[ $bundled_item_id ]['quantity'] ) ) {
-							$item_quantity = absint( $configuration[ $bundled_item_id ]['quantity'] );
+							$item_quantity = $configuration[ $bundled_item_id ]['quantity'];
+							if ( 'cart' === $context && ! $bundled_item->is_sold_individually() && ( ! is_numeric( $item_quantity ) || $item_quantity < 0 || abs( $item_quantity - round( $item_quantity ) ) > 0.00000001 ) ) {
+								/* translators: %s: Product title */
+								throw new Exception( sprintf( __( '&quot;%s&quot; contains an invalid item quantity. Please remove it from the cart and re-configure it.', 'woocommerce-product-bundles' ), $product_title ) );
+							}
+							$item_quantity = 'cart' === $context && ! $bundled_item->is_sold_individually() ? (int) round( $item_quantity ) : absint( $item_quantity );
 						} else {
 							$item_quantity = $item_quantity_min;
 						}
@@ -1403,12 +1408,12 @@ class WC_PB_Cart {
 	 * Adds a bundled product to the cart. Must be done without updating session data, recalculating totals or calling 'woocommerce_add_to_cart' recursively.
 	 * For the recursion issue, see: https://core.trac.wordpress.org/ticket/17817.
 	 *
-	 * @param  int   $bundle_id       Bundle product ID.
-	 * @param  mixed $product         Product object or ID.
-	 * @param  int   $quantity        Quantity.
-	 * @param  int   $variation_id    Variation ID.
-	 * @param  array $variation       Variation data.
-	 * @param  array $cart_item_data  Cart item data.
+	 * @param  int        $bundle_id       Bundle product ID.
+	 * @param  mixed      $product         Product object or ID.
+	 * @param  int        $quantity        Quantity.
+	 * @param  int|string $variation_id    Variation ID.
+	 * @param  array      $variation       Variation data.
+	 * @param  array      $cart_item_data  Cart item data.
 	 *
 	 * @return boolean
 	 */
@@ -1518,6 +1523,36 @@ class WC_PB_Cart {
 	 */
 	public function is_removing_container_cart_item( $cart_item_key ) {
 		return $this->removing_container_key === $cart_item_key;
+	}
+
+	/**
+	 * Validates a cart item key posted with an 'update-bundle' request.
+	 * Returns the key only when it references an editable container item of the given bundle, and an empty string otherwise.
+	 *
+	 * @since  8.5.13
+	 *
+	 * @param  string $cart_item_key  Cart item key.
+	 * @param  int    $product_id     Bundle ID.
+	 *
+	 * @return string
+	 */
+	public function get_valid_bundle_update_cart_key( $cart_item_key, $product_id ) {
+
+		$cart_item = is_string( $cart_item_key ) ? WC()->cart->get_cart_item( $cart_item_key ) : array();
+
+		if ( empty( $cart_item ) || ! wc_pb_is_bundle_container_cart_item( $cart_item ) ) {
+			return '';
+		}
+
+		if ( absint( $cart_item['product_id'] ) !== absint( $product_id ) ) {
+			return '';
+		}
+
+		if ( ! $cart_item['data'] instanceof WC_Product_Bundle || ! $cart_item['data']->is_editable_in_cart( $cart_item ) ) {
+			return '';
+		}
+
+		return $cart_item_key;
 	}
 
 	/*
@@ -1774,16 +1809,12 @@ class WC_PB_Cart {
 
 		if ( 'bundle' === $product_type ) {
 
-			$updating_bundle_in_cart = false;
-
 			// Updating bundle in cart?
 			if ( isset( $_POST['update-bundle'] ) ) {
 
-				$updating_cart_key = wc_clean( $_POST['update-bundle'] );// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				$updating_cart_key = $this->get_valid_bundle_update_cart_key( wc_clean( wp_unslash( $_POST['update-bundle'] ) ), $product_id );
 
-				if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-
-					$updating_bundle_in_cart = true;
+				if ( '' !== $updating_cart_key ) {
 
 					// Remove.
 					WC()->cart->remove_cart_item( $updating_cart_key );
@@ -1832,7 +1863,7 @@ class WC_PB_Cart {
 	/**
 	 * Adds bundled items to the cart on the 'woocommerce_add_to_cart' action.
 	 * The 'bundled_by' var is added to each item to identify between bundled and standalone instances of products.
-	 * Important: Recursively calling the core add_to_cart function can lead to issus with the contained action hook: https://core.trac.wordpress.org/ticket/17817.
+	 * Important: Recursively calling the core add_to_cart function can lead to issues with the contained action hook: https://core.trac.wordpress.org/ticket/17817.
 	 *
 	 * @throws Exception If the bundle configuration is invalid.
 	 *
@@ -2304,11 +2335,6 @@ class WC_PB_Cart {
 			//phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
 		} elseif ( $container_key = wc_pb_get_bundled_cart_item_container( $cart->removed_cart_contents[ $cart_item_key ], $cart->cart_contents, true ) ) {
 
-			//phpcs:ignore WordPress.Security.NonceVerification.Missing
-			if ( isset( $_POST['update-bundle'] ) ) {
-				return;
-			}
-
 			$container_item = $cart->cart_contents[ $container_key ];
 
 			// Prevent infinite loops.
@@ -2591,7 +2617,7 @@ class WC_PB_Cart {
 	 * @return void
 	 */
 	public function remove_subcription_filter() {
-		remove_filter( 'woocommerce_is_subscription', array( $this, 'is_subscription_filter' ), 100, 3 );
+		remove_filter( 'woocommerce_is_subscription', array( $this, 'is_subscription_filter' ), 100 );
 	}
 
 	/**
@@ -2631,9 +2657,9 @@ class WC_PB_Cart {
 		// Updating bundle in cart?
 		//phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['update-bundle'] ) ) {
-			//phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-			$updating_cart_key       = wc_clean( $_POST['update-bundle'] );
-			$updating_bundle_in_cart = isset( WC()->cart->cart_contents[ $updating_cart_key ] );
+			//phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$updating_cart_key       = $this->get_valid_bundle_update_cart_key( wc_clean( wp_unslash( $_POST['update-bundle'] ) ), $product_id );
+			$updating_bundle_in_cart = '' !== $updating_cart_key;
 		}
 
 		if ( $updating_bundle_in_cart ) {

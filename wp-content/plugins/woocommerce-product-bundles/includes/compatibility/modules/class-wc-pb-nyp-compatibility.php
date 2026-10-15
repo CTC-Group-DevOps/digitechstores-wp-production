@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * NYP Compatibility.
  *
- * @version  8.3.3
+ * @version  8.5.13
  */
 class WC_PB_NYP_Compatibility {
 
@@ -44,7 +44,7 @@ class WC_PB_NYP_Compatibility {
 		add_filter( 'woocommerce_bundled_item_add_to_cart_validation', array( __CLASS__, 'validate_bundled_item_nyp' ), 10, 5 );
 
 		// Add NYP identifier to bundled item stamp.
-		add_filter( 'woocommerce_bundled_item_cart_item_identifier', array( __CLASS__, 'bundled_item_nyp_stamp' ), 10, 4 );
+		add_filter( 'woocommerce_bundled_item_cart_item_identifier', array( __CLASS__, 'bundled_item_nyp_stamp' ), 10, 2 );
 
 		// Before and after add-to-cart handling.
 		add_action( 'woocommerce_bundled_item_before_add_to_cart', array( __CLASS__, 'before_bundled_add_to_cart' ), 10, 5 );
@@ -272,7 +272,7 @@ class WC_PB_NYP_Compatibility {
 		// Set nyp suffix.
 		self::$nyp_suffix = $bundled_item_cart_data['bundled_item_id'];
 
-		remove_filter( 'woocommerce_add_cart_item_data', array( WC_Name_Your_Price()->cart, 'add_cart_item_data' ), 5, 3 );
+		remove_filter( 'woocommerce_add_cart_item_data', array( WC_Name_Your_Price()->cart, 'add_cart_item_data' ), 5 );
 	}
 
 	/**
@@ -307,7 +307,7 @@ class WC_PB_NYP_Compatibility {
 		// Set nyp suffix.
 		self::$nyp_suffix = $bundled_item_cart_data['bundle_sell_id'];
 
-		remove_filter( 'woocommerce_add_cart_item_data', array( WC_Name_Your_Price()->cart, 'add_cart_item_data' ), 5, 3 );
+		remove_filter( 'woocommerce_add_cart_item_data', array( WC_Name_Your_Price()->cart, 'add_cart_item_data' ), 5 );
 	}
 
 	/**

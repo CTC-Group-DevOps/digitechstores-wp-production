@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Services Integration.
  *
- * @version  6.3.4
+ * @version  8.5.13
  */
 class WC_PB_WC_Services_Compatibility {
 
 	/**
-	 * Initilize.
+	 * Initialize.
 	 */
 	public static function init() {
 

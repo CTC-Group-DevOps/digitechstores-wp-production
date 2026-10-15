@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * These 2 will differ only if stock for a variation is managed by its parent.
  *
  * @class    WC_PB_Stock_Manager_Item
- * @version  5.10.0
+ * @version  8.5.13
  * @since    4.8.7
  */
 class WC_PB_Stock_Manager_Item {
@@ -42,7 +42,7 @@ class WC_PB_Stock_Manager_Item {
 	/**
 	 * Bundled item.
 	 *
-	 * @var WC_Product_Bundle_Item|false
+	 * @var WC_Bundled_Item|false
 	 */
 	public $bundled_item;
 

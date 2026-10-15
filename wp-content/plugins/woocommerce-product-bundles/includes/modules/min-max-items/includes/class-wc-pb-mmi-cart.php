@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart-related functions and filters.
  *
  * @class    WC_PB_MMI_Cart
- * @version  6.4.0
+ * @version  8.5.13
  */
 class WC_PB_MMI_Cart {
 
@@ -25,10 +25,10 @@ class WC_PB_MMI_Cart {
 	public static function init() {
 
 		// Add-to-Cart validation.
-		add_action( 'woocommerce_add_to_cart_bundle_validation', array( __CLASS__, 'add_to_cart_validation' ), 10, 4 );
+		add_filter( 'woocommerce_add_to_cart_bundle_validation', array( __CLASS__, 'add_to_cart_validation' ), 10, 4 );
 
 		// Cart validation.
-		add_action( 'woocommerce_cart_bundle_validation', array( __CLASS__, 'cart_validation' ), 10, 4 );
+		add_filter( 'woocommerce_cart_bundle_validation', array( __CLASS__, 'cart_validation' ), 10, 4 );
 	}
 
 	/*

@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Pre Orders Compatibility.
  *
  * @since  4.11.4
+ * @version  8.5.13
  */
 class WC_PB_PO_Compatibility {
 
@@ -52,8 +53,8 @@ class WC_PB_PO_Compatibility {
 	 * @param  WC_Order $order     - Order object.
 	 * @return array
 	 */
-	public static function remove_bundled_pre_orders_order_item_meta( $pre_order_meta, $order_item, $order ) {
-		if ( wc_pb_maybe_is_bundled_order_item( $order_item, $order ) ) {
+	public static function remove_bundled_pre_orders_order_item_meta( $pre_order_meta, $order_item, $order ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		if ( wc_pb_maybe_is_bundled_order_item( $order_item ) ) {
 			$pre_order_meta = array();
 		}
 		return $pre_order_meta;

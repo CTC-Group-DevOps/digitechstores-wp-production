@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  6.22.6
+ * @version  8.5.13
  */
 class WC_PB_BS_Display {
 
@@ -52,7 +52,7 @@ class WC_PB_BS_Display {
 	 * @return void
 	 */
 	public static function reset_bundled_item_template_overrides() {
-		remove_filter( 'wc_get_template', array( __CLASS__, 'get_bundled_item_template_location' ), 10, 4 );
+		remove_filter( 'wc_get_template', array( __CLASS__, 'get_bundled_item_template_location' ), 10 );
 	}
 
 	/*
@@ -94,7 +94,7 @@ class WC_PB_BS_Display {
 			 */
 			$bundle = WC_PB_BS_Product::get_bundle( $bundle_sell_ids, $product );
 
-			if ( ! $bundle->get_bundled_items() ) {
+			if ( ! $bundle->get_displayed_bundled_items() ) {
 				return;
 			}
 
@@ -144,15 +144,15 @@ class WC_PB_BS_Display {
 			<div class="bundle_form bundle_sells_form">
 			<?php
 
-			foreach ( $bundle->get_bundled_items() as $bundled_item ) {
+			foreach ( $bundle->get_displayed_bundled_items() as $bundled_item ) {
 				// Neat, isn't it?
 				self::apply_bundled_item_template_overrides();
 				/**
 				 * 'woocommerce_bundled_item_details' action.
 				 *
 				 * @since 5.0.0
-				 * @param  WC_Product_Bundle_Item  $bundled_item
-				 * @param  WC_Product_Bundle       $bundle
+				 * @param  WC_Bundled_Item    $bundled_item
+				 * @param  WC_Product_Bundle  $bundle
 				 */
 				do_action( 'woocommerce_bundled_item_details', $bundled_item, $bundle );
 				self::reset_bundled_item_template_overrides();
@@ -275,6 +275,7 @@ class WC_PB_BS_Display {
 				 *
 				 * @since  6.6.0
 				 *
+				 * @param  string  $discount_value
 				 * @param  array   $cart_item
 				 * @param  array   $parent_item
 				 * @param  string  $parent_item_name
