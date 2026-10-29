@@ -36,7 +36,8 @@ class MediaTranslationEditorLayout implements \IWPML_Action {
 
 			$media_section_field = [
 				'field_type'    => 'tm-section',
-				'title'         => __( 'Media', 'wpml-media' ),
+				/* translators: Heading of the section that groups the media fields (title, caption, description, alt text) in the translation editor. */
+				'title'         => __( 'Media', 'sitepress' ),
 				'fields'        => [],
 				'empty'         => false,
 				'empty_message' => '',
@@ -103,16 +104,20 @@ class MediaTranslationEditorLayout implements \IWPML_Action {
 
 		switch ( $media_field['label'] ) {
 			case 'title':
-				$label = __( 'Title', 'wpml-media' );
+				/* translators: Column heading in the table of translation jobs, and the label of the title field in the translation editor: the title of the piece of content. */
+				$label = __( 'Title', 'sitepress' );
 				break;
 			case 'caption':
-				$label = __( 'Caption', 'wpml-media' );
+				/* translators: Label of the field holding the words shown under an image, in the translation editor. */
+				$label = __( 'Caption', 'sitepress' );
 				break;
 			case 'description':
-				$label = __( 'Description', 'wpml-media' );
+				/* translators: Column heading and field label for the longer text that describes something. */
+				$label = __( 'Description', 'sitepress' );
 				break;
 			case 'alt_text':
-				$label = __( 'Alt Text', 'wpml-media' );
+				/* translators: Label of the field holding the text that stands in for an image when it cannot be seen, in the translation editor. */
+				$label = __( 'Alt Text', 'sitepress' );
 				break;
 			default:
 				$label = $media_field['label'];

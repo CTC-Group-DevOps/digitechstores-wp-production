@@ -34,7 +34,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		}
 		$this->old_slider_id	= '';
 		$this->real_slider_id	= '';
-		$this->download_path	= $this->get_temp_path('rstemp');
+		$this->download_path	= $this->get_temp_path('rstemp/'.wp_generate_password(16, false)); //one private folder per import, never a shared name
 		$this->remove_path		= $this->download_path;
 		$this->slider_id		= $slider_id;
 		$this->import_zip		= false;
@@ -109,6 +109,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 			
 			$slider->update_css_and_javascript_ids($this->old_slider_id, $this->slider_id, $this->map);
 			$slider->update_color_ids($this->map);
+			if($this->current_user_can_not('administrator')) $this->strip_code_after_import($slider);
 
 			if($is_template !== false) $slider->update_params(array('pakps' => true));
 
@@ -176,7 +177,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 			
 			$file = unzip_file($path, $this->download_path);
 			if(is_wp_error($file)){
-				$this->download_path = RS_PLUGIN_PATH.'rstemp/';
+				$this->download_path = RS_PLUGIN_PATH.'rstemp/'.wp_generate_password(16, false).'/';
 				$this->remove_path	 = $this->download_path;
 				$file				 = unzip_file($path, $this->download_path);
 				
@@ -1808,9 +1809,10 @@ class RevSliderSliderImport extends RevSliderSlider {
 		//import if exists in zip folder
 		if($image !== '' && strpos($image, 'http') === false){
 			if($this->import_zip === true){ //we have a zip, check if exists
-				if($wp_filesystem->exists($this->download_path.'images/'.$image)){
+				$src = $this->zip_media_file($this->download_path, $image);
+				if($src !== false){
 					if(!isset($this->imported['images/'.$image])){
-						$import_image = $this->import_media($this->download_path.'images/'.$image, $this->get_val($this->slider_data, 'alias', 'alias').'/');
+						$import_image = $this->import_media($src, $this->get_val($this->slider_data, 'alias', 'alias').'/');
 						if($import_image !== false){
 							$image = $import_image['path'];
 							$this->imported['images/'.$image] = $image;
@@ -1843,6 +1845,27 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 */
 	public function rs_unserialize($string){
 		return @unserialize($string, array('allowed_classes' => array('stdClass')));
+	}
+
+	/**
+	 * the save rule for users below administrator holds for an import too: no custom JS or CSS, no callback actions
+	 * @since: 6.8.0
+	 */
+	public function strip_code_after_import($slider){
+		$slider->update_params(array('codes' => array('javascript' => '', 'javascript7' => '', 'css' => '')));
+
+		$slides = $slider->get_slides(false, true);
+		$static = new RevSliderSlide();
+		if($static->init_static_slide_by_slider_id($slider->get_id()) === true) $slides[] = $static;
+		foreach($slides ?? array() as $slide) $slide->save_layers(); //save_layers() drops the callbacks for this user
+	}
+
+	/**
+	 * an import that stopped on an error still removes what it extracted
+	 * @since: 6.8.0
+	 */
+	public function __destruct(){
+		$this->clear_files();
 	}
 
 	/**

@@ -13,6 +13,10 @@ class CustomFieldSettingsRollback {
 	];
 
 	public static function restoreIfNeeded(): void {
+		if ( class_exists( MetaSettingsLifecycle::class ) ) {
+			return;
+		}
+
 		if ( ! self::siteCameBackFromWpml5() ) {
 			return;
 		}
@@ -59,10 +63,9 @@ class CustomFieldSettingsRollback {
 	private static function readMapFromStore( string $type ): array {
 		global $wpdb;
 
-		$map   = [];
-		$table = self::storeTableName();
-		$rows  = $wpdb->get_results(
-			$wpdb->prepare( "SELECT name, mode FROM `{$table}` WHERE element_type = %s", $type ),
+		$map  = [];
+		$rows = $wpdb->get_results(
+			$wpdb->prepare( "SELECT name, mode FROM `{$wpdb->prefix}icl_meta_settings` WHERE element_type = %s", $type ),
 			ARRAY_N
 		);
 		if ( is_array( $rows ) ) {

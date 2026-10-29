@@ -39,7 +39,7 @@ class DeleteStringsInDomain implements IHandler {
 
 		return Either::of(
 			[
-				'completedCount' => count( $strings ),
+				'completedCount' => count( $strings ) - $this->stringsRepository->countExistingIds( $strings ),
 				'navigateToUrl'  => admin_url( 'admin.php?page=' . WPML_ST_MENU_URL ),
 			]
 		);

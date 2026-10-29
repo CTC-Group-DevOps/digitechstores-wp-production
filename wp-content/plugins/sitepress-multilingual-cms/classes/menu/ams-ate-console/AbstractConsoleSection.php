@@ -3,7 +3,8 @@
 use WPML\ATE\Proxies\ProxyInterceptorLoader;
 use WPML\ATE\Proxies\Widget;
 use WPML\LIB\WP\User;
-use WPML\TM\ATE\ATEDashboardLoader;
+use WPML\TM\ATE\AmsHostContract;
+use WPML\TM\ATE\Dashboard\ATEDashboardLoader;
 use WPML\TM\ATE\JobSender\JobSenderRepository;
 use WPML\TM\ATE\NoCreditPopup;
 
@@ -37,9 +38,6 @@ abstract class WPML_TM_AMS_Translation_Abstract_Console_Section {
 		$this->proxyInterceptorLoader = $proxyInterceptorLoader;
 	}
 
-	public abstract function getCachingManager();
-
-
 	public function get_order() {
 		return static::TAB_ORDER;
 	}
@@ -68,9 +66,16 @@ abstract class WPML_TM_AMS_Translation_Abstract_Console_Section {
 	}
 
 	public function render() {
-		$supportUrl  = 'https://wpml.org/forums/forum/english-support/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmltm';
+		$supportUrl  = \WPML\OutboundLinks\OutboundLinks::to(
+			\WPML\UserInterface\Web\Core\SharedKernel\Domain\SupportForumUrl::URL,
+			array(
+				'medium'   => 'support',
+				'campaign' => 'support',
+			)
+		);
 		$supportLink = '<a target="_blank" rel="nofollow" href="' . esc_url( $supportUrl ) . '">'
-					   . esc_html__( 'contact our support team', 'wpml-translation-management' )
+					   /* translators: Link text inside a sentence that opens the WPML support pages. It starts in lower case because it sits inside the sentence. */
+					   . esc_html__( 'contact our support team', 'sitepress' )
 					   . '</a>';
 
 
@@ -81,7 +86,8 @@ abstract class WPML_TM_AMS_Translation_Abstract_Console_Section {
 				echo sprintf(
 				// translators: %s is a link with 'contact our support team'
 					esc_html(
-						__( 'There is a problem connecting to automatic translation. Please check your internet connection and try again in a few minutes. If you continue to see this message, please %s.', 'wpml-translation-management' )
+						/* translators: %s: link to WPML support. */
+						__( 'There is a problem connecting to automatic translation. Please check your internet connection and try again in a few minutes. If you continue to see this message, please %s.', 'sitepress' )
 					),
 					$supportLink
 				);
@@ -155,22 +161,20 @@ abstract class WPML_TM_AMS_Translation_Abstract_Console_Section {
 		$app_constructor = [
 			'section'              => $this->get_section_slug(),
 			'host'                 => esc_js( $this->endpoints->get_base_url( WPML_TM_ATE_AMS_Endpoints::SERVICE_AMS ) ),
-			'wpml_host'            => esc_js( get_site_url() ),
-			'wpml_home'            => esc_js( get_home_url() ),
-			'secret_key'           => esc_js( $registration_data['secret'] ),
-			'shared_key'           => esc_js( $registration_data['shared'] ),
-			'status'               => esc_js( $registration_data['status'] ),
+			'wpml_host'            => esc_js( WPML_Default_Site_Url::get() ),
+			'wpml_home'            => esc_js( WPML_Default_Site_Url::getHome() ),
+			'secret_key'           => esc_js( isset( $registration_data['secret'] ) ? $registration_data['secret'] : '' ),
+			'shared_key'           => esc_js( isset( $registration_data['shared'] ) ? $registration_data['shared'] : '' ),
+			'status'               => esc_js( isset( $registration_data['status'] ) ? $registration_data['status'] : '' ),
 			'tm_user_id'           => $currentSender->id,
 			'tm_email'             => esc_js( $currentSender->email ),
 			'tm_user_name'         => esc_js( $currentSender->username ),
 			'tm_user_display_name' => esc_js( $currentSender->displayName ),
 			'website_uuid'         => esc_js( $this->auth->get_site_id() ),
 			'site_key'             => esc_js($this->sitepress->get_sitekey()),
-			'dependencies'         => [
-				'sitepress-multilingual-cms' => [
-					'version' => ICL_SITEPRESS_VERSION,
-				],
-			],
+			'dependencies'         => AmsHostContract::dependencies(),
+			'wpml_links'           => AmsHostContract::seedLinks(),
+			'host_contract'        => AmsHostContract::VERSION,
 			'tab'                  => self::TAB_SELECTOR,
 			'container'            => self::CONTAINER_SELECTOR,
 			'post_types'           => $this->get_post_types_data(),
@@ -195,27 +199,8 @@ abstract class WPML_TM_AMS_Translation_Abstract_Console_Section {
 	}
 
 
-	public function getAppData( $tryFromCache = false ) {
-		$cachingManager = $this->getCachingManager();
-
-		$fetchAndCache = function () use ( $cachingManager ) {
-			$remoteAppData = $this->fetchRemoteAppData();
-			$cachingManager->cacheApp( $remoteAppData['app'], 2 );
-
-			return $remoteAppData;
-		};
-
-		if ( ! ( $tryFromCache && $cachingManager ) ) {
-			return $this->fetchRemoteAppData();
-		}
-
-		$cachedAppData = $cachingManager->getCachedAppData( $this->get_ams_constructor() );
-
-		if ( ! $cachedAppData ) {
-			return $fetchAndCache();
-		}
-
-		return $cachedAppData;
+	public function getAppData() {
+		return $this->fetchRemoteAppData();
 	}
 
 	public function fetchRemoteAppData() {

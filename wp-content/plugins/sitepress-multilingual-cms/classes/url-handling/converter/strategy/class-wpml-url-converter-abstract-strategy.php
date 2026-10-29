@@ -5,6 +5,8 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 
 	protected $default_language;
 	protected $active_languages;
+	protected $language_codes_map;
+	protected $language_codes_reverse_map;
 
 	protected $cache;
 
@@ -19,6 +21,9 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 	public function __construct( $default_language, $active_languages, $wp_rewrite = null, $splash_helper = null ) {
 		$this->default_language = $default_language;
 		$this->active_languages = $active_languages;
+		$this->language_codes_map = (array) array_combine( $active_languages, $active_languages );
+		$this->language_codes_map = apply_filters( 'wpml_language_codes_map', $this->language_codes_map );
+		$this->language_codes_reverse_map = array_flip( $this->language_codes_map );
 
 		$this->lang_param   = new WPML_URL_Converter_Lang_Param_Helper( $active_languages );
 		$this->slash_helper = $splash_helper ?: new WPML_Slash_Management();
@@ -30,6 +35,7 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 	}
 
 	public function validate_language( $language, $url ) {
+		$language = $this->get_canonical_language_code( $language );
 		return in_array( $language, $this->active_languages, true )
 			   || 'all' === $language && $this->get_url_helper()->is_url_admin( $url ) ? $language : $this->get_default_language();
 	}
@@ -54,6 +60,14 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 		$this->slash_helper = $slash_helper;
 	}
 
+	protected function split_fragment( $url ) {
+		$position = is_string( $url ) ? strpos( $url, '#' ) : false;
+
+		return false === $position
+			? [ $url, '' ]
+			: [ substr( $url, 0, $position ), substr( $url, $position ) ];
+	}
+
 	private function get_default_language() {
 		if ( $this->default_language ) {
 			return $this->default_language;
@@ -72,5 +86,21 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 
 	public function use_wp_login_url_converter() {
 		return false;
+	}
+
+	protected function get_url_language_code( $language ) {
+		return isset( $this->language_codes_map[ $language ] )
+			? $this->language_codes_map[ $language ]
+			: $language;
+	}
+
+	protected function get_canonical_language_code( $language ) {
+		if ( null === $language ) {
+			return null;
+		}
+
+		return isset( $this->language_codes_reverse_map[ $language ] )
+			? $this->language_codes_reverse_map[ $language ]
+			: $language;
 	}
 }

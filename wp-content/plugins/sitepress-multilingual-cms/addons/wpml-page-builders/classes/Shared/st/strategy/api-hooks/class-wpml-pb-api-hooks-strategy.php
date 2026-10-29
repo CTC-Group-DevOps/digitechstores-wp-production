@@ -25,7 +25,7 @@ class WPML_PB_API_Hooks_Strategy implements IWPML_PB_Strategy {
 		return array(
 			'kind'    => $this->get_package_kind(),
 			'name'    => $page_id,
-			'title'   => 'Page Builder Page ' . $page_id,
+			'title'   => 'Page Builder Page ' . $page_id . ': ' . $this->get_package_kind(),
 			'post_id' => $page_id,
 		);
 	}

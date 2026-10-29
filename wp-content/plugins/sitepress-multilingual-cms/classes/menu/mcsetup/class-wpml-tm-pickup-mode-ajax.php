@@ -17,7 +17,7 @@ class WPML_TM_Pickup_Mode_Ajax {
 	}
 
 	public function ajax_hooks() {
-		add_action( 'wp_ajax_wpml_save_translation_pickup_mode', array( $this, 'wpml_save_translation_pickup_mode' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_save_translation_pickup_mode', \WPML\Request\Policy\Policy::capability( 'manage_options', \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_save_translation_pickup_mode', 'nonce' ) ), array( $this, 'wpml_save_translation_pickup_mode' ) );
 	}
 
 	public function wpml_save_translation_pickup_mode() {

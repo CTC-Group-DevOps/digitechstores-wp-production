@@ -92,8 +92,10 @@ class WPML_ST_TM_Jobs extends WPML_WPDB_User {
 		if ( count( $wheres ) > 0 && count( $wheres ) === count( $where_args ) ) {
 			$where_sql = implode( ' AND ', $wheres );
 
-			$sql = $this->wpdb->prepare( $where_sql, $where_args );
-			$string_where = 'WHERE ' . $sql;
+			$prepared_where = $this->wpdb->prepare( $where_sql, $where_args );
+			if ( is_string( $prepared_where ) ) {
+				$string_where = 'WHERE ' . $prepared_where;
+			}
 		}
 
 		return $string_where;

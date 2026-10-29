@@ -14,13 +14,13 @@
             "HTML 앵커"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "“#anchor” URL을 사용하여 페이지를 로드할 때 이 블록에 대한 바로 가기를 추가합니다."
+            "“#anchor” URL을 사용하여 페이지를 로드할 때 이 블록에 대한 바로가기를 추가합니다."
          ],
          "Additional CSS class(es)": [
             "추가 CSS 클래스"
          ],
          "Separate multiple classes with spaces.": [
-            "여러 클래스를 공백으로 구분합니다."
+            "공백으로 여러 클래스를 구분합니다."
          ],
          "Color": [
             "색상"
@@ -56,19 +56,19 @@
             "표시"
          ],
          "Show flag": [
-            "플래그 표시"
+            "국기 표시"
          ],
          "Show language name": [
             "언어 이름 표시"
          ],
          "Display language name in": [
-            "언어 이름 표시 위치"
+            "언어 이름 표시 언어:"
          ],
          "Style": [
             "스타일"
          ],
          "Flag settings": [
-            "플래그 설정"
+            "국기 설정"
          ],
          "Width": [
             "너비"
@@ -107,7 +107,7 @@
             "언어 전환기"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "언어 전환기, 다른 언어로 이동하려면 탭을 누르세요."
+            "언어 전환기, 다른 언어로 이동하려면 Tab 키를 누르세요"
          ],
          "Typography": [
             "타이포그래피"
@@ -134,16 +134,16 @@
             "코드"
          ],
          "Justify items left": [
-            "항목 왼쪽 정렬"
+            "왼쪽 정렬"
          ],
          "Justify items center": [
-            "항목 가운데 정렬"
+            "가운데 정렬"
          ],
          "Justify items right": [
-            "항목 오른쪽 정렬"
+            "오른쪽 정렬"
          ],
          "Justify items space between": [
-            "항목 간격 균등"
+            "양끝 정렬"
          ],
          "Horizontal": [
             "가로"
@@ -161,16 +161,16 @@
             "크게"
          ],
          "X-Large": [
-            "아주 크게"
+            "매우 크게"
          ],
          "Ab": [
-            "Ab"
+            "가나"
          ],
          "AB": [
-            "AB"
+            "가나"
          ],
          "ab": [
-            "ab"
+            "가나"
          ],
          "Small": [
             "작게"
@@ -179,13 +179,10 @@
             "WPML 언어 전환기를 표시합니다."
          ],
          "displays the WPML Language Switcher": [
-            "WPML 언어 전환기를 표시합니다."
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "WPML 언어 전환기를 표시합니다. <br/> <a>이 블록을 번역하는 방법</a>을 알아보세요."
+            "WPML 언어 전환기를 표시합니다"
          ],
          "Navigation Language Switcher": [
-            "탐색 언어 전환기"
+            "네비게이션 언어 전환기"
          ],
          "Reset all": [
             "모두 재설정"

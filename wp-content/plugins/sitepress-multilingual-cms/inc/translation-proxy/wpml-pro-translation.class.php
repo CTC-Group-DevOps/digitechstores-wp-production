@@ -1,5 +1,6 @@
 <?php
 
+use WPML\Blocks\AttributeUrls;
 use WPML\FP\Fns;
 use WPML\FP\Lst;
 use WPML\FP\Str;
@@ -9,6 +10,8 @@ use function WPML\FP\pipe;
 class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 
 	private static $translated_links = [];
+
+	private static $deferred_link_fixes = [];
 
 	public $errors = array();
 	private $tmg;
@@ -20,9 +23,9 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 
 	private $sitepress;
 
-	private $update_pm;
-
 	private $is_language_switched = false;
+
+	private $update_pm;
 
 	function __construct( &$job_factory ) {
 		parent::__construct( $job_factory );
@@ -42,39 +45,42 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 				'post_submitbox_start',
 			)
 		);
-		add_action(
-			'icl_ajx_custom_call',
-			array(
-				$this,
-				'ajax_calls',
-			),
-			10,
-			2
-		);
 
 		add_action( 'wpml_minor_edit_for_gutenberg', array( $this, 'gutenberg_minor_edit' ), 10, 0 );
+	}
 
-		$this->update_pm = new WPML_Update_PickUp_Method( $this->sitepress );
+	public static function reset_translated_links_cache() {
+		self::$translated_links = [];
+	}
+
+	public static function fix_deferred_links() {
+		$deferred                  = self::$deferred_link_fixes;
+		self::$deferred_link_fixes = [];
+
+		foreach ( $deferred as $fix ) {
+			list( $pro_translation, $element_id, $target_lang_code, $element_type, $preLoaded ) = $fix;
+			$pro_translation->fix_links_to_translated_content( $element_id, $target_lang_code, $element_type, $preLoaded );
+		}
+	}
+
+	private static function is_before_init() {
+		return function_exists( 'did_action' ) && 0 === did_action( 'init' );
+	}
+
+	private function defer_link_fix( $element_id, $target_lang_code, $element_type, $preLoaded ) {
+		add_action( 'init', [ __CLASS__, 'fix_deferred_links' ], PHP_INT_MAX, 0 );
+
+		self::$deferred_link_fixes[ $element_type . ':' . $element_id . ':' . $target_lang_code ] = [
+			$this,
+			$element_id,
+			$target_lang_code,
+			$element_type,
+			is_array( $preLoaded ) ? $preLoaded : [],
+		];
 	}
 
 	public function &get_cms_id_helper() {
 		return $this->cms_id_helper;
-	}
-
-	function ajax_calls( $call, $data ) {
-		switch ( $call ) {
-			case 'set_pickup_mode':
-				$response = $this->update_pm->update_pickup_method( $data, $this->get_current_project() );
-				if ( 'no-ts' === $response ) {
-					wp_send_json_error( array( 'message' => __( 'Please activate translation service first.', 'wpml-translation-management' ) ) );
-				}
-				if ( 'cant-update' === $response ) {
-					wp_send_json_error( array( 'message' => __( 'Could not update the translation pickup mode.', 'wpml-translation-management' ) ) );
-				}
-
-				wp_send_json_success( array( 'message' => __( 'Ok', 'wpml-translation-management' ) ) );
-				break;
-		}
 	}
 
 	public function get_current_project() {
@@ -153,10 +159,23 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 	}
 
 	public function custom_xmlrpc_methods( $methods ) {
-		$icl_methods['translationproxy.test_xmlrpc']        = '__return_true';
-		$icl_methods['translationproxy.updated_job_status'] = array(
-			$this,
-			'xmlrpc_updated_job_status',
+		$icl_methods = \WPML\Request\Adapter\XmlRpc::method(
+			array(),
+			'translationproxy.test_xmlrpc',
+			\WPML\Request\Policy\Policy::publicAccess( 'Translation Proxy connectivity probe: answers true, no state change' ),
+			'__return_true'
+		);
+		$icl_methods = \WPML\Request\Adapter\XmlRpc::method(
+			$icl_methods,
+			'translationproxy.updated_job_status',
+			\WPML\Request\Policy\Policy::machine(
+				array( $this, 'authenticate_updated_job_status_call' ),
+				'Translation Proxy job-status callback signed with the project access key (sha1, hash_equals)'
+			),
+			array(
+				$this,
+				'xmlrpc_updated_job_status',
+			)
 		);
 
 		$methods = array_merge( $methods, $icl_methods );
@@ -178,7 +197,21 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 		$status    = isset( $args[2] ) ? $args[2] : '';
 		$signature = isset( $args[3] ) ? $args[3] : '';
 
+		\WPML\TM\Jobs\JobLog::maybeInitRequest();
+		\WPML\TM\Jobs\JobLog::createNewGroup(
+			\WPML\TM\Jobs\JobLog::GROUP_ID_DOWNLOAD_JOBS,
+			'TP push delivery (XML-RPC)',
+			array(
+				'tp_id'  => $tp_id,
+				'cms_id' => $cms_id,
+				'status' => $status,
+			)
+		);
+
 		if ( ! $this->authenticate_request( $tp_id, $cms_id, $status, $signature ) ) {
+			\WPML\TM\Jobs\JobLog::addError( 'tp_push_bad_signature', array( 'tp_id' => $tp_id, 'cms_id' => $cms_id ) );
+			\WPML\TM\Jobs\JobLog::finishCurrentGroup();
+
 			return new IXR_Error( 401, 'Wrong signature' );
 		}
 
@@ -203,6 +236,14 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 				$tp_sync_updated_job = new WPML_TP_Sync_Update_Job( $wpdb, $this->sitepress );
 				$job_updated         = $tp_sync_updated_job->update_state( $job );
 
+				\WPML\TM\Jobs\JobLog::add(
+					'tp_push_state_updated',
+					array(
+						'job_id'      => \WPML\TM\Jobs\JobLog::safeCall( $job, 'get_id' ),
+						'job_updated' => (bool) $job_updated,
+					)
+				);
+
 				if ( $job_updated && WPML_TP_Job_States::CANCELLED !== $status ) {
 					$apply_tp_translation = new WPML_TP_Apply_Single_Job(
 						wpml_tm_get_tp_translations_repository(),
@@ -210,22 +251,62 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 					);
 					$apply_tp_translation->apply( $job );
 
+					\WPML\TM\Jobs\JobLog::add(
+						'tp_push_applied',
+						array( 'job_id' => \WPML\TM\Jobs\JobLog::safeCall( $job, 'get_id' ) )
+					);
 				}
+
+				\WPML\TM\Jobs\JobLog::finishCurrentGroup();
 
 				return 1;
 
 			}
+
+			\WPML\TM\Jobs\JobLog::addError(
+				'tp_push_job_not_found',
+				array( 'tp_id' => $tp_id, 'cms_id' => $cms_id )
+			);
 		} catch ( Exception $e ) {
+			\WPML\TM\Jobs\JobLog::addError(
+				'tp_push_failed',
+				array( 'code' => $e->getCode(), 'message' => $e->getMessage() )
+			);
+			\WPML\TM\Jobs\JobLog::finishCurrentGroup();
+
 			return new IXR_Error( $e->getCode(), $e->getMessage() );
 		}
 
+		\WPML\TM\Jobs\JobLog::finishCurrentGroup();
+
 		return 0;
+	}
+
+	public function authenticate_updated_job_status_call( $args ) {
+		$args = is_array( $args ) ? $args : array();
+
+		if ( $this->authenticate_request(
+			isset( $args[0] ) ? $args[0] : 0,
+			isset( $args[1] ) ? $args[1] : 0,
+			isset( $args[2] ) ? $args[2] : '',
+			isset( $args[3] ) ? $args[3] : ''
+		) ) {
+			return true;
+		}
+
+		return class_exists( 'IXR_Error' ) ? new IXR_Error( 401, 'Wrong signature' ) : false;
 	}
 
 	private function authenticate_request( $tp_id, $cms_id, $status, $signature ) {
 		$project = TranslationProxy::get_current_project();
 
-		return sha1( $project->id . $project->access_key . $tp_id . $cms_id . $status ) === $signature;
+		if ( ! is_object( $project ) || empty( $project->access_key ) || ! is_string( $signature ) ) {
+			return false;
+		}
+
+		$expected = sha1( $project->id . $project->access_key . $tp_id . $cms_id . $status );
+
+		return hash_equals( $expected, $signature );
 	}
 
 	function get_wpml_wp_api() {
@@ -251,8 +332,47 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 		return $links;
 	}
 
+	private static function content_get_block_attribute_urls( $body ) {
+		return AttributeUrls::fromBody( $body );
+	}
+
+	private static function replace_block_attribute_urls( $body, array $replacements ) {
+		return AttributeUrls::replaceInDelimiters( $body, $replacements );
+	}
+
+	private static function get_href_from_tag( $tag ) {
+		return preg_match( '/href\s*=\s*["\']([^"\'>]+)["\']/i', (string) $tag, $matches )
+			? $matches[1]
+			: false;
+	}
+
+	private static function get_url_replacements( $translated_links ) {
+		$replacements = [];
+
+		foreach ( (array) $translated_links as $link ) {
+			if ( ! is_array( $link ) || ! isset( $link['from'], $link['to'] ) ) {
+				continue;
+			}
+
+			$from = self::get_href_from_tag( $link['from'] );
+			$to   = self::get_href_from_tag( $link['to'] );
+
+			if ( $from && $to && $from !== $to ) {
+				$replacements[ $from ] = $to;
+			}
+		}
+
+		return $replacements;
+	}
+
 	public function fix_links_to_translated_content( $element_id, $target_lang_code, $element_type = 'post', $preLoaded = [] ) {
 		global $wpdb, $sitepress;
+
+		if ( self::is_before_init() ) {
+			$this->defer_link_fix( $element_id, $target_lang_code, $element_type, $preLoaded );
+
+			return 0;
+		}
 
 		$wpml_element_type          = $element_type;
 		$body                       = '';
@@ -273,8 +393,9 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 				$body              = $preLoaded['post_content'];
 				$postExcerpt       = $preLoaded['post_excerpt'];
 			} else {
-				$post_prepared = $wpdb->prepare( "SELECT post_content, post_excerpt, post_type FROM {$wpdb->posts} WHERE ID=%d", array( $element_id ) );
-				$post          = $wpdb->get_row( $post_prepared );
+				$post = $wpdb->get_row(
+					$wpdb->prepare( "SELECT post_content, post_excerpt, post_type FROM {$wpdb->posts} WHERE ID=%d", array( $element_id ) )
+				);
 
 				if ( ! $post ) {
 					$links_fixed_status->set( true );
@@ -319,7 +440,13 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 			}
 		}
 
-		if ( ! AbsoluteLinks::has_href_attribute( $body ) && ! AbsoluteLinks::has_href_attribute( $postExcerpt ) ) {
+		$blockAttributeUrls = self::content_get_block_attribute_urls( $body );
+
+		$hasSomethingToFix = AbsoluteLinks::has_href_attribute( $body )
+			|| AbsoluteLinks::has_href_attribute( $postExcerpt )
+			|| $blockAttributeUrls;
+
+		if ( ! $hasSomethingToFix ) {
 			$links_fixed_status->set( true );
 			return 0;
 		}
@@ -327,112 +454,190 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 		$translate_link_targets = make( 'WPML_Translate_Link_Targets' );
 		$absolute_links         = make( 'AbsoluteLinks' );
 
-		$getTranslatedLink = function ( $link ) use ( $translate_link_targets, $absolute_links, $element_type, $target_lang_code, $sitepress ) {
-			$id_link = $target_lang_code . '-' . $link[0];
-			if ( isset( self::$translated_links[ $id_link ] ) ) {
-				return [
-					'from' => $link[0],
-					'to'   => self::$translated_links[ $id_link ],
-				];
+		$is_language_switched = false;
+
+		$sticky_link_resolved_without_change = false;
+		$sticky_link_unresolved = false;
+		$sticky_settled_overrides = [];
+
+		try {
+			$getTranslatedLink = function ( $link ) use ( $translate_link_targets, $absolute_links, $element_type, $target_lang_code, $sitepress, $string_type, &$is_language_switched, &$sticky_link_resolved_without_change, &$sticky_link_unresolved, &$sticky_settled_overrides ) {
+				$id_link = $target_lang_code . '-' . $link[0];
+				if ( isset( self::$translated_links[ $id_link ] ) ) {
+					return [
+						'from' => $link[0],
+						'to'   => self::$translated_links[ $id_link ],
+					];
+				}
+
+				if ( ! $is_language_switched ) {
+					$is_language_switched = true;
+					$sitepress->switch_lang( $target_lang_code );
+				}
+
+				$link_url = WPML_Same_Site_Url_Normalizer::normalize_url( $link[2] );
+
+				$sticky_source_id = self::hostless_sticky_link_source_id( $link_url );
+
+				$sticky_source_post_type = $sticky_source_id ? get_post_type( $sticky_source_id ) : false;
+
+				if ( $sticky_source_post_type ) {
+					$translated_id = apply_filters( 'wpml_object_id', $sticky_source_id, $sticky_source_post_type, false, $target_lang_code );
+
+					if ( $translated_id && (int) $translated_id !== $sticky_source_id ) {
+						$translatedLink = Str::replace(
+							$link[2],
+							preg_replace( '/([?&](?:p|page_id)=)' . $sticky_source_id . '\b/', '${1}' . (int) $translated_id, $link[2], 1 ),
+							$link[0]
+						);
+					} elseif ( $translated_id ) {
+						$translatedLink                      = $link[0];
+						$sticky_link_resolved_without_change = true;
+
+						$permalink = get_permalink( $translated_id );
+						if ( is_string( $permalink ) && '' !== $permalink && $permalink !== $link[2] ) {
+							$sticky_settled_overrides[ $permalink ] = $link[2];
+						}
+					} else {
+						$translatedLink        = $link[0];
+						$sticky_link_unresolved = true;
+					}
+				} elseif ( $absolute_links->is_home( $link_url ) ) {
+					$translatedLink = $absolute_links->convert_url( $link_url, $target_lang_code );
+					$translatedLink = Str::replace( $link[2], $translatedLink, $link[0] );
+				} else {
+					add_filter( 'wpml_force_translated_permalink', '__return_true' );
+					try {
+						$translatedLink = $translate_link_targets->convert_text( $link[0] );
+					} finally {
+						remove_filter( 'wpml_force_translated_permalink', '__return_true' );
+					}
+
+					$is_single_url = 'LINK' === $string_type || ! empty( $link['single_url'] );
+					if ( $is_single_url && false !== strpos( $translatedLink, '<a href="' ) && $translate_link_targets->met_gone_target() ) {
+						$translatedLink = $link[0];
+					}
+
+					if ( empty( $link['single_url'] ) && self::should_links_be_converted_back_to_sticky( $element_type ) ) {
+						$translatedLink = $absolute_links->convert_text( $translatedLink );
+					}
+				}
+
+				self::$translated_links[ $id_link ] = $translatedLink;
+
+				return $translatedLink !== $link[0]
+					? [
+						'from' => $link[0],
+						'to'   => $translatedLink,
+					]
+					: null;
+			};
+
+			$getTranslatedLinks = pipe(
+				Fns::map( $getTranslatedLink ),
+				Fns::filter( Fns::identity() )
+			);
+
+			$links            = self::content_get_link_paths( $body );
+			$postExcerptLinks = self::content_get_link_paths( $postExcerpt );
+
+			$blockLinks = array_map(
+				function ( $url ) {
+					return [ '<a href="' . $url . '">removeit</a>', '"', $url, '', 'single_url' => true ];
+				},
+				$blockAttributeUrls
+			);
+
+			$translatedLinks            = $getTranslatedLinks( $links );
+			$translatedBlockLinks       = $getTranslatedLinks( $blockLinks );
+			$postExcerptTranslatedLinks = $getTranslatedLinks( $postExcerptLinks );
+
+			$replaceLink = function ( $body, $link ) {
+				return str_replace( $link['from'], $link['to'], $body );
+			};
+
+			$urlReplacements = self::get_url_replacements(
+				array_merge( (array) $translatedBlockLinks, (array) $translatedLinks )
+			);
+
+			foreach ( $sticky_settled_overrides as $permalink => $settled_href ) {
+				$urlReplacements[ $permalink ] = $settled_href;
 			}
 
-			if ( ! $this->is_language_switched ) {
-				$this->is_language_switched = true;
-				$sitepress->switch_lang( $target_lang_code );
-			}
+			$new_body   = Fns::reduce( $replaceLink, $body, $translatedLinks );
+			$new_body   = self::replace_block_attribute_urls( $new_body, $urlReplacements );
+			$newExcerpt = Fns::reduce( $replaceLink, $postExcerpt, $postExcerptTranslatedLinks );
 
-			$link_url = WPML_Same_Site_Url_Normalizer::normalize_url( $link[2] );
+			$contentChanged = $sticky_link_resolved_without_change;
 
-			if ( $absolute_links->is_home( $link_url ) ) {
-				$translatedLink = $absolute_links->convert_url( $link_url, $target_lang_code );
-				$translatedLink = Str::replace( $link[2], $translatedLink, $link[0] );
-			} else {
-				add_filter( 'wpml_force_translated_permalink', '__return_true' );
-				$translatedLink = $translate_link_targets->convert_text( $link[0] );
-				remove_filter( 'wpml_force_translated_permalink', '__return_true' );
-				if ( self::should_links_be_converted_back_to_sticky( $element_type ) ) {
-					$translatedLink = $absolute_links->convert_text( $translatedLink );
+			if ( strpos( $element_type, 'post' ) === 0 ) {
+				$updatePost = [];
+
+				if ( $new_body != $body ) {
+					$updatePost['post_content'] = $new_body;
+				}
+
+				if ( $newExcerpt != $postExcerpt ) {
+					$updatePost['post_excerpt'] = $newExcerpt;
+				}
+
+				if ( ! empty( $updatePost ) ) {
+					$contentChanged = true;
+					$updated        = $wpdb->update(
+						$wpdb->posts,
+						$updatePost,
+						[ 'ID' => $element_id ]
+					);
+
+					if ( false !== $updated ) {
+						clean_post_cache( $element_id );
+
+						$recordFields = [];
+						if ( isset( $updatePost['post_content'] ) ) {
+							$recordFields['body'] = $updatePost['post_content'];
+						}
+						if ( isset( $updatePost['post_excerpt'] ) ) {
+							$recordFields['excerpt'] = $updatePost['post_excerpt'];
+						}
+						\WPML\TM\Jobs\TranslationRecord::followPostTranslation( $element_id, $wpml_element_type, $recordFields );
+					}
+				}
+			} elseif ( $element_type == 'string' && $new_body != $body ) {
+				$contentChanged = true;
+
+				if ( 'LINK' === $string_type && false === strpos( $new_body, '<a href="' ) ) {
+					$contentChanged  = false;
+					$translatedLinks = [];
+				} elseif ( 'LINK' === $string_type ) {
+					$new_body = str_replace( array( '<a href="', '">removeit</a>' ), array( '', '' ), $new_body );
+					$wpdb->update(
+						$wpdb->prefix . 'icl_string_translations',
+						array(
+							'value'  => $new_body,
+							'status' => ICL_TM_COMPLETE,
+						),
+						array( 'id' => $element_id )
+					);
+					do_action( 'icl_st_add_string_translation', $element_id );
+					\WPML\TM\Jobs\TranslationRecord::followStringTranslation( $element_id, $new_body );
+				} else {
+					$wpdb->update( $wpdb->prefix . 'icl_string_translations', array( 'value' => $new_body ), array( 'id' => $element_id ) );
+					\WPML\TM\Jobs\TranslationRecord::followStringTranslation( $element_id, $new_body );
 				}
 			}
 
-			self::$translated_links[ $id_link ] = $translatedLink;
-
-			return $translatedLink !== $link[0]
-				? [
-					'from' => $link[0],
-					'to'   => $translatedLink,
-				]
-				: null;
-		};
-
-		$getTranslatedLinks = pipe(
-			Fns::map( $getTranslatedLink ),
-			Fns::filter( Fns::identity() )
-		);
-
-		$links = self::content_get_link_paths( $body );
-		$postExcerptLinks = self::content_get_link_paths( $postExcerpt );
-
-		$translatedLinks = $getTranslatedLinks( $links );
-		$postExcerptTranslatedLinks = $getTranslatedLinks( $postExcerptLinks );
-
-		$replaceLink = function ( $body, $link ) {
-			return str_replace( $link['from'], $link['to'], $body );
-		};
-
-		$new_body = Fns::reduce( $replaceLink, $body, $translatedLinks );
-		$newExcerpt = Fns::reduce($replaceLink, $postExcerpt, $postExcerptTranslatedLinks);
-
-		if ( strpos( $element_type, 'post' ) === 0 ) {
-			$updatePost = [];
-
-			if ( $new_body != $body ) {
-				$updatePost['post_content'] = $new_body;
+			if ( $contentChanged && ! $sticky_link_unresolved ) {
+				$links_fixed_status_factory = new WPML_Links_Fixed_Status_Factory( $wpdb, new WPML_WP_API() );
+				$links_fixed_status         = $links_fixed_status_factory->create( $element_id, $wpml_element_type );
+				$links_fixed_status->set( true );
 			}
 
-			if ( $newExcerpt != $postExcerpt ) {
-				$updatePost['post_excerpt'] = $newExcerpt;
-			}
-
-			if ( ! empty( $updatePost ) ) {
-				$updated = $wpdb->update(
-					$wpdb->posts,
-					$updatePost,
-					[ 'ID' => $element_id ]
-				);
-
-				if ( false !== $updated ) {
-					clean_post_cache( $element_id );
-				}
-			}
-		} elseif ( $element_type == 'string' && $new_body != $body ) {
-			if ( 'LINK' === $string_type ) {
-				$new_body = str_replace( array( '<a href="', '">removeit</a>' ), array( '', '' ), $new_body );
-				$wpdb->update(
-					$wpdb->prefix . 'icl_string_translations',
-					array(
-						'value'  => $new_body,
-						'status' => ICL_TM_COMPLETE,
-					),
-					array( 'id' => $element_id )
-				);
-				do_action( 'icl_st_add_string_translation', $element_id );
-			} else {
-				$wpdb->update( $wpdb->prefix . 'icl_string_translations', array( 'value' => $new_body ), array( 'id' => $element_id ) );
+			return count( $translatedLinks );
+		} finally {
+			if ( $is_language_switched ) {
+				$sitepress->switch_lang();
 			}
 		}
-
-		$links_fixed_status_factory = new WPML_Links_Fixed_Status_Factory( $wpdb, new WPML_WP_API() );
-		$links_fixed_status         = $links_fixed_status_factory->create( $element_id, $wpml_element_type );
-		$links_fixed_status->set( true );
-
-		if ( $this->is_language_switched ) {
-			$this->is_language_switched = false;
-			$sitepress->switch_lang();
-		}
-
-		return sizeof( $translatedLinks );
-
 	}
 
 	function translation_error_handler( $error_number, $error_string, $error_file, $error_line ) {
@@ -453,13 +658,29 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 		return 'string' !== $element_type && ! empty( $GLOBALS['WPML_Sticky_Links'] );
 	}
 
+	private static function hostless_sticky_link_source_id( $url ) {
+		if ( ! is_string( $url ) || $url === '' || preg_match( '/^https?:\/\//', $url ) === 1 ) {
+			return 0;
+		}
+
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
+		if ( ! is_string( $query ) || $query === '' ) {
+			return 0;
+		}
+
+		parse_str( $query, $vars );
+		$id = isset( $vars['p'] ) ? $vars['p'] : ( isset( $vars['page_id'] ) ? $vars['page_id'] : null );
+
+		return ( null !== $id && ctype_digit( (string) $id ) ) ? (int) $id : 0;
+	}
+
 	function post_submitbox_start() {
 		$show_box_style = $this->get_show_minor_edit_style();
 		if ( false !== $show_box_style ) {
 			?>
 			<p id="icl_minor_change_box" style="float:left;padding:0;margin:3px;<?php echo $show_box_style; ?>">
 				<label><input type="checkbox" name="icl_minor_edit" value="1" style="min-width:15px;"/>&nbsp;
-					<?php esc_html_e( 'Minor edit - don\'t update translation', 'wpml-translation-management' ); ?>
+					<?php esc_html_e( 'Minor edit - don\'t update translation', 'sitepress' ); ?>
 				</label>
 				<br clear="all"/>
 			</p>
@@ -473,10 +694,10 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 			?>
 			<div id="icl_minor_change_box" style="<?php echo $show_box_style; ?>" class="icl_box_paragraph">
 				<p>
-					<strong><?php esc_html_e( 'Minor edit', 'wpml-translation-management' ); ?></strong>
+					<strong><?php /* translators: Label of the option that marks a change as small, so the translators need not be told about it. */ esc_html_e( 'Minor edit', 'sitepress' ); ?></strong>
 				</p>
 				<label><input type="checkbox" name="icl_minor_edit" value="1" style="min-width:15px;"/>&nbsp;
-					<?php esc_html_e( "Don't update translation", 'wpml-translation-management' ); ?>
+					<?php esc_html_e( "Don't update translation", 'sitepress' ); ?>
 				</label>
 			</div>
 			<?php
@@ -489,19 +710,19 @@ class WPML_Pro_Translation extends WPML_TM_Job_Factory_User {
 			return false;
 		}
 
-		$translations   = $iclTranslationManagement->get_element_translations( $post->ID, 'post_' . $post->post_type );
-		$show_box_style = 'display:none';
+		$element_language_details = $this->sitepress->get_element_language_details( $post->ID, 'post_' . $post->post_type );
+		if ( $element_language_details && ! empty( $element_language_details->source_language_code ) ) {
+			return false;
+		}
+
+		$translations = $iclTranslationManagement->get_element_translations( $post->ID, 'post_' . $post->post_type );
 		foreach ( $translations as $t ) {
-			if ( $t->element_id == $post->ID ) {
-				return false;
-			}
 			if ( $t->status == ICL_TM_COMPLETE && ! $t->needs_update ) {
-				$show_box_style = '';
-				break;
+				return '';
 			}
 		}
 
-		return $show_box_style;
+		return 'display:none';
 	}
 
 

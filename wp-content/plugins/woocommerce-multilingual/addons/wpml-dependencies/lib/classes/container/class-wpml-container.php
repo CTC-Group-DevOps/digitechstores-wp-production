@@ -8,7 +8,7 @@ class Container {
 
 	private static $instance = null;
 
-	private $injector = null;
+	private $injector;
 
 	private function __construct() {
 		$this->injector = new AurynInjector();

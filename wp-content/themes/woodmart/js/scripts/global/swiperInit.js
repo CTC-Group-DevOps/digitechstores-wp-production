@@ -224,7 +224,9 @@ woodmartThemeModule.swiperInit = function(carousel, thumbs = false) {
 				const customText = slides[index]?.getAttribute('data-pagination-text');
 
 				if (customText) {
-					formattedNumber = customText;
+					// Stored as esc_attr() server-side, but getAttribute() returns it
+					// decoded, so re-encode before injecting it as innerHTML.
+					formattedNumber = customText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 				}
 
 				return `<li class="${className}" tabindex="0" aria-label="${label}"><span>${formattedNumber}</span></li>`;

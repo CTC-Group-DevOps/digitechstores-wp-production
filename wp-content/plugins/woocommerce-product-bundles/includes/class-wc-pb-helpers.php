@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Helper Functions.
  *
  * @class    WC_PB_Helpers
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Helpers {
 
@@ -194,7 +194,7 @@ class WC_PB_Helpers {
 	 * Loads variation IDs for a given variable product.
 	 *
 	 * @param  WC_Product_Variable|int $product Product object or ID.
-	 * @return array
+	 * @return array|false
 	 */
 	public static function get_product_variations( $product ) {
 
@@ -213,7 +213,7 @@ class WC_PB_Helpers {
 	 * Return a formatted product title based on id.
 	 *
 	 * @param int|WC_Product $product Product ID or object.
-	 * @return string
+	 * @return string|false
 	 */
 	public static function get_product_title( $product ) {
 
@@ -242,8 +242,8 @@ class WC_PB_Helpers {
 	 * Return a formatted product title based on variation id.
 	 *
 	 * @param int|WC_Product $variation Variation ID or object.
-	 * @param  string         $format Format.
-	 * @return string
+	 * @param  string|bool    $format Format.
+	 * @return string|false
 	 */
 	public static function get_product_variation_title( $variation, $format = 'flat' ) {
 

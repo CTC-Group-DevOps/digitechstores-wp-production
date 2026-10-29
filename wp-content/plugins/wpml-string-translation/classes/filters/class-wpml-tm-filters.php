@@ -21,8 +21,10 @@ class WPML_TM_Filters {
 	}
 
 	private function get_string_lang_codes() {
+		$wpdb = $this->wpdb;
+
 		if ( null === $this->string_lang_codes ) {
-			$this->string_lang_codes = $this->wpdb->get_col( "SELECT DISTINCT(s.language) FROM {$this->wpdb->prefix}icl_strings s" );
+			$this->string_lang_codes = $this->wpdb->get_col( "SELECT DISTINCT(s.language) FROM {$wpdb->prefix}icl_strings s" );
 		}
 
 		return $this->string_lang_codes;

@@ -21,11 +21,7 @@ class WPML_TM_Post_Target_Lang_Filter extends WPML_TM_Record_User {
 		$element_id,
 		$element_type_prefix
 	) {
-		if ( TranslationProxy_Basket::anywhere_in_basket( $element_id,
-			$element_type_prefix )
-		) {
-			$allowed_langs = array();
-		} elseif ( $element_type_prefix === 'post' ) {
+		if ( $element_type_prefix === 'post' ) {
 			if ( (bool) ( $this->post_translations->get_element_lang_code( $element_id ) ) === true ) {
 				$allowed_langs = array_fill_keys( $allowed_langs, 1 );
 				$translations  = $this

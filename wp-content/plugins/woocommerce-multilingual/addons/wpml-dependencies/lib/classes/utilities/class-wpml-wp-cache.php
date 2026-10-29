@@ -24,7 +24,7 @@ class WPML_WP_Cache {
 	}
 
 	public function set( $key, $data, $expire = 0 ) {
-		$keys = $this->get_keys();
+		$keys = $this->get_keys( true );
 		if ( ! in_array( $key, $keys, true ) ) {
 			$keys[] = $key;
 			wp_cache_set( self::KEYS, $keys, $this->group );
@@ -33,11 +33,11 @@ class WPML_WP_Cache {
 		return wp_cache_set( $key, [ 'data' => $data ], $this->group, $expire );
 	}
 
-	public function flush_group_cache() {
-		$keys = $this->get_keys();
+	public function flush_group_cache( $force = false ) {
+		$keys = $this->get_keys( $force );
 
-		foreach ( $keys as $key ) {
-			wp_cache_delete( $key, $this->group );
+		foreach ( $keys as $cache_key ) {
+			wp_cache_delete( $cache_key, $this->group );
 		}
 
 		wp_cache_delete( self::KEYS, $this->group );
@@ -60,9 +60,9 @@ class WPML_WP_Cache {
 		return [ $result, $found ];
 	}
 
-	private function get_keys() {
+	private function get_keys( $force = false ) {
 		$found = false;
-		$keys  = wp_cache_get( self::KEYS, $this->group, false, $found );
+		$keys  = wp_cache_get( self::KEYS, $this->group, $force, $found );
 		if ( $found && is_array( $keys ) ) {
 			return $keys;
 		}

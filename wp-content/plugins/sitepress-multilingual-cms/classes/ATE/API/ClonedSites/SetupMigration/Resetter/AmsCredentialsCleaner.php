@@ -2,7 +2,7 @@
 
 namespace WPML\TM\ATE\ClonedSites\SetupMigration\Resetter;
 
-use WPML\TM\ATE\ClonedSites\Lock;
+use WPML\TM\ATE\ClonedSites\ReconnectState;
 
 class AmsCredentialsCleaner {
 
@@ -14,6 +14,6 @@ class AmsCredentialsCleaner {
 
 	public function clear() {
 		$this->authentication->reset();
-		delete_option( Lock::CLONED_SITE_OPTION );
+		ReconnectState::clear();
 	}
 }

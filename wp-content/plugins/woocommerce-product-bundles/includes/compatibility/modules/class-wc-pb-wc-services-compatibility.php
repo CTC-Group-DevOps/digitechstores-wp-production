@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Services Integration.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_WC_Services_Compatibility {
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -40,6 +42,7 @@ class WC_PB_WC_Services_Compatibility {
 	 * @param  mixed  $dispatch_result Dispatch result.
 	 * @param  object $request          Request object.
 	 * @param  string $route            Route.
+	 * @return mixed
 	 */
 	public static function add_rest_filters( $dispatch_result, $request, $route ) {
 		if ( strpos( $route, 'connect/label' ) !== false ) {
@@ -70,6 +73,8 @@ class WC_PB_WC_Services_Compatibility {
 
 	/**
 	 * Modify the returned order items and products to return the correct items/weights/values for shipping.
+	 *
+	 * @return void
 	 */
 	public static function add_filters() {
 		add_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10, 2 );
@@ -78,6 +83,8 @@ class WC_PB_WC_Services_Compatibility {
 
 	/**
 	 * Modify the returned order items and products to return the correct items/weights/values for shipping.
+	 *
+	 * @return void
 	 */
 	public static function remove_filters() {
 		remove_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10 );

@@ -8,13 +8,14 @@ use WPML\LIB\WP\App\Resources as LibResources;
 class Resources implements \IWPML_Backend_Action {
 
 	public function add_hooks() {
-		if ( $this->is_active() ) {
-			\add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			\add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
+		\add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		\add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	public function enqueue_styles() {
+		if ( ! $this->is_active() ) {
+			return;
+		}
 		\wp_enqueue_style(
 			'wpml-tm-ts-admin-section',
 			WPML_TM_URL . '/res/css/admin-sections/translation-services.css',
@@ -31,10 +32,13 @@ class Resources implements \IWPML_Backend_Action {
 	}
 
 	public function enqueue_scripts() {
+		if ( ! $this->is_active() ) {
+			return;
+		}
 		\wp_enqueue_script(
 			'wpml-tm-ts-admin-section',
 			WPML_TM_URL . '/res/js/translation-services.js',
-			array(),
+			array( 'wpml-purify' ),
 			ICL_SITEPRESS_SCRIPT_VERSION
 		);
 
@@ -81,9 +85,11 @@ class Resources implements \IWPML_Backend_Action {
 				'localization' => [
 					'title'                => \__( 'Activate a translation service', 'sitepress' ),
 					'subtitle'             => \__( 'Enter your service activation details below.', 'sitepress' ),
+					/* translators: Label of the field where the key given by the translation service is typed. */
 					'suid_label'           => \__( 'Activation Key', 'sitepress' ),
 					'enabled_service'      => \__( 'The service has been enabled.', 'sitepress' ),
 					'refresh_page'         => \__( 'Refreshing the page, please wait...', 'sitepress' ),
+					/* translators: Message shown when the translation service answered with a problem. */
 					'server_error'         => \__( 'Server error', 'sitepress' ),
 					'something_went_wrong' => \__( 'Something went wrong. Please try again.', 'sitepress' ),
 

@@ -70,7 +70,7 @@
 					<pubDate>Thu, 05 Dec 2024 13:35:28 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=36193</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-c4b0820c" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -110,7 +110,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"7d7f7601-66fe-4711-bd24-0c4c44d6cd2f","adjacentCount":3} -->
-<div id="wd-7d7f7601" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"e616ea52-3636-40ab-8028-5a9acaa7e745","textAlign":"center","content":"u003cstrongu003eFILTER BY ATTRIBUTEu003c/strongu003e"} -->
+<div id="wd-7d7f7601" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"e616ea52-3636-40ab-8028-5a9acaa7e745","textAlign":"center","content":"\u003cstrong\u003eFILTER BY ATTRIBUTE\u003c/strong\u003e"} -->
 <h2 id="wd-e616ea52" class="wp-block-wd-title title wd-align"><strong>FILTER BY ATTRIBUTE</strong></h2>
 <!-- /wp:wd/title -->
 
@@ -140,7 +140,7 @@
 
 <!-- wp:wd/section {"blockId":"6fa35987-12f3-4a9b-a55a-c7db912835fc","bgImage":{"id":34398,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/11/elements-bg-alt.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"80","paddingBottom":"80","marginBottom":"80","paddingTopTablet":"60","paddingTopMobile":"40","paddingBottomTablet":"60","paddingBottomMobile":"40","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div id="wd-6fa35987" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"70d3f447-2d6a-4e7f-afaa-bac215e74b7e","rowGap":"10","colorScheme":"light"} -->
-<div id="wd-70d3f447" class="wp-block-wd-container wd-dir-col color-scheme-light"><!-- wp:wd/paragraph {"blockId":"26c8330d-39c1-4a54-aa23-2e87d4155874","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-70d3f447" class="wp-block-wd-container wd-dir-col color-scheme-light"><!-- wp:wd/paragraph {"blockId":"26c8330d-39c1-4a54-aa23-2e87d4155874","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-26c8330d" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -168,7 +168,7 @@
 
 <!-- wp:wd/section {"blockId":"3e729bd3-3643-4fa2-8ab0-5ca7eda79c2e","bgImage":{"id":35555,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/11/full-screen4.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"80","paddingBottom":"80","marginBottom":"-40","paddingTopTablet":"60","paddingTopMobile":"40","paddingBottomTablet":"60","paddingBottomMobile":"40"} -->
 <div id="wd-3e729bd3" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"e1040dbf-398f-42a9-ab8b-da408c85a03b","rowGap":"10","colorScheme":"light"} -->
-<div id="wd-e1040dbf" class="wp-block-wd-container wd-dir-col color-scheme-light"><!-- wp:wd/paragraph {"blockId":"a25bf569-3afd-4363-a3f3-879f2e082b3f","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-e1040dbf" class="wp-block-wd-container wd-dir-col color-scheme-light"><!-- wp:wd/paragraph {"blockId":"a25bf569-3afd-4363-a3f3-879f2e082b3f","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-a25bf569" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 

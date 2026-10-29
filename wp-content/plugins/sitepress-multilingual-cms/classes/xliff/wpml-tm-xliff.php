@@ -11,6 +11,8 @@ class WPML_TM_XLIFF {
 	private $root;
 	private $trans_units;
 	private $xliff_version;
+	private $body_groups = [];
+	private $target_language = '';
 
 	const XLIFF_CUSTOM_ATTRIBUTES_NAMESPACE = 'https://cdn.wpml.org/xliff/custom-attributes.xsd';
 
@@ -28,6 +30,9 @@ class WPML_TM_XLIFF {
 	public function setFileAttributes( $attributes ) {
 		foreach ( $attributes as $name => $value ) {
 			$this->file->setAttribute( $name, is_null( $value ) ? '' : $value );
+			if ( 'target-language' === $name ) {
+				$this->target_language = (string) $value;
+			}
 		}
 
 		return $this;
@@ -47,7 +52,7 @@ class WPML_TM_XLIFF {
 					$phase = $this->dom->createElement( 'phase' );
 					$phase->setAttribute( 'phase-name', $name );
 					$phase->setAttribute( 'process-name', $data['process-name'] );
-					$note            = $this->dom->createElement( 'note' );
+					$note = $this->dom->createElement( 'note' );
 					$note->nodeValue = $data['note'];
 					$phase->appendChild( $note );
 					$phase_items[] = $phase;
@@ -86,6 +91,11 @@ class WPML_TM_XLIFF {
 		return $this;
 	}
 
+	public function setBodyGroups( array $groups ) {
+		$this->body_groups = $groups;
+		return $this;
+	}
+
 
 	public function setTranslationUnits( $trans_units ) {
 		if ( $trans_units ) {
@@ -106,11 +116,7 @@ class WPML_TM_XLIFF {
 				}
 
 				if ( ! empty( $trans_unit['extradata'] ) && is_array( $trans_unit['extradata'] ) ) {
-					$tool_extradata_element = $this->dom->createElement( 'tool:extradata' );
-					foreach ( $trans_unit['extradata'] as $attr_name => $attr_value ) {
-						$tool_extradata_element->setAttribute( $attr_name, $attr_value );
-					}
-					$trans_unit_element->appendChild( $tool_extradata_element );
+					$this->appendExtradata( $trans_unit_element, $trans_unit['extradata'] );
 				}
 
 				$this->trans_units[] = $trans_unit_element;
@@ -181,14 +187,68 @@ class WPML_TM_XLIFF {
 			}
 		}
 
+		foreach ( $this->body_groups as $group_data ) {
+			$group = $this->dom->createElement( 'group' );
+			$group->setAttribute( 'id', $group_data['id'] );
+			foreach ( $group_data['units'] as $unit_data ) {
+				$group->appendChild( $this->buildGroupTransUnit( $unit_data ) );
+			}
+			$this->body->appendChild( $group );
+		}
+
 		$this->file->appendChild( $this->file_header );
 		$this->file->appendChild( $this->body );
 		$this->root->appendChild( $this->file );
 		$this->dom->appendChild( $this->root );
 	}
 
+	private function buildGroupTransUnit( array $unit_data ) {
+		$trans_unit = $this->dom->createElement( 'trans-unit' );
+		$trans_unit->setAttribute( 'id', $unit_data['id'] );
+
+		$source = $this->dom->createElement( 'source' );
+		$this->appendCdata( $source, (string) $unit_data['source'] );
+		$trans_unit->appendChild( $source );
+
+		$target = $this->dom->createElement( 'target' );
+		if ( $this->target_language ) {
+			$target->setAttribute( 'xml:lang', $this->target_language );
+		}
+		$target->setAttribute( 'state', 'new' );
+		$trans_unit->appendChild( $target );
+
+		if ( ! empty( $unit_data['note'] ) ) {
+			$note = $this->dom->createElement( 'note' );
+			$note->appendChild( $this->dom->createTextNode( $unit_data['note'] ) );
+			$trans_unit->appendChild( $note );
+		}
+
+		if ( ! empty( $unit_data['extradata'] ) && is_array( $unit_data['extradata'] ) ) {
+			$this->appendExtradata( $trans_unit, $unit_data['extradata'] );
+		}
+
+		return $trans_unit;
+	}
+
+	private function appendCdata( DOMElement $element, $text ) {
+		$parts = explode( ']]>', $text );
+		$last  = count( $parts ) - 1;
+		foreach ( $parts as $i => $part ) {
+			$section = ( $i > 0 ? '>' : '' ) . $part . ( $i < $last ? ']]' : '' );
+			$element->appendChild( $this->dom->createCDATASection( $section ) );
+		}
+	}
+
+	private function appendExtradata( DOMElement $transUnit, array $extradata ) {
+		$extradataElement = $this->dom->createElement( 'tool:extradata' );
+		foreach ( $extradata as $attributeName => $attributeValue ) {
+			$extradataElement->setAttribute( $attributeName, $attributeValue );
+		}
+		$transUnit->appendChild( $extradataElement );
+	}
+
 	private function setRoot( $version ) {
-		if ( $version === '1.0' ) {
+		if ( '1.0' === $version ) {
 			$implementation = new DOMImplementation();
 
 			$this->dtd = $implementation->createDocumentType(
@@ -201,5 +261,4 @@ class WPML_TM_XLIFF {
 		$this->root->setAttribute( 'xmlns', 'urn:oasis:names:tc:xliff:document:' . $version );
 		$this->root->setAttribute( 'xmlns:tool', self::XLIFF_CUSTOM_ATTRIBUTES_NAMESPACE );
 	}
-
 }

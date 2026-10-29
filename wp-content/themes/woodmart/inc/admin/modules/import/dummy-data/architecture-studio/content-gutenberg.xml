@@ -315,7 +315,7 @@
 <div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-parallax wd-stretched wd-autoplay-on wd-6134f44d"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="parallax" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"edc04529-9b56-48f3-8b32-c8fea728d684","blockVersion":"2","justify":"flex-end","effect":"parallax","aspectRatio":"","image":{"id":24312,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/w-architecture-slider-2-opt.jpg","width":1920,"height":700},"bgImage":{"id":"","url":""},"bgPosition":"center center","bgDisplaySize":"cover","bgColorCode":"#f7e8d9"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-edc04529"><div class="wd-slide-container"><!-- wp:wd/row {"blockId":"856e7c84-e4ec-4a95-a8a0-4ad31602163f","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-856e7c84"><!-- wp:wd/column {"blockId":"c9a21a05-763d-44c8-8434-6c1d0181f4b0","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":10,"bgColorCode":"#ffffff","paddingTop":"5","paddingRight":"5","paddingBottom":"5","paddingLeft":"5","paddingLock":true,"paddingUnits":"%","paddingTopMobile":"10","paddingRightMobile":"10","paddingBottomMobile":"10","paddingLeftMobile":"10","paddingLockMobile":true,"paddingUnitsMobile":"%"} -->
-<div class="wp-block-wd-column wd-c9a21a05"><!-- wp:wd/paragraph {"blockId":"3bcefce5-a33e-4ae0-895b-5a5420d7aad5","blockVersion":"2","colorCode":"rgba(0,0,0,0.11)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"58","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"48","tpFontSizeMobile":"38","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-c9a21a05"><!-- wp:wd/paragraph {"blockId":"3bcefce5-a33e-4ae0-895b-5a5420d7aad5","blockVersion":"2","colorCode":"rgba(0,0,0,0.11)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"58","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"48","tpFontSizeMobile":"38","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-3bcefce5">2022</p>
 <!-- /wp:wd/paragraph -->
 
@@ -337,7 +337,7 @@
 <!-- wp:wd/slider-item {"blockId":"02bb0b53-dc18-45cd-a9bb-30dde6931e7a","blockVersion":"2","justify":"flex-end","effect":"parallax","aspectRatio":"","image":{"id":24311,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/w-architecture-slider-1-opt.jpg","width":1920,"height":700},"bgImage":{"id":"","url":""},"bgPosition":"center center","bgDisplaySize":"cover","bgColorCode":"#e5c8b6"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-02bb0b53"><div class="wd-slide-container"><!-- wp:wd/row {"blockId":"2845fa0d-fb00-45d4-946f-d7fdc2f41efc","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-2845fa0d"><!-- wp:wd/column {"blockId":"58bbc528-ef01-41cb-926a-9be86a976376","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":10,"bgColorCode":"#ffffff","paddingTop":"5","paddingRight":"5","paddingBottom":"5","paddingLeft":"5","paddingLock":true,"paddingUnits":"%","paddingTopMobile":"10","paddingRightMobile":"10","paddingBottomMobile":"10","paddingLeftMobile":"10","paddingLockMobile":true,"paddingUnitsMobile":"%"} -->
-<div class="wp-block-wd-column wd-58bbc528"><!-- wp:wd/paragraph {"blockId":"53e0ec68-6c0e-4c15-ab13-b799762c1650","blockVersion":"2","colorCode":"rgba(0,0,0,0.11)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"58","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"48","tpFontSizeMobile":"38","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-58bbc528"><!-- wp:wd/paragraph {"blockId":"53e0ec68-6c0e-4c15-ab13-b799762c1650","blockVersion":"2","colorCode":"rgba(0,0,0,0.11)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"58","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"48","tpFontSizeMobile":"38","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-53e0ec68">2023</p>
 <!-- /wp:wd/paragraph -->
 
@@ -359,7 +359,7 @@
 <!-- wp:wd/slider-item {"blockId":"18de7e91-663b-4ccd-8ce7-698b67195609","blockVersion":"2","justify":"flex-end","effect":"parallax","aspectRatio":"","image":{"id":24313,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/w-architecture-slider-3-opt.jpg","width":1920,"height":700},"bgImage":{"id":"","url":""},"bgPosition":"center center","bgDisplaySize":"cover","bgColorCode":"#bdd5ea"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-18de7e91"><div class="wd-slide-container"><!-- wp:wd/row {"blockId":"78aa5097-f985-44e9-8520-f6e43240752b","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-78aa5097"><!-- wp:wd/column {"blockId":"e966d919-fc3f-4373-8553-e8144f3fe9d8","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":10,"bgColorCode":"#ffffff","paddingTop":"5","paddingRight":"5","paddingBottom":"5","paddingLeft":"5","paddingLock":true,"paddingUnits":"%","paddingTopMobile":"10","paddingRightMobile":"10","paddingBottomMobile":"10","paddingLeftMobile":"10","paddingLockMobile":true,"paddingUnitsMobile":"%"} -->
-<div class="wp-block-wd-column wd-e966d919"><!-- wp:wd/paragraph {"blockId":"edac6850-870f-4eae-b1cc-dfecd77dc7d8","blockVersion":"2","colorCode":"rgba(0,0,0,0.11)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"58","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"48","tpFontSizeMobile":"38","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-e966d919"><!-- wp:wd/paragraph {"blockId":"edac6850-870f-4eae-b1cc-dfecd77dc7d8","blockVersion":"2","colorCode":"rgba(0,0,0,0.11)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"58","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"48","tpFontSizeMobile":"38","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-edac6850">2024</p>
 <!-- /wp:wd/paragraph -->
 
@@ -384,7 +384,7 @@
 <!-- /wp:wd/menu-anchor -->
 
 <!-- wp:wd/container {"blockId":"60683762-e05b-4381-ab58-a776d7286e8d","blockVersion":"2","rowGap":"0","marginBottom":"100","displayWidth":"custom","customWidth":"1000","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<div class="wp-block-wd-container wd-dir-col wd-60683762 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"bc8e4cad-cca0-41ea-9bd2-3c3ecb80a26a","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10"} -->
+<div class="wp-block-wd-container wd-dir-col wd-60683762 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"bc8e4cad-cca0-41ea-9bd2-3c3ecb80a26a","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-bc8e4cad">About us</p>
 <!-- /wp:wd/paragraph -->
 
@@ -432,7 +432,7 @@
 <!-- wp:wd/row {"blockId":"78bd1e8e-5783-4016-a0d6-99c5fdc64c86","blockVersion":"2","columnsGap":0,"marginBottom":"100","columnsGapMobile":40,"marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-row wd-78bd1e8e"><!-- wp:wd/column {"blockId":"23863cd2-fc8f-4eec-9e7a-5df28e8e30ca","blockVersion":"2","adjacentCount":2,"colWidth":38,"blocksGap":30,"paddingRight":"60","adjacentCountTablet":2,"colWidthTablet":50,"paddingRightTablet":"40","paddingRightMobile":"0"} -->
 <div class="wp-block-wd-column wd-23863cd2"><!-- wp:wd/infobox {"blockId":"e3f22e5f-7c46-4cb9-8392-36a243c1d627","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-e3f22e5f"><!-- wp:wd/icon {"blockId":"8316b61c-b6e8-49ef-944b-e6c2544b3391","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-e3f22e5f"><!-- wp:wd/icon {"blockId":"8316b61c-b6e8-49ef-944b-e6c2544b3391","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-8316b61c"><span class="wd-text-icon">12</span></div>
 <!-- /wp:wd/icon -->
 
@@ -444,7 +444,7 @@
 <!-- /wp:wd/infobox -->
 
 <!-- wp:wd/infobox {"blockId":"04d846e3-08e7-4c01-bbc1-79a48be8253a","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-04d846e3"><!-- wp:wd/icon {"blockId":"42bdef24-195d-4ca5-bef6-5c0b949ff50d","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-04d846e3"><!-- wp:wd/icon {"blockId":"42bdef24-195d-4ca5-bef6-5c0b949ff50d","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-42bdef24"><span class="wd-text-icon">68</span></div>
 <!-- /wp:wd/icon -->
 
@@ -456,7 +456,7 @@
 <!-- /wp:wd/infobox -->
 
 <!-- wp:wd/infobox {"blockId":"d7d2e652-796b-4832-afff-f445cb2478d7","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-d7d2e652"><!-- wp:wd/icon {"blockId":"9f31feef-0e1d-4afa-8b14-42a2225d07ec","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-d7d2e652"><!-- wp:wd/icon {"blockId":"9f31feef-0e1d-4afa-8b14-42a2225d07ec","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-9f31feef"><span class="wd-text-icon">16</span></div>
 <!-- /wp:wd/icon -->
 
@@ -473,7 +473,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"b9fceaa7-aae0-4681-a321-0fc26b4c97c1","blockVersion":"2","adjacentCount":2,"colWidth":62,"blocksGap":10,"paddingLeft":"60","borderType":"solid","borderColorCode":"rgba(0,0,0,0.11)","borderWidthLeft":"1","borderWidthLock":false,"adjacentCountTablet":2,"colWidthTablet":50,"paddingLeftTablet":"40","paddingLeftMobile":"0","borderWidthTablet":"0","borderWidthTopMobile":"0","borderWidthRightMobile":"0","borderWidthBottomMobile":"0","borderWidthLeftMobile":"0"} -->
-<div class="wp-block-wd-column wd-b9fceaa7"><!-- wp:wd/paragraph {"blockId":"8f749825-c421-42e5-8e0d-be2cf033453a","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600"} -->
+<div class="wp-block-wd-column wd-b9fceaa7"><!-- wp:wd/paragraph {"blockId":"8f749825-c421-42e5-8e0d-be2cf033453a","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600"} -->
 <p class="wp-block-wd-paragraph wd-8f749825">Our services</p>
 <!-- /wp:wd/paragraph -->
 

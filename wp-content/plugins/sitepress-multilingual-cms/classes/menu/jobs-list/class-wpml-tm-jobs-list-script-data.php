@@ -86,6 +86,10 @@ class WPML_TM_Jobs_List_Script_Data {
 		}
 
 		$isATEEnabled = \WPML_TM_ATE_Status::is_enabled_and_activated();
+		$isTranslationQueue = UIPage::isTranslationQueue( $_GET );
+		$localTranslators = $isTranslationQueue
+			? $this->translators->getWithSelfTranslator()
+			: $this->translators->get();
 
 		$jobs = make( Jobs::class );
 
@@ -94,12 +98,13 @@ class WPML_TM_Jobs_List_Script_Data {
 			'hasAnyJobsToSync'    => $isATEEnabled ? $jobs->hasAnyToSync() : false,
 			'languages'           => $this->language_names->get_active_languages(),
 			'translatedByFilters' => $this->translated_by_filter->get(),
-			'localTranslators'    => $this->translators->get(),
+			'localTranslators'    => $localTranslators,
+			'selfTranslator'      => $this->translators->getSelfTranslatorEntry(),
 			'translationServices' => $this->services->get(),
-			'isBasketUsed'        => false,
 			'translationService'  => $translation_service,
 			'siteKey'             => WP_Installer::instance()->get_site_key( 'wpml' ),
 			'batchUrl'            => OTG_TRANSLATION_PROXY_URL . '/projects/%d/external',
+			'ledgerUrl'           => \WPML\TM\ATE\Release\ReleaseNotices::ledgerUrl(),
 			'endpoints' => [
 				'syncLock'                   => SyncLock::class,
 				'approveTranslationsReviews' => ApproveTranslations::class,
@@ -113,13 +118,13 @@ class WPML_TM_Jobs_List_Script_Data {
 			'reviewMode'          => \WPML\Setup\Option::getReviewMode(),
 		];
 
-		if ( UIPage::isTranslationQueue( $_GET ) ) {
+		if ( $isTranslationQueue ) {
 			global $sitepress;
 			$tmXliffVersion = $sitepress->get_setting( 'tm_xliff_version' );
 
 			$data['xliffExport'] = [
 				'nonce'               => wp_create_nonce( 'xliff-export' ),
-				'translationQueueURL' => UIPage::getTranslationQueue(),
+				'translationQueueURL' => \WPML\TM\Menu\TranslationQueue\TranslationQueuePage::base(),
 				'xliffDefaultVersion' => $tmXliffVersion > 0 ? $tmXliffVersion : 12,
 				'xliffExportAllLimit' => $this->exportAllToXLIFFLimit,
 			];
@@ -165,17 +170,25 @@ class WPML_TM_Jobs_List_Script_Data {
 		);
 
 		$buildPair = function ( $targetCodes, $sourceCode ) use ( $getLanguageDetails ) {
-			$source  = $getLanguageDetails( $sourceCode );
-			$targets = Fns::map( $getLanguageDetails, $targetCodes );
+			$source = $getLanguageDetails( $sourceCode );
+			if ( ! $source ) {
+				return null;
+			}
+
+			$targets = array_values( array_filter( Fns::map( $getLanguageDetails, $targetCodes ) ) );
 
 			return [ 'source' => $source, 'targets' => $targets ];
 		};
 
-		return \wpml_collect( $pairs )->map( $buildPair )->values()->toArray();
+		return \wpml_collect( $pairs )->map( $buildPair )->filter()->values()->toArray();
 	}
 
 	private function extractDesiredPropertiesFromLanguage() {
 		return function ( $language ) {
+			if ( ! is_array( $language ) && ! is_object( $language ) ) {
+				return null;
+			}
+
 			return [
 				'code' => Obj::prop( 'code', $language ),
 				'name' => Obj::prop( 'display_name', $language ),
@@ -213,7 +226,26 @@ class WPML_TM_Jobs_List_Script_Data {
 		}
 
 		if ( Obj::propOr( false, 'status', $_GET ) ) {
-			$filters['status'] = [ $getProp( Obj::prop( 'status', $_GET ) ) ];
+			$statuses = explode(
+				',',
+				urldecode(
+					$getProp(
+						Obj::prop( 'status', $_GET )
+					)
+				)
+			);
+
+			$filters['status'] = array_values(
+				array_map(
+					'intval',
+					array_filter(
+						$statuses,
+						function ( $status ) {
+							return '' !== trim( $status );
+						}
+					)
+				)
+			);
 		}
 
 		if ( Obj::propOr( false, 'only_automatic', $_GET ) ) {
@@ -229,7 +261,6 @@ class WPML_TM_Jobs_List_Script_Data {
 
 		$repository = wpml_tm_get_jobs_repository();
 
-		return $repository->get_count( $searchParams ) > 0;
+		return $repository->exists( $searchParams );
 	}
 }
-

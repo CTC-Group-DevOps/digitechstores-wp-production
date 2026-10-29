@@ -13,6 +13,16 @@ use WCML\Utilities\WpAdminPages;
 
 class Hooks implements \IWPML_Action, IStandAloneAction {
 
+	const CURRENCY_FILTERED_EXPORT_REPORTS = [
+		'orders',
+		'products',
+		'variations',
+		'categories',
+		'coupons',
+		'taxes',
+		'revenue',
+	];
+
 	private $woocommerce_wpml;
 
 	private $wpdb;
@@ -68,6 +78,7 @@ class Hooks implements \IWPML_Action, IStandAloneAction {
 		);
 
 		add_action( 'woocommerce_admin_report_export', [ $this, 'saveRequestedCurrencyForReport' ], -PHP_INT_MAX, 4 );
+		add_filter( 'rest_request_before_callbacks', [ $this, 'saveRequestedCurrencyFromExportRequest' ], 10, 3 );
 	}
 
 	public function enqueueAssets() {
@@ -80,6 +91,7 @@ class Hooks implements \IWPML_Action, IStandAloneAction {
 				'name' => 'wcmlAnalytics',
 				'data' => [
 					'strings'         => [
+						/* translators: Column heading and field label for the currency of an order, in the WooCommerce analytics reports, the payment-gateway settings and the plugin's multicurrency screen. Noun, singular. */
 						'currencyLabel' => __( 'Currency', 'woocommerce-multilingual' ),
 					],
 					'filterItems'     => $this->getCurrencyFilterItems( $currencies ),
@@ -158,9 +170,21 @@ class Hooks implements \IWPML_Action, IStandAloneAction {
 	}
 
 	public function saveRequestedCurrencyForReport( $page, $id, $type, $args ) {
-		if ( 'orders' === $type && isset( $args['currency'] ) ) {
-			$this->requestedCurrencyForReport = $args['currency'];
+		if ( in_array( $type, self::CURRENCY_FILTERED_EXPORT_REPORTS, true ) ) {
+			$this->requestedCurrencyForReport = $this->sanitizeCurrency( Obj::prop( 'currency', (array) $args ) );
 		}
+	}
+
+	public function saveRequestedCurrencyFromExportRequest( $response, $handler, $request ) {
+		$reportType = Functions::getReportExportType( $request );
+
+		if ( $reportType && in_array( $reportType, self::CURRENCY_FILTERED_EXPORT_REPORTS, true ) ) {
+			$this->requestedCurrencyForReport = $this->sanitizeCurrency(
+				Obj::prop( 'currency', (array) $request->get_param( 'report_args' ) )
+			);
+		}
+
+		return $response;
 	}
 
 	private function getCurrency() {
@@ -175,9 +199,19 @@ class Hooks implements \IWPML_Action, IStandAloneAction {
 			? Obj::prop( '_wcml_dashboard_currency', $_COOKIE )
 			: Obj::prop( 'currency', $_GET );
 
-		return $rawCurrency
-			? sanitize_text_field( wp_unslash( $rawCurrency ) )
-			: wcml_get_woocommerce_currency_option();
+		$currency = $this->sanitizeCurrency( $rawCurrency );
+
+		return $currency ? $currency : wcml_get_woocommerce_currency_option();
+	}
+
+	private function sanitizeCurrency( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return null;
+		}
+
+		$currency = strtoupper( sanitize_text_field( wp_unslash( (string) $value ) ) );
+
+		return $this->woocommerce_wpml->get_multi_currency()->is_currency_active( $currency ) ? $currency : null;
 	}
 
 }

@@ -54,17 +54,22 @@ function wpml_tm_load( $sitepress = null ) {
 		return;
 	}
 
-	if ( $is_backend ) {
-		require_once WPML_TM_PATH . '/menu/dashboard/wpml-tm-dashboard.class.php';
+	$is_plain_cli = wpml_is_cli() && ! $is_admin;
+
+	if ( $is_backend && ! $is_plain_cli ) {
 		require_once WPML_TM_PATH . '/menu/wpml-tm-menus.class.php';
 	}
 
 	$action_filter_loader = new WPML_Action_Filter_Loader();
 
 	if ( $is_backend ) {
-		$WPML_Translation_Management = wpml_translation_management();
-		$WPML_Translation_Management->init();
-		$WPML_Translation_Management->load();
+		if ( $is_plain_cli ) {
+			wpml_tm_load_cli();
+		} else {
+			$WPML_Translation_Management = wpml_translation_management();
+			$WPML_Translation_Management->init();
+			$WPML_Translation_Management->load();
+		}
 
 		if ( ! $ICL_Pro_Translation ) {
 			$job_factory         = wpml_tm_load_job_factory();
@@ -75,11 +80,6 @@ function wpml_tm_load( $sitepress = null ) {
 	}
 
 	if ( $is_admin ) {
-		$wpml_wp_api      = new WPML_WP_API();
-		$TranslationProxy = new WPML_Translation_Proxy_API();
-		new WPML_TM_Troubleshooting_Reset_Pro_Trans_Config( $sitepress, $TranslationProxy, $wpml_wp_api, $wpdb );
-		new WPML_TM_Troubleshooting_Clear_TS( $wpml_wp_api );
-
 		if ( defined( 'DOING_AJAX' ) ) {
 			$wpml_tm_options_ajax = new WPML_TM_Options_Ajax( $sitepress );
 			$wpml_tm_options_ajax->ajax_hooks();
@@ -89,36 +89,31 @@ function wpml_tm_load( $sitepress = null ) {
 		}
 	}
 
-	if ( class_exists( 'WPML_TF_Settings_Read' ) ) {
-		$tf_settings_read = new WPML_TF_Settings_Read();
-		$tf_settings                 = $tf_settings_read->get( 'WPML_TF_Settings' );
-		$translation_feedback_module = new WPML_TM_TF_Module( $action_filter_loader, $tf_settings );
-		$translation_feedback_module->run();
-	}
-
 	$global_actions = [
 		'WPML_TM_API_Hooks_Factory',
 		'WPML_TM_ATE_Translator_Login_Factory',
-		'WPML_TM_Default_Settings_Factory',
 		'WPML_TM_Shortcodes_Catcher_Factory',
-		'WPML_TM_Translation_Priorities_Factory',
-		'WPML_TM_Word_Count_Hooks_Factory',
 		'\WPML\TM\AdminBar\Hooks',
 		\WPML\TM\AutomaticTranslation\Actions\ActionsFactory::class,
+		\WPML\TM\Jobs\EditAccess\AllowPairTranslatorsToEdit::class,
 		\WPML\TM\ATE\Review\ReviewTranslation::class,
 		\WPML\TM\ATE\Hooks\JobActionsFactory::class,
+		'WPML_TM_ATE_Jobs_Actions_Factory',
 		\WPML\TM\ATE\UpdateTranslation\UpdateTranslationFrontend::class,
 		'\WPML\ATE\Proxies\Widget',
 		'WPML_TM_Upgrade_Loader_Factory',
 		\WPML\TM\AutomaticTranslation\Actions\AutomaticTranslationJobCreationFailureNoticeFactory::class,
 		\WPML\ATE\Proxies\Dashboard::class,
 		\WPML\TM\ATE\ClonedSites\AliasDomainCheckHandler::class,
+		\WPML\TM\ATE\Release\HooksFactory::class,
+		\WPML\TM\ATE\Release\BlockEditorNoticeFactory::class,
+		\WPML\TM\ATE\PullDelivery\Hooks::class,
+		\WPML\TM\ATE\SiteName\Hooks::class,
 	];
 	$action_filter_loader->load( $global_actions );
 
 	if ( $is_backend ) {
 		$actions = [
-			'WPML_TM_Jobs_Deadline_Estimate_AJAX_Action_Factory',
 			'WPML_TM_Jobs_Deadline_Cron_Hooks_Factory',
 			'WPML_TM_Emails_Settings_Factory',
 			'WPML_TM_Jobs_Summary_Report_Hooks_Factory',
@@ -127,19 +122,14 @@ function wpml_tm_load( $sitepress = null ) {
 			\WPML\TM\Menu\TranslationServices\AuthenticationAjaxFactory::class,
 			\WPML\TM\Menu\TranslationServices\Troubleshooting\RefreshServicesFactory::class,
 			'WPML_TP_Lock_Notice_Factory',
-			'WPML_TM_Parent_Filter_Ajax_Factory',
 			'WPML_TM_Admin_Menus_Factory',
 			'WPML_TM_Privacy_Content_Factory',
 			'WPML_TM_Serialized_Custom_Field_Package_Handler_Factory',
 			'WPML_TM_MCS_Pagination_Ajax_Factory',
 			'WPML_Translation_Jobs_Migration_Hooks_Factory',
-			'WPML_TM_TS_Instructions_Hooks_Factory',
 			'WPML_TM_Only_I_Language_Pairs',
 			'WPML_TM_Post_Edit_TM_Editor_Select_Factory',
 			'WPML_TM_Translation_Jobs_Fix_Summary_Factory',
-			'WPML_TM_Troubleshooting_Fix_Translation_Jobs_TP_ID_Factory',
-			\WPML\TM\Troubleshooting\SynchronizeSourceIdOfATEJobs\TriggerSynchronization::class,
-			\WPML\TM\Troubleshooting\ResetPreferredTranslationService::class,
 			'WPML_TM_Reset_Options_Filter_Factory',
 			\WPML\TM\User\Hooks::class,
 			\WPML\TM\Jobs\ExtraFieldDataInEditorFactory::class,
@@ -149,11 +139,14 @@ function wpml_tm_load( $sitepress = null ) {
 			\WPML\TM\ATE\Sitekey\UnassignSync::class,
 			\WPML\TM\ATE\Review\ReviewCompletedNotice::class,
 			\WPML\TM\Settings\CustomFieldChangeDetector::class,
+			\WPML\TM\Settings\ChecksumFieldHistory::class,
 			\WPML\MediaTranslation\AddMediaDataToTranslationPackageFactory::class,
+			\WPML\MediaTranslation\ExcludeTranslatedMediaFromAutomaticJobFactory::class,
 			\WPML\MediaTranslation\MediaTranslationEditorLayoutFactory::class,
 			\WPML\MediaTranslation\MediaTranslationStatusFactory::class,
 			\WPML\TranslationManagement\Dashboard\Loader::class,
-			\WPML\TM\Troubleshooting\PostHogRecording::class
+			\WPML\TM\Jobs\BaselineJobHooks::class,
+			\WPML\TranslationMode\ClearAiSkippedOnAiSettings::class,
 		];
 		$action_filter_loader->load( $actions );
 
@@ -173,12 +166,9 @@ function wpml_tm_load( $sitepress = null ) {
 
 		$ams_ate_actions = [
 			'WPML_TM_AMS_Synchronize_Actions_Factory',
-			'WPML_TM_AMS_Synchronize_Users_On_Access_Denied_Factory',
 			'WPML_TM_ATE_Jobs_Store_Actions_Factory',
-			'WPML_TM_ATE_Jobs_Actions_Factory',
 			'WPML_TM_ATE_Job_Data_Fallback_Factory',
 			'WPML_TM_ATE_Post_Edit_Actions_Factory',
-			'WPML_TM_ATE_Translator_Message_Classic_Editor_Factory',
 			'WPML_TM_Old_Editor_Factory',
 			\WPML\TM\ATE\Log\Hooks::class,
 			\WPML\TM\Jobs\Log\Hooks::class,
@@ -188,12 +178,14 @@ function wpml_tm_load( $sitepress = null ) {
 			\WPML\TM\ATE\Review\ApplyJob::class,
 			\WPML\TM\ATE\Review\PackageJob::class,
 			\WPML\TM\ATE\Review\StatusIcons::class,
+			\WPML\TM\ATE\Review\GhostTranslationCleanup::class,
 			\WPML\TM\ATE\StatusIcons::class,
 			\WPML\TM\Editor\ManualJobCreationErrorNotice::class,
-			\WPML\ICLToATEMigration\Loader::class,
 			\WPML\Support\ATE\Hooks::class,
 			\WPML\Support\TmJobs\Hooks::class,
 			\WPML\TM\ATE\AutoTranslate\Hooks\JobsCountCacheInvalidateAction::class,
+			\WPML\TM\ATE\AutoTranslate\Hooks\AccountCacheInvalidateAction::class,
+			\WPML\TM\ATE\Retranslation\BackgroundTask\ProgressHook::class,
 			\WPML\TranslationManagement\Dashboard\Loader::class,
 		];
 		$action_filter_loader->load( $ams_ate_actions );
@@ -233,3 +225,19 @@ if ( is_admin() && !wpml_is_ajax() ) {
 	$customFieldChangeDetector = \WPML\Container\make( CustomFieldChangeDetector::class );
 	$customFieldChangeDetector->processNewFields();
 }
+
+add_action( 'added_post_meta', array( CustomFieldChangeDetector::class, 'onPostMetaWritten' ), 10, 3 );
+add_action( 'deleted_post_meta', array( CustomFieldChangeDetector::class, 'onPostMetaWritten' ), 10, 3 );
+add_action( 'wpml_translation_update', array( CustomFieldChangeDetector::class, 'forgetPending' ) );
+
+add_filter(
+	\WPML\TM\Settings\PreferenceSource::FILTER,
+	array( \WPML\TM\Settings\PreferenceSource::class, 'filter' ),
+	10,
+	3
+);
+
+add_filter(
+	\WPML\TM\ATE\TranslateEverything\Preflight::ADVISORIES_FILTER,
+	array( \WPML\TM\ATE\TranslateEverything\Preflight::class, 'advisories' )
+);

@@ -13,10 +13,13 @@ class LanguageSwitcher {
 
 	private $currentLanguageCode;
 
-	public function __construct( $currentLanguageCode, array $languageItems )
+	private $hasAlternatives;
+
+	public function __construct( $currentLanguageCode, array $languageItems, $hasAlternatives = null )
 	{
 		$this->currentLanguageCode = $currentLanguageCode;
 		$this->languageItems = $languageItems;
+		$this->hasAlternatives = null === $hasAlternatives ? null : (bool) $hasAlternatives;
 	}
 
 	public function getLanguageItems() {
@@ -29,6 +32,12 @@ class LanguageSwitcher {
 
 	public function getAlternativeLanguageItems() {
 		return Fns::reject(pipe(invoke('getCode'), Relation::equals($this->currentLanguageCode)), $this->languageItems);
+	}
+
+	public function hasAlternatives() {
+		return null === $this->hasAlternatives
+			? [] !== $this->getAlternativeLanguageItems()
+			: $this->hasAlternatives;
 	}
 
 	public function getCurrentLanguageCode() {

@@ -39,14 +39,14 @@ class WPML_PHP_Functions {
 	}
 
 	public function version_compare( $version1, $version2, $operator = null ) {
-		return version_compare( $version1, $version2, $operator );
+		return version_compare( $version1 ?: '0.0.0', $version2 ?: '0.0.0', $operator );
 	}
 
 	public function array_unique( $array, $sort_flags = SORT_REGULAR ) {
 		return wpml_array_unique( $array, $sort_flags );
 	}
 
-	public function error_log( $message, $message_type = null, $destination = null, $extra_headers = null ) {
+	public function error_log( $message, $message_type = 0, $destination = null, $extra_headers = null ) {
 		return error_log( $message, $message_type, $destination, $extra_headers );
 	}
 

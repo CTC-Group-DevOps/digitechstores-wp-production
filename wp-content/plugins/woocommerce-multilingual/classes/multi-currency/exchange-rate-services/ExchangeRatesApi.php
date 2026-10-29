@@ -21,6 +21,6 @@ class ExchangeRatesApi extends ApiLayerService {
 	}
 
 	protected function getApiLegacyUrl() {
-		return 'http://api.exchangeratesapi.io/v1/latest?access_key=%1$s&base=%2$s&symbols=%3$s';
+		return 'https://api.exchangeratesapi.io/v1/latest?access_key=%1$s&base=%2$s&symbols=%3$s';
 	}
 }

@@ -14,19 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_CP_Compatibility {
 
 	/**
 	 * Context-setting Component.
 	 *
-	 * @var WC_CP_Component
+	 * @var WC_CP_Component|false
 	 */
 	private static $current_component = false;
 
 	/**
 	 * Add hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		/*
@@ -602,7 +604,7 @@ class WC_PB_CP_Compatibility {
 				'product_id'         => $product_id,
 				'bundle_price_data'  => $form_data,
 			),
-			false,
+			'',
 			WC_PB()->plugin_path() . '/templates/'
 		);
 
@@ -698,7 +700,7 @@ class WC_PB_CP_Compatibility {
 	/**
 	 * Remove filters that modify bundled product prices when the parent product is composited and has a discount.
 	 *
-	 * @param  string $cart_item Cart item.
+	 * @param  array $cart_item Cart item.
 	 * @return array
 	 */
 	public static function bundled_cart_item_after_price_modification( $cart_item ) {
@@ -835,6 +837,7 @@ class WC_PB_CP_Compatibility {
 	 * @param  int    $variation_id Variation ID.
 	 * @param  array  $variation Variation.
 	 * @param  array  $cart_item_data Cart item data.
+	 * @return void
 	 */
 	public static function add_bundle_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 		WC_PB()->cart->bundle_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data );
@@ -864,10 +867,10 @@ class WC_PB_CP_Compatibility {
 	/**
 	 * Used to link bundled order items with the composite container product.
 	 *
-	 * @param  boolean  $is_child Is child.
-	 * @param  array    $order_item Order item.
-	 * @param  array    $composite_item Composite item.
-	 * @param  WC_Order $order Order.
+	 * @param  boolean       $is_child Is child.
+	 * @param  WC_Order_Item $order_item Order item.
+	 * @param  WC_Order_Item $composite_item Composite container order item.
+	 * @param  WC_Order      $order Order.
 	 * @return boolean
 	 */
 	public static function bundled_order_item_is_child_of_composite( $is_child, $order_item, $composite_item, $order ) {
@@ -1139,7 +1142,7 @@ class WC_PB_CP_Compatibility {
 	 *
 	 * @param  int    $quantity Quantity.
 	 * @param  string $cart_item_key Cart item key.
-	 * @return int
+	 * @return int|string
 	 */
 	public static function composited_bundle_in_cart_item_quantity( $quantity, $cart_item_key ) {
 
@@ -1174,7 +1177,7 @@ class WC_PB_CP_Compatibility {
 	 * @param  int          $quantity Quantity.
 	 * @param  array        $cart_item Cart item.
 	 * @param  string|false $cart_item_key Cart item key.
-	 * @return int
+	 * @return int|string
 	 */
 	public static function composited_bundle_checkout_item_quantity( $quantity, $cart_item, $cart_item_key = false ) {
 
@@ -1186,9 +1189,9 @@ class WC_PB_CP_Compatibility {
 			 * 'woocommerce_composited_bundle_container_cart_item_hide_quantity' filter.
 			 *
 			 * @since 6.0.0
-			 * @param  boolean  $hide_qty
-			 * @param  array    $cart_item
-			 * @param  string   $cart_item_key
+			 * @param  boolean       $hide_qty
+			 * @param  array         $cart_item
+			 * @param  string|false  $cart_item_key
 			 */
 			if ( apply_filters( 'woocommerce_composited_bundle_container_cart_item_hide_quantity', $hide_qty, $cart_item, $cart_item_key ) ) {
 				$quantity = '';
@@ -1343,6 +1346,7 @@ class WC_PB_CP_Compatibility {
 	 * @since  6.12.0
 	 *
 	 * @param  string $bundle_cart_key Bundle cart key.
+	 * @return void
 	 */
 	public static function sync_bundle_cart_stamp( $bundle_cart_key ) {
 
@@ -1388,6 +1392,7 @@ class WC_PB_CP_Compatibility {
 	 * @param  WC_Order             $order Order object.
 	 * @param  integer              $quantity Quantity.
 	 * @param  array                $args Args.
+	 * @return int|WP_Error
 	 */
 	public static function add_composited_bundle_to_order( $component, $composite, $order, $quantity, $args ) {
 
@@ -1642,7 +1647,8 @@ class WC_PB_CP_Compatibility {
 		}
 
 		$table_name = WC_CP_Analytics_Revenue_Data_Store::get_db_table_name();
-		$clause_pb  = "SELECT
+		// Zero-revenue child refunds affect neither Composite revenue nor its sales counts, including on older CP releases.
+		$clause_pb = "SELECT
 			`pb`.`order_item_id` as `order_item_id`,
 			`cp`.`parent_order_item_id` as `parent_order_item_id`,
 			`pb`.`order_id` as `order_id`,
@@ -1657,7 +1663,10 @@ class WC_PB_CP_Compatibility {
 			`pb`.`coupon_amount` as `coupon_amount`,
 			`pb`.`tax_amount` as `tax_amount`
 			FROM `{$wpdb->prefix}wc_order_composite_lookup` as `cp`
-			INNER JOIN `{$wpdb->prefix}wc_order_bundle_lookup` as `pb` ON `cp`.`order_item_id` = `pb`.`parent_order_item_id`";
+			INNER JOIN `{$wpdb->prefix}wc_order_bundle_lookup` as `pb` ON `cp`.`order_item_id` = `pb`.`parent_order_item_id`
+			LEFT JOIN `{$wpdb->prefix}wc_order_stats` as `refund_orders` ON `refund_orders`.`order_id` = `pb`.`order_id`
+			WHERE `cp`.`order_id` = IF( `refund_orders`.`parent_id` > 0, `refund_orders`.`parent_id`, `pb`.`order_id` )
+			AND ( `refund_orders`.`parent_id` IS NULL OR `refund_orders`.`parent_id` = 0 OR `pb`.`product_net_revenue` < 0 )";
 
 		// Replace `from` statement with a union.
 		$clauses = array(

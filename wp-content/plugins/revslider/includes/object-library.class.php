@@ -72,7 +72,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			$request = $rslb->call_url($this->library_list, $rattr, 'library');
 
 			if(!is_wp_error($request)){
-				if($response = maybe_unserialize($request['body'])){
+				if($response = $this->maybe_unserialize_safe($request['body'])){
 					if('actual' != $response){
 						$library = json_decode($response, true);
 
@@ -210,13 +210,11 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 						'product'	=> urlencode(RS_PLUGIN_SLUG)
 					);
 
-					$http_force = false;
 					if(!in_array($type, $this->allowed_types, true)){
 						$rattr['code']	= urlencode($code); //push code only if needed
-						$http_force		= true; //force http
 					}
 
-					$image_data = $rslb->call_url($this->library_download, $rattr, 'library', $http_force);
+					$image_data = $rslb->call_url($this->library_download, $rattr, 'library'); //https: the request carries the licence key
 
 					if(!is_wp_error($image_data) && isset($image_data['body']) && isset($image_data['response']) && isset($image_data['response']['code']) && $image_data['response']['code'] == '200'){
 						$image_data = $image_data['body'];
@@ -239,8 +237,10 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 				if($image_data !== false && $image_data !== ''){
 					@mkdir(dirname($file));
 					@file_put_contents($file, $image_data);
-
-					if($type == 'video' || $type == 'video_thumb'){
+					if(strtolower(pathinfo($file, PATHINFO_EXTENSION)) === 'svg' && !$this->sanitize_svg_file($file)){
+						@unlink($file);
+						$error = __('Error downloading object', 'revslider');
+					}elseif($type == 'video' || $type == 'video_thumb'){
 
 					}else{
 						$this->create_image_dimensions($object_handle);
@@ -384,6 +384,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 * @since: 5.3.0
 	 */
 	public function _import_object($file_path){
+		if(!$this->is_media_extension($file_path)) return false;
 		$obj_handle = basename($file_path);
 		$file		= $this->upload_dir['basedir'] . $this->object_orig_path . $obj_handle;
 		$url_file	= $this->upload_dir['baseurl'] . $this->object_orig_path . $obj_handle;
@@ -395,6 +396,10 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			if($image_data !== false){
 				@mkdir(dirname($file));
 				@file_put_contents($file, $image_data);
+				if(strtolower(pathinfo($file, PATHINFO_EXTENSION)) === 'svg' && !$this->sanitize_svg_file($file)){
+					@unlink($file);
+					return false;
+				}
 
 				$this->create_image_dimensions($obj_handle);
 
@@ -1101,7 +1106,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			default:
 		}
 		
-		$this->download_path	= $this->get_temp_path('rstempsvg');
+		$this->download_path	= $this->get_temp_path('rstempsvg/'.wp_generate_password(16, false));
 		$this->svg_remove_path	= $this->download_path;
 		$path		= $this->get_val($import_file, 'tmp_name');
 		$name		= $this->get_val($import_file, 'name');

@@ -114,7 +114,9 @@ class MulticurrencyHooks implements \IWPML_Action {
 
 	public function set_labels_for_prices_fields( $labels, $productId ) {
 		if ( $this->isSubscriptionsProduct( $productId ) || $this->newSubscription ) {
+			/* translators: Label of the recurring price field on a subscription product's per-currency prices. */
 			$labels['_regular_price']            = __( 'Subscription Price', 'woocommerce-multilingual' );
+			/* translators: Label of the one-off joining fee field on a subscription product's per-currency prices. */
 			$labels['_subscription_sign_up_fee'] = __( 'Sign-up Fee', 'woocommerce-multilingual' );
 		}
 

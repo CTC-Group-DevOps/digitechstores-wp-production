@@ -18,7 +18,7 @@ class WPML_TP_Lock {
 
 	public function get_locker_reason() {
 		if ( 'test' === $this->wp_api->constant( 'WPML_ENVIRONMENT' ) ) {
-			return __( 'The constant WPML_ENVIRONMENT is set to "Test".', 'wpml-translation-management' );
+			return __( 'The constant WPML_ENVIRONMENT is set to "Test".', 'sitepress' );
 		}
 
 		return false;

@@ -12,10 +12,19 @@ class WPML_TM_Page_Builders_Hooks {
 	}
 
 	public function init_hooks() {
+		$this->init_job_data_hooks();
+		$this->init_admin_hooks();
+	}
+
+	public function init_job_data_hooks() {
 		add_filter( 'wpml_tm_translation_job_data', array( $this, 'translation_job_data_filter' ), 10, 3 );
 		add_action( 'wpml_pro_translation_completed', array( $this, 'pro_translation_completed_action' ), 10, 3 );
 		add_filter( 'wpml_tm_adjust_translation_fields', array( $this, 'adjust_translation_fields_filter' ) );
 		add_filter( 'wpml_tm_adjust_translation_job', array( $this, 'adjust_translation_job_filter' ) );
+		add_filter( 'wpml_tm_xliff_unit_placeholders', array( $this, 'xliffUnitPlaceholdersFilter' ), 10, 2 );
+	}
+
+	public function init_admin_hooks() {
 		add_filter( 'wpml_tm_job_layout', array( $this, 'job_layout_filter' ) );
 		add_filter( 'wpml_link_to_translation', array( $this, 'link_to_translation_filter' ), 20, 4 );
 		add_filter( 'wpml_get_translatable_types', array( $this, 'remove_shortcode_strings_type_filter' ), 11 );
@@ -35,6 +44,10 @@ class WPML_TM_Page_Builders_Hooks {
 
 	public function adjust_translation_job_filter( array $fields ) {
 		return $this->get_worker()->adjust_translation_job_filter( $fields );
+	}
+
+	public function xliffUnitPlaceholdersFilter( $patterns, $element ) {
+		return $this->get_worker()->xliffUnitPlaceholdersFilter( (array) $patterns, $element );
 	}
 
 	public function job_layout_filter( array $layout ) {

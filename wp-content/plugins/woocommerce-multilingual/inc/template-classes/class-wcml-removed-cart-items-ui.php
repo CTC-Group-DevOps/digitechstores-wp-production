@@ -27,6 +27,7 @@ class WCML_Removed_Cart_Items_UI extends WCML_Templates_Factory {
 				__( 'Products removed after switching to %s:', 'woocommerce-multilingual'),
 				$switched_to
             ),
+			/* translators: Button label that empties the list of products removed from the cart. Verb phrase, imperative. */
             'clear' => __( 'Clear list', 'woocommerce-multilingual'),
             'nonce' => wp_create_nonce( 'wcml_clear_removed_items' ),
         ];

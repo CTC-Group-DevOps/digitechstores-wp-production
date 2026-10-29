@@ -16,7 +16,14 @@ class Functions {
 	}
 
 	public static function isRestApiRequest() {
-		return apply_filters( 'woocommerce_rest_is_request_to_rest_api', self::checkEndpoint( 'wc/v' . self::getApiRequestVersion() . '/' ) );
+		return apply_filters(
+			'woocommerce_rest_is_request_to_rest_api',
+			self::checkEndpoint( 'wc/v' . self::getApiRequestVersion() . '/' ) || self::isWooCommerceAbilityRequest()
+		);
+	}
+
+	public static function isWooCommerceAbilityRequest() {
+		return self::checkEndpoint( 'wp-abilities/v1/abilities/woocommerce/' );
 	}
 
 	public static function isAnalyticsRestRequest() {
@@ -25,6 +32,19 @@ class Functions {
 
 	public static function isStoreAPIRequest() {
 		return self::checkEndpoint( 'wc/store' );
+	}
+
+	public static function isRestRequest() {
+		return self::checkEndpoint( '' );
+	}
+
+	public static function getReportExportType( $request ) {
+		if ( $request instanceof \WP_REST_Request
+			&& preg_match( '#/wc-analytics/reports/([a-z]+)/export/?$#', $request->get_route(), $matches ) ) {
+			return $matches[1];
+		}
+
+		return null;
 	}
 
 	public static function getApiRequestVersion() {
@@ -36,7 +56,7 @@ class Functions {
 		}
 
 		$restPrefix = trailingslashit( rest_get_url_prefix() );
-		if ( preg_match( '@' . $restPrefix . 'wc/v([0-9]+)/@i', $_SERVER['REQUEST_URI'], $matches ) ) {
+		if ( preg_match( '@' . preg_quote( $restPrefix, '@' ) . 'wc/v([0-9]+)/@i', $_SERVER['REQUEST_URI'], $matches ) ) {
 			$version = intval( $matches[1] );
 		}
 

@@ -15,11 +15,10 @@ abstract class WPML_Upgrade_Add_Column_To_Table implements IWPML_Upgrade_Command
 	}
 
 	private function run() {
-		if ( $this->upgrade_schema->does_table_exist( $this->get_table() ) ) {
-			if ( ! $this->upgrade_schema->does_column_exist( $this->get_table(), $this->get_column() ) ) {
-				$this->upgrade_schema->add_column( $this->get_table(), $this->get_column(), $this->get_column_definition() );
-			}
-		}
+		$this->upgrade_schema->ensure_columns(
+			$this->get_table(),
+			[ $this->get_column() => $this->get_column_definition() ]
+		);
 
 		return true;
 	}

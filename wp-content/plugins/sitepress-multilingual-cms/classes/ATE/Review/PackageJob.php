@@ -16,7 +16,7 @@ class PackageJob implements \IWPML_Backend_Action, \IWPML_REST_Action {
 
 	const ELEMENT_TYPE_PREFIX = 'package';
 	public function add_hooks() {
-		if ( \WPML_TM_ATE_Status::is_enabled_and_activated() && Option::shouldBeReviewed() ) {
+		if ( \WPML_TM_ATE_Status::is_enabled_and_activated() ) {
 			self::addReviewStatusHook();
 			self::addTranslationCompleteHook();
 		}
@@ -29,7 +29,7 @@ class PackageJob implements \IWPML_Backend_Action, \IWPML_REST_Action {
 				spreadArgs(
 					function( $jobsIds ) {
 						$setNeedsReview = function( $job ) {
-							if ( self::isAutomatic( $job ) ) {
+							if ( self::isAutomatic( $job ) && Option::NO_REVIEW !== ApplyJob::reviewModeOf( $job ) ) {
 								Jobs::setReviewStatus( (int) Obj::prop( 'job_id', $job ), ReviewStatus::NEEDS_REVIEW );
 							}
 						};

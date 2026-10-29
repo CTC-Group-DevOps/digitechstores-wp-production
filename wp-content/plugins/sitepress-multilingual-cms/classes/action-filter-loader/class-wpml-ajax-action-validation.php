@@ -10,6 +10,7 @@ class WPML_AJAX_Action_Validation {
 			if ( array_key_exists( 'nonce', $_POST ) && wp_verify_nonce( $_POST['nonce'], $action_name ) ) {
 				$is_valid = true;
 			} else {
+				/* translators: Error message returned when a request from the browser cannot be trusted and is turned away. */
 				wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
 			}
 		}

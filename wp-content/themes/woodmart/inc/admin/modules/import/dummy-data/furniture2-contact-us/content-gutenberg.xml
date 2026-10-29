@@ -27,7 +27,7 @@
 											<content:encoded><![CDATA[<!-- wp:wd/row {"blockId":"1c9c0f54-707c-4148-a52f-e61ca843873e","blockVersion":"2","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-row wd-1c9c0f54"><!-- wp:wd/column {"blockId":"ffa703a1-8590-4e38-80cb-bacfa96d0f0f","blockVersion":"2","adjacentCount":4} -->
 <div class="wp-block-wd-column wd-ffa703a1"><!-- wp:wd/image {"blockId":"b6cb23dc-9610-416a-b66f-94b01653ccde","blockVersion":"2","image":{"id":694,"url":"http://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-milano-img.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-milano-img.png","width":510,"height":511},"borderRadiusUnits":"%"} -->
-<div class="wp-block-wd-image wd-block-image wd-b6cb23dc"><img class="wp-image-694" src="http://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-milano-img.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-b6cb23dc"><img class="wp-image-694" src="http://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-milano-img.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
@@ -51,7 +51,7 @@
 
 <!-- wp:wd/column {"blockId":"cbd613c5-15cd-40cb-8919-8c38d7b210f1","blockVersion":"2","adjacentCount":4} -->
 <div class="wp-block-wd-column wd-cbd613c5"><!-- wp:wd/image {"blockId":"bbae6fe7-1a53-42b2-9fbd-5eea3a19ad7d","blockVersion":"2","image":{"id":695,"url":"http://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-torino-img.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-torino-img.png","width":510,"height":511},"borderRadiusUnits":"%"} -->
-<div class="wp-block-wd-image wd-block-image wd-bbae6fe7"><img class="wp-image-695" src="http://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-torino-img.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-bbae6fe7"><img class="wp-image-695" src="http://dummy.xtemos.com/woodmart2/furniture2-gutenberg/wp-content/uploads/sites/28/2024/07/wd-furniture-contact-us-torino-img.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
@@ -148,8 +148,8 @@
 															<wp:post_id>173</wp:post_id>
 					<wp:post_date><![CDATA[2024-07-16 11:31:36]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-07-16 11:31:36]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-07-06 11:36:17]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-07-06 11:36:17]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-23 11:19:40]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-23 11:19:40]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[contact-us]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

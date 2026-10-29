@@ -13,13 +13,14 @@ $default_language = $sitepress->get_default_language();
 $current_language = $sitepress->get_current_language();
 
 if ( $element_id ) {
-	$res_prepared = $wpdb->prepare(
-		"SELECT trid, language_code, source_language_code
+	$res = $wpdb->get_row(
+		$wpdb->prepare(
+			"SELECT trid, language_code, source_language_code
 				  FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s",
-		array( $element_id, $icl_element_type )
+			array( $element_id, $icl_element_type )
+		)
 	);
-	$res          = $wpdb->get_row( $res_prepared );
-	$trid         = $res->trid;
+	$trid = $res->trid;
 	if ( $trid ) {
 		$element_lang_code = $res->language_code;
 	} else {
@@ -31,10 +32,10 @@ if ( $element_id ) {
 } else {
 	$trid = isset( $_GET['trid'] ) ? (int) $_GET['trid'] : false;
 
-	$element_lang_code = $current_language;
-	if ( array_key_exists( 'lang', $_GET ) ) {
-		$element_lang_code = filter_var( $_GET['lang'], FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-	}
+	$element_lang_code = \WPML\TaxonomyTermTranslation\TaxonomyScreenLanguage::fromRequest(
+		array_key_exists( 'lang', $_GET ) ? filter_var( wp_unslash( $_GET['lang'] ), FILTER_SANITIZE_FULL_SPECIAL_CHARS ) : null,
+		$current_language
+	);
 }
 
 $translations = false;

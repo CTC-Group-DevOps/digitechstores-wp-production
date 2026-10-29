@@ -5,7 +5,7 @@
  * Copy of WP_Background_Process in the version that's available in WC Core to avoid conflicts with other plugins.
  *
  * @since 8.0.0
- * @version 8.0.3
+ * @version 8.5.16
  *
  * @package WooCommerce Product Bundles
  * @extends WC_PB_Async_Request
@@ -163,6 +163,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 *
 	 * Checks whether data exists within the queue and that
 	 * the process is not already running.
+	 *
+	 * @return void
 	 */
 	public function maybe_handle() {
 		// Don't lock up other requests while processing.
@@ -224,6 +226,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 *
 	 * Check whether the current process is already running
 	 * in a background process.
+	 *
+	 * @return bool
 	 */
 	protected function is_process_running() {
 		if ( get_site_transient( $this->identifier . '_process_lock' ) ) {
@@ -240,6 +244,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 * Lock the process so that multiple instances can't run simultaneously.
 	 * Override if applicable, but the duration should be greater than that
 	 * defined in the time_exceeded() method.
+	 *
+	 * @return void
 	 */
 	protected function lock_process() {
 		$this->start_time = time(); // Set start time of current process.
@@ -314,6 +320,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 *
 	 * Pass each queue item to the task handler, while remaining
 	 * within server memory and time limit constraints.
+	 *
+	 * @return void
 	 */
 	protected function handle() {
 		$this->lock_process();
@@ -390,7 +398,7 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 			$memory_limit = '128M';
 		}
 
-		if ( ! $memory_limit || -1 === $memory_limit ) {
+		if ( ! $memory_limit || '-1' === $memory_limit ) {
 			// Unlimited, set to 32GB.
 			$memory_limit = '32000M';
 		}
@@ -425,6 +433,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 *
 	 * Override if applicable, but ensure that the below actions are
 	 * performed, or, call parent::complete().
+	 *
+	 * @return void
 	 */
 	protected function complete() {
 		// Unschedule the cron healthcheck.
@@ -461,6 +471,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 *
 	 * Restart the background process if not already running
 	 * and data exists in the queue.
+	 *
+	 * @return void
 	 */
 	public function handle_cron_healthcheck() {
 		if ( $this->is_process_running() ) {
@@ -481,6 +493,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 
 	/**
 	 * Schedule event
+	 *
+	 * @return void
 	 */
 	protected function schedule_event() {
 		if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
@@ -490,6 +504,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 
 	/**
 	 * Clear scheduled event
+	 *
+	 * @return void
 	 */
 	protected function clear_scheduled_event() {
 		$timestamp = wp_next_scheduled( $this->cron_hook_identifier );
@@ -503,6 +519,8 @@ abstract class WC_PB_Background_Process extends WC_PB_Async_Request {
 	 * Cancel Process
 	 *
 	 * Stop processing queue items, clear cronjob and delete batch.
+	 *
+	 * @return void
 	 */
 	public function cancel_process() {
 		if ( ! $this->is_queue_empty() ) {

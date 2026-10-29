@@ -14,43 +14,43 @@
             "อนุมัติแล้ว!"
          ],
          "Loading the next translation for review...": [
-            "กำลังโหลดคำแปลถัดไปเพื่อตรวจสอบ..."
+            "กำลังโหลดการแปลถัดไปเพื่อรีวิว..."
          ],
          "Back": [
             "ย้อนกลับ"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "ปิดเพื่อไม่ให้โหลดคำแปลถัดไปโดยอัตโนมัติหลังจากเสร็จสิ้นการตรวจสอบนี้"
+            "ปิดเพื่อไม่ให้โหลดการแปลถัดไปโดยอัตโนมัติหลังจากรีวิวนี้เสร็จสิ้น"
          ],
          "Turn on to automatically load the next translation after finishing this  .": [
-            "เปิดเพื่อโหลดคำแปลถัดไปโดยอัตโนมัติหลังจากเสร็จสิ้นการตรวจสอบนี้"
+            "เปิดเพื่อโหลดการแปลถัดไปโดยอัตโนมัติหลังจากรีวิวนี้เสร็จสิ้น"
          ],
          "Edit": [
             "แก้ไข"
          ],
          "Edit translation": [
-            "แก้ไขคำแปล"
+            "แก้ไขการแปล"
          ],
          "Next review": [
-            "ตรวจสอบครั้งต่อไป"
+            "รีวิวถัดไป"
          ],
          "Publish this translation": [
-            "เผยแพร่คำแปลนี้"
+            "เผยแพร่การแปลนี้"
          ],
          "Accept this translation": [
-            "ยอมรับคำแปลนี้"
+            "ยอมรับการแปลนี้"
          ],
          "Published!": [
             "เผยแพร่แล้ว!"
          ],
          "Please wait, applying translation..": [
-            "โปรดรอ กำลังใช้คำแปล.."
+            "โปรดรอสักครู่ กำลังนำคำแปลไปใช้..."
          ],
          "There was an error in applying translation.": [
-            "เกิดข้อผิดพลาดในการใช้คำแปล"
+            "เกิดข้อผิดพลาดในการนำคำแปลไปใช้"
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "มีคนกำลังตรวจสอบคำแปลนี้อยู่แล้ว โปรดลองอีกครั้งในภายหลัง"
+            "มีผู้อื่นกำลังรีวิวการแปลนี้อยู่ โปรดลองใหม่ในภายหลัง"
          ]
       }
    }

@@ -581,7 +581,7 @@ class Themesettingscss {
 	}
 		<?php endif; ?>
 
-<?php if ( 'external' === woodmart_get_opt( 'current_builder', 'native' ) && ( ! $this->is_preset_active() || ( $this->is_preset_active() && ( woodmart_is_opt_changed( 'site_custom_width' ) || woodmart_is_opt_changed( 'site_width' ) ) ) ) ) : ?>
+<?php if ( 'external' === woodmart_get_opt( 'current_builder', 'external' ) && ( ! $this->is_preset_active() || ( $this->is_preset_active() && ( woodmart_is_opt_changed( 'site_custom_width' ) || woodmart_is_opt_changed( 'site_width' ) ) ) ) ) : ?>
 			<?php if ( $site_width && 'wpb' === woodmart_get_current_page_builder() ): ?>
 		@media (min-width: <?php echo esc_html( $site_width ); ?>px) {
 			[data-vc-full-width]:not([data-vc-stretch-content]),

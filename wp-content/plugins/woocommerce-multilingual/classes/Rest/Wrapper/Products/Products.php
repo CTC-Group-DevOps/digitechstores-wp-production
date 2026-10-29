@@ -87,6 +87,7 @@ class Products extends Handler {
 			}
 
 		} elseif ( $translationOf ) {
+			/* translators: Error returned by the WooCommerce REST API. Keep the two quoted parameter names in English: they are what the caller has to send. */
 			throw new Generic( __( 'Using "translation_of" requires providing a "lang" parameter too', 'woocommerce-multilingual' ) );
 		}
 

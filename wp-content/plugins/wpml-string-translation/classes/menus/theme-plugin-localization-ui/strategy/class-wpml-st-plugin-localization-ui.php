@@ -27,14 +27,21 @@ class WPML_ST_Plugin_Localization_UI implements IWPML_Theme_Plugin_Localization_
 			'scan_button_label'  => __( 'Scan selected plugins for strings', 'wpml-string-translation' ),
 			'completed_title'    => __( 'Completely translated strings', 'wpml-string-translation' ),
 			'needs_update_title' => __( 'Strings in need of translation', 'wpml-string-translation' ),
+			/* translators: Name of the group on the Theme and plugins localization page that holds the plugins. Noun, plural. */
 			'component'          => __( 'Plugins', 'wpml-string-translation' ),
+			/* translators: Column heading on the Theme and plugins localization page: the text domain, the short name a theme or plugin uses for its texts. */
 			'domain'             => __( 'Textdomain', 'wpml-string-translation' ),
+			/* translators: Option in the filter on the Theme and plugins localization page: show every theme or plugin. */
 			'all_text'           => __( 'All', 'wpml-string-translation' ),
+			/* translators: Option in the filter on the Theme and plugins localization page: show only themes or plugins that are switched on. On the Packages page it is also the state of a package that is in use. Adjective. */
 			'active_text'        => __( 'Active', 'wpml-string-translation' ),
+			/* translators: Option in the filter on the Theme and plugins localization page: show only themes or plugins that are switched off. Adjective. */
 			'inactive_text'      => __( 'Inactive', 'wpml-string-translation' ),
+			/* translators: Link on the Theme and plugins localization page that shows the text domain of each theme or plugin. Verb, imperative, lower case in the source. */
 			'show_textdomains'   => __( 'show textdomains', 'wpml-string-translation' ),
+			/* translators: Link on the Theme and plugins localization page that hides the text domain of each theme or plugin. Verb, imperative, lower case in the source. */
 			'hide_textdomains'   => __( 'hide textdomains', 'wpml-string-translation' ),
-			'download_po'        => __( 'Download .po file', 'wpml_string_translation' ),
+			'download_po'        => __( 'Download .po file', 'wpml-string-translation' ),
 			'type'               => 'plugin',
 			'components'         => $this->get_components( $this->utils->get_plugins(), $this->localization->get_localization_stats( 'plugin' ) ),
 			'stats_id'           => 'wpml_plugin_scan_stats',
@@ -76,6 +83,7 @@ class WPML_ST_Plugin_Localization_UI implements IWPML_Theme_Plugin_Localization_
 
 			if ( in_array( $plugin_file, $pluginFilesInStats ) ) {
 				$components[ $plugin_file ]['completed']       = true;
+				/* translators: Tooltip on the icon next to a theme or plugin on the Theme and plugins localization page: its texts have already been scanned. Past participle used as a state. */
 				$components[ $plugin_file ]['statusIconTitle'] = __( 'Scanned', 'wpml-string-translation' );
 			}
 
@@ -99,6 +107,10 @@ class WPML_ST_Plugin_Localization_UI implements IWPML_Theme_Plugin_Localization_
 
 		$pluginNamesWithoutTranslationFiles = [];
 		foreach ( $pluginsData as $pluginId => $pluginData ) {
+			if ( $this->utils->is_mu_plugin( $pluginId ) ) {
+				continue;
+			}
+
 			if ( ! in_array( $pluginId, $pluginIdsWithTranslationFiles ) ) {
 				$pluginNamesWithoutTranslationFiles[] = $pluginData['Name'];
 			}

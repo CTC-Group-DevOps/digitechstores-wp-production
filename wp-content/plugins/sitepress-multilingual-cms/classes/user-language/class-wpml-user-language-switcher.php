@@ -1,5 +1,8 @@
 <?php
 
+use WPML\Element\API\Languages;
+use WPML\FP\Maybe;
+
 class WPML_User_Language_Switcher {
 	private $WPML_Language_Code;
 
@@ -22,6 +25,15 @@ class WPML_User_Language_Switcher {
 		if ( $user && isset( $user->ID ) ) {
 			$language = $this->WPML_Language_Code->sanitize( $language );
 			$updated  = update_user_meta( $user->ID, 'icl_admin_language', $language );
+
+			$wp_locale = Maybe::of( $language )
+			                  ->map( Languages::getLanguageDetails() )
+			                  ->map( Languages::getWPLocale() )
+			                  ->getOrElse( null );
+
+			if ( $wp_locale ) {
+				update_user_meta( $user->ID, 'locale', $wp_locale );
+			}
 		}
 
 		return $updated;
@@ -40,6 +52,7 @@ class WPML_User_Language_Switcher {
 		$options = array();
 
 		$options[] = array(
+			/* translators: Label in front of the dropdown that picks a language; the dropdown follows the colon. */
 			'label'    => __( 'Choose language:', 'sitepress' ),
 			'value'    => 0,
 			'selected' => false,

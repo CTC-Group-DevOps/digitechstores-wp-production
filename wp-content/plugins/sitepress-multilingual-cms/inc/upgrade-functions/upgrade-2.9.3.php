@@ -11,6 +11,4 @@ foreach ( $widget_strings as $string ) {
 	$wpdb->update( $wpdb->prefix . 'icl_strings', array( 'name' => 'widget title - ' . md5( $string->value ) ), array( 'id' => $string->id ) );
 }
 
-
-$sql = "ALTER TABLE `{$wpdb->prefix}icl_strings` ADD INDEX `language_context` ( `context` , `language` )";
-$wpdb->query( $sql );
+$wpdb->query( "ALTER TABLE `{$wpdb->prefix}icl_strings` ADD INDEX `language_context` ( `context` , `language` )" );

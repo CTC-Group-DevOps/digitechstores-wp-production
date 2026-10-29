@@ -42,7 +42,7 @@ class WCML_Multi_Currency_Orders {
 
 		add_filter( 'woocommerce_hidden_order_itemmeta', [ $this, 'add_woocommerce_hidden_order_itemmeta' ] );
 
-		add_action( 'wp_ajax_wcml_order_set_currency', [ $this, 'set_order_currency_on_ajax_update' ] );
+		\WCML\Request\Ajax::register( 'wcml_order_set_currency', [ 'authorize' => [ 'WCML_Capabilities', 'canManageWcml' ], 'description' => 'WCML manager (shop manager or administrator role, WCML_Capabilities::canManageWcml)', 'nonce' => [ 'set_order_currency', 'wcml_nonce' ] ], [ $this, 'set_order_currency_on_ajax_update' ] );
 
 		if ( current_user_can( 'view_woocommerce_reports' ) || current_user_can( 'manage_woocommerce' ) || current_user_can( 'publish_shop_orders' ) ) {
 			add_filter( 'query', [ $this, 'filter_order_status_query' ] );
@@ -67,7 +67,7 @@ class WCML_Multi_Currency_Orders {
 		$currencies     = get_woocommerce_currencies();
 		?>
 		<select id="dropdown_shop_order_currency" name="_order_currency">
-			<option value=""><?php esc_html_e( 'Show all currencies', 'woocommerce-multilingual' ); ?></option>
+			<option value=""><?php /* translators: First entry of the currency filter above the orders list: do not filter by currency. */ esc_html_e( 'Show all currencies', 'woocommerce-multilingual' ); ?></option>
 			<?php
 			foreach ( $currency_codes as $currency ) {
 				$selected = '';
@@ -141,7 +141,7 @@ class WCML_Multi_Currency_Orders {
 
 			?>
 			<li class="wide">
-				<label><?php _e( 'Order currency:', 'woocommerce-multilingual' ); ?></label>
+				<label><?php /* translators: Label of the dropdown that sets an order's currency, in the order editor. */ esc_html_e( 'Order currency:', 'woocommerce-multilingual' ); ?></label>
 				<select id="dropdown_shop_order_currency" name="wcml_shop_order_currency">
 
 					<?php foreach ( $currencies as $currency ) : ?>
@@ -154,6 +154,7 @@ class WCML_Multi_Currency_Orders {
 			</li>
 			<?php
 			$wcml_set_order_currency_nonce   = esc_js( wp_create_nonce( 'set_order_currency' ) );
+			/* translators: Confirmation the shop owner sees before changing an order's currency in the order editor. */
 			$wcml_set_order_currency_message = esc_js( __( 'All the products will be removed from the current order in order to change the currency', 'woocommerce-multilingual' ) );
 			$wcml_set_order_currency_script  = <<<JS
                 var order_currency_current_value = jQuery('#dropdown_shop_order_currency option:selected').val();
@@ -349,9 +350,13 @@ JS;
 	public function set_order_currency_on_ajax_update() {
 		$nonce = filter_input( INPUT_POST, 'wcml_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'set_order_currency' ) ) {
+			/* translators: Error returned when a request carries an expired or missing security token. */
 			echo json_encode( [ 'error' => __( 'Invalid nonce', 'woocommerce-multilingual' ) ] );
 			die();
 		}
+
+		WCML_Capabilities::requireCanManageWcmlForAjax();
+
 		$currency = filter_input( INPUT_POST, 'currency', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		$cookie_name = '_wcml_order_currency';

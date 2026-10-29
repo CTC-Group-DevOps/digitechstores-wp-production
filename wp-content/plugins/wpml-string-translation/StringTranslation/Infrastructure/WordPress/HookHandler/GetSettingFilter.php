@@ -2,6 +2,7 @@
 namespace WPML\StringTranslation\Infrastructure\WordPress\HookHandler;
 
 use WPML\StringTranslation\Application\Setting\Repository\SettingsRepositoryInterface;
+use WPML\StringTranslation\Application\StringGettext\Service\GettextStringsService;
 
 class GetSettingFilter extends AbstractFilterHookHandler {
 	const FILTER_NAME = 'wpml_st_get_setting';
@@ -9,10 +10,14 @@ class GetSettingFilter extends AbstractFilterHookHandler {
 
 	private $settingsRepository;
 
+	private $gettextStringsService;
+
 	public function __construct(
-		SettingsRepositoryInterface $settingsRepository
+		SettingsRepositoryInterface $settingsRepository,
+		GettextStringsService $gettextStringsService
 	) {
-		$this->settingsRepository  = $settingsRepository;
+		$this->settingsRepository    = $settingsRepository;
+		$this->gettextStringsService = $gettextStringsService;
 	}
 
 	protected function onFilter( ...$args ) {
@@ -38,6 +43,12 @@ class GetSettingFilter extends AbstractFilterHookHandler {
 		}
 		if ( $settingName === 'shouldRegisterBackendStrings' ) {
 			return $this->settingsRepository->getShouldRegisterBackendStringsSetting();
+		}
+		if ( $settingName === 'isAutoregisterEnabled' ) {
+			return $this->gettextStringsService->isAutoregisterEnabled();
+		}
+		if ( $settingName === 'isCurrentUserAdmin' ) {
+			return $this->settingsRepository->getIsCurrentUserAdmin();
 		}
 
 	}

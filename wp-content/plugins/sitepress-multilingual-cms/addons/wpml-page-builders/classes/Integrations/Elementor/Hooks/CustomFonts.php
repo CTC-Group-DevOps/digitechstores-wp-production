@@ -4,32 +4,47 @@ namespace WPML\PB\Elementor\Hooks;
 
 use WPML\LIB\WP\Hooks;
 use WPML\PB\Helper\LanguageNegotiation;
+use WPML\PB\Helper\OwnDomainUrls;
 
 use function WPML\FP\spreadArgs;
 
 class CustomFonts implements \IWPML_Frontend_Action, \IWPML_Backend_Action {
 
+	const FONT_FACE_KEY = 'font_face';
+
 	public function add_hooks() {
 		if ( LanguageNegotiation::isUsingDomains() ) {
 			Hooks::onFilter( 'option_elementor_fonts_manager_fonts' )
-				->then( spreadArgs( [ $this, 'replaceUrls' ] ) );
+				->then( spreadArgs( [ $this, 'makeUrlsRelative' ] ) );
 		}
 	}
 
-	public function replaceUrls( $fonts ) {
-		$defaultLanguage = apply_filters( 'wpml_default_language', false );
-		$currentLanguage = apply_filters( 'wpml_current_language', false );
+	public function makeUrlsRelative( $fonts ) {
+		if ( ! is_array( $fonts ) ) {
+			return $fonts;
+		}
 
-		return wpml_collect( $fonts )
-			->map( function ( $font ) use ( $defaultLanguage, $currentLanguage ) {
-				$font['font_face'] = str_replace(
-					LanguageNegotiation::getDomainByLanguage( $defaultLanguage ),
-					LanguageNegotiation::getDomainByLanguage( $currentLanguage ),
-					$font['font_face']
+		$hosts = LanguageNegotiation::getOwnHosts();
+
+		if ( ! $hosts ) {
+			return $fonts;
+		}
+
+		foreach ( $fonts as $family => $font ) {
+			if ( self::carriesFontFace( $font ) ) {
+				$fonts[ $family ][ self::FONT_FACE_KEY ] = OwnDomainUrls::makeRelative(
+					$font[ self::FONT_FACE_KEY ],
+					$hosts
 				);
+			}
+		}
 
-				return $font;
-			} )
-			->all();
+		return $fonts;
+	}
+
+	private static function carriesFontFace( $font ) {
+		return is_array( $font )
+				&& isset( $font[ self::FONT_FACE_KEY ] )
+				&& is_string( $font[ self::FONT_FACE_KEY ] );
 	}
 }

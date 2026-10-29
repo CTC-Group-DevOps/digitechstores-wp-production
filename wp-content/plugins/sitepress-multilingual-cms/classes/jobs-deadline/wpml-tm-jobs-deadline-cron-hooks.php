@@ -1,5 +1,7 @@
 <?php
 
+use WPML\TM\Settings\RequestSettings;
+
 class WPML_TM_Jobs_Deadline_Cron_Hooks implements IWPML_Action {
 
 	const CHECK_OVERDUE_JOBS_EVENT = 'wpml-tm-check-overdue-jobs-event';
@@ -43,8 +45,7 @@ class WPML_TM_Jobs_Deadline_Cron_Hooks implements IWPML_Action {
 	}
 
 	private function is_notification_enabled() {
-		$settings = $this->translation_management->get_settings();
-		return ICL_TM_NOTIFICATION_NONE !== (int) $settings['notification']['overdue'];
+		return ICL_TM_NOTIFICATION_NONE !== (int) RequestSettings::tmNotificationSettings()['overdue'];
 	}
 
 	public function send_overdue_email_report() {

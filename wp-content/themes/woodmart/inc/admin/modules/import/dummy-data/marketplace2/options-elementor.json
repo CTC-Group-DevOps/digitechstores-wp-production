@@ -468,5 +468,12 @@
     ],
     "blog_archive_layout": "full-width",
     "portfolio": "0",
-    "portfolio_page": ""
+    "portfolio_page": "",
+    "sold_counter_enabled": "1",
+    "sold_counter_sales_type": "fake_data",
+    "sold_counter_min_count": "3",
+    "sold_counter_max_count": "7",
+    "sold_counter_timeframe": "",
+    "sold_counter_timeframe_period": "",
+    "sold_counter_time": ""
 }

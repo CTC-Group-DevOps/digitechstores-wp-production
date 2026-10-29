@@ -34,9 +34,9 @@ class Taxonomies extends Synchronizer {
 				if ( ! apply_filters( 'wpml_is_translated_taxonomy', false, $taxonomy ) ) {
 					$taxonomyExceptions[] = $taxonomy;
 				}
-				$ttIds   = [];
-				$ttNames = [];
-				$terms   = array_filter(
+				$ttIds          = [];
+				$exceptionTerms = [];
+				$terms          = array_filter(
 					$allTerms,
 					function ( $term ) use ( $taxonomy ) {
 						return $term->taxonomy === $taxonomy;
@@ -45,9 +45,10 @@ class Taxonomies extends Synchronizer {
 				if ( ! $terms && ! in_array( $taxonomy, $taxonomySyncEmpty, true ) ) {
 					continue;
 				}
+				$useTermIds = \WCML_Terms::PRODUCT_BRAND === $taxonomy;
 				foreach ( $terms as $term ) {
 					if ( in_array( $term->taxonomy, $taxonomyExceptions, true ) ) {
-						$ttNames[] = $term->name;
+						$exceptionTerms[] = $useTermIds ? (int) $term->term_id : $term->name;
 						continue;
 					}
 					$ttIds[] = $term->term_taxonomy_id;
@@ -56,7 +57,7 @@ class Taxonomies extends Synchronizer {
 				if ( $this->woocommerceWpml->terms->is_translatable_wc_taxonomy( $taxonomy ) && ! in_array( $taxonomy, $taxonomyExceptions, true ) ) {
 					$this->setTranslatedTerms( $ttIds, $language, $taxonomy, $translationId );
 				} else {
-					wp_set_post_terms( $translationId, $ttNames, $taxonomy );
+					wp_set_post_terms( $translationId, $exceptionTerms, $taxonomy );
 				}
 			}
 		}
@@ -81,8 +82,12 @@ class Taxonomies extends Synchronizer {
 
 		if ( in_array( $taxonomy, [ 'product_cat', 'product_tag' ] ) ) {
 			$this->sitepress->switch_lang( $language );
-			wp_update_term_count( $ttIdsTrans, $taxonomy );
-			$this->sitepress->switch_lang();
+
+			try {
+				wp_update_term_count( $ttIdsTrans, $taxonomy );
+			} finally {
+				$this->sitepress->switch_lang();
+			}
 		}
 
 		$termIds = $this->wpdb->get_col(

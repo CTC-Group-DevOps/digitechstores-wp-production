@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WPML String Translation
- * Plugin URI: https://wpml.org/
- * Description: Adds theme and plugins localization capabilities to WPML | <a href="https://wpml.org/documentation/getting-started-guide/string-translation/">Documentation</a> | <a href="https://wpml.org/version/wpml-string-translation-3-5-4/">WPML String Translation 3.5.4 release notes</a>
+ * Plugin URI: https://wpml.org/documentation/wpml-core-and-add-on-plugins/string-translation/
+ * Description: Adds theme and plugins localization capabilities to WPML | <a href="https://wpml.org/documentation/translating-your-contents/strings/">Documentation</a> | <a href="https://wpml.org/version/wpml-string-translation-5-2-0/">WPML String Translation 5.2.0 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 3.5.4
+ * Version: 5.2.0
  * Plugin Slug: wpml-string-translation
  *
  * @package WPML\ST
@@ -30,7 +30,7 @@ if ( ! WPML_Core_Version_Check::is_ok( dirname( __FILE__ ) . '/wpml-dependencies
 }
 
 
-define( 'WPML_ST_VERSION', '3.5.4' );
+define( 'WPML_ST_VERSION', '5.2.0' );
 
 
 require WPML_ST_PATH . '/inc/functions-load.php';
@@ -52,20 +52,9 @@ function wpml_st_verify_wpml() {
 }
 
 function wpml_st_core_loaded() {
-	global $sitepress, $wpdb, $wpml_admin_notices;
+	global $wpdb;
 
 	new WPML_ST_TM_Jobs( $wpdb );
-
-	$setup_complete = apply_filters( 'wpml_get_setting', false, 'setup_complete' );
-
-	$is_admin = $sitepress->get_wp_api()->is_admin();
-
-	if ( isset( $wpml_admin_notices ) && $is_admin && $setup_complete ) {
-		global $wpml_st_admin_notices;
-		$themes_and_plugins_settings = new WPML_ST_Themes_And_Plugins_Settings();
-		$wpml_st_admin_notices       = new WPML_ST_Themes_And_Plugins_Updates( $wpml_admin_notices, $themes_and_plugins_settings );
-		$wpml_st_admin_notices->init_hooks();
-	}
 
 	$action_filter_loader = new WPML_Action_Filter_Loader();
 	$action_filter_loader->load( WPML\ST\Actions::get() );
@@ -84,6 +73,8 @@ function load_wpml_st_basics() {
 	$WPML_String_Translation->set_basic_hooks();
 
 	require WPML_ST_PATH . '/inc/package-translation/wpml-package-translation.php';
+
+	\WPML\ST\PackageTranslation\StringRowsCache::register();
 
 	add_action( 'wpml_loaded', 'wpml_st_core_loaded', 10 );
 

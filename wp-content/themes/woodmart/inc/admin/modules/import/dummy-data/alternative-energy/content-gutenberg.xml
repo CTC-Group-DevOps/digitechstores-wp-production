@@ -509,11 +509,11 @@
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=20348</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"f2a899b2-4ba1-43d8-b5f0-dea4729d9009","blockVersion":"2","effect":"distortion","arrowsColorScheme":"light","paginationAlign":"center","paginationColorScheme":"light","autoplay":true,"autoplaySpeed":"25000","stretch":true,"height":"820","arrowsCustomSettings":true,"arrowsHoverStyle":"1","marginBottom":"0","heightTablet":"640","heightMobile":"500"} -->
 <div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-distortion wd-stretched wd-autoplay-on wd-f2a899b2"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="distortion" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"df86a8b2-0f57-4607-872b-1aec5aae6193","blockVersion":"2","blockGap":10,"effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":20359,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-1.jpg","width":1920,"height":820},"bgImage":{"id":"","url":""},"bgColorCode":"#95aebc"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-df86a8b2" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-1.jpg"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"281020f5-a4e8-4421-993f-154268209898","blockVersion":"2","textAlign":"center","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"28","tpFontVariant":"200","tpFontWeight":"200","animation":"zoom-in","animationDelay":"250","tpFontSizeMobile":"22"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-df86a8b2" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-1.jpg"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"281020f5-a4e8-4421-993f-154268209898","blockVersion":"2","textAlign":"center","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"28","tpFontVariant":"200","tpFontWeight":"200","animation":"zoom-in","animationDelay":"250","tpFontSizeMobile":"22"} -->
 <p class="wp-block-wd-paragraph wd-align wd-animation wd-transform wd-animation-zoom-in wd_delay_250 wd-281020f5">Switch to cleaner energy</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"c02f520c-2c6c-4337-9987-4390ba94695f","blockVersion":"2","textAlign":"center","content":"We Find Highest Use foru003cspan class=u0022wd-highlightu0022u003e All Resourcesu003c/spanu003e","tpFontSize":"80","tpLineHeight":"1.2","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"20","animation":"zoom-in","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"800","tpFontSizeTablet":"56","tpFontSizeMobile":"32","tpLineHeightUnits":"em","marginBottomMobile":"10","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"630","customWidthMobile":"350"} -->
+<!-- wp:wd/title {"blockId":"c02f520c-2c6c-4337-9987-4390ba94695f","blockVersion":"2","textAlign":"center","content":"We Find Highest Use for\u003cspan class=\u0022wd-highlight\u0022\u003e All Resources\u003c/span\u003e","tpFontSize":"80","tpLineHeight":"1.2","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"20","animation":"zoom-in","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"800","tpFontSizeTablet":"56","tpFontSizeMobile":"32","tpLineHeightUnits":"em","marginBottomMobile":"10","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"630","customWidthMobile":"350"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-zoom-in wd_delay_250 wd-c02f520c wd-custom-width wd-align-s-center">We Find Highest Use for<span class="wd-highlight"> All Resources</span></h2>
 <!-- /wp:wd/title -->
 
@@ -529,11 +529,11 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"30e5380c-a516-4c86-81a9-7bc8fbedc138","blockVersion":"2","blockGap":10,"effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":20360,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-2.jpg","width":1920,"height":820},"bgImage":{"id":"","url":""},"bgColorCode":"#95aebc"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-30e5380c" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-2.jpg"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"2a832c67-4b23-447a-a62e-205a786201b0","blockVersion":"2","textAlign":"center","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"28","tpFontVariant":"200","tpFontWeight":"200","animation":"zoom-in","animationDelay":"250","tpFontSizeMobile":"22"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-30e5380c" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-2.jpg"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"2a832c67-4b23-447a-a62e-205a786201b0","blockVersion":"2","textAlign":"center","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"28","tpFontVariant":"200","tpFontWeight":"200","animation":"zoom-in","animationDelay":"250","tpFontSizeMobile":"22"} -->
 <p class="wp-block-wd-paragraph wd-align wd-animation wd-transform wd-animation-zoom-in wd_delay_250 wd-2a832c67">The energy generator</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"30b735c3-b7fb-4edd-81ce-17d2a7bc6d75","blockVersion":"2","textAlign":"center","content":"The Best Examples of u003cspan class=u0022wd-highlightu0022u003eAlternative Energyu003c/spanu003e","tpFontSize":"80","tpLineHeight":"1.2","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"20","animation":"zoom-in","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"800","tpFontSizeTablet":"56","tpFontSizeMobile":"32","tpLineHeightUnits":"em","marginBottomMobile":"10","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"630","customWidthMobile":"350"} -->
+<!-- wp:wd/title {"blockId":"30b735c3-b7fb-4edd-81ce-17d2a7bc6d75","blockVersion":"2","textAlign":"center","content":"The Best Examples of \u003cspan class=\u0022wd-highlight\u0022\u003eAlternative Energy\u003c/span\u003e","tpFontSize":"80","tpLineHeight":"1.2","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"20","animation":"zoom-in","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"800","tpFontSizeTablet":"56","tpFontSizeMobile":"32","tpLineHeightUnits":"em","marginBottomMobile":"10","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"630","customWidthMobile":"350"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-zoom-in wd_delay_250 wd-30b735c3 wd-custom-width wd-align-s-center">The Best Examples of <span class="wd-highlight">Alternative Energy</span></h2>
 <!-- /wp:wd/title -->
 
@@ -549,11 +549,11 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"f472ab31-2b7f-4516-8e3d-d616e62385d7","blockVersion":"2","blockGap":10,"effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":20361,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-3.jpg","width":1920,"height":820},"bgImage":{"id":"","url":""},"bgColorCode":"#95aebc"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-f472ab31" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-3.jpg"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"cd4cb8af-675c-4d50-8fb5-f90a9d52f9e9","blockVersion":"2","textAlign":"center","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"28","tpFontVariant":"200","tpFontWeight":"200","animation":"zoom-in","animationDelay":"250","tpFontSizeMobile":"22"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-f472ab31" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-slide-3.jpg"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"cd4cb8af-675c-4d50-8fb5-f90a9d52f9e9","blockVersion":"2","textAlign":"center","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"28","tpFontVariant":"200","tpFontWeight":"200","animation":"zoom-in","animationDelay":"250","tpFontSizeMobile":"22"} -->
 <p class="wp-block-wd-paragraph wd-align wd-animation wd-transform wd-animation-zoom-in wd_delay_250 wd-cd4cb8af">The power generator</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"8c7ac894-f23e-4f61-b6a2-48f4d0d48849","blockVersion":"2","textAlign":"center","content":"The Benefits of u003cspan class=u0022wd-highlightu0022u003eSolar Poweru003c/spanu003e","tpFontSize":"80","tpLineHeight":"1.2","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"20","animation":"zoom-in","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"650","tpFontSizeTablet":"56","tpFontSizeMobile":"32","tpLineHeightUnits":"em","marginBottomMobile":"10","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"520","customWidthMobile":"300"} -->
+<!-- wp:wd/title {"blockId":"8c7ac894-f23e-4f61-b6a2-48f4d0d48849","blockVersion":"2","textAlign":"center","content":"The Benefits of \u003cspan class=\u0022wd-highlight\u0022\u003eSolar Power\u003c/span\u003e","tpFontSize":"80","tpLineHeight":"1.2","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"20","animation":"zoom-in","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"650","tpFontSizeTablet":"56","tpFontSizeMobile":"32","tpLineHeightUnits":"em","marginBottomMobile":"10","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"520","customWidthMobile":"300"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-zoom-in wd_delay_250 wd-8c7ac894 wd-custom-width wd-align-s-center">The Benefits of <span class="wd-highlight">Solar Power</span></h2>
 <!-- /wp:wd/title -->
 
@@ -571,7 +571,7 @@
 
 <!-- wp:wd/section {"blockId":"3485f14e-dc34-4731-8940-858d4a11268a","blockVersion":"2","bgColorCode":"#def0f6","paddingTop":"80","paddingBottom":"80","marginBottom":"80","paddingTopMobile":"60","paddingBottomMobile":"60","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-section wd-3485f14e"><!-- wp:wd/container {"blockId":"9189048a-1889-460c-8ee3-602adf172593","blockVersion":"2","rowGap":"60","rowGapTablet":"50","rowGapMobile":"40"} -->
-<div class="wp-block-wd-container wd-dir-col wd-9189048a"><!-- wp:wd/title {"blockId":"9897b0c3-0b60-4d78-bfac-2e28f30d5a8b","blockVersion":"2","content":"Why Choose u003cspan class=u0022wd-highlightu0022u003eWoodmartu003c/spanu003e Energy?","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","tpFontSizeTablet":"34","tpFontSizeMobile":"28"} -->
+<div class="wp-block-wd-container wd-dir-col wd-9189048a"><!-- wp:wd/title {"blockId":"9897b0c3-0b60-4d78-bfac-2e28f30d5a8b","blockVersion":"2","content":"Why Choose \u003cspan class=\u0022wd-highlight\u0022\u003eWoodmart\u003c/span\u003e Energy?","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","tpFontSizeTablet":"34","tpFontSizeMobile":"28"} -->
 <h2 class="wp-block-wd-title title wd-9897b0c3">Why Choose <span class="wd-highlight">Woodmart</span> Energy?</h2>
 <!-- /wp:wd/title -->
 
@@ -653,11 +653,11 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"88ff735f-9dc6-4af4-a83a-83d825a13484","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":0,"justifyContent":"center","paddingRight":"7","paddingLeft":"7","paddingUnits":"%","paddingRightMobile":"10","paddingLeftMobile":"10","paddingUnitsMobile":"%"} -->
-<div class="wp-block-wd-column wd-88ff735f"><!-- wp:wd/paragraph {"blockId":"26bd65d3-6259-4e09-b43d-bd8a935783e4","blockVersion":"2","colorCode":"rgba(142,203,222,0.2)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"400","tpFontWeight":"400","marginBottom":"-42","marginLeft":"-30","tpFontSizeMobile":"70","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-88ff735f"><!-- wp:wd/paragraph {"blockId":"26bd65d3-6259-4e09-b43d-bd8a935783e4","blockVersion":"2","colorCode":"rgba(142,203,222,0.2)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"400","tpFontWeight":"400","marginBottom":"-42","marginLeft":"-30","tpFontSizeMobile":"70","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-26bd65d3">01</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"3bd2096d-b604-4751-acd6-74ed91fb47dc","blockVersion":"2","content":"Produce Your u003cbru003eOwn Clean u003cspan class=u0022wd-highlightu0022u003eEnergyu003c/spanu003e","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
+<!-- wp:wd/title {"blockId":"3bd2096d-b604-4751-acd6-74ed91fb47dc","blockVersion":"2","content":"Produce Your \u003cbr\u003eOwn Clean \u003cspan class=\u0022wd-highlight\u0022\u003eEnergy\u003c/span\u003e","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
 <h2 class="wp-block-wd-title title wd-3bd2096d">Produce Your <br>Own Clean <span class="wd-highlight">Energy</span></h2>
 <!-- /wp:wd/title -->
 
@@ -680,11 +680,11 @@
 <!-- wp:wd/section {"blockId":"95d28e75-4766-4d55-b31d-28fb379ddc5a","blockVersion":"2","colorScheme":"light","bgType":"gradient","bgGradient":"linear-gradient(90deg,rgb(142,203,222) 0%,rgb(142,203,222) 78%,rgb(254,254,254) 78%)","bgColorCode":"#8ecbde","paddingRight":"0","paddingLeft":"0","marginBottom":"0","bgGradientTablet":"linear-gradient(135deg,rgb(142,203,222) 0%,rgb(142,203,222) 100%)","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-section color-scheme-light wd-95d28e75"><!-- wp:wd/row {"blockId":"47748da5-af55-4341-a9db-c15629d6dbd8","blockVersion":"2","columnsGap":0,"displayWidth":"full-width"} -->
 <div class="wp-block-wd-row wd-47748da5 wd-custom-width"><!-- wp:wd/column {"blockId":"13f161ec-a48a-4945-94b7-c4273b9103c6","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":0,"paddingTop":"60px","paddingRight":"7%","paddingBottom":"100px","paddingLeft":"7%","paddingUnits":"custom","adjacentCountTablet":1,"colWidthTablet":100,"paddingTopMobile":"45px","paddingRightMobile":"15%","paddingBottomTablet":"60px","paddingBottomMobile":"45px","paddingLeftMobile":"15%","paddingUnitsTablet":"custom","paddingUnitsMobile":"custom"} -->
-<div class="wp-block-wd-column wd-13f161ec"><!-- wp:wd/paragraph {"blockId":"91382d5b-fa8b-4003-9ad5-485a7c2a4cdb","blockVersion":"2","colorCode":"rgba(255,255,255,0.2)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"400","tpFontWeight":"400","marginBottom":"-42","marginLeft":"-30","tpFontSizeMobile":"70","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-13f161ec"><!-- wp:wd/paragraph {"blockId":"91382d5b-fa8b-4003-9ad5-485a7c2a4cdb","blockVersion":"2","colorCode":"rgba(255,255,255,0.2)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"400","tpFontWeight":"400","marginBottom":"-42","marginLeft":"-30","tpFontSizeMobile":"70","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-91382d5b">02</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"eb1a9e28-0d9d-4d91-89d7-ca74444a9f5f","blockVersion":"2","content":"The Power of Your Solar u003cspan class=u0022wd-highlightu0022u003eEnergyu003c/spanu003e Home","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"custom","customWidth":"414","tpFontSizeTablet":"28","displayWidthTablet":"full-width"} -->
+<!-- wp:wd/title {"blockId":"eb1a9e28-0d9d-4d91-89d7-ca74444a9f5f","blockVersion":"2","content":"The Power of Your Solar \u003cspan class=\u0022wd-highlight\u0022\u003eEnergy\u003c/span\u003e Home","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"custom","customWidth":"414","tpFontSizeTablet":"28","displayWidthTablet":"full-width"} -->
 <h2 class="wp-block-wd-title title wd-eb1a9e28 wd-custom-width">The Power of Your Solar <span class="wd-highlight">Energy</span> Home</h2>
 <!-- /wp:wd/title -->
 
@@ -753,11 +753,11 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"563e7963-e4f8-400e-b21e-c8c625d5ce84","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":0,"justifyContent":"center","paddingRight":"7","paddingLeft":"7","paddingUnits":"%","paddingRightMobile":"10","paddingLeftMobile":"10","paddingUnitsMobile":"%"} -->
-<div class="wp-block-wd-column wd-563e7963"><!-- wp:wd/paragraph {"blockId":"920d1d23-40f4-4ee5-84a8-4d32960be43b","blockVersion":"2","colorCode":"rgba(142,203,222,0.2)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"400","tpFontWeight":"400","marginBottom":"-42","marginLeft":"-30","tpFontSizeMobile":"70","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-563e7963"><!-- wp:wd/paragraph {"blockId":"920d1d23-40f4-4ee5-84a8-4d32960be43b","blockVersion":"2","colorCode":"rgba(142,203,222,0.2)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"400","tpFontWeight":"400","marginBottom":"-42","marginLeft":"-30","tpFontSizeMobile":"70","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-920d1d23">03</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"278e7caf-57b6-40b9-a292-ce5531e36d56","blockVersion":"2","content":"Conserve Limited u003cspan class=u0022wd-highlightu0022u003eNaturalu003c/spanu003e Resources","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
+<!-- wp:wd/title {"blockId":"278e7caf-57b6-40b9-a292-ce5531e36d56","blockVersion":"2","content":"Conserve Limited \u003cspan class=\u0022wd-highlight\u0022\u003eNatural\u003c/span\u003e Resources","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
 <h2 class="wp-block-wd-title title wd-278e7caf">Conserve Limited <span class="wd-highlight">Natural</span> Resources</h2>
 <!-- /wp:wd/title -->
 
@@ -781,7 +781,7 @@
 <div class="wp-block-wd-icon wd-e327d13d"><img class="wp-image-20364" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-wind-generator.png" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"4c166546-650f-49e2-b946-c9d9ff51ffce","blockVersion":"2","content":"u003cspan class=u0022wd-highlightu0022u003eOuru003c/spanu003e Products","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
+<!-- wp:wd/title {"blockId":"4c166546-650f-49e2-b946-c9d9ff51ffce","blockVersion":"2","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eOur\u003c/span\u003e Products","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
 <h2 class="wp-block-wd-title title wd-4c166546"><span class="wd-highlight">Our</span> Products</h2>
 <!-- /wp:wd/title -->
 
@@ -817,7 +817,7 @@
 <div class="wp-block-wd-icon wd-896baaa8"><img class="wp-image-20363" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-solar-panel.png" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"04ba6f26-8b94-4f99-8c25-9cdea68d9523","blockVersion":"2","content":"u003cspan class=u0022wd-highlightu0022u003eOuru003c/spanu003e Partners","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
+<!-- wp:wd/title {"blockId":"04ba6f26-8b94-4f99-8c25-9cdea68d9523","blockVersion":"2","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eOur\u003c/span\u003e Partners","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
 <h2 class="wp-block-wd-title title wd-04ba6f26"><span class="wd-highlight">Our</span> Partners</h2>
 <!-- /wp:wd/title -->
 
@@ -895,7 +895,7 @@
 <div class="wp-block-wd-icon wd-c50afd0d"><img class="wp-image-20362" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/alternative-energy-energy.png" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"f42c91df-6c5b-4c3b-bcf8-9a15237a0464","blockVersion":"2","content":"u003cspan class=u0022wd-highlightu0022u003eOuru003c/spanu003e New Articles","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
+<!-- wp:wd/title {"blockId":"f42c91df-6c5b-4c3b-bcf8-9a15237a0464","blockVersion":"2","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eOur\u003c/span\u003e New Articles","tpFontSize":"40","tpFontVariant":"200","tpFontWeight":"200","markFontVariant":"800","markFontWeight":"800","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"28"} -->
 <h2 class="wp-block-wd-title title wd-f42c91df"><span class="wd-highlight">Our</span> New Articles</h2>
 <!-- /wp:wd/title -->
 

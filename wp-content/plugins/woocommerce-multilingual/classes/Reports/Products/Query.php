@@ -61,14 +61,39 @@ class Query implements \IWPML_REST_Action {
 	private function mergeTranslationIntoDefault( $products, $translatedProductIndex, $translatedProduct, $productsDetails ) {
 		$originalProductId = apply_filters( 'wpml_object_id', $productsDetails->element_id, 'product' );
 		if ( $originalProductId ) {
+			$originalRowKey = $this->getOriginalRowKey( $translatedProduct, $originalProductId );
 			foreach ( $products as $index => $product ) {
-				if ( $product['product_id'] === $originalProductId ) {
+				if ( $index !== $translatedProductIndex
+					&& $this->getRowKey( $product ) === $originalRowKey ) {
 					$products = $this->removeTranslatedProduct( $products, $translatedProductIndex );
 					$products = $this->updateOriginalProductFields( $products, $index, $translatedProduct );
+					break;
 				}
 			}
 		}
 		return $products;
+	}
+
+	private function getOriginalRowKey( $translatedProduct, $originalProductId ) {
+		if ( ! isset( $translatedProduct['variation_id'] ) ) {
+			return (string) $originalProductId;
+		}
+
+		$variationId = (int) $translatedProduct['variation_id'];
+		if ( $variationId ) {
+			$variationId = (int) apply_filters( 'wpml_object_id', $variationId, 'product_variation' );
+			if ( ! $variationId ) {
+				return '';
+			}
+		}
+
+		return $originalProductId . '_' . $variationId;
+	}
+
+	private function getRowKey( $product ) {
+		return isset( $product['variation_id'] )
+			? $product['product_id'] . '_' . (int) $product['variation_id']
+			: (string) $product['product_id'];
 	}
 
 	private function removeTranslatedProduct( $products, $key ) {

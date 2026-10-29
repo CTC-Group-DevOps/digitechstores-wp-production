@@ -17,7 +17,7 @@ class WPML_PB_Shortcodes {
 		$shortcodes = array();
 		$pattern    = get_shortcode_regex( $this->shortcode_strategy->get_shortcodes() );
 
-		if ( preg_match_all( '/' . $pattern . '/s', $content, $matches ) && isset( $matches[5] ) && ! empty( $matches[5] ) ) {
+		if ( preg_match_all( '/' . $pattern . '/s', $content, $matches ) ) {
 			$count = count( $matches[0] );
 			for ( $index = 0; $index < $count; $index ++ ) {
 				$tag  = $matches[2][ $index ];
@@ -49,7 +49,7 @@ class WPML_PB_Shortcodes {
 
 					$nested_shortcodes              = $this->get_shortcodes( $shortcode['content'], $new_crumbs );
 					$this->is_wrapping_regular_text = false;
-					if ( count( $nested_shortcodes ) ) {
+					if ( count( $nested_shortcodes ) && ! $this->is_text_run_with_in_tag_shortcodes_only( $shortcode ) ) {
 						$shortcode['content'] = '';
 					}
 				}
@@ -62,6 +62,11 @@ class WPML_PB_Shortcodes {
 		}
 
 		return $shortcodes;
+	}
+
+	private function is_text_run_with_in_tag_shortcodes_only( array $shortcode ) {
+		return WPML_PB_Shortcode_Content_Wrapper::WRAPPER_SHORTCODE_NAME === $shortcode['tag']
+			&& WPML_PB_Shortcode_Content_Wrapper::hasOnlyInTagShortcodes( $shortcode['content'], $this->shortcode_strategy->get_shortcodes() );
 	}
 
 	private function wrap_regular_text( $content ) {

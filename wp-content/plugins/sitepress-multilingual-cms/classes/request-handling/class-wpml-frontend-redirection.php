@@ -27,7 +27,7 @@ class WPML_Frontend_Redirection extends WPML_SP_User {
 		if ( false !== $target ) {
 			$frontend_redirection_url = new WPML_Frontend_Redirection_Url( $target );
 			$target                   = $frontend_redirection_url->encode_apostrophes_in_url();
-			$this->sitepress->get_wp_api()->wp_safe_redirect( $target );
+			$this->sitepress->get_wp_api()->wp_safe_redirect( $target, $this->redirect_helper->get_status() );
 		};
 
 		return $this->lang_resolution->current_lang_filter( $this->request_handler->get_requested_lang(), $this->request_handler );

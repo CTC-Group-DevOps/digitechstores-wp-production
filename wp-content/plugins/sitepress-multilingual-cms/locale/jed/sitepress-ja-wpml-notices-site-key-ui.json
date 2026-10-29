@@ -8,13 +8,13 @@
             "lang": "ja"
          },
          "Get a key for this site": [
-            "このサイトのキーを取得"
+            "このサイトのキーを取得する"
          ],
          "Site key:": [
-            "サイトキー:"
+            "サイトキー："
          ],
          "Enter your site key here": [
-            "ここにサイトキーを入力"
+            "ここにサイトキーを入力してください"
          ],
          "Registering...": [
             "登録中..."
@@ -26,13 +26,13 @@
             "新しいサイトキーが必要です"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "自動翻訳やプラグインの更新など、WPMLの機能を引き続き使用するには、サイトを再度登録してください。ご安心ください。既存のコンテンツと翻訳は安全です。"
+            "自動翻訳やプラグインの更新などの WPML 機能を引き続き使用するには、サイトを再登録してください。既存のコンテンツや翻訳が失われることはありませんのでご安心ください。"
          ],
          "Site key registered successfully!": [
             "サイトキーが正常に登録されました！"
          ],
          "Page will reload in %d seconds...": [
-            "%d 秒後にページがリロードされます..."
+            "ページは %d 秒後に再読み込みされます..."
          ],
          "Registration failed. Please try again.": [
             "登録に失敗しました。もう一度お試しください。"

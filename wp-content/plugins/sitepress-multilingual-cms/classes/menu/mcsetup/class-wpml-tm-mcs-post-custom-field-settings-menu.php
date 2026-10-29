@@ -11,7 +11,7 @@ class WPML_TM_MCS_Post_Custom_Field_Settings_Menu extends WPML_TM_MCS_Custom_Fie
 	}
 
 	protected function get_title() {
-		return __( 'Custom Fields Translation', 'wpml-translation-management' );
+		return __( 'Custom Fields Translation', 'sitepress' );
 	}
 
 	protected function kind_shorthand() {
@@ -19,13 +19,15 @@ class WPML_TM_MCS_Post_Custom_Field_Settings_Menu extends WPML_TM_MCS_Custom_Fie
 	}
 
 	public function get_no_data_message() {
-		return __( 'No custom fields found. It is possible that they will only show up here after you add more posts after installing a new plugin.', 'wpml-translation-management' );
+		/* translators: Shown in place of the list of extra fields of a post when there are none. "It is possible" is about those fields. */
+		return __( 'No custom fields found. It is possible that they will only show up here after you add more posts after installing a new plugin.', 'sitepress' );
 	}
 
 	public function get_column_header( $id ) {
 		$header = $id;
 		if('name' === $id) {
-			$header = __( 'Custom fields', 'wpml-translation-management' );
+			/* translators: Heading above the list of extra fields of a post, in the translation settings. */
+			$header = __( 'Custom fields', 'sitepress' );
 		}
 		return $header;
 	}

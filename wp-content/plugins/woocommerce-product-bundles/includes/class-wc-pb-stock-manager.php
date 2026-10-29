@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Used to create and store a product_id / variation_id representation of a product collection based on the included items' inventory requirements.
  *
  * @class    WC_PB_Stock_Manager
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Stock_Manager {
 
 	/**
 	 * Stock managed items.
 	 *
-	 * @var array
+	 * @var WC_PB_Stock_Manager_Item[]
 	 */
 	private $items;
 
@@ -50,6 +50,7 @@ class WC_PB_Stock_Manager {
 	 * @param  false|WC_Product_Variation|int $variation Variation object or ID.
 	 * @param  integer                        $quantity Quantity.
 	 * @param  array                          $args    Additional arguments.
+	 * @return void
 	 */
 	public function add_item( $product, $variation = false, $quantity = 1, $args = array() ) {
 		require_once WC_PB_ABSPATH . 'includes/class-wc-pb-stock-manager-item.php';
@@ -60,7 +61,7 @@ class WC_PB_Stock_Manager {
 	/**
 	 * Return the items of this collection.
 	 *
-	 * @return array
+	 * @return WC_PB_Stock_Manager_Item[]
 	 */
 	public function get_items() {
 
@@ -75,6 +76,7 @@ class WC_PB_Stock_Manager {
 	 * Merge another collection with this one.
 	 *
 	 * @param  WC_PB_Stock_Manager $stock Stock manager object.
+	 * @return bool
 	 */
 	public function add_stock( $stock ) {
 

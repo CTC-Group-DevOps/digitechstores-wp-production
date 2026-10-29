@@ -82,6 +82,14 @@ class FrontendQueueRepository implements FrontendQueueRepositoryInterface {
 		return $items;
 	}
 
+	public function count(): int {
+		return $this->factory->getFrontendQueueRepository()->count();
+	}
+
+	public function removeProcessed( int $processed_count ) {
+		$this->factory->getFrontendQueueRepository()->removeProcessed( $processed_count );
+	}
+
 	public function remove() {
 		$this->factory->getFrontendQueueRepository()->remove();
 	}

@@ -11,6 +11,6 @@ msgstr ""
 msgid "There was an error in applying translation."
 msgstr ""
 
-#: src/js/updateTranslationFrontend/useATESync.js:34
+#: src/js/updateTranslationFrontend/useATESync.js:38
 msgid "Someone is already reviewing this translation. Please try again later."
 msgstr ""

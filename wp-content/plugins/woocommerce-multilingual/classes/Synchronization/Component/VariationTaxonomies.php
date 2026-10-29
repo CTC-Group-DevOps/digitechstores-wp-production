@@ -86,7 +86,7 @@ class VariationTaxonomies extends Synchronizer {
 				if ( empty( $termsToSync ) ) {
 					continue;
 				}
-				wp_set_object_terms( $translationId, $termsToSync, $taxonomy, true );
+				wp_set_object_terms( $translationId, $termsToSync, $taxonomy, false );
 			}
 
 			$this->syncHashManager->updateGroupValue( $translationId, SyncHash::GROUP_TAXONOMIES, $currentHash );

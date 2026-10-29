@@ -27,8 +27,13 @@ class WPML_Cookie_Admin_UI {
 			'strings'          => array(
 				'title'       => __( 'Language filtering for AJAX operations', 'sitepress' ),
 				'field_name'  => WPML_Cookie_Setting::COOKIE_SETTING_FIELD,
-				'field_label' => __( 'Store a language cookie to support language filtering for AJAX', 'sitepress' ),
-				'tooltip'     => __( 'Select this option if your theme or plugins use AJAX operations on the front-end, that WPML needs to filter. WPML will set a cookie using JavaScript which will allow it to return the correct content for AJAX operations.', 'sitepress' ),
+				'field_label' => __( 'Store a language cookie for visitors', 'sitepress' ),
+				'tooltip'     => sprintf(
+					/* translators: %s is the cookie name, shown on its own line. */
+					__( 'Many hosts do not cache pages for visitors who have this cookie. WPML finds the language of AJAX requests without it. Turn this off for faster pages, unless your theme or a plugin reads this cookie: %s', 'sitepress' ),
+					'<br><code>wp-wpml_current_language</code>'
+				),
+				/* translators: Button label that keeps what was entered. Verb, imperative. */
 				'button_text' => __( 'Save', 'sitepress' ),
 				'button_id'   => self::BUTTON_ID,
 			),

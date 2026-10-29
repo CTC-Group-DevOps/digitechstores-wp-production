@@ -44,6 +44,10 @@ class Factory implements \IWPML_Backend_Action_Loader, \IWPML_Frontend_Action_Lo
 				':getDomainsByStringIds' => DomainsRepository::getByStringIds(),
 			] ),
 			make( GetFilepathesForTranslationFiles::class ),
+			make( LanguageLocaleChanged::class, [
+				':manager'       => ManagerFactory::create(),
+				':scriptManager' => make( \WPML_ST_JED_File_Manager::class, [ ':builder' => make( \WPML_ST_JED_File_Builder::class ) ] ),
+			] ),
 		];
 	}
 }

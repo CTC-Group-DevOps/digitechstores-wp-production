@@ -52,7 +52,11 @@ class Translate implements \IWPML_Frontend_Action {
 	}
 
 	public static function canView( $item ) {
-		return current_user_can( 'administrator' ) || 'post_type' !== $item->type || 'draft' !== $item->post_status;
+		if ( 'post_type' !== $item->type ) {
+			return true;
+		}
+
+		return \WPML\Translation\ElementVisibility::currentUserCanRead( (int) $item->object_id );
 	}
 
 	private static function doesNotHaveMenuInCurrentLanguage( $menu ) {

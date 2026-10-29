@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Data is imported again using the WC_Bundled_Item_Data class.
  * Supports import of existing v4 data from post meta.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_WP_IE_Compatibility {
 
@@ -45,10 +45,10 @@ class WC_PB_WP_IE_Compatibility {
 	 * Export bundle data using the 'get_data()' method of the WC_Bundled_Item_Data CRUD class.
 	 * Data is exported with a hack, when the '_wc_pb_layout_style' meta is exported.
 	 *
-	 * @param  object $skip_export   Whether to skip the export of the meta key.
-	 * @param  array  $meta_key     Meta key.
+	 * @param  bool   $skip_export   Whether to skip the export of the meta key.
+	 * @param  string $meta_key     Meta key.
 	 * @param  array  $meta         Meta data.
-	 * @return object
+	 * @return bool
 	 */
 	public static function wp_export_data( $skip_export, $meta_key, $meta ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -132,6 +132,8 @@ class WC_PB_WP_IE_Compatibility {
 	/**
 	 * Reassociate bundled item ids with modified bundled product ids on import end.
 	 * Also delete the bundled items stock cache.
+	 *
+	 * @return void
 	 */
 	public static function wp_import_end() {
 		global $wpdb, $wp_import;

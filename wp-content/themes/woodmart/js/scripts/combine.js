@@ -2882,6 +2882,20 @@ window.addEventListener('load',function() {
 					woodmartThemeModule.$document.trigger('wdResetVariation');
 				})
 				.on('found_variation', function(event, variation) {
+					var $galleryWrap = $('.woocommerce-product-gallery');
+					if ($galleryWrap.find('link').length) {
+						$galleryWrap.find('link').each(function() {
+							var link = this;
+							var linkClone = link.cloneNode(false);
+
+							linkClone.addEventListener('load', function() {
+								link.remove();
+							}, false);
+
+							document.head.appendChild(linkClone);
+						});
+					}
+
 					if (useAjax) {
 						replaceMainGallery(variation.variation_id, $variation_form, variation);
 					}
@@ -2959,19 +2973,6 @@ window.addEventListener('load',function() {
 				.on('reset_image', function() {
 					var $galleryWrap = $('.woocommerce-product-gallery')
 					var $thumb = $galleryWrap.find('.wd-gallery-thumb .wd-carousel-item img').first();
-
-					if ($galleryWrap.find('link').length) {
-						$galleryWrap.find('link').each(function() {
-							var link = this;
-							var linkClone = link.cloneNode(false);
-
-							linkClone.addEventListener('load', function() {
-								link.remove();
-							}, false);
-
-							document.head.appendChild(linkClone);
-						});
-					}
 
 					if (!isQuickView() && !isQuickShop($variation_form)) {
 						$thumb.wc_reset_variation_attr('src');
@@ -3500,7 +3501,13 @@ window.addEventListener('load',function() {
 		woodmartThemeModule.stickyDetails();
 	});
 
+	woodmartThemeModule.$document.on('wc-product-gallery-before-destroy', '.woocommerce-product-gallery', function() {
+		$(this).trigger('sticky_kit:detach');
+	});
+
 	woodmartThemeModule.stickyDetails = function() {
+		woodmartThemeModule.$window.off('resize.wdStickyDetails');
+
 		if (!$('.single-product-page').hasClass('wd-sticky-on') || woodmartThemeModule.$window.width() <= 1024) {
 			return;
 		}
@@ -3509,13 +3516,17 @@ window.addEventListener('load',function() {
 
 		details.each(function() {
 			var $column = $(this),
-			    offset  = parseInt(woodmart_settings.sticky_product_details_offset),
-			    $inner  = $column.find('.summary-inner'),
-			    $images = $column.parent().find('.woocommerce-product-gallery');
+				offset  = parseInt(woodmart_settings.sticky_product_details_offset),
+				$inner  = $column.find('.summary-inner'),
+				$images = $column.parent().find('.woocommerce-product-gallery');
+
+			if (!$inner.length || !$images.length) {
+				return;
+			}
 
 			$inner.trigger('sticky_kit:detach');
 			$images.trigger('sticky_kit:detach');
-			
+
 			var diff = $inner.outerHeight() - $images.outerHeight();
 			var defaultDiff = parseInt(woodmart_settings.sticky_product_details_different);
 
@@ -3529,16 +3540,23 @@ window.addEventListener('load',function() {
 				});
 			}
 
-			woodmartThemeModule.$window.on('resize', woodmartThemeModule.debounce(function() {
+			woodmartThemeModule.$window.on('resize.wdStickyDetails', woodmartThemeModule.debounce(function() {
+				var $currentInner  = $column.find('.summary-inner'),
+					$currentImages = $column.parent().find('.woocommerce-product-gallery');
+
+				if (!$currentInner.length || !$currentImages.length) {
+					return;
+				}
+
 				if (woodmartThemeModule.$window.width() <= 1024) {
-					$inner.trigger('sticky_kit:detach');
-					$images.trigger('sticky_kit:detach');
-				} else if ($inner.outerHeight() < $images.outerHeight()) {
-					$inner.stick_in_parent({
+					$currentInner.trigger('sticky_kit:detach');
+					$currentImages.trigger('sticky_kit:detach');
+				} else if ($currentInner.outerHeight() < $currentImages.outerHeight()) {
+					$currentInner.stick_in_parent({
 						offset_top: offset
 					});
 				} else {
-					$images.stick_in_parent({
+					$currentImages.stick_in_parent({
 						offset_top: offset
 					});
 				}
@@ -6558,30 +6576,32 @@ window.addEventListener('load',function() {
 /* global woodmart_settings */
 (function($) {
 	woodmartThemeModule.productImages = function() {
-		var currentImage,
-		    $productGallery   = $('.woocommerce-product-gallery'),
-		    $mainImages       = $('.woocommerce-product-gallery__wrapper'),
-		    PhotoSwipeTrigger = '.wd-show-product-gallery-wrap > a';
+		var $document = $(document);
 
-		if ($productGallery.hasClass('image-action-popup')) {
-			PhotoSwipeTrigger += ', .woocommerce-product-gallery__image > a';
-		}
+		$document.off('.wdProductImages');
 
-		$productGallery.on('click', '.woocommerce-product-gallery__image > a', function(e) {
-			e.preventDefault();
-		});
-
-		$productGallery.on('click', PhotoSwipeTrigger, function(e) {
+		$document.on('click.wdProductImages', '.woocommerce-product-gallery .woocommerce-product-gallery__image > a', function(e) {
 			e.preventDefault();
 
 			var $this = $(this);
+			var $productGallery = $this.closest('.woocommerce-product-gallery');
 
-			currentImage = $this.attr('href');
+			if (!$productGallery.hasClass('image-action-popup')) {
+				return;
+			}
 
-			var items = getProductItems();
-
-			woodmartThemeModule.callPhotoSwipe(getCurrentGalleryIndex(e), items);
+			openPhotoSwipe(e, $productGallery);
 		});
+
+		$document.on('click.wdProductImages', '.woocommerce-product-gallery .wd-show-product-gallery-wrap > a', function(e) {
+			e.preventDefault();
+
+			openPhotoSwipe(e, $(this).closest('.woocommerce-product-gallery'));
+		});
+
+		var openPhotoSwipe = function(e, $productGallery) {
+			woodmartThemeModule.callPhotoSwipe(getCurrentGalleryIndex(e), getProductItems($productGallery));
+		};
 
 		var getCurrentGalleryIndex = function(e) {
 			var index = 0;
@@ -6600,15 +6620,15 @@ window.addEventListener('load',function() {
 			return index;
 		};
 
-		var getProductItems = function() {
+		var getProductItems = function($productGallery) {
 			var items = [];
 
-			$mainImages.find('figure a img').each(function() {
+			$productGallery.find('.woocommerce-product-gallery__wrapper figure a img').each(function() {
 				var $this = $(this);
 				var src     = $this.attr('data-large_image'),
-				    width   = $this.attr('data-large_image_width'),
-				    height  = $this.attr('data-large_image_height'),
-				    caption = $this.attr('data-caption');
+					width   = $this.attr('data-large_image_width'),
+					height  = $this.attr('data-large_image_height'),
+					caption = $this.attr('data-caption');
 
 				if ( $this.parents('.wd-carousel-item.wd-with-video').length ) {
 					var videoContent = $this.parents('.wd-with-video')[0].outerHTML;
@@ -8340,6 +8360,8 @@ function updateGiftsTable() {
 				return;
 			}
 
+			giftsWrapper = document.querySelector('.wd-fg');
+
 			if (giftsWrapper && response.hasOwnProperty('html')) {
 				let tempDiv       = document.createElement('div');
 				tempDiv.innerHTML = response.html;
@@ -8367,6 +8389,8 @@ function updateGiftsTable() {
 			console.log('ajax update gifts table error');
 		},
 		complete: function() {
+			var loaderOverlay = document.querySelector('.wd-fg .wd-loader-overlay');
+
 			if ( loaderOverlay ) {
 				loaderOverlay.classList.remove('wd-loading');
 			}
@@ -9481,7 +9505,7 @@ window.addEventListener('load', function() {
 	});
 })(jQuery);
 
-/* global woodmart_settings */
+/* global woodmart_settings, woodmart_wpml_js_data */
 (function($) {
 	woodmartThemeModule.ajaxFilters = function() {
 		if (!woodmartThemeModule.$body.hasClass('woodmart-ajax-shop-on') || typeof ($.fn.pjax) === 'undefined' || woodmartThemeModule.$body.hasClass('single-product') || woodmartThemeModule.$body.hasClass('elementor-editor-active') || $('.products[data-source="main_loop"]').length === 0) {
@@ -9496,7 +9520,7 @@ window.addEventListener('load', function() {
 		});
 
 		woodmartThemeModule.$document.on('pjax:end', function() {
-		    if (isPopstateNavigation) {
+			if (isPopstateNavigation) {
 				woodmartThemeModule.$document.trigger('wdShopPageInit');
 				isPopstateNavigation = false;
 			}
@@ -9570,12 +9594,6 @@ window.addEventListener('load', function() {
 			$('.wd-scroll-content').on('scroll', function() {
 				woodmartThemeModule.$document.trigger('wood-images-loaded');
 			});
-
-			if (typeof woodmart_wpml_js_data !== 'undefined' && woodmart_wpml_js_data.languages) {
-				$.each(woodmart_wpml_js_data.languages, function(index, language) {
-					$('.wpml-ls-item-' + language.code + ' > :is(.woodmart-nav-link, .wpml-ls-link)').attr('href', language.url);
-				});
-			}
 		});
 
 		woodmartThemeModule.$document.on('pjax:beforeReplace', function() {
@@ -9596,7 +9614,27 @@ window.addEventListener('load', function() {
 
 			$siteContent.removeClass('wd-loading');
 			$siteContent.addClass('wd-loaded');
+
+			updateLanguageSwitcher();
 		});
+
+		var updateLanguageSwitcher = function() {
+			var $wpmlData = $('#woodmart-wpml-ls-data');
+
+			if ($wpmlData.length) {
+				try {
+					woodmart_wpml_js_data = JSON.parse($wpmlData.text());
+				} catch (error) {}
+			}
+
+			if (typeof woodmart_wpml_js_data === 'undefined' || !woodmart_wpml_js_data.languages) {
+				return;
+			}
+
+			$.each(woodmart_wpml_js_data.languages, function(index, language) {
+				$('.wpml-ls-item-' + language.code + ' > :is(.woodmart-nav-link, .wpml-ls-link)').attr('href', language.url);
+			});
+		};
 
 		var scrollToTop = function(type) {
 			if (woodmart_settings.ajax_scroll === 'no' && type === false) {
@@ -13215,7 +13253,9 @@ woodmartThemeModule.swiperInit = function(carousel, thumbs = false) {
 				const customText = slides[index]?.getAttribute('data-pagination-text');
 
 				if (customText) {
-					formattedNumber = customText;
+					// Stored as esc_attr() server-side, but getAttribute() returns it
+					// decoded, so re-encode before injecting it as innerHTML.
+					formattedNumber = customText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 				}
 
 				return `<li class="${className}" tabindex="0" aria-label="${label}"><span>${formattedNumber}</span></li>`;
@@ -14285,8 +14325,6 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 			return;
 		}
 
-		container.classList.add('wd-carousel-simple-mb');
-
 		var carouselWrap = container.querySelector('.wd-carousel-wrap');
 		var prevArrow    = container.querySelector('.wd-btn-arrow.wd-prev');
 		var nextArrow    = container.querySelector('.wd-btn-arrow.wd-next');
@@ -14295,27 +14333,32 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 			return;
 		}
 
-		function updateArrows() {
+		container.classList.add('wd-carousel-simple-mb');
+
+		function getArrowsState() {
 			if (woodmartThemeModule.windowWidth > 1024) {
-				return;
+				return null;
 			}
 
 			var scrollLeft  = carouselWrap.scrollLeft;
 			var clientWidth = carouselWrap.clientWidth;
 			var scrollWidth = carouselWrap.scrollWidth;
-
-			if (scrollWidth <= clientWidth) {
-				prevArrow.classList.add('wd-hide');
-				nextArrow.classList.add('wd-hide');
-				return;
-			}
-
 			var normalScroll = isRtl
 				? (scrollLeft <= 0 ? Math.abs(scrollLeft) : scrollWidth - clientWidth - scrollLeft)
 				: scrollLeft;
 
-			prevArrow.classList.toggle('wd-disabled', normalScroll <= 1);
-			nextArrow.classList.toggle('wd-disabled', normalScroll + clientWidth >= scrollWidth - 1);
+			return {
+				hide: scrollWidth <= clientWidth,
+				prevDisabled: normalScroll <= 1,
+				nextDisabled: normalScroll + clientWidth >= scrollWidth - 1
+			};
+		}
+
+		function updateArrows(arrowsState) {
+			prevArrow.classList.toggle('wd-hide', arrowsState.hide);
+			nextArrow.classList.toggle('wd-hide', arrowsState.hide);
+			prevArrow.classList.toggle('wd-disabled', !arrowsState.hide && arrowsState.prevDisabled);
+			nextArrow.classList.toggle('wd-disabled', !arrowsState.hide && arrowsState.nextDisabled);
 		}
 
 		function onArrowClick(e, direction) {
@@ -14343,17 +14386,34 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 		}
 
 		var arrowsUpdateScheduled = false;
+		var arrowsUpdatePending   = false;
 
 		function scheduleArrowsUpdate() {
 			if (arrowsUpdateScheduled) {
+				arrowsUpdatePending = true;
 				return;
 			}
 
 			arrowsUpdateScheduled = true;
 
 			requestAnimationFrame(function() {
-				updateArrows();
-				arrowsUpdateScheduled = false;
+				var arrowsState = getArrowsState();
+
+				if (!arrowsState) {
+					arrowsUpdateScheduled = false;
+					arrowsUpdatePending = false;
+					return;
+				}
+
+				requestAnimationFrame(function() {
+					updateArrows(arrowsState);
+					arrowsUpdateScheduled = false;
+
+					if (arrowsUpdatePending) {
+						arrowsUpdatePending = false;
+						scheduleArrowsUpdate();
+					}
+				});
 			});
 		}
 
@@ -14362,7 +14422,7 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 
 		carouselWrap.addEventListener('scroll', scheduleArrowsUpdate, { passive: true });
 
-		updateArrows();
+		scheduleArrowsUpdate();
 	});
 };
 
@@ -15915,7 +15975,7 @@ window.addEventListener('wdEventStarted', function() {
 	woodmartThemeModule.clearSearch();
 });
 
-/* global woodmart_settings */
+/* global PhotoSwipe, PhotoSwipeUI_Default, woodmart_settings */
 (function($) {
 	woodmartThemeModule.callPhotoSwipe = function(index, items) {
 		if (woodmartThemeModule.$body.hasClass('rtl')) {
@@ -15950,6 +16010,13 @@ window.addEventListener('wdEventStarted', function() {
 				}
 			],
 			closeOnScroll: woodmart_settings.photoswipe_close_on_scroll,
+			parseShareButtonOut: function(shareButtonData, shareButtonOut) {
+				if ('download' !== shareButtonData.id) {
+					return shareButtonOut;
+				}
+
+				return shareButtonOut.replace('pswp__share--download', 'pswp__share--download pswp__single-tap');
+			},
 			isClickableElement: function (el) {
 				return el.tagName === 'A' || $(el).hasClass('wd-play-video')|| $(el).hasClass('wd-product-video');
 			},
@@ -16435,6 +16502,29 @@ window.addEventListener('load',function() {
 			return value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 		};
 
+		var escapeHtml = function(value) {
+			return String(value)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		};
+
+		/**
+		 * Titles come from the server as plain text. Match on the raw text and escape
+		 * every part separately, so the highlight never lands inside an HTML entity.
+		 */
+		var highlightTitle = function(title, query) {
+			if (!query) {
+				return escapeHtml(title);
+			}
+
+			return String(title).split(new RegExp('(' + escapeRegExChars(query) + ')', 'gi')).map(function(part, index) {
+				return index % 2 ? '<strong>' + escapeHtml(part) + '</strong>' : escapeHtml(part);
+			}).join('');
+		};
+
 		$('form.woodmart-ajax-search').each(function() {
 			var $this         = $(this),
 			    number        = parseInt($this.data('count')),
@@ -16543,11 +16633,7 @@ window.addEventListener('load',function() {
 							woodmartThemeModule.$document.trigger('wood-images-loaded');
 						},
 						formatResult    : function(suggestion, currentValue) {
-							if (currentValue === '&') {
-								currentValue = '&#038;';
-							}
-							var pattern     = '(' + escapeRegExChars(currentValue) + ')',
-								returnValue = '';
+							var returnValue = '';
 
 							if (suggestion.divider) {
 								returnValue += ' <div class="suggestion-divider-title title">' + suggestion.divider + '</div>';
@@ -16559,9 +16645,7 @@ window.addEventListener('load',function() {
 
 							if (suggestion.value) {
 								returnValue += ' <div class="wd-suggestion-content wd-set-mb reset-last-child">';
-								returnValue += '<div class="wd-entities-title">' + suggestion.value
-									.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
-									.replace(/&lt;(\/?strong)&gt;/g, '<$1>') + '</div>';
+								returnValue += '<div class="wd-entities-title">' + highlightTitle(suggestion.value, currentValue) + '</div>';
 							}
 
 							if (sku && suggestion.sku) {
@@ -16580,7 +16664,7 @@ window.addEventListener('load',function() {
 								var ariaLabel = '';
 
 								if (suggestion.value) {
-									ariaLabel = `aria-label="${suggestion.value.replace(/(<([^>]+)>)/ig, '')}"`;
+									ariaLabel = `aria-label="${escapeHtml(suggestion.value)}"`;
 								}
 
 								returnValue += ` <a class="wd-fill" href="${suggestion.permalink}" ${ariaLabel}></a>`;
@@ -17511,6 +17595,20 @@ window.addEventListener('load',function() {
 		}
 
 		/**
+		 * Escape a value before it is interpolated into popup HTML.
+		 * Marker fields come from stored block settings and must never be
+		 * inserted as live markup (stored XSS otherwise).
+		 */
+		const escapeHtml = function ( str ) {
+			return String( null === str || undefined === str ? '' : str )
+				.replace( /&/g, '&amp;' )
+				.replace( /</g, '&lt;' )
+				.replace( />/g, '&gt;' )
+				.replace( /"/g, '&quot;' )
+				.replace( /'/g, '&#39;' );
+		};
+
+		/**
 		 * Helper to add markers to our map.
 		 *
 		 * @param map map instance.
@@ -17530,7 +17628,7 @@ window.addEventListener('load',function() {
 
 				// add marker title
 				if (this.marker.marker_title) {
-					tooltipContent += `<div class="marker-title"><h5 class="title">${this.marker.marker_title}</h5></div>`;
+					tooltipContent += `<div class="marker-title"><h5 class="title">${escapeHtml(this.marker.marker_title)}</h5></div>`;
 				}
 
 				// marker content
@@ -17538,15 +17636,16 @@ window.addEventListener('load',function() {
 
 				// add marker description
 				if (this.marker.marker_description) {
-					tooltipContent += `<div class="marker-description">${this.marker.marker_description}</div>`;
+					tooltipContent += `<div class="marker-description">${escapeHtml(this.marker.marker_description)}</div>`;
 				}
 
 				// add marker button
 				if (this.marker.show_button === 'yes' && this.marker.button_text) {
 					let button_url_target = this.marker.hasOwnProperty('button_url_target') && this.marker.button_url_target ? this.marker.button_url_target : '_blank';
+					let button_url        = /^(https?:|mailto:|tel:|\/|#)/i.test( this.marker.button_url || '' ) ? this.marker.button_url : '';
 					tooltipContent += `<div class="marker-button">
-                                                <a class="btn" target="${button_url_target}" href='${this.marker.button_url}' role="button">
-                                                   ${this.marker.button_text}
+                                                <a class="btn" target="${escapeHtml(button_url_target)}" href="${escapeHtml(button_url)}" role="button">
+                                                   ${escapeHtml(this.marker.button_text)}
                                                 </a>
                                             </div>`;
 				}
@@ -17643,8 +17742,11 @@ window.addEventListener('load',function() {
 				let tileUrl = settings.geoapify_custom_tile;
 				tileUrl     = tileUrl.replaceAll( '$', '' );
 
+				let attributionUrl  = settings.osm_custom_attribution_url && /^(https?:|\/|#)/i.test( settings.osm_custom_attribution_url ) ? settings.osm_custom_attribution_url : '';
+				let attributionText = settings.osm_custom_attribution ? settings.osm_custom_attribution : '';
+
 				L.tileLayer( tileUrl, {
-					attribution: `<a href="${ settings.osm_custom_attribution_url ? settings.osm_custom_attribution_url : null }" target="_blank"> ${settings.osm_custom_attribution ? settings.osm_custom_attribution : null} </a> | © OpenStreetMap <a href="https://www.openstreetmap.org/copyright" target="_blank">contributors</a>`,
+					attribution: `<a href="${escapeHtml(attributionUrl)}" target="_blank"> ${escapeHtml(attributionText)} </a> | © OpenStreetMap <a href="https://www.openstreetmap.org/copyright" target="_blank">contributors</a>`,
 					maxZoom: 18
 				}).addTo(map);
 			}
@@ -18018,6 +18120,12 @@ jQuery(window).on('elementor/frontend/init', function(){
 			$(this).addClass('wd-loaded');
 		});
 
+		setContentPosition();
+
+		woodmartThemeModule.$window
+			.off('resize.wdImageHotspot')
+			.on('resize.wdImageHotspot', woodmartThemeModule.debounce(setContentPosition, 150));
+
 		function setContentPosition() {
 			$('.wd-image-hotspot .hotspot-content, .wd-spot .wd-spot-dropdown').each(function() {
 				var content = $(this);
@@ -18026,8 +18134,9 @@ jQuery(window).on('elementor/frontend/init', function(){
 				content.removeClass('hotspot-overflow-right hotspot-overflow-left');
 				content.attr('style', '');
 
-				var offsetLeft = content.offset().left;
-				var offsetRight = woodmartThemeModule.$window.width() - (offsetLeft + content.outerWidth());
+				var rect = content[0].getBoundingClientRect();
+				var offsetLeft = rect.left;
+				var offsetRight = woodmartThemeModule.$window.width() - rect.right;
 
 				if (woodmartThemeModule.windowWidth > 768 && !isBlock) {
 					if (offsetLeft <= 0) {
@@ -18038,12 +18147,17 @@ jQuery(window).on('elementor/frontend/init', function(){
 					}
 				}
 
-				if (woodmartThemeModule.windowWidth <= 768 || isBlock && woodmartThemeModule.windowWidth <= 1024) {
-					if (offsetLeft <= 0) {
-						content.css('marginLeft', Math.abs(offsetLeft - 15) + 'px');
-					}
-					if (offsetRight <= 0) {
-						content.css('marginLeft', offsetRight - 15 + 'px');
+				if ((woodmartThemeModule.windowWidth <= 768 || isBlock) && (offsetLeft <= 0 || offsetRight <= 0)) {
+					var pushRight = offsetLeft <= 0 ? Math.abs(offsetLeft) + 15 : offsetRight - 15;
+
+					content.css('marginLeft', '10px');
+					var honorsMarginLeft = Math.abs(content[0].getBoundingClientRect().left - rect.left) > 0.5;
+					content.css('marginLeft', '');
+
+					if (honorsMarginLeft) {
+						content.css('marginLeft', pushRight + 'px');
+					} else {
+						content.css('marginRight', -pushRight + 'px');
 					}
 				}
 			});
@@ -18241,6 +18355,20 @@ jQuery(window).on('elementor/frontend/init', function(){
 	});
 
 	woodmartThemeModule.googleMapInit = function() {
+		/**
+		 * Escape marker fields before they are interpolated into infowindow HTML.
+		 * Values come from stored block settings and must not render as live markup.
+		 * All builders pass them raw, so this is the only place they get escaped.
+		 */
+		const escapeHtml = function ( str ) {
+			return String( null === str || undefined === str ? '' : str )
+				.replace( /&/g, '&amp;' )
+				.replace( /</g, '&lt;' )
+				.replace( />/g, '&gt;' )
+				.replace( /"/g, '&quot;' )
+				.replace( /'/g, '&#39;' );
+		};
+
 		$('.google-map-container').each(function() {
 			var $map = $(this);
 			var data = $map.data('map-args');
@@ -18275,7 +18403,7 @@ jQuery(window).on('elementor/frontend/init', function(){
 					}
 
 					if ( marker.marker_title || marker.marker_description ) {
-						location.html = `<h3 style="min-width:300px; text-align:center; margin:15px;">${marker.marker_title}</h3>${marker.marker_description}`;
+						location.html = `<h3 style="min-width:300px; text-align:center; margin:15px;">${escapeHtml(marker.marker_title)}</h3>${escapeHtml(marker.marker_description)}`;
 					}
 
 					return location;
@@ -18300,7 +18428,7 @@ jQuery(window).on('elementor/frontend/init', function(){
 				];
 
 				if ('yes' === data.marker_text_needed) {
-					config.locations[0].html = data.marker_text;
+					config.locations[0].html = `<h3 style="min-width:300px; text-align:center; margin:15px;">${escapeHtml(data.marker_title)}</h3>${escapeHtml(data.marker_text)}`;
 				}
 			}
 

@@ -8,7 +8,7 @@ class WPML_Translate_Independently {
 
 	public function init() {
 		add_action( 'wpml_scripts_setup', array( $this, 'localize_scripts' ), PHP_INT_MAX );
-		add_action( 'wp_ajax_check_duplicate', array( $this, 'wpml_translate_independently' ) );
+		\WPML\Request\Adapter\Ajax::register( 'check_duplicate', \WPML\Request\Policy\Policy::capability( 'edit_posts', \WPML\Request\Policy\Authenticity::actionNonce( 'icl_check_duplicates', 'icl_duplciate_nonce' ) ), array( $this, 'wpml_translate_independently' ) );
 		add_filter( 'tiny_mce_before_init', array( $this, 'add_tiny_mce_change_detection' ), 999, 1 );
 	}
 

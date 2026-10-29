@@ -113,8 +113,12 @@ class WCML_The_Events_Calendar implements \IWPML_Action {
 
 			$ticket_lang = $this->sitepress->get_language_for_element( $post->ID, 'post_tribe_events' );
 			$this->sitepress->switch_lang( $ticket_lang );
-			$ticket_ids = Tribe__Tickets__RSVP::get_instance()->get_tickets_ids( $post->ID );
-			$this->sitepress->switch_lang();
+
+			try {
+				$ticket_ids = Tribe__Tickets__RSVP::get_instance()->get_tickets_ids( $post->ID );
+			} finally {
+				$this->sitepress->switch_lang();
+			}
 
 			if ( $ticket_ids ) {
 				foreach ( $ticket_ids as $ticket_id ) {
@@ -167,6 +171,11 @@ class WCML_The_Events_Calendar implements \IWPML_Action {
 
 		foreach ( $translations as $rsvp_post_id => $translation ) {
 
+			$rsvp_event_id = (int) get_post_meta( $rsvp_post_id, '_tribe_rsvp_for_event', true );
+			if ( ! in_array( $rsvp_event_id, [ (int) $job->original_doc_id ], true ) ) {
+				continue;
+			}
+
 			$translated_rsvp_post_id = apply_filters( 'wpml_object_id', $rsvp_post_id, 'tribe_rsvp_tickets', false, $job->language_code );
 
 			$postarr = [
@@ -208,8 +217,12 @@ class WCML_The_Events_Calendar implements \IWPML_Action {
 
 			$ticket_lang = $this->sitepress->get_language_for_element( $post->ID, 'post_tribe_events' );
 			$this->sitepress->switch_lang( $ticket_lang );
-			$ticket_ids = Tribe__Tickets_Plus__Commerce__WooCommerce__Main::get_instance()->get_tickets_ids( $post->ID );
-			$this->sitepress->switch_lang();
+
+			try {
+				$ticket_ids = Tribe__Tickets_Plus__Commerce__WooCommerce__Main::get_instance()->get_tickets_ids( $post->ID );
+			} finally {
+				$this->sitepress->switch_lang();
+			}
 
 			if ( $ticket_ids ) {
 				foreach ( $ticket_ids as $ticket_id ) {
@@ -262,6 +275,11 @@ class WCML_The_Events_Calendar implements \IWPML_Action {
 		}
 
 		foreach ( $translations as $ticket_post_id => $translation ) {
+			$woo_ticket_event_id = (int) get_post_meta( $ticket_post_id, '_tribe_wooticket_for_event', true );
+			if ( ! in_array( $woo_ticket_event_id, [ (int) $job->original_doc_id ], true ) ) {
+				continue;
+			}
+
 			$translated_ticket_post_id = apply_filters( 'wpml_object_id', $ticket_post_id, 'product', false, $job->language_code );
 
 			$postarr = [

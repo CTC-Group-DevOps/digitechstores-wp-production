@@ -2,7 +2,6 @@
 
 namespace WCML\Utilities\Suspend;
 
-use WPML\FP\Logic;
 use WPML\FP\Relation;
 use function WPML\FP\pipe;
 use function WPML\FP\spreadArgs;
@@ -17,7 +16,7 @@ class Filters implements Suspend {
 
 	public function resume() {
 		$this->suspended
-			->filter( pipe( spreadArgs( 'has_filter' ), Relation::equals( false ), Logic::not() ) )
+			->filter( pipe( spreadArgs( 'has_filter' ), Relation::equals( false ) ) )
 			->each( spreadArgs( 'add_filter' ) );
 	}
 

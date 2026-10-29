@@ -6,7 +6,10 @@ class Scanner {
 
 	public function scan( $file, $componentDomain, $storeResults ) {
 		try {
-			require_once WPML_ST_PATH . '/lib/StringScanning/vendor/autoload.php';
+			$string_scanning_autoloader = WPML_ST_PATH . '/lib/StringScanning/vendor/autoload.php';
+			if ( is_readable( $string_scanning_autoloader ) ) {
+				require_once $string_scanning_autoloader;
+			}
 
 			if (
 				! class_exists( '\Gettext\Translations' )
@@ -50,7 +53,7 @@ class Scanner {
 				$stringValue = $translation->getOriginal();
 				$refs        = $translation->getReferences();
 				$firstLine   = $refs[0][1] ?? null;
-				$storeResults( $stringValue, $jedDomain, $translation->getContext(), $file, $firstLine );
+				$storeResults( $stringValue, $jedDomain, $translation->getContext(), $file, $firstLine, $textdomain );
 			}
 
 			ini_set( 'xdebug.max_nesting_level', $xdebugMaxNestingLevel );

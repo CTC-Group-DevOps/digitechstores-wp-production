@@ -8,10 +8,10 @@
             "lang": "ar"
          },
          "Choose the image file type for flags": [
-            "اختر نوع ملف الصورة للأعلام"
+            "اختر نوع ملف الصور للأعلام"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "يؤثر هذا الخيار على أعلام WPML المضمنة فقط، وليس الأعلام المخصصة التي تم تحميلها."
+            "يؤثر هذا الخيار فقط على أعلام WPML المدمجة، وليس على الأعلام المخصصة المرفوعة."
          ],
          "%s format": [
             "تنسيق %s"

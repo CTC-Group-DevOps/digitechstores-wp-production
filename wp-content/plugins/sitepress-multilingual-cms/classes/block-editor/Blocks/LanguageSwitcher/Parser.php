@@ -11,6 +11,7 @@ use WPML\BlockEditor\Blocks\LanguageSwitcher\Model\Label\NativeLanguage;
 use WPML\BlockEditor\Blocks\LanguageSwitcher\Model\LanguageItemTemplate;
 use WPML\BlockEditor\Blocks\LanguageSwitcher\Model\LanguageSwitcherTemplate;
 use WPML\FP\Obj;
+use WPML\Utilities\Utf8Html;
 
 class Parser {
 
@@ -48,9 +49,14 @@ class Parser {
 		}
 
 		$blockDOMDocument = new \DOMDocument();
-		libxml_use_internal_errors( true );
-		$blockDOMDocument->loadHTML( $blockHTML );
-		$errors = libxml_get_errors();
+		$previousUseInternalErrors = libxml_use_internal_errors( true );
+		try {
+			Utf8Html::load( $blockDOMDocument, $blockHTML );
+			$errors = libxml_get_errors();
+		} finally {
+			libxml_clear_errors();
+			libxml_use_internal_errors( $previousUseInternalErrors );
+		}
 
 
 		$domXPath = new \DOMXpath( $blockDOMDocument );

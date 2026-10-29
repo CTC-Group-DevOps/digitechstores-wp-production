@@ -16,6 +16,8 @@ class WPML_TM_AMS_Synchronize_Actions implements IWPML_Action {
 
 	private $deletedTranslatorIds = [];
 
+	private static $last_error = null;
+
 	public function __construct(
 		WPML_TM_AMS_API $ams_api,
 		WPML_TM_AMS_Users $ams_user_records,
@@ -40,14 +42,20 @@ class WPML_TM_AMS_Synchronize_Actions implements IWPML_Action {
 	}
 
 	public function synchronize_translators() {
-		$result = $this->ams_api->synchronize_translators( $this->ams_user_records->get_translators() );
+		$result           = $this->ams_api->synchronize_translators( $this->ams_user_records->get_translators() );
+		self::$last_error = is_wp_error( $result ) ? $result : null;
 		if ( ! is_wp_error( $result ) ) {
 			$this->translator_activation_records->update( isset( $result['translators'] ) ? $result['translators'] : array() );
 		}
 	}
 
 	public function synchronize_managers() {
-		$this->ams_api->synchronize_managers( $this->ams_user_records->get_managers() );
+		$result           = $this->ams_api->synchronize_managers( $this->ams_user_records->get_managers() );
+		self::$last_error = is_wp_error( $result ) ? $result : null;
+	}
+
+	public static function get_last_error() {
+		return self::$last_error;
 	}
 
 	public function enable_subscription( $user_id ) {

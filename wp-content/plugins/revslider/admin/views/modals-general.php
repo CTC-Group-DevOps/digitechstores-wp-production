@@ -110,17 +110,16 @@ if(!defined('ABSPATH')) exit();
 				<div class="rbm_content">
 					<div class="mcg_page mcg_selected">
 						<div class="dcenter">							
-							<div class="bigredwarning"><i class="material-icons">error_outline</i></div>
-							<div class="mcg_page_title warningtext"><?php _e('URGENT', 'revslider');?></div>
-							<div class="mcg_page_title"><?php _e('Your Slider Revolution License Has Been Deactivated!', 'revslider');?></div>
+							<div class="biglilawarning"></div>
+							<div class="mcg_page_title"><?php _e('Premium features are paused', 'revslider');?></div>
 							<div><a class="simpletext smalllink" target="_blank" rel="noopener" href="https://sr6archive.sliderrevolution.com/faq/why-was-my-slider-revolution-license-deactivated/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=deactivatedfaq"><?php _e('Wondering why this happened? Click here!', 'revslider');?></a></div>
 							<div class="div35"></div>
 							<div class="dr_warningbox">
-								<div class="mcg_page_subtitle"><i class="material-icons warningicon">block</i></div>
+								<div class="mcg_page_subtitle"><i class="material-icons">star</i></div>
 								<div class="div15"></div>
-								<div class="mcg_page_subtitle"><?php _e('All of the premium features including templates, media assets,<br>and add-ons have been removed from your website.', 'revslider');?></div>
+								<div class="mcg_page_subtitle"><?php _e('Slider Revolution and its security fixes stay free on this site.<br>Premium features need an active annual licence.', 'revslider');?></div>
 								<div class="div15"></div>
-								<div class="mcg_page_content"><?php _e('We can help you restore everything right now, all you have to do is choose one of<br>the options below:', 'revslider');?></div>
+								<div class="mcg_page_content"><?php _e('Renew or buy an annual licence to turn premium back on.', 'revslider');?></div>
 								<div class="div25"></div>
 								<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>
 								<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>
@@ -128,11 +127,11 @@ if(!defined('ABSPATH')) exit();
 							</div>
 							<div class="div10"></div>
 							<div class="dr_warningbox">
-								<div class="mcg_page_subtitle"><i class="material-icons warningicon">do_not_touch</i></div>
+								<div class="mcg_page_subtitle"><i class="material-icons">forum</i></div>
 								<div class="div15"></div>
-								<div class="mcg_page_subtitle"><?php _e('Please note you don’t have access to Premium 1-on-1 support<br>right now ...', 'revslider');?></div>
+								<div class="mcg_page_subtitle"><?php _e('Ticket support is part of the annual licence.', 'revslider');?></div>
 								<div class="div15"></div>
-								<div class="mcg_page_content"><?php _e('.. however, as soon as you reactivate your license, our top-rated support team will<br>ensure that your website is fully functional.', 'revslider');?></div>
+								<div class="mcg_page_content"><?php _e('Security reports are always welcome.', 'revslider');?></div>
 								<div class="div25"></div>
 								<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>
 								<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>

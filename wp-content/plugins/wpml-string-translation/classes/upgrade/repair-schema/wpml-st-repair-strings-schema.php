@@ -72,9 +72,17 @@ class WPML_ST_Repair_Strings_Schema {
 	}
 
 	private function add_notice() {
+		$support_url = \WPML\ST\OutboundLinks\OutboundLinks::to(
+			'https://app.wpml.org/support',
+			array(
+				'medium'   => 'support',
+				'campaign' => 'support',
+			)
+		);
 		$text = '<p>' . sprintf(
+			/* translators: Notice shown when WPML finds a problem in its database tables. %1$s: opening link tag, %2$s: closing link tag; the words between them become a link to WPML support. */
 			esc_html__( 'We have detected a problem with some tables in the database. Please contact %1$sWPML support%2$s to get this fixed.', 'wpml-string-translation' ),
-			'<a href="https://wpml.org/forums/forum/english-support/" class="otgs-external-link" rel="noopener" target="_blank">',
+			'<a href="' . esc_url( $support_url ) . '" class="otgs-external-link" rel="noopener" target="_blank">',
 			'</a>'
 		) . '</p>';
 

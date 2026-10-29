@@ -41,7 +41,7 @@ class WPML_Slug_Translation implements IWPML_Action {
 		$this->migrate_global_enabled_setting();
 
 		if ( $this->slug_translation_settings->is_enabled() ) {
-			add_filter( 'post_type_link', array( $this, 'post_type_link_filter' ), apply_filters( 'wpml_post_type_link_priority', 1 ), 4 );
+			$this->add_post_type_link_filter();
 			add_filter( 'pre_term_link', array( $this->term_link_filter, 'replace_slug_in_termlink' ), 1, 2 );
 			add_filter( 'edit_post', array( $this, 'clear_post_link_cache' ), 1, 2 );
 			add_filter( 'query_vars', array( $this, 'add_cpt_names' ), 1, 1 );
@@ -52,6 +52,23 @@ class WPML_Slug_Translation implements IWPML_Action {
 			add_action( 'icl_ajx_custom_call', array( $this, 'gui_save_options' ), 10, 1 );
 			add_action( 'wp_loaded', array( $this, 'maybe_migrate_string_name' ), 10, 0 );
 		}
+	}
+
+	private function add_post_type_link_filter() {
+		$core_slug_filter = $this->get_core_slug_filter();
+		if ( $core_slug_filter ) {
+			add_filter( $core_slug_filter, array( $this, 'post_type_link_filter' ), 10, 4 );
+		} else {
+			add_filter( 'post_type_link', array( $this, 'post_type_link_filter' ), apply_filters( 'wpml_post_type_link_priority', 1 ), 4 );
+		}
+	}
+
+	protected function get_core_slug_filter() {
+		if ( defined( 'WPML_URL_Filters::POST_TYPE_LINK_SLUG_FILTER' ) ) {
+			return WPML_URL_Filters::POST_TYPE_LINK_SLUG_FILTER;
+		}
+
+		return null;
 	}
 
 	public static function get_slug_by_type( $type ) {
@@ -102,9 +119,10 @@ class WPML_Slug_Translation implements IWPML_Action {
 
 		$ld = apply_filters( 'wpml_st_post_type_link_filter_language_details', $ld );
 
-		$cache_key  = $leavename . '#' . $sample;
+		$cache_key  = $post_link . '#' . $leavename . '#' . $sample;
 		$cache_key .= $this->ls_languages_status->is_getting_ls_languages() ? 'yes' : 'no';
 		$cache_key .= $ld->language_code;
+		$cache_key .= '#' . $current_language;
 		$blog_id    = get_current_blog_id();
 		if ( isset( $this->post_link_cache[ $blog_id ][ $post->ID ][ $cache_key ] ) ) {
 			$post_link = $this->post_link_cache[ $blog_id ][ $post->ID ][ $cache_key ];
@@ -130,14 +148,17 @@ class WPML_Slug_Translation implements IWPML_Action {
 
 					$lslash = false !== strpos( $struct_original, '/' . $slug_this ) ? '/' : '';
 					$wp_rewrite->extra_permastructs[ $post->post_type ]['struct'] = preg_replace(
-						'@' . $lslash . $slug_this . '/@',
-						$lslash . $slug_real . '/',
+						'@' . $lslash . preg_quote( $slug_this, '@' ) . '/@',
+						str_replace( [ '\\', '$' ], [ '\\\\', '\\$' ], $lslash . $slug_real . '/' ),
 						$struct_original
 					);
-					$this->ignore_post_type_link                                  = true;
-					$post_link                   = get_post_permalink( $post->ID, $leavename, $sample );
-					$this->ignore_post_type_link = false;
-					$wp_rewrite->extra_permastructs[ $post->post_type ]['struct'] = $struct_original;
+					$this->ignore_post_type_link = true;
+					try {
+						$post_link = get_post_permalink( $post->ID, $leavename, $sample );
+					} finally {
+						$this->ignore_post_type_link                                  = false;
+						$wp_rewrite->extra_permastructs[ $post->post_type ]['struct'] = $struct_original;
+					}
 				} else {
 					$post_link = str_replace( $slug_this . '=', $slug_real . '=', $post_link );
 				}
@@ -180,7 +201,7 @@ class WPML_Slug_Translation implements IWPML_Action {
 
 					foreach ( $data as $row ) {
 						foreach ( $types_to_fetch as $type ) {
-							if ( preg_match( '#\s' . $type . '$#', $row->name ) === 1 ) {
+							if ( preg_match( '#\s' . preg_quote( $type, '#' ) . '$#', $row->name ) === 1 ) {
 								$slug_translations[ $row->value ] = $type;
 							}
 						}

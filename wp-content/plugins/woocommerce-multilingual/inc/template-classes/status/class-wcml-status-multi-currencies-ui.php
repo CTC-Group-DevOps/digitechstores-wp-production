@@ -26,11 +26,15 @@ class WCML_Status_Multi_Currencies_UI extends WCML_Templates_Factory {
 			'sec_currencies' => join( ', ', $sec_currencies_codes ),
 			'add_cur_link'   => \WCML\Utilities\AdminUrl::getMultiCurrencyTab(),
 			'strings'        => [
+				/* translators: Tab title and heading of the plugin's screen for currencies. One word, the name of the feature. */
 				'mc_missing'     => __( 'Multicurrency', 'woocommerce-multilingual' ),
+				/* translators: Message shown in place of the currency switcher preview, the exchange-rates table and the status list while the shop has only one currency. */
 				'no_secondary'   => __( "You haven't added any secondary currencies.", 'woocommerce-multilingual' ),
 				/* translators: %s is a list of currency codes */
 				'sec_currencies' => __( 'Secondary currencies: %s', 'woocommerce-multilingual' ),
+				/* translators: Line on the Status screen shown when the shop sells in one currency only. */
 				'not_enabled'    => __( 'Multi-currency is not enabled.', 'woocommerce-multilingual' ),
+				/* translators: Link on the Status screen that opens the multicurrency screen. Verb phrase, imperative. */
 				'add_cur'        => __( 'Add Currencies', 'woocommerce-multilingual' ),
 			],
 		];

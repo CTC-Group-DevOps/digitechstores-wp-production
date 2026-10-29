@@ -10,6 +10,12 @@ class WPML_String_Scanner {
 	protected $current_path;
 	protected $text_domain;
 
+	protected $own_domains_only = false;
+
+	protected $skipped_foreign = array();
+
+	private $own_jed_domains = array();
+
 	private $domains;
 	private $registered_strings;
 	private $lang_codes;
@@ -48,20 +54,30 @@ class WPML_String_Scanner {
 		$this->currently_scanning                         = $scanning;
 		$this->domains_found[ $this->currently_scanning ] = array();
 		$this->default_domain                             = 'default';
+		$this->skipped_foreign                            = array();
+		$this->own_jed_domains                            = array();
+		$this->own_domains_only = ! empty( $_POST['own_domains_only'] )
+			&& (bool) check_ajax_referer( WPML_ST_Theme_Plugin_Scan_Files_Ajax_Factory::AJAX_ACTION, 'nonce', false );
 	}
 
 	protected function scan_response( $stats ) {
 		global $__icl_registered_strings, $sitepress;
 
 		$result = array(
+			/* translators: Message on the Theme and plugins localization page after a successful scan. %s: the number of texts found. Keep the word "WPML" and the colon: the page puts the part before the colon in bold and starts the message at "WPML". */
 			'scan_successful_message' => esc_html__( 'Scan successful: WPML found %s strings.', 'wpml-string-translation' ),
 			'files_processed_message' => esc_html__( 'The following files were processed:', 'wpml-string-translation' ),
+			/* translators: Line added under the scan result when strings were left out because their text domain belongs to another plugin or theme. %1$s: how many strings, %2$s: the text domains, comma separated. */
+			'skipped_foreign_message' => esc_html__( 'Skipped %1$s strings that belong to other text domains (%2$s) - they already have their own translations.', 'wpml-string-translation' ),
 			'files_processed'         => $this->get_scanned_files(),
 			'strings_found'           => is_array( $__icl_registered_strings ) ? count( $__icl_registered_strings ) : 0,
+			'strings_skipped_foreign' => array_sum( $this->skipped_foreign ),
+			'skipped_domains'         => array_keys( $this->skipped_foreign ),
 			'stats'                   => $stats,
 		);
 
 		if ( $result['strings_found'] ) {
+			/* translators: Second sentence added after "Scan successful: WPML found 42 strings." on the Theme and plugins localization page, and only when texts were found. "They" are those texts. Keep the space at the start. */
 			$result['scan_successful_message'] .= __( ' They were added to the translations table.', 'wpml-string-translation' );
 		}
 
@@ -82,6 +98,45 @@ class WPML_String_Scanner {
 
 	protected function get_domains_found() {
 		return $this->domains_found[ $this->currently_scanning ];
+	}
+
+	protected function is_foreign_domain( $domain ) {
+		if ( ! $this->own_domains_only || '' === (string) $this->text_domain ) {
+			return false;
+		}
+
+		if ( isset( $this->own_jed_domains[ (string) $domain ] ) ) {
+			return false;
+		}
+
+		$own = array( '', 'default', 'WordPress', (string) $this->text_domain, (string) $this->default_domain );
+
+		return ! in_array( (string) $domain, $own, true );
+	}
+
+	private function count_skipped( $domain ) {
+		$this->skipped_foreign[ $domain ] = ( isset( $this->skipped_foreign[ $domain ] ) ? $this->skipped_foreign[ $domain ] : 0 ) + 1;
+	}
+
+	protected function scan_js_file( $file ) {
+		$jsScanner = new \WPML\ST\StringsScanning\JS\Scanner();
+		$jsScanner->scan( $file, $this->text_domain, array( $this, 'store_js_results' ) );
+	}
+
+	public function store_js_results( $string, $jed_domain, $_gettext_context, $file, $line, $text_domain = null ) {
+		if ( $this->is_foreign_domain( (string) $text_domain ) ) {
+			$this->count_skipped( (string) $text_domain );
+
+			return;
+		}
+
+		$this->own_jed_domains[ (string) $jed_domain ] = true;
+
+		$this->store_results( $string, $jed_domain, $_gettext_context, $file, $line );
+	}
+
+	protected function get_skipped_foreign() {
+		return $this->skipped_foreign;
 	}
 
 	protected function get_default_domain() {
@@ -209,6 +264,12 @@ class WPML_String_Scanner {
 
 		global $wpdb;
 
+		if ( $this->is_foreign_domain( $domain ) ) {
+			$this->count_skipped( $domain );
+
+			return;
+		}
+
 		$domain = $domain ? $domain : 'WordPress';
 
 		if ( ! isset( $this->domains_found[ $this->currently_scanning ] [ $domain ] ) ) {
@@ -307,8 +368,6 @@ class WPML_String_Scanner {
 
 			if ( ICL_STRING_TRANSLATION_STRING_TRACKING_THRESHOLD > $string_records_count ) {
 				if ( $kind == ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_PAGE ) {
-					$https    = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ? 's' : '';
-					$position = 'http' . $https . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 					return;
 				} else {
 					$file     = $this->get_file_name_converter()->transform_realpath_to_reference( $file );
@@ -438,14 +497,15 @@ class WPML_String_Scanner {
 		);
 
 		if ( $string_update_context ) {
+			$string_ids = array_map( 'intval', wp_list_pluck( $string_update_context, 'id' ) );
 			$wpdb->query(
 				$wpdb->prepare(
 					"
 									 UPDATE {$wpdb->prefix}icl_strings
 									 SET context = %s
-									 WHERE id IN ( " . implode( ',', wp_list_pluck( $string_update_context, 'id' ) ) . ' )
+									 WHERE id IN ( " . implode( ', ', array_fill( 0, count( $string_ids ), '%d' ) ) . ' )
 									 ',
-					$obsolete_context
+					array_merge( array( $obsolete_context ), $string_ids )
 				)
 			);
 
@@ -516,17 +576,16 @@ class WPML_String_Scanner {
 
 		if ( count( $strings ) ) {
 			foreach ( array_chunk( $strings, 100 ) as $chunk ) {
-				$ids = array();
-				foreach ( $chunk as $string ) {
-					$ids[] = $string->id;
-				}
-				$ids = implode( ',', $ids );
+				$ids = array_map( 'intval', wp_list_pluck( $chunk, 'id' ) );
 
 				$rows = $wpdb->get_results(
-					"
+					$wpdb->prepare(
+						"
 							SELECT id, string_id, language, status, value
 							FROM {$wpdb->prefix}icl_string_translations
-							WHERE string_id IN ({$ids})"
+							WHERE string_id IN (" . implode( ', ', array_fill( 0, count( $ids ), '%d' ) ) . ')',
+						$ids
+					)
 				);
 
 				$translations = array_merge( $translations, $rows );
@@ -535,14 +594,6 @@ class WPML_String_Scanner {
 
 		return $translations;
 	}
-
-	protected function remove_notice( $notice_id ) {
-		global $wpml_st_admin_notices;
-		if ( isset( $wpml_st_admin_notices ) ) {
-			$wpml_st_admin_notices->remove_notice( $notice_id );
-		}
-	}
-
 
 	public function get_strings_mapper() {
 		if ( null === $this->strings_mapper ) {

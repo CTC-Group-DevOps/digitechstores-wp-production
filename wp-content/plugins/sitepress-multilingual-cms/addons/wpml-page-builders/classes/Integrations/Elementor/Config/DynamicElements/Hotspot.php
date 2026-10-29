@@ -3,13 +3,13 @@
 namespace WPML\PB\Elementor\Config\DynamicElements;
 
 use WPML\FP\Obj;
-use WPML\FP\Relation;
+use WPML\PB\Elementor\Helper\Path;
 use function WPML\FP\compose;
 
 class Hotspot{
 
 	public static function get() {
-		$isHotspot = Relation::propEq( 'widgetType', 'hotspot' );
+		$isHotspot = Path::propEq( 'widgetType', 'hotspot' );
 		
 		$hotspotLinksLens = compose(
 			Obj::lensProp( 'settings' ),

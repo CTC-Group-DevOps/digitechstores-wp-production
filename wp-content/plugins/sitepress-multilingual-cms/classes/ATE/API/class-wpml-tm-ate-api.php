@@ -1,6 +1,10 @@
 <?php
 
 use WPML\TM\ATE\API\FingerprintGenerator;
+use WPML\TM\ATE\API\ClientRestriction;
+use WPML\TM\ATE\API\ClientRestrictionState;
+use WPML\TM\ATE\API\SpendCap;
+use WPML\TM\ATE\API\SpendCapState;
 use WPML\TM\ATE\Log\Entry;
 use WPML\TM\ATE\Log\EventsTypes;
 use WPML\TM\ATE\ClonedSites\ApiCommunication as ClonedSitesHandler;
@@ -26,12 +30,29 @@ class WPML_TM_ATE_API {
 
 	const TRANSLATED = 6;
 	const DELIVERING = 7;
-	const NOT_ENOUGH_CREDIT_STATUS = 31;
+	const NOT_ENOUGH_CREDIT_STATUS = WPML_TM_ATE_AMS_Endpoints::ATE_JOB_STATUS_NOT_ENOUGH;
+	const WAITING_AUTOMATIC_PAYMENT_STATUS = WPML_TM_ATE_AMS_Endpoints::ATE_JOB_STATUS_WAITING_AUTOMATIC_PAYMENT;
+
+	const CATALOGUE_READ_TIMEOUT = 10;
+
+	const XLIFF_LOCATION_CONFIGURED_ORIGIN = 'configured_origin';
+	const XLIFF_LOCATION_PUBLIC_HTTPS      = 'public_https';
+
 	private $wp_http;
 	private $auth;
 	private $endpoints;
 
 	private static $forbidden_requests = [];
+
+	const UNREACHABLE_WINDOW_SECONDS = 120;
+
+	const UNREACHABLE_SINCE_OPTION = 'wpml_ate_unreachable_since';
+
+	const BYPASS_BREAKER_ARG = 'wpml_ate_bypass_breaker';
+
+	const CALL_KIND_ARG = 'wpml_ate_call_kind';
+
+	private static $transport_failure;
 
 	private $clonedSitesHandler;
 
@@ -55,8 +76,9 @@ class WPML_TM_ATE_API {
 		return $this->requestWithLog(
 			$this->endpoints->get_ate_jobs(),
 			[
-				'method' => 'POST',
-				'body'   => $params,
+				'method'            => 'POST',
+				'body'              => $params,
+				self::CALL_KIND_ARG => ClonedSitesHandler::CALL_CREATE,
 			]
 		);
 	}
@@ -65,29 +87,69 @@ class WPML_TM_ATE_API {
 		return $this->requestWithLog( $this->endpoints->get_ate_confirm_job( $ate_job_id ) );
 	}
 
-	public function cancelJobs( $jobIds, $onlyFailed = false ) {
+	const CANCEL_REASON_SUPERSEDED = 'superseded';
+	const CANCEL_REASON_CANCELLED  = 'cancelled';
+	const CANCEL_REASON_DELETED    = 'deleted';
+
+	private static function normaliseCancelReason( $reason ) {
+		$allowed = [
+			self::CANCEL_REASON_SUPERSEDED,
+			self::CANCEL_REASON_CANCELLED,
+			self::CANCEL_REASON_DELETED,
+		];
+
+		return in_array( $reason, $allowed, true ) ? (string) $reason : self::CANCEL_REASON_CANCELLED;
+	}
+
+	public function cancelJobs( $jobIds, $onlyFailed = false, $reason = null, array $requestArgs = [] ) {
 		return $this->requestWithLog(
 			$this->endpoints->getAteCancelJobs(),
+			array_merge(
+				$requestArgs,
+				[
+					'method' => 'POST',
+					'body'   => [
+						'id' => (array) $jobIds,
+						'only_failed' => $onlyFailed,
+						'reason' => self::normaliseCancelReason( $reason )
+					]
+				]
+			)
+		);
+	}
+
+	public function resumeJobs( $jobIds ) {
+		$jobIds = array_values( array_filter( array_map( 'intval', (array) $jobIds ) ) );
+
+		if ( ! $jobIds ) {
+			return [];
+		}
+
+		return $this->requestWithLog(
+			$this->endpoints->getAteResumeJobs(),
 			[
 				'method' => 'POST',
 				'body'   => [
-					'id' => (array) $jobIds,
-					'only_failed' => $onlyFailed
-				]
+					'id' => $jobIds,
+				],
 			]
 		);
 	}
 
-	public function hideJobs( $jobIds, $force = false ) {
+	public function hideJobs( $jobIds, $force = false, $reason = null, array $requestArgs = [] ) {
 		return $this->requestWithLog(
 			$this->endpoints->getAteHideJobs(),
-			[
-				'method' => 'POST',
-				'body'   => [
-					'id' => (array) $jobIds,
-					'force' => $force
+			array_merge(
+				$requestArgs,
+				[
+					'method' => 'POST',
+					'body'   => [
+						'id' => (array) $jobIds,
+						'force' => $force ? 'true' : 'false',
+						'reason' => self::normaliseCancelReason( $reason )
+					]
 				]
-			]
+			)
 		);
 	}
 
@@ -127,7 +189,7 @@ class WPML_TM_ATE_API {
 			'job_id' => $job_id,
 		] );
 
-		return $this->auth->get_signed_url_with_parameters( 'GET', $url, null );
+		return $this->auth->get_signed_url_without_parameters( 'GET', $url, null );
 	}
 
 	public function clone_job( $ate_job_id, WPML_Element_Translation_Job $job_object, $sentFrom = null ) {
@@ -148,7 +210,48 @@ class WPML_TM_ATE_API {
 			$params['job_type'] = $sentFrom;
 		}
 
-		$result = $this->requestWithLog( $url, [ 'method' => 'POST', 'body' => $params ] );
+		$result = $this->requestWithLog(
+			$url,
+			[
+				'method'            => 'POST',
+				'body'              => $params,
+				self::CALL_KIND_ARG => ClonedSitesHandler::CALL_CREATE,
+			]
+		);
+
+		if ( ! is_object( $result ) || ! property_exists( $result, 'job_id' ) ) {
+			return false;
+		}
+
+		return [
+			'id'         => $result->job_id,
+			'ate_status' => Obj::propOr( WPML_TM_ATE_AMS_Endpoints::ATE_JOB_STATUS_CREATED, 'status', $result ),
+		];
+	}
+
+	public function clone_term_job( $ate_job_id, $wpml_job_id, $rid, $sentFrom = null ) {
+		$url    = $this->endpoints->get_clone_job( $ate_job_id );
+		$params = [
+			'id'                  => (int) $ate_job_id,
+			'notify_url'          => \WPML\TM\ATE\REST\PublicReceive::get_receive_ate_job_url( (int) $wpml_job_id ),
+			'site_identifier'     => wpml_get_site_id( WPML_TM_ATE::SITE_ID_SCOPE ),
+			'source_id'           => (int) $rid,
+			'permalink'           => '#',
+			'ate_ams_console_url' => wpml_tm_get_ams_ate_console_url(),
+		];
+
+		if ( $sentFrom ) {
+			$params['job_type'] = $sentFrom;
+		}
+
+		$result = $this->requestWithLog(
+			$url,
+			[
+				'method'            => 'POST',
+				'body'              => $params,
+				self::CALL_KIND_ARG => ClonedSitesHandler::CALL_CREATE,
+			]
+		);
 
 		if ( ! is_object( $result ) || ! property_exists( $result, 'job_id' ) ) {
 			return false;
@@ -172,16 +275,20 @@ class WPML_TM_ATE_API {
 		return $this->requestWithLog( $this->endpoints->get_ate_jobs( $job_ids, $statuses ) );
 	}
 
-	public function get_job_status_with_priority( $job_id ) {
+	public function get_job_status_with_priority( $job_id, array $requestArgs = [] ) {
 		return $this->requestWithLog(
 			$this->endpoints->get_ate_job_status(),
-			[
-				'method' => 'POST',
-				'body'   => [ 'id' => $job_id,
-				              'preview' => true],
-			]
+			array_merge(
+				$requestArgs,
+				[
+					'method' => 'POST',
+					'body'   => [
+						'id'      => $job_id,
+						'preview' => true,
+					],
+				]
+			)
 		);
-
 	}
 
 	public function get_jobs_by_wpml_ids( $wpml_job_ids ) {
@@ -194,11 +301,30 @@ class WPML_TM_ATE_API {
 			return false;
 		}
 
+		$result = $this->migrateSourceIdOnce( $pairs );
+
+		if ( ClonedSitesHandler::shouldReplay( $result ) ) {
+			$result = ClonedSitesHandler::replay(
+				function () use ( $pairs ) {
+					return $this->migrateSourceIdOnce( $pairs );
+				}
+			);
+		}
+
+		return $this->get_response_errors( $result ) === null;
+	}
+
+	private function migrateSourceIdOnce( array $pairs ) {
 		$verb = 'POST';
 
 		$url = $this->auth->get_signed_url_with_parameters( $verb, $this->endpoints->get_source_id_migration(), $pairs );
 		if ( is_wp_error( $url ) ) {
 			return $url;
+		}
+
+		$standing = $this->standingTransportFailure();
+		if ( $standing ) {
+			return $standing;
 		}
 
 		$body   = wp_json_encode( $pairs, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
@@ -212,11 +338,17 @@ class WPML_TM_ATE_API {
 			)
 		);
 
-		if ( ! is_wp_error( $result ) ) {
-			$result = $this->clonedSitesHandler->handleClonedSiteError( $result );
+		$service = \WPML_TM_ATE_AMS_Endpoints::serviceOfUrl( $url );
+		if ( is_wp_error( $result ) ) {
+			$this->clonedSitesHandler->handleTransportFailure( $result, $service );
+		} else {
+			$this->clonedSitesHandler->noteServerAnswered( $result, \WPML\TM\ATE\ClonedSites\ApiCommunication::CALL_OTHER, $service );
+			$result = $this->clonedSitesHandler->handleClonedSiteError( $result, $service );
 		}
 
-		return $this->get_response_errors( $result ) === null;
+		$this->recordTransportOutcome( $result );
+
+		return $result;
 	}
 
 	public function create_language_mapping( array $languagesToMap ) {
@@ -235,15 +367,29 @@ class WPML_TM_ATE_API {
 		$logError = Fns::tap( function ( $data ) {
 			$entry              = new Entry();
 			$entry->eventType   = EventsTypes::SERVER_ATE;
-			$entry->description = __( 'Saving of Language mapping to ATE failed', 'wpml-translation-management' );
+			$entry->description = __( 'Saving of Language mapping to ATE failed', 'sitepress' );
 			$entry->extraData   = $data;
 
 			wpml_tm_ate_ams_log( $entry );
 		} );
 
+		$asError = function ( $mappings ) {
+			return Either::left( self::languageMappingError( (array) $mappings ) );
+		};
+
 		return WordPress::handleError( $result )
 		                ->map( Obj::prop( 'mappings' ) )
-		                ->chain( Logic::ifElse( $hasError, pipe( $logError, Either::left() ), Either::right() ) );
+		                ->chain( Logic::ifElse( $hasError, pipe( $logError, $asError ), Either::right() ) );
+	}
+
+	public static function languageMappingError( array $mappings ) {
+		$refused = Fns::filter( Logic::complement( Obj::pathOr( false, [ 'result', 'created' ] ) ), $mappings );
+
+		return new WP_Error(
+			'wpml_ate_language_mapping_failed',
+			__( 'The language mapping could not be saved.', 'sitepress' ),
+			[ 'mappings' => array_values( (array) $refused ) ]
+		);
 	}
 
 	public function remove_language_mapping( $mappingIds ) {
@@ -303,9 +449,95 @@ class WPML_TM_ATE_API {
 	}
 
 	public function get_available_languages() {
-		$result = $this->requestWithLog( $this->endpoints->getLanguages(), [ 'method' => 'GET' ] );
+		$result = $this->requestWithLog( $this->endpoints->getLanguages(), $this->catalogueReadArgs() );
 
 		return is_wp_error( $result ) ? [] : $result;
+	}
+
+	private function catalogueReadArgs() {
+		return [
+			'method'  => 'GET',
+			'public'  => true,
+			'timeout' => self::CATALOGUE_READ_TIMEOUT,
+		];
+	}
+
+	public function get_catalogue_version() {
+		$result = $this->requestWithLog( $this->endpoints->getCatalogueVersion(), $this->catalogueReadArgs() );
+
+		if ( is_wp_error( $result ) ) {
+			return null;
+		}
+
+		$result = self::toArrayDeep( $result );
+
+		return is_array( $result ) ? array_map( 'intval', $result ) : null;
+	}
+
+	public function get_ams_catalogue_version() {
+		$result = $this->requestWithLog( $this->endpoints->getAmsCatalogueVersion(), $this->catalogueReadArgs() );
+
+		if ( is_wp_error( $result ) ) {
+			return null;
+		}
+
+		$result = self::toArrayDeep( $result );
+
+		return is_array( $result ) ? array_map( 'intval', $result ) : null;
+	}
+
+	public function get_ams_catalogue_languages() {
+		$result = $this->requestWithLog( $this->endpoints->getAmsCatalogueLanguages(), $this->catalogueReadArgs() );
+
+		if ( is_wp_error( $result ) ) {
+			return null;
+		}
+
+		$result = self::toArrayDeep( $result );
+
+		return is_array( $result ) ? $result : null;
+	}
+
+	public function get_language_translations( $since = null ) {
+		return $this->get_catalogue_section( $this->endpoints->getLanguagesTranslations(), $since );
+	}
+
+	public function get_country_translations( $since = null ) {
+		return $this->get_catalogue_section( $this->endpoints->getCountriesTranslations(), $since );
+	}
+
+	public function get_country_flags( $since = null ) {
+		return $this->get_catalogue_section( $this->endpoints->getCountriesFlags(), $since );
+	}
+
+	private function get_catalogue_section( $url, $since = null ) {
+		$args = $this->catalogueReadArgs();
+		if ( null !== $since ) {
+			$args['body'] = [ 'since' => (int) $since ];
+		}
+
+		$result = $this->requestWithLog( $url, $args );
+		if ( is_wp_error( $result ) ) {
+			return null;
+		}
+
+		$result = self::toArrayDeep( $result );
+		if ( ! is_array( $result ) ) {
+			return null;
+		}
+
+		return [
+			'version' => isset( $result['version'] ) ? (int) $result['version'] : 0,
+			'data'    => isset( $result['data'] ) && is_array( $result['data'] ) ? $result['data'] : [],
+		];
+	}
+
+	private static function toArrayDeep( $value ) {
+		if ( is_object( $value ) ) {
+			$value = get_object_vars( $value );
+		}
+
+		return is_array( $value ) ? array_map( [ self::class, 'toArrayDeep' ], $value ) : $value;
 	}
 
 	public function get_language_mapping() {
@@ -475,9 +707,21 @@ class WPML_TM_ATE_API {
 
 		$avoidLogDuplication = false;
 		try {
-			$response = $this->wp_http->get($xliff_url, array(
-				'timeout' => min(30, ini_get('max_execution_time') ?: 10)
-			));
+			$location = $this->xliffLocationVerdict( $xliff_url );
+			if ( ! is_string( $location ) ) {
+				throw new RequestException(
+					'The translated XLIFF location is not a trusted https URL (' . $location['reason'] . ').',
+					\WPML\Remote\TrustedDestinations::ERROR_CODE,
+					[]
+				);
+			}
+
+			$requestArgs = array( 'timeout' => min(30, ini_get('max_execution_time') ?: 10) );
+			if ( self::XLIFF_LOCATION_PUBLIC_HTTPS === $location ) {
+				$requestArgs = array_merge( $requestArgs, array( 'reject_unsafe_urls' => true ) );
+			}
+
+			$response = $this->wp_http->get($xliff_url, $requestArgs);
 		} catch ( \Error $e ) {
 			$response = new \WP_Error(
 				'ate_request_failed',
@@ -509,6 +753,22 @@ class WPML_TM_ATE_API {
 		return $response['body'];
 	}
 
+	private function xliffLocationVerdict( $xliff_url ) {
+		try {
+			$verdict = \WPML\Remote\TrustedDestinations::forAteAndAms( $this->endpoints )->check( $xliff_url );
+		} catch ( \InvalidArgumentException $e ) {
+			$verdict = false;
+		}
+
+		if ( true === $verdict ) {
+			return self::XLIFF_LOCATION_CONFIGURED_ORIGIN;
+		}
+
+		$publicVerdict = \WPML\Remote\TrustedDestinations::checkPublicHttps( $xliff_url );
+
+		return true === $publicVerdict ? self::XLIFF_LOCATION_PUBLIC_HTTPS : $publicVerdict;
+	}
+
 	public function override_site_id( $site_id ) {
 		$this->auth->override_site_id( $site_id );
 	}
@@ -519,20 +779,25 @@ class WPML_TM_ATE_API {
 			return null;
 		}
 
-		$signed_url = $this->auth->get_signed_url_with_parameters( 'GET', $this->endpoints->get_websites() );
-		if ( is_wp_error( $signed_url ) ) {
+		$response = $this->getWebsitesOnce();
+
+		if ( null === $response ) {
 			return null;
 		}
 
-		$requestArguments = [ 'headers' => $this->json_headers() ];
-
-		$response = $this->wp_http->request( $signed_url, $requestArguments );
-
-		if ( ! is_wp_error( $response ) ) {
-			$response = $this->clonedSitesHandler->handleClonedSiteError( $response );
+		if ( ClonedSitesHandler::shouldReplay( $response ) ) {
+			$response = ClonedSitesHandler::replay(
+				function () {
+					return $this->getWebsitesOnce();
+				}
+			);
 		}
 
 		$sites = $this->get_response( $response );
+
+		if ( ! is_array( $sites ) ) {
+			return null;
+		}
 
 		foreach ( $sites as $site ) {
 			if ( $site->url === $site_url ) {
@@ -541,6 +806,33 @@ class WPML_TM_ATE_API {
 		}
 
 		return null;
+	}
+
+	private function getWebsitesOnce() {
+		$signed_url = $this->auth->get_signed_url_with_parameters( 'GET', $this->endpoints->get_websites() );
+
+		if ( is_wp_error( $signed_url ) ) {
+			return null;
+		}
+
+		$standing = $this->standingTransportFailure();
+		if ( $standing ) {
+			return $standing;
+		}
+
+		$response = $this->wp_http->request( $signed_url, [ 'headers' => $this->json_headers() ] );
+
+		$service = \WPML_TM_ATE_AMS_Endpoints::serviceOfUrl( $signed_url );
+		if ( is_wp_error( $response ) ) {
+			$this->clonedSitesHandler->handleTransportFailure( $response, $service );
+		} else {
+			$this->clonedSitesHandler->noteServerAnswered( $response, \WPML\TM\ATE\ClonedSites\ApiCommunication::CALL_OTHER, $service );
+			$response = $this->clonedSitesHandler->handleClonedSiteError( $response, $service );
+		}
+
+		$this->recordTransportOutcome( $response );
+
+		return $response;
 	}
 
 
@@ -564,10 +856,26 @@ class WPML_TM_ATE_API {
 		return WordPress::handleError( $result );
 	}
 
+	public function get_retranslation_info( ?int $requestId = null ) {
+		try {
+			$result = $this->requestWithLog(
+				$this->endpoints->get_retranslate_info(),
+				[
+					'method' => 'GET',
+					'body'   => $requestId ? [ 'retranslation_request_id' => $requestId ] : [],
+				]
+			);
+		} catch ( \Exception $e ) {
+			$result = new \WP_Error( $e->getCode(), $e->getMessage() );
+		}
 
-	public function sync_all( array $ateJobIds, array $postIds = [], array $stringIds = [], array $packageIds = [] ) {
+		return WordPress::handleError( $result );
+	}
+
+
+	public function sync_all( array $ateJobIds, array $postIds = [], array $stringIds = [], array $packageIds = [], array $termIds = [] ) {
 		$orderingService = AteSyncOrderingServiceFactory::create();
-		$payload         = $orderingService->buildSyncPayload( $ateJobIds, $postIds, $stringIds, $packageIds );
+		$payload         = $orderingService->buildSyncPayload( $ateJobIds, $postIds, $stringIds, $packageIds, ICL_SITEPRESS_VERSION, $termIds );
 
 		return $this->requestWithLog(
 			$this->endpoints->get_sync_all(),
@@ -582,7 +890,36 @@ class WPML_TM_ATE_API {
 		return $this->requestWithLog( $this->endpoints->get_sync_page( $token, $page ) );
 	}
 
+	public function notify_tea_status( array $payload ) {
+		return $this->requestWithLog(
+			$this->endpoints->get_ate_tea_status(),
+			[
+				'method' => 'POST',
+				'body'   => $payload,
+			]
+		);
+	}
+
+	public function check_delivery_reachability( array $payload, array $requestArgs = [] ) {
+		return $this->requestWithLog(
+			$this->endpoints->get_ate_delivery_reachability(),
+			array_merge(
+				$requestArgs,
+				[
+					'method' => 'POST',
+					'body'   => $payload,
+				]
+			)
+		);
+	}
+
 	private function request( $url, array $requestArgs = [] ) {
+		$bypassBreaker = ! empty( $requestArgs[ self::BYPASS_BREAKER_ARG ] );
+		unset( $requestArgs[ self::BYPASS_BREAKER_ARG ] );
+
+		$callKind = $requestArgs[ self::CALL_KIND_ARG ] ?? ClonedSitesHandler::CALL_OTHER;
+		unset( $requestArgs[ self::CALL_KIND_ARG ] );
+
 		$lock = $this->clonedSitesHandler->checkCloneSiteLock( $url );
 		if ( $lock ) {
 			JobLog::add(
@@ -599,6 +936,83 @@ class WPML_TM_ATE_API {
 			return self::$forbidden_requests[ $url ];
 		}
 
+		$standing = $bypassBreaker ? null : $this->standingTransportFailure();
+		if ( $standing ) {
+			return $standing;
+		}
+
+		$response = $this->requestOnce( $url, $requestArgs, $callKind );
+
+		if ( ClonedSitesHandler::shouldReplay( $response ) ) {
+			$response = ClonedSitesHandler::replay(
+				function () use ( $url, $requestArgs, $callKind ) {
+					return $this->requestOnce( $url, $requestArgs, $callKind );
+				}
+			);
+		}
+
+		$this->recordTransportOutcome( $response );
+
+		return $response;
+	}
+
+	private function standingTransportFailure() {
+		if ( ! self::$transport_failure ) {
+			return null;
+		}
+
+		if ( ! self::isUnreachableWindowLive() ) {
+			self::$transport_failure = null;
+
+			return null;
+		}
+
+		return self::$transport_failure;
+	}
+
+	private function recordTransportOutcome( $response ) {
+		if ( self::isTransportFailure( $response ) ) {
+			self::$transport_failure = $response;
+
+			if ( ! self::isUnreachableWindowLive() ) {
+				update_option( self::UNREACHABLE_SINCE_OPTION, time(), true );
+			}
+
+			return;
+		}
+
+		if ( ! is_wp_error( $response ) && self::unreachableSince() > 0 ) {
+			update_option( self::UNREACHABLE_SINCE_OPTION, 0, true );
+		}
+	}
+
+	public static function isTransportFailure( $response ) {
+		return is_wp_error( $response ) && 'http_request_failed' === $response->get_error_code();
+	}
+
+	public static function isUnreachableWindowLive() {
+		$since = self::unreachableSince();
+
+		return $since > 0 && ( time() - $since ) < self::UNREACHABLE_WINDOW_SECONDS;
+	}
+
+	private static function unreachableSince() {
+		$since = get_option( self::UNREACHABLE_SINCE_OPTION, null );
+
+		if ( null === $since ) {
+			update_option( self::UNREACHABLE_SINCE_OPTION, 0, true );
+
+			return 0;
+		}
+
+		return (int) $since;
+	}
+
+	public static function clearTransportFailure() {
+		self::$transport_failure = null;
+	}
+
+	private function requestOnce( $url, array $requestArgs = [], $callKind = ClonedSitesHandler::CALL_OTHER ) {
 		$requestArgs = array_merge(
 			[
 				'timeout' => 60,
@@ -611,7 +1025,13 @@ class WPML_TM_ATE_API {
 		$bodyArgs = isset( $requestArgs['body'] ) && is_array( $requestArgs['body'] )
 			? $requestArgs['body'] : null;
 
-		$signedUrl = $this->auth->get_signed_url_with_parameters( $requestArgs['method'], $url, $bodyArgs );
+		$isPublic = ! empty( $requestArgs['public'] );
+		unset( $requestArgs['public'] );
+
+		$unsigned  = $isPublic && ! $this->auth->has_keys();
+		$signedUrl = $unsigned
+			? $url
+			: $this->auth->get_signed_url_with_parameters( $requestArgs['method'], $url, $bodyArgs );
 
 		if ( is_wp_error( $signedUrl ) ) {
 			return $signedUrl;
@@ -630,11 +1050,22 @@ class WPML_TM_ATE_API {
 			]
 		);
 
-		if ( $bodyArgs && $requestArgs['method'] !== 'GET' ) {
-			$requestArgs['body'] = $this->encode_body_args( $bodyArgs );
+		if ( $bodyArgs ) {
+			if ( 'GET' === $requestArgs['method'] ) {
+				unset( $requestArgs['body'] );
+			} else {
+				$requestArgs['body'] = $this->encode_body_args( $bodyArgs );
+			}
 		}
 
 		$result = $this->wp_http->request( $signedUrl, $requestArgs );
+
+		$service = \WPML_TM_ATE_AMS_Endpoints::serviceOfUrl( $url );
+		if ( is_wp_error( $result ) ) {
+			$this->clonedSitesHandler->handleTransportFailure( $result, $service, $callKind );
+		} else {
+			$this->clonedSitesHandler->noteServerAnswered( $result, $callKind, $service );
+		}
 
 		$appSignals = self::extractAppLevelSignals( $result );
 
@@ -684,10 +1115,14 @@ class WPML_TM_ATE_API {
 		JobLog::removeExtraLogData( 'apiCall' );
 
 		if ( ! is_wp_error( $result ) ) {
-			$result = $this->clonedSitesHandler->handleClonedSiteError( $result );
+			$result = $this->clonedSitesHandler->handleClonedSiteError( $result, $service, $callKind );
 		}
 
 		$response = $this->get_response( $result );
+
+		$this->updateClientRestrictionState( $url, $response, ! $unsigned );
+
+		$this->updateSpendCapState( $url, $result );
 
 		if (
 			is_array( $result )
@@ -700,10 +1135,45 @@ class WPML_TM_ATE_API {
 		return $response;
 	}
 
+	private function updateClientRestrictionState( $url, $response, $signed = true ) {
+		$ateBaseUrl = (string) $this->endpoints->get_ATE_base_url();
+		if ( '' === $ateBaseUrl || strpos( (string) $url, $ateBaseUrl ) !== 0 ) {
+			return;
+		}
+
+		$restriction = ClientRestriction::fromAteError( $response );
+
+		if ( $restriction ) {
+			ClientRestrictionState::save( $restriction );
+		} elseif ( $signed && ! is_wp_error( $response ) ) {
+			ClientRestrictionState::clearIfRestricted();
+		}
+	}
+
+	private function updateSpendCapState( $url, $result ) {
+		$ateBaseUrl = (string) $this->endpoints->get_ATE_base_url();
+		if ( '' === $ateBaseUrl || strpos( (string) $url, $ateBaseUrl ) !== 0 ) {
+			return;
+		}
+
+		$spendCap = SpendCap::fromHttpResult( $result );
+		if ( ! $spendCap ) {
+			return;
+		}
+
+		if ( ! SpendCapState::recordRefusal( $spendCap ) ) {
+			return;
+		}
+		\WPML\TM\API\ATE\Account::clearCache();
+
+		JobLog::add( 'ate_spend_cap_reached', $spendCap->toArray() );
+	}
+
 	private function requestWithLog( $url, array $requestArgs = [], $extraMessage = "" ) {
 		$response = $this->request( $url, $requestArgs );
 
 		if ( is_wp_error( $response ) ) {
+			$isPublic = ! empty( $requestArgs['public'] );
 			$entry              = new Entry();
 			$entry->eventType   = EventsTypes::SERVER_ATE;
 			$entry->description = $response->get_error_message();
@@ -726,7 +1196,9 @@ class WPML_TM_ATE_API {
 
 			wpml_tm_ate_ams_log( $entry );
 
-			ATEDetailedErrorMessage::saveDetailedError( $response );
+			if ( ! $isPublic ) {
+				ATEDetailedErrorMessage::saveDetailedError( $response );
+			}
 		}
 
 		return $response;

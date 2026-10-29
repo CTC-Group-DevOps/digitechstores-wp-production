@@ -64,8 +64,14 @@ abstract class WPML_TM_Xliff_Shared extends WPML_TM_Job_Factory_User {
 			'complete' => 1,
 		];
 
+		$units = [];
 		foreach ( $xliff->file->body->children() as $node ) {
-			$attr   = $node->attributes();
+			$attr = $node->attributes();
+
+			if ( 'no' === strtolower( (string) $attr['translate'] ) ) {
+				continue;
+			}
+
 			$type   = (string) $attr['id'];
 			$target = $this->get_xliff_node_target( $node );
 			if ( 'html' === (string) $attr['datatype'] ) {
@@ -73,11 +79,35 @@ abstract class WPML_TM_Xliff_Shared extends WPML_TM_Job_Factory_User {
 			}
 
 			if ( ! $this->is_valid_target( $target ) ) {
-				return $this->invalid_xliff_error( array( 'target' ) );
+				$source = $this->get_xliff_node_source( $node );
+				if ( 'html' === (string) $attr['datatype'] ) {
+					$source = $this->get_validator()->restore_html( $source );
+				}
+				if ( $this->source_has_no_text( $source ) ) {
+					$target = $source;
+				} else {
+					return $this->invalid_xliff_error( array( 'target' ) );
+				}
 			}
+
+			$units[] = [
+				'id'     => $type,
+				'target' => $target,
+			];
+		}
+
+		$units = $this->collapse_segmented_suggestion_units( $units, $job );
+
+		foreach ( $units as $unit ) {
+			$type   = $unit['id'];
+			$target = $unit['target'];
 
 			foreach ( $job->elements as $element ) {
 				if ( $element->field_type === $type ) {
+					if ( isset( $element->field_translate ) && 0 === (int) $element->field_translate ) {
+						break;
+					}
+
 					$target              = $this->replace_xliff_new_line_tag_with_new_line( $target );
 					$field               = array();
 					$field['data']       = $target;
@@ -93,6 +123,74 @@ abstract class WPML_TM_Xliff_Shared extends WPML_TM_Job_Factory_User {
 		}
 
 		return $data;
+	}
+
+	private function collapse_segmented_suggestion_units( array $units, $job ) {
+		$grouped = [];
+		foreach ( $units as $index => $unit ) {
+			$split = \WPML\TM\XLIFF\SegmentedSuggestion::split_unit_id( $unit['id'] );
+			if ( $split ) {
+				$grouped[ $split[0] ][ $split[1] ] = $unit['target'];
+				unset( $units[ $index ] );
+			}
+		}
+
+		if ( ! $grouped ) {
+			return $units;
+		}
+
+		foreach ( $units as $index => $unit ) {
+			$base = $unit['id'];
+			if ( ! isset( $grouped[ $base ] ) ) {
+				continue;
+			}
+
+			$segments      = $grouped[ $base ];
+			$segments[1]   = $unit['target'];
+			ksort( $segments );
+			if ( array_keys( $segments ) !== range( 1, count( $segments ) ) ) {
+				continue;
+			}
+
+			$reassembled = $this->reassemble_segmented_field( array_values( $segments ), $job, $base );
+			if ( null !== $reassembled ) {
+				$units[ $index ]['target'] = $reassembled;
+			}
+		}
+
+		return array_values( $units );
+	}
+
+	private function reassemble_segmented_field( array $segments, $job, $field_type ) {
+		foreach ( $job->elements as $element ) {
+			if ( $element->field_type !== $field_type ) {
+				continue;
+			}
+
+			$previous = isset( $element->field_data_translated ) ? base64_decode( (string) $element->field_data_translated ) : '';
+			$source   = isset( $element->field_data ) ? base64_decode( (string) $element->field_data ) : '';
+
+			return \WPML\TM\XLIFF\SegmentedSuggestion::reassemble_into( $segments, $previous, $source );
+		}
+
+		return null;
+	}
+
+	protected function get_xliff_node_source( $xliff_node ) {
+		$source = '';
+		if ( isset( $xliff_node->source->mrk ) ) {
+			$source = (string) $xliff_node->source->mrk;
+		} elseif ( isset( $xliff_node->source ) ) {
+			$source = (string) $xliff_node->source;
+		}
+
+		return $source;
+	}
+
+	private function source_has_no_text( $source ) {
+		$text = html_entity_decode( strip_tags( $source ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+		return '' === preg_replace( '/(*UCP)\s+/u', '', (string) $text );
 	}
 
 	private function is_valid_target( $target ) {
@@ -144,7 +242,8 @@ abstract class WPML_TM_Xliff_Shared extends WPML_TM_Job_Factory_User {
 	}
 
 	protected function not_the_job_owner_error( $job ) {
-		$message = sprintf( __( 'The translation job (%s) doesn\'t belong to you.', 'wpml-translation-management' ), $job->job_id );
+		/* translators: %s: translation job ID. */
+		$message = sprintf( __( 'The translation job (%s) doesn\'t belong to you.', 'sitepress' ), $job->job_id );
 
 		return new WP_Error( 'not_your_job', $message );
 	}
@@ -169,16 +268,17 @@ abstract class WPML_TM_Xliff_Shared extends WPML_TM_Job_Factory_User {
 	}
 
 	protected function not_xml_file_error( $name ) {
-		$message = sprintf( __( '"%s" is not a valid XLIFF file.', 'wpml-translation-management' ), $name );
+		/* translators: %s: uploaded file name. */
+		$message = sprintf( __( '"%s" is not a valid XLIFF file.', 'sitepress' ), $name );
 
 		return new WP_Error( 'not_xml_file', $message );
 	}
 
 	protected function invalid_xliff_error( array $missing_data = array() ) {
-		$message = __( 'The uploaded xliff file does not seem to be properly formed.', 'wpml-translation-management' );
+		$message = __( 'The uploaded xliff file does not seem to be properly formed.', 'sitepress' );
 
 		if ( $missing_data ) {
-			$message .= '<br>' . __( 'Missing or wrong data:', 'wpml-translation-management' );
+			$message .= '<br>' . __( 'Missing or wrong data:', 'sitepress' );
 			if ( count( $missing_data ) > 1 ) {
 				$message .= '<ol>';
 				$message .= '<li><strong>' . implode( '</strong></li><li><strong>', $missing_data ) . '</strong></li>';
@@ -193,6 +293,6 @@ abstract class WPML_TM_Xliff_Shared extends WPML_TM_Job_Factory_User {
 
 	protected function does_not_belong_error() {
 
-		return new WP_Error( 'xliff_does_not_match', __( "The uploaded xliff file doesn't belong to this system.", 'wpml-translation-management' ) );
+		return new WP_Error( 'xliff_does_not_match', __( "The uploaded xliff file doesn't belong to this system.", 'sitepress' ) );
 	}
 }

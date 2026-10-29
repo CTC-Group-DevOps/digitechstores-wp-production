@@ -24,19 +24,23 @@ class WPML_Translate_Link_Targets_UI extends WPML_TM_MCS_Section_UI {
 	protected function render_content() {
 		$output = '';
 
-		$main_message     = __( 'Adjust links in posts so they point to the translated content', 'wpml-translation-management' );
-		$complete_message = __( 'All posts have been processed. %s links were changed to point to the translated content.', 'wpml-translation-management' );
+		$main_message     = __( 'Adjust links in posts so they point to the translated content', 'sitepress' );
+		/* translators: %s: number of updated links. */
+		$complete_message = __( 'All posts have been processed. %s links were changed to point to the translated content.', 'sitepress' );
 		$scanning_message = __( 'Scanning now, please wait...', 'sitepress' );
 		$error_message    = __( 'Error! Reload the page and try again.', 'sitepress' );
 
 		if ( wpml_is_st_loaded() ) {
-			$main_message     = __( 'Adjust links in posts and strings so they point to the translated content', 'wpml-translation-management' );
-			$complete_message = __( 'All posts and strings have been processed. %s links were changed to point to the translated content.', 'wpml-translation-management' );
+			$main_message     = __( 'Adjust links in posts and strings so they point to the translated content', 'sitepress' );
+			/* translators: %s: number of updated links. */
+			$complete_message = __( 'All posts and strings have been processed. %s links were changed to point to the translated content.', 'sitepress' );
 		}
 
 		$data_attributes = array(
-			'post-message'     => esc_attr__( 'Processing posts... %1$s of %2$s done.', 'wpml-translation-management' ),
-			'string-message'   => esc_attr__( 'Processing strings... %1$s of %2$s done.', 'wpml-translation-management' ),
+			/* translators: Progress message while posts are being worked through. %1$s: how many are done, %2$s: how many there are in all. */
+			'post-message'     => esc_attr__( 'Processing posts... %1$s of %2$s done.', 'sitepress' ),
+			/* translators: Progress message while texts are being worked through. %1$s: how many are done, %2$s: how many there are in all. */
+			'string-message'   => esc_attr__( 'Processing strings... %1$s of %2$s done.', 'sitepress' ),
 			'complete-message' => esc_attr( $complete_message ),
 			'scanning-message' => esc_attr( $scanning_message ),
 			'error-message'    => esc_attr( $error_message ),
@@ -48,7 +52,7 @@ class WPML_Translate_Link_Targets_UI extends WPML_TM_MCS_Section_UI {
 		foreach ( $data_attributes as $key => $value ) {
 			$output .= ' data-' . $key . '="' . $value . '"';
 		}
-		$output .= '>' . esc_html__( 'Scan now and adjust links', 'wpml-translation-management' ) . '</button>';
+		$output .= '>' . esc_html__( 'Scan now and adjust links', 'sitepress' ) . '</button>';
 		$output .= '<span class="spinner"> </span>';
 		$output .= '<p class="results"> </p>';
 		$output .= wp_nonce_field( 'WPML_Ajax_Update_Link_Targets', 'wpml-translate-link-targets', true, false );

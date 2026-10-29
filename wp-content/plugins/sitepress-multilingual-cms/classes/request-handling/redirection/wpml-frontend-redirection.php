@@ -23,12 +23,9 @@ function _wpml_get_redirect_helper() {
 			}
 			break;
 		case 2:
-			$wp_api          = new WPML_WP_API();
 			$redirect_helper = new WPML_Redirect_By_Domain(
-				icl_get_setting( 'language_domains' ),
-				$wp_api,
-				$wpml_request_handler,
 				$wpml_url_converter,
+				$wpml_request_handler,
 				$wpml_language_resolution
 			);
 			break;

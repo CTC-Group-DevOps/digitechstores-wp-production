@@ -9,8 +9,13 @@ class Frontend implements \IWPML_Frontend_Action {
 
 	const PERMALINKS_CATEGORY_PATTERN = '%category%';
 
+	const FORM_WIDGET_NAME = 'form';
+
+	const FORM_CLOSING_TAG = '</form>';
+
 	public function add_hooks() {
 		add_action( 'elementor_pro/search_form/after_input', [ $this, 'addLanguageFormField' ] );
+		add_filter( 'elementor/widget/render_content', [ $this, 'addLanguageFieldToForm' ], 10, 2 );
 		if ( Str::includes( self::PERMALINKS_CATEGORY_PATTERN, get_option( 'permalink_structure' ) ) ) {
 			add_filter( 'post_link_category', Fns::memorize( [ $this, 'fixLanguageSwitcherPermalink' ] ), 10, 3 );
 		}
@@ -19,6 +24,14 @@ class Frontend implements \IWPML_Frontend_Action {
 
 	public function addLanguageFormField() {
 		do_action( 'wpml_add_language_form_field' );
+	}
+
+	public function addLanguageFieldToForm( $content, $widget ) {
+		if ( self::FORM_WIDGET_NAME !== $widget->get_name() ) {
+			return $content;
+		}
+
+		return Str::replace( self::FORM_CLOSING_TAG, wpml_get_language_form_field() . self::FORM_CLOSING_TAG, $content );
 	}
 
 	public function fixLanguageSwitcherPermalink( $cat, $cats, $post ) {

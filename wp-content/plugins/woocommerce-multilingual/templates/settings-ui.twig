@@ -207,6 +207,8 @@
     {{ wp_do_action( 'wcml_settings_ui_after_default' ) }}
 
     {{ form.nonce|raw }}
+    <input type="hidden" name="action" value="{{ form.command_action }}"/>
+    <input type="hidden" name="redirect_to" value="{{ form.redirect_to }}"/>
     <p class="wpml-margin-top-sm">
         <input type='submit' name="wcml_save_settings" value='{{ form.save_label }}' class='button-primary'/>
     </p>

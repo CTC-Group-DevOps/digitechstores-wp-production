@@ -8,8 +8,9 @@ use \RuntimeException;
 
 
 class CompositeQuery implements Query {
-	const METHOD_UNION = 'union';
-	const METHOD_COUNT = 'count';
+	const METHOD_UNION  = 'union';
+	const METHOD_COUNT  = 'count';
+	const METHOD_EXISTS = 'exists';
 
 	private $queries;
 
@@ -64,6 +65,10 @@ class CompositeQuery implements Query {
 		return $this->get_sql( $params_without_pagination_and_sorting, self::METHOD_COUNT );
 	}
 
+	public function get_exists_query( WPML_TM_Jobs_Search_Params $params ) {
+		return $this->get_sql( $params, self::METHOD_EXISTS );
+	}
+
 	private function get_sql( WPML_TM_Jobs_Search_Params $params, $method ) {
 		switch ( $method ) {
 			case self::METHOD_UNION:
@@ -71,6 +76,9 @@ class CompositeQuery implements Query {
 				break;
 			case self::METHOD_COUNT:
 				$query_method = 'get_count_query';
+				break;
+			case self::METHOD_EXISTS:
+				$query_method = 'get_exists_query';
 				break;
 			default:
 				throw new InvalidArgumentException( 'Invalid method argument: ' . $method );
@@ -97,6 +105,8 @@ class CompositeQuery implements Query {
 				return $this->get_union( $parts );
 			case self::METHOD_COUNT:
 				return $this->get_count( $parts );
+			case self::METHOD_EXISTS:
+				return $this->get_exists( $parts );
 		}
 
 		return null;
@@ -108,6 +118,10 @@ class CompositeQuery implements Query {
 
 	private function get_count( array $parts ) {
 		return 'SELECT ( ' . implode( ' ) + ( ', $parts ) . ' )';
+	}
+
+	private function get_exists( array $parts ) {
+		return 'SELECT EXISTS( ' . implode( ' ) OR EXISTS( ', $parts ) . ' )';
 	}
 
 	private function is_query_valid( $query ) {

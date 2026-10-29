@@ -25,8 +25,17 @@ class WPML_Page_Builders_Integration {
 		add_action( 'wpml_page_builder_register_strings', array( $this, 'register_pb_strings' ), 10, 2 );
 		add_action( 'wpml_page_builder_string_translated', array( $this, 'update_translated_post' ), self::STRINGS_TRANSLATED_PRIORITY, 5 );
 		add_filter( 'wpml_get_translatable_types', array( $this, 'remove_shortcode_strings_type_filter' ), 12, 1 );
+		add_filter( 'wpml_pb_string_texts_in_post', array( $this, 'string_texts_in_post' ), 10, 2 );
 
 		$this->data_settings->add_hooks();
+	}
+
+	public function string_texts_in_post( $texts, $post ) {
+		if ( ! $post instanceof WP_Post ) {
+			return $texts;
+		}
+
+		return (array) $texts + $this->register_strings->collect_strings( $post );
 	}
 
 	public function support_required( array $page_builder_plugins ) {

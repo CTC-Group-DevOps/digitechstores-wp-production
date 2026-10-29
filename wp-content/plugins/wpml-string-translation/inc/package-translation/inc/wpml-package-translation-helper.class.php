@@ -33,9 +33,12 @@ class WPML_Package_Helper {
 		$tm->delete_translations();
 
 		global $wpdb;
-		$delete_query   = "DELETE FROM {$wpdb->prefix}icl_string_packages WHERE id=%d";
-		$delete_prepare = $wpdb->prepare( $delete_query, $package_id );
-		$wpdb->query( $delete_prepare );
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->prefix}icl_string_packages WHERE id = %d",
+				$package_id
+			)
+		);
 
 		$package = $tm->get_package();
 		$domain  = $package->kind_slug . '-' . $package->name;
@@ -46,9 +49,12 @@ class WPML_Package_Helper {
 
 	protected function get_strings_ids_from_package_id( $package_id ) {
 		global $wpdb;
-		$string_ids_query   = "SELECT id FROM {$wpdb->prefix}icl_strings WHERE string_package_id=%d";
-		$string_ids_prepare = $wpdb->prepare( $string_ids_query, $package_id );
-		$string_ids         = $wpdb->get_col( $string_ids_prepare );
+		$string_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT id FROM {$wpdb->prefix}icl_strings WHERE string_package_id = %d",
+				$package_id
+			)
+		);
 
 		return $string_ids;
 	}
@@ -86,10 +92,12 @@ class WPML_Package_Helper {
 		$string_title = false;
 
 		if ( $string_id ) {
-			$string_title_query = 'SELECT title FROM ' . $wpdb->prefix . 'icl_strings WHERE id=%d';
-			$string_title_sql   = $wpdb->prepare( $string_title_query, array( $string_id ) );
-
-			$string_title = $wpdb->get_var( $string_title_sql );
+			$string_title = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT title FROM {$wpdb->prefix}icl_strings WHERE id = %d",
+					$string_id
+				)
+			);
 		}
 
 		if ( ! $string_title ) {
@@ -276,9 +284,12 @@ class WPML_Package_Helper {
 
 	final public function get_element_id_from_package_filter( $default, $package_id ) {
 		global $wpdb;
-		$element_id_query   = 'SELECT name FROM ' . $wpdb->prefix . 'icl_string_packages WHERE ID=%d';
-		$element_id_prepare = $wpdb->prepare( $element_id_query, $package_id );
-		$element_id         = $wpdb->get_var( $element_id_prepare );
+		$element_id = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT name FROM {$wpdb->prefix}icl_string_packages WHERE ID = %d",
+				$package_id
+			)
+		);
 		if ( ! $element_id ) {
 			$element_id = $default;
 		}
@@ -327,9 +338,9 @@ class WPML_Package_Helper {
 		}
 		$packages_ids = $_POST['packages'];
 
-		$this->delete_packages( $packages_ids );
+		$deleted = $this->delete_packages( $packages_ids );
 
-		exit;
+		wp_send_json_success( array( 'deleted' => $deleted ) );
 	}
 
 	final function delete_package_action( $name, $kind ) {
@@ -352,16 +363,39 @@ class WPML_Package_Helper {
 	}
 
 	final protected function delete_packages( $packages_ids ) {
-		$flush_cache = false;
+		global $wpdb;
+
+		$packages_ids = array_unique(
+			array_filter(
+				array_map( 'intval', (array) $packages_ids ),
+				function ( $package_id ) {
+					return $package_id > 0;
+				}
+			)
+		);
+
+		if ( $packages_ids ) {
+			$packages_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE ID IN ("
+					. implode( ', ', array_fill( 0, count( $packages_ids ), '%d' ) ) . ')',
+					$packages_ids
+				)
+			);
+		}
+
+		$deleted = 0;
 
 		foreach ( $packages_ids as $package_id ) {
 			$this->delete_package( $package_id );
 
-			$flush_cache = true;
+			$deleted++;
 		}
-		if ( $flush_cache ) {
+		if ( $deleted ) {
 			$this->flush_cache();
 		}
+
+		return $deleted;
 	}
 
 	final function change_package_lang_ajax() {
@@ -371,9 +405,14 @@ class WPML_Package_Helper {
 			die( 'verification failed' );
 		}
 
-		$package_id = $_POST['package_id'];
+		$package_id = isset( $_POST['package_id'] ) ? wp_unslash( $_POST['package_id'] ) : '';
+		if ( ! is_scalar( $package_id ) || ( '' !== (string) $package_id && ! ctype_digit( (string) $package_id ) ) ) {
+			wp_send_json_error( null, 400 );
 
-		$package = $this->package_factory->create( $package_id );
+			return;
+		}
+
+		$package = $this->package_factory->create( absint( $package_id ) );
 		$package->set_strings_language( $_POST['package_lang'] );
 
 		$package_job = new WPML_Package_TM( $package );
@@ -394,13 +433,27 @@ class WPML_Package_Helper {
 	private function get_editor_string_element( $string_name, $package_id, $column ) {
 		global $wpdb;
 
-		$element_query    = 'SELECT ' . $column . "
-						FROM {$wpdb->prefix}icl_strings
-						WHERE string_package_id=%d AND name=%s";
-		$element_prepared = $wpdb->prepare( $element_query, array( $package_id, $string_name ) );
-		$element          = $wpdb->get_var( $element_prepared );
+		if ( 'title' === $column ) {
+			return $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT title FROM {$wpdb->prefix}icl_strings WHERE string_package_id = %d AND name = %s",
+					$package_id,
+					$string_name
+				)
+			);
+		}
 
-		return $element;
+		if ( 'type' === $column ) {
+			return $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT type FROM {$wpdb->prefix}icl_strings WHERE string_package_id = %d AND name = %s",
+					$package_id,
+					$string_name
+				)
+			);
+		}
+
+		throw new InvalidArgumentException( 'Unsupported editor string column.' );
 	}
 
 	private function flush_cache() {
@@ -410,9 +463,19 @@ class WPML_Package_Helper {
 	final public static function create_new_package( WPML_Package $package ) {
 		$package_id = $package->create_new_package_record();
 
+		if ( ! $package_id ) {
+			return 0;
+		}
+
 		$tm = new WPML_Package_TM( $package );
 
 		$tm->set_language_details();
+
+		if ( ! $package->was_inserted() ) {
+			return (int) $package_id;
+		}
+
+		do_action( 'wpml_st_package_created', $package );
 
 		return (int) $package_id;
 	}
@@ -439,10 +502,6 @@ class WPML_Package_Helper {
 		return $package->get_string_id_from_package( $string_name, $string_value );
 	}
 
-	final function get_external_id_from_package( $package ) {
-		return 'external_' . $package['kind_slug'] . '_' . $package['ID'];
-	}
-
 	final function get_string_context( $package ) {
 		return sanitize_title_with_dashes( $package['kind_slug'] . '-' . $package['name'] );
 	}
@@ -457,9 +516,13 @@ class WPML_Package_Helper {
 
 		$key = $this->get_string_context( $package );
 		if ( ! $from_cache || ! array_key_exists( $key, $cache ) ) {
-			$package_id_query   = "SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s AND name = %s";
-			$package_id_prepare = $wpdb->prepare( $package_id_query, array( $package['kind_slug'], $package['name'] ) );
-			$package_id         = $wpdb->get_var( $package_id_prepare );
+			$package_id = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s AND name = %s",
+					$package['kind_slug'],
+					$package['name']
+				)
+			);
 			if ( ! $package_id ) {
 				return false;
 			}
@@ -477,11 +540,10 @@ class WPML_Package_Helper {
 		$all_packages = wp_cache_get( $cache_key, $this->cache_group, false, $cache_found );
 
 		if ( ! $cache_found ) {
-			$all_packages            = array();
-			$all_packages_data_query = "SELECT * FROM {$wpdb->prefix}icl_string_packages";
-			$all_packages_data       = $wpdb->get_results( $all_packages_data_query );
+			$all_packages      = array();
+			$all_packages_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}icl_string_packages" );
 			foreach ( $all_packages_data as $package_data ) {
-				$package                      = $this->package_factory->create( $package_data );
+				$package                      = $this->package_factory->create_from_row( $package_data );
 				$all_packages[ $package->ID ] = $package;
 			}
 			if ( $all_packages ) {
@@ -525,10 +587,13 @@ class WPML_Package_Helper {
 
 		$all_ok = true;
 
-		$strings_in = implode( ',', $strings );
-
-		$string_packages_query = "SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE id IN ($strings_in)";
-		$package_ids           = $wpdb->get_col( $string_packages_query );
+		$package_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE id IN ("
+				. implode( ', ', array_fill( 0, count( $strings ), '%d' ) ) . ')',
+				$strings
+			)
+		);
 
 		foreach ( $package_ids as $package_id ) {
 			if ( $package_id ) {
@@ -557,14 +622,13 @@ class WPML_Package_Helper {
 		global $wpdb;
 
 		if ( ! empty( $langs ) ) {
-			foreach ( $langs as &$lang ) {
-				$lang = "'" . $lang . "'";
-			}
-			$langs = implode( ',', $langs );
-
-			$string_packages_query = "SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE context='%s' AND language IN ($langs)";
-			$string_packages_query = $wpdb->prepare( $string_packages_query, $domain );
-			$package_ids           = $wpdb->get_col( $string_packages_query );
+			$package_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE context = %s AND language IN ("
+					. implode( ', ', array_fill( 0, count( $langs ), '%s' ) ) . ')',
+					array_merge( array( $domain ), $langs )
+				)
+			);
 
 			$this->set_packages_language( $package_ids, $to_lang );
 		}
@@ -586,13 +650,21 @@ class WPML_Package_Helper {
 	public function get_post_string_packages( $packages, $post_id ) {
 		global $wpdb;
 
-		$query       = $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE post_id = %d", $post_id );
-		$package_ids = $wpdb->get_col( $query );
-
 		$packages = $packages ? $packages : array();
 
-		foreach ( $package_ids as $package_id ) {
-			$packages[ $package_id ] = $this->package_factory->create( $package_id );
+		if ( ! \WPML\Upgrade\SchemaFacts::hasTable( 'icl_string_packages' ) ) {
+			return $packages;
+		}
+
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}icl_string_packages WHERE post_id = %d",
+				$post_id
+			)
+		);
+
+		foreach ( (array) $rows as $row ) {
+			$packages[ $row->ID ] = $this->package_factory->create_from_row( $row );
 		}
 
 		return $packages;

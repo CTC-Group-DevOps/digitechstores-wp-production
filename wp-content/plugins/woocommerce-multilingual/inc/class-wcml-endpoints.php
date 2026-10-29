@@ -143,12 +143,15 @@ class WCML_Endpoints {
 		$pendingQueryVars  = [];
 		$originalQueryVars = $queryVars;
 
+		$translated = $this->getTranslatedEndpoints( $currentLanguage );
+		$byEndpoint = $this->getEndpointsToTranslations( $currentLanguage );
+
 		foreach ( $queryVars as $key => $endpoint ) {
-			if ( in_array( $endpoint, $this->translatedEndpoints, true ) ) {
+			if ( in_array( $endpoint, $translated, true ) ) {
 				continue;
 			}
-			if ( array_key_exists( $endpoint, $this->endpointsToTranslations ) ) {
-				$queryVars[ $key ] = $this->endpointsToTranslations[ $endpoint ];
+			if ( array_key_exists( $endpoint, $byEndpoint ) ) {
+				$queryVars[ $key ] = $byEndpoint[ $endpoint ];
 				continue;
 			}
 			if ( $key !== $endpoint && $this->isRegisteredEndpointString( $endpoint, $endpoint ) ) {
@@ -160,14 +163,35 @@ class WCML_Endpoints {
 		}
 
 		foreach ( $pendingQueryVars as $key => $endpoint ) {
-			$queryVars[ $key ]                          = $this->translateEndpoint( $key, $endpoint, $currentLanguage );
-			$this->translatedEndpoints[ $key ]          = $queryVars[ $key ];
-			$this->endpointsToTranslations[ $endpoint ] = $queryVars[ $key ];
+			$queryVars[ $key ] = $this->translateEndpoint( $key, $endpoint, $currentLanguage );
+
+			$this->translatedEndpoints[ $currentLanguage ][ $key ]          = $queryVars[ $key ];
+			$this->endpointsToTranslations[ $currentLanguage ][ $endpoint ] = $queryVars[ $key ];
 		}
 
 		$additionalQueryVars = apply_filters( 'wcml_register_endpoints_query_vars', $queryVars, $originalQueryVars, $this );
 
 		return array_merge( $queryVars, $additionalQueryVars );
+	}
+
+	private function getTranslatedEndpoints( $language = null ) {
+		if ( ! $language ) {
+			$language = $this->sitepress->get_current_language();
+		}
+
+		return $this->translatedEndpoints[ $language ] ?? [];
+	}
+
+	private function getEndpointsToTranslations( $language = null ) {
+		if ( ! $language ) {
+			$language = $this->sitepress->get_current_language();
+		}
+
+		return $this->endpointsToTranslations[ $language ] ?? [];
+	}
+
+	private function getTranslatedEndpointsInEveryLanguage() {
+		return array_merge( [], ...array_values( $this->translatedEndpoints ) );
 	}
 
 	public function get_endpoint_translation( $key, $endpointOrLanguage = null, $language = null ) {
@@ -189,7 +213,7 @@ class WCML_Endpoints {
 			unset( $endpoints[ $key ] );
 			unset( $endpoints[ $value ] );
 		}
-		foreach ( $this->translatedEndpoints as $key => $value ) {
+		foreach ( $this->getTranslatedEndpointsInEveryLanguage() as $key => $value ) {
 			unset( $endpoints[ $value ] );
 		}
 		return $endpoints;
@@ -260,7 +284,7 @@ class WCML_Endpoints {
 			return $rewriteRules;
 		}
 
-		foreach ( $this->endpointsToTranslations as $endpoint => $endpointTranslation ) {
+		foreach ( $this->getEndpointsToTranslations() as $endpoint => $endpointTranslation ) {
 			if ( $endpoint === $endpointTranslation ) {
 				continue;
 			}
@@ -321,8 +345,10 @@ class WCML_Endpoints {
 			add_filter(
 				'option_' . $option,
 				function( $originalEndpoint ) use ( $key ) {
-					if ( array_key_exists( $key, $this->translatedEndpoints ) ) {
-						return $this->translatedEndpoints[ $key ];
+					$translatedEndpoints = $this->getTranslatedEndpoints();
+
+					if ( array_key_exists( $key, $translatedEndpoints ) ) {
+						return $translatedEndpoints[ $key ];
 					}
 					return $originalEndpoint;
 				},
@@ -382,35 +408,36 @@ class WCML_Endpoints {
 		if ( ! $found || ! $reserved_requests ) {
 			$reserved_requests = [];
 
-			$current_language = $this->sitepress->get_current_language();
-			$languages        = $this->sitepress->get_active_languages();
-			$languages_codes  = array_keys( $languages );
+			$languages       = $this->sitepress->get_active_languages();
+			$languages_codes = array_keys( $languages );
 			foreach ( $languages_codes as $language_code ) {
 				$this->sitepress->switch_lang( $language_code );
 
-				$my_account_page_id = wc_get_page_id( 'myaccount' );
+				try {
+					$my_account_page_id = wc_get_page_id( 'myaccount' );
 
-				if ( $my_account_page_id ) {
+					if ( $my_account_page_id ) {
 
-					$account_base = get_page_uri( $my_account_page_id );
+						$account_base = get_page_uri( $my_account_page_id );
 
-					if ( $account_base ) {
-						$reserved_requests[]           = $account_base;
-						$reserved_requests[]           = '/^' . str_replace( '/', '\/', $account_base ) . '/';
-						$is_page_display_as_translated = $this->sitepress->is_display_as_translated_post_type( 'page' );
+						if ( $account_base ) {
+							$reserved_requests[]           = $account_base;
+							$reserved_requests[]           = '/^' . str_replace( '/', '\/', $account_base ) . '/';
+							$is_page_display_as_translated = $this->sitepress->is_display_as_translated_post_type( 'page' );
 
-						if ( ! $is_page_display_as_translated ) {
-							$wcQueryVars = WC()->query->get_query_vars();
-							foreach ( $wcQueryVars as $key => $endpoint ) {
-								$translated_endpoint = $this->translateEndpoint( $key, $endpoint, $language_code );
-								$reserved_requests[] = $account_base . '/' . $translated_endpoint;
+							if ( ! $is_page_display_as_translated ) {
+								$wcQueryVars = WC()->query->get_query_vars();
+								foreach ( $wcQueryVars as $key => $endpoint ) {
+									$translated_endpoint = $this->translateEndpoint( $key, $endpoint, $language_code );
+									$reserved_requests[] = $account_base . '/' . $translated_endpoint;
+								}
 							}
 						}
 					}
+				} finally {
+					$this->sitepress->switch_lang();
 				}
 			}
-
-			$this->sitepress->switch_lang( $current_language );
 
 			$reserved_requests[] = '/' . get_option( 'woocommerce_checkout_pay_endpoint', 'order-pay' ) . '/';
 
@@ -455,7 +482,7 @@ class WCML_Endpoints {
 	public function filter_get_endpoint_url( $url, $endpoint, $value, $permalink ) {
 		remove_filter( 'woocommerce_get_endpoint_url', [ $this, 'filter_get_endpoint_url' ], 10 );
 
-		$key = array_search( $endpoint, $this->translatedEndpoints, true );
+		$key = array_search( $endpoint, $this->getTranslatedEndpoints(), true );
 		if ( false === $key ) {
 			$key = array_search( $endpoint, $this->originalEndpoints, true );
 		}
@@ -515,7 +542,7 @@ class WCML_Endpoints {
 
 		$current_endpoint = [];
 
-		foreach ( $this->translatedEndpoints as $key => $endpointTranslation ) {
+		foreach ( $this->getTranslatedEndpoints() as $key => $endpointTranslation ) {
 			if (
 				isset( $wp->query_vars[ $endpointTranslation ] )
 				&& array_key_exists( $key, $this->originalEndpoints )

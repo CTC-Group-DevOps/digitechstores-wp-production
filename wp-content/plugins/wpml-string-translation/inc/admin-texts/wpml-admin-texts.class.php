@@ -4,7 +4,9 @@ use WPML\Collect\Support\Collection;
 use WPML\Convert\Ids;
 use WPML\FP\Either;
 use \WPML\FP\Obj;
+use \WPML\ST\AdminTexts\JsonValue;
 use \WPML\ST\AdminTexts\TranslateNestedIds;
+use WPML\ST\AdminTexts\StringsPassReopen;
 use function WPML\Container\make;
 use function \WPML\FP\partial;
 use function \WPML\FP\invoke;
@@ -29,13 +31,21 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 
 	private $lock = false;
 
-	private $cache_option_values_in_def_lang_by_id = [];
+	private $stored_before_update = [];
 
-	public function __construct( &$tm_instance, &$st_instance ) {
+	private $strings_pass_reopen;
+
+	private $registered_in_walk = 0;
+
+	private $json_wholes_to_retire = [];
+
+	public function __construct( &$tm_instance, &$st_instance, ?StringsPassReopen $strings_pass_reopen = null ) {
+		$this->strings_pass_reopen = $strings_pass_reopen ?: new StringsPassReopen();
 		add_action( 'plugins_loaded', [ $this, 'icl_st_set_admin_options_filters' ], 10 );
 		add_action( 'plugins_loaded', [ $this, 'set_admin_options_ids_filters' ], 10 );
 		add_filter( 'wpml_unfiltered_admin_string', flip( [ $this, 'get_option_without_filtering' ] ), 10, 2 );
 		add_action( 'wpml_st_force_translate_admin_options', [ $this, 'force_translate_admin_options' ] );
+		add_action( 'wpml_language_has_switched', [ $this, 'clear_language_caches' ] );
 		$this->tm_instance = &$tm_instance;
 		$this->st_instance = &$st_instance;
 		global $sitepress;
@@ -46,12 +56,64 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 		return is_object( $value ) ? object_to_array( $value ) : $value;
 	}
 
+	private static function decodeSerializedData( $value, &$decoded ) {
+		if ( ! is_string( $value ) || ! is_serialized( $value ) ) {
+			return false;
+		}
+
+		$decoded = unserialize( $value, [ 'allowed_classes' => false ] );
+
+		return ! self::holdsObject( $decoded );
+	}
+
+	private static function holdsObject( $value ) {
+		if ( is_object( $value ) ) {
+			return true;
+		}
+
+		if ( is_array( $value ) ) {
+			foreach ( $value as $item ) {
+				if ( self::holdsObject( $item ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public function icl_register_admin_options( $array, $key = '', $option = array() ) {
+		if ( '' === $key ) {
+			$this->registered_in_walk = 0;
+			$this->walk_admin_options( $array );
+
+			if ( $this->registered_in_walk > 0 ) {
+				$this->strings_pass_reopen->afterRegistration();
+			}
+
+			return;
+		}
+
+		$this->walk_admin_options( $array, $key, $option );
+	}
+
+	private function walk_admin_options( $array, $key = '', $option = array(), $json_root = null ) {
 		$option = self::object_to_array( $option );
+
+		$json = '' === $key ? null : JsonValue::toArray( $option );
+		if ( null !== $json ) {
+			$json_root = $this->getJsonRoot( $key, $json );
+			$option    = $json;
+		}
+
 		foreach ( $array as $k => $v ) {
+			if ( '' === $key && $this->is_blacklisted( $k ) ) {
+				continue;
+			}
+
 			$option = $key === '' ? array( $k => maybe_unserialize( $this->get_option_without_filtering( $k ) ) ) : $option;
 			if ( is_array( $v ) ) {
-				$this->icl_register_admin_options( $v, $key . '[' . $k . ']', $option[ $k ] );
+				$this->walk_admin_options( $v, $key . '[' . $k . ']', $option[ $k ], $json_root );
 			} else {
 				$context  = $this->get_context( $key, $k );
 				$opt_keys = self::findKeys( (string) $key );
@@ -60,6 +122,7 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 					icl_unregister_string( $context, $key . $k );
 				} elseif ( isset( $option[ $k ] ) && ( $key === '' || $opt_keys ) ) {
 					icl_register_string( $context, $key . $k, $option[ $k ], true );
+					$this->registered_in_walk++;
 					$vals     = array( $k => 1 );
 					$opt_keys = array_reverse( $opt_keys );
 					foreach ( $opt_keys as $opt ) {
@@ -68,13 +131,76 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 
 					update_option(
 						self::TRANSLATABLE_NAMES_SETTING,
-						array_replace_recursive( (array) get_option( self::TRANSLATABLE_NAMES_SETTING ), $vals ),
+						array_replace_recursive( self::sanitizeOptionNames( get_option( self::TRANSLATABLE_NAMES_SETTING, [] ) ), $vals ),
 						'no'
 					);
 					$this->clearOptionNames();
+
+					if ( $json_root ) {
+						$this->carryOverWholeJsonTranslations( $json_root, $key, $k, $context, $option[ $k ] );
+					}
 				}
 			}
 		}
+
+		if ( '' === $key ) {
+			$this->retireWholeJsonStrings();
+		}
+	}
+
+	private function getJsonRoot( $key, array $json ) {
+		$keys = self::findKeys( $key );
+		$last = (string) array_pop( $keys );
+		$up   = $keys ? '[' . implode( '][', $keys ) . ']' : '';
+
+		return [
+			'context' => $this->get_context( $up, $last ),
+			'name'    => $this->getDBStringName( $up, $last ),
+			'depth'   => count( $keys ) + 1,
+			'value'   => $json,
+		];
+	}
+
+	private function carryOverWholeJsonTranslations( array $root, $key, $name, $context, $original ) {
+		$whole_id = icl_st_is_registered_string( $root['context'], $root['name'] );
+		if ( ! $whole_id ) {
+			return;
+		}
+
+		$this->json_wholes_to_retire[ $root['context'] ][ $root['name'] ] = true;
+
+		$string_id = icl_st_is_registered_string( $context, $this->getDBStringName( $key, $name ) );
+		if ( ! $string_id ) {
+			return;
+		}
+
+		$path     = array_slice( self::findKeys( $this->getSubKey( $key, $name ) ), $root['depth'] );
+		$existing = icl_get_string_translations_by_id( $string_id );
+
+		foreach ( icl_get_string_translations_by_id( $whole_id ) as $lang => $translation ) {
+			if ( isset( $existing[ $lang ] ) ) {
+				continue;
+			}
+
+			$value = JsonValue::toArray( $translation['value'] );
+			foreach ( $path as $part ) {
+				$value = is_array( $value ) && array_key_exists( $part, $value ) ? $value[ $part ] : null;
+			}
+
+			if ( is_string( $value ) && '' !== $value && $value !== $original ) {
+				icl_add_string_translation( $string_id, $lang, $value, (int) $translation['status'] );
+			}
+		}
+	}
+
+	private function retireWholeJsonStrings() {
+		foreach ( $this->json_wholes_to_retire as $context => $names ) {
+			foreach ( array_keys( $names ) as $name ) {
+				icl_unregister_string( $context, $name );
+			}
+		}
+
+		$this->json_wholes_to_retire = [];
 	}
 
 	public function getModelForRender() {
@@ -116,6 +242,11 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 		$sub_key = $this->getSubKey( $key, $name );
 
 		$result = [];
+
+		$json = JsonValue::toArray( $value );
+		if ( null !== $json ) {
+			$value = $json;
+		}
 
 		if ( $this->isMultiValue( $value ) ) {
 			$stack[] = $value;
@@ -249,28 +380,50 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 
 	public function add_filter_for( $option ) {
 		add_filter( 'option_' . $option, [ $this, 'icl_st_translate_admin_string' ] );
+		add_filter( 'pre_update_option_' . $option, [ $this, 'keepUntouchedValues' ], 10, 3 );
+	}
+
+	public function keepUntouchedValues( $value, $old_value, $option ) {
+		$stored = maybe_unserialize( $this->get_option_without_filtering( $option ) );
+		$value  = $this->restoreUntouched( $value, $old_value, $stored );
+
+		if ( $value === $stored ) {
+			return $old_value;
+		}
+
+		$this->stored_before_update[ $option ] = $stored;
+
+		return $value;
+	}
+
+	private function restoreUntouched( $value, $read, $stored ) {
+		if ( is_array( $value ) && is_array( $read ) && is_array( $stored ) ) {
+			foreach ( $value as $key => $item ) {
+				if ( array_key_exists( $key, $read ) && array_key_exists( $key, $stored ) ) {
+					$value[ $key ] = $this->restoreUntouched( $item, $read[ $key ], $stored[ $key ] );
+				}
+			}
+
+			return $value;
+		}
+
+		return $value === $read ? $stored : $value;
 	}
 
 	public function add_ids_filter_for( $option ) {
 		add_filter( 'option_' . $option, [ $this, 'translate_ids_in_admin_string' ], 11, 2 );
 	}
 
-	public function icl_st_translate_admin_string( $option_value, $key = '', $name = '', $root_level = true ) {
+	public function icl_st_translate_admin_string( $option_value, $key = '', $name = '', $root_level = true, $lang = null ) {
 		if ( $root_level && $this->lock ) {
 			return $option_value;
 		}
 
-		if ( $root_level && is_array( $option_value ) ) {
-			foreach ( $option_value as $id => $value ) {
-				$this->cache_option_values_in_def_lang_by_id[ $id ] = $value;
-			}
-		}
-
 		$this->lock = true;
 
-		$lang        = $this->st_instance->get_current_string_language( $name );
 		$option_name = substr( current_filter(), 7 );
 		$name        = $name === '' ? $option_name : $name;
+		$lang        = $lang ?: $this->st_instance->get_current_string_language( $name );
 		$blog_id     = get_current_blog_id();
 
 		if ( isset( $this->cache[ $blog_id ][ $lang ][ $name ] ) ) {
@@ -279,13 +432,19 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 			return $this->cache[ $blog_id ][ $lang ][ $name ];
 		}
 
-		$is_serialized = is_serialized( $option_value );
-		$option_value  = $is_serialized ? unserialize( $option_value ) : $option_value;
+		$is_serialized = self::decodeSerializedData( $option_value, $decoded );
+		$option_value  = $is_serialized ? $decoded : $option_value;
+
+		$json = ! $is_serialized && is_array( $this->getRegisteredNode( $key, $name ) )
+			? JsonValue::decode( $option_value )
+			: null;
 
 		if ( is_array( $option_value ) || is_object( $option_value ) ) {
-			$option_value = $this->translate_multiple( $option_value, $key, $name );
+			$option_value = $this->translate_multiple( $option_value, $key, $name, $lang );
+		} elseif ( null !== $json ) {
+			$option_value = JsonValue::encode( $option_value, $this->translate_multiple( $json, $key, $name, $lang ) );
 		} else {
-			$option_value = $this->translate_single( $option_value, $key, $name, $option_name );
+			$option_value = $this->translate_single( $option_value, $key, $name, $option_name, $lang );
 		}
 
 		$option_value = $is_serialized ? serialize( $option_value ) : $option_value;
@@ -310,8 +469,8 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 			return $this->cache_with_ids[ $blog_id ][ $option_name ];
 		}
 
-		$is_serialized = is_serialized( $option_value );
-		$option_value  = $is_serialized ? unserialize( $option_value ) : $option_value;
+		$is_serialized = self::decodeSerializedData( $option_value, $decoded );
+		$option_value  = $is_serialized ? $decoded : $option_value;
 		$option_paths  = $option_names[ $option_name ];
 
 		foreach ( $option_paths as $path_and_object_data ) {
@@ -344,6 +503,11 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 		return array_filter( explode( '][', preg_replace( '/^\[(.*)\]$/', '$1', $string ) ), 'strlen' );
 	}
 
+	public function clear_language_caches() {
+		$this->cache          = [];
+		$this->cache_with_ids = [];
+	}
+
 	public function clear_cache_for_option( $option_name ) {
 		$blog_id = get_current_blog_id();
 		if ( isset( $this->cache[ $blog_id ] ) ) {
@@ -356,23 +520,12 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 	}
 
 	public function on_update_original_value( $old_value, $value, $option_name, $name = '', $sub_key = '' ) {
-		if ( '' === $sub_key ) {
-			if ( is_array( $old_value ) && is_array( $value ) && count( $old_value ) === count( $value ) ) {
-				foreach ( $value as $option_id => $option_value ) {
-					if ( ! array_key_exists( $option_id, $this->cache_option_values_in_def_lang_by_id ) ) {
-						continue;
-					}
-
-					foreach ( $old_value as $old_option_id => &$old_option_value ) {
-						if ( $old_option_id === $option_id ) {
-							$old_option_value = $this->cache_option_values_in_def_lang_by_id[ $option_id ];
-						}
-					}
-				}
-			}
+		if ( '' === $sub_key && array_key_exists( $option_name, $this->stored_before_update ) ) {
+			$old_value = $this->stored_before_update[ $option_name ];
+			unset( $this->stored_before_update[ $option_name ] );
 		}
 
-		$name = $name ? $name : $option_name;
+		$name = ( '' === $name || null === $name ) ? $option_name : $name;
 
 		$value     = self::object_to_array( $value );
 		$old_value = self::object_to_array( $old_value );
@@ -388,7 +541,12 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 				);
 			}
 		} else {
-			if ( $this->isAdminText( $sub_key, $name ) ) {
+			$json = is_array( $this->getRegisteredNode( $sub_key, $name ) ) ? JsonValue::toArray( $value ) : null;
+
+			if ( null !== $json ) {
+				$old_json = JsonValue::toArray( $old_value );
+				$this->on_update_original_value( null === $old_json ? [] : $old_json, $json, $option_name, $name, $sub_key );
+			} elseif ( $this->isAdminText( $sub_key, $name ) ) {
 				icl_st_update_string_actions( self::DOMAIN_NAME_PREFIX . $option_name, $this->getDBStringName( $sub_key, $name ), $old_value, $value );
 			}
 		}
@@ -415,7 +573,7 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 		};
 	}
 
-	private function translate_multiple( $option_value, $key, $name ) {
+	private function translate_multiple( $option_value, $key, $name, $lang = null ) {
 		$subKey = $this->getSubKey( $key, $name );
 
 		foreach ( $option_value as $k => &$value ) {
@@ -423,30 +581,62 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 				$value,
 				$subKey,
 				$k,
-				false
+				false,
+				$lang
 			);
 		}
 
 		return $option_value;
 	}
 
-	private function translate_single( $option_value, $key, $name, $option_name ) {
+	private function translate_single( $option_value, $key, $name, $option_name, $lang = null ) {
 		if ( $option_value !== '' && $this->isAdminText( $key, $name ) ) {
-			$option_value = icl_translate( self::DOMAIN_NAME_PREFIX . $option_name, $key . $name, $option_value );
+			$has_translation = null;
+			$translation     = icl_translate(
+				self::DOMAIN_NAME_PREFIX . $option_name,
+				$key . $name,
+				$option_value,
+				false,
+				$has_translation,
+				$lang
+			);
+
+			if ( $translation !== $option_value && null !== JsonValue::decode( $option_value ) && null === json_decode( (string) $translation ) ) {
+				return $option_value;
+			}
+
+			$option_value = $translation;
 		}
 
 		return $option_value;
 	}
 
+	private function getRegisteredNode( $key, $name ) {
+		$node = $this->getOptionNames();
+		foreach ( self::findKeys( $this->getSubKey( $key, $name ) ) as $part ) {
+			if ( ! is_array( $node ) || ! array_key_exists( $part, $node ) ) {
+				return null;
+			}
+			$node = $node[ $part ];
+		}
+
+		return $node;
+	}
+
 	private function getOptionNames() {
 		if ( null === $this->option_names ) {
-			$this->option_names = get_option( self::TRANSLATABLE_NAMES_SETTING );
-			if ( ! is_array( $this->option_names ) ) {
-				$this->option_names = [];
-			}
+			$this->option_names = self::sanitizeOptionNames( get_option( self::TRANSLATABLE_NAMES_SETTING, [] ) );
 		}
 
 		return $this->option_names;
+	}
+
+	private static function sanitizeOptionNames( $option_names ) {
+		if ( ! is_array( $option_names ) ) {
+			return [];
+		}
+
+		return array_filter( $option_names, 'is_string', ARRAY_FILTER_USE_KEY );
 	}
 
 	private function clearOptionNames() {

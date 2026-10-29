@@ -18,8 +18,11 @@ class WCML_Not_Translatable_Attributes extends WCML_Templates_Factory {
 			'checked'   => $this->is_translatable(),
 			'edit_mode' => (bool) $this->attr_id,
 			'strings'   => [
+				/* translators: Label of the checkbox that lets a product attribute's values be translated, on the attribute screen. Adjective, asked as a question. */
 				'label'       => __( 'Translatable?', 'woocommerce-multilingual' ),
+				/* translators: Explanation under the "Translatable?" checkbox; "this" is the checkbox. */
 				'description' => __( 'Enable this if you want to translate attribute values with WPML Multilingual & Multicurrency for WooCommerce', 'woocommerce-multilingual' ),
+				/* translators: Warning shown when the "Translatable?" checkbox of a product attribute is turned off. */
 				'notice'      => __( 'Existing translations and variations associated will be deleted.', 'woocommerce-multilingual' ),
 			],
 		];

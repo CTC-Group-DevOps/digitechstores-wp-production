@@ -1,61 +1,22 @@
 <?php
 
 use WPML\Infrastructure\WordPress\Component\Translation\Domain\Links\Repository;
+use WPML\TM\Upgrade\Commands\CreateAteDownloadQueueTable;
 use WPML\TM\Upgrade\Commands\CreateUnsolvableJobsTable;
+use WPML\Upgrade\CreateTable;
 use WPML\Upgrade\Commands\CreateBackgroundTaskTable;
+use WPML\Upgrade\Commands\CreateElementKnowledgeTable;
+use WPML\Upgrade\Commands\CreateMediaUrlLookupTable;
+use WPML\Upgrade\Commands\CreateLanguagePresetsTable;
+use WPML\Upgrade\Commands\CreateCountriesTable;
+use WPML\Upgrade\Commands\CreateLanguagePresetCountriesTable;
+use WPML\Upgrade\Commands\CreateUrlResolutionCacheTable;
 
-function icl_reset_language_data() {
-	global $wpdb, $sitepress;
-
-	$active = $wpdb->get_col( "SELECT code FROM {$wpdb->prefix}icl_languages WHERE active = 1" );
-
-	$wpdb->query( "TRUNCATE TABLE `{$wpdb->prefix}icl_languages`" );
-	SitePress_Setup::fill_languages();
-	$wpdb->query( "TRUNCATE TABLE `{$wpdb->prefix}icl_languages_translations`" );
-	SitePress_Setup::fill_languages_translations();
-	$wpdb->query( "TRUNCATE TABLE `{$wpdb->prefix}icl_flags`" );
-	SitePress_Setup::fill_flags();
-
-	$wpdb->query( "UPDATE {$wpdb->prefix}icl_languages SET active=1 WHERE code IN(" . wpml_prepare_in( $active ) . ')' );
-
-	$wpdb->update( $wpdb->prefix . 'icl_flags', array( 'from_template' => 0 ), null );
-
-	$codes = $wpdb->get_col( "SELECT code FROM {$wpdb->prefix}icl_languages" );
-	foreach ( $codes as $code ) {
-		if ( ! $code || $wpdb->get_var(
-			$wpdb->prepare( "SELECT lang_code FROM {$wpdb->prefix}icl_flags WHERE lang_code = %s", $code )
-		)
-		) {
-			continue;
-		}
-
-		$file = wpml_get_flag_file_name( $code );
-
-		$wpdb->insert(
-			$wpdb->prefix . 'icl_flags',
-			array(
-				'lang_code'     => $code,
-				'flag'          => $file,
-				'from_template' => 0,
-			)
-		);
-	}
-
-	$last_default_language = $sitepress !== null ? $sitepress->get_default_language() : 'en';
-	if ( ! in_array( $last_default_language, $codes ) ) {
-		$allowed_langs = array_intersect( array_keys( $sitepress->get_active_languages() ), $codes );
-		$sitepress->set_default_language( array_pop( $allowed_langs ) );
-	}
-
-	icl_cache_clear();
-
-	do_action( 'wpml_translation_update', array( 'type' => 'reset' ) );
-}
+require_once WPML_PLUGIN_PATH . '/classes/upgrade/commands/WPML5.0/CreateUrlResolutionCacheTable.php';
+require_once WPML_PLUGIN_PATH . '/classes/upgrade/commands/WPML5.0/CreateElementKnowledgeTable.php';
 
 function icl_sitepress_activate() {
 	global $wpdb;
-
-	$charset_collate = SitePress_Setup::get_charset_collate();
 
 	try {
 		SitePress_Setup::fill_languages();
@@ -63,11 +24,14 @@ function icl_sitepress_activate() {
 		SitePress_Setup::fill_flags();
 
 		$table_name  = $wpdb->prefix . 'icl_translations';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-             CREATE TABLE IF NOT EXISTS `{$table_name}` (
-                `translation_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_translations',
+				"
+	             CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_translations` (
+	                `translation_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `element_type` VARCHAR( 60 ) NOT NULL DEFAULT 'post_post',
                 `element_id` BIGINT NULL DEFAULT NULL ,
                 `trid` BIGINT NOT NULL ,
@@ -77,17 +41,20 @@ function icl_sitepress_activate() {
                 UNIQUE KEY `trid_lang` (`trid`,`language_code`),
                 KEY `trid` (`trid`),
                 KEY `id_type_language` (`element_id`, `element_type`, `language_code`)
-            ) {$charset_collate}";
-			if ( $wpdb->query( $sql ) === false ) {
+	            )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_translation_status';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_translation_status',
+				"
+	                 CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_translation_status` (
                  `rid` bigint(20) NOT NULL AUTO_INCREMENT,
                  `translation_id` bigint(20) NOT NULL,
                  `status` tinyint(4) NOT NULL,
@@ -109,52 +76,61 @@ function icl_sitepress_activate() {
                  PRIMARY KEY (`rid`),
                  UNIQUE KEY `translation_id` (`translation_id`),
                  KEY `review_status` (`review_status`)
-                ) {$charset_collate}
-            ";
-			if ( $wpdb->query( $sql ) === false ) {
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_translate_job';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_translate_job',
+				"
+	                 CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_translate_job` (
                 `job_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `rid` BIGINT UNSIGNED NOT NULL ,
-                `translator_id` INT UNSIGNED NOT NULL ,
+                `translator_id` BIGINT UNSIGNED NOT NULL ,
                 `translated` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-                `manager_id` INT UNSIGNED NOT NULL ,
+                `manager_id` BIGINT UNSIGNED NOT NULL ,
                 `revision` INT UNSIGNED NULL,
-                `title` VARCHAR(160) NULL,
+                `title` TEXT NULL,
                 `deadline_date` DATETIME NULL,
                 `completed_date` DATETIME NULL,
                 `editor` VARCHAR(16) NULL,
                 `editor_job_id` BIGINT(20) UNSIGNED NULL,
                 `edit_timestamp` INT(11) UNSIGNED NULL,
                 `automatic` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+                `sent_from` TINYINT UNSIGNED NULL,
+                `created_by_translate_everything` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+                `review_mode` VARCHAR(20) NULL,
                 `ate_sync_count` INT(6) UNSIGNED DEFAULT 0,
                 `wpml_words_to_translate_count` INT(11) UNSIGNED NULL,
+                `wpml_words_to_translate_count_lifetime_max` INT(11) UNSIGNED NULL,
                 `wpml_automatic_translation_costs` INT(11) UNSIGNED NULL,
-                INDEX ( `rid` , `translator_id` )
-                ) {$charset_collate}
-            ";
-			if ( $wpdb->query( $sql ) === false ) {
+                INDEX ( `rid` , `translator_id` ),
+                INDEX `rid_job_id` ( `rid` , `job_id` )
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_translate';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_translate',
+				"
+	                 CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_translate` (
                 `tid` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `job_id` BIGINT UNSIGNED NOT NULL ,
                 `content_id` BIGINT UNSIGNED NOT NULL ,
                 `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-                `field_type` VARCHAR( 160 ) NOT NULL ,
+                `field_type` VARCHAR( 263 ) NOT NULL ,
                 `field_wrap_tag` VARCHAR( 16 ) NOT NULL ,
                 `field_format` VARCHAR( 16 ) NOT NULL ,
                 `field_translate` TINYINT NOT NULL ,
@@ -162,83 +138,93 @@ function icl_sitepress_activate() {
                 `field_data_translated` longtext NOT NULL ,
                 `field_finished` TINYINT NOT NULL DEFAULT 0,
                 INDEX ( `job_id` )
-                ) {$charset_collate}
-            ";
-			if ( $wpdb->query( $sql ) === false ) {
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_translation_batches';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS {$wpdb->prefix}icl_translation_batches (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_translation_batches',
+				"
+	                 CREATE TABLE IF NOT EXISTS {$wpdb->prefix}icl_translation_batches (
                   `id` int(11) NOT NULL AUTO_INCREMENT,
                   `batch_name` text NOT NULL,
                   `tp_id` int NULL,
                   `ts_url` text NULL,
                   `last_update` DATETIME NULL,
                   PRIMARY KEY (`id`)
-                ) {$charset_collate}
-            ";
-			if ( $wpdb->query( $sql ) === false ) {
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_locale_map';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
-                    `code` VARCHAR( 7 ) NOT NULL ,
-                    `locale` VARCHAR( 35 ) NOT NULL ,
-                    PRIMARY KEY (`code` ,`locale`)
-                ) {$charset_collate}";
-			if ( $wpdb->query( $sql ) === false ) {
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_locale_map',
+				"
+	                 CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_locale_map` (
+	                    `code` VARCHAR( 7 ) NOT NULL ,
+	                    `locale` VARCHAR( 35 ) NOT NULL ,
+	                    PRIMARY KEY (`code` ,`locale`)
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name                   = $wpdb->prefix . 'icl_strings';
-		$found_table                  = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table                  = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
-                  `id` bigint(20) unsigned NOT NULL auto_increment,
-                  `language` varchar(7) NOT NULL,
-                  `context` varchar(" . WPML_STRING_TABLE_NAME_CONTEXT_LENGTH . ') NOT NULL,
-                  `name` varchar(' . WPML_STRING_TABLE_NAME_CONTEXT_LENGTH . ") NOT NULL,
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_strings',
+				"
+	                 CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_strings` (
+	                  `id` bigint(20) unsigned NOT NULL auto_increment,
+	                  `language` varchar(7) NOT NULL,
+	                  `context` varchar(" . absint( WPML_STRING_TABLE_NAME_CONTEXT_LENGTH ) . ') NOT NULL,
+	                  `name` varchar(' . absint( WPML_STRING_TABLE_NAME_CONTEXT_LENGTH ) . ") NOT NULL,
                   `value` longtext NOT NULL,
                   `string_package_id` BIGINT unsigned NULL,
                   `location` BIGINT unsigned NULL,
                   `wrap_tag` VARCHAR( 16 ) NOT NULL,
                   `type` VARCHAR(40) NOT NULL DEFAULT 'LINE',
-                  `title` VARCHAR(160) NULL,
+                  `title` TEXT NULL,
                   `status` TINYINT NOT NULL,
                   `gettext_context` TEXT NOT NULL,
                   `domain_name_context_md5` VARCHAR(32) NOT NULL,
-                  `translation_priority` varchar(160) NOT NULL,
                   `word_count` int unsigned NULL,
+                  `has_text` TINYINT(1) NOT NULL DEFAULT 1,
                   PRIMARY KEY  (`id`),
                   UNIQUE KEY `uc_domain_name_context_md5` (`domain_name_context_md5`),
                   KEY `language_context` (`language`, `context`),
                   KEY `icl_strings_name` (`name` ASC),
-                  KEY `icl_strings_translation_priority` ( `translation_priority` ASC ),
-                  KEY `context` ( `context` )
-                  ) {$charset_collate}
-                  ";
-			if ( $wpdb->query( $sql ) === false ) {
+                  KEY `context` ( `context` ),
+                  KEY `context_has_text` ( `context`, `has_text` ),
+                  KEY `string_package_id` ( `string_package_id` )
+	                  )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_string_translations';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_string_translations',
+				"
+	                 CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_string_translations` (
                   `id` bigint(20) unsigned NOT NULL auto_increment,
                   `string_id` bigint(20) unsigned NOT NULL,
                   `language` varchar(10) NOT NULL,
@@ -251,33 +237,39 @@ function icl_sitepress_activate() {
                   `translation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   PRIMARY KEY  (`id`),
                   UNIQUE KEY `string_language` (`string_id`,`language`)
-                ) {$charset_collate}";
-			if ( $wpdb->query( $sql ) === false ) {
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_string_positions';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                  CREATE TABLE IF NOT EXISTS `{$table_name}` (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_string_positions',
+				"
+	                  CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_string_positions` (
                 `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `string_id` BIGINT NOT NULL ,
                 `kind` TINYINT,
                 `position_in_page` VARCHAR( 255 ) NOT NULL,
                 INDEX ( `string_id` )
-                ) {$charset_collate}";
-			if ( $wpdb->query( $sql ) === false ) {
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
 		$table_name  = $wpdb->prefix . 'icl_message_status';
-		$found_table = (string) $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" );
+		$found_table = (string) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 		if ( 0 !== strcasecmp( $found_table, $table_name ) ) {
-			$sql = "
-                  CREATE TABLE IF NOT EXISTS `{$table_name}` (
+			if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_message_status',
+				"
+	                  CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_message_status` (
                       `id` bigint(20) unsigned NOT NULL auto_increment,
                       `rid` bigint(20) unsigned NOT NULL,
                       `object_id` bigint(20) unsigned NOT NULL,
@@ -290,49 +282,55 @@ function icl_sitepress_activate() {
                       PRIMARY KEY  (`id`),
                       UNIQUE KEY `rid` (`rid`),
                       KEY `object_id` (`object_id`)
-                ) {$charset_collate}";
-			if ( $wpdb->query( $sql ) === false ) {
+	                )"
+			) ) {
 				throw new Exception( $wpdb->last_error );
 			}
 		}
 
-		$icl_translation_sql = "
-            CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_content_status` (
+		if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_content_status',
+				"
+	            CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_content_status` (
             `rid` BIGINT NOT NULL ,
             `nid` BIGINT NOT NULL ,
             `timestamp` DATETIME NOT NULL ,
             `md5` VARCHAR( 32 ) NOT NULL ,
             PRIMARY KEY ( `rid` ) ,
             INDEX ( `nid` )
-            ) {$charset_collate}
-      ";
-		if ( $wpdb->query( $icl_translation_sql ) === false ) {
+	            )"
+			) ) {
 			throw new Exception( $wpdb->last_error );
 		}
 
-		$icl_translation_sql = "
-            CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_node` (
+		if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_node',
+				"
+	            CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_node` (
             `nid` BIGINT NOT NULL ,
             `md5` VARCHAR( 32 ) NOT NULL ,
             `links_fixed` TINYINT NOT NULL DEFAULT 0,
             PRIMARY KEY ( `nid` )
-            ) {$charset_collate}
-      ";
-		if ( $wpdb->query( $icl_translation_sql ) === false ) {
+	            )"
+			) ) {
 			throw new Exception( $wpdb->last_error );
 		}
 
-		$icl_translation_sql = "
-            CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_reminders` (
+		if ( ! CreateTable::create(
+				$wpdb,
+				$wpdb->prefix . 'icl_reminders',
+				"
+	            CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}icl_reminders` (
             `id` BIGINT NOT NULL ,
             `message` TEXT NOT NULL ,
             `url`  TEXT NOT NULL ,
             `can_delete` TINYINT NOT NULL ,
             `show` TINYINT NOT NULL ,
             PRIMARY KEY ( `id` )
-            ) {$charset_collate}
-      ";
-		if ( $wpdb->query( $icl_translation_sql ) === false ) {
+	            )"
+			) ) {
 			throw new Exception( $wpdb->last_error );
 		}
 
@@ -345,8 +343,42 @@ function icl_sitepress_activate() {
 			throw new Exception( $wpdb->last_error );
 		}
 
+		// loads - never on a Blog licence - so activation creates it as well.
+		$icl_translation_downloads = CreateAteDownloadQueueTable::create_table_if_not_exists( $wpdb );
+		if ( ! $icl_translation_downloads ) {
+			throw new Exception( $wpdb->last_error );
+		}
+
+		if ( ! CreateLanguagePresetsTable::create_table_if_not_exists( $wpdb ) ) {
+			throw new Exception( $wpdb->last_error );
+		}
+
+		if ( ! CreateCountriesTable::create_table_if_not_exists( $wpdb ) ) {
+			throw new Exception( $wpdb->last_error );
+		}
+		if ( ! CreateLanguagePresetCountriesTable::create_table_if_not_exists( $wpdb ) ) {
+			throw new Exception( $wpdb->last_error );
+		}
+
+		\WPML\LanguageEditor\Presets\CountriesSeeder::create()->seed();
+
+		\WPML\LanguageEditor\Presets\PresetsSeeder::create()->seed();
+
+		if ( false === CreateUrlResolutionCacheTable::create_table_if_not_exists( $wpdb ) ) {
+			throw new Exception( $wpdb->last_error );
+		}
+
 		$icl_translation_jobs_errors_table_task = CreateUnsolvableJobsTable::create_table_if_not_exists( $wpdb );
 		if ( ! $icl_translation_jobs_errors_table_task ) {
+			throw new Exception( $wpdb->last_error );
+		}
+
+		$icl_media_url_lookup = CreateMediaUrlLookupTable::create_table_if_not_exists( $wpdb );
+		if ( ! $icl_media_url_lookup ) {
+			throw new Exception( $wpdb->last_error );
+		}
+
+		if ( false === CreateElementKnowledgeTable::create_table_if_not_exists( $wpdb ) ) {
 			throw new Exception( $wpdb->last_error );
 		}
 	} catch ( Exception $e ) {
@@ -361,9 +393,7 @@ function icl_sitepress_activate() {
 
 	$iclsettings = get_option( 'icl_sitepress_settings' );
 	if ( $iclsettings === false ) {
-		$short_v  = implode( '.', array_slice( explode( '.', ICL_SITEPRESS_VERSION ), 0, 3 ) );
 		$settings = array(
-			'hide_upgrade_notice'             => $short_v,
 			'translated_document_status_sync' => 1,
 		);
 		add_option( 'icl_sitepress_settings', $settings, '', true );
@@ -378,6 +408,21 @@ function icl_sitepress_activate() {
 	repair_el_type_collate();
 
 	do_action( 'wpml_activated' );
+}
+
+function wpml_maybe_activate_network_site( array $sitewide_plugins ) {
+	if (
+		\WPML_Settings_Failsafe_Loader::isUnrecoverable()
+		|| false !== get_option( 'icl_sitepress_version', false )
+		|| ! isset( $sitewide_plugins[ WPML_PLUGIN_BASENAME ] )
+		|| \WPML\Troubleshooting\ResetWindow::isOpenNow()
+	) {
+		return false;
+	}
+
+	icl_sitepress_activate();
+
+	return true;
 }
 
 function icl_sitepress_deactivate() {

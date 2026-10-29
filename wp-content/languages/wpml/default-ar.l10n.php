@@ -1,0 +1,2 @@
+<?php
+return ['plural-forms'=>'nplurals=6; plural=(n == 0) ? 0 : ((n == 1) ? 1 : ((n == 2) ? 2 : ((n % 100 >= 3 && n % 100 <= 10) ? 3 : ((n % 100 >= 11 && n % 100 <= 99) ? 4 : 5))));','messages'=>['Close'=>'إغلاق','Email address'=>'البريد الإلكتروني','Phone Number'=>'رقم الهاتف','Search'=>'البحث','Show'=>'عرض','Upload image'=>'أرفق الصورة  ','Uploader: Drop backup files here - or - Select Filesor'=>'أو','taxonomy singular nameCategory'=>'التنصنيفات']];

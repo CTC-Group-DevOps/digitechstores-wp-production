@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Admin_Notices
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Admin_Notices {
 
@@ -57,7 +57,7 @@ class WC_PB_Admin_Notices {
 	/**
 	 * Array of maintenance notice types - name => callback.
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	private static $maintenance_notice_types = array(
 		'update'                  => 'update_notice',
@@ -69,6 +69,8 @@ class WC_PB_Admin_Notices {
 
 	/**
 	 * Constructor.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -102,6 +104,7 @@ class WC_PB_Admin_Notices {
 	 * @param string  $text        The notice text.
 	 * @param mixed   $args        The notice type or an array of arguments.
 	 * @param boolean $save_notice Whether to save the notice for the next request.
+	 * @return void
 	 */
 	public static function add_notice( $text, $args, $save_notice = false ) {
 
@@ -170,11 +173,11 @@ class WC_PB_Admin_Notices {
 	 * @param string $key         The setting key.
 	 * @param mixed  $value       The setting value.
 	 *
-	 * @return array
+	 * @return void
 	 * @since  6.3.0
 	 */
 	public static function set_notice_option( $notice_name, $key, $value ) {
-		return WC_PB_Notices::set_notice_option( $notice_name, $key, $value );
+		WC_PB_Notices::set_notice_option( $notice_name, $key, $value );
 	}
 
 	/**
@@ -206,6 +209,7 @@ class WC_PB_Admin_Notices {
 	 *
 	 * @since 8.5.13
 	 * @param int $product_id Product being saved.
+	 * @return void
 	 */
 	public static function start_product_save( $product_id ) {
 		self::$product_save_id = absint( $product_id );
@@ -218,6 +222,8 @@ class WC_PB_Admin_Notices {
 	/**
 	 * Save notices for the current authenticated user.
 	 * Deferred notices queued without a current user are not persisted.
+	 *
+	 * @return void
 	 */
 	public static function save_notices() {
 		if ( get_current_user_id() && ! empty( self::$meta_box_notices ) ) {
@@ -237,6 +243,8 @@ class WC_PB_Admin_Notices {
 
 	/**
 	 * Show any stored error messages.
+	 *
+	 * @return void
 	 */
 	public static function output_notices() {
 
@@ -296,11 +304,29 @@ class WC_PB_Admin_Notices {
 
 	/**
 	 * Show maintenance notices.
+	 *
+	 * @return void
 	 */
 	public static function hook_maintenance_notices() {
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
+		}
+
+		global $wpdb;
+
+		// Check access without reading rows or attempting to repair existing data.
+		$suppressed = $wpdb->suppress_errors();
+		try {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- A fresh, read-only probe detects missing tables and denied access.
+			if ( false === $wpdb->query( $wpdb->prepare( 'SELECT 1 FROM %i, %i, %i LIMIT 0', $wpdb->prefix . 'woocommerce_bundled_items', $wpdb->prefix . 'woocommerce_bundled_itemmeta', $wpdb->prefix . 'wc_order_bundle_lookup' ) ) ) {
+				self::add_notice(
+					__( 'WooCommerce Product Bundles cannot access its required database tables. Please contact your hosting provider to check that the tables exist and that the database user has permission to access them.', 'woocommerce-product-bundles' ),
+					'error'
+				);
+			}
+		} finally {
+			$wpdb->suppress_errors( $suppressed );
 		}
 
 		foreach ( self::$maintenance_notice_types as $notice_name => $callback ) {
@@ -317,6 +343,7 @@ class WC_PB_Admin_Notices {
 	 * @param mixed  $args The notice type or an array of arguments.
 	 *
 	 * @since  5.8.0
+	 * @return void
 	 */
 	public static function add_dismissible_notice( $text, $args ) {
 		if ( ! isset( $args['dismiss_class'] ) || ! self::is_dismissible_notice_dismissed( $args['dismiss_class'] ) ) {
@@ -330,6 +357,7 @@ class WC_PB_Admin_Notices {
 	 * @param string $notice_name The notice name.
 	 *
 	 * @since  5.8.0
+	 * @return bool
 	 */
 	public static function remove_dismissible_notice( $notice_name ) {
 
@@ -348,6 +376,7 @@ class WC_PB_Admin_Notices {
 	 * Add a maintenance notice to be displayed.
 	 *
 	 * @param string $notice_name The notice name.
+	 * @return bool
 	 */
 	public static function add_maintenance_notice( $notice_name ) {
 
@@ -365,6 +394,7 @@ class WC_PB_Admin_Notices {
 	 * Remove a maintenance notice.
 	 *
 	 * @param string $notice_name The notice name.
+	 * @return bool
 	 */
 	public static function remove_maintenance_notice( $notice_name ) {
 
@@ -380,6 +410,8 @@ class WC_PB_Admin_Notices {
 
 	/**
 	 * Add 'update' maintenance notice.
+	 *
+	 * @return void
 	 */
 	public static function update_notice() {
 
@@ -439,6 +471,7 @@ class WC_PB_Admin_Notices {
 	 * Add 'welcome' notice.
 	 *
 	 * @since  5.9.0
+	 * @return void
 	 */
 	public static function welcome_notice() {
 
@@ -483,6 +516,7 @@ class WC_PB_Admin_Notices {
 	 * For this reason, we have decided to remove the notice and only let the test run to have a result in the Status Report.
 	 *
 	 * @since  6.3.0
+	 * @return void
 	 */
 	public static function loopback_notice() {
 
@@ -537,6 +571,7 @@ class WC_PB_Admin_Notices {
 	 * Adds a notice to migrate order revenue analytics to account for GCs correctly.
 	 *
 	 * @since  6.9.0
+	 * @return void
 	 */
 	public static function update_order_item_stats_notice() {
 
@@ -632,6 +667,7 @@ class WC_PB_Admin_Notices {
 	 * @param string $notice The notice name.
 	 *
 	 * @since  5.8.0
+	 * @return bool
 	 */
 	public static function dismiss_notice( $notice ) {
 		if ( isset( self::$maintenance_notice_types[ $notice ] ) ) {
@@ -746,7 +782,7 @@ class WC_PB_Admin_Notices {
 	 *
 	 * @param string $name The note name.
 	 *
-	 * @return array
+	 * @return array|void
 	 * @since 6.3.0
 	 */
 	public static function get_note_args( $name ) {

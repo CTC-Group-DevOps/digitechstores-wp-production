@@ -4,14 +4,17 @@ namespace WPML\Setup\Endpoint;
 
 use OTGS_Installer_Subscription;
 use WPML\Ajax\IHandler;
-use WPML\API\Sanitize;
 use WPML\Collect\Support\Collection;
 use WPML\FP\Either;
 use WPML\FP\Right;
 use WPML\FP\Left;
 use WPML\Plugins;
 use WPML\PostHog\Config\PostHogConfig;
+use WPML\PostHog\FlushSetupWizardQueue;
+use WPML\PostHog\RefreshRecording;
+use WPML\PostHog\SetupRecordingCleanup;
 use WPML\PostHog\State\PostHogState;
+use WPML\TM\Menu\TranslationMethod\TranslationMethodSettings;
 
 
 class LicenseStep implements IHandler {
@@ -32,8 +35,7 @@ class LicenseStep implements IHandler {
 	}
 
 	private function register_site_key( Collection $data ) {
-		$site_key = Sanitize::string( $data->get( 'siteKey' ) );
-		icl_set_setting( 'site_key', null, true );
+		$site_key = self::normalizeSiteKey( $data->get( 'siteKey' ) );
 		if ( function_exists( 'OTGS_Installer' ) ) {
 			$args = [
 				'repository_id' => 'wpml',
@@ -43,14 +45,23 @@ class LicenseStep implements IHandler {
 			];
 			$r    = OTGS_Installer()->save_site_key( $args );
 			if ( ! empty( $r['error'] ) ) {
+				icl_set_setting( 'site_key', null, true );
 				return Either::left( [ 'msg' => strip_tags( $r['error'] ) ] );
 			} else {
 				icl_set_setting( 'site_key', $site_key, true );
 				$isTMAllowed = Plugins::updateTMAllowedOption();
 
+				if ( RefreshRecording::forceRefresh( [ 'during_setup' => true ] ) ) {
+					SetupRecordingCleanup::markStarted();
+				}
+
+				FlushSetupWizardQueue::flushIfGranted();
+
 				$response = [
 					'isTMAllowed' => $isTMAllowed,
-					'msg'         => __( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' )
+					'msg'         => __( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' ),
+					'hasPreferredTranslationService' => \TranslationProxy::has_preferred_translation_service(),
+					'defaultServiceName'             => TranslationMethodSettings::getDefaultTranslationServiceName(),
 				];
 
 				if (
@@ -65,6 +76,12 @@ class LicenseStep implements IHandler {
 		}
 
 		return Either::left( false );
+	}
+
+	private static function normalizeSiteKey( $siteKey ) {
+		return is_string( $siteKey ) || is_numeric( $siteKey )
+			? (string) preg_replace( '/[^A-Za-z0-9]/', '', (string) $siteKey )
+			: '';
 	}
 
 	private function get_site_type() {

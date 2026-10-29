@@ -1664,7 +1664,7 @@
                     },
                     "hide_desktop": {
                         "id": "hide_desktop",
-                        "value": false,
+                        "value": true,
                         "type": "switcher"
                     },
                     "hide_mobile": {

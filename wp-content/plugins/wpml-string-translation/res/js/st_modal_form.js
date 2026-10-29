@@ -24,7 +24,7 @@ WPML_String_Translation.ModalForm.prototype = {
 			modal: true,
 			buttons: [
 				{
-					class: 'wpml-st-cancel-button',
+					class: 'wpml-button base-btn wpml-button--outlined wpml-st-cancel-button',
 					text: that.dialog.attr('data-cancelButtonTitle'),
 					click: function() {
 						that.rmConfirmMsg.call(that);
@@ -33,7 +33,7 @@ WPML_String_Translation.ModalForm.prototype = {
 				},
 				{
 					text: that.dialog.attr('data-saveButtonTitle'),
-					class: 'button-primary js-wpml-st-apply-button',
+					class: 'wpml-button base-btn js-wpml-st-apply-button',
 					click: function() {
 						that.rmConfirmMsg.call(that);
 						that.settings.onSave();

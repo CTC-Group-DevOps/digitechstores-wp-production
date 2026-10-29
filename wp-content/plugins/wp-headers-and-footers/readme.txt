@@ -4,8 +4,9 @@ Donate link: https://wpbrigade.com/go/donate-header-footer
 Author URI: https://wpbrigade.com/?utm_source=wphf-org&utm_medium=author-url-link
 Tags: header, footer, Google Analytics, custom css, Facebook Pixel
 Requires at least: 5.0
-Tested up to: 7.0
-Stable tag: 3.1.5
+Requires PHP: 7.0
+Tested up to: 7.1
+Stable tag: 3.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -76,6 +77,19 @@ You can insert code in Header, Body and Footer areas of any WordPress site.
 
 
 == Changelog ==
+
+= 3.2.0 – 2026-10-19 =
+* Bugfix: Saved scripts no longer lose backslashes on the frontend (fixes regexes, escaped quotes and JSON-LD).
+* Bugfix: Corrected priority placeholders and the footer scripts help text.
+* Bugfix: Fixed the settings tab flickering and code editors not rendering correctly on first load.
+* Bugfix: Settings saved notice now dismisses automatically.
+* Bugfix: Fixed code editor width and overflow issues on the settings page.
+* Security: Adding or changing scripts now requires the unfiltered_html capability (respects DISALLOW_UNFILTERED_HTML and multisite site admins).
+* Security: Hardened redirect handling and internal path validation.
+* Security: Escaped placeholder attributes in settings fields.
+* Enhancement: Refreshed admin UI with improved mobile responsiveness.
+* Enhancement: General code refactoring and internal cleanup.
+* Compatibility: Compatible with WordPress 7.1.
 
 = 3.1.5 – 2026-07-16 =
 * Enhancement: General code refactoring and internal cleanup.
@@ -186,6 +200,9 @@ You can insert code in Header, Body and Footer areas of any WordPress site.
 * Initial Release.
 
 == Upgrade Notice ==
+
+= 3.2.0 =
+* Refreshed admin UI, and security hardening. Update recommended.
 
 = 3.1.5 =
 * Upgrade Immediately.

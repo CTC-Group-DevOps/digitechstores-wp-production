@@ -23,7 +23,9 @@ class WPML_Language_Where_Clause {
 			} else {
 				$display_as_translated_snippet = '0';
 			}
-			return $this->wpdb->prepare( " AND (language_code = '%s' OR {$display_as_translated_snippet} )", $current_language );
+			$language_snippet = $this->wpdb->prepare( 'language_code = %s', $current_language );
+
+			return " AND ({$language_snippet} OR {$display_as_translated_snippet} )";
 		} else {
 			return '';
 		}

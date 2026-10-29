@@ -7,6 +7,9 @@
             "plural_forms": "nplurals=1; plural=0;",
             "lang": "vi"
          },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "Trước khi tiếp tục, chúng tôi khuyên bạn nên đọc hai trang này:"
+         ],
          "How Browser Language Redirect Affects Google Indexing": [
             "Cách chuyển hướng ngôn ngữ trình duyệt ảnh hưởng đến việc lập chỉ mục của Google"
          ],
@@ -23,13 +26,10 @@
             "Hủy"
          ],
          "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
-            "Khi bạn chuyển hướng khách truy cập dựa trên ngôn ngữ của họ, bạn cũng chuyển hướng Google. Google muốn xem trang web của bạn chính xác như khách truy cập nhìn thấy, bao gồm mọi chuyển hướng mà bạn áp dụng."
+            "Khi bạn chuyển hướng khách truy cập dựa trên ngôn ngữ của họ, bạn cũng chuyển hướng cả Google. Google muốn thấy trang web của bạn chính xác như cách khách truy cập thấy, bao gồm mọi chuyển hướng mà bạn áp dụng."
          ],
          "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
-            "Việc chuyển hướng khách truy cập dựa trên ngôn ngữ của họ là được, nhưng bạn cần nhận ra rằng tính năng này ảnh hưởng đến SEO."
-         ],
-         "Before proceeding, we recommend that you read these two pages:": [
-            "Trước khi tiếp tục, chúng tôi khuyên bạn nên đọc hai trang này:"
+            "Việc chuyển hướng khách truy cập dựa trên ngôn ngữ của họ là bình thường, nhưng bạn cần nhận ra rằng tính năng này ảnh hưởng đến SEO."
          ]
       }
    }

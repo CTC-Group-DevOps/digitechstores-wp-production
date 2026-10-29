@@ -25,7 +25,8 @@ class TranslationGuiLabels extends BaseTranslationGuiLabels {
 
 	protected function formatLabel( $label, $name, $isPlural ) {
 		if ( $name === self::POST_TYPE_TEMPLATE && $isPlural ) {
-			return __( 'Elementor Templates');
+			/* translators: Name of the Elementor template content type, shown as the kind of content being translated in WPML's translation editor and job list. "Elementor" is a product name and stays in English. */
+			return __( 'Elementor Templates', 'sitepress' );
 		}
 		return sprintf( $this->getFormat(), $label );
 	}

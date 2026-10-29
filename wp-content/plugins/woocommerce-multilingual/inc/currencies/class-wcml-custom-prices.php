@@ -174,6 +174,30 @@ class WCML_Custom_Prices {
 		return $custom_prices;
 	}
 
+	public function get_sale_price_dates_in_currency( $product_id, $currency ) {
+		if ( wcml_get_woocommerce_currency_option() === $currency ) {
+			return null;
+		}
+
+		$original_product_id = $this->woocommerce_wpml->products->get_original_product_id( $product_id );
+
+		if ( ! get_post_meta( $original_product_id, '_wcml_custom_prices_status', true ) ) {
+			return null;
+		}
+
+		$date_from = get_post_meta( $original_product_id, '_sale_price_dates_from_' . $currency, true );
+		$date_to   = get_post_meta( $original_product_id, '_sale_price_dates_to_' . $currency, true );
+
+		if ( ! $date_from || ! $date_to ) {
+			return null;
+		}
+
+		return [
+			'_sale_price_dates_from' => $date_from,
+			'_sale_price_dates_to'   => $date_to,
+		];
+	}
+
 	private function is_date_range_set( $product_meta, $currency ) {
 
 		$get_currency_schedule = function ( $suffix ) use ( $product_meta ) {

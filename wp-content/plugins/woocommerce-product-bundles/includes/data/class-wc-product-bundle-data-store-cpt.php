@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bundle data stored as Custom Post Type. For use with the WC 2.7+ CRUD API.
  *
  * @class    WC_Product_Bundle_Data_Store_CPT
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 	/**
 	 * Data stored in meta keys, but not considered "meta" for the Bundle type.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $extended_internal_meta_keys = array(
 		'_wcpb_min_qty_limit',
@@ -48,7 +48,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	/**
 	 * Maps extended properties to meta keys.
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	protected $props_to_meta_keys = array(
 		'min_bundle_size'                 => '_wcpb_min_qty_limit',
@@ -212,6 +212,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 *
 	 * @param  WC_Product_Bundle $product - The product object.
 	 * @param  array             $props_to_save - The props to save.
+	 * @return void
 	 */
 	public function save_stock_sync_props( &$product, $props_to_save ) {
 
@@ -265,7 +266,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				 *
 				 * @see WC_PB_DB_Sync::bundle_stock_quantity_changed
 				 *
-				 * @param  int                $to_quantity
+				 * @param  int|string         $to_quantity
 				 * @param  int                $from_quantity
 				 * @param  WC_Product_Bundle  $product
 				 */
@@ -345,6 +346,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @since  6.5.0
 	 *
 	 * @param  WC_Product_Bundle $product - The product object.
+	 * @return void
 	 */
 	public function save_raw_price_props( &$product ) {
 

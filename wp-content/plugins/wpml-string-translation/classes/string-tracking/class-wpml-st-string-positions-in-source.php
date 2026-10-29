@@ -94,7 +94,7 @@ class WPML_ST_String_Positions_In_Source extends WPML_ST_String_Positions {
 
 	private function get_filesystem() {
 		if ( ! $this->filesystem ) {
-			$this->filesystem = $this->get_wp_api()->get_wp_filesystem_direct();
+			$this->filesystem = $this->get_wp_api()->get_wp_filesystem();
 		}
 
 		return $this->filesystem;

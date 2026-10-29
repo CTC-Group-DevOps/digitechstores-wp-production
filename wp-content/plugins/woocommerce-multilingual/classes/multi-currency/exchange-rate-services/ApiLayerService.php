@@ -23,7 +23,13 @@ abstract class ApiLayerService extends Service {
 	}
 
 	private function getSelectedApiEndpoint() {
-		return $this->getSetting( 'selected-endpoint' );
+		$endpoint = $this->getSetting( 'selected-endpoint' );
+
+		if ( ! is_string( $endpoint ) || 0 !== stripos( $endpoint, 'https://' ) ) {
+			return null;
+		}
+
+		return $endpoint;
 	}
 
 	protected function makeRequest( $from, $tos ) {

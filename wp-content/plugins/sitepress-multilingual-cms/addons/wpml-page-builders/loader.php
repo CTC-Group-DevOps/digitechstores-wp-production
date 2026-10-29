@@ -1,6 +1,6 @@
 <?php
 
-$wpml_page_builders_version = 36;
+$wpml_page_builders_version = 39;
 
 add_action(
 	'init',

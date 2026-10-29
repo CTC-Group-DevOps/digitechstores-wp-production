@@ -216,7 +216,7 @@ if ( ! function_exists( 'woodmart_hotspot_shortcode' ) ) {
 
 		echo '<div class="wd-image-hotspot' . esc_attr( $classes ) . '" style="left: ' . esc_attr( $left ) . '%; top: ' . esc_attr( $top ) . '%;">';
 			echo '<span class="hotspot-sonar"></span>';
-			echo '<div class="hotspot-btn wd-role-btn wd-fill" tabindex="0"></div>';
+			echo '<div class="hotspot-btn wd-role-btn wd-fill" tabindex="0" role="button" aria-label="' . esc_attr__( 'Show hotspot details', 'woodmart' ) . '"></div>';
 			echo apply_filters( 'woodmart_hotspot_content', $output ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>';
 	}

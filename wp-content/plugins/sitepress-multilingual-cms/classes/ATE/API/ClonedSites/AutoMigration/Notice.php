@@ -4,14 +4,13 @@ namespace WPML\TM\ATE\ClonedSites\AutoMigration;
 
 use WPML\Core\WP\App\Resources;
 use WPML\LIB\WP\User;
+use WPML\Notices\SiteKey\RegistrationSiteUrl;
 use WPML\TM\ATE\ClonedSites\AutoMigration\Endpoints\Connect;
 use WPML\TM\ATE\ClonedSites\AutoMigration\Endpoints\Disconnect;
 use WPML\TM\ATE\ClonedSites\AutoMigration\Endpoints\Dismiss;
-use WPML\TM\ATE\ClonedSites\AutoMigration\Endpoints\Retry;
+use WPML\TM\ATE\ClonedSites\ReconnectState;
 
 class Notice implements \IWPML_Backend_Action, \IWPML_DIC_Action {
-
-	const NOTICE_URL_KEY = 'wpml_ate_auto_migration_notice_url';
 
 	public function add_hooks() {
 		$renderMountDiv = function () {
@@ -53,7 +52,6 @@ class Notice implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 				'siteKeyConfig'    => $this->getSiteKeyConfig(),
 				'aliasDomainReset' => ! empty( $migrationData['alias_domain_reset'] ),
 				'endpoints'        => [
-					'retry'      => Retry::class,
 					'disconnect' => Disconnect::class,
 					'connect'    => Connect::class,
 					'dismiss'    => Dismiss::class,
@@ -69,10 +67,29 @@ class Notice implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 			return false;
 		}
 
-		return Handler::getMigrationData() || Handler::hasFailed();
+		if ( ReconnectState::isReconnecting() ) {
+			return false;
+		}
+
+		if ( ! RequestHost::servesRecordedCopy() ) {
+			return false;
+		}
+
+		return (bool) Handler::getMigrationData()
+		       && 'error' !== Handler::resolveInitialState();
 	}
 
 	private function discardStaleMigrationData(): void {
+		$data = Handler::getMigrationData();
+		if (
+			$data
+			&& Handler::isSameSiteAddress( (string) ( $data['old_url'] ?? '' ), (string) ( $data['new_url'] ?? '' ) )
+		) {
+			Handler::clearMigrationData();
+
+			return;
+		}
+
 		if ( defined( 'ATE_CLONED_SITE_URL' ) || defined( 'ATE_CLONED_DEFAULT_SITE_URL' ) ) {
 			return;
 		}
@@ -83,12 +100,11 @@ class Notice implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 			return;
 		}
 
-		if ( $this->normalizeUrl( $data['new_url'] ) === $this->normalizeUrl( get_site_url() ) ) {
+		if ( $this->normalizeUrl( $data['new_url'] ) === $this->normalizeUrl( \WPML_Default_Site_Url::get() ) ) {
 			return;
 		}
 
 		Handler::clearMigrationData();
-		Handler::clearFailureFlag();
 	}
 
 	private function normalizeUrl( string $url ): string {
@@ -98,7 +114,7 @@ class Notice implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	private function getSiteKeyConfig(): array {
 		return [
 			'nonce'   => wp_create_nonce( 'save_site_key_wpml' ),
-			'siteUrl' => get_site_url(),
+			'siteUrl' => RegistrationSiteUrl::get(),
 		];
 	}
 }

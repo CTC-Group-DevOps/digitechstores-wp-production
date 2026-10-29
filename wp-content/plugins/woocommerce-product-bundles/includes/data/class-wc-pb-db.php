@@ -17,12 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles DB API for manipulating bundled item data in the database.
  *
  * @class    WC_PB_DB
- * @version  8.0.0
+ * @version  8.5.16
  */
 class WC_PB_DB {
 
 	/**
 	 * Initialize bundled items table.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'wpdb_bundled_items_table_fix' ), 0 );
@@ -31,6 +33,8 @@ class WC_PB_DB {
 
 	/**
 	 * Make WP see 'bundled_item' as a meta type.
+	 *
+	 * @return void
 	 */
 	public static function wpdb_bundled_items_table_fix() {
 		global $wpdb;
@@ -64,7 +68,7 @@ class WC_PB_DB {
 	 *     @type  array      $meta_query       Bundled item meta query parameters, uses 'WP_Meta_Query' - see https://codex.wordpress.org/Class_Reference/WP_Meta_Query .
 	 * }
 	 *
-	 * @return array
+	 * @return array|int|string
 	 */
 	public static function query_bundled_items( $args ) {
 
@@ -256,7 +260,7 @@ class WC_PB_DB {
 			$item = false;
 		}
 
-		if ( ! $item || ! is_object( $item ) || ! $item->get_id() ) {
+		if ( ! $item || ! $item->get_id() ) {
 			return false;
 		}
 
@@ -475,6 +479,7 @@ class WC_PB_DB {
 	 * @since  5.8.0
 	 *
 	 * @param  array $bundled_item_ids Bundled item IDs.
+	 * @return void
 	 */
 	public static function bulk_delete_bundled_item_stock_meta( $bundled_item_ids = array() ) {
 

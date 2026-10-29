@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['theme_settings'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['social_links_source'],'urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=9e9a8c8ba3']]],'#'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['fb_link','twitter_link','isntagram_link','pinterest_link','youtube_link'],'urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=9e9a8c8ba3']]]]];

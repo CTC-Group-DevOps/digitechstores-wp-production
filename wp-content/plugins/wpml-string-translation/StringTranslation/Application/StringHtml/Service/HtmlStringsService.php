@@ -74,7 +74,7 @@ class HtmlStringsService {
 		$this->queueGettextStringsToBeSetAsFrontendCommand->run( $gettextStrings );
 	}
 
-	public function maybeProcessFrontendGettextStringsQueue() {
-		$this->processFrontendGettextStringsQueueCommand->run();
+	public function maybeProcessFrontendGettextStringsQueue(): int {
+		return $this->processFrontendGettextStringsQueueCommand->run();
 	}
 }

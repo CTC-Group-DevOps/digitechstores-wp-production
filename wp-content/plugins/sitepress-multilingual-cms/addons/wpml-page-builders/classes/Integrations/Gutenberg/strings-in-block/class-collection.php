@@ -21,13 +21,8 @@ class Collection implements StringsInBlock {
 	}
 
 	public function update( \WP_Block_Parser_Block $block, array $string_translations, $lang ) {
-		$originalInnerHTML = $block->innerHTML;
 		foreach ( $this->parsers as $parser ) {
 			$block = $parser->update( $block, $string_translations, $lang );
-		}
-
-		if ( $originalInnerHTML !== $block->innerHTML ) {
-			$block->attrs['translatedWithWPMLTM'] = '1';
 		}
 
 		return apply_filters( 'wpml_update_strings_in_block', $block, $string_translations, $lang );

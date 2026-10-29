@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * These 2 will differ only if stock for a variation is managed by its parent.
  *
  * @class    WC_PB_Stock_Manager_Item
- * @version  8.5.13
+ * @version  8.5.16
  * @since    4.8.7
  */
 class WC_PB_Stock_Manager_Item {
@@ -30,7 +30,7 @@ class WC_PB_Stock_Manager_Item {
 	/**
 	 * Variation ID.
 	 *
-	 * @var int
+	 * @var int|false
 	 */
 	public $variation_id;
 	/**

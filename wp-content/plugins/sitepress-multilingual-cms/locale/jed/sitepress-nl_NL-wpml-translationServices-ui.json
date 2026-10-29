@@ -8,7 +8,7 @@
             "lang": "nl_NL"
          },
          "Connect this site to your %s account": [
-            "Verbind deze site met uw %s account"
+            "Verbind deze site met uw %s-account"
          ],
          "Error": [
             "Fout"
@@ -20,7 +20,7 @@
             "Authenticeren"
          ],
          "Visit <link_to_service /> to request an API Token. This token allows WPML to connect to <service_name /> to send and receive jobs.": [
-            "Bezoek <link_to_service /> om een API-token aan te vragen. Dit token stelt WPML in staat om verbinding te maken met <service_name /> om taken te verzenden en te ontvangen."
+            "Bezoek <link_to_service /> om een API-token aan te vragen. Met dit token kan WPML verbinding maken met <service_name /> om vertaalopdrachten te verzenden en te ontvangen."
          ],
          "Search translation services": [
             "Vertaalservices zoeken"
@@ -32,13 +32,13 @@
             "Instellingen"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "Het is momenteel niet mogelijk om een vertaalservice te verbinden wanneer WPML is ingesteld om de inhoud van uw site automatisch te vertalen. Om een vertaalservice te gebruiken, wijzigt u uw vertaalmodus op de <LinkToSettingsPage /> pagina."
+            "Het is momenteel niet mogelijk om verbinding te maken met een vertaalservice wanneer WPML is ingesteld om de inhoud van uw site automatisch te vertalen. Om een vertaalservice te gebruiken, wijzigt u uw vertaalmodus op de pagina <LinkToSettingsPage />."
          ],
          "Sort descending": [
-            "Sorteer aflopend"
+            "Aflopend sorteren"
          ],
          "Sort ascending": [
-            "Sorteer oplopend"
+            "Oplopend sorteren"
          ],
          "Cancel sorting": [
             "Sorteren annuleren"
@@ -56,7 +56,7 @@
             "Beschrijving"
          ],
          "Ranking": [
-            "Rangschikking"
+            "Ranking"
          ]
       }
    }

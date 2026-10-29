@@ -39,6 +39,7 @@ class WCML_Pointers{
 
 	public function add_products_translation_link() {
 		$link   = \WCML\Utilities\AdminUrl::getWPMLTMDashboardProducts();
+		/* translators: Button label in the WPML help bubble on the products list; it opens the Translation Dashboard. Verb phrase, imperative. */
 		$name   = __( 'Translate WooCommerce products', 'woocommerce-multilingual' );
 		$anchor = '<a class="button button-small button-wpml wcml-pointer-products_translation" href="{{ url }}">{{ text }}</a>';
 
@@ -51,6 +52,7 @@ class WCML_Pointers{
 		}
 
 		$link   = \WCML\Utilities\AdminUrl::getWPMLTaxonomyTranslation( 'product_shipping_class' );
+		/* translators: Button label in the WPML help bubble on the shipping-classes screen; it opens the taxonomy translation screen. Verb phrase, imperative. */
 		$name   = __( 'Translate shipping classes', 'woocommerce-multilingual' );
 		$anchor = '<a class="button button-small button-wpml wcml-pointer-shipping_classes_translation" href="{{ url }}">{{ text }}</a>';
 
@@ -59,6 +61,7 @@ class WCML_Pointers{
 
 	public function add_multi_currency_link( array $settings ) {
 		$link = \WCML\Utilities\AdminUrl::getMultiCurrencyTab();
+		/* translators: Button label in the WPML help bubble on the WooCommerce currency settings; it opens the plugin's multicurrency screen. Verb phrase, imperative. */
 		$name = __( 'Configure multicurrency for multilingual sites', 'woocommerce-multilingual' );
 
 		$anchor = '<a class="button button-small button-wpml wcml-pointer-multi_currency" href="{{ url }}">{{ text }}</a>';
@@ -68,6 +71,7 @@ class WCML_Pointers{
 
 	public function add_endpoints_translation_link( array $settings ) {
 		$link = \WCML\Utilities\AdminUrl::getStoreURLTab();
+		/* translators: Button label in the WPML help bubble on the WooCommerce store URL settings. Verb phrase, imperative; endpoints are the URL parts such as cart and checkout. */
 		$name = __( 'Translate endpoints', 'woocommerce-multilingual' );
 
 		$anchor = '<a class="button button-small button-wpml wcml-pointer-endpoints_translation" href="{{ url }}">{{ text }}</a>';

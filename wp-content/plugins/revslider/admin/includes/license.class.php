@@ -34,6 +34,9 @@ class RevSliderLicense extends RevSliderFunctions {
 			update_option('revslider-valid', 'true');
 			update_option('revslider-code', $code);
 			update_option('revslider-deregister-popup', 'false');
+			//the licence type the update check last reported belongs to the old key (or to none): the next admin page asks
+			//again instead of in 48 hours, so a lifetime or CodeCanyon key shows its SR7 path at once (as SR7's License does)
+			delete_option('revslider-update-check-short');
 
 			return true;
 		}
@@ -69,7 +72,8 @@ class RevSliderLicense extends RevSliderFunctions {
 		if($vi == 'valid'){
 			update_option('revslider-valid', 'false');
 			update_option('revslider-code', '');
-			update_option('revslider-deregister-popup', 'true');
+			update_option('revslider-deregister-popup', 'false'); //the user deregistered: "Deactivated!" is for a key the server took back (update.class.php)
+			delete_option('revslider-update-check-short');
 
 			return true;
 		}

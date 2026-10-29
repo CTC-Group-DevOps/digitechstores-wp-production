@@ -11,15 +11,21 @@ use WPML\FP\Relation;
 use WPML\FP\Either;
 use WPML\TM\ATE\API\ErrorMessages;
 use WPML\FP\Fns;
+use WPML\TM\Editor\ATEDetailedErrorMessage;
 use WPML\TM\Jobs\JobLog;
 use WPML\TM\ATE\ClonedSites\MigrationLogger;
+use WPML\TM\ATE\ClonedSites\Rebind\State as RebindState;
 use WPML\FP\Logic;
 use WPML\TM\ATE\API\CachedAMSAPI;
+use WPML\TM\ATE\API\IdentityRequestTimeout;
+use WPML\Core\SharedKernel\Component\WpmlOrgClient\Domain\WpmlOrgOrigin;
 use function WPML\FP\pipe;
 use function WPML\FP\invoke;
 class WPML_TM_AMS_API {
 
 	const HTTP_ERROR_CODE_400 = 400;
+
+	const HTTP_BAD_GATEWAY = 502;
 
 	private $auth;
 
@@ -31,6 +37,8 @@ class WPML_TM_AMS_API {
 	private $fingerprintGenerator;
 
 	private $amsRequestSigner;
+
+	private $lastRequestError = null;
 
 	public function __construct(
 		WP_Http $wp_http,
@@ -161,6 +169,15 @@ class WPML_TM_AMS_API {
 		return Maybe::of( $result )->reject( 'is_wp_error' );
 	}
 
+	public function getNormalizedSuggestionsCount() {
+		$result = $this->getSignedResult(
+			'GET',
+			$this->endpoints->get_normalized_suggestions_count()
+		);
+
+		return Maybe::of( $result )->reject( 'is_wp_error' );
+	}
+
 	public function update_translation_engines( $engine_settings ) {
 		$result = false;
 
@@ -181,8 +198,8 @@ class WPML_TM_AMS_API {
 		return $result;
 	}
 
-	public function register_manager( WP_User $manager, array $translators, array $managers ) {
-		$makeRequest = $this->makeRegistrationRequest( $manager, $translators, $managers );
+	public function register_manager( WP_User $manager, array $translators, array $managers, $forceNewWebsite = false ) {
+		$makeRequest = $this->makeRegistrationRequest( $manager, $translators, $managers, $forceNewWebsite );
 
 		$logErrorResponse = $this->logErrorResponse();
 
@@ -194,7 +211,7 @@ class WPML_TM_AMS_API {
 		$handleGeneralError  = $handleErrorResponse(
 			Fns::identity(),
 			function( $response ) {
-				return Either::left( ErrorMessages::invalidResponse( get_site_url(), $response ) );
+				return Either::left( ErrorMessages::invalidResponse( WPML_Default_Site_Url::get(), $response ) );
 			}
 		);
 
@@ -205,19 +222,31 @@ class WPML_TM_AMS_API {
 		             ->map( $this->saveRegistrationData( $manager ) );
 	}
 
-	private function makeRegistrationRequest( $manager, $translators, $managers ) {
-		$buildParams = function () use ( $manager, $translators, $managers ) {
+	private function makeRegistrationRequest( $manager, $translators, $managers, $forceNewWebsite = false ) {
+		$buildParams = function () use ( $manager, $translators, $managers, $forceNewWebsite ) {
 			$manager_data     = $this->get_user_data( $manager, true );
 			$translators_data = $this->get_users_data( $translators );
 			$managers_data    = $this->get_users_data( $managers, true );
 			$sitekey          = function_exists( 'OTGS_Installer' ) ? OTGS_Installer()->get_site_key( 'wpml' ) : null;
 
 			$params                 = $manager_data;
-			$params['website_url']  = get_site_url();
+			$params['website_url']  = WPML_Default_Site_Url::get();
 			$params['translators']          = $translators_data;
 			$params['translation_managers'] = $managers_data;
 			if ( $sitekey ) {
 				$params['site_key'] = $sitekey;
+			}
+
+			$websiteUuid = (string) get_option(
+				WPML_Site_ID::SITE_ID_KEY . ':' . WPML_TM_ATE::SITE_ID_SCOPE,
+				''
+			);
+			if ( '' !== $websiteUuid ) {
+				$params['website_uuid'] = $websiteUuid;
+			}
+
+			if ( $forceNewWebsite ) {
+				$params['force_new_website'] = true;
 			}
 
 			return $params;
@@ -225,7 +254,7 @@ class WPML_TM_AMS_API {
 
 		$handleUnavailableATEError = function ( $response ) {
 			if ( is_wp_error( $response ) ) {
-				$website_url = get_site_url();
+				$website_url = WPML_Default_Site_Url::get();
 				$this->log_api_error(
 					ErrorMessages::serverUnavailableHeader(),
 					[ 'responseError' => $response->get_error_message(), 'website_url' => $website_url ]
@@ -253,7 +282,7 @@ class WPML_TM_AMS_API {
 				ErrorMessages::respondedWithError(),
 				[
 					'responseError' => $error->get_error_message(),
-					'website_url'   => get_site_url(),
+					'website_url'   => WPML_Default_Site_Url::get(),
 				]
 			);
 		};
@@ -276,7 +305,7 @@ class WPML_TM_AMS_API {
 	private function handleInvalidBodyError() {
 		return function ( $response ) {
 			if ( ! $this->response_has_keys( $response ) ) {
-				$website_url = get_site_url();
+				$website_url = WPML_Default_Site_Url::get();
 				$this->log_api_error(
 					ErrorMessages::respondedWithError(),
 					[ 'responseError' => ErrorMessages::bodyWithoutRequiredFields(), 'response' => json_encode( $response ), 'website_url' => $website_url ]
@@ -306,7 +335,15 @@ class WPML_TM_AMS_API {
 				false
 			);
 
-			return $this->set_registration_data( $registration_data );
+			$this->auth->override_site_id( $response_body['website_uuid'] );
+
+			RebindState::noteRegistrationAnswer( $response_body );
+
+			$stored = $this->set_registration_data( $registration_data );
+
+			\WPML\TM\ATE\SiteName\Sender::send();
+
+			return $stored;
 		};
 	}
 
@@ -406,12 +443,22 @@ class WPML_TM_AMS_API {
 				$error_message = $this->get_error_message( $main_error, $response['body'] );
 			}
 
-			$response_errors = new WP_Error( $response['response']['code'], $error_message, $main_error );
+			$upstream_status = $response['response']['code'];
+
+			$response_errors = new WP_Error(
+				$upstream_status,
+				$error_message,
+				$this->upstream_error_data( $upstream_status, $error_message, $main_error )
+			);
 
 			foreach ( $errors as $error ) {
 				$error_message = $this->get_error_message( $error, $response['body'] );
 				$error_status  = isset( $error['status'] ) ? 'ams_error: ' . $error['status'] : '';
-				$response_errors->add( $error_status, $error_message, $error );
+				$response_errors->add(
+					$error_status,
+					$error_message,
+					$this->upstream_error_data( $upstream_status, $error_message, $error )
+				);
 			}
 		}
 
@@ -420,6 +467,15 @@ class WPML_TM_AMS_API {
 		}
 
 		return $response_errors;
+	}
+
+	private function upstream_error_data( $upstream_status, $upstream_message, $upstream_errors ) {
+		return [
+			'status'           => self::HTTP_BAD_GATEWAY,
+			'upstream_status'  => (int) $upstream_status,
+			'upstream_message' => $upstream_message,
+			'errors'           => $upstream_errors,
+		];
 	}
 
 	private function log_api_error( $message, $data ) {
@@ -432,7 +488,8 @@ class WPML_TM_AMS_API {
 	}
 
 	private function ping_healthy_wpml_endpoint() {
-		$response = $this->request( 'GET', defined( 'WPML_TM_INTERNET_CHECK_URL' ) ? WPML_TM_INTERNET_CHECK_URL : 'https://health.wpml.org/', [] );
+		$url      = defined( 'WPML_TM_INTERNET_CHECK_URL' ) ? WPML_TM_INTERNET_CHECK_URL : WpmlOrgOrigin::health() . '/';
+		$response = $this->request( 'GET', $url, [] );
 
 		return ! is_wp_error( $response ) && (int) \WPML\FP\Obj::path( [ 'response', 'code' ], $response ) === 200;
 	}
@@ -453,7 +510,9 @@ class WPML_TM_AMS_API {
 	}
 
 	public function get_registration_data() {
-		return get_option( WPML_TM_ATE_Authentication::AMS_DATA_KEY, [] );
+		$data = get_option( WPML_TM_ATE_Authentication::AMS_DATA_KEY, [] );
+
+		return is_array( $data ) ? $data : [];
 	}
 
 	private function set_registration_data( $registration_data ) {
@@ -481,6 +540,12 @@ class WPML_TM_AMS_API {
 				if ( ! is_wp_error( $result ) ) {
 					$result = $response_body;
 				}
+			} elseif ( is_wp_error( $response ) ) {
+				$result = $response;
+			}
+
+			if ( is_wp_error( $result ) ) {
+				ATEDetailedErrorMessage::saveDetailedError( $result );
 			}
 		}
 
@@ -509,6 +574,10 @@ class WPML_TM_AMS_API {
 				}
 			} elseif ( is_wp_error( $response ) ) {
 				$result = $response;
+			}
+
+			if ( is_wp_error( $result ) ) {
+				ATEDetailedErrorMessage::saveDetailedError( $result );
 			}
 		}
 
@@ -539,7 +608,7 @@ class WPML_TM_AMS_API {
 		$args = [
 			'method'  => $method,
 			'headers' => $headers,
-			'timeout' => $this->getTimeout(),
+			'timeout' => $this->timeoutFor( $url ),
 		];
 
 		if ( $params ) {
@@ -569,15 +638,58 @@ class WPML_TM_AMS_API {
 		);
 		JobLog::removeExtraLogData( 'apiCall' );
 
-		if ( ! is_wp_error( $response ) ) {
-			$response = $this->clonedSitesHandler->handleClonedSiteError( $response );
+		if ( is_wp_error( $response ) ) {
+			$this->clonedSitesHandler->handleTransportFailure( $response, \WPML\TM\ATE\ClonedSites\ReconnectState::SERVICE_AMS );
+
+			return $response;
+		}
+
+		$this->clonedSitesHandler->noteServerAnswered( $response, \WPML\TM\ATE\ClonedSites\ApiCommunication::CALL_OTHER, \WPML\TM\ATE\ClonedSites\ReconnectState::SERVICE_AMS );
+
+		return $this->clonedSitesHandler->handleClonedSiteError( $response, \WPML\TM\ATE\ClonedSites\ReconnectState::SERVICE_AMS );
+	}
+
+	private function minimumTimeoutFor( $url ) {
+		$identityEndpoints = [
+			\WPML_TM_ATE_AMS_Endpoints::ENDPOINTS_SITE,
+			\WPML_TM_ATE_AMS_Endpoints::ENDPOINTS_COPY_ATTACHED,
+			\WPML_TM_ATE_AMS_Endpoints::ENDPOINTS_SITE_CONFIRM,
+		];
+
+		foreach ( $identityEndpoints as $endpoint ) {
+			if ( is_string( $url ) && strpos( $url, $endpoint ) !== false ) {
+				return IdentityRequestTimeout::seconds();
+			}
+		}
+
+		return 5;
+	}
+
+	private function timeoutFor( $url ) {
+		if ( is_string( $url ) && strpos( $url, \WPML_TM_ATE_AMS_Endpoints::ENDPOINTS_WEBSITE_SITE_NAME ) !== false ) {
+			return 10;
+		}
+
+		return $this->getTimeout( $this->minimumTimeoutFor( $url ) );
+	}
+
+	private function signed_request( $verb, $url, ?array $params = null ) {
+		$verb = strtoupper( $verb );
+
+		$response = $this->signedRequestOnce( $verb, $url, $params );
+
+		if ( ClonedSitesHandler::shouldReplay( $response ) ) {
+			$response = ClonedSitesHandler::replay(
+				function () use ( $verb, $url, $params ) {
+					return $this->signedRequestOnce( $verb, $url, $params );
+				}
+			);
 		}
 
 		return $response;
 	}
 
-	private function signed_request( $verb, $url, ?array $params = null ) {
-		$verb       = strtoupper( $verb );
+	private function signedRequestOnce( $verb, $url, ?array $params = null ) {
 		$signed_url = $this->auth->get_signed_url_with_parameters( $verb, $url, $params );
 
 		if ( is_wp_error( $signed_url ) ) {
@@ -596,9 +708,9 @@ class WPML_TM_AMS_API {
 			parse_str( $url_parts['query'], $query );
 		}
 		$query['wpml_core_version'] = ICL_SITEPRESS_VERSION;
-		$query['wpml_tm_version']   = WPML_TM_VERSION;
+		$query['wpml_tm_version']   = defined( 'WPML_TM_VERSION' ) ? WPML_TM_VERSION : '1.0';
 
-		$url_parts['query'] = http_build_query( $query );
+		$url_parts['query'] = wpml_http_build_query( $query );
 		$url                = http_build_url( $url_parts );
 
 		return $url;
@@ -622,10 +734,10 @@ class WPML_TM_AMS_API {
 		);
 	}
 
-	public function resumeAll() {
+	public function getWebsiteMigrationCode() {
 		return $this->getSignedResult(
 			'GET',
-			$this->endpoints->get_resume_all()
+			$this->endpoints->get_website_migration_code()
 		);
 	}
 
@@ -641,6 +753,26 @@ class WPML_TM_AMS_API {
 		);
 
 		return Relation::propEq( 'updated_website', $siteId, $response );
+	}
+
+	public function updateSiteName( $siteName ) {
+		$response = $this->signed_request(
+			'PUT',
+			$this->endpoints->get_ams_site_name(),
+			[ 'site_name' => (string) $siteName ]
+		);
+
+		$error = $this->get_errors( $response, false );
+		if ( is_wp_error( $error ) ) {
+			return $error;
+		}
+
+		$code = isset( $response['response']['code'] ) ? (int) $response['response']['code'] : 0;
+		if ( $code < 200 || $code >= 300 ) {
+			return new WP_Error( 'ams_site_name_not_stored', sprintf( 'AMS answered %d to the site_name update', $code ) );
+		}
+
+		return true;
 	}
 
 	public function unassign_sitekey( $sitekey ) {
@@ -664,10 +796,16 @@ class WPML_TM_AMS_API {
 		return $this->getSignedResult( 'POST', $this->endpoints->get_ams_connect() );
 	}
 
+	public function getLastRequestError() {
+		return $this->lastRequestError;
+	}
+
 	private function getSignedResult( $verb, $url, ?array $params = null ) {
 		$result = null;
 
 		$response = $this->signed_request( $verb, $url, $params );
+
+		$this->lastRequestError = is_wp_error( $response ) ? $response : null;
 
 		if ( $this->response_has_body( $response ) ) {
 

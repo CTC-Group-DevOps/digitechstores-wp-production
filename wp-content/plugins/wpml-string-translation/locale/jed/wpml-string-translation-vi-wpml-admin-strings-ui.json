@@ -29,7 +29,7 @@
             "Lỗi giao tiếp"
          ],
          "The action failed.": [
-            "Thao tác không thành công."
+            "Hành động thất bại."
          ],
          "All (%d)": [
             "Tất cả (%d)"
@@ -41,7 +41,7 @@
             "Không bao gồm trong Dịch chuỗi (%d)"
          ],
          "This setting is locked by a WPML configuration file.": [
-            "Cài đặt này bị khóa bởi tệp cấu hình WPML."
+            "Cài đặt này bị khóa bởi một tệp cấu hình WPML."
          ],
          "Option": [
             "Tùy chọn"
@@ -68,7 +68,7 @@
             "Không tìm thấy tùy chọn nào."
          ],
          "Make sure you saved your theme options at least once. Some themes only add these to the wp_options table after the user explicitly saves changes to the theme defaults.": [
-            "Đảm bảo bạn đã lưu tùy chọn giao diện của mình ít nhất một lần. Một số giao diện chỉ thêm các tùy chọn này vào bảng wp_options sau khi người dùng lưu rõ ràng các thay đổi đối với cài đặt mặc định của giao diện."
+            "Hãy đảm bảo bạn đã lưu các tùy chọn giao diện của mình ít nhất một lần. Một số giao diện chỉ thêm các tùy chọn này vào bảng wp_options sau khi người dùng lưu các thay đổi đối với mặc định của giao diện một cách rõ ràng."
          ],
          "Add to String Translation": [
             "Thêm vào Dịch chuỗi"

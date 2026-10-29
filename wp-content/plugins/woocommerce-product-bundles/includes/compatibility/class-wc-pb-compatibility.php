@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  8.5.10
+ * @version  8.5.16
  */
 class WC_PB_Compatibility {
 
 	/**
 	 * Min required plugin versions to check.
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	private $required = array();
 
@@ -36,7 +36,7 @@ class WC_PB_Compatibility {
 	/**
 	 * Publicly accessible props for use by compat classes. Still not moved for back-compat.
 	 *
-	 * @var array
+	 * @var int|string|null
 	 */
 	public static $addons_prefix = '';
 	/**
@@ -54,7 +54,7 @@ class WC_PB_Compatibility {
 	/**
 	 * Compatible bundled product
 	 *
-	 * @var string
+	 * @var WC_Product|false|string
 	 */
 	public static $compat_bundled_product = '';
 	/**
@@ -67,7 +67,7 @@ class WC_PB_Compatibility {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_PB_Compatibility
+	 * @var WC_PB_Compatibility|null
 	 *
 	 * @since 5.0.0
 	 */
@@ -164,6 +164,7 @@ class WC_PB_Compatibility {
 	 * Declare HPOS( Custom Order tables) compatibility.
 	 *
 	 * @since 6.17.3
+	 * @return void
 	 */
 	public function declare_hpos_compatibility() {
 
@@ -174,6 +175,7 @@ class WC_PB_Compatibility {
 	 * Declare cart/checkout Blocks compatibility.
 	 *
 	 * @since 6.22.4
+	 * @return void
 	 */
 	public function declare_blocks_compatibility() {
 
@@ -389,7 +391,7 @@ class WC_PB_Compatibility {
 	 *
 	 * @since  6.14.0
 	 * @param array $modules Modules.
-	 * @return bool
+	 * @return array
 	 */
 	public function unload_cp_module( $modules ) {
 		if ( isset( $modules['product_bundles'] ) ) {
@@ -403,7 +405,7 @@ class WC_PB_Compatibility {
 	 *
 	 * @since  6.0.0
 	 * @param string $module Module name.
-	 * @return bool
+	 * @return string|null
 	 */
 	public function get_required_module_version( $module ) {
 		return isset( $this->required[ $module ] ) ? $this->required[ $module ] : null;
@@ -642,8 +644,8 @@ class WC_PB_Compatibility {
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  array    $item Cart item.
-	 * @param  WC_Order $order Order.
+	 * @param  WC_Order_Item            $item Order item.
+	 * @param  WC_Order|WC_Order_Item[] $order Order, or its order items.
 	 * @return boolean
 	 */
 	public function is_composited_order_item( $item, $order ) {

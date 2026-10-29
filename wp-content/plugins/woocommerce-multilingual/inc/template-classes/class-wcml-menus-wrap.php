@@ -21,35 +21,42 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 		$model = [
 			'strings'            => [
 				'title'              => WCML_Admin_Menus::getWcmlLabel(),
+				/* translators: Warning shown on the plugin's screens when product categories, tags or attributes are still untranslated. */
 				'untranslated_terms' => __( 'You have untranslated terms!', 'woocommerce-multilingual' ),
 			],
 			'menu'               => [
 				'translations'    => [
+					/* translators: Tab title of the plugin's screen that lists what is translated. Adjective used as a name. */
 					'title'  => __( 'Multilingual', 'woocommerce-multilingual' ),
 					'url'    => \WCML\Utilities\AdminUrl::getMultilingualTab(),
 					'active' => $current_tab == AdminPages::TAB_MULTILINGUAL ? 'nav-tab-active' : '',
 				],
 				\WCML\Utilities\AdminUrl::TAB_SETTINGS => [
+					/* translators: Tab title and link text opening the settings of the plugin or of one currency. Noun, plural. */
 					'name'   => __( 'Settings', 'woocommerce-multilingual' ),
 					'active' => \WCML\Utilities\AdminUrl::TAB_SETTINGS == $current_tab ? 'nav-tab-active' : '',
 					'url'    => \WCML\Utilities\AdminUrl::getSettingsTab(),
 				],
 				'multi_currency'  => [
+					/* translators: Tab title and heading of the plugin's screen for currencies. One word, the name of the feature. */
 					'name'   => __( 'Multicurrency', 'woocommerce-multilingual' ),
 					'active' => \WCML\Utilities\AdminUrl::TAB_MULTICURRENCY == $current_tab ? 'nav-tab-active' : '',
 					'url'    => \WCML\Utilities\AdminUrl::getMultiCurrencyTab(),
 				],
 				\WCML\Utilities\AdminUrl::TAB_STORE_URL => [
+					/* translators: Tab title and card title of the screen where the shop's URL parts are translated. */
 					'name'   => __( 'Store URLs', 'woocommerce-multilingual' ),
 					'active' => \WCML\Utilities\AdminUrl::TAB_STORE_URL == $current_tab ? 'nav-tab-active' : '',
 					'url'    => \WCML\Utilities\AdminUrl::getStoreURLTab(),
 				],
 				\WCML\Utilities\AdminUrl::TAB_STATUS => [
+					/* translators: Tab title and heading of the screen with the plugin's diagnostic checks. Noun. */
 					'name'   => __( 'Status', 'woocommerce-multilingual' ),
 					'active' => \WCML\Utilities\AdminUrl::TAB_STATUS == $current_tab ? 'nav-tab-active' : '',
 					'url'    => \WCML\Utilities\AdminUrl::getStatusTab(),
 				],
 				\WCML\Utilities\AdminUrl::TAB_TROUBLESHOOTING => [
+					/* translators: Tab title and heading of the screen with the plugin's repair tools. */
 					'name'   => __( 'Troubleshooting', 'woocommerce-multilingual' ),
 					'active' => \WCML\Utilities\AdminUrl::TAB_TROUBLESHOOTING == $current_tab ? 'nav-tab-active' : '',
 					'url'    => \WCML\Utilities\AdminUrl::getTroubleshootingTab(),
@@ -57,6 +64,7 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 			],
 			'set_up_wizard_run'  => getSetting( 'set_up_wizard_run' ),
 			'can_manage_options' => current_user_can( 'wpml_manage_woocommerce_multilingual' ),
+			'is_bonded'          => WCML_Bonded_Menu::is_active(),
 			'content'            => $this->get_current_menu_content( $current_tab ),
 		];
 
@@ -64,6 +72,13 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 	}
 
 	protected function get_current_menu_content( $current_tab ) {
+
+		if ( WCML_Bonded_Menu::is_active() ) {
+			$bonded_content = $this->get_bonded_menu_content( $current_tab );
+			if ( null !== $bonded_content ) {
+				return $bonded_content;
+			}
+		}
 
 		switch ( $current_tab ) {
 
@@ -145,6 +160,36 @@ class WCML_Menus_Wrap extends WCML_Menu_Wrap_Base {
 					$this->redirectToWPMLTaxonomyTranslation( $current_tab );
 				}
 		}
+
+		return '';
+	}
+
+	private function get_bonded_menu_content( $current_tab ) {
+		if ( in_array( $current_tab, [ AdminPages::TAB_MULTILINGUAL, AdminPages::TAB_MULTILINGUAL_STANDALONE, null, '' ], true ) ) {
+			$directory_ui = new WCML_Multilingual_UI( WCML_Multilingual_UI::MODE_DIRECTORY );
+
+			return $directory_ui->get_view();
+		}
+
+		$tab_to_filter_key = [
+			\WCML\Utilities\AdminUrl::TAB_SETTINGS       => 'settings',
+			\WCML\Utilities\AdminUrl::TAB_MULTICURRENCY  => 'multi-currency',
+			\WCML\Utilities\AdminUrl::TAB_STORE_URL      => 'store-url',
+			\WCML\Utilities\AdminUrl::TAB_STATUS         => 'status',
+			\WCML\Utilities\AdminUrl::TAB_TROUBLESHOOTING => 'support',
+		];
+
+		if ( ! isset( $tab_to_filter_key[ $current_tab ] ) ) {
+			return null;
+		}
+
+		$target = apply_filters( 'wcml_bonded_target_url', '', $tab_to_filter_key[ $current_tab ] );
+
+		if ( ! is_string( $target ) || '' === $target ) {
+			return null;
+		}
+
+		wcml_safe_redirect( $target );
 
 		return '';
 	}

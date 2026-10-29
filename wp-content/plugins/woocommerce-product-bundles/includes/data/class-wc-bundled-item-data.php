@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Could be modified to extend WC_Data in the future. For now, all required functionality is self-contained to maintain WC back-compat.
  *
  * @class    WC_Bundled_Item_Data
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_Bundled_Item_Data {
 
@@ -71,7 +71,7 @@ class WC_Bundled_Item_Data {
 	/**
 	 * Sanitization function to apply to known meta values on the way in - @see sanitize_meta_value().
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	protected $meta_data_type_fn = array(
 		'quantity_min'                          => 'absint',
@@ -214,6 +214,7 @@ class WC_Bundled_Item_Data {
 	 * Set all data based on input array.
 	 *
 	 * @param  array $data Data to set.
+	 * @return void
 	 */
 	public function set_all( $data ) {
 		foreach ( $data as $key => $value ) {
@@ -229,6 +230,7 @@ class WC_Bundled_Item_Data {
 	 * Set ID.
 	 *
 	 * @param  int $value ID to set.
+	 * @return void
 	 */
 	public function set_id( $value ) {
 		$this->set_bundled_item_id( $value );
@@ -238,6 +240,7 @@ class WC_Bundled_Item_Data {
 	 * Set bundled item ID.
 	 *
 	 * @param  int $value ID to set.
+	 * @return void
 	 */
 	public function set_bundled_item_id( $value ) {
 		$this->data['bundled_item_id'] = absint( $value );
@@ -247,6 +250,7 @@ class WC_Bundled_Item_Data {
 	 * Set bundled product ID.
 	 *
 	 * @param  int $value ID to set.
+	 * @return void
 	 */
 	public function set_product_id( $value ) {
 		$this->data['product_id'] = absint( $value );
@@ -256,6 +260,7 @@ class WC_Bundled_Item_Data {
 	 * Set product bundle is.
 	 *
 	 * @param  int $value ID to set.
+	 * @return void
 	 */
 	public function set_bundle_id( $value ) {
 		$this->data['bundle_id'] = absint( $value );
@@ -265,6 +270,7 @@ class WC_Bundled_Item_Data {
 	 * Set bundled item menu order.
 	 *
 	 * @param  int $value Menu order to set.
+	 * @return void
 	 */
 	public function set_menu_order( $value ) {
 		$this->data['menu_order'] = absint( $value );
@@ -274,6 +280,7 @@ class WC_Bundled_Item_Data {
 	 * Set all meta data from array.
 	 *
 	 * @param  array $data Meta data to set.
+	 * @return void
 	 */
 	public function set_meta_data( $data ) {
 		if ( ! empty( $data ) && is_array( $data ) ) {
@@ -356,6 +363,8 @@ class WC_Bundled_Item_Data {
 
 	/**
 	 * Insert data into the database.
+	 *
+	 * @return void
 	 */
 	private function create() {
 
@@ -383,6 +392,8 @@ class WC_Bundled_Item_Data {
 
 	/**
 	 * Update data in the database.
+	 *
+	 * @return void
 	 */
 	private function update() {
 
@@ -411,6 +422,7 @@ class WC_Bundled_Item_Data {
 	 * Read from the database.
 	 *
 	 * @param  int|stdClass $item ID to read.
+	 * @return void
 	 */
 	public function read( $item ) {
 
@@ -437,6 +449,7 @@ class WC_Bundled_Item_Data {
 	 * Validates before saving for sanity.
 	 *
 	 * @since  5.2.0
+	 * @return void
 	 */
 	public function validate() {
 
@@ -488,6 +501,8 @@ class WC_Bundled_Item_Data {
 
 	/**
 	 * Delete data from the database.
+	 *
+	 * @return void
 	 */
 	public function delete() {
 
@@ -540,6 +555,7 @@ class WC_Bundled_Item_Data {
 	 *
 	 * @param  string $key Meta key.
 	 * @param  string $value Meta value.
+	 * @return void
 	 */
 	public function add_meta( $key, $value ) {
 		$this->update_meta( $key, $value );
@@ -549,7 +565,8 @@ class WC_Bundled_Item_Data {
 	 * Add meta data.
 	 *
 	 * @param  string $key Meta key.
-	 * @param  string $value Meta value.
+	 * @param  mixed  $value Meta value.
+	 * @return void
 	 */
 	public function update_meta( $key, $value ) {
 		if ( is_null( $value ) ) {
@@ -562,7 +579,8 @@ class WC_Bundled_Item_Data {
 	/**
 	 * Delete meta data.
 	 *
-	 * @param  array $key Meta key.
+	 * @param  string $key Meta key.
+	 * @return void
 	 */
 	public function delete_meta( $key ) {
 		$this->meta_data[ $key ] = null;
@@ -570,6 +588,8 @@ class WC_Bundled_Item_Data {
 
 	/**
 	 * Read meta data from the database.
+	 *
+	 * @return void
 	 */
 	protected function read_meta_data() {
 
@@ -622,6 +642,8 @@ class WC_Bundled_Item_Data {
 
 	/**
 	 * Update Meta Data in the database.
+	 *
+	 * @return void
 	 */
 	protected function save_meta_data() {
 
@@ -698,6 +720,7 @@ class WC_Bundled_Item_Data {
 	 *
 	 * @param  mixed  $meta_value Meta value.
 	 * @param  string $meta_key  Meta key.
+	 * @return mixed
 	 */
 	private function sanitize_meta_value( $meta_value, $meta_key ) {
 

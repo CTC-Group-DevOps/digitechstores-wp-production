@@ -11,6 +11,8 @@ use WPML_ST_Upgrade_MO_Scanning;
 
 class Hooks {
 
+	const REQUIRED_SCHEMA_VERSION = '0.0.2';
+
 	private $action_loader;
 
 	private $upgrade;
@@ -28,7 +30,14 @@ class Hooks {
 
 	private function hasPackagesTable() {
 		$updates_run = get_option( WPML_Package_Translation_Schema::OPTION_NAME, [] );
-		return in_array( WPML_Package_Translation_Schema::REQUIRED_VERSION, $updates_run, true );
+
+		foreach ( (array) $updates_run as $version_run ) {
+			if ( version_compare( (string) $version_run, self::REQUIRED_SCHEMA_VERSION, '>=' ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private function hasTranslationFilesTables() {

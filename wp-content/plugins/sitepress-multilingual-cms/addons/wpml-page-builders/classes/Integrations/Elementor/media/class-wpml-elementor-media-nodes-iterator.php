@@ -2,6 +2,8 @@
 
 class WPML_Elementor_Media_Nodes_Iterator implements IWPML_PB_Media_Nodes_Iterator {
 
+	const ATOMIC_STYLES = 'atomic_styles';
+
 	private $node_provider;
 
 	public function __construct( WPML_Elementor_Media_Node_Provider $node_provider ) {
@@ -18,6 +20,10 @@ class WPML_Elementor_Media_Nodes_Iterator implements IWPML_PB_Media_Nodes_Iterat
 
 			if ( isset( $node['settings'] ) ) {
 				$node['settings'] = $this->node_provider->get( 'all_nodes' )->translate( $node['settings'], $lang, $source_lang );
+			}
+
+			if ( isset( $node['styles'] ) ) {
+				$node['styles'] = $this->node_provider->get( self::ATOMIC_STYLES )->translate( $node['styles'], $lang, $source_lang );
 			}
 		}
 

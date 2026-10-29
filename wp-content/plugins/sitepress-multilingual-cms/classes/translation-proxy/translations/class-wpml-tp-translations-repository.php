@@ -1,5 +1,7 @@
 <?php
 
+use WPML\PHP\Exception\ClientMessageException;
+
 class WPML_TP_Translations_Repository {
 
 	private $xliff_api;
@@ -15,7 +17,7 @@ class WPML_TP_Translations_Repository {
 		$job = $this->jobs_repository->get_job( $job_id, $job_type );
 
 		if ( ! $job ) {
-			throw new InvalidArgumentException( 'Cannot find job' );
+			throw new ClientMessageException( 'Cannot find job' );
 		}
 
 		return $this->get_job_translations_by_job_entity( $job, $parse );
@@ -24,11 +26,11 @@ class WPML_TP_Translations_Repository {
 	public function get_job_translations_by_job_entity( WPML_TM_Job_Entity $job, $parse = true ) {
 		$correct_states = array( ICL_TM_TRANSLATION_READY_TO_DOWNLOAD, ICL_TM_COMPLETE );
 		if ( ! in_array( $job->get_status(), $correct_states, true ) ) {
-			throw new InvalidArgumentException( 'Job\'s translation is not ready.' );
+			throw new ClientMessageException( 'Job\'s translation is not ready.' );
 		}
 
 		if ( ! $job->get_tp_id() ) {
-			throw new InvalidArgumentException( 'This is only a local job.' );
+			throw new ClientMessageException( 'This is only a local job.' );
 		}
 
 		$translations = $this->xliff_api->get_remote_translations( $job->get_tp_id(), $parse );

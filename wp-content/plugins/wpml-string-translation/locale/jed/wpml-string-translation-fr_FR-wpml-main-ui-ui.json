@@ -7,8 +7,8 @@
             "plural_forms": "nplurals=2; plural=(n > 1);",
             "lang": "fr_FR"
          },
-         "Edit": [
-            "Modifier"
+         "Edit %s": [
+            "Modifier le %s"
          ],
          "Shift+Tab": [
             "Maj+Tab"
@@ -16,38 +16,35 @@
          "Tab": [
             "Tab"
          ],
+         "Original:": [
+            "Original :"
+         ],
          "Translation to:": [
             "Traduction vers :"
          ],
          "Copy from original": [
-            "Copier de l’original"
+            "Copier à partir de l'original"
          ],
          "Use Shift+Enter to add a new line.": [
             "Utilisez Maj+Entrée pour ajouter une nouvelle ligne."
          ],
-         "Original:": [
-            "Original :"
-         ],
          "Add %s translation": [
-            "Ajouter la traduction %s"
+            "Ajouter une traduction en %s"
          ],
          "Edit %s translation": [
-            "Modifier la traduction %s"
+            "Modifier la traduction en %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "Ajouter la traduction %s (la chaîne apparaît sur le site et n’est pas traduite)"
+            "Ajouter une traduction en %s (la chaîne apparaît sur le site et n'est pas traduite)"
          ],
          "Original language %s": [
-            "Langue d’origine %s"
+            "Langue originale : %s"
          ],
          "Waiting for translator to %s": [
-            "En attente du traducteur pour %s"
+            "En attente du traducteur vers le %s"
          ],
          "Translation in progress to %s": [
-            "Traduction en cours vers %s"
-         ],
-         "In basket for translation to %s": [
-            "Dans le panier pour la traduction vers %s"
+            "Traduction en cours vers le %s"
          ],
          "Translation saved.": [
             "Traduction enregistrée."

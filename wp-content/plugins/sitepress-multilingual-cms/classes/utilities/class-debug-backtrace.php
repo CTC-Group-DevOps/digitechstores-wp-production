@@ -4,6 +4,8 @@ namespace WPML\Utils;
 
 class DebugBackTrace {
 
+	const DEFAULT_LIMIT = 50;
+
 	private $debug_backtrace = [];
 
 	private $limit;
@@ -15,7 +17,7 @@ class DebugBackTrace {
 	private $debug_backtrace_function;
 
 	public function __construct(
-		$limit = 0,
+		$limit = self::DEFAULT_LIMIT,
 		$provide_object = false,
 		$ignore_args = true,
 		$debug_backtrace_function = null
@@ -27,6 +29,10 @@ class DebugBackTrace {
 		$this->provide_object           = $provide_object;
 		$this->ignore_args              = $ignore_args;
 		$this->debug_backtrace_function = $debug_backtrace_function;
+	}
+
+	public function get_limit() {
+		return $this->limit;
 	}
 
 	public function are_functions_in_call_stack( array $functions, $refresh = true ) {

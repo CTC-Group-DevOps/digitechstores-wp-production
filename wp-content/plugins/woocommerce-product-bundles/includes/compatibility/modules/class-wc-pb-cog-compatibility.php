@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Cost of Goods Compatibility.
  *
- * @version  5.11.0
+ * @version  8.5.16
  */
 class WC_PB_COG_Compatibility {
 
 	/**
 	 * Initialize integration.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -46,9 +48,9 @@ class WC_PB_COG_Compatibility {
 	/**
 	 * Cost of goods compatibility: Zero order item cost for bundled products that belong to statically priced bundles.
 	 *
-	 * @param  double   $cost The order item cost.
-	 * @param  array    $item The order item data.
-	 * @param  WC_Order $order The order object.
+	 * @param  double                $cost The order item cost.
+	 * @param  WC_Order_Item_Product $item The order item.
+	 * @param  WC_Order              $order The order object.
 	 * @return double
 	 */
 	public static function set_bundled_order_item_cost( $cost, $item, $order ) {

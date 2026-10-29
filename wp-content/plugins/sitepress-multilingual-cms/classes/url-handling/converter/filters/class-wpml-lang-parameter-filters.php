@@ -8,6 +8,12 @@ class WPML_Lang_Parameter_Filters {
 		add_filter( 'wp_link_pages_link', array( $this, 'paginated_link_filter' ) );
 	}
 
+	public function remove_hooks() {
+		remove_filter( 'request', array( $this, 'request_filter' ) );
+		remove_filter( 'get_pagenum_link', array( $this, 'paginated_url_filter' ) );
+		remove_filter( 'wp_link_pages_link', array( $this, 'paginated_link_filter' ) );
+	}
+
 	public function request_filter( $request ) {
 		if ( ! defined( 'WP_ADMIN' ) && isset( $request['lang'] ) ) {
 			unset( $request['lang'] );

@@ -57,6 +57,12 @@ class Resources {
 			ICL_PLUGIN_URL . '/dist/js/vendor/app.js', [],
 			ICL_SITEPRESS_SCRIPT_VERSION
 		);
+
+		wp_localize_script(
+			self::VENDOR,
+			'wpmlOutboundLinks',
+			\WPML\OutboundLinks\OutboundLinks::getJsConfig()
+		);
 	}
 
 	public static function vendorAsDependency() {

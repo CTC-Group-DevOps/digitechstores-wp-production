@@ -8,34 +8,34 @@
             "lang": "de_DE"
          },
          "Get a key for this site": [
-            "Schlüssel für diese Website erhalten"
+            "Einen Key für diese Website anfordern"
          ],
          "Site key:": [
-            "Website-Schlüssel:"
+            "Website-Key:"
          ],
          "Enter your site key here": [
-            "Geben Sie hier Ihren Website-Schlüssel ein"
+            "Geben Sie hier Ihren Website-Key ein"
          ],
          "Registering...": [
-            "Registrierung läuft..."
+            "Wird registriert..."
          ],
          "Register": [
             "Registrieren"
          ],
          "A New Site Key Is Required": [
-            "Ein neuer Website-Schlüssel ist erforderlich"
+            "Ein neuer Website-Key ist erforderlich"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "Um WPML-Funktionen wie die automatische Übersetzung und Plugin-Updates weiterhin nutzen zu können, registrieren Sie Ihre Website bitte erneut. Keine Sorge, Ihre bestehenden Inhalte und Übersetzungen sind sicher."
+            "Um WPML-Funktionen wie die automatische Übersetzung und Plugin-Updates weiterhin nutzen zu können, registriere Deine Website bitte erneut. Keine Sorge, Deine bestehenden Inhalte und Übersetzungen sind sicher."
          ],
          "Site key registered successfully!": [
-            "Website-Schlüssel erfolgreich registriert!"
+            "Website-Key erfolgreich registriert!"
          ],
          "Page will reload in %d seconds...": [
-            "Seite wird in %d Sekunden neu geladen..."
+            "Die Seite wird in %d Sekunden neu geladen..."
          ],
          "Registration failed. Please try again.": [
-            "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut."
+            "Registrierung fehlgeschlagen. Bitte versuche es erneut."
          ]
       }
    }

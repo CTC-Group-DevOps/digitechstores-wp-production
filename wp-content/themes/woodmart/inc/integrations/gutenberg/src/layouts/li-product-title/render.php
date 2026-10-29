@@ -29,16 +29,19 @@ if ( ! function_exists( 'wd_gutenberg_loop_builder_product_title' ) ) {
 			$classes .= ' wd-line-clamp';
 		}
 
+		$allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' );
+		$html_tag     = isset( $block_attributes['htmlTag'] ) && in_array( $block_attributes['htmlTag'], $allowed_tags, true ) ? $block_attributes['htmlTag'] : 'h3';
+
 		ob_start();
 
 		Loop_Item::setup_postdata();
 
 		?>
-		<<?php echo esc_attr( $block_attributes['htmlTag'] ); ?> class="wd-loop-prod-title wd-entities-title<?php echo esc_attr( $classes ); ?>">
+		<<?php echo esc_attr( $html_tag ); ?> class="wd-loop-prod-title wd-entities-title<?php echo esc_attr( $classes ); ?>">
 			<a href="<?php the_permalink(); ?>">
 				<?php the_title(); ?>
 			</a>
-		</<?php echo esc_attr( $block_attributes['htmlTag'] ); ?> >
+		</<?php echo esc_attr( $html_tag ); ?> >
 
 		<?php
 

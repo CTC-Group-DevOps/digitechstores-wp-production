@@ -37,6 +37,8 @@ class WCML_WC_Gateways {
 			add_action( 'init', [ $this, 'on_init_hooks' ], 11 );
 			add_filter( 'woocommerce_payment_gateways', Fns::withoutRecursion( Fns::identity(), [ $this, 'loaded_woocommerce_payment_gateways' ] ) );
 		}
+
+		add_action( 'woocommerce_update_options_payment_gateways_bacs', [ $this, 'save_bacs_gateway_currency' ] );
 	}
 
 	public function on_init_hooks() {
@@ -51,7 +53,6 @@ class WCML_WC_Gateways {
 
 	public function load_bacs_gateway_currency_selector_hooks() {
 		if ( WcAdminPages::isSection( WcAdminPages::SECTION_BACS ) && wcml_is_multi_currency_on() ) {
-			$this->set_bacs_gateway_currency();
 			add_action( 'admin_footer', [ $this, 'append_currency_selector_to_bacs_account_settings' ] );
 		}
 	}
@@ -70,7 +71,9 @@ class WCML_WC_Gateways {
 				}
 			}
 
-			$this->register_gateway_settings_strings( $load_gateway->id, $load_gateway->settings );
+			if ( is_admin() ) {
+				$this->register_gateway_settings_strings( $load_gateway->id, $load_gateway->settings );
+			}
 			$this->payment_gateways_filters( $load_gateway );
 			$load_gateways[ $key ] = $load_gateway;
 		}
@@ -219,7 +222,8 @@ class WCML_WC_Gateways {
 				'wc-completed',
 				'wc-processing',
 				'wc-refunded',
-				'wc-on-hold'
+				'wc-on-hold',
+				'wc-cancelled',
 			] )->contains( $postData->get( 'order_status' ) );
 
 			$is_send_order_details_action = $this->isSendingOrderDetails();
@@ -236,9 +240,10 @@ class WCML_WC_Gateways {
 		$getData = wpml_collect( $_GET );
 		if ( $getData->isNotEmpty() ) {
 			$is_order_ajax_action = 'woocommerce_mark_order_status' === $getData->get( 'action' ) && wpml_collect( [
-					'completed',
-					'processing'
-				] )->contains( $getData->get( 'status' ) );
+				'completed',
+				'processing',
+				'cancelled',
+			] )->contains( $getData->get( 'status' ) );
 			if ( $is_order_ajax_action && $getData->get( 'order_id' ) ) {
 				return WCML_Orders::getLanguage( (int) $getData->get( 'order_id' ) );
 			}
@@ -251,20 +256,15 @@ class WCML_WC_Gateways {
 		return icl_get_string_id( $value, Strings::TRANSLATION_DOMAIN, $gateway_id . '_gateway_' . $name );
 	}
 
-	public function set_bacs_gateway_currency() {
-		foreach ( $_POST as $key => $value ) {
-
-			if ( '_enabled' === substr( $key, -8 ) ) {
-				$gateway = str_replace( '_enabled', '', $key );
-			}
+	public function save_bacs_gateway_currency() {
+		if ( ! wcml_is_multi_currency_on() ) {
+			return;
+		}
+		if ( ! isset( $_POST['bacs-currency'] ) || ! is_array( $_POST['bacs-currency'] ) ) {
+			return;
 		}
 
-		if ( isset( $gateway ) ) {
-			if ( 'woocommerce_bacs' === $gateway && isset( $_POST['bacs-currency'] ) ) {
-				update_option( self::WCML_BACS_ACCOUNTS_CURRENCIES_OPTION, array_map( [ Sanitize::class, 'string' ], $_POST['bacs-currency'] ) );
-			}
-		}
-
+		update_option( self::WCML_BACS_ACCOUNTS_CURRENCIES_OPTION, array_map( [ Sanitize::class, 'string' ], wp_unslash( $_POST['bacs-currency'] ) ) );
 	}
 
 	public function get_gateway_text_keys_to_translate() {
@@ -284,6 +284,7 @@ class WCML_WC_Gateways {
 			'wcml_data',
 			[
 				'currencies_dropdown' => $currencies_output,
+				/* translators: Column heading and field label for the currency of an order, in the WooCommerce analytics reports, the payment-gateway settings and the plugin's multicurrency screen. Noun, singular. */
 				'label'               => __( 'Currency', 'woocommerce-multilingual' ),
 				'default_dropdown'    => $default_dropdown,
 			]

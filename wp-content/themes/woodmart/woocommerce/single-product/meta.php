@@ -12,7 +12,7 @@
  *
  * @see         https://docs.woocommerce.com/document/template-structure/
  * @package     WooCommerce\Templates
- * @version     9.7.0
+ * @version     11.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -56,7 +56,26 @@ if ( isset( $args['builder_meta_classes'] ) && ! empty( $args['builder_meta_clas
 	<?php endif; ?>
 
 	<?php if ( $show_categories ) : ?>
-		<?php echo wc_get_product_category_list( $product->get_id(), '<span class="meta-sep">,</span> ', '<span class="posted_in"><span class="meta-label">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'woocommerce' ) . '</span> ', '</span>' ); // phpcs:ignore ?>
+		<?php
+		/**
+		 * Filters the ordering mode for product categories in the single product meta.
+		 *
+		 * @param string     $orderby Ordering mode passed to wc_get_product_category_list().
+		 * @param WC_Product $product Product object.
+		 *
+		 * @since 11.2.0
+		 */
+		$product_category_orderby = apply_filters( 'woocommerce_product_meta_category_orderby', 'breadcrumb', $product );
+
+		$product_category_list = wc_get_product_category_list(
+			$product->get_id(),
+			'<span class="meta-sep">,</span> ',
+			'<span class="posted_in"><span class="meta-label">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'woocommerce' ) . '</span> ',
+			'</span>',
+			is_string( $product_category_orderby ) ? $product_category_orderby : ''
+		);
+		echo is_string( $product_category_list ) ? $product_category_list : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?>
 	<?php endif; ?>
 
 	<?php if ( $show_tags ) : ?>

@@ -89,9 +89,9 @@ jQuery(function ($) {
                 this_form.find('input').prop('disabled', false);
 
                 if (ret.errors) {
-                    this_form.find('.errors').html(ret.errors);
+                    this_form.find('.errors').html(WCML.sanitize(ret.errors));
                 } else {
-                    this_form.closest('.wcml_tt_sync_row').html(ret.html);
+                    this_form.closest('.wcml_tt_sync_row').html(WCML.sanitize(ret.html));
                 }
 
             }

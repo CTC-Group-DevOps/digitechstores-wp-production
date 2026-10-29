@@ -7,8 +7,11 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "sv_SE"
          },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "Innan du fortsätter rekommenderar vi att du läser dessa två sidor:"
+         ],
          "How Browser Language Redirect Affects Google Indexing": [
-            "Hur webbläsarens språkomdirigering påverkar Googles indexering"
+            "Hur omdirigering baserat på webbläsarspråk påverkar Googles indexering"
          ],
          "Documentation": [
             "Dokumentation"
@@ -23,13 +26,10 @@
             "Avbryt"
          ],
          "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
-            "När du omdirigerar besökare baserat på deras språk, omdirigerar du även Google. Google vill se din webbplats exakt som besökarna ser den, inklusive alla omdirigeringar du tillämpar."
+            "När du omdirigerar besökare baserat på deras språk omdirigerar du även Google. Google vill se din webbplats exakt som besökarna ser den, inklusive eventuella omdirigeringar som du använder."
          ],
          "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
-            "Det är okej att omdirigera besökare baserat på deras språk, men du måste inse att denna funktion påverkar SEO."
-         ],
-         "Before proceeding, we recommend that you read these two pages:": [
-            "Innan du fortsätter rekommenderar vi att du läser dessa två sidor:"
+            "Det går bra att omdirigera besökare baserat på deras språk, men du måste vara medveten om att denna funktion påverkar SEO."
          ]
       }
    }

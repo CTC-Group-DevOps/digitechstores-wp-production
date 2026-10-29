@@ -8,10 +8,10 @@
             "lang": "de_DE"
          },
          "The wpml-config.xml file in the root folder of your theme and plugins tells WPML which content is translatable. You can override these settings with your own custom settings by adding them below.": [
-            "Die Datei wpml-config.xml im Stammordner Ihres Themes und Ihrer Plugins teilt WPML mit, welche Inhalte übersetzbar sind. Sie können diese Einstellungen mit Ihren eigenen benutzerdefinierten Einstellungen überschreiben, indem Sie sie unten hinzufügen."
+            "Die Datei wpml-config.xml im Stammordner Deines Themes und Deiner Plugins teilt WPML mit, welche Inhalte übersetzbar sind. Du kannst diese Einstellungen durch Deine eigenen benutzerdefinierten Einstellungen überschreiben, indem Du sie unten hinzufügst."
          ],
          "Read more about language configuration files.": [
-            "Lesen Sie mehr über Sprachkonfigurationsdateien."
+            "Erfahre mehr über Konfigurationsdateien für Sprachen."
          ],
          "Save": [
             "Speichern"
@@ -19,14 +19,20 @@
          "Error": [
             "Fehler"
          ],
+         "Configuration saved.": [
+            "Konfiguration gespeichert."
+         ],
+         "Could not save the configuration — please retry.": [
+            "Die Konfiguration konnte nicht gespeichert werden – bitte versuchen Sie es erneut."
+         ],
          "Shortcuts": [
-            "Verknüpfungen"
+            "Shortcuts"
          ],
          "Fold/Unfold code": [
-            "Code ein-/ausblenden"
+            "Code ein-/ausklappen"
          ],
          "Auto format": [
-            "Automatisch formatieren"
+            "Auto-Format"
          ]
       }
    }

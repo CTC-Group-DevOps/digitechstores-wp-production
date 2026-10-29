@@ -15,29 +15,33 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Install {
 
 	/**
 	 * DB updates and callbacks that need to be run per version.
 	 *
-	 * @var array
+	 * @var array<string, string[]>
 	 */
 	private static $db_updates = array(
-		'3.0.0' => array(
+		'3.0.0'  => array(
 			'wc_pb_update_300',
 			'wc_pb_update_300_db_version',
 		),
-		'5.0.0' => array(
+		'5.0.0'  => array(
 			'wc_pb_update_500_main',
 			'wc_pb_update_500_delete_unused_meta',
 			'wc_pb_update_500_db_version',
 		),
-		'5.1.0' => array(
+		'5.1.0'  => array(
 			'wc_pb_update_510_main',
 			'wc_pb_update_510_delete_unused_meta',
 			'wc_pb_update_510_db_version',
+		),
+		'8.5.16' => array(
+			'wc_pb_update_8516_refund_analytics',
+			'wc_pb_update_8516_db_version',
 		),
 	);
 
@@ -51,33 +55,35 @@ class WC_PB_Install {
 	/**
 	 * Term runtime cache.
 	 *
-	 * @var boolean
+	 * @var WP_Term|false|null
 	 */
 	private static $bundle_term_exists;
 
 	/**
 	 * Background update class.
 	 *
-	 * @var WC_PB_Background_Updater
+	 * @var WC_PB_Background_Updater|null
 	 */
 	private static $background_updater;
 
 	/**
 	 * Current plugin version.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	private static $current_version;
 
 	/**
 	 * Current DB version.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	private static $current_db_version;
 
 	/**
 	 * Hook in tabs.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -115,6 +121,8 @@ class WC_PB_Install {
 
 	/**
 	 * Init background updates.
+	 *
+	 * @return void
 	 */
 	public static function init_background_updater() {
 		self::$background_updater = new WC_PB_Background_Updater();
@@ -149,6 +157,7 @@ class WC_PB_Install {
 	 * Check version and run the installer if necessary.
 	 *
 	 * @since  5.5.0
+	 * @return void
 	 */
 	public static function maybe_install() {
 		if ( self::must_install() && self::can_install() ) {
@@ -160,6 +169,7 @@ class WC_PB_Install {
 	 * Check version and run the installer if necessary.
 	 *
 	 * @since  6.2.4
+	 * @return bool
 	 */
 	private static function is_installing() {
 		return 'yes' === get_transient( 'wc_pb_installing' );
@@ -169,6 +179,7 @@ class WC_PB_Install {
 	 * Check version and run the installer if necessary.
 	 *
 	 * @since  6.2.4
+	 * @return bool
 	 */
 	private static function is_new_install() {
 		if ( is_null( self::$bundle_term_exists ) ) {
@@ -227,6 +238,7 @@ class WC_PB_Install {
 	 * Run the updater if triggered.
 	 *
 	 * @since  5.5.0
+	 * @return void
 	 */
 	public static function maybe_update() {
 
@@ -273,18 +285,22 @@ class WC_PB_Install {
 	}
 
 	/**
-	 * If the DB version is out-of-date, a DB update must be in progress: define a 'WC_PB_UPDATING' constant.
+	 * Block catalog access only while legacy product-data migrations are pending.
 	 *
 	 * @since  5.5.0
+	 * @return void
 	 */
 	public static function define_updating_constant() {
-		if ( self::is_update_pending() && ! defined( 'WC_PB_TESTING' ) ) {
+		// 5.1.0 is the last catalog migration; later Analytics updates are safe alongside sales.
+		if ( version_compare( self::$current_db_version ?? '0', '5.1.0', '<' ) && self::is_update_pending() && ! defined( 'WC_PB_TESTING' ) ) {
 			wc_maybe_define_constant( 'WC_PB_UPDATING', true );
 		}
 	}
 
 	/**
 	 * Install PB.
+	 *
+	 * @return void
 	 */
 	public static function install() {
 
@@ -338,18 +354,113 @@ class WC_PB_Install {
 	 * Tables:
 	 *     woocommerce_bundled_items - Each bundled item id is associated with a "contained" product id (the bundled product), and a "container" bundle id (the product bundle).
 	 *     woocommerce_bundled_itemmeta - Bundled item meta for storing extra data.
+	 *
+	 * @return void
 	 */
 	private static function create_tables() {
 		global $wpdb;
 		$wpdb->hide_errors();
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( self::get_schema() );
+		// Mark a fresh or already migrated table ready only after checking its actual key.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Installation-only schema inspection.
+		$primary = $wpdb->get_col( "SHOW INDEX FROM {$wpdb->prefix}wc_order_bundle_lookup WHERE Key_name = 'PRIMARY'", 4 ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		if ( array( 'order_item_id', 'order_id' ) === $primary ) {
+			update_option( 'wc_pb_refund_analytics_schema', '1', false );
+		}
+	}
+
+	/**
+	 * Widen the lookup primary key so refund rows can reuse the item IDs of their sales.
+	 *
+	 * @since 8.5.16
+	 * @return bool Whether the lookup table accepts refund rows.
+	 */
+	public static function upgrade_refund_analytics_schema() {
+		global $wpdb;
+		if ( '1' === get_option( 'wc_pb_refund_analytics_schema' ) ) {
+			return true;
+		}
+		$table = $wpdb->prefix . 'wc_order_bundle_lookup';
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Inspect the schema once before changing it.
+		$primary = $wpdb->get_col( "SHOW INDEX FROM {$table} WHERE Key_name = 'PRIMARY'", 4 ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		if ( array( 'order_item_id', 'order_id' ) !== $primary ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Preserve existing sales while allowing reused item IDs on refunds.
+			if ( false === $wpdb->query( "ALTER TABLE {$table} DROP PRIMARY KEY, ADD PRIMARY KEY (order_item_id, order_id)" ) ) { // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				WC_PB_Core_Compatibility::log( $wpdb->last_error, 'error', 'wc_pb_db_updates' );
+				return false;
+			}
+		}
+		update_option( 'wc_pb_refund_analytics_schema', '1', false );
+		return true;
+	}
+
+	/**
+	 * Upgrade the lookup key and backfill refunds within the worker resource budget.
+	 *
+	 * @since 8.5.16
+	 * @param object|null $updater Optional background worker resource monitor.
+	 * @return int Zero when complete or stopped, or minus one to restart the native worker.
+	 */
+	public static function update_refund_analytics( $updater = null ) {
+		global $wpdb;
+		$table = $wpdb->prefix . 'wc_order_bundle_lookup';
+		// Runs that end without progress, including runs that die, are counted so that a persistent failure ends the update instead of restarting the worker forever.
+		$attempt = absint( get_option( 'wc_pb_refund_analytics_attempts', 0 ) ) + 1;
+		if ( $attempt > 3 ) {
+			WC_PB_Core_Compatibility::log( 'Stopped the refund Analytics update after 3 attempts without progress. Fix the errors logged above, then run the "Regenerate Product Bundles revenue analytics data" tool.', 'error', 'wc_pb_db_updates' );
+			delete_option( 'wc_pb_refund_analytics_attempts' );
+			delete_option( 'wc_pb_refund_analytics_cursor' );
+			return 0;
+		}
+		update_option( 'wc_pb_refund_analytics_attempts', $attempt, false );
+		if ( ! self::upgrade_refund_analytics_schema() ) {
+			return -1;
+		}
+
+		$cursor      = absint( get_option( 'wc_pb_refund_analytics_cursor', 0 ) );
+		$has_monitor = is_object( $updater ) && method_exists( $updater, 'time_exceeded' ) && method_exists( $updater, 'memory_exceeded' );
+		do {
+			// Core Analytics owns both CPT and HPOS refund identities in this table; only refunds of synced bundle orders can produce rows.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bounded cursor over the existing Analytics index.
+			$refund_ids = $wpdb->get_col( $wpdb->prepare( "SELECT stats.order_id FROM {$wpdb->prefix}wc_order_stats stats WHERE stats.parent_id > 0 AND stats.order_id > %d AND EXISTS ( SELECT 1 FROM {$table} lookup WHERE lookup.order_id = stats.parent_id ) ORDER BY stats.order_id LIMIT 20", $cursor ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			if ( $wpdb->last_error ) {
+				WC_PB_Core_Compatibility::log( $wpdb->last_error, 'error', 'wc_pb_db_updates' );
+				return -1;
+			}
+			require_once WC_PB_ABSPATH . 'includes/admin/analytics/class-wc-pb-admin-analytics-sync.php';
+			foreach ( $refund_ids as $refund_id ) {
+				if ( ! WC_PB_Admin_Analytics_Sync::sync_refund_order_item_stats( wc_get_order( $refund_id ) ) ) {
+					return -1;
+				}
+				update_option( 'wc_pb_refund_analytics_cursor', $refund_id, false );
+				$cursor = $refund_id;
+				if ( $attempt ) {
+					delete_option( 'wc_pb_refund_analytics_attempts' );
+					$attempt = 0;
+				}
+				if ( $has_monitor && ( $updater->time_exceeded() || $updater->memory_exceeded() ) ) {
+					Automattic\WooCommerce\Admin\API\Reports\Cache::invalidate();
+					return -1;
+				}
+			}
+			$batch_count = count( $refund_ids );
+		} while ( $has_monitor && 20 === $batch_count );
+		Automattic\WooCommerce\Admin\API\Reports\Cache::invalidate();
+		if ( 20 === $batch_count ) {
+			// Stop this request before the following DB-version callback can run.
+			return -1;
+		}
+		delete_option( 'wc_pb_refund_analytics_cursor' );
+		delete_option( 'wc_pb_refund_analytics_attempts' );
+		return 0;
 	}
 
 	/**
 	 * Schedule cron events.
 	 *
 	 * @since 6.16.0
+	 * @return void
 	 */
 	public static function create_events() {
 		if ( ! wp_next_scheduled( 'wc_pb_daily' ) ) {
@@ -376,6 +487,17 @@ class WC_PB_Install {
 		}
 
 		$max_index_length = 191;
+
+		// Leave an existing key intact until its versioned background migration runs.
+		$analytics_table = $wpdb->prefix . 'wc_order_bundle_lookup';
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Installation-only schema inspection.
+		$analytics_exists          = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $analytics_table ) ) );
+		$analytics_primary_columns = 'order_item_id, order_id';
+		if ( $analytics_exists ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- dbDelta cannot replace a primary key.
+			$primary                   = $wpdb->get_col( "SHOW INDEX FROM {$analytics_table} WHERE Key_name = 'PRIMARY'", 4 ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$analytics_primary_columns = in_array( 'order_id', $primary, true ) ? 'order_item_id, order_id' : 'order_item_id';
+		}
 
 		$tables = "
 		CREATE TABLE {$wpdb->prefix}woocommerce_bundled_items (
@@ -410,7 +532,7 @@ class WC_PB_Install {
 			product_gross_revenue double DEFAULT 0 NOT NULL,
 			coupon_amount double DEFAULT 0 NOT NULL,
 			tax_amount double DEFAULT 0 NOT NULL,
-			PRIMARY KEY  (order_item_id),
+			PRIMARY KEY  ({$analytics_primary_columns}),
 			KEY order_id (order_id),
 			KEY parent_order_item_id (parent_order_item_id),
 			KEY bundle_id (bundle_id),
@@ -425,6 +547,8 @@ class WC_PB_Install {
 
 	/**
 	 * Update WC PB version to current.
+	 *
+	 * @return void
 	 */
 	private static function update_version() {
 		delete_option( 'woocommerce_product_bundles_version' );
@@ -433,6 +557,8 @@ class WC_PB_Install {
 
 	/**
 	 * Push all needed DB updates to the queue for processing.
+	 *
+	 * @return void
 	 */
 	private static function update() {
 
@@ -458,8 +584,10 @@ class WC_PB_Install {
 
 		if ( $update_queued ) {
 
-			// Define 'WC_PB_UPDATING' constant.
-			wc_maybe_define_constant( 'WC_PB_UPDATING', true );
+			// Analytics-only updates leave purchases and catalog writes available.
+			if ( version_compare( self::$current_db_version ?? '0', '5.1.0', '<' ) ) {
+				wc_maybe_define_constant( 'WC_PB_UPDATING', true );
+			}
 
 			// Keep track of time.
 			delete_option( 'wc_pb_update_init' );
@@ -492,6 +620,7 @@ class WC_PB_Install {
 	 * Trigger DB update.
 	 *
 	 * @since  5.5.0
+	 * @return void
 	 */
 	public static function trigger_update() {
 		self::update();
@@ -516,6 +645,8 @@ class WC_PB_Install {
 
 	/**
 	 * Force re-start the update cron if everything else fails.
+	 *
+	 * @return void
 	 */
 	public static function force_update() {
 
@@ -535,6 +666,8 @@ class WC_PB_Install {
 
 	/**
 	 * Updates plugin DB version when all updates have been processed.
+	 *
+	 * @return void
 	 */
 	public static function update_complete() {
 
@@ -611,6 +744,7 @@ class WC_PB_Install {
 	 * Update DB version to current.
 	 *
 	 * @param  string $version Version to update to.
+	 * @return void
 	 */
 	public static function update_db_version( $version = null ) {
 
@@ -630,7 +764,7 @@ class WC_PB_Install {
 	 *
 	 * @since  5.5.0
 	 *
-	 * @return array
+	 * @return array<string, string[]>
 	 */
 	public static function get_db_update_callbacks() {
 		return self::$db_updates;

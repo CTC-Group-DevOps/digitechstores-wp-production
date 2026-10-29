@@ -8,40 +8,27 @@ class WPML_TM_AMS_Synchronize_Users_On_Access_Denied {
 
 	private $ate_jobs;
 
-	public function add_hooks() {
-		if ( WPML_TM_ATE_Status::is_enabled_and_activated() ) {
-			add_action( 'init', array( $this, 'catch_access_error' ) );
-		}
+	public function is_access_denied_message( $message ) {
+		return is_string( $message ) && false !== strpos( $message, self::ERROR_MESSAGE );
 	}
 
-	public function catch_access_error() {
-		if ( ! $this->ate_redirected_due_to_lack_of_access() ) {
-			return;
-		}
-
+	public function handle( $ate_job_id, $destination ) {
 		$this->get_ams_synchronize_actions()->synchronize_translators();
 
-		if ( ! isset( $_GET['ate_job_id'] ) ) {
-			return;
+		$ate_job_id = (int) $ate_job_id;
+		if ( $ate_job_id <= 0 ) {
+			return $destination;
 		}
 
-		$wpml_job_id = $this->get_ate_jobs()->get_wpml_job_id( $_GET['ate_job_id'] );
-		if ( ! $wpml_job_id ) {
-			return;
-		}
-
-		$url = admin_url(
-			'admin.php?page='
-			. WPML_TM_FOLDER
-			. '/menu/translations-queue.php&job_id='
-			. $wpml_job_id
+		$job = ( new \WPML\TM\Jobs\Authorization\AuthorizedJobResolver( $this->get_ate_jobs() ) )->byAteId(
+			\WPML\Core\Security\ExecutionContext\ExecutionContextHolder::current(),
+			$ate_job_id
 		);
+		if ( ! $job ) {
+			return $destination;
+		}
 
-		wp_safe_redirect( $url, 302, 'WPML' );
-	}
-
-	private function ate_redirected_due_to_lack_of_access() {
-		return isset( $_GET['message'] ) && false !== strpos( $_GET['message'], self::ERROR_MESSAGE );
+		return admin_url( \WPML\TM\Menu\TranslationQueue\TranslationQueuePage::base() . '&job_id=' . $job->localId() );
 	}
 
 	private function get_ams_synchronize_actions() {

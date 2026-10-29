@@ -8,10 +8,10 @@
             "lang": "it_IT"
          },
          "Accepted": [
-            "Accettato"
+            "Accettata"
          ],
          "Approved!": [
-            "Approvato!"
+            "Approvata!"
          ],
          "Loading the next translation for review...": [
             "Caricamento della prossima traduzione per la revisione..."
@@ -20,10 +20,10 @@
             "Indietro"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Disattiva per non caricare automaticamente la prossima traduzione dopo aver terminato questa revisione."
+            "Disattiva per non caricare automaticamente la traduzione successiva dopo aver terminato questa revisione."
          ],
          "Turn on to automatically load the next translation after finishing this  .": [
-            "Attiva per caricare automaticamente la prossima traduzione dopo aver terminato questa."
+            "Attiva per caricare automaticamente la traduzione successiva dopo aver terminato questa revisione."
          ],
          "Edit": [
             "Modifica"
@@ -41,10 +41,10 @@
             "Accetta questa traduzione"
          ],
          "Published!": [
-            "Pubblicato!"
+            "Pubblicata!"
          ],
          "Please wait, applying translation..": [
-            "Attendere, applicazione della traduzione in corso..."
+            "Attendi, applicazione della traduzione in corso..."
          ],
          "There was an error in applying translation.": [
             "Si è verificato un errore durante l'applicazione della traduzione."

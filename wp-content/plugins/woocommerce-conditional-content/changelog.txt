@@ -1,4 +1,11 @@
 *** WooCommerce Conditional Content Changelog ***
+2026.10.18 - version 2.3.16
+    * Update: Requires PHP 7.4, matching WooCommerce.
+    * Update: Tested up to WooCommerce 11.2.
+
+2026.09.21 - version 2.3.15
+    * Fix: Rule group and rule keys are sanitised on save.
+
 2026.08.29 - version 2.3.14
     * Fix: Schedule rules now use your store's timezone instead of the server's. Please review any Date, Day or Time rule - on a store whose timezone differs from its server, scheduled content has been starting and ending on the wrong day, and day-of-week rules have been firing on the wrong day.
     * Fix: The Cart Products rule's "contains less than" no longer matches when the cart holds exactly that quantity. "Contains less than 3" now means 0-2, which is how the Cart Categories rule has always behaved.

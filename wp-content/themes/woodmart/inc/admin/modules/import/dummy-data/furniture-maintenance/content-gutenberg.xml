@@ -227,11 +227,11 @@ This e-mail was sent from a contact form on [_site_title] ([_site_url])";s:18:"a
 											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"c8ac90b6-59f9-4076-82eb-20114bd2c29d","blockVersion":"2","bgColorCode":"#272c30","paddingRight":"0","paddingLeft":"0"} -->
 <div class="wp-block-wd-section wd-c8ac90b6"><!-- wp:wd/row {"blockId":"c254d70a-7ed1-4682-8955-0b0fe9b28bc0","blockVersion":"2","columnsGap":0,"displayWidth":"full-width","minHeight":"100","columnsGapTablet":0,"minHeightUnits":"vh"} -->
 <div class="wp-block-wd-row wd-c254d70a wd-custom-width"><!-- wp:wd/column {"blockId":"b24d670a-586a-4185-89f8-c3a611853afa","blockVersion":"2","adjacentCount":2,"colWidth":33.33,"justifyContent":"center","textAlign":"center","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"adjacentCountTablet":2,"colWidthTablet":50,"maxHeightUnitsMobile":"%"} -->
-<div class="wp-block-wd-column wd-align wd-b24d670a"><!-- wp:wd/paragraph {"blockId":"1717d112-e0c4-4670-8e58-3ca6791cd773","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"16"} -->
+<div class="wp-block-wd-column wd-align wd-b24d670a"><!-- wp:wd/paragraph {"blockId":"1717d112-e0c4-4670-8e58-3ca6791cd773","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"16"} -->
 <p class="wp-block-wd-paragraph wd-1717d112">BRAND NEW STORE</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"b15e9205-4368-4842-8f9b-a8b25b543c12","blockVersion":"2","colorScheme":"light","content":"COMINGu003cbru003eSOON","tpFontSize":"60","tpLineHeight":"1.2","alignSelf":"center","displayWidth":"","customWidth":"","tpFontSizeTablet":"38","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"b15e9205-4368-4842-8f9b-a8b25b543c12","blockVersion":"2","colorScheme":"light","content":"COMING\u003cbr\u003eSOON","tpFontSize":"60","tpLineHeight":"1.2","alignSelf":"center","displayWidth":"","customWidth":"","tpFontSizeTablet":"38","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title color-scheme-light wd-b15e9205 wd-align-s-center">COMING<br>SOON</h2>
 <!-- /wp:wd/title -->
 

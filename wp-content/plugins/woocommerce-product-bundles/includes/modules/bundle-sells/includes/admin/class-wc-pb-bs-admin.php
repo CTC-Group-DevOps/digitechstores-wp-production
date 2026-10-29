@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin functions and filters.
  *
  * @class    WC_PB_BS_Admin
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_BS_Admin {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -42,6 +44,8 @@ class WC_PB_BS_Admin {
 
 	/**
 	 * Display Bundle-Sells multiselect.
+	 *
+	 * @return void
 	 */
 	public static function bundle_sells_options() {
 
@@ -111,6 +115,7 @@ class WC_PB_BS_Admin {
 	 * Process and save posted Bundle-Sells.
 	 *
 	 * @param  WC_Product $product Product object.
+	 * @return void
 	 */
 	public static function process_bundle_sells_options( $product ) {
 		//phpcs:disable WordPress.Security.NonceVerification.Missing
@@ -178,6 +183,8 @@ class WC_PB_BS_Admin {
 
 	/**
 	 * Ajax search for bundled variations.
+	 *
+	 * @return void
 	 */
 	public static function ajax_search_bundle_sells() {
 

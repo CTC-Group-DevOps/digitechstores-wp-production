@@ -1786,13 +1786,13 @@ a.purplebutton { display:block; background:#642fb4; width: 100%; text-align: cen
 #rb_maininfo_wrap bluebutton i.material-icons { line-height: inherit }
 
 purplebutton.upgradetosr7,
-#unlockupgrade.purplebutton {
+#sr68_topanel.purplebutton {
   text-decoration: none !important;  
   color:#ccc;
   cursor: pointer;
 }
 purplebutton.upgradetosr7:hover,
-#unlockupgrade.purplebutton:hover {
+#sr68_topanel.purplebutton:hover {
   color:#fff;
   filter:brightness(110%);
 }
@@ -2306,4 +2306,30 @@ purplebutton.upgradetosr7:hover,
 #gt_global_settings{
   text-decoration: underline !important;
   cursor: pointer;
+}
+/* SR7 PATH (6.8.0) */
+#sr68_sr7path { margin-top:60px; max-width:860px; box-sizing:border-box; background:#2a2c2f; border:1px solid #46494d; border-radius:6px; padding:28px 30px; color:#b7bbc0; font-size:14px; line-height:22px; white-space:normal; position:relative; z-index:300; }
+#sr68_sr7path .sr68_eyebrow { color:#a37af5; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+#sr68_sr7path .sr68_title { color:#fff; font-size:22px; line-height:30px; font-weight:600; margin:6px 0 6px; }
+#sr68_sr7path .sr68_text { max-width:640px; }
+#sr68_sr7path .sr68_steps { list-style:none; margin:22px 0 0; padding:0; counter-reset:sr68; display:grid; gap:8px; }
+#sr68_sr7path .sr68_step { counter-increment:sr68; display:flex; align-items:center; gap:12px; background:#232528; border:1px solid #3a3d41; border-radius:4px; padding:10px 14px; margin:0; }
+#sr68_sr7path .sr68_step:before { content:counter(sr68); flex:0 0 24px; height:24px; line-height:24px; text-align:center; border-radius:50%; background:#2f1a59; color:#ab81ff; font-size:12px; font-weight:600; }
+#sr68_sr7path .sr68_step.sr68_done:before { content:"\2713"; background:#1d4d35; color:#5cc795; }
+#sr68_sr7path .sr68_step.sr68_warn:before { content:"!"; background:#5a3a12; color:#e3a35a; }
+#sr68_sr7path .sr68_steptitle { color:#fff; flex:1 1 auto; }
+#sr68_sr7path .sr68_stepinfo { color:#777c80; font-size:13px; white-space:nowrap; }
+#sr68_sr7path .sr68_premium { margin-top:14px; padding:12px 14px; border-radius:4px; background:#2f2614; border:1px solid #5a4520; color:#e3c58a; display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; }
+#sr68_sr7path .sr68_premium b { color:#fff; font-weight:600; }
+#sr68_sr7path .sr68_actions { margin-top:22px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+#sr68_sr7path .sr68_actions .lilabuybutton.sr68_waiting { opacity:0.5; }
+#sr68_sr7path .sr68_soon { color:#b7bbc0; font-size:14px; line-height:22px; }
+
+#plugin_update_row .sr68_update_sr6,
+#plugin_update_row .sr68_update_sr7 { width:calc(50% - 5px); display:inline-block; vertical-align:top; }
+#plugin_update_row .sr68_update_sr6 { margin-right:5px; }
+/* the 320px column leaves each button 140px: "Free update to SR7" and "Activate To Update" broke onto two lines */
+@media only screen and (min-width:821px) and (max-width:1350px) {
+	#plugin_update_row .sr68_update_sr6,
+	#plugin_update_row .sr68_update_sr7 { width:100%; margin:0 0 10px; }
 }

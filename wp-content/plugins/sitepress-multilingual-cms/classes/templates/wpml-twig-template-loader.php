@@ -12,6 +12,14 @@ class WPML_Twig_Template_Loader {
 	}
 
 	public function get_template() {
+		return new WPML_Twig_Template_Deferred(
+			function () {
+				return $this->build_template();
+			}
+		);
+	}
+
+	private function build_template() {
 		$twig_loader      = new Twig_Loader_Filesystem( $this->paths );
 		$environment_args = array();
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {

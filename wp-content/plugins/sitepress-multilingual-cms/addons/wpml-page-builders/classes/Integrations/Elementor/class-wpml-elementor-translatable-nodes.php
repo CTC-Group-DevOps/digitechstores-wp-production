@@ -3,6 +3,7 @@
 use WPML\FP\Obj;
 use WPML\PB\Elementor\DynamicContent\Strings as DynamicContentStrings;
 use WPML\PB\Elementor\Modules\ModuleWithItemsFromConfig;
+use WPML\PB\TranslationJob\SourceLabels;
 
 class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translatable_Nodes {
 
@@ -216,7 +217,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 		$originTypePath = array_merge( $fieldPath, [ 'value', 'origin_value', self::TYPE_KEY ] );
 		$originType     = Obj::pathOr( null, $originTypePath, $element );
 
-		if ( 'string' === $originType ) {
+		if ( in_array( $originType, [ 'string', 'escaped-html' ], true ) ) {
 			return array_merge( $fieldPath, [ 'value', 'origin_value', 'value' ] );
 		}
 
@@ -295,6 +296,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => [
 					'link' => [
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Container: Link URL', 'sitepress' ),
 						'editor_type' => 'LINK',
 					],
@@ -305,11 +307,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder and Elementor. Before the colon is the name Beaver Builder and Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Heading: Title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Heading: Link URL', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -320,6 +324,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'editor',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder and Elementor. Before the colon is the name Beaver Builder and Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Text Editor: Text', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
@@ -330,36 +335,43 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'link',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: Link', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'vimeo_link',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: Vimeo link', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'youtube_url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: Youtube URL', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'vimeo_url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: Vimeo URL', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'dailymotion_url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: DailyMotion URL', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'hosted_url'   => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: Self hosted', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'external_url' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: External hosted', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -370,26 +382,31 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'button_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Login: Button text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'user_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Login: User label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'user_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Login: User placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'password_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Login: Password label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'password_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Login: Password placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -400,11 +417,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder and Elementor. Before the colon is the name Beaver Builder and Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Button: Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Button: Link URL', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -415,6 +434,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'html',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder or Elementor: the raw markup of an HTML widget. "HTML" is the widget's name in both builders and stays in English. */
 						'type'        => __( 'HTML', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
@@ -425,11 +445,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'alert_title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Alert: Title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'alert_description',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Alert: Description', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
@@ -440,11 +462,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'blockquote_content',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Blockquote: Content', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'tweet_button_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Blockquote: Tweet button label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -455,21 +479,25 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'testimonial_content',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Testimonial: Content', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'testimonial_name',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Testimonial: Name', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'testimonial_job',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Testimonial: Job', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Testimonial: Link URL', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -480,11 +508,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Progress: Title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'inner_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Progress: Inner text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -495,21 +525,25 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'starting_number',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Counter: Starting number', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Counter: Title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'prefix',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Counter: Prefix', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'suffix',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Counter: Suffix', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -520,16 +554,19 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Icon Box: Title text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'description_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Icon Box: Description text', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Icon Box: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -540,16 +577,19 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Image Box: Title text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'description_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Image Box: Description text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Image Box: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -560,26 +600,31 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'before_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Animated Headline: Before text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'highlighted_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Animated Headline: Highlighted text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'rotating_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Animated Headline: Rotating text', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'after_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Animated Headline: After text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Animated Headline: Link URL', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -590,31 +635,37 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title_text_a',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Flip Box: Title text side A', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'description_text_a',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Flip Box: Description text side A', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'title_text_b',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Flip Box: Title text side B', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'description_text_b',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Flip Box: Description text side B', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'button_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Flip Box: Button text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Flip Box: Button link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -625,26 +676,31 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to action: title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'description',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to action: description', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'button',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to action: button', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'ribbon_title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to action: ribbon title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to action: link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -685,36 +741,43 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'            => array(
 					array(
 						'field'       => 'heading',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Heading', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'sub_heading',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Sub heading', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'period',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Period', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'button_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Button text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'footer_additional_info',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Footer additional info', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'ribbon_title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Ribbon title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'link' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Price Table: Button link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -726,6 +789,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'anchor',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor: the name of an Elementor menu-anchor widget, which marks a place on the page a menu link can jump to. */
 						'type'        => __( 'Menu Anchor', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -736,36 +800,43 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'archive_cards_meta_separator',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Cards Separator', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'archive_cards_read_more_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Cards Read More Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'nothing_found_message',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Nothing Found Message', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'pagination_prev_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Previous Label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'pagination_next_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Next Label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'archive_classic_meta_separator',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Classic Separator', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'archive_classic_read_more_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Archive: Classic Read More Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -776,6 +847,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Search: Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -786,11 +858,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'prev_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Post Navigation: Previous Label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'next_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Post Navigation: Next Label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -801,6 +875,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Divider: Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -811,6 +886,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Table of Contents: Title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -821,28 +897,33 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'     => array(
 					array(
 						'field'       => 'author_name',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Author: Name', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'author_bio',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Author: Bio', 'sitepress' ),
 						'editor_type' => 'AREA',
 					),
 					'author_website' => array(
 						'field'       => 'url',
 						'field_id'    => 'author_website',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Author: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
 					array(
 						'field'       => 'link_text',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Author: Archive Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'posts_url'      => array(
 						'field'       => 'url',
 						'field_id'    => 'posts_url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Author: Archive URL', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -860,11 +941,13 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'fields'            => array(
 					array(
 						'field'       => 'show_all_galleries_label',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Gallery: All Label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					'url' => array(
 						'field'       => 'url',
+						/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Gallery: Gallery custom link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -884,6 +967,6 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 	}
 
 	public function initialize_nodes_to_translate() {
-		$this->nodes_to_translate = apply_filters( 'wpml_elementor_widgets_to_translate', self::get_nodes_to_translate() );
+		$this->nodes_to_translate = apply_filters( 'wpml_elementor_widgets_to_translate', SourceLabels::run( [ self::class, 'get_nodes_to_translate' ] ) );
 	}
 }

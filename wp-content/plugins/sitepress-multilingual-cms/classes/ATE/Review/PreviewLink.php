@@ -8,6 +8,7 @@ use WPML\FP\Fns;
 use WPML\FP\Obj;
 use WPML\FP\Str;
 use WPML\TM\API\Jobs;
+use WPML\UrlHandling\PreviewHost;
 use function WPML\FP\curryN;
 
 class PreviewLink {
@@ -45,6 +46,28 @@ class PreviewLink {
 			$translationPostId = (int) $translationPostId;
 			$jobId             = (int) $jobId;
 
+			if ( $translationPostId <= 0 ) {
+				if ( $jobId > 0 ) {
+					do_action( 'wpml_tm_ghost_translation_detected', 0, $jobId );
+				}
+
+				return '';
+			}
+
+			$permalink = \get_permalink( $translationPostId );
+
+			if ( false === $permalink ) {
+				if ( ! \get_post( $translationPostId ) ) {
+					do_action( 'wpml_tm_ghost_translation_detected', $translationPostId );
+				}
+
+				return '';
+			}
+
+			if ( PreviewHost::isDomainMode() ) {
+				$permalink = PreviewHost::toRequestHost( (string) $permalink );
+			}
+
 			$isPublicPostType = function ( $postId ) {
 				$publicPostTypes = get_post_types( [ 'public' => true ] );
 				$postType        = get_post_type( $postId );
@@ -66,7 +89,7 @@ class PreviewLink {
 
 			return \add_query_arg(
 				NonPublicCPTPreview::addArgs( $args ),
-				\get_permalink( $translationPostId )
+				$permalink
 			);
 		};
 

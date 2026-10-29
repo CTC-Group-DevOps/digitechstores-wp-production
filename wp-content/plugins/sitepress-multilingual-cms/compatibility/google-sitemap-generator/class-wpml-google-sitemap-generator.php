@@ -37,9 +37,14 @@ class WPML_Google_Sitemap_Generator {
 
 	public function exclude_other_languages( $value ) {
 		$current_language = apply_filters( 'wpml_current_language', false );
-		$ids_query        = "SELECT element_id FROM {$this->wpdb->prefix}icl_translations WHERE element_type LIKE 'post_%%' AND language_code <> %s";
-		$ids_prepared     = $this->wpdb->prepare( $ids_query, $current_language );
-		$ids              = $this->wpdb->get_col( $ids_prepared );
+		$wpdb             = $this->wpdb;
+		$ids              = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE element_type LIKE %s AND language_code <> %s",
+				$wpdb->esc_like( 'post_' ) . '%',
+				$current_language
+			)
+		);
 		$ids              = array_map( 'intval', $ids );
 
 		if ( ! is_array( $value ) ) {

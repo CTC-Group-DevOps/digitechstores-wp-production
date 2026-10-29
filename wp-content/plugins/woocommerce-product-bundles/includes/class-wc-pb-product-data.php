@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product data parallel structure for storing product properties.
  *
  * @class    WC_PB_Product_Data
- * @version  7.0.1
+ * @version  8.5.16
  */
 class WC_PB_Product_Data {
 
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_PB_Product_Data
+	 * @var WC_PB_Product_Data|null
 	 *
 	 * @since 7.0.0
 	 */
@@ -85,11 +85,11 @@ class WC_PB_Product_Data {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WC_Product  $product - the product object.
-	 * @param string      $key - the data key.
-	 * @param null|string $default - the default value.
+	 * @param WC_Product|WC_Order_Item $product - the product or order item object.
+	 * @param string                   $key - the data key.
+	 * @param null|string              $default - the default value.
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 	public function get( $product, $key, $default = null ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound
 
@@ -115,9 +115,10 @@ class WC_PB_Product_Data {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WC_Product $product - the product object.
-	 * @param string     $key - the data key.
-	 * @param string     $value - the data value.
+	 * @param WC_Product|WC_Order_Item $product - the product or order item object.
+	 * @param string                   $key - the data key.
+	 * @param mixed                    $value - the data value.
+	 * @return void
 	 */
 	public function set( $product, $key, $value ) {
 

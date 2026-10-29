@@ -1370,7 +1370,7 @@ if ( ! function_exists( 'woodmart_dequeue_woo_coming_soon_fonts' ) ) {
 	 * @return void
 	 */
 	function woodmart_dequeue_woo_coming_soon_fonts() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler' ) || ! method_exists( 'Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler', 'experimental_filter_theme_json_theme' ) ) {
+		if ( ! function_exists( 'wc_get_container' ) || ! class_exists( 'Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler' ) || ! method_exists( 'Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler', 'experimental_filter_theme_json_theme' ) ) {
 			return;
 		}
 

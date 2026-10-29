@@ -8,7 +8,7 @@ use function WPML\Container\make;
 
 class BackgroundTaskViewModel {
 
-	public static function get( $backgroundTask, $getLock = false ) {
+	public static function get( $backgroundTask, $withLockReading = false ) {
 		$className = $backgroundTask->getTaskType();
 
 		if ( ! class_exists( $className ) ) {
@@ -18,7 +18,7 @@ class BackgroundTaskViewModel {
 		$endpointInstance = make( $className );
 
 		$endpointLock = make( 'WPML\Utilities\Lock', [ ':name' => $backgroundTask->getTaskType() ] );
-		$hasLock      = $getLock ? $endpointLock->create( $endpointInstance->getLockTime() ) : false;
+		$hasLock      = $withLockReading ? ! $endpointLock->isHeld( $endpointInstance->getLockTime() ) : false;
 
 		return [
 			'isPaused'      => $backgroundTask->isStatusPaused(),

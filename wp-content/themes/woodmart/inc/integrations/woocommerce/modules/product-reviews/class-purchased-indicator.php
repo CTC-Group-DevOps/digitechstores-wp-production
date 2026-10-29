@@ -31,15 +31,15 @@ class Purchased_Indicator {
 	 * Add icon and tooltip to author name. This method will add 'Verified owner' icon if is purchased product or 'Store manager' icon if this is review replay.
 	 *
 	 * @param string $author     The comment author's username.
-	 * @param string $comment_ID The comment ID as a numeric string.
+	 * @param string $comment_id The comment ID as a numeric string.
 	 * @return string
 	 */
-	public function add_author_icon( $author, $comment_ID ) {
-		if ( ! woodmart_get_opt( 'show_reviews_purchased_indicator' ) || ( $this->is_parent_comment( $comment_ID ) && ! $this->is_user_purchased_product( $comment_ID ) ) || ( ! wp_doing_ajax() && is_admin() ) ) {
+	public function add_author_icon( $author, $comment_id ) {
+		if ( ! woodmart_get_opt( 'show_reviews_purchased_indicator' ) || ( $this->is_parent_comment( $comment_id ) && ! $this->is_user_purchased_product( $comment_id ) ) || ( ! wp_doing_ajax() && is_admin() ) ) {
 			return $author;
 		}
 
-		$tooltip_text = $this->is_parent_comment( $comment_ID ) ? esc_html__( 'Verified owner', 'woodmart' ) : esc_html__( 'Store manager', 'woodmart' );
+		$tooltip_text = $this->is_parent_comment( $comment_id ) ? esc_html__( 'Verified owner', 'woodmart' ) : esc_html__( 'Store manager', 'woodmart' );
 
 		ob_start();
 
@@ -51,7 +51,7 @@ class Purchased_Indicator {
 				<?php echo esc_html( $tooltip_text ); ?>
 			</span>
 		</span>
-		<?php echo $author; ?>
+		<?php echo $author; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 
 		return ob_get_clean();
@@ -66,13 +66,21 @@ class Purchased_Indicator {
 	protected function is_user_purchased_product( $comment_id ) {
 		$comment = get_comment( $comment_id );
 
-		if ( ! woodmart_woocommerce_installed() || ! is_singular( 'product' ) && ! woodmart_is_woo_ajax() || empty( $comment ) || ! function_exists( 'wc_customer_bought_product' ) || ! function_exists( 'wc_review_is_from_verified_owner' ) ) {
+		if (
+			! woodmart_woocommerce_installed() ||
+			(
+				! is_singular( 'product' ) &&
+				! woodmart_is_woo_ajax()
+			) ||
+			empty( $comment ) ||
+			! function_exists( 'wc_review_is_from_verified_owner' )
+		) {
 			return false;
 		}
 
 		$product_id = Helper::get_product_id();
 
-		if ( $product_id && wc_customer_bought_product( $comment->comment_author_email, $comment->user_id, $product_id ) && wc_review_is_from_verified_owner( $comment_id ) ) {
+		if ( $product_id && wc_review_is_from_verified_owner( $comment_id ) ) {
 			return true;
 		}
 
@@ -88,7 +96,7 @@ class Purchased_Indicator {
 	protected function is_parent_comment( $comment_id ) {
 		global $wpdb;
 
-		$comment_info = $wpdb->get_results(
+		$comment_info = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
 				"SELECT $wpdb->comments.comment_parent
 					FROM $wpdb->comments

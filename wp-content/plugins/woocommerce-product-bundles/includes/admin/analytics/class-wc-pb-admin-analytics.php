@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Bundles WooCommerce Analytics.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Admin_Analytics {
 
 	/**
 	 * Init.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'setup' ) );
@@ -27,6 +29,8 @@ class WC_PB_Admin_Analytics {
 
 	/**
 	 * Setup Analytics.
+	 *
+	 * @return void
 	 */
 	public static function setup() {
 
@@ -110,6 +114,8 @@ class WC_PB_Admin_Analytics {
 
 	/**
 	 * Register analytics JS.
+	 *
+	 * @return void
 	 */
 	public static function register_script() {
 
@@ -193,10 +199,7 @@ class WC_PB_Admin_Analytics {
 	 * @return bool
 	 */
 	public static function is_enabled() {
-		$enabled                   = WC_PB_Core_Compatibility::is_wc_admin_active();
-		$minimum_wc_admin_required = $enabled && defined( 'WC_ADMIN_VERSION_NUMBER' ) && version_compare( WC_ADMIN_VERSION_NUMBER, '1.6.1', '>=' );
-
-		$is_enabled = $enabled && $minimum_wc_admin_required;
+		$is_enabled = WC_PB_Core_Compatibility::is_wc_admin_active();
 		/**
 		 * Filter to enable/disable the new Analytics reports.
 		 *

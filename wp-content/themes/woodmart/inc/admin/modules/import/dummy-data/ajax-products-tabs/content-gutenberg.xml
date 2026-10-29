@@ -24,7 +24,7 @@
 					<pubDate>Fri, 29 Nov 2024 15:28:46 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35710</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-c4b0820c">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -52,7 +52,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"d0065c46-83dc-44d8-be72-b54d2250aec5","blockVersion":"2","title":"FEATURED","items_per_page":"4"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"d55a1a42-7465-4401-8359-c3802326ea63","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"d55a1a42-7465-4401-8359-c3802326ea63","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-d55a1a42">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -63,7 +63,7 @@
 <!-- /wp:wd/divider -->
 
 <!-- wp:wd/products-tabs {"blockId":"0057bac1-d710-402a-8293-65ee585bfcad","blockVersion":"2","design":"simple","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<div class="wp-block-wd-products-tabs wd-tabs wd-products-tabs tabs-design-simple wd-0057bac1"><!-- wp:wd/products-tabs-header {"blockId":"a189d4be-6d96-440f-9049-87bb60c9ce08","blockVersion":"2","hasIcon":true,"title":"Fashion","icon":{"id":35729,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/shirt-tab.png"},"alignment":"center","design":"simple","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-products-tabs wd-tabs wd-products-tabs tabs-design-simple wd-0057bac1"><!-- wp:wd/products-tabs-header {"blockId":"a189d4be-6d96-440f-9049-87bb60c9ce08","blockVersion":"2","hasIcon":true,"title":"Fashion","icon":{"id":35729,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/shirt-tab.png"},"alignment":"center","design":"simple","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-products-tabs-header wd-tabs-header wd-align wd-a189d4be"><div class="tabs-name title"><span class="img-wrapper"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/shirt-tab.png" alt="" class="wp-image-35729"/></span>Fashion</div><div class="wd-nav-wrapper wd-nav-tabs-wrapper wd-mb-action-swipe"><ul class="wd-nav wd-nav-tabs products-tabs-title wd-icon-pos-start wd-style-default"><!-- wp:wd/products-tabs-tab {"blockId":"2deae2a6-0e23-4442-a9d1-e213674f68ba","blockVersion":"2","title":"FEATURED","items_per_page":"4"} -->
 <li class="wp-block-wd-products-tabs-tab wd-2deae2a6" data-atts="{&quot;items_per_page&quot;:&quot;4&quot;,&quot;wrapper_classes&quot;:&quot;wd-2deae2a6&quot;}"><a href="#" class="wd-nav-link"><span class="tab-label nav-link-text">FEATURED</span></a></li>
 <!-- /wp:wd/products-tabs-tab -->
@@ -80,7 +80,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"2deae2a6-0e23-4442-a9d1-e213674f68ba","blockVersion":"2","title":"FEATURED","items_per_page":"4"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"c96b8716-50fb-4365-b4ef-a54f25194b9f","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"c96b8716-50fb-4365-b4ef-a54f25194b9f","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-c96b8716">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -108,7 +108,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"d0f1275c-9b03-4112-99b2-946546d23b6c","blockVersion":"2","title":"FEATURED","items_per_page":"4"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"b4f494ae-2e5c-4643-872c-3c4b84d4971d","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"b4f494ae-2e5c-4643-872c-3c4b84d4971d","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-b4f494ae">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -144,7 +144,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"b008971b-22ea-4285-81fb-ab5805f8e6cd","blockVersion":"2","title":"FEATURED","items_per_page":"4"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"c4379c87-5cc1-4af5-a6b0-cfdea462d4eb","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"c4379c87-5cc1-4af5-a6b0-cfdea462d4eb","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-c4379c87">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -155,7 +155,7 @@
 <!-- /wp:wd/divider -->
 
 <!-- wp:wd/products-tabs {"blockId":"12dd02e8-063f-4193-9458-2d1996871155","blockVersion":"2","design":"simple","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<div class="wp-block-wd-products-tabs wd-tabs wd-products-tabs tabs-design-simple wd-12dd02e8"><!-- wp:wd/products-tabs-header {"blockId":"ca1b4de1-195b-4359-97e9-55e22c5d34d5","blockVersion":"2","hasIcon":true,"title":"Electronics","icon":{"id":35740,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/computer-tab.png"},"alignment":"center","design":"simple","currentTab":"415912a0-b8bd-48ad-a1b8-4cc3ace07f27","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-products-tabs wd-tabs wd-products-tabs tabs-design-simple wd-12dd02e8"><!-- wp:wd/products-tabs-header {"blockId":"ca1b4de1-195b-4359-97e9-55e22c5d34d5","blockVersion":"2","hasIcon":true,"title":"Electronics","icon":{"id":35740,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/computer-tab.png"},"alignment":"center","design":"simple","currentTab":"415912a0-b8bd-48ad-a1b8-4cc3ace07f27","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-products-tabs-header wd-tabs-header wd-align wd-ca1b4de1"><div class="tabs-name title"><span class="img-wrapper"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/computer-tab.png" alt="" class="wp-image-35740"/></span>Electronics</div><div class="wd-nav-wrapper wd-nav-tabs-wrapper wd-mb-action-swipe"><ul class="wd-nav wd-nav-tabs products-tabs-title wd-icon-pos-start wd-style-default"><!-- wp:wd/products-tabs-tab {"blockId":"415912a0-b8bd-48ad-a1b8-4cc3ace07f27","blockVersion":"2","title":"FEATURED","items_per_page":"4","pagination":"arrows","pagination_arrows_position":"together"} -->
 <li class="wp-block-wd-products-tabs-tab wd-415912a0" data-atts="{&quot;pagination&quot;:&quot;arrows&quot;,&quot;items_per_page&quot;:&quot;4&quot;,&quot;wrapper_classes&quot;:&quot;wd-415912a0&quot;}"><a href="#" class="wd-nav-link"><span class="tab-label nav-link-text">FEATURED</span></a></li>
 <!-- /wp:wd/products-tabs-tab -->
@@ -172,7 +172,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"415912a0-b8bd-48ad-a1b8-4cc3ace07f27","blockVersion":"2","title":"FEATURED","items_per_page":"4","pagination":"arrows","pagination_arrows_position":"together"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"a2a0093d-21f1-4343-86d5-882e4d622e54","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"a2a0093d-21f1-4343-86d5-882e4d622e54","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-a2a0093d">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -208,7 +208,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"4aa84950-69c4-41a6-9946-ee22b164661f","blockVersion":"2","title":"Furniture","icon":{"id":35767,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/12/chair-1.svg"},"items_per_page":"4"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"1d6295c8-52a2-4bfa-a8cf-64662cde6acf","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"1d6295c8-52a2-4bfa-a8cf-64662cde6acf","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-1d6295c8">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -236,7 +236,7 @@
 <!-- wp:wd/products-tabs-products {"blockId":"3f135318-8936-404b-97d4-045a3006fa67","blockVersion":"2","title":"FEATURED","items_per_page":"4","pagination":"more-btn"} /--></div>
 <!-- /wp:wd/products-tabs -->
 
-<!-- wp:wd/paragraph {"blockId":"e34f02d0-46dd-422e-acdc-8b25c89a967e","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"e34f02d0-46dd-422e-acdc-8b25c89a967e","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p class="wp-block-wd-paragraph wd-align wd-e34f02d0">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -266,8 +266,8 @@
 															<wp:post_id>35710</wp:post_id>
 					<wp:post_date><![CDATA[2024-11-29 15:28:46]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-11-29 15:28:46]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 14:05:17]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 14:05:17]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-11 14:26:03]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-11 14:26:03]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[ajax-products-tabs]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

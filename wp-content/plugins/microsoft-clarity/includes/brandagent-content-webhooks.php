@@ -81,32 +81,54 @@ function brandagent_content_webhooks_enabled() {
  * @return array Content item matching the backend WordPressContentItem contract.
  */
 function brandagent_build_content_item( $post ) {
-	$rendered = apply_filters( 'the_content', $post->post_content );
-
-	$cat_terms = wp_get_post_terms( $post->ID, 'category', array( 'fields' => 'names' ) );
-	$tag_terms = wp_get_post_terms( $post->ID, 'post_tag', array( 'fields' => 'names' ) );
-
-	// Prefer the featured image; fall back to the first inline image so image-rich posts still get a card
-	// image when no thumbnail is set.
-	$feature_image = get_the_post_thumbnail_url( $post, 'full' );
-	if ( ! $feature_image && preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/i', (string) $rendered, $img_match ) ) {
-		$feature_image = $img_match[1];
+	// Page-builder/content filters use the global post even when passed another post's raw body.
+	$context_keys = array( 'post', 'id', 'authordata', 'currentday', 'currentmonth', 'page', 'pages', 'multipage', 'more', 'numpages' );
+	$previous_context = array();
+	foreach ( $context_keys as $key ) {
+		if ( array_key_exists( $key, $GLOBALS ) ) {
+			$previous_context[ $key ] = $GLOBALS[ $key ];
+		}
 	}
-	$feature_image = $feature_image ? $feature_image : '';
 
-	return array(
-		'id'            => (int) $post->ID,
-		'type'          => $post->post_type,
-		'title'         => get_the_title( $post ),
-		'url'           => get_permalink( $post ),
-		'feature_image' => $feature_image,
-		'content_text'  => $rendered,
-		'excerpt'       => has_excerpt( $post ) ? get_the_excerpt( $post ) : '',
-		'modified'      => get_post_modified_time( 'c', true, $post ),
-		'author'        => get_the_author_meta( 'display_name', $post->post_author ),
-		'categories'    => is_wp_error( $cat_terms ) ? array() : array_values( $cat_terms ),
-		'tags'          => is_wp_error( $tag_terms ) ? array() : array_values( $tag_terms ),
-	);
+	try {
+		$GLOBALS['post'] = $post;
+		setup_postdata( $post );
+		$rendered = apply_filters( 'the_content', $post->post_content );
+
+		$cat_terms = wp_get_post_terms( $post->ID, 'category', array( 'fields' => 'names' ) );
+		$tag_terms = wp_get_post_terms( $post->ID, 'post_tag', array( 'fields' => 'names' ) );
+
+		// Prefer the featured image; fall back to the first inline image so image-rich posts still get a card
+		// image when no thumbnail is set.
+		$feature_image = get_the_post_thumbnail_url( $post, 'full' );
+		if ( ! $feature_image && preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/i', (string) $rendered, $img_match ) ) {
+			$feature_image = $img_match[1];
+		}
+		$feature_image = $feature_image ? $feature_image : '';
+
+		return array(
+			'id'            => (int) $post->ID,
+			'type'          => $post->post_type,
+			'title'         => get_the_title( $post ),
+			'url'           => get_permalink( $post ),
+			'feature_image' => $feature_image,
+			'content_text'  => $rendered,
+			'excerpt'       => has_excerpt( $post ) ? get_the_excerpt( $post ) : '',
+			'modified'      => get_post_modified_time( 'c', true, $post ),
+			'author'        => get_the_author_meta( 'display_name', $post->post_author ),
+			'categories'    => is_wp_error( $cat_terms ) ? array() : array_values( $cat_terms ),
+			'tags'          => is_wp_error( $tag_terms ) ? array() : array_values( $tag_terms ),
+		);
+	} finally {
+		// wp_reset_postdata() restores the main query, which may differ from this caller or nested render.
+		foreach ( $context_keys as $key ) {
+			if ( array_key_exists( $key, $previous_context ) ) {
+				$GLOBALS[ $key ] = $previous_context[ $key ];
+			} else {
+				unset( $GLOBALS[ $key ] );
+			}
+		}
+	}
 }
 
 /**

@@ -1,4 +1,4 @@
-/*global jQuery, icl_ajx_url, icl_ajx_saved, icl_ajx_error, icl_ajxloaderimg_src, wpml_core_strings */
+/*global jQuery, icl_ajx_saved, icl_ajx_error, icl_ajxloaderimg_src, wpml_core_strings */
 
 var WPML_core = WPML_core || {};
 
@@ -31,7 +31,6 @@ jQuery(function ($) {
     jQuery('#icl_translate_options').fadeOut();
   });
   jQuery('#icl_dismiss_help').click(iclDismissHelp);
-  jQuery('#icl_dismiss_upgrade_notice').click(iclDismissUpgradeNotice);
   jQuery(document).on('click', 'a.icl_toggle_show_translations', iclToggleShowTranslations);
 
   /* needed for tagcloud */
@@ -303,8 +302,8 @@ function iclSaveForm() {
   var serialized_form_data = jQuery(this).serialize();
   jQuery.ajax({
     type: "POST",
-    url: icl_ajx_url,
-    data: "icl_ajx_action=" + jQuery(this).attr('name') + "&" + serialized_form_data,
+    url: ajaxurl,
+    data: "action=wpml_ajx_" + jQuery(this).attr('name') + "&" + serialized_form_data,
     success: function (msg) {
       var spl = msg.split('|');
       if (parseInt(spl[0]) == 1) {
@@ -320,9 +319,7 @@ function iclSaveForm() {
           localStorage.setItem('wpml-mlcs-last-form-id', form_name);
           location.reload(true);
         }
-        var action = this.data.split('&')[0];
-        action = action.split('=')[1];
-        wpmlCustomEvent('icl-save-form-' + action);
+        wpmlCustomEvent('icl-save-form-' + form_name);
       } else {
         var icl_form_errors = jQuery('form[name="' + form_name + '"] .icl_form_errors');
         var error_html = (typeof spl[1] != 'undefined') ? spl[1] : spl[0];
@@ -339,23 +336,10 @@ function iclDismissHelp() {
   var thisa = jQuery(this);
   jQuery.ajax({
     type: "POST",
-    url: icl_ajx_url,
-    data: "icl_ajx_action=dismiss_help&_icl_nonce=" + WPML_core.sanitize(jQuery('#icl_dismiss_help_nonce').val()),
+    url: ajaxurl,
+    data: "action=wpml_ajx_dismiss_help&_icl_nonce=" + WPML_core.sanitize(jQuery('#icl_dismiss_help_nonce').val()),
     success: function (msg) {
       thisa.closest('#message').fadeOut();
-    }
-  });
-  return false;
-}
-
-function iclDismissUpgradeNotice() {
-  var thisa = jQuery(this);
-  jQuery.ajax({
-    type: "POST",
-    url: icl_ajx_url,
-    data: "icl_ajx_action=dismiss_upgrade_notice&_icl_nonce=" + WPML_core.sanitize(jQuery('#_icl_nonce_dun').val()),
-    success: function (msg) {
-      thisa.parent().parent().fadeOut();
     }
   });
   return false;
@@ -366,8 +350,8 @@ function iclToggleShowTranslations() {
   jQuery('#icl_translations_table').toggle();
   jQuery.ajax({
     type: "POST",
-    url: icl_ajx_url,
-    data: "icl_ajx_action=toggle_show_translations&_icl_nonce=" + WPML_core.sanitize(jQuery('#_icl_nonce_tst').val())
+    url: ajaxurl,
+    data: "action=wpml_ajx_toggle_show_translations&_icl_nonce=" + WPML_core.sanitize(jQuery('#_icl_nonce_tst').val())
   });
   return false;
 }
@@ -384,9 +368,11 @@ function icl_copy_from_original(lang, trid) {
   jQuery.ajax({
     type: "POST",
     dataType: 'json',
-    url: icl_ajx_url,
-    data: "icl_ajx_action=copy_from_original&lang=" + lang + '&trid=' + trid + '&content_type=' + content_type + '&excerpt_type='
-      + excerpt_type + '&_icl_nonce=' + WPML_core.sanitize(jQuery('#_icl_nonce_cfo_' + trid).val()),
+    url: ajaxurl,
+    data: "action=wpml_ajx_copy_from_original&lang=" + lang + '&trid=' + trid + '&content_type=' + content_type + '&excerpt_type='
+      + excerpt_type + '&target_post_id=' + WPML_core.sanitize(jQuery('#post_ID').val())
+      + '&target_lang=' + WPML_core.sanitize(jQuery('#icl_post_language').val() || '')
+      + '&_icl_nonce=' + WPML_core.sanitize(jQuery('#_icl_nonce_cfo_' + trid).val()),
     success: function (msg) {
       if (msg.error) {
         alert(msg.error);
@@ -436,8 +422,14 @@ function icl_copy_from_original(lang, trid) {
             }
           }
 
-          if (typeof msg.external_custom_fields !== "undefined") {
-            wpml_copy_external_custom_fields_from_original(msg.external_custom_fields);
+          if (msg.custom_fields_refused && typeof console !== 'undefined' && console.warn) {
+            // Not an alert: the title and content DID copy. This says why the
+            // custom fields did not, instead of leaving it indistinguishable
+            // from "the original had none".
+            console.warn('WPML: custom fields were not copied - ' + msg.custom_fields_refused);
+          }
+          if (typeof msg.saved_custom_fields !== "undefined") {
+            wpml_show_copied_custom_fields(msg.saved_custom_fields);
           }
         } catch (err) {
         }
@@ -453,23 +445,56 @@ function wpml_get_block_editor() {
   return window._wpLoadBlockEditor || window._wpLoadGutenbergEditor;
 }
 
-function wpml_copy_external_custom_fields_from_original(custom_fields) {
-  var translation_already_contains_custom_fields = jQuery("#postcustomstuff #the-list tr input").length > 0;
-  if (translation_already_contains_custom_fields) {
+/**
+ * Shows the custom fields the server just stored on this translation.
+ *
+ * The values are already saved by the time this runs, so this only mirrors them
+ * into the Custom Fields metabox when that metabox is on the page. It used to be
+ * the other way round -- the copy was performed BY driving the metabox form --
+ * which meant nothing was copied at all whenever the panel was hidden or removed
+ * (ACF removes it), and nothing was copied even when it was shown, because
+ * #newmeta-submit lives outside the #newmeta table this looked in.
+ */
+function wpml_show_copied_custom_fields(saved_fields) {
+  if (!saved_fields || !saved_fields.length) {
     return;
   }
 
-  var container = jQuery("#newmeta");
-  var meta_key_field = container.find("#metakeyselect");
-  var meta_value_field = container.find("#metavalue");
-  var add_button = container.find("#newmeta-submit");
+  var list = jQuery('#postcustomstuff #the-list');
+  if (!list.length) {
+    return;
+  }
 
-  custom_fields.forEach(function (item) {
-    meta_key_field.val(item.name);
-    meta_value_field.val(item.value);
-    add_button.click();
-  });
+  var rows = saved_fields.map(function (item) {
+    return item.row;
+  }).filter(Boolean).join('');
+
+  if (!rows) {
+    return;
+  }
+
+  // An empty metabox renders a hidden table holding a single placeholder row.
+  list.find('tr').filter(function () {
+    return jQuery(this).find('input, textarea').length === 0;
+  }).remove();
+
+  list.append(rows);
+  jQuery('#postcustomstuff table#list-table').show();
 }
+
+/**
+ * The Multilingual Content Setup box: show the outcome sentence of the
+ * preference the client picks for a field (wpmldev-8627 S1). The sentences
+ * are rendered with the radios; only the one for the checked value is shown.
+ */
+jQuery(document).on('change', '.icl_mcs_cfs', function () {
+  var cell = jQuery(this).closest('td');
+  var value = jQuery(this).val();
+  cell.find('.icl_mcs_cf_outcome').each(function () {
+    var outcome = jQuery(this);
+    outcome.prop('hidden', outcome.attr('data-value') !== value);
+  });
+});
 
 function icl_make_translatable() {
   var that = jQuery(this);
@@ -545,8 +570,8 @@ function icl_hide_user_notice() {
   jQuery.ajax({
     type: "POST",
     dataType: 'json',
-    url: icl_ajx_url,
-    data: "icl_ajx_action=save_user_preferences&user_preferences[notices][" + notice + "]=1&_icl_nonce=" + WPML_core.sanitize(jQuery('#_icl_nonce_sup').val()),
+    url: ajaxurl,
+    data: "action=wpml_ajx_save_user_preferences&user_preferences[notices][" + notice + "]=1&_icl_nonce=" + WPML_core.sanitize(jQuery('#_icl_nonce_sup').val()),
     success: function (msg) {
       thisa.parent().parent().fadeOut();
     }
@@ -559,10 +584,10 @@ function icl_cf_translation_preferences_submit(cf, obj) {
   jQuery.ajax({
     type: 'POST',
     url: ajaxurl,
-    data: 'action=wpml_ajax&icl_ajx_action=wpml_cf_translation_preferences&translate_action=' +
+    data: 'action=wpml_ajx_wpml_cf_translation_preferences&translate_action=' +
       WPML_core.sanitize(obj.parent().children('input:[name="wpml_cf_translation_preferences[' + cf + ']"]:checked').val()) + '&' +
       WPML_core.sanitize(obj.parent().children('input:[name="wpml_cf_translation_preferences_data_' + cf + '"]').val()) +
-      '&_icl_nonce = ' + WPML_core.sanitize(jQuery('#_icl_nonce_cftpn').val()),
+      '&_icl_nonce=' + WPML_core.sanitize(jQuery('#_icl_nonce_cftpn').val()),
     cache: false,
     error: function (html) {
       jQuery('#wpml_cf_translation_preferences_ajax_response_' + cf).html('Error occured');
@@ -578,13 +603,7 @@ function icl_cf_translation_preferences_submit(cf, obj) {
 
 }
 
-WPML_core.redirectUploadsOnLangParam = function () {
-  var path = WPML_core.sanitize(window.location.pathname),
-    upload_screen_file = 'upload.php',
-    has_lang_param = 1 === window.location.search.search('lang');
-
-  if (path.slice(upload_screen_file.length * -1) === upload_screen_file && has_lang_param) {
-    window.location = path;
-  }
-};
-jQuery('ready', WPML_core.redirectUploadsOnLangParam());
+// wpmldev-8430: the redirect that used to strip `lang` (and with it every
+// other parameter - mode, filters, search) off upload.php is gone. The
+// language cookie is written server-side on the same request, and a cookie
+// cannot carry "All languages": only the URL parameter can, so it stays.

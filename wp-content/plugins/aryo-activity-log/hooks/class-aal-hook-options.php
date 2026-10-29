@@ -4,6 +4,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class AAL_Hook_Options extends AAL_Hook_Base {
 
 	public function hooks_updated_option( $option, $oldvalue, $_newvalue ) {
+		if ( 'activity-log-settings' === $option ) {
+			return;
+		}
+
 		$whitelist_options = apply_filters( 'aal_whitelist_options', array(
 			// General
 			'blogname',
@@ -11,13 +15,16 @@ class AAL_Hook_Options extends AAL_Hook_Base {
 			'siteurl',
 			'home',
 			'admin_email',
+			'new_admin_email',
 			'users_can_register',
 			'default_role',
 			'WPLANG',
 			'timezone_string',
+			'gmt_offset',
 			'date_format',
 			'time_format',
 			'start_of_week',
+			'site_icon',
 
 			// Writing
 			'use_smilies',
@@ -57,9 +64,12 @@ class AAL_Hook_Options extends AAL_Hook_Base {
 			'moderation_notify',
 			'comment_moderation',
 			'comment_whitelist',
+			'comment_previously_approved',
 			'comment_max_links',
 			'moderation_keys',
 			'blacklist_keys',
+			'disallowed_keys',
+			'show_comments_cookies_opt_in',
 			'show_avatars',
 			'avatar_rating',
 			'avatar_default',
@@ -70,9 +80,13 @@ class AAL_Hook_Options extends AAL_Hook_Base {
 			'thumbnail_crop',
 			'medium_size_w',
 			'medium_size_h',
+			'medium_large_size_w',
+			'medium_large_size_h',
 			'large_size_w',
 			'large_size_h',
 			'uploads_use_yearmonth_folders',
+			'upload_path',
+			'upload_url_path',
 
 			// Permalinks
 			'permalink_structure',
@@ -93,17 +107,27 @@ class AAL_Hook_Options extends AAL_Hook_Base {
 			return;
 		}
 
-		$this->insert_log( $option );
+		$this->insert_log( $option, '', $oldvalue, $_newvalue );
 	}
 
-	private function insert_log( $option_name, $context = '' ) {
-		// TODO: need to think about save old & new values.
-		aal_insert_log( array(
-			'action' => 'updated',
-			'object_type' => 'Options',
-			'object_name' => $option_name,
+	private function insert_log( $option_name, $context = '', $old = null, $new = null ) {
+		$args = array(
+			'action'         => 'updated',
+			'object_type'    => 'Options',
+			'object_name'    => $option_name,
 			'object_subtype' => $context,
-		) );
+		);
+
+		$diff = AAL_Changes::diff(
+			array( $option_name => $old ),
+			array( $option_name => $new )
+		);
+
+		if ( ! empty( $diff ) ) {
+			$args['meta'] = $diff;
+		}
+
+		aal_insert_log( $args );
 	}
 
 	public function hooks_aal_options( $old_values, $new_values ) {
@@ -114,7 +138,7 @@ class AAL_Hook_Options extends AAL_Hook_Base {
 				continue;
 			}
 
-			$this->insert_log( $option_key, 'Activity Log' );
+			$this->insert_log( $option_key, 'Activity Log', $old_value, $new_values[ $option_key ] );
 		}
 	}
 

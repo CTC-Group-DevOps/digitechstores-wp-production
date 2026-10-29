@@ -230,7 +230,83 @@ class RevSliderFunctions extends RevSliderData {
 		if(empty($val) && is_numeric($val) == false)
 			$this->throw_error($fn.__(' should not be empty', 'revslider'));
 	}
-	
+
+	/**
+	 * true if the current user lacks the plugin role (or the given one), unless revslider_restrict_role is off
+	 * @since: 6.8.0
+	 */
+	public function current_user_can_not($role = ''){
+		$sr_admin = RevSliderGlobals::instance()->get('RevSliderAdmin');
+		if(is_null($sr_admin) && $role === '') return true;
+		$role = ($role !== '') ? $role : $sr_admin->get_user_role();
+		return !current_user_can($role) && apply_filters('revslider_restrict_role', true);
+	}
+
+	/**
+	 * a post meta value for a placeholder. Meta is stored unfiltered, so it gets what WordPress does to the post content
+	 * of an author without unfiltered_html
+	 * @since: 6.8.0
+	 */
+	public function get_post_meta_safe($post_id, $meta){
+		static $trusted = array();
+		$value = get_post_meta($post_id, $meta, true);
+
+		if(!isset($trusted[$post_id])){
+			$author = (int)get_post_field('post_author', $post_id);
+			$trusted[$post_id] = $author > 0 && user_can($author, 'unfiltered_html');
+		}
+		if($trusted[$post_id]) return $value;
+
+		return is_scalar($value) ? wp_kses_post((string)$value) : '';
+	}
+
+	/**
+	 * the account site; a dev build talks to the -dev hosts and to devaccount
+	 * @since: 6.8.0
+	 */
+	public function account_url(){
+		return ((RevSliderGlobals::instance()->get('RevSliderLoadBalancer')->dev ?? false) === true) ? 'https://devaccount.sliderrevolution.com' : 'https://account.sliderrevolution.com'; //the release build drops $dev
+	}
+
+	/**
+	 * maybe_unserialize() for remote bodies: plain data passes, a serialized payload may build no class but the allowed ones
+	 * @since: 6.8.0
+	 */
+	public function maybe_unserialize_safe($data, $allowed = false){
+		if(!is_string($data) || !is_serialized($data)) return $data;
+
+		return @unserialize(trim($data), array('allowed_classes' => $allowed));
+	}
+
+	/**
+	 * a colour or gradient as the colour picker writes it, '' for anything that could leave a style block or attribute
+	 * @since: 6.8.0
+	 */
+	public function sanitize_css_color($color){
+		$color = trim((string)$color);
+		return (strlen($color) < 500 && preg_match('/^[a-zA-Z0-9#%.,()\s-]*$/', $color)) ? $color : '';
+	}
+
+	/**
+	 * Shortcode settings override slider params and anyone who may edit a post writes them. Drops the keys that carry code,
+	 * identity or a data source, and every string that could leave a JS, CSS or attribute context (no quotes, brackets, parentheses)
+	 * @since: 6.8.0
+	 */
+	public function sanitize_custom_settings($settings, $top = true){
+		if(!is_array($settings)) return array();
+		$blocked = array('codes', 'id', 'class', 'wrapperclass', 'attributes', 'source', 'sourcetype', 'alias', 'title', 'type', 'pakps', 'addOns');
+		foreach($settings as $k => $v){
+			if(!preg_match('/^[a-zA-Z0-9_-]+$/', (string)$k) || ($top && in_array($k, $blocked, true))){
+				unset($settings[$k]);
+			}elseif(is_array($v)){
+				$settings[$k] = $this->sanitize_custom_settings($v, false);
+			}elseif(!is_bool($v) && !is_int($v) && !is_float($v) && $v !== null && (!is_string($v) || !preg_match('/^[a-zA-Z0-9 #%.,_+-]*$/', $v))){
+				unset($settings[$k]);
+			}
+		}
+		return $settings;
+	}
+
 	/**
 	 * encode array into json for client side
 	 * @before: RevSliderFunctions::jsonEncodeForClientSide()
@@ -620,6 +696,48 @@ class RevSliderFunctions extends RevSliderData {
 	
 	
 	/**
+	 * the real path of a file a zip names, false unless it lies inside the zip's images folder (a name from the zip can climb out with ../) and is media
+	 * @since: 6.8.0
+	 */
+	public function zip_media_file($d_path, $image){
+		$base = realpath($d_path.'images');
+		$file = realpath($d_path.'images/'.$image);
+		if($base === false || $file === false || !is_file($file) || strpos($file, $base.DIRECTORY_SEPARATOR) !== 0) return false;
+
+		return $this->is_media_extension($file) ? $file : false;
+	}
+
+	/**
+	 * the extensions an import may write into uploads: nothing a web server runs, SVG is sanitized on write
+	 * @since: 6.8.0
+	 */
+	public function is_media_extension($file){
+		$ext	 = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+		$allowed = apply_filters('revslider_import_media_extensions', array('jpg', 'jpeg', 'jpe', 'png', 'gif', 'bmp', 'webp', 'avif', 'ico', 'svg', 'mp4', 'm4v', 'mov', 'webm', 'ogv', 'ogg', 'mpeg', 'mpg', 'mpe', 'mp3', 'wav', 'm4a', 'json', 'lottie', 'glb', 'gltf', 'bin', 'obj', 'mtl', 'hdr', 'woff', 'woff2', 'ttf', 'otf', 'eot'));
+
+		return $ext !== '' && in_array($ext, $allowed, true);
+	}
+
+	/**
+	 * strips script, event handlers, foreignObject and XXE from an SVG file in place
+	 * @since: 6.8.0
+	 * @return bool false if nothing safe was left or it could not be written back
+	 */
+	public function sanitize_svg_file($path){
+		global $wp_filesystem;
+		WP_Filesystem();
+
+		if(!class_exists('RevSliderSvgSanitizer')){
+			require_once(RS_PLUGIN_PATH . 'admin/includes/svg_sanitizer/subject.class.php');
+			require_once(RS_PLUGIN_PATH . 'admin/includes/svg-sanitizer.class.php');
+		}
+		$sanitizer = new RevSliderSvgSanitizer();
+		$clean	   = $sanitizer->sanitize($wp_filesystem->get_contents($path));
+
+		return !empty($clean) && $wp_filesystem->put_contents($path, $clean, FS_CHMOD_FILE);
+	}
+
+	/**
 	 * check if file is in zip
 	 * @since: 5.0
 	 */
@@ -640,12 +758,15 @@ class RevSliderFunctions extends RevSliderData {
 			if(!isset($alreadyImported['images/'.$image])){
 				//check if we are object folder, if yes, do not import into media library but add it to the object folder
 				$uimg = ($strip == true) ? str_replace('//', '/', 'images/'.$image) : $image; //pclzip
+				$src  = $this->zip_media_file($d_path, $uimg);
 				
-				if(strpos($uimg, 'revslider/objects/') === 0){ //we are from the object library, copy the image to the objects folder if false
+				if($src === false){
+					$importImage = false;
+				}elseif(strpos($uimg, 'revslider/objects/') === 0){ //we are from the object library, copy the image to the objects folder if false
 					$objlib = new RevSliderObjectLibrary();
-					$importImage = $objlib->_import_object($d_path.'images/'.$uimg);
+					$importImage = $objlib->_import_object($src);
 				}else{
-					$importImage = $this->import_media($d_path.'images/'.$uimg, $alias.'/');
+					$importImage = $this->import_media($src, $alias.'/');
 				}
 				
 				if($importImage !== false){
@@ -693,6 +814,10 @@ class RevSliderFunctions extends RevSliderData {
 		}
 		
 		if(file_put_contents($path.$name, $data) === false) return __('Image could not be saved', 'revslider');
+		if(!in_array(wp_get_image_mime($path.$name), array('image/jpeg', 'image/gif', 'image/png'), true)){ //the bytes, not only the data: prefix
+			@unlink($path.$name);
+			return __('Image has an invalid type', 'revslider');
+		}
 
 		return $this->import_media($path.$name , 'video-media/');
 	}
@@ -712,6 +837,7 @@ class RevSliderFunctions extends RevSliderData {
 		$art_dir = 'revslider/';
 		$return	 = false;
 		$filename = basename($file_url); //rename the file... alternatively, you could explode on "/" and keep the original file name
+		$folder_name = implode('/', array_filter(array_map('sanitize_file_name', explode('/', $folder_name)), function($f){ return $f !== '' && $f !== '.' && $f !== '..'; })).'/'; //the folder is the module alias from the zip
 		$s_dir	= str_replace('//', '/', $art_dir.$folder_name.$filename);
 		$_s_dir	= false;
 
@@ -722,7 +848,7 @@ class RevSliderFunctions extends RevSliderData {
 		if(@fclose(@fopen($file_url, 'r'))){ //make sure the file actually exists
 			$path_info = pathinfo($file_url);
 			if(!isset($path_info['extension'])) return $return;
-			if(in_array(strtolower($path_info['extension']), $SR_GLOBALS['bad_extensions'])) return $return;
+			if(in_array(strtolower($path_info['extension']), $SR_GLOBALS['bad_extensions']) || !$this->is_media_extension($file_url)) return $return;
 
 			$save_dir	= $ul_dir['basedir'].'/'.$s_dir;
 			$_atc_id	= $this->get_image_id_by_url($s_dir);
@@ -782,6 +908,10 @@ class RevSliderFunctions extends RevSliderData {
 			
 			if($atc_id == false || $atc_id == NULL){
 				@copy($file_url, $save_dir);
+				if(strtolower($path_info['extension']) === 'svg' && !$this->sanitize_svg_file($save_dir)){
+					@unlink($save_dir);
+					return $return;
+				}
 				
 				$file_info = getimagesize($save_dir);
 				
@@ -2467,6 +2597,7 @@ rs-module .material-icons {
 		//$all_v7_static_slides	= $wpdb->get_results($wpdb->prepare("SELECT `id`, `slider_id` FROM ".$wpdb->prefix . RevSliderFront::TABLE_STATIC_SLIDES."7 ORDER BY id, slider_id ASC"), ARRAY_A);
 
 		if(empty($slide_map)){
+			if(!function_exists('wp_get_current_user') || $this->current_user_can_not()) return $slide_map; //a rebuild empties the v7 tables: never for a visitor or a cron run
 			$this->truncate_v7();
 			$result = $wpdb->get_row("SHOW TABLE STATUS LIKE '".$wpdb->prefix . RevSliderFront::TABLE_SLIDES."7'");
 			$v7_next_increment = intval($this->get_val($result, 'Auto_increment', 1));

@@ -22,6 +22,28 @@ class WPML_ST_Slug {
 		}
 	}
 
+	public function to_array() {
+		$rows = array();
+
+		foreach ( $this->langs as $lang => $data ) {
+			$rows[ $lang ] = (array) $data;
+		}
+
+		return $rows;
+	}
+
+	public static function from_array( array $rows ) {
+		$slug = new self();
+
+		foreach ( $rows as $data ) {
+			if ( is_array( $data ) ) {
+				$slug->set_lang_data( (object) $data );
+			}
+		}
+
+		return $slug;
+	}
+
 	public function get_original_lang() {
 		return $this->original_lang;
 	}
@@ -72,6 +94,21 @@ class WPML_ST_Slug {
 
 	public function get_language_codes() {
 		return array_keys( $this->langs );
+	}
+
+	public function get_translation_values() {
+		$original = trim( (string) $this->original_value, '/' );
+		$values   = array();
+
+		foreach ( $this->langs as $lang => $data ) {
+			$value = isset( $data->value ) ? trim( (string) $data->value, '/' ) : '';
+
+			if ( $lang !== $this->original_lang && '' !== $value && $value !== $original ) {
+				$values[] = $value;
+			}
+		}
+
+		return array_values( array_unique( $values ) );
 	}
 
 	public function filter_value( $slug_value, $lang ) {

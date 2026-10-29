@@ -11,10 +11,9 @@ class WPML_PO_Parser {
 			$ids[ ] = $s[ 'string_id' ];
 		}
 		if ( ! empty( $ids ) ) {
-			$sql_prepared = $wpdb->prepare( "SELECT string_id, position_in_page
-	            			 				 FROM {$wpdb->prefix}icl_string_positions
-	            			 				 WHERE kind=%d AND string_id IN(%s)", ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_SOURCE, implode( ',', $ids ));
-			$res = $wpdb->get_results( $sql_prepared );
+			$res = $wpdb->get_results( $wpdb->prepare( "SELECT string_id, position_in_page
+							 FROM {$wpdb->prefix}icl_string_positions
+							 WHERE kind=%d AND string_id IN(%s)", ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_SOURCE, implode( ',', $ids ) ) );
 			foreach ( $res as $row ) {
 				$positions[ $row->string_id ] = $row->position_in_page;
 			}
@@ -71,7 +70,7 @@ class WPML_PO_Parser {
 
 	public static function get_po_file_header() {
 		$po_title             = 'WPML_EXPORT';
-		$translation_language = 'en';
+		$translation_language = \WPML\StringTranslation\Infrastructure\TranslateEverything\EnglishSourceLanguage::resolveForSite();
 
 		if ( isset( $_GET['context'] ) ) {
 			$sanitizedSuffix = \WPML\API\Sanitize::string( $_GET['context'] );

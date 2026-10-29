@@ -8,8 +8,11 @@ class WPML_PB_Reuse_Translations {
 
 	private $current_strings;
 
-	public function __construct( WPML_ST_String_Factory $string_factory ) {
-		$this->string_factory = $string_factory;
+	private $get_previous_forms;
+
+	public function __construct( WPML_ST_String_Factory $string_factory, ?callable $get_previous_forms = null ) {
+		$this->string_factory     = $string_factory;
+		$this->get_previous_forms = $get_previous_forms;
 	}
 
 	public function find_and_reuse_translations( array $original_strings, array $current_strings, array $leftover_strings ) {
@@ -41,10 +44,40 @@ class WPML_PB_Reuse_Translations {
 
 	private function find_existing_strings_for_new_strings( array $new_strings, array $leftover_strings ) {
 
+		list( $found, $leftover_strings ) = $this->find_by_previous_form( $new_strings, $leftover_strings );
+		$new_strings                      = array_diff_key( $new_strings, $found );
+
 		list( $new_strings, $leftover_strings ) = $this->find_by_location( $new_strings, $leftover_strings );
 		$new_strings = $this->find_by_similar_text( $new_strings, $leftover_strings );
 
-		return $new_strings;
+		return $found + $new_strings;
+	}
+
+	private function find_by_previous_form( array $new_strings, array $leftover_strings ) {
+		$found = array();
+
+		if ( ! $this->get_previous_forms || ! $leftover_strings ) {
+			return array( $found, $leftover_strings );
+		}
+
+		foreach ( $this->current_strings as $current_string ) {
+			$id = $current_string['id'];
+			if ( ! isset( $new_strings[ $id ] ) || isset( $found[ $id ] ) || ! isset( $current_string['value'] ) ) {
+				continue;
+			}
+
+			$forms = call_user_func( $this->get_previous_forms, $current_string['value'] );
+
+			foreach ( $leftover_strings as $key => $leftover_string ) {
+				if ( isset( $leftover_string['value'] ) && in_array( $leftover_string['value'], $forms, true ) ) {
+					$found[ $id ] = $leftover_string['id'];
+					unset( $leftover_strings[ $key ] );
+					break;
+				}
+			}
+		}
+
+		return array( $found, $leftover_strings );
 	}
 
 	private function find_by_location( array $new_strings, array $leftover_strings ) {

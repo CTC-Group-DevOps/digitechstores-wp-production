@@ -89,7 +89,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 		 * @since 3.1.0
 		 * @return void
 		 */
-		function load_default_settings() {
+		public function load_default_settings() {
 
 			$settings      = get_option( 'wpheaderandfooter_settings' );
 			$factory_reset = ( is_array( $settings ) && isset( $settings['factory_reset_settings'] ) )
@@ -127,9 +127,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 		 */
 		public function get_settings_sections() {
 
-			$diagnostic_log = $this->diagnostics->wp_headers_and_footers_get_sysinfo();
-
-			$sections = array(
+			return array(
 				array(
 					'id'    => 'wpheaderandfooter_basics',
 					'title' => __( 'Scripts', 'wp-headers-and-footers' ),
@@ -142,10 +140,9 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 				array(
 					'id'    => 'wpheaderandfooter_diagnostic_log',
 					'title' => __( 'Help & Troubleshooting', 'wp-headers-and-footers' ),
-					'desc'  => $diagnostic_log,
+					'desc'  => $this->diagnostics->wp_headers_and_footers_get_sysinfo(),
 				),
 			);
-			return $sections;
 		}
 
 		/**
@@ -157,7 +154,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 		 * @return array settings fields
 		 */
 		public function get_settings_fields() {
-			$settings_fields = array(
+			return array(
 				'wpheaderandfooter_basics'   => array(
 					array(
 						'name'  => 'wp_header_textarea',
@@ -177,7 +174,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 						'name'  => 'wp_footer_textarea',
 						'label' => __( 'Scripts in Footer', 'wp-headers-and-footers' ),
 						/* Translators: The footer textarea description */
-						'desc'  => sprintf( __( 'These scripts will be printed below the %1$s tag.', 'wp-headers-and-footers' ), '&#60footer&#62' ),
+						'desc'  => sprintf( __( 'These scripts will be printed just before the closing %1$s tag.', 'wp-headers-and-footers' ), '&#60/body&#62' ),
 						'type'  => 'textarea',
 					),
 				),
@@ -190,7 +187,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 						'type'        => 'number',
 						'min'         => 1,
 						'max'         => 999999,
-						'placeholder' => '1',
+						'placeholder' => '10',
 					),
 					array(
 						'name'        => 'wp_body_priority',
@@ -206,30 +203,28 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 						'name'        => 'wp_footer_priority',
 						'label'       => __( "Footer's Priority:", 'wp-headers-and-footers' ),
 						/* Translators: The footer textarea description */
-						'desc'        => sprintf( __( 'The priority for %1$s tag. %2$sDefault is 10%3$s', 'wp-headers-and-footers' ), '&#60footer&#62', '<i>', '</i>' ),
+						'desc'        => sprintf( __( 'The priority for the footer scripts printed before %1$s. %2$sDefault is 10%3$s', 'wp-headers-and-footers' ), '&#60/body&#62', '<i>', '</i>' ),
 						'type'        => 'number',
 						'min'         => 1,
 						'max'         => 999999,
-						'placeholder' => '99',
+						'placeholder' => '10',
 					),
 					array(
 						'name'  => 'factory_reset_settings',
 						'label' => __( 'Factory Reset:', 'wp-headers-and-footers' ),
 						/* Translators: The footer textarea description */
-						'desc'  => sprintf( __( 'Enable to remove all scripts and reset all settings made by Insert Headers and Footers upon saving.', 'wp-headers-and-footers' ) ),
+						'desc'  => sprintf( __( 'Enable to remove all scripts and reset all settings made by WP Headers and Footers upon saving.', 'wp-headers-and-footers' ) ),
 						'type'  => 'checkbox',
 					),
 					array(
 						'name'  => 'remove_all_settings',
 						'label' => __( 'Remove Settings on Uninstall:', 'wp-headers-and-footers' ),
 						/* Translators: The footer textarea description */
-						'desc'  => sprintf( __( 'Enable to remove all custom settings and scripts added by Insert Headers and Footers upon uninstall.', 'wp-headers-and-footers' ) ),
+						'desc'  => sprintf( __( 'Enable to remove all custom settings and scripts added by WP Headers and Footers upon uninstall.', 'wp-headers-and-footers' ) ),
 						'type'  => 'checkbox',
 					),
 				),
 			);
-
-			return $settings_fields;
 		}
 
 		/**
@@ -239,10 +234,10 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 		 * @version 3.1.3
 		 */
 		public function wp_header_and_footer_callback() {
-			echo self::wp_hnf_admin_page_header();
+			self::wp_hnf_admin_page_header();
 
 			echo '<div class="wrap wp-headers-and-footers">';
-			echo '<h1 style="display:none;">' . esc_html__( 'Insert Headers And Footers', 'wp-headers-and-footers' ) . '</h1>';
+			echo '<h1 style="display:none;">' . esc_html__( 'WP Headers and Footers', 'wp-headers-and-footers' ) . '</h1>';
 			$this->settings_api->show_navigation();
 			$this->settings_api->show_forms();
 
@@ -278,7 +273,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 			<div class="wp_hnf-header-wrapper">
 				<div class="wp_hnf-header-container">
 					<div class="wp_hnf-header-logo">
-						<a href="<?php echo esc_url( 'https://wpbrigade.com' ); ?>" target="_blank"><img style="width: 80px;" src="<?php echo esc_url( WPHEADERANDFOOTER_DIR_URL . 'asset/img/logo.png' ); ?>"></a>
+						<a href="<?php echo esc_url( 'https://wpbrigade.com/products/wp-headers-and-footers/' ); ?>" target="_blank"><img src="<?php echo esc_url( WPHEADERANDFOOTER_DIR_URL . 'asset/img/logo.png' ); ?>" alt="<?php echo esc_attr__( 'WPBrigade', 'wp-headers-and-footers' ); ?>"></a>
 					</div>
 					<div class="wp_hnf-header-cta">
 					<a href="#" id="wpheaderandfooter_diagnostic_log-header">

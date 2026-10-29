@@ -40,28 +40,9 @@ abstract class WPML_Hierarchy_Sync extends WPML_WPDB_User {
 			$found   = false;
 			$results = WPML_Non_Persistent_Cache::get( $key, self::CACHE_GROUP, $found );
 			if ( ! $found ) {
-				$results_sql_parts = array();
-
-				$results_sql_parts['source_element_table']           = $this->get_source_element_table();
-				$results_sql_parts['source_element_join']            = $this->get_source_element_join();
-				$results_sql_parts['join_translation_language_data'] = $this->get_join_translation_language_data( $ref_lang_code );
-				$results_sql_parts['translated_element_join']        = $this->get_translated_element_join();
-				$results_sql_parts['original_parent_join']           = $this->get_original_parent_join();
-				$results_sql_parts['original_parent_language_join']  = $this->get_original_parent_language_join();
-				$results_sql_parts['correct_parent_language_join']   = $this->get_correct_parent_language_join();
-				$results_sql_parts['correct_parent_element_join']    = $this->get_correct_parent_element_join();
-				$results_sql_parts['where_statement']                = $this->get_where_statement(
-					$element_types,
-					$ref_lang_code,
-					$element_id
-				);
-
-				$results_sql = $this->get_select_statement();
-
-				$results_sql .= ' FROM ';
-				$results_sql .= implode( ' ', $results_sql_parts );
-
-				$results = $this->wpdb->get_results( $results_sql );
+				$results = $this->elements_table === $this->wpdb->posts
+					? $this->get_unsynced_posts( $element_types, $ref_lang_code, $element_id )
+					: $this->get_unsynced_terms( $element_types, $ref_lang_code, $element_id );
 
 				WPML_Non_Persistent_Cache::set( $key, $results, self::CACHE_GROUP );
 			}
@@ -140,96 +121,91 @@ abstract class WPML_Hierarchy_Sync extends WPML_WPDB_User {
 		return $is_valid;
 	}
 
-	private function get_source_element_join() {
+	private function get_unsynced_terms( array $element_types, $ref_lang_code, $element_id ) {
+		$wpdb             = $this->wpdb;
+		$has_reference    = $ref_lang_code ? 1 : 0;
+		$restrict_element = $element_id && term_exists( $element_id ) ? 1 : 0;
+		$types_bind       = $element_types ? array_values( $element_types ) : array( '' );
 
-		return "JOIN {$this->lang_info_table} {$this->original_elements_language_table_alias}
-					ON {$this->original_elements_table_alias}.{$this->element_id_column}
-						= {$this->original_elements_language_table_alias}.element_id
-	                    AND {$this->original_elements_language_table_alias}.element_type
-	                        = CONCAT('{$this->element_type_prefix}', {$this->original_elements_table_alias}.{$this->element_type_column})";
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT tra.term_taxonomy_id AS translated_id, IFNULL(corr.term_id, 0) AS correct_parent
+				 FROM {$wpdb->term_taxonomy} org
+				 JOIN {$wpdb->prefix}icl_translations iclo
+					ON org.term_taxonomy_id = iclo.element_id
+					AND iclo.element_type = CONCAT('tax_', org.taxonomy)
+				 JOIN {$wpdb->prefix}icl_translations iclt
+					ON iclt.trid = iclo.trid
+					AND (
+						(%d = 1 AND iclt.language_code != iclo.language_code)
+						OR (%d = 0 AND iclt.source_language_code = iclo.language_code)
+					)
+				 JOIN {$wpdb->term_taxonomy} tra ON tra.term_taxonomy_id = iclt.element_id
+				 LEFT JOIN {$wpdb->term_taxonomy} parents ON parents.term_id = org.parent
+				 LEFT JOIN {$wpdb->prefix}icl_translations parent_lang
+					ON parents.term_taxonomy_id = parent_lang.element_id
+					AND parent_lang.element_type = CONCAT('tax_', parents.taxonomy)
+				 LEFT JOIN {$wpdb->prefix}icl_translations iclc
+					ON iclc.language_code = iclt.language_code
+					AND parent_lang.trid = iclc.trid
+				 LEFT JOIN {$wpdb->term_taxonomy} corr ON corr.term_taxonomy_id = iclc.element_id
+				 WHERE org.taxonomy IN (" . implode( ', ', array_fill( 0, count( $types_bind ), '%s' ) ) . ")
+					AND IFNULL(corr.term_id, 0) != tra.parent
+					AND (
+						(%d = 1 AND iclo.language_code = %s)
+						OR (%d = 0 AND iclt.source_language_code IS NOT NULL)
+					)
+					AND (%d = 0 OR tra.term_id = %d)",
+				array_merge(
+					array( $has_reference, $has_reference ),
+					$types_bind,
+					array( $has_reference, (string) $ref_lang_code, $has_reference, $restrict_element, (int) $element_id )
+				)
+			)
+		);
 	}
 
-	private function get_translated_element_join() {
+	private function get_unsynced_posts( array $element_types, $ref_lang_code, $element_id ) {
+		$wpdb             = $this->wpdb;
+		$has_reference    = $ref_lang_code ? 1 : 0;
+		$restrict_element = $element_id && term_exists( $element_id ) ? 1 : 0;
+		$types_bind       = $element_types ? array_values( $element_types ) : array( '' );
 
-		return "JOIN {$this->elements_table} {$this->translated_elements_table_alias}
-					ON {$this->translated_elements_table_alias}.{$this->element_id_column}
-					= {$this->translated_elements_language_table_alias}.element_id ";
-	}
-
-	private function get_source_element_table() {
-
-		return " {$this->elements_table} {$this->original_elements_table_alias} ";
-	}
-
-	private function get_join_translation_language_data( $ref_language_code ) {
-
-		$res = " JOIN {$this->lang_info_table} {$this->translated_elements_language_table_alias}
-	               ON {$this->translated_elements_language_table_alias}.trid
-	                 = {$this->original_elements_language_table_alias}.trid ";
-		if ( (bool) $ref_language_code === true ) {
-			$res .= "AND {$this->translated_elements_language_table_alias}.language_code
-						!= {$this->original_elements_language_table_alias}.language_code ";
-		} else {
-			$res .= " AND {$this->translated_elements_language_table_alias}.source_language_code
-                         = {$this->original_elements_language_table_alias}.language_code ";
-		}
-
-		return $res;
-	}
-
-	private function get_select_statement() {
-
-		return " SELECT {$this->translated_elements_table_alias}.{$this->element_id_column} AS translated_id
-						 , IFNULL({$this->correct_parent_table_alias}.{$this->parent_element_id_column}, 0) AS correct_parent ";
-	}
-
-	private function get_original_parent_join() {
-
-		return " LEFT JOIN {$this->elements_table} {$this->original_parent_table_alias}
-	                ON {$this->original_parent_table_alias}.{$this->parent_element_id_column}
-	                    = {$this->original_elements_table_alias}.{$this->parent_id_column} ";
-	}
-
-	private function get_original_parent_language_join() {
-
-		return " LEFT JOIN {$this->lang_info_table} {$this->original_parent_language_table_alias}
-	               ON {$this->original_parent_table_alias}.{$this->element_id_column}
-	                = {$this->original_parent_language_table_alias}.element_id
-	                 AND {$this->original_parent_language_table_alias}.element_type
-	                     = CONCAT('{$this->element_type_prefix}', {$this->original_parent_table_alias}.{$this->element_type_column}) ";
-	}
-
-	private function get_correct_parent_language_join() {
-
-		return " LEFT JOIN {$this->lang_info_table} {$this->correct_parent_language_table_alias}
-	              ON {$this->correct_parent_language_table_alias}.language_code
-	                    = {$this->translated_elements_language_table_alias}.language_code
-	                AND {$this->original_parent_language_table_alias}.trid
-	                    = {$this->correct_parent_language_table_alias}.trid ";
-	}
-
-	private function get_correct_parent_element_join() {
-
-		return " LEFT JOIN {$this->elements_table} {$this->correct_parent_table_alias}
-	              ON {$this->correct_parent_table_alias}.{$this->element_id_column}
-	                = {$this->correct_parent_language_table_alias}.element_id ";
-	}
-
-	private function get_where_statement( $element_types, $ref_lang_code, $element_id ) {
-
-		$filter_originals_snippet = $ref_lang_code
-			? $this->wpdb->prepare( " AND {$this->original_elements_language_table_alias}.language_code = %s ", $ref_lang_code )
-			: " AND {$this->translated_elements_language_table_alias}.source_language_code IS NOT NULL ";
-
-		$where_clause = " WHERE {$this->original_elements_table_alias}.{$this->element_type_column}
-					IN (" . wpml_prepare_in( $element_types ) . ")
-                    AND IFNULL({$this->correct_parent_table_alias}.{$this->parent_element_id_column}, 0)
-                        != {$this->translated_elements_table_alias}.{$this->parent_id_column} " . $filter_originals_snippet;
-
-		if ( $element_id && term_exists( $element_id ) ) {
-			$where_clause .= " AND {$this->translated_elements_table_alias}.term_id = {$element_id}";
-		}
-
-		return $where_clause;
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT tra.ID AS translated_id, IFNULL(corr.ID, 0) AS correct_parent
+				 FROM {$wpdb->posts} org
+				 JOIN {$wpdb->prefix}icl_translations iclo
+					ON org.ID = iclo.element_id
+					AND iclo.element_type = CONCAT('post_', org.post_type)
+				 JOIN {$wpdb->prefix}icl_translations iclt
+					ON iclt.trid = iclo.trid
+					AND (
+						(%d = 1 AND iclt.language_code != iclo.language_code)
+						OR (%d = 0 AND iclt.source_language_code = iclo.language_code)
+					)
+				 JOIN {$wpdb->posts} tra ON tra.ID = iclt.element_id
+				 LEFT JOIN {$wpdb->posts} parents ON parents.ID = org.post_parent
+				 LEFT JOIN {$wpdb->prefix}icl_translations parent_lang
+					ON parents.ID = parent_lang.element_id
+					AND parent_lang.element_type = CONCAT('post_', parents.post_type)
+				 LEFT JOIN {$wpdb->prefix}icl_translations iclc
+					ON iclc.language_code = iclt.language_code
+					AND parent_lang.trid = iclc.trid
+				 LEFT JOIN {$wpdb->posts} corr ON corr.ID = iclc.element_id
+				 WHERE org.post_type IN (" . implode( ', ', array_fill( 0, count( $types_bind ), '%s' ) ) . ")
+					AND IFNULL(corr.ID, 0) != tra.post_parent
+					AND (
+						(%d = 1 AND iclo.language_code = %s)
+						OR (%d = 0 AND iclt.source_language_code IS NOT NULL)
+					)
+					AND (%d = 0 OR tra.ID = %d)",
+				array_merge(
+					array( $has_reference, $has_reference ),
+					$types_bind,
+					array( $has_reference, (string) $ref_lang_code, $has_reference, $restrict_element, (int) $element_id )
+				)
+			)
+		);
 	}
 }

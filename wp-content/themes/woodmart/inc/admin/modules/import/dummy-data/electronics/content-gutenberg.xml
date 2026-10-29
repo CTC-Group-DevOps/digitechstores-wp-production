@@ -531,8 +531,8 @@
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=12960</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"9f73bcf4-5e75-496a-a219-7efa62030060","blockVersion":"2","effect":"fade","arrowsTablet":false,"arrowsMobile":false,"pagination":false,"height":"470","arrowsCustomSettings":true,"arrowsHoverStyle":"1","paddingLeft":"300","marginTop":"-10","marginBottom":"30","heightTablet":"660","heightMobile":"450","paddingLeftTablet":"0","marginTopTablet":"-25"} -->
-<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-fade wd-9f73bcf4"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="fade" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"40509c66-2fbe-4585-9d48-e8cb5c32576f","blockVersion":"2","blockGap":0,"align":"flex-start","effect":"fade","aspectRatio":"","image":{"id":12967,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/w-electronic-slide-1.jpg","width":1100,"height":629},"bgImage":{"id":"","url":""},"bgColorCode":"#f2f2f2","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-40509c66"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"65838b54-1fde-4860-930f-09310919a14e","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"150","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-fade wd-9f73bcf4"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="fade" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"40509c66-2fbe-4585-9d48-e8cb5c32576f","blockVersion":"2","blockGap":0,"align":"flex-start","effect":"fade","aspectRatio":"","image":{"id":12967,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/w-electronic-slide-1.jpg","width":1100,"height":629},"bgImage":{"id":"","url":""},"bgColorCode":"#f2f2f2","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-40509c66"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"65838b54-1fde-4860-930f-09310919a14e","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"150","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-65838b54">TOP SMARTPHONES</p>
 <!-- /wp:wd/paragraph -->
 
@@ -546,11 +546,11 @@
 
 <!-- wp:wd/button {"blockId":"66194212-d5eb-451a-a043-b2fbe8a3f23d","blockVersion":"2","predefinedColor":"primary","shape":"round","animation":"slide-from-bottom","animationDelay":"550"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-round wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_550 wd-66194212" href="#"><span>Buy Now</span></a>
-<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/w-electronic-slide-1.jpg" class="wp-image-12967" alt=""/></div></div>
+<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/w-electronic-slide-1.jpg" class="wp-image-12967" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"2275d7ee-f42a-44f9-9a65-4eabebfe5cf2","blockVersion":"2","blockGap":0,"align":"flex-start","effect":"fade","aspectRatio":"","image":{"id":12983,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/accessories_large.jpg","width":652,"height":700},"imageObjectFit":"contain","imagePosition":"center right","bgImage":{"id":"","url":""},"bgPosition":"center right","bgDisplaySize":"contain","bgColorCode":"#f2f2f2","imagePositionTablet":"custom","imagePositionMobile":"custom","imageCustomPositionXTablet":"385","imageCustomPositionXMobile":"200","imageCustomPositionYTablet":"0","imageCustomPositionYMobile":"-20","bgPositionTablet":"custom","bgPositionMobile":"custom","bgCustomPositionXTablet":"385","bgCustomPositionXMobile":"200","bgCustomPositionYTablet":"0","bgCustomPositionYMobile":"-20","bgDisplaySizeMobile":"cover","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-2275d7ee"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"67c0c937-140b-428f-b6f9-ddb504e386a2","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"150","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-2275d7ee"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"67c0c937-140b-428f-b6f9-ddb504e386a2","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"150","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-67c0c937">SMART WATCHES</p>
 <!-- /wp:wd/paragraph -->
 
@@ -564,11 +564,11 @@
 
 <!-- wp:wd/button {"blockId":"a62a9496-d9f0-464d-b7e6-cebae66dc7b7","blockVersion":"2","predefinedColor":"primary","shape":"round","animation":"slide-from-bottom","animationDelay":"550"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-round wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_550 wd-a62a9496" href="#"><span>Buy Now</span></a>
-<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/accessories_large.jpg" class="wp-image-12983" alt=""/></div></div>
+<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/accessories_large.jpg" class="wp-image-12983" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"9f9f2bbd-bf6c-45ae-901a-f25013685ce5","blockVersion":"2","blockGap":0,"align":"flex-start","effect":"fade","colorScheme":"light","aspectRatio":"","image":{"id":12990,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/hero_large.jpg","width":848,"height":824},"imageObjectFit":"contain","imagePosition":"center right","bgImage":{"id":"","url":""},"bgPosition":"center right","bgDisplaySize":"contain","bgColorCode":"#000000","imageObjectFitMobile":"cover","imagePositionTablet":"custom","imagePositionMobile":"custom","imageCustomPositionXTablet":"400","imageCustomPositionXMobile":"143","imageCustomPositionYTablet":"0","imageCustomPositionYMobile":"20","bgPositionTablet":"custom","bgPositionMobile":"custom","bgCustomPositionXTablet":"400","bgCustomPositionXMobile":"143","bgCustomPositionYTablet":"0","bgCustomPositionYMobile":"20","bgDisplaySizeMobile":"cover","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-9f9f2bbd"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"6c15f6d8-f0f1-4592-87ce-6478c6d31ed3","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"150","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-9f9f2bbd"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"6c15f6d8-f0f1-4592-87ce-6478c6d31ed3","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"150","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-6c15f6d8">APPLE INNOVATION</p>
 <!-- /wp:wd/paragraph -->
 
@@ -582,15 +582,15 @@
 
 <!-- wp:wd/button {"blockId":"4f31eaca-bc69-446e-a9f3-98816153fd25","blockVersion":"2","predefinedColor":"primary","shape":"round","animation":"slide-from-bottom","animationDelay":"550"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-round wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_550 wd-4f31eaca" href="#"><span>Buy Now</span></a>
-<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/hero_large.jpg" class="wp-image-12990" alt=""/></div></div>
+<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/hero_large.jpg" class="wp-image-12990" alt="" /></div></div>
 <!-- /wp:wd/slider-item --></div></div><div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-pos-sep wd-hide-md-sm wd-hide-sm wd-style-1 color-scheme-dark wd-hover-1"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div><div class="wd-nav-pagin-wrap wd-slider-pagin wd-custom-style wd-hide-lg wd-style-shape-1 color-scheme-dark"><ul class="wd-nav-pagin"></ul></div></div>
 <!-- /wp:wd/slider -->
 
 <!-- wp:wd/carousel {"blockId":"1cac888b-7214-4c01-b31a-fbe7c40e95ba","blockVersion":"2","currentSlide":1,"slidesPerView":"2","spacing":"30","paginationControl":false,"paginationControlMobile":false,"syncParentId":"wd_1cac888b","marginBottom":"80","slidesPerViewTablet":"2","slidesPerViewMobile":"1","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<div class="wp-block-wd-carousel wd-carousel-container wd-1cac888b"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:2;--wd-col-md:2;--wd-col-sm:1;--wd-gap-lg:30px;--wd-gap-sm:10px;" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"bc04ac2f-44a0-4a65-8259-5ddc10987012","blockVersion":"2"} -->
+<div class="wp-block-wd-carousel wd-carousel-container wd-1cac888b"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:2;--wd-col-md:2;--wd-col-sm:1;--wd-gap-lg:30px;--wd-gap-sm:10px" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"bc04ac2f-44a0-4a65-8259-5ddc10987012","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-bc04ac2f"><!-- wp:wd/cover {"blockId":"6a46c288-e881-47e9-b613-8033c4cbc211","blockVersion":"2","height":"290","bgImage":{"id":12994,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/electro-banner10.jpg"},"contentAlignVerticalMobile":"center"} -->
 <div class="wp-block-wd-cover wd-hover-parent wd-6a46c288"><div class="wd-block-cover-img"></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"3347e31e-731c-4493-bd0e-893037fee021","blockVersion":"2","displayWidth":"custom","customWidth":"230","directionTablet":"column","directionMobile":"column"} -->
-<div class="wp-block-wd-container wd-dir-col wd-dir-col-md wd-dir-col-sm wd-3347e31e wd-custom-width"><!-- wp:wd/paragraph {"blockId":"7a956bdf-1f4f-4c3f-853c-1fa4eccd5522","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeMobile":"14"} -->
+<div class="wp-block-wd-container wd-dir-col wd-dir-col-md wd-dir-col-sm wd-3347e31e wd-custom-width"><!-- wp:wd/paragraph {"blockId":"7a956bdf-1f4f-4c3f-853c-1fa4eccd5522","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeMobile":"14"} -->
 <p class="wp-block-wd-paragraph wd-7a956bdf">NEW TECHNOLOGIES</p>
 <!-- /wp:wd/paragraph -->
 
@@ -716,7 +716,7 @@
 
 <!-- wp:wd/section {"blockId":"e54e287f-f26e-4cc0-ab49-f1dbbdf7e675","blockVersion":"2","bgImage":{"id":13038,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/bg-electro.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"60","paddingBottom":"60","marginBottom":"65","paddingTopTablet":"40","paddingBottomTablet":"40","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-section wd-e54e287f"><!-- wp:wd/container {"blockId":"58499612-49ba-4708-abb5-2c7248720490","blockVersion":"2","textAlign":"center","rowGap":"30"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-58499612"><!-- wp:wd/title {"blockId":"ed5f6cf8-3017-437a-a2ec-e333f7289e13","blockVersion":"2","design":"underlined","content":"TODAY HOT DEALS","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-58499612"><!-- wp:wd/title {"blockId":"ed5f6cf8-3017-437a-a2ec-e333f7289e13","blockVersion":"2","design":"underlined","content":"TODAY HOT DEALS","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-design-underlined wd-ed5f6cf8"><span>TODAY HOT DEALS</span></h2>
 <!-- /wp:wd/title -->
 
@@ -797,25 +797,25 @@
 
 <!-- wp:wd/column {"blockId":"a2300107-ca39-48f3-aa5e-1ddd574abdec","blockVersion":"2","adjacentCount":2,"colWidth":58,"alignItems":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
 <div class="wp-block-wd-column wd-align-is-lg-center wd-a2300107"><!-- wp:wd/image {"blockId":"cf42c433-367f-4095-b8a8-a4fd83175eb1","blockVersion":"2","image":{"id":13061,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/dualshok.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/dualshok.png","width":703,"height":268},"paddingTop":"60","marginBottom":"-160","paddingTopTablet":"0"} -->
-<div class="wp-block-wd-image wd-block-image wd-cf42c433"><img class="wp-image-13061" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/dualshok.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-cf42c433"><img class="wp-image-13061" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/dualshok.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/title {"blockId":"b62ef5fe-27a1-4983-b24d-cd00e19b3e38","blockVersion":"2","textAlign":"center","design":"underlined","content":"INNOVATIVE GADGETS","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","marginBottom":"30","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"b62ef5fe-27a1-4983-b24d-cd00e19b3e38","blockVersion":"2","textAlign":"center","design":"underlined","content":"INNOVATIVE GADGETS","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"30","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-underlined wd-b62ef5fe"><span>INNOVATIVE GADGETS</span></h2>
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/blog {"blockId":"7d5dc09e-220f-44b7-a071-147452c1e7b7","blockVersion":"2","items_per_page":"5","layout":"carousel","marginBottom":"80","hide_pagination_control":true,"sync_parent_id":"wd_e81299e3","marginBottomTablet":"60","marginBottomMobile":"40","slides_per_viewTablet":"3","slides_per_viewMobile":"1","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
-<!-- wp:wd/title {"blockId":"95ffeaf7-4281-4683-8518-04435f175d93","blockVersion":"2","textAlign":"center","design":"underlined","content":"OUR PARTNERS","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","marginBottom":"30","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"95ffeaf7-4281-4683-8518-04435f175d93","blockVersion":"2","textAlign":"center","design":"underlined","content":"OUR PARTNERS","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"30","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-underlined wd-95ffeaf7"><span>OUR PARTNERS</span></h2>
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/row {"blockId":"7e529eab-efd6-4c0e-a7dc-afef1b421a28","blockVersion":"2","marginBottom":"40","marginBottomTablet":"20","marginBottomMobile":"0"} -->
 <div class="wp-block-wd-row wd-7e529eab"><!-- wp:wd/column {"blockId":"80e63351-dcb4-4c0a-8f6f-dbc47a894c08","blockVersion":"2","adjacentCount":2} -->
 <div class="wp-block-wd-column wd-80e63351"><!-- wp:wd/video {"blockId":"110f5f94-1721-43c6-80aa-b3ffaed542fe","blockVersion":"3","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=LXb3EKWsInQ","videoActionButton":"overlay","videoImageOverlay":{"id":13077,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/electro-video.jpg"},"videoSize":"aspect_ratio"} -->
-<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-with-aspect-ratio wd-110f5f94"><iframe allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" loading="lazy" data-lazy-load="https://www.youtube.com/embed/LXb3EKWsInQ?feature=oembed&amp;controls=1&amp;autoplay=1"></iframe><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/electro-video.jpg" alt="" class="wp-image-13077"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/embed/LXb3EKWsInQ?feature=oembed&amp;controls=1&amp;autoplay=1" class="wd-el-video-link wd-el-video-btn-overlay wd-fill"></a></div>
+<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-with-aspect-ratio wd-110f5f94"><iframe allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" loading="lazy" data-lazy-load="https://www.youtube.com/embed/LXb3EKWsInQ?feature=oembed&amp;controls=1&amp;autoplay=1"></iframe><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/electro-video.jpg" alt="" class="wp-image-13077" /></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/embed/LXb3EKWsInQ?feature=oembed&amp;controls=1&amp;autoplay=1" class="wd-el-video-link wd-el-video-btn-overlay wd-fill"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column -->
 
@@ -826,8 +826,8 @@
 															<wp:post_id>12960</wp:post_id>
 					<wp:post_date><![CDATA[2024-05-24 13:38:50]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-05-24 13:38:50]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 12:42:04]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 12:42:04]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 12:49:16]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 12:49:16]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-electronics]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

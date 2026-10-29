@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Exporter support.
  *
  * @class    WC_PB_Product_Export
- * @version  6.17.4
+ * @version  8.5.16
  */
 class WC_PB_Product_Export {
 
 	/**
 	 * Hook in.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -110,6 +112,15 @@ class WC_PB_Product_Export {
 
 					// Refer to exported products by their SKU, if present.
 					$bundled_item_data['product_id'] = $bundled_product_sku ? $bundled_product_sku : 'id:' . $bundled_product_id;
+
+					if ( ! empty( $bundled_item_data['meta_data']['allowed_variations'] ) && is_array( $bundled_item_data['meta_data']['allowed_variations'] ) ) {
+						$bundled_item_data['meta_data']['allowed_variations'] = array_map(
+							static function ( $variation_id ) {
+								return ( is_int( $variation_id ) || is_string( $variation_id ) ) && ctype_digit( (string) $variation_id ) && absint( $variation_id ) ? 'id:' . $variation_id : $variation_id;
+							},
+							$bundled_item_data['meta_data']['allowed_variations']
+						);
+					}
 
 					$data[ $bundled_item_id ] = $bundled_item_data;
 				}

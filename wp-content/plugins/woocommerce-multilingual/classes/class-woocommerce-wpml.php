@@ -127,6 +127,7 @@ class woocommerce_wpml {
 		$action = filter_input( INPUT_POST, 'action' );
 		if ( WCML_MULTI_CURRENCIES_INDEPENDENT === (int) $this->settings['enable_multi_currency']
 			|| AdminPages::isMultiCurrency()
+			|| AdminPages::isBondedMultiCurrency()
 			|| ( in_array( $action, $actions_that_need_mc, true ) )
 		) {
 			$this->get_multi_currency();
@@ -153,19 +154,22 @@ class woocommerce_wpml {
 
 		$this->sync_variations_data = new WCML_Synchronize_Variations_Data( $this, $sitepress, $wpdb );
 
+		$tp_support = new WCML_TP_Support( $this, $wpdb, new WPML_Element_Translation_Package() );
+		$tp_support->add_content_signature_hooks();
+
 		if ( is_admin() || wpml_is_rest_request() ) {
 			$this->translation_editor = new WCML_Translation_Editor( $this, $sitepress, $wpdb );
 			$this->translation_editor->add_hooks();
-			$tp_support = new WCML_TP_Support( $this, $wpdb, new WPML_Element_Translation_Package(), $sitepress->get_setting( 'translation-management', [] ) );
 			$tp_support->add_hooks();
 			$sync_downloadable_files_from_ATE = new \WCML\DownloadableFiles\SyncDownloadableFilesFromATE();
 			$sync_downloadable_files_from_ATE->add_hooks();
 		}
 
 		if ( is_admin() ) {
+			WCML_Multi_Currency_Configuration::clean_up_persisted_price_keys();
+
 			$this->sync_variations_data->add_hooks();
 			$this->troubleshooting      = new WCML_Troubleshooting( $this, $sitepress, $wpdb );
-			$this->languages_upgrader   = new WCML_Languages_Upgrader();
 			$this->wcml_products_screen = new WCML_Products_Screen_Options();
 			$this->wcml_products_screen->init();
 			$wcml_pointers = new WCML_Pointers();
@@ -194,6 +198,12 @@ class woocommerce_wpml {
 		$this->gateways->add_hooks();
 		$this->url_translation = new WCML_Url_Translation( $this, $sitepress, $wpdb );
 		$this->url_translation->set_up();
+
+		if ( is_admin() ) {
+			$this->languages_upgrader = new WCML_Languages_Upgrader( $this->url_translation, $sitepress );
+			$this->languages_upgrader->add_hooks();
+		}
+
 		$this->endpoints = new WCML_Endpoints( $this, $sitepress, $wpdb );
 		$this->endpoints->add_hooks();
 		$this->requests = new WCML_Requests();
@@ -265,6 +275,9 @@ class woocommerce_wpml {
 			'enable_multi_currency'                            => WCML_MULTI_CURRENCIES_DISABLED,
 			'dismiss_doc_main'                                 => 0,
 			'trnsl_interface'                                  => 1,
+			'products_sync_date'                               => 1,
+			'products_sync_order'                              => 1,
+			'display_custom_prices'                            => 0,
 			'currency_options'                                 => [],
 			'currency_switcher_product_visibility'             => 1,
 			'dismiss_tm_warning'                               => 0,

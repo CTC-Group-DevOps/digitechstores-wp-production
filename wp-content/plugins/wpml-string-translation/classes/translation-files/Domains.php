@@ -31,6 +31,8 @@ class Domains {
 
 	private static $jed_domains;
 
+	private static $mo_domains_invalidated = false;
+
 	public function __construct(
 		wpdb $wpdb,
 		PackageDomains $package_domains,
@@ -57,12 +59,16 @@ class Domains {
 
 		$excluded_domains = self::getReservedDomains()->merge( $this->getJEDDomains() );
 
-		$sql = "
-			SELECT DISTINCT context {$this->getCollateForContextColumn( $this->wpdb )}
-			FROM {$this->wpdb->prefix}icl_strings
-		";
-
-		$mo_domains = wpml_collect( $this->wpdb->get_col( $sql ) )
+		$wpdb        = $this->wpdb;
+		$mo_domains = wpml_collect(
+			$wpdb->get_col(
+				sprintf(
+					"SELECT DISTINCT context %s
+					FROM {$wpdb->prefix}icl_strings",
+					esc_sql( $this->getCollateForContextColumn( $wpdb ) )
+				)
+			)
+		)
 			->diff( $excluded_domains )
 			->values();
 
@@ -75,7 +81,7 @@ class Domains {
 			$mo_domains
 		);
 
-		if ( ! wp_using_ext_object_cache() ) {
+		if ( ! wp_using_ext_object_cache() && ! self::isInvalidatedThisRequest() ) {
 			set_transient( $transient_key, $mo_domains, $cacheLifeTime );
 		}
 
@@ -85,7 +91,10 @@ class Domains {
 	public static function invalidateMODomainCache() {
 		static $invalidationScheduled = false;
 
-		delete_transient( self::MO_DOMAINS_CACHE_KEY );
+		if ( ! self::$mo_domains_invalidated ) {
+			self::$mo_domains_invalidated = true;
+			delete_transient( self::MO_DOMAINS_CACHE_KEY );
+		}
 
 		if ( ! $invalidationScheduled ) {
 			$invalidationScheduled = true;
@@ -98,11 +107,16 @@ class Domains {
 		}
 	}
 
+	private static function isInvalidatedThisRequest() {
+		return self::$mo_domains_invalidated;
+	}
 
 
-	public function getCustomMODomains() {
+
+	public function getCustomMODomains( $locale = null ) {
+		$locale            = $locale ?: determine_locale();
 		$all_mo_domains    = $this->getMODomains();
-		$native_mo_domains = $this->file_dictionary->get_domains( 'mo', get_locale() );
+		$native_mo_domains = $this->file_dictionary->get_domains( 'mo', $locale );
 
 		return $all_mo_domains->reject(
 			function ( $domain ) use ( $native_mo_domains ) {

@@ -25,6 +25,8 @@ class JobLog {
 
 	const GROUP_ID_JOB_LIFECYCLE = 6;
 
+	const GROUP_ID_RETRANSLATION = 7;
+
 	const MAX_DEPTH         = 10;
 	const MAX_STRING_LENGTH = 1000;
 	const MAX_ARRAY_ITEMS   = 1000;
@@ -50,6 +52,7 @@ class JobLog {
 		'apikey',
 		'shared_key',
 		'access_key',
+		'accesskey',
 		'private_key',
 		'signing_key',
 		'site_key',
@@ -59,6 +62,8 @@ class JobLog {
 	];
 
 	private static $isInitialised = false;
+
+	private static $isBackgroundRequest = false;
 
 	private static $hasRequestAnyErrorLog = false;
 
@@ -373,6 +378,7 @@ class JobLog {
 			@fclose( self::$fp );
 		}
 		self::$isInitialised          = false;
+		self::$isBackgroundRequest    = false;
 		self::$hasRequestAnyErrorLog  = false;
 		self::$isEnabled              = null;
 		self::$requestUrl             = null;
@@ -408,7 +414,7 @@ class JobLog {
 			return self::$isEnabled;
 		}
 
-		if ( self::isCliOrCronContext() ) {
+		if ( self::isCliOrCronContext() && ! self::$isBackgroundRequest ) {
 			return self::$isEnabled = false;
 		}
 
@@ -463,6 +469,57 @@ class JobLog {
 
 	public static function wasRequestInitialised() {
 		return is_string( self::$requestUrl );
+	}
+
+	public static function maybeInitBackgroundRequest( $label ) {
+		if ( self::wasRequestInitialised() ) {
+			return false;
+		}
+
+		if ( ! self::isCliOrCronContext() ) {
+			self::maybeInitRequest();
+
+			return false;
+		}
+
+		self::$isBackgroundRequest = true;
+		self::$isEnabled           = null;
+
+		self::$requestUrl       = 'background:' . (string) $label;
+		self::$requestParams    = [ 'background' => (string) $label ];
+		self::$requestDateTime  = gmdate( 'Y-m-d\TH:i:s\Z' );
+		self::$logUid           = uniqid();
+		self::$requestStartTime = microtime( true );
+
+		return true;
+	}
+
+	public static function flushBackgroundRequest() {
+		if ( ! self::$isBackgroundRequest ) {
+			return;
+		}
+
+		self::shutdown();
+
+		self::$isBackgroundRequest    = false;
+		self::$isEnabled              = null;
+		self::$requestUrl             = null;
+		self::$requestParams          = [];
+		self::$requestDateTime        = null;
+		self::$logUid                 = null;
+		self::$requestStartTime       = null;
+		self::$groupId                = null;
+		self::$extraLogData           = [];
+		self::$stringBatchIds         = [];
+		self::$seenTraceHashes        = [];
+		self::$idsTouched             = [];
+		self::$hasRequestAnyErrorLog  = false;
+		self::$streamOpenAttempted    = false;
+		self::$streamOpenFailed       = false;
+		self::$requestStartedWritten  = false;
+		self::$requestFinishedWritten = false;
+		self::$logEventCount          = 0;
+		self::$eventsTruncatedReported = false;
 	}
 
 	public static function isGroupOpen() {
@@ -563,6 +620,27 @@ class JobLog {
 		}
 
 		unset( self::$extraLogData[ $key ] );
+	}
+
+	public static function addRetranslationEvent( $id, array $data = [] ) {
+		self::maybeInitRequest();
+
+		if ( ! self::canLog() ) {
+			return;
+		}
+
+		$ownsGroup = ! self::isGroupOpen();
+		if ( $ownsGroup ) {
+			self::createNewGroup( self::GROUP_ID_RETRANSLATION, 'ATE retranslation lifecycle' );
+		}
+
+		try {
+			self::add( $id, $data );
+		} finally {
+			if ( $ownsGroup ) {
+				self::finishCurrentGroup();
+			}
+		}
 	}
 
 	public static function add( $id, $data = [], $logType = self::LOG_TYPE_INFO ) {
@@ -721,7 +799,7 @@ class JobLog {
 			return;
 		}
 
-		if ( ! self::$requestStartedWritten ) {
+		if ( ! self::$requestStartedWritten || self::$requestFinishedWritten ) {
 			return;
 		}
 
@@ -811,7 +889,7 @@ class JobLog {
 		$line    = self::enrichLineWithTimings( $line );
 		$encoded = self::encodeAndCap( $line );
 		if ( ! is_string( $encoded ) ) {
-			self::reportIoFailure( 'write' );
+			self::reportIoFailure( 'write', 'the line could not be JSON-encoded: ' . json_last_error_msg() );
 			return false;
 		}
 
@@ -883,15 +961,23 @@ class JobLog {
 		return self::$phpPid;
 	}
 
-	private static function reportIoFailure( $stage ) {
+	private static function reportIoFailure( $stage, $reason = null ) {
 		if ( self::$writeFailureReported ) {
 			return;
 		}
 		self::$writeFailureReported = true;
-		@error_log(
-			'WPML JobLog: failed during ' . $stage . ' to ' . (string) self::$inProgressPath
-			. ' (likely disk full or permission denied).'
-		);
+		if ( null === $reason ) {
+			$last   = error_get_last();
+			$reason = is_array( $last ) && ! empty( $last['message'] )
+				? 'PHP reported: ' . $last['message']
+				: 'the stream returned no error message';
+		}
+		@error_log( self::ioFailureMessage( $stage, (string) self::$inProgressPath, $reason ) );
+	}
+
+	public static function ioFailureMessage( $stage, $path, $reason ) {
+		return 'WPML JobLog: failed during ' . $stage . ' to ' . $path . ' - ' . $reason
+			. ' (check free space, permissions and open_basedir for that path).';
 	}
 
 	private static function enrichRequestParams( array $requestParams ) {
@@ -1044,11 +1130,38 @@ class JobLog {
 		if ( strpos( $value, '=' ) === false ) {
 			return $value;
 		}
-		return preg_replace(
-			'/(?:^|[?&])(signature|token|shared_key|api_key|access_token|refresh_token|password|secret|authorization|bearer)=([^&\s]+)/i',
-			'$1=[REMOVED]',
+
+		static $pattern = null;
+		if ( null === $pattern ) {
+			$needles = array_map(
+				function ( $needle ) {
+					return str_replace( '_', '[_-]', preg_quote( $needle, '/' ) );
+				},
+				self::SECRET_KEY_NEEDLES
+			);
+			$pattern = '/(^|[?&])([a-z0-9_-]*(?:' . implode( '|', $needles ) . ')[a-z0-9_-]*)=([^&\s]+)/i';
+		}
+
+		return preg_replace_callback(
+			$pattern,
+			function ( $match ) {
+				return $match[1] . $match[2] . '=' . self::redactUrlSecretValue( $match[2], $match[3] );
+			},
 			$value
 		);
+	}
+
+	private static function redactUrlSecretValue( $name, $value ) {
+		if ( false === strpos( str_replace( '-', '_', strtolower( $name ) ), 'site_key' ) ) {
+			return '[REMOVED]';
+		}
+
+		$lastCharactersCount = 4;
+		if ( strlen( $value ) <= $lastCharactersCount ) {
+			return $value;
+		}
+
+		return str_repeat( 'x', strlen( $value ) - $lastCharactersCount ) . substr( $value, -$lastCharactersCount );
 	}
 
 	private static function getUrlParams() {

@@ -47,15 +47,24 @@ class WPML_TM_Serialized_Custom_Field_Package_Handler {
 	private function match_in_order( $attributes, $whitelist, $current_depth = 0 ) {
 		$current_attribute = $attributes[ $current_depth ];
 		$wildcard_match    = $this->match_with_wildcards( $current_attribute, array_keys( $whitelist ) );
-		if ( $wildcard_match ) {
-			if ( count( $attributes ) === $current_depth + 1 ) {
-				return true;
-			} else {
-				return $this->match_in_order( $attributes, $whitelist[ $wildcard_match ], $current_depth + 1 );
-			}
+		if ( ! $wildcard_match ) {
+			return false;
 		}
 
-		return false;
+		$whitelist_entry = $whitelist[ $wildcard_match ];
+		if ( count( $attributes ) === $current_depth + 1 ) {
+			return $this->whitelists_value_at_own_level( (string) $wildcard_match, (string) $current_attribute, $whitelist_entry );
+		}
+
+		return $this->has_sub_keys( $whitelist_entry ) && $this->match_in_order( $attributes, $whitelist_entry, $current_depth + 1 );
+	}
+
+	private function whitelists_value_at_own_level( string $whitelist_key, string $attribute, $whitelist_entry ): bool {
+		return $whitelist_key === $attribute || ! $this->has_sub_keys( $whitelist_entry );
+	}
+
+	private function has_sub_keys( $whitelist_entry ): bool {
+		return is_array( $whitelist_entry ) && [] !== $whitelist_entry;
 	}
 
 	public function set_title_for_whitelisted_attributes( $fields ) {
@@ -82,7 +91,9 @@ class WPML_TM_Serialized_Custom_Field_Package_Handler {
 		$wildcard_match    = $this->match_with_wildcards( $current_attribute, array_keys( $whitelist ) );
 		if ( $wildcard_match ) {
 			if ( count( $attributes ) === $current_depth + 1 ) {
-				return $whitelist[ $current_attribute ] ?? '';
+				$title = $whitelist[ $wildcard_match ] ?? '';
+
+				return is_string( $title ) ? $title : '';
 			} else {
 				return $this->find_title_in_order( $attributes, $whitelist[ $wildcard_match ], $current_depth + 1 );
 			}

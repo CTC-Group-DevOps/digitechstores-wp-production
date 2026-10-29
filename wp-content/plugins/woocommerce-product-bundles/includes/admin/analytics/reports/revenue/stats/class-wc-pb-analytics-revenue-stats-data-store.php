@@ -18,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
 /**
  * WC_PB_Analytics_Revenue_Stats_Data_Store class.
  *
- * @version 7.2.0
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Revenue_Stats_Data_Store extends WC_PB_Analytics_Revenue_Data_Store {
 
@@ -54,16 +54,18 @@ class WC_PB_Analytics_Revenue_Stats_Data_Store extends WC_PB_Analytics_Revenue_D
 
 	/**
 	 * Assign report columns once full table name has been assigned.
+	 *
+	 * @return void
 	 */
 	protected function assign_report_columns() {
 		$table_name = self::get_db_table_name();
 
-		// API fields mapped to sql SELECT statements.
+		// API fields mapped to sql SELECT statements. Units and orders count sale rows only; refund rows reduce net revenue.
 		$this->report_columns = array(
-			'items_sold'         => "SUM( CASE WHEN `product_id` = `bundle_id` THEN `{$table_name}`.`product_qty` END ) as `items_sold`",
-			'bundled_items_sold' => "SUM( CASE WHEN `product_gross_revenue` >= 0 AND `product_id` <> `bundle_id` THEN `{$table_name}`.`product_qty` END ) as `bundled_items_sold`",
+			'items_sold'         => "SUM( CASE WHEN ( `product_gross_revenue` >= 0 AND ( `product_qty` > 0 OR `product_net_revenue` > 0 ) ) AND `product_id` = `bundle_id` THEN `{$table_name}`.`product_qty` END ) as `items_sold`",
+			'bundled_items_sold' => "SUM( CASE WHEN ( `product_gross_revenue` >= 0 AND ( `product_qty` > 0 OR `product_net_revenue` > 0 ) ) AND `product_id` <> `bundle_id` THEN `{$table_name}`.`product_qty` END ) as `bundled_items_sold`",
 			'net_revenue'        => 'SUM(`product_net_revenue`) AS `net_revenue`',
-			'orders_count'       => "COUNT( DISTINCT ( CASE WHEN `product_gross_revenue` >= 0 THEN `{$table_name}`.`order_id` END ) ) as `orders_count`",
+			'orders_count'       => "COUNT( DISTINCT ( CASE WHEN ( `product_gross_revenue` >= 0 AND ( `product_qty` > 0 OR `product_net_revenue` > 0 ) ) THEN `{$table_name}`.`order_id` END ) ) as `orders_count`",
 			'products_count'     => 'COUNT(DISTINCT `bundle_id`) as `products_count`',
 		);
 	}
@@ -106,7 +108,7 @@ class WC_PB_Analytics_Revenue_Stats_Data_Store extends WC_PB_Analytics_Revenue_D
 	 * Returns the report data based on parameters supplied by the user.
 	 *
 	 * @param array $query_args  Query parameters.
-	 * @return stdClass|WP_Error Data.
+	 * @return stdClass|array|WP_Error Data.
 	 */
 	public function get_data( $query_args ) {
 		global $wpdb;
@@ -226,6 +228,8 @@ class WC_PB_Analytics_Revenue_Stats_Data_Store extends WC_PB_Analytics_Revenue_D
 
 	/**
 	 * Initialize query objects.
+	 *
+	 * @return void
 	 */
 	protected function initialize_queries() {
 		$this->clear_all_clauses();

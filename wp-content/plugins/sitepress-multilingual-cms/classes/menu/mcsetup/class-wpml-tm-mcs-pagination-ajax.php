@@ -11,7 +11,22 @@ class WPML_TM_MCS_Pagination_Ajax {
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_wpml_update_mcs_cf', array( $this, 'update_mcs_cf' ) );
+		\WPML\Request\Adapter\Ajax::register(
+			'wpml_update_mcs_cf',
+			\WPML\Request\Policy\Policy::capability(
+				'manage_options',
+				\WPML\Request\Policy\Authenticity::verifier(
+					function () {
+						$type  = isset( $_POST['type'] ) && is_string( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
+						$nonce = isset( $_POST['nonce'] ) && is_string( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+						return in_array( $type, array( 'cf', 'tcf' ), true ) && false !== wp_verify_nonce( $nonce, 'icl_' . $type . '_translation_nonce' );
+					},
+					'nonce "icl_{cf|tcf}_translation_nonce" in nonce, bound to the posted type'
+				)
+			),
+			array( $this, 'update_mcs_cf' )
+		);
 	}
 
 	public function update_mcs_cf() {
@@ -51,7 +66,8 @@ class WPML_TM_MCS_Pagination_Ajax {
 		}
 		wp_send_json_error(
 			array(
-				'message' => __( 'Invalid Request.', 'wpml-translation-management' ),
+				/* translators: Error message returned when a request from the browser cannot be trusted and is turned away. */
+				'message' => __( 'Invalid Request.', 'sitepress' ),
 			)
 		);
 	}

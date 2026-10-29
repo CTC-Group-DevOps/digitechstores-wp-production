@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_PB_Product_Import
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Product_Import {
 
 	/**
 	 * Hook in.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -173,6 +175,15 @@ class WC_PB_Product_Import {
 
 					if ( isset( $bundled_data_item['menu_order'] ) ) {
 						$bundled_data_item['menu_order'] = absint( $bundled_data_item['menu_order'] );
+					}
+
+					// Resolve exported references before sanitizing them to integer IDs. Keep legacy bare IDs unchanged.
+					if ( isset( $bundled_data_item['meta_data']['allowed_variations'] ) && is_array( $bundled_data_item['meta_data']['allowed_variations'] ) ) {
+						foreach ( $bundled_data_item['meta_data']['allowed_variations'] as $key => $variation_id ) {
+							if ( is_string( $variation_id ) && preg_match( '/^id:(\d+)$/', $variation_id, $matches ) && absint( $matches[1] ) ) {
+								$bundled_data_item['meta_data']['allowed_variations'][ $key ] = $importer->parse_relative_field( $variation_id );
+							}
+						}
 					}
 
 					$bundled_data_item['meta_data'] = WC_Bundled_Item_Data::sanitize_external_meta_data( isset( $bundled_data_item['meta_data'] ) ? $bundled_data_item['meta_data'] : array() );

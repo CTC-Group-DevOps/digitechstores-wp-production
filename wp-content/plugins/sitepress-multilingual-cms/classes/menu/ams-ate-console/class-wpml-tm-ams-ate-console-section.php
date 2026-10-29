@@ -13,6 +13,7 @@ class WPML_TM_AMS_ATE_Console_Section extends WPML_TM_AMS_Translation_Abstract_C
 
 
 	public function get_caption() {
+		/* translators: Name of the section where the account and the payments for automatic translation are handled. */
 		return __( 'Payments & Maintenance', 'sitepress' );
 	}
 
@@ -21,9 +22,16 @@ class WPML_TM_AMS_ATE_Console_Section extends WPML_TM_AMS_Translation_Abstract_C
 	}
 
 	public function render() {
-		$supportUrl  = 'https://wpml.org/forums/forum/english-support/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmltm';
+		$supportUrl  = \WPML\OutboundLinks\OutboundLinks::to(
+			\WPML\UserInterface\Web\Core\SharedKernel\Domain\SupportForumUrl::URL,
+			array(
+				'medium'   => 'support',
+				'campaign' => 'support',
+			)
+		);
 		$supportLink = '<a target="_blank" rel="nofollow" href="' . esc_url( $supportUrl ) . '">'
-					   . esc_html__( 'contact our support team', 'wpml-translation-management' )
+					   /* translators: Link text inside a sentence that opens the WPML support pages. It starts in lower case because it sits inside the sentence. */
+					   . esc_html__( 'contact our support team', 'sitepress' )
 					   . '</a>';
 
 
@@ -34,7 +42,8 @@ class WPML_TM_AMS_ATE_Console_Section extends WPML_TM_AMS_Translation_Abstract_C
 				echo sprintf(
 				// translators: %s is a link with 'contact our support team'
 					esc_html(
-						__( 'There is a problem connecting to automatic translation. Please check your internet connection and try again in a few minutes. If you continue to see this message, please %s.', 'wpml-translation-management' )
+						/* translators: %s: link to WPML support. */
+						__( 'There is a problem connecting to automatic translation. Please check your internet connection and try again in a few minutes. If you continue to see this message, please %s.', 'sitepress' )
 					),
 					$supportLink
 				);
@@ -57,13 +66,7 @@ class WPML_TM_AMS_ATE_Console_Section extends WPML_TM_AMS_Translation_Abstract_C
 		}
 
 		$this->admin_enqueue_tab_scripts();
-
-		if ( is_admin() ) {
-			$this->dashboardLoader->registerScript();
-			$this->dashboardLoader->initializeScript($this->get_ams_constructor());
-		}
 	}
-
 
 
 	protected function is_tab() {
@@ -71,10 +74,6 @@ class WPML_TM_AMS_ATE_Console_Section extends WPML_TM_AMS_Translation_Abstract_C
 		$page = Sanitize::stringProp( 'page', $_GET );
 
 		return $sm && $page && self::SLUG === $sm && WPML_TM_FOLDER . '/menu/main.php' === $page;
-	}
-
-	public function getCachingManager() {
-		return null;
 	}
 
 }

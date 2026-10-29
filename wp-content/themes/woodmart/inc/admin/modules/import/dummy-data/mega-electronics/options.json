@@ -147,9 +147,9 @@
     "btns_shop_bg_hover": {
         "idle": "rgb(28,97,231)"
     },
-    "btns_accent_style": null,
-    "btns_accent_bg": null,
-    "btns_accent_bg_hover": null,
+    "btns_accent_style": "",
+    "btns_accent_bg": "",
+    "btns_accent_bg_hover": "",
     "advanced_typography_button": {
         "0": {
             "custom": "",
@@ -297,7 +297,7 @@
     "counter_visitor_data_source_min_number": "10",
     "counter_visitor_data_source_max_number": "20",
     "counter_visitor_ajax_update": "1",
-    "minified_css": null,
+    "minified_css": "",
     "footer_html_block": "215",
     "compare_by_category": "1",
     "show_more_products_btn": "1",
@@ -366,5 +366,6 @@
     "blog_style": "shadow",
     "blog_columns": "3",
     "blog_spacing": "20",
-    "blog_with_shadow": "0"
+    "blog_with_shadow": "0",
+    "price_tracker_enabled": "1"
 }

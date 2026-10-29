@@ -17,7 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bundled item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  8.5.13
+ * @version  8.5.16
+ *
+ * @property-read int|null $item_id Bundled item ID, same as get_id().
  */
 class WC_Bundled_Item {
 
@@ -31,21 +33,21 @@ class WC_Bundled_Item {
 	/**
 	 * A reference to the bundled item data object - @see WC_Bundled_Item_Data.
 	 *
-	 * @var WC_Bundled_Item_Data
+	 * @var WC_Bundled_Item_Data|false|null
 	 */
 	public $data = null;
 
 	/**
 	 * Product instance of the associated bundled product.
 	 *
-	 * @var WC_Product
+	 * @var WC_Product|null
 	 */
 	public $product;
 
 	/**
 	 * Product instance of the parent Bundle.
 	 *
-	 * @var WC_Product_Bundle
+	 * @var WC_Product_Bundle|false|null
 	 */
 	private $bundle;
 
@@ -122,21 +124,21 @@ class WC_Bundled_Item {
 	/**
 	 * Whether the bundled item has attributes.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	private $has_attributes;
 
 	/**
 	 * Whether the bundled item has dimensions.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	private $has_dimensions;
 
 	/**
 	 * Whether the bundled item has weight.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	private $has_weight;
 
@@ -157,7 +159,7 @@ class WC_Bundled_Item {
 	/**
 	 * Max quantity of the bundled item.
 	 *
-	 * @var boolean
+	 * @var int|string|null
 	 */
 	private $quantity_max;
 
@@ -213,14 +215,14 @@ class WC_Bundled_Item {
 	/**
 	 * Whether the bundled product can be purchased.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	private $purchasable;
 
 	/**
 	 * Whether the bundled product is Sold Individually.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	private $sold_individually;
 
@@ -230,13 +232,6 @@ class WC_Bundled_Item {
 	 * @var double
 	 */
 	private $discount;
-
-	/**
-	 * Bundled item sign-up price discount when the bundled item is priced individually (unused).
-	 *
-	 * @var double
-	 */
-	private $sign_up_discount;
 
 	/**
 	 * Array of default variation attribute selections to override, or false when no overrides are defined.
@@ -255,7 +250,7 @@ class WC_Bundled_Item {
 	/**
 	 * True if the thumbnail is set to be hidden.
 	 *
-	 * @var boolean
+	 * @var string|null
 	 */
 	private $hide_thumbnail;
 
@@ -269,7 +264,7 @@ class WC_Bundled_Item {
 	/**
 	 * Stock status of the bundled product.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	private $stock_status = null;
 
@@ -290,7 +285,7 @@ class WC_Bundled_Item {
 	/**
 	 * Raw max prices used in the min/max bundle price calculation.
 	 *
-	 * @var string
+	 * @var string|int|float|null
 	 */
 	public $max_price;
 	/**
@@ -302,7 +297,7 @@ class WC_Bundled_Item {
 	/**
 	 * Raw max regular prices used in the min/max bundle price calculation.
 	 *
-	 * @var string
+	 * @var string|int|float|null
 	 */
 	public $max_regular_price;
 	/**
@@ -400,14 +395,14 @@ class WC_Bundled_Item {
 	/**
 	 * Whether in the process of renewing a subscribed Bundle.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	public $is_subscription_renewal;
 
 	/**
 	 * Composited cart item.
 	 *
-	 * @var array
+	 * @var array|null
 	 */
 	public $composited_cart_item;
 
@@ -449,6 +444,16 @@ class WC_Bundled_Item {
 				$this->product     = $bundled_product;
 				$this->title       = 'yes' === $this->override_title ? $this->title : $bundled_product->get_title();
 				$this->description = 'yes' === $this->override_description ? $this->description : $bundled_product->get_short_description();
+
+				// A product type change must not hide variation selectors that still need input.
+				if ( 'hidden' === $this->visibility['product'] && $bundled_product->is_type( array( 'variable', 'variable-subscription' ) ) ) {
+					foreach ( $this->get_product_variation_attributes() as $attribute_name => $options ) {
+						if ( '' === $this->get_selected_product_variation_attribute( $attribute_name ) ) {
+							$this->visibility['product'] = 'visible';
+							break;
+						}
+					}
+				}
 
 				if ( false !== $parent && $this->is_purchasable() && $this->is_priced_individually() ) {
 					$this->sync_prices();
@@ -533,6 +538,7 @@ class WC_Bundled_Item {
 	 * Initialize bundled item class props from bundled item data object.
 	 *
 	 * @since 5.0.0
+	 * @return void
 	 */
 	private function load_data() {
 
@@ -602,6 +608,7 @@ class WC_Bundled_Item {
 	 * Sync stock data if needed.
 	 *
 	 * @since 5.5.0
+	 * @return void
 	 */
 	private function maybe_sync_stock() {
 		if ( is_null( $this->stock_status ) || is_null( $this->max_stock ) ) {
@@ -613,6 +620,7 @@ class WC_Bundled_Item {
 	 * Keep bundled item stock status in sync with associated product, taking 'min_quantity' into account.
 	 *
 	 * @since 5.0.0
+	 * @return void
 	 */
 	public function sync_stock() {
 
@@ -780,6 +788,7 @@ class WC_Bundled_Item {
 	 * Sync price data.
 	 *
 	 * @param  bool $force Force sync.
+	 * @return bool
 	 */
 	protected function sync_prices( $force = false ) {
 
@@ -943,6 +952,7 @@ class WC_Bundled_Item {
 	 * Indicates whether discounts can be applied on sale prices.
 	 *
 	 * @since  5.0.3
+	 * @return bool
 	 */
 	public function is_discount_allowed_on_sale_price() {
 
@@ -1604,7 +1614,7 @@ class WC_Bundled_Item {
 	 * @since  5.8.0
 	 *
 	 * @param  string $variation_attribute_name The variation attribute name.
-	 * @return array
+	 * @return bool
 	 */
 	public function is_product_variation_attribute_configurable( $variation_attribute_name ) {
 
@@ -1619,7 +1629,7 @@ class WC_Bundled_Item {
 	 * @since  5.8.0
 	 *
 	 * @param  string $variation_attribute_name The variation attribute name.
-	 * @return array
+	 * @return bool
 	 */
 	public function display_product_variation_attribute_dropdown( $variation_attribute_name ) {
 
@@ -1701,7 +1711,7 @@ class WC_Bundled_Item {
 	 *
 	 * @version 8.5.9
 	 *
-	 * @return array
+	 * @return array|false
 	 */
 	public function get_selected_product_variation_attributes() {
 
@@ -1851,7 +1861,7 @@ class WC_Bundled_Item {
 	/**
 	 * Returns this product's available variations array.
 	 *
-	 * @return array
+	 * @return array|false|null
 	 */
 	public function get_product_variations() {
 
@@ -2000,7 +2010,7 @@ class WC_Bundled_Item {
 	 * @param  array                $variation_data The variation data.
 	 * @param  WC_Product           $bundled_product The variable product.
 	 * @param  WC_Product_Variation $bundled_variation The variation product.
-	 * @return array
+	 * @return array|false
 	 */
 	public function filter_variation( $variation_data, $bundled_product, $bundled_variation ) {
 
@@ -2103,6 +2113,8 @@ class WC_Bundled_Item {
 	/**
 	 * Add price filters to modify child product prices depending on the bundled item pricing setup.
 	 * Applied i) when displaying single-product form content, ii) when initializing Product Bundles and iii) when calculating cart prices.
+	 *
+	 * @return void
 	 */
 	public function add_price_filters() {
 		WC_PB_Product_Prices::add_price_filters( $this );
@@ -2110,6 +2122,8 @@ class WC_Bundled_Item {
 
 	/**
 	 * Remove price filters after modifying child product prices depending on the bundled item pricing setup.
+	 *
+	 * @return void
 	 */
 	public function remove_price_filters() {
 		WC_PB_Product_Prices::remove_price_filters();
@@ -2298,7 +2312,7 @@ class WC_Bundled_Item {
 	 *
 	 * @param  string $type 'min' or 'max'.
 	 * @param  array  $args Additional arguments.
-	 * @return int
+	 * @return int|string
 	 */
 	public function get_quantity( $type = 'min', $args = array() ) {
 
@@ -2427,7 +2441,7 @@ class WC_Bundled_Item {
 			 *
 			 * @since 5.0.0
 			 * @param  mixed            $discount
-			 * @param  WC_Bundled_Item  $this
+			 * @param  WC_Bundled_Item  $bundled_item
 			 * @param  string           $context
 			 * @param  WC_Product       $product  The product the discount is calculated for: the chosen variation when the
 			 *                                    caller knows it, otherwise the bundled product held by the item -- the
@@ -2450,6 +2464,7 @@ class WC_Bundled_Item {
 	 * @return double
 	 */
 	public function get_sign_up_discount() {
+		// No sign-up discount has been stored since 5.0.0, so the filter keeps receiving null.
 		/**
 		 * 'woocommerce_bundled_item_sign_up_discount' filter.
 		 *
@@ -2457,7 +2472,7 @@ class WC_Bundled_Item {
 		 * @param  mixed            $sign_up_discount
 		 * @param  WC_Bundled_Item  $bundled_item
 		 */
-		return $this->is_priced_individually() ? apply_filters( 'woocommerce_bundled_item_sign_up_discount', $this->sign_up_discount, $this ) : '';
+		return $this->is_priced_individually() ? apply_filters( 'woocommerce_bundled_item_sign_up_discount', null, $this ) : '';
 	}
 
 	/**
@@ -2518,7 +2533,7 @@ class WC_Bundled_Item {
 	 * Get classes for template use.
 	 *
 	 * @param  boolean $implode Whether to return a string or an array.
-	 * @return string
+	 * @return string|array
 	 */
 	public function get_classes( $implode = true ) {
 
@@ -2812,7 +2827,7 @@ class WC_Bundled_Item {
 	 *
 	 * @since  6.15.2
 	 *
-	 * @return array
+	 * @return bool|null
 	 */
 	public function has_attributes() {
 
@@ -2846,7 +2861,7 @@ class WC_Bundled_Item {
 	 *
 	 * @since  6.15.2
 	 *
-	 * @return array
+	 * @return bool|null
 	 */
 	public function has_weight() {
 
@@ -2888,7 +2903,7 @@ class WC_Bundled_Item {
 	 *
 	 * @since  6.15.2
 	 *
-	 * @return array
+	 * @return bool|null
 	 */
 	public function has_dimensions() {
 

@@ -55,20 +55,18 @@ trait VariableCost {
 	}
 
 	private function getCostValueForName( $rate, $currency, $costName, $rateField ) {
-		if ( ! isset( $rate->$rateField ) ) {
-			@$rate->$rateField = 0;
-		}
-		if ( ! empty( $rate->instance_id ) ) {
-			if ( $this->isManualPricingEnabled( $rate ) ) {
-				$rateSettings = $this->getWpOption( $this->getMethodId(), $rate->instance_id );
-				if ( ! empty( $rateSettings[ $costName ] ) ) {
-					$rate->$rateField = $rateSettings[ $costName ];
-				} else {
-					$rate->$rateField = $this->getValueFromDefaultCurrency( $rate->$rateField, $rateSettings, $costName, $currency );
-				}
+		$cost = $rate->$rateField ?? 0;
+
+		if ( ! empty( $rate->instance_id ) && $this->isManualPricingEnabled( $rate ) ) {
+			$rateSettings = $this->getWpOption( $this->getMethodId(), $rate->instance_id );
+			if ( ! empty( $rateSettings[ $costName ] ) ) {
+				$cost = $rateSettings[ $costName ];
+			} else {
+				$cost = $this->getValueFromDefaultCurrency( $cost, $rateSettings, $costName, $currency );
 			}
 		}
-		return $rate->$rateField;
+
+		return $cost;
 	}
 
 	public function isManualPricingEnabled( $instance ) {

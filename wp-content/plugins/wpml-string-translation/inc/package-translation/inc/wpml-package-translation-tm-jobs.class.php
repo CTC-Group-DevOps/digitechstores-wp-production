@@ -53,13 +53,9 @@ class WPML_Package_TM_Jobs {
 
 		$post_translations = $this->get_post_translations();
 		foreach ( $post_translations as $lang => $translation ) {
-			$rid_query   = "SELECT rid FROM {$wpdb->prefix}icl_translation_status WHERE translation_id=%d";
-			$rid_prepare = $wpdb->prepare( $rid_query, array( $translation->translation_id ) );
-			$rid         = $wpdb->get_var( $rid_prepare );
+			$rid         = $wpdb->get_var( $wpdb->prepare( "SELECT rid FROM {$wpdb->prefix}icl_translation_status WHERE translation_id=%d", array( $translation->translation_id ) ) );
 			if ( $rid ) {
-				$job_id_query   = "SELECT job_id FROM {$wpdb->prefix}icl_translate_job WHERE rid=%d";
-				$job_id_prepare = $wpdb->prepare( $job_id_query, array( $rid ) );
-				$job_id         = $wpdb->get_var( $job_id_prepare );
+				$job_id         = $wpdb->get_var( $wpdb->prepare( "SELECT job_id FROM {$wpdb->prefix}icl_translate_job WHERE rid=%d", array( $rid ) ) );
 
 				if ( $job_id ) {
 					$wpdb->delete( $wpdb->prefix . 'icl_translate_job', array( 'job_id' => $job_id ) );
@@ -95,23 +91,24 @@ class WPML_Package_TM_Jobs {
 		$wpdb->update( "{$wpdb->prefix}icl_translate_job", $update_data, $update_where );
 	}
 
-
 	protected function get_translation_job_id( $rid ) {
 		global $wpdb;
-		$job_id_query   = "SELECT MAX(job_id) FROM {$wpdb->prefix}icl_translate_job WHERE rid=%d GROUP BY rid";
-		$job_id_prepare = $wpdb->prepare( $job_id_query, $rid );
-		$job_id         = $wpdb->get_var( $job_id_prepare );
+		$job_id         = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(job_id) FROM {$wpdb->prefix}icl_translate_job WHERE rid=%d GROUP BY rid", $rid ) );
 
 		return $job_id;
 	}
 
 	private function get_translations_job_fields( $job_id ) {
 		global $wpdb;
-		$translation_fields_query = "SELECT field_type, field_data, tid, field_translate
-							FROM {$wpdb->prefix}icl_translate
-							WHERE job_id=%d";
-		$translation_fields_query = $wpdb->prepare( $translation_fields_query, $job_id );
-		$translation_fields       = $wpdb->get_results( $translation_fields_query, OBJECT_K );
+		$translation_fields = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT field_type, field_data, tid, field_translate
+				FROM {$wpdb->prefix}icl_translate
+				WHERE job_id=%d",
+				$job_id
+			),
+			OBJECT_K
+		);
 
 		foreach ( $translation_fields as $field_type => $field ) {
 			$translation_fields[ $field_type ]->field_data      = FieldCompression::decompress( $field->field_data );

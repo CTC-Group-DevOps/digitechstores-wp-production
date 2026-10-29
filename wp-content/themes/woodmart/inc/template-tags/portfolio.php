@@ -183,7 +183,10 @@ if ( ! function_exists( 'woodmart_portfolio_filters' ) ) {
 		);
 
 		if ( is_array( $category ) ) {
-			$args = array( 'include' => $category );
+			$args = array(
+				'taxonomy' => 'project-cat',
+				'include'  => $category,
+			);
 		}
 
 		$categories = get_terms( $args );

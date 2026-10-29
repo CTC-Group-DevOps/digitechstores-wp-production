@@ -49,6 +49,8 @@ class RevSliderSliderExport extends RevSliderSlider {
 		$this->usepcl			= false;
 		
 		$wp_upload_dir			= wp_upload_dir();
+		$title					= sanitize_file_name($title); //the name comes from the request
+		$title					= ($title === '') ? 'export' : $title;
 		$this->export_path_zip	= $this->get_val($wp_upload_dir, 'basedir').'/'.$title.'.zip';
 		$this->export_url_zip	= $this->get_val($wp_upload_dir, 'baseurl').'/'.$title.'.zip';
 	}
@@ -793,6 +795,18 @@ class RevSliderSliderExport extends RevSliderSlider {
 	}
 	
 	
+	/**
+	 * a media file the HTML export may pack: the path comes from rendered markup, so it must stay inside its root
+	 * @since: 6.8.0
+	 */
+	public function is_export_media_file($root, $file){
+		$base = realpath($root);
+		$real = realpath($root.$file);
+		if($base === false || $real === false || !is_file($real) || strpos($real, rtrim($base, '/\\').DIRECTORY_SEPARATOR) !== 0) return false;
+
+		return $this->is_media_extension($real);
+	}
+
 	/**
 	 * Export a Zip with video, thumbnail and layergroup for import
 	 * @dev function

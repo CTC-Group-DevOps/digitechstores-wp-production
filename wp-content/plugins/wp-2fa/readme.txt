@@ -4,9 +4,9 @@ Plugin URI: https://melapress.com/wordpress-2fa/
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: 2FA, two-factor authentication, 2-factor authentication, WordPress authentication, Google Authenticator
-Requires at least: 5.5
-Tested up to: 7.0
-Stable tag: 4.0
+Requires at least: 5.7
+Tested up to: 7.1
+Stable tag: 4.2.1
 Requires PHP: 7.4.0
 
 Get better WordPress login security; add two-factor authentication (2FA) for all your users with this easy-to-use plugin.
@@ -147,34 +147,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 4.1.0 (2027-07-21) =
+= 4.2.1 (2026-10-14) =
 
- * **New functionality**
+ * **Functionality & plugin improvements** *
 
-	 * Added an option to customize the OTP code validity period for zero-setup 2FA.
+    *  Updated the Freemius SDK to version 2.13.5.
+    *  Added a link to the Wordfence Login Security migration guide in the wizard and migrator page.
+    *  Improved the Wordfence migration completion notice to confirm that all users' 2FA configurations and backup codes have migrated and that Wordfence Login Security can be uninstalled. Made the notice more visible and removed the OK button.
 
- * **Security fix**
+ * **Bug fixes** *
 
-	 * Fixed the **Customize email templates** heading on the white labeling page.
-
- * **Functionality & plugin improvements**
-
-	 * Improved email delivery guidance and test email error messages, with clearer troubleshooting information and links to the email deliverability documentation.
-	 * Improved the front-end 2FA settings validation message and styling when the page slug has not been configured.
-	 * Authy OneTouch approval requests are now validated entirely server-side. Approval identifiers are single-use and are no longer exposed to the browser.
-	 * Moved the user profile backup-method link customization to the relevant user profile section of the white labeling settings.
-	 * Improved the login error shown when an unexpected issue prevents 2FA verification.
-	 * Improved spacing between the **Add Passkey** button and the passkeys table when the backup methods information link is displayed.
-
- * **Bug fixes**
-
-	 * Fixed the **Customize email templates** heading on the white labeling page.
-	 * Fixed Twilio SMS delivery failures after upgrading to version 4.0, which could prevent users from receiving login or setup codes even when their Twilio credentials verified successfully.
-	 * Fixed missing **Edit Page** and **View Page** buttons in the Premium edition’s front-end settings page.
-	 * Fixed the **Bypass 2FA when logging in with passkeys** setting being disabled when switching between REST and native passkey modes.
-	 * Fixed the new-interface announcement modal repeatedly appearing because the selected option could not be saved.
-	 * Fixed passkey registration failing after closing and reopening the **Add a Passkey** modal in the same browser tab.
-	 * Fixed the **Remember this device** checkbox being unresponsive on WooCommerce login forms in the Premium edition until a failed verification attempt occurred.
-
-	
-Refer to the complete [plugin changelog](https://melapress.com/support/kb/wp-2fa-plugin-changelog/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=WP2FA&utm_content=plugin+repos+description) for more detailed information about what was new, improved and fixed in previous version updates of WP 2FA.
+    *  Fixed saving the setting that allows or blocks custom email addresses for HOTP, OOB methods. The additional settings panel now stays open when the toggle is turned off, until changes are saved.
+    *  Fixed an invisible WP 2FA submenu item under Dashboard that linked to a 404 page after updating to version 4.2.0.

@@ -15,14 +15,16 @@ class ShortCodesInGutenbergBlocks {
 		$language
 	) {
 		if ( $strategyKind === 'Gutenberg' && $package->kind === 'Page Builder ShortCode Strings' ) {
-			$package->kind = self::FORCED_GUTENBERG;
-			$strategy->add_package_to_update_list( $package, $language );
+			$forced_package       = clone $package;
+			$forced_package->kind = self::FORCED_GUTENBERG;
+			$strategy->add_package_to_update_list( $forced_package, $language );
 		}
 
 	}
 
 	public static function fixupPackage( $package_data ) {
 		if ( $package_data['package']->kind === self::FORCED_GUTENBERG ) {
+			$package_data['package']       = clone $package_data['package'];
 			$package_data['package']->kind = 'Gutenberg';
 		}
 

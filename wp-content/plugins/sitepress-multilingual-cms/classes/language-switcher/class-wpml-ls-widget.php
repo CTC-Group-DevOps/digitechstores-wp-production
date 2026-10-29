@@ -10,8 +10,10 @@ class WPML_LS_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			self::SLUG,
+			/* translators: Screen reader name of the language switcher on the site, and the name of the language switcher widget. */
 			__( 'Language Switcher', 'sitepress' ),
 			array(
+				/* translators: Screen reader name of the language switcher on the site, and the name of the language switcher widget. */
 				'description' => __( 'Language Switcher', 'sitepress' ),
 			)
 		);
@@ -28,7 +30,7 @@ class WPML_LS_Widget extends WP_Widget {
 
 		if ( 'widgets.php' === $hook ) {
 			$suffix = $sitepress->get_wp_api()->constant( 'SCRIPT_DEBUG' ) ? '' : '.min';
-			wp_enqueue_script( 'wpml-widgets', ICL_PLUGIN_URL . '/res/js/widgets' . $suffix . '.js', array( 'jquery' ) );
+			wp_enqueue_script( 'wpml-widgets', ICL_PLUGIN_URL . '/res/js/widgets' . $suffix . '.js', array( 'jquery' ), ICL_SITEPRESS_SCRIPT_VERSION );
 		}
 	}
 

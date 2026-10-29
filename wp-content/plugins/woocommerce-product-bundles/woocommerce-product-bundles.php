@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Product Bundles
  * Plugin URI: https://woocommerce.com/products/product-bundles/
  * Description: Offer product bundles, bulk discount packages, and assembled products.
- * Version: 8.5.13
+ * Version: 8.5.16
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  *
@@ -12,9 +12,9 @@
  *
  * Requires PHP: 7.4
  *
- * Requires at least: 6.9
+ * Requires at least: 7.0
  *
- * WC requires at least: 10.9
+ * WC requires at least: 11.1
  * WC tested up to: 11.2
  *
  * Requires Plugins: woocommerce
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  8.5.13
+ * @version  8.5.16
  *
  * @property-read WC_PB_Compatibility $compatibility
  * @property-read WC_PB_Modules       $modules
@@ -51,19 +51,19 @@ class WC_Bundles {
 	 *
 	 * @var string
 	 */
-	public $version = '8.5.13';
+	public $version = '8.5.16';
 
 	/**
 	 * Minimum WooCommerce version required.
 	 *
 	 * @var string
 	 */
-	public $required = '10.9.0';
+	public $required = '11.1.0';
 
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_Bundles
+	 * @var WC_Bundles|null
 	 *
 	 * @since 4.11.4
 	 */
@@ -290,6 +290,8 @@ class WC_Bundles {
 
 	/**
 	 * Constants.
+	 *
+	 * @return void
 	 */
 	public function define_constants() {
 
@@ -348,6 +350,8 @@ class WC_Bundles {
 
 	/**
 	 * Includes.
+	 *
+	 * @return void
 	 */
 	public function includes() {
 
@@ -444,6 +448,8 @@ class WC_Bundles {
 
 	/**
 	 * Admin & AJAX functions and hooks.
+	 *
+	 * @return void
 	 */
 	public function admin_includes() {
 
@@ -456,6 +462,8 @@ class WC_Bundles {
 
 	/**
 	 * Load textdomain.
+	 *
+	 * @return void
 	 */
 	public function load_translation() {
 		load_plugin_textdomain( 'woocommerce-product-bundles', false, dirname( $this->plugin_basename() ) . '/languages/' );
@@ -469,7 +477,7 @@ class WC_Bundles {
 	 * @since  6.3.0
 	 *
 	 * @param  string $handle Resource handle.
-	 * @return string
+	 * @return string|false URL, or false for an unknown handle.
 	 */
 	public function get_resource_url( $handle ) {
 
@@ -506,7 +514,7 @@ class WC_Bundles {
 	 * @since 6.15.0
 	 *
 	 * @param  string $file File path.
-	 * @return string
+	 * @return string|int|false
 	 */
 	public function get_file_version( $file ) {
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( $file ) ) {

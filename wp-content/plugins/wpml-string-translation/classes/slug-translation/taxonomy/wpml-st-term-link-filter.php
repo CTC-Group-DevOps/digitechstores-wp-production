@@ -37,12 +37,7 @@ class WPML_ST_Term_Link_Filter {
 			$termlink = $cache_item->get();
 		} else {
 			if ( $this->tax_settings->is_translated( $term->taxonomy ) ) {
-				$original_slug   = $this->slug_records->get_original( $term->taxonomy );
-				$translated_slug = $this->slug_records->get_translation( $term->taxonomy, $term_lang );
-
-				if ( $original_slug && $translated_slug && $original_slug !== $translated_slug ) {
-					$termlink = $this->replace_slug( $termlink, $original_slug, $translated_slug );
-				}
+				$termlink = $this->replace_base( $termlink, $term->taxonomy, $term_lang );
 			}
 
 			$cache_item->set( $termlink );
@@ -51,11 +46,43 @@ class WPML_ST_Term_Link_Filter {
 		return $termlink;
 	}
 
+	private function replace_base( $termlink, $taxonomy, $term_lang ) {
+		$original_slug = $this->slug_records->get_original( $taxonomy );
+		if ( ! $original_slug ) {
+			return $termlink;
+		}
+
+		$translated_slug = $this->slug_records->get_translation( $taxonomy, $term_lang );
+		$target          = $translated_slug ?: $original_slug;
+
+		foreach ( array_unique( array_filter( [ $this->get_registered_slug( $taxonomy ), $original_slug ] ) ) as $base ) {
+			if ( $base === $target ) {
+				continue;
+			}
+
+			$replaced = $this->replace_slug( $termlink, $base, $target );
+			if ( $replaced !== $termlink ) {
+				return $replaced;
+			}
+		}
+
+		return $termlink;
+	}
+
+	private function get_registered_slug( $taxonomy ) {
+		$taxonomy_object = get_taxonomy( $taxonomy );
+		if ( ! $taxonomy_object || ! is_array( $taxonomy_object->rewrite ) || empty( $taxonomy_object->rewrite['slug'] ) ) {
+			return '';
+		}
+
+		return trim( (string) $taxonomy_object->rewrite['slug'], '/' );
+	}
+
 	private function replace_slug( $termlink, $original_slug, $translated_slug ) {
-		if ( preg_match( '#/?' . preg_quote( $original_slug ) . '/#', $termlink ) ) {
+		if ( preg_match( '#/?' . preg_quote( $original_slug, '#' ) . '/#', $termlink ) ) {
 			$termlink = preg_replace(
-				'#^(/?)(' . addslashes( $original_slug ) . ')/#',
-				"$1$translated_slug/",
+				'#^(/?)(' . preg_quote( $original_slug, '#' ) . ')/#',
+				'$1' . str_replace( [ '\\', '$' ], [ '\\\\', '\\$' ], $translated_slug ) . '/',
 				$termlink
 			);
 		}

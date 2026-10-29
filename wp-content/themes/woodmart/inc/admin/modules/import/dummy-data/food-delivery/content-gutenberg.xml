@@ -179,7 +179,7 @@
 
 <!-- wp:wd/row {"blockId":"8cc7dcfd-622d-4c32-8e07-42d642d7504d"} -->
 <div id="wd-8cc7dcfd" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"4b4046bd-b564-42bd-aaf4-0b71208a5ae6","adjacentCount":2,"colWidth":66.33,"blocksGap":10,"justifyContent":"center","textAlign":"end","adjacentCountTablet":2,"adjacentCountMobile":1,"colWidthTablet":50,"colWidthMobile":100,"alignItemsMobile":"flex-start","textAlignMobile":"center","flexOrderMobile":"2"} -->
-<div id="wd-4b4046bd" class="wp-block-wd-column wd-align-is-sm-flex-start wd-align"><!-- wp:wd/title {"blockId":"f5a6d5e3-3f5d-421f-8d6d-931d54f4c553","content":"WOW! u003cbru003eIt's really fast","tpFontSize":"46","displayWidth":"","customWidth":"330","textAlignMobile":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"28"} -->
+<div id="wd-4b4046bd" class="wp-block-wd-column wd-align-is-sm-flex-start wd-align"><!-- wp:wd/title {"blockId":"f5a6d5e3-3f5d-421f-8d6d-931d54f4c553","content":"WOW! \u003cbr\u003eIt's really fast","tpFontSize":"46","displayWidth":"","customWidth":"330","textAlignMobile":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"28"} -->
 <h2 id="wd-f5a6d5e3" class="wp-block-wd-title title wd-align">WOW! <br>It's really fast</h2>
 <!-- /wp:wd/title -->
 

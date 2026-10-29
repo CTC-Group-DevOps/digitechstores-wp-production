@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for DB lifecycle management of products, bundles, bundled items and their meta.
  *
  * @class    WC_PB_DB_Sync
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_DB_Sync {
 
 	/**
 	 * Task runner.
 	 *
-	 * @var WC_PB_DB_Sync_Task_Runner
+	 * @var WC_PB_DB_Sync_Task_Runner|null
 	 */
 	private static $sync_task_runner;
 
@@ -36,12 +36,14 @@ class WC_PB_DB_Sync {
 	/**
 	 * Enable pre-syncing?
 	 *
-	 * @var int
+	 * @var bool
 	 */
 	private static $bundled_product_stock_pre_sync = true;
 
 	/**
 	 * Setup Admin class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -226,6 +228,7 @@ class WC_PB_DB_Sync {
 	 *
 	 * @param  WC_Product $duplicated_product The duplicated product.
 	 * @param  WC_Product $product        The original product.
+	 * @return void
 	 */
 	public static function duplicate_product_before_save( $duplicated_product, $product ) {
 
@@ -253,6 +256,7 @@ class WC_PB_DB_Sync {
 	 * Deletes bundled item DB entries when: i) their container product bundle is deleted, or ii) the associated bundled product is deleted.
 	 *
 	 * @param  mixed $id  ID of post being deleted.
+	 * @return void
 	 */
 	public static function delete_post( $id ) {
 
@@ -274,6 +278,7 @@ class WC_PB_DB_Sync {
 	 * Deletes bundled item DB entries when: i) their container product bundle is deleted, or ii) the associated bundled product is deleted.
 	 *
 	 * @param  mixed $id  ID of product being deleted.
+	 * @return void
 	 */
 	public static function delete_product( $id ) {
 
@@ -305,6 +310,7 @@ class WC_PB_DB_Sync {
 	 * When deleting a bundled item from the DB, clear the transients of the container bundle.
 	 *
 	 * @param  WC_Bundled_Item_Data $item  The bundled item DB object being deleted.
+	 * @return void
 	 */
 	public static function delete_bundled_item( $item ) {
 		$bundle_id = $item->get_bundle_id();
@@ -639,6 +645,8 @@ class WC_PB_DB_Sync {
 
 	/**
 	 * Spawn task runner.
+	 *
+	 * @return void
 	 */
 	public static function initialize_sync_task_runner() {
 		self::$sync_task_runner = new WC_PB_DB_Sync_Task_Runner();
@@ -741,6 +749,7 @@ class WC_PB_DB_Sync {
 	 * If a sync operation has been throttled, wait for at least 60 seconds before syncing again.
 	 *
 	 * @since  6.7.8
+	 * @return bool
 	 */
 	protected static function throttle_sync() {
 		$throttled = get_option( 'wc_pb_db_sync_task_runner_last_run', 0 );
@@ -767,6 +776,7 @@ class WC_PB_DB_Sync {
 	 * Determines if a pending sync operation exists.
 	 *
 	 * @since  6.7.8
+	 * @return bool
 	 */
 	protected static function has_throttled_sync() {
 		return 'yes' === get_option( 'wc_pb_db_sync_task_throttled', 'no' );
@@ -776,6 +786,7 @@ class WC_PB_DB_Sync {
 	 * Determines if a sync operation has been scheduled on this request.
 	 *
 	 * @since  6.7.8
+	 * @return bool
 	 */
 	protected static function has_scheduled_sync() {
 		return self::$sync_needed;
@@ -783,6 +794,8 @@ class WC_PB_DB_Sync {
 
 	/**
 	 * Schedules a sync check.
+	 *
+	 * @return void
 	 */
 	public static function schedule_sync() {
 		self::$sync_needed = true;

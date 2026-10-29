@@ -395,7 +395,7 @@ class WPML_TP_Service extends WPML_TP_REST_Object implements Serializable {
 	}
 
 	public function unserialize( $serialized ) {
-		$simple_array = unserialize( $serialized );
+		$simple_array = unserialize( $serialized, [ 'allowed_classes' => [ 'stdClass' ] ] );
 
 		$this->__unserialize( $simple_array );
 	}

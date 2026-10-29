@@ -1,4 +1,5 @@
 <?php
+if(!defined('ABSPATH')) exit();
 $css = '.tp-caption.medium_grey {
 position:absolute;
 color:#fff;

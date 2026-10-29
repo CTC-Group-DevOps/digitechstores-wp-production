@@ -73,6 +73,7 @@ class WCML_Cart_Switch_Lang_Functions implements \IWPML_Frontend_Action, \IWPML_
 
 				$force_cart_url   = add_query_arg( 'force_switch', '1', $current_url );
 				$active_languages = apply_filters( 'wpml_active_languages', null, null );
+				/* translators: Title of the dialog that warns the shopper their cart will be emptied when they change language. */
 				$dialog_title     = __( 'Switching language?', 'woocommerce-multilingual' );
 
 				$confirmation_message = sprintf(

@@ -40,6 +40,7 @@ class Review implements IWPML_Backend_Action, IWPML_Frontend_Action, IWPML_DIC_A
 			$notice->set_dismissible( true );
 
 			$reviewLink   = 'https://wordpress.org/support/plugin/woocommerce-multilingual/reviews/?filter=5#new-post';
+			/* translators: Button label in an admin notice that opens the plugin's review page on WordPress.org. Verb, imperative: write a review. */
 			$reviewButton = $this->wpmlNotices->get_new_notice_action( esc_html__( 'Review WPML Multilingual & Multicurrency for WooCommerce', 'woocommerce-multilingual' ), $reviewLink, false, false, true );
 			$notice->add_action( $reviewButton );
 
@@ -51,6 +52,7 @@ class Review implements IWPML_Backend_Action, IWPML_Frontend_Action, IWPML_DIC_A
 
 	private function getNoticeText(): string {
 		$text = '<h2>';
+		/* translators: Heading of the admin notice that congratulates the shop owner on the first order paid in a secondary currency. */
 		$text .= esc_html__( 'Congrats on making your first multicurrency sale!', 'woocommerce-multilingual' );
 		$text .= '</h2>';
 

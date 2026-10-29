@@ -22,12 +22,18 @@ class WPML_Language_Switcher extends WPML_SP_User {
 		$this->dependencies->inline_styles()->init_hooks();
 
 		if ( is_admin() ) {
+			add_action( 'admin_init', array( $this, 'refresh_custom_twig_templates_notice' ) );
+
 			if ( did_action( 'set_current_user' ) ) {
 				$this->init_admin_hooks();
 			} else {
 				add_action( 'set_current_user', array( $this, 'init_admin_hooks' ) );
 			}
 		}
+	}
+
+	public function refresh_custom_twig_templates_notice() {
+		( new \WPML\LanguageSwitcher\CustomTwigTemplatesNotice( $this->dependencies->settings(), $this->dependencies->templates() ) )->refresh();
 	}
 
 	public function init_admin_hooks() {

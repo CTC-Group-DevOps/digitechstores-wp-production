@@ -562,8 +562,8 @@
 															<wp:post_id>4718</wp:post_id>
 					<wp:post_date><![CDATA[2021-08-18 09:41:50]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2021-08-18 09:41:50]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 12:41:59]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 12:41:59]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-24 08:21:04]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-24 08:21:04]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-coffee]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -656,6 +656,10 @@
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_wpb_shortcodes_custom_css]]></wp:meta_key>
 							<wp:meta_value><![CDATA[.vc_custom_1608647063438{margin-bottom: -40px !important;padding-top: 40px !important;background-color: #f3f3f3 !important;}.vc_custom_1608560233534{padding-top: 0px !important;}.vc_custom_1608564027152{padding-top: 0px !important;}.vc_custom_1629280677150{margin-bottom: 0px !important;}.vc_custom_1629280734929{margin-bottom: 25px !important;}.vc_custom_1635340858311{margin-bottom: 20px !important;}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_wpb_shortcodes_custom_css_updated]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>

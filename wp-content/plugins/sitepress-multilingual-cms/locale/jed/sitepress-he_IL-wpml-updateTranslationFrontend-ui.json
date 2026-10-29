@@ -8,13 +8,13 @@
             "lang": "he_IL"
          },
          "Please wait, applying translation..": [
-            "המתן, התרגום מיושם."
+            "אנא המתן, מחיל את התרגום..."
          ],
          "There was an error in applying translation.": [
-            "אירעה שגיאה בעת יישום התרגום."
+            "אירעה שגיאה בהחלת התרגום."
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "מישהו כבר בודק את התרגום הזה. נסה שוב מאוחר יותר."
+            "מישהו כבר סוקר את התרגום הזה. אנא נסה שוב מאוחר יותר."
          ]
       }
    }

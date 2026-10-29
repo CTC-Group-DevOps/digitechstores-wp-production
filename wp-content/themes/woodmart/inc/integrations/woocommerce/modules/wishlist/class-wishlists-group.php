@@ -74,7 +74,18 @@ class Wishlists_Group extends Singleton {
 			return false;
 		}
 
-		$group_id = sanitize_text_field( wp_unslash( $_GET['group_id'] ) );
+		$group_id = absint( wp_unslash( $_GET['group_id'] ) );
+		$wishlist = $this->get_wishlist();
+
+		if ( ! $wishlist->is_group_owner( $group_id ) ) {
+			wp_send_json(
+				array(
+					'status'  => 'error',
+					'message' => esc_html__( 'You are not allowed to delete this wishlist.', 'woodmart' ),
+				),
+				403
+			);
+		}
 
 		$wishlist = $this->get_wishlist( $group_id );
 
@@ -163,12 +174,34 @@ class Wishlists_Group extends Singleton {
 		$wishlist     = $this->get_wishlist();
 		$products_id  = sanitize_text_field( $_GET['products_id'] ); //phpcs:ignore
 		$new_group_id = sanitize_text_field( $_GET['group_id'] ); //phpcs:ignore
-		$old_group_id = sanitize_text_field( $_GET['group_id_old'] ); //phpcs:ignore
+		$old_group_id = absint( $_GET['group_id_old'] ); //phpcs:ignore
+
+		if ( ! $wishlist->is_group_owner( $old_group_id ) ) {
+			wp_send_json(
+				array(
+					'status'  => 'error',
+					'message' => esc_html__( 'You are not allowed to modify this wishlist.', 'woodmart' ),
+				),
+				403
+			);
+		}
 
 		$products_id = explode( ',', $products_id );
 		$groups_ids  = woodmart_get_wishlist_groups();
 
-		if ( ! isset( $groups_ids[ $new_group_id ] ) ) {
+		if ( isset( $groups_ids[ $new_group_id ] ) ) {
+			$new_group_id = absint( $new_group_id );
+
+			if ( ! $wishlist->is_group_owner( $new_group_id ) ) {
+				wp_send_json(
+					array(
+						'status'  => 'error',
+						'message' => esc_html__( 'You are not allowed to modify this wishlist.', 'woodmart' ),
+					),
+					403
+				);
+			}
+		} else {
 			$new_group_id = $wishlist->create_group( $new_group_id );
 		}
 

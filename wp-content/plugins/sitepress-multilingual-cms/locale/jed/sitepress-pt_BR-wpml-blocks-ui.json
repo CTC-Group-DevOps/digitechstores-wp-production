@@ -14,13 +14,13 @@
             "Âncora HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Adicionar um atalho para este bloco ao carregar a página usando o URL “#anchor”."
+            "Adicione um atalho para este bloco ao carregar a página usando a URL “#anchor”."
          ],
          "Additional CSS class(es)": [
-            "Classe(s) CSS adicional(is)"
+            "Classes CSS adicionais"
          ],
          "Separate multiple classes with spaces.": [
-            "Separar várias classes com espaços."
+            "Separe várias classes com espaços."
          ],
          "Color": [
             "Cor"
@@ -53,13 +53,13 @@
             "Preenchimento do idioma"
          ],
          "Display": [
-            "Exibir"
+            "Exibição"
          ],
          "Show flag": [
-            "Mostrar bandeira"
+            "Exibir bandeira"
          ],
          "Show language name": [
-            "Mostrar nome do idioma"
+            "Exibir nome do idioma"
          ],
          "Display language name in": [
             "Exibir nome do idioma em"
@@ -86,28 +86,28 @@
             "Idiomas disponíveis"
          ],
          "Allow wrapping to multiple lines": [
-            "Permitir quebra de linha"
+            "Permitir quebra em várias linhas"
          ],
          "Open on click": [
             "Abrir ao clicar"
          ],
          "Show arrow": [
-            "Mostrar seta"
+            "Exibir seta"
          ],
          "Layout": [
             "Layout"
          ],
          "Justification": [
-            "Justificativa"
+            "Justificação"
          ],
          "Orientation": [
             "Orientação"
          ],
          "Language Switcher": [
-            "Seletor de idioma"
+            "Seletor de idiomas"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Seletor de idioma, pressione tab para navegar para outros idiomas"
+            "Seletor de idiomas, pressione tab para navegar para outros idiomas"
          ],
          "Typography": [
             "Tipografia"
@@ -143,7 +143,7 @@
             "Justificar itens à direita"
          ],
          "Justify items space between": [
-            "Justificar itens com espaço entre"
+            "Justificar itens com espaço entre eles"
          ],
          "Horizontal": [
             "Horizontal"
@@ -176,16 +176,13 @@
             "Pequeno"
          ],
          "Displays the WPML Language Switcher.": [
-            "Exibe o seletor de idioma do WPML."
+            "Exibe o seletor de idiomas do WPML."
          ],
          "displays the WPML Language Switcher": [
-            "exibe o seletor de idioma do WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Exibe o seletor de idioma do WPML. <br/> Saiba <a>como traduzir este bloco</a>."
+            "exibe o seletor de idiomas do WPML"
          ],
          "Navigation Language Switcher": [
-            "Seletor de idioma de navegação"
+            "Seletor de idiomas de navegação"
          ],
          "Reset all": [
             "Redefinir tudo"

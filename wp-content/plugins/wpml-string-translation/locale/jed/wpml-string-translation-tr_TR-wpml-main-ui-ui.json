@@ -7,26 +7,26 @@
             "plural_forms": "nplurals=2; plural=(n > 1);",
             "lang": "tr_TR"
          },
-         "Edit": [
-            "Düzenle"
+         "Edit %s": [
+            "%s dilini düzenle"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
          ],
-         "Translation to:": [
-            "Çeviri dili:"
-         ],
-         "Copy from original": [
-            "Orijinalinden kopyala"
-         ],
-         "Use Shift+Enter to add a new line.": [
-            "Yeni bir satır eklemek için Shift+Enter kullanın."
-         ],
          "Original:": [
             "Orijinal:"
+         ],
+         "Translation to:": [
+            "Hedef dil:"
+         ],
+         "Copy from original": [
+            "Orijinalden kopyala"
+         ],
+         "Use Shift+Enter to add a new line.": [
+            "Yeni satır eklemek için Shift+Enter tuşlarını kullanın."
          ],
          "Add %s translation": [
             "%s çevirisi ekle"
@@ -35,19 +35,16 @@
             "%s çevirisini düzenle"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "%s çevirisi ekle (dize sitede görünüyor ve çevrilmemiş)"
+            "%s çevirisi ekle (dizgi sitede görünüyor ve çevrilmemiş)"
          ],
          "Original language %s": [
-            "Orijinal dil %s"
+            "Orijinal dil: %s"
          ],
          "Waiting for translator to %s": [
-            "Çevirmen %s için bekleniyor"
+            "%s diline çeviri için çevirmen bekleniyor"
          ],
          "Translation in progress to %s": [
-            "%s için çeviri devam ediyor"
-         ],
-         "In basket for translation to %s": [
-            "%s için çeviri sepetinde"
+            "%s diline çeviri devam ediyor"
          ],
          "Translation saved.": [
             "Çeviri kaydedildi."

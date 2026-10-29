@@ -1,4 +1,37 @@
 <div class="slider-revolution-update-list">	
+	<h3 class="version-number">Version 6.8.1 (26th October 2026)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>The Dashboard tells lifetime and CodeCanyon licences what SR7 keeps: every module comes along, premium add-ons pause, and modules from premium templates keep showing but need an SR7 licence for changes</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bug Fixes</strong></div>
+	<ul>
+		<li>The update buttons on the Dashboard no longer break onto two lines on screens up to 1350 px wide</li>
+	</ul>
+	<h3 class="version-number">Version 6.8.0 (26th October 2026)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Slider Revolution 7 is now a free update for every site. The Dashboard prepares your modules for SR7 and then offers the update, your SR6 data stays as a backup</li>
+		<li>Lifetime and CodeCanyon licences can now update to Slider Revolution 7</li>
+		<li>Slider Revolution 6 keeps getting its security fixes for free until 1 March 2028. The plugins screen and the licence messages say so, and that ticket support comes with an annual licence</li>
+		<li>Before the update, the Dashboard names modules that could not be prepared yet. SR7 prepares them again after the update</li>
+		<li>Visitors' front-end requests are limited to 120 per minute per IP. Sites behind a proxy can pass the real visitor IP with the revslider_client_ip filter</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bug Fixes</strong></div>
+	<ul>
+		<li>Fixed Unauthenticated Sensitive Information Exposure of unpublished posts in post-based modules</li>
+		<li>Fixed Authenticated (Contributor+) Stored Cross-Site Scripting via shortcode attributes</li>
+		<li>Fixed Authenticated (Contributor+) Sensitive Information Exposure of stream credentials</li>
+		<li>Fixed Arbitrary File Read and unsanitized SVGs in the module import</li>
+		<li>Fixed Stored Cross-Site Scripting via post meta, page color, Essential Grid source and stream content</li>
+		<li>Fixed Reflected Cross-Site Scripting in the Instagram and Facebook connection messages</li>
+		<li>Fixed unauthenticated requests that could force slow calls to the update servers</li>
+		<li>Uploaded media no longer gets a "1-" prefix in its file name</li>
+		<li>Migration to version 7 now makes duplicated layer ID and Wrapper ID attributes unique</li>
+		<li>Fixed a potential issue where modules with height set to auto could fail to render</li>
+		<li>Prevented a single incomplete or malformed layer from stopping the entire module from rendering</li>
+		<li>Fixed the Alternative First Slide setting being ignored when Shuffle Order on Load was enabled</li>
+	</ul>
 	<h3 class="version-number">Version 6.7.58 (24th June 2026)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bug Fixes</strong></div>
 	<ul>
@@ -76,13 +109,13 @@
 	<h3 class="version-number">Version 6.7.40 (10th December 2025)</h3>	
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>
-		<li>Let slideshow auto play again when switching slides after pausing with Stop on Slide.</li>
+		<li>Let slideshow auto-play again when switching slides after pausing with Stop on Slide.</li>
 		<li>Fixed Editor Bug, where Object Library was not updating the existing Image Source, changes were first visible after reload</li>
 	</ul>		
 	<h3 class="version-number">Version 6.7.39 (9th October 2025)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bug Fixes</strong></div>
 	<ul>
-		<li>Fixed issue with not "jupming" Pan Zoom Effects</li>			
+		<li>Fixed issue with not "jumping" Pan Zoom Effects</li>			
 		<li>Fixed error displayed on modules with Auto Rotate is disabled.</li>
 		<li>Fixed progress bar not showing again after getting paused by Stop On Slide option.</li>	
 		<li>Fixed touch swipe navigation not working on mobile.</li>		
@@ -662,7 +695,7 @@
 	<div class="bugfix"><strong style="font-weight:700">Bug Fixes</strong></div>
 	<ul>	
 		<li>Fullscreen carousel with padding overflows the module</li>
-		<li>Security vulnerability associated with unserializing objects from the 'custom_animations.txt' file.</li>
+		<li>Security vulnerability associated with unserializing objects from the 'custom_animations.txt' file</li>
 	</ul>
 	<h3 class="version-number">Version 6.6.18 (23rd October 2023)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bug Fixes</strong></div>

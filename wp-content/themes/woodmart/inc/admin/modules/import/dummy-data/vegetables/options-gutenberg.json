@@ -527,5 +527,7 @@
     "shop_view": "grid",
     "legacy_product_tabs_enabled": "0",
     "custom_product_tabs_enabled": "1",
-    "blog_archive_layout": "full-width"
+    "blog_archive_layout": "full-width",
+    "products_hover_type": "custom",
+    "product_custom_hover": "891"
 }

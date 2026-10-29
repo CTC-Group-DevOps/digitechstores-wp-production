@@ -126,9 +126,16 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
     };
 
     var attachTooltipEvents = function () {
-        formAndDialogBox.on('click.tooltip', '.js-wpml-ls-tooltip-open', function (e) {
-            e.preventDefault();
-            openTooltip($(this));
+        // The language-switcher help icons can be re-rendered inside the
+        // settings dialog, so delegate from formAndDialogBox. They carry an
+        // optional data-link-* doc link inside the popover.
+        WPMLCore.createHoverableTooltip({
+            context:      formAndDialogBox,
+            trigger:      '.js-wpml-ls-tooltip-open',
+            popover:      '.js-wpml-ls-tooltip',
+            activeClass:  'js-wpml-ls-active-tooltip',
+            pointerClass: 'js-wpml-ls-tooltip wpml-ls-tooltip',
+            withLink:     true
         });
     };
 
@@ -459,52 +466,6 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 		});
 	};
 
-	var openTooltip = function(triggerNode) {
-		var content = triggerNode.data('content');
-		var link_text = triggerNode.data('link-text');
-		var link_url = triggerNode.data('link-url');
-		var link_target = triggerNode.data('link-target');
-
-		if (link_text.length > 0) {
-			if (link_url.length === 0) {
-				link_url = '#';
-			}
-			var content_link_target = 'target="' + link_target + '"';
-			content += '<br><br><a href="' + link_url + '" ' + content_link_target + '>';
-			content += link_text;
-			content += '</a>';
-		}
-
-		$('.js-wpml-ls-active-tooltip').pointer('close');
-
-		if(triggerNode.length && content) {
-			triggerNode.addClass('js-wpml-ls-active-tooltip');
-			triggerNode.pointer({
-				pointerClass : 'js-wpml-ls-tooltip wpml-ls-tooltip',
-				content:       content,
-				position: {
-					edge:  'bottom',
-					align: 'left'
-				},
-				show: function(event, t){
-					t.pointer.css('marginLeft', '-54px');
-				},
-				close: function(event, t){
-					t.pointer.css('marginLeft', '0');
-				},
-				buttons: function( event, t ) {
-					var button = $('<a class="close" href="#">&nbsp;</a>');
-
-					return button.on( 'click.pointer', function(e) {
-						e.preventDefault();
-						t.element.pointer('close');
-					});
-				},
-
-			}).pointer('open');
-		}
-	};
-
 	var cloneSubformIntoDialog = function(subform) {
 		var subformClone = subform.clone(true);
 
@@ -673,7 +634,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 		row.data('item-type', itemType);
 		row.find('.js-wpml-ls-subform').addBack().data('item-slug', slug);
 		row.find('.js-wpml-ls-subform').data('origin-id', newRowId);
-		row.find('.js-wpml-ls-row-title').html(newTitle);
+		row.find('.js-wpml-ls-row-title').text(newTitle);
 	};
 
 	var replaceSubformElementsAttributes = function(subform, newSlug) {

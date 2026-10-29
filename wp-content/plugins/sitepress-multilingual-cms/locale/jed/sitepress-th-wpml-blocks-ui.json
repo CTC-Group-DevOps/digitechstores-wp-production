@@ -11,22 +11,22 @@
             "ขั้นสูง"
          ],
          "HTML anchor": [
-            "จุดยึด HTML"
+            "HTML anchor"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "เพิ่มทางลัดไปยังบล็อกนี้เมื่อโหลดหน้าโดยใช้ URL “#anchor”"
+            "เพิ่มทางลัดไปยังบล็อกนี้เมื่อโหลดหน้าเว็บโดยใช้ URL “#anchor”"
          ],
          "Additional CSS class(es)": [
             "คลาส CSS เพิ่มเติม"
          ],
          "Separate multiple classes with spaces.": [
-            "แยกหลายคลาสด้วยช่องว่าง"
+            "แยกหลายคลาสด้วยการเว้นวรรค"
          ],
          "Color": [
             "สี"
          ],
          "px": [
-            "พิกเซล"
+            "px"
          ],
          "%": [
             "%"
@@ -38,7 +38,7 @@
             "บล็อก"
          ],
          "Block margin": [
-            "ระยะขอบบล็อก"
+            "ระยะห่างภายนอกบล็อก"
          ],
          "Block padding": [
             "ระยะห่างภายในบล็อก"
@@ -47,7 +47,7 @@
             "ภาษา"
          ],
          "Language spacing": [
-            "ระยะห่างภาษา"
+            "ระยะห่างระหว่างภาษา"
          ],
          "Language padding": [
             "ระยะห่างภายในภาษา"
@@ -80,13 +80,13 @@
             "ระยะห่าง"
          ],
          "Switch to %s": [
-            "สลับไปที่ %s"
+            "สลับเป็น %s"
          ],
          "Available languages": [
-            "ภาษาที่ใช้ได้"
+            "ภาษาที่มีอยู่"
          ],
          "Allow wrapping to multiple lines": [
-            "อนุญาตให้ขึ้นบรรทัดใหม่ได้หลายบรรทัด"
+            "อนุญาตให้ตัดขึ้นบรรทัดใหม่"
          ],
          "Open on click": [
             "เปิดเมื่อคลิก"
@@ -95,22 +95,22 @@
             "แสดงลูกศร"
          ],
          "Layout": [
-            "เค้าโครง"
+            "เลย์เอาต์"
          ],
          "Justification": [
-            "การจัดแนว"
+            "การจัดตำแหน่ง"
          ],
          "Orientation": [
-            "การวางแนว"
+            "แนววาง"
          ],
          "Language Switcher": [
             "ตัวสลับภาษา"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "ตัวสลับภาษา กด Tab เพื่อไปยังภาษาอื่น"
+            "ตัวสลับภาษา กดแท็บเพื่อไปยังภาษาอื่น"
          ],
          "Typography": [
-            "การพิมพ์"
+            "การจัดพิมพ์"
          ],
          "Background": [
             "พื้นหลัง"
@@ -137,13 +137,13 @@
             "จัดรายการชิดซ้าย"
          ],
          "Justify items center": [
-            "จัดรายการกึ่งกลาง"
+            "จัดรายการไว้ตรงกลาง"
          ],
          "Justify items right": [
             "จัดรายการชิดขวา"
          ],
          "Justify items space between": [
-            "จัดรายการเว้นระยะห่างเท่ากัน"
+            "จัดรายการแบบกระจายตัว"
          ],
          "Horizontal": [
             "แนวนอน"
@@ -155,7 +155,7 @@
             "ปกติ"
          ],
          "Medium": [
-            "ปานกลาง"
+            "กลาง"
          ],
          "Large": [
             "ใหญ่"
@@ -164,13 +164,13 @@
             "ใหญ่พิเศษ"
          ],
          "Ab": [
-            "Ab"
+            "กข"
          ],
          "AB": [
-            "AB"
+            "กข"
          ],
          "ab": [
-            "ab"
+            "กข"
          ],
          "Small": [
             "เล็ก"
@@ -181,11 +181,8 @@
          "displays the WPML Language Switcher": [
             "แสดงตัวสลับภาษา WPML"
          ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "แสดงตัวสลับภาษา WPML <br/> เรียนรู้ <a>วิธีแปลบล็อกนี้</a>"
-         ],
          "Navigation Language Switcher": [
-            "ตัวสลับภาษาการนำทาง"
+            "ตัวสลับภาษาสำหรับการนำทาง"
          ],
          "Reset all": [
             "รีเซ็ตทั้งหมด"

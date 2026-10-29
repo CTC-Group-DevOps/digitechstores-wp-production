@@ -17,7 +17,18 @@ class SharedHooks implements \IWPML_Action {
 		add_action( 'init', [ __CLASS__, 'load_assets' ] );
 		add_filter( 'wcml_multi_currency_ajax_actions', [ __CLASS__, 'wcml_multi_currency_is_ajax' ] );
 
-		$this->clear_transient_fields();
+		add_action( 'admin_menu', [ $this, 'bind_calendar_cache_clear' ], PHP_INT_MAX );
+	}
+
+	public function bind_calendar_cache_clear() {
+		if ( ! function_exists( 'get_plugin_page_hookname' ) ) {
+			return;
+		}
+
+		add_action(
+			'load-' . get_plugin_page_hookname( 'booking_calendar', 'edit.php?post_type=' . WCML_Bookings::POST_TYPE ),
+			[ $this, 'clear_transient_fields' ]
+		);
 	}
 
 	public static function load_assets( $externalProductType = false ) {
@@ -46,15 +57,12 @@ class SharedHooks implements \IWPML_Action {
 	}
 
 	public function clear_transient_fields() {
-		if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == WCML_Bookings::POST_TYPE && isset( $_GET['page'] ) && $_GET['page'] == 'booking_calendar' ) {
-
-			$this->wpdb->query(
-				"
+		$this->wpdb->query(
+			"
                 DELETE FROM {$this->wpdb->options}
 		        WHERE option_name LIKE '%book_dr_%'
 		    "
-			);
-		}
+		);
 	}
 
 	public static function isBooking( $product ) {

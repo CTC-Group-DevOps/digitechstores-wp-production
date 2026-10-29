@@ -398,6 +398,7 @@ class RevSlider7Output extends RevSliderFunctions {
 	public function set_custom_settings($settings){
 		$settings = preg_replace('/\\\\u([0-9a-fA-F]{4})/', '', $settings);
 		$settings = ($settings !== '' && !is_array($settings)) ? json_decode(str_replace(array('({', '})', "'"), array('[', ']', '"'), wp_kses_post($settings)), true) : $settings;
+		$settings = $this->sanitize_custom_settings($settings);
 		
 		$this->custom_settings = apply_filters('revslider_set_custom_settings', $settings, $this);
 	}
@@ -1080,7 +1081,7 @@ class RevSlider7Output extends RevSliderFunctions {
 			foreach($attr as $key => $value){
 				$additions .= (!empty($value)) ? ' '.$key.'="'. esc_attr(strip_tags($value)) .'"' : '';
 			}
-			$images[] = RS_T6.'<img data-src="'. $imgsrc .'"'.$additions.' width="0" height="0" data-dbsrc="'. base64_encode($imgorig) .'"/>';
+			$images[] = RS_T6.'<img data-src="'. esc_attr($imgsrc) .'"'.$additions.' width="0" height="0" data-dbsrc="'. base64_encode($imgorig) .'"/>';
 		}
 
 		$images = apply_filters('sr_add_image_lists', $images, $this);
@@ -1257,17 +1258,18 @@ class RevSlider7Output extends RevSliderFunctions {
 			break;
 		}
 
+		$json_flags = JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
 		$html = '';
 		if($csizes['cacheSize'] !== false){
-			$cs = explode(',', $csizes['cacheSize']);
-			if(!empty(array_diff($cs, array('0', 0, 'auto')))) $html .= 'el:['.esc_attr($csizes['cacheSize']).'],';
+			$cs = array_map('trim', explode(',', $csizes['cacheSize']));
+			if(!empty(array_diff($cs, array('0', 0, 'auto')))) $html .= 'el:'.wp_json_encode($cs, $json_flags).',';
 		}
 		$html .= ($fixed !== false) ? "fixed:true," : '';
 		$html .= "type:'".esc_attr($mtype)."',";
 		if ($shdw!==false && $shdw!=="false") $html .= "shdw:'".esc_attr($shdw)."',";
 		$html .= ($len !== false) ? "slideduration:'".esc_attr($len)."'," : '';
-		$html .= "gh:[". esc_attr($csizes['height']) ."],";
-		$html .= "gw:[". esc_attr($csizes['width']) ."],";
+		$html .= 'gh:'.wp_json_encode(array_map('trim', explode(',', $csizes['height'])), $json_flags).',';
+		$html .= 'gw:'.wp_json_encode(array_map('trim', explode(',', $csizes['width'])), $json_flags).',';
 		$html .= "vpt:['".esc_attr($vport)."'],";
 		$html .= "size:{fullWidth:".($fullwidth ? "true" : "false").", fullHeight:".($fullheight ? "true" : "false")."},";
 		

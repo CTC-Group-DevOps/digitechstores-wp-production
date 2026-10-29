@@ -28,17 +28,13 @@ class WPML_User_Admin_Language {
 	}
 
 	private function get_from_user_settings( $user_id ) {
-		if ( get_user_meta( $user_id, 'icl_admin_language_for_edit', true ) ) {
-			$lang = $this->sitepress->get_current_language();
-		} else {
-			$lang = get_user_meta( $user_id, 'icl_admin_language', true );
+		$lang = get_user_meta( $user_id, 'icl_admin_language', true );
 
-			if ( ! $lang ) {
-				$user_locale = get_user_meta( $user_id, 'locale', true );
+		if ( ! $lang ) {
+			$user_locale = get_user_meta( $user_id, 'locale', true );
 
-				if ( $user_locale ) {
-					$lang = $this->sitepress->get_language_code_from_locale( $user_locale );
-				}
+			if ( $user_locale ) {
+				$lang = $this->sitepress->get_language_code_from_locale( $user_locale );
 			}
 		}
 

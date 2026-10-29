@@ -1,0 +1,601 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Registers read-only WordPress Abilities for AI agents (WP 6.9+).
+ *
+ * Agent exposure must be enabled in settings for abilities to run, including direct
+ * {@see WP_Ability::execute()} calls. REST/MCP visibility uses the same flag.
+ */
+class AAL_Abilities {
+
+	const CATEGORY = 'activity-log';
+
+	const ABILITY_QUERY_LOGS  = 'activity-log/query-logs';
+	const ABILITY_GET_LOG     = 'activity-log/get-log';
+	const ABILITY_GET_FILTERS      = 'activity-log/get-filters';
+	const ABILITY_SUMMARIZE_ACTIVITY   = 'activity-log/summarize-activity';
+	const ABILITY_DETECT_SUSPICIOUS    = 'activity-log/detect-suspicious-events';
+
+	const FAILED_LOGIN_THRESHOLD = 5;
+	const SUSPICIOUS_ROW_LIMIT   = 500;
+
+	const SENSITIVE_OPTIONS = array( 'siteurl', 'home', 'admin_email', 'users_can_register', 'default_role' );
+	const WORK_HOURS        = array( 8, 20 );
+
+	const SUSPICIOUS_RULES = array(
+		'failed_login_burst'   => 'high',
+		'login_after_failures' => 'high',
+		'new_admin'            => 'high',
+		'plugin_activated'     => 'medium',
+		'sensitive_option'     => 'high',
+		'agent_off_hours'      => 'medium',
+	);
+
+	/**
+	 * @var AAL_REST
+	 */
+	private $rest;
+
+	public function __construct( AAL_REST $rest ) {
+		$this->rest = $rest;
+
+		if ( ! function_exists( 'wp_register_ability' ) ) {
+			return;
+		}
+
+		add_action( 'wp_abilities_api_categories_init', array( $this, 'register_category' ) );
+		add_action( 'wp_abilities_api_init', array( $this, 'register_abilities' ) );
+	}
+
+	/**
+	 * @return string 'yes' or 'no'
+	 */
+	public static function get_agent_exposure_setting() {
+		$options = AAL_Main::instance()->settings->get_options();
+
+		if ( is_array( $options ) && array_key_exists( 'abilities_agent_exposure', $options ) ) {
+			return 'yes' === $options['abilities_agent_exposure'] ? 'yes' : 'no';
+		}
+
+		return 'no';
+	}
+
+	/**
+	 * Whether abilities are exposed to REST / MCP clients.
+	 *
+	 * @return bool
+	 */
+	public static function is_agent_exposure_enabled() {
+		return 'yes' === self::get_agent_exposure_setting();
+	}
+
+	public function register_category() {
+		wp_register_ability_category(
+			self::CATEGORY,
+			array(
+				'label'       => __( 'Activity Log', 'aryo-activity-log' ),
+				'description' => __( 'Read-only access to site activity log entries for auditing and monitoring.', 'aryo-activity-log' ),
+			)
+		);
+	}
+
+	public function register_abilities() {
+		$exposure_meta = $this->get_exposure_meta();
+
+		wp_register_ability(
+			self::ABILITY_QUERY_LOGS,
+			array(
+				'label'               => __( 'Query activity logs', 'aryo-activity-log' ),
+				'description'         => __( 'Returns paginated activity log entries with the same filters as the Activity Log admin list.', 'aryo-activity-log' ),
+				'category'            => self::CATEGORY,
+				'input_schema'        => self::get_query_logs_input_schema(),
+				'output_schema'       => self::get_query_logs_output_schema(),
+				'execute_callback'    => array( $this, 'execute_query_logs' ),
+				'permission_callback' => array( $this, 'check_view_permission' ),
+				'meta'                => $exposure_meta,
+			)
+		);
+
+		wp_register_ability(
+			self::ABILITY_GET_LOG,
+			array(
+				'label'               => __( 'Get activity log entry', 'aryo-activity-log' ),
+				'description'         => __( 'Returns a single activity log entry by ID.', 'aryo-activity-log' ),
+				'category'            => self::CATEGORY,
+				'input_schema'        => self::get_get_log_input_schema(),
+				'output_schema'       => self::get_log_entry_output_schema(),
+				'execute_callback'    => array( $this, 'execute_get_log' ),
+				'permission_callback' => array( $this, 'check_view_permission' ),
+				'meta'                => $exposure_meta,
+			)
+		);
+
+		wp_register_ability(
+			self::ABILITY_GET_FILTERS,
+			array(
+				'label'               => __( 'Get activity log filters', 'aryo-activity-log' ),
+				'description'         => __( 'Returns available filter values (users, roles, topics, actions, sources) for the current user.', 'aryo-activity-log' ),
+				'category'            => self::CATEGORY,
+				'input_schema'        => self::get_get_filters_input_schema(),
+				'output_schema'       => self::get_filters_output_schema(),
+				'execute_callback'    => array( $this, 'execute_get_filters' ),
+				'permission_callback' => array( $this, 'check_view_permission' ),
+				'meta'                => $exposure_meta,
+			)
+		);
+
+		wp_register_ability(
+			self::ABILITY_SUMMARIZE_ACTIVITY,
+			array(
+				'label'               => __( 'Summarize activity', 'aryo-activity-log' ),
+				'description'         => __( 'Returns aggregated activity statistics for a time range (counts by action, type, user, channel, and time buckets).', 'aryo-activity-log' ),
+				'category'            => self::CATEGORY,
+				'input_schema'        => self::get_summarize_activity_input_schema(),
+				'output_schema'       => self::get_summarize_activity_output_schema(),
+				'execute_callback'    => array( $this, 'execute_summarize_activity' ),
+				'permission_callback' => array( $this, 'check_view_permission' ),
+				'meta'                => $exposure_meta,
+			)
+		);
+
+		wp_register_ability(
+			self::ABILITY_DETECT_SUSPICIOUS,
+			array(
+				'label'               => __( 'Detect suspicious events', 'aryo-activity-log' ),
+				'description'         => __( 'Scans activity log entries for suspicious patterns (failed login bursts, sensitive options, off-hours agent activity).', 'aryo-activity-log' ),
+				'category'            => self::CATEGORY,
+				'input_schema'        => self::get_detect_suspicious_input_schema(),
+				'output_schema'       => self::get_detect_suspicious_output_schema(),
+				'execute_callback'    => array( $this, 'execute_detect_suspicious_events' ),
+				'permission_callback' => array( $this, 'check_view_permission' ),
+				'meta'                => $exposure_meta,
+			)
+		);
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	private function get_exposure_meta() {
+		$public = self::is_agent_exposure_enabled();
+
+		return array(
+			'annotations'  => array(
+				'readonly'    => true,
+				'destructive' => false,
+				'idempotent'  => true,
+			),
+			'show_in_rest' => $public,
+			'public'       => $public,
+			'mcp'          => array(
+				'public' => $public,
+			),
+		);
+	}
+
+	/**
+	 * @param mixed $input Ability input (unused).
+	 * @return bool|WP_Error
+	 */
+	public function check_view_permission( $input = null ) {
+		if ( ! self::is_agent_exposure_enabled() ) {
+			return false;
+		}
+
+		return $this->rest->check_permissions();
+	}
+
+	/**
+	 * @param array<string, mixed> $input
+	 * @return array<string, mixed>|WP_Error
+	 */
+	public function execute_query_logs( $input ) {
+		$query  = new AAL_Log_Query();
+		$result = $query->query(
+			array_merge(
+				(array) $input,
+				array(
+					'orderby'    => 'hist_time',
+					'exclude_ip' => true,
+				)
+			)
+		);
+
+		$items = array();
+		foreach ( $result['items'] as $item ) {
+			$items[] = AAL_Log_Presenter::to_ability_json( $item );
+		}
+
+		return array(
+			'items' => $items,
+			'total' => (int) $result['total'],
+			'pages' => (int) $result['pages'],
+		);
+	}
+
+	/**
+	 * @param array<string, mixed> $input
+	 * @return array<string, mixed>|WP_Error
+	 */
+	public function execute_get_log( $input ) {
+		$query = new AAL_Log_Query();
+		$item  = $query->get_item( (int) $input['id'] );
+
+		if ( ! $item ) {
+			return new WP_Error(
+				'aal_log_not_found',
+				__( 'Activity log entry not found.', 'aryo-activity-log' ),
+				array( 'status' => \WP_Http::NOT_FOUND )
+			);
+		}
+
+		return AAL_Log_Presenter::to_ability_json( $item );
+	}
+
+	/**
+	 * @param array<string, mixed> $input
+	 * @return array<string, mixed>
+	 */
+	public function execute_get_filters( $input ) {
+		$query = new AAL_Log_Query();
+
+		return $query->get_filter_options();
+	}
+
+	public function execute_summarize_activity( $input, $now = null ) {
+		return ( new AAL_Log_Query() )->summarize_activity_from_input( $input, $now );
+	}
+
+	/**
+	 * @param array<string, mixed> $input
+	 * @param int|null             $now
+	 * @return array<string, mixed>|WP_Error
+	 */
+	public function execute_detect_suspicious_events( $input, $now = null ) {
+		$range = AAL_Log_Query::resolve_summarize_activity_range( $input, $now );
+		if ( is_wp_error( $range ) ) {
+			return $range;
+		}
+
+		$rules = array_key_exists( 'rules', $input ) ? (array) $input['rules'] : array_keys( self::SUSPICIOUS_RULES );
+
+		return ( new AAL_Log_Query() )->detect_suspicious_events( $range['from_ts'], $range['to_ts'], $rules );
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public static function get_get_filters_input_schema() {
+		return array(
+			'type'                  => 'object',
+			'default'               => array(),
+			'properties'            => array(),
+			'additionalProperties'  => false,
+		);
+	}
+
+	public static function get_query_logs_source_filter_values() {
+		return array_merge( array_keys( AAL_API::get_channel_labels() ), array( 'app_password' ) );
+	}
+
+	public static function get_query_logs_input_schema() {
+		return array(
+			'type'       => 'object',
+			'default'    => array(),
+			'properties' => array(
+				'page'       => array(
+					'type'        => 'integer',
+					'description' => __( 'Page number (1-based).', 'aryo-activity-log' ),
+					'default'     => 1,
+					'minimum'     => 1,
+					'maximum'     => 100000,
+				),
+				'per_page'   => array(
+					'type'        => 'integer',
+					'description' => __( 'Number of entries per page (max 100).', 'aryo-activity-log' ),
+					'default'     => 50,
+					'minimum'     => 1,
+					'maximum'     => 100,
+				),
+				'order'      => array(
+					'type'        => 'string',
+					'description' => __( 'Sort direction.', 'aryo-activity-log' ),
+					'default'     => 'DESC',
+					'enum'        => array( 'ASC', 'DESC' ),
+				),
+				'typeshow'   => array(
+					'type'        => 'string',
+					'description' => __( 'Filter by object_type.', 'aryo-activity-log' ),
+					'maxLength'   => 191,
+				),
+				'showaction' => array(
+					'type'        => 'string',
+					'description' => __( 'Filter by action.', 'aryo-activity-log' ),
+					'maxLength'   => 191,
+				),
+				'usershow'   => array(
+					'type'        => 'integer',
+					'description' => __( 'Filter by user ID.', 'aryo-activity-log' ),
+					'minimum'     => 1,
+				),
+				'capshow'    => array(
+					'type'        => 'string',
+					'description' => __( 'Filter by user role/cap slug stored in user_caps.', 'aryo-activity-log' ),
+					'maxLength'   => 191,
+				),
+				'sourceshow' => array(
+					'type'        => 'string',
+					'description' => __( 'Filter by request channel.', 'aryo-activity-log' ),
+					'enum'        => self::get_query_logs_source_filter_values(),
+				),
+				'dateshow'   => array(
+					'description' => __( 'Date filter: today, yesterday, week, month, or dd/mm/yyyy.', 'aryo-activity-log' ),
+					'oneOf'       => array(
+						array(
+							'type' => 'string',
+							'enum' => array( 'today', 'yesterday', 'week', 'month' ),
+						),
+						array(
+							'type'      => 'string',
+							'pattern'   => '^\d{2}/\d{2}/\d{4}$',
+							'maxLength' => 10,
+						),
+					),
+				),
+				's'          => array(
+					'type'        => 'string',
+					'description' => __( 'Search object name or subtype.', 'aryo-activity-log' ),
+					'maxLength'   => 500,
+				),
+			),
+			'additionalProperties' => false,
+		);
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public static function get_get_log_input_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'id' => array(
+					'type'        => 'integer',
+					'description' => __( 'Activity log entry ID (histid).', 'aryo-activity-log' ),
+					'minimum'     => 1,
+				),
+			),
+			'required'             => array( 'id' ),
+			'additionalProperties' => false,
+		);
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public static function get_log_entry_output_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'id'              => array( 'type' => 'integer' ),
+				'time'            => array(
+					'type'        => 'string',
+					'description' => __( 'Event time in ISO-8601 format (site timezone).', 'aryo-activity-log' ),
+				),
+				'timestamp'       => array( 'type' => 'integer' ),
+				'user_id'         => array( 'type' => 'integer' ),
+				'user_caps'       => array( 'type' => 'string' ),
+				'action'          => array( 'type' => 'string' ),
+				'object_type'     => array( 'type' => 'string' ),
+				'object_subtype'  => array( 'type' => 'string' ),
+				'object_name'     => array( 'type' => 'string' ),
+				'object_id'       => array( 'type' => 'integer' ),
+				'channel'         => array(
+					'type'        => 'string',
+					'description' => __( 'Request channel (rest, abilities, cli, etc.).', 'aryo-activity-log' ),
+				),
+				'app_name'        => array(
+					'type'        => 'string',
+					'description' => __( 'Application Password name when the request used an app password.', 'aryo-activity-log' ),
+				),
+				'meta'            => array(
+					'type'        => 'object',
+					'description' => __( 'Optional structured metadata (e.g. ability name).', 'aryo-activity-log' ),
+				),
+			),
+			'required'   => array(
+				'id',
+				'time',
+				'timestamp',
+				'user_id',
+				'user_caps',
+				'action',
+				'object_type',
+				'object_subtype',
+				'object_name',
+				'object_id',
+				'channel',
+				'app_name',
+			),
+		);
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public static function get_query_logs_output_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'items' => array(
+					'type'  => 'array',
+					'items' => self::get_log_entry_output_schema(),
+				),
+				'total' => array( 'type' => 'integer' ),
+				'pages' => array( 'type' => 'integer' ),
+			),
+			'required'   => array( 'items', 'total', 'pages' ),
+		);
+	}
+
+	public static function get_summarize_activity_input_schema() {
+		return array(
+			'type'                 => 'object',
+			'default'              => array(),
+			'properties'           => array(
+				'period'    => array(
+					'type'        => 'string',
+					'description' => __( 'Relative time window (default 24h when input is empty).', 'aryo-activity-log' ),
+					'default'     => '24h',
+					'enum'        => array( 'today', '24h', '7d', '30d' ),
+				),
+				'date_from' => array(
+					'type'        => 'string',
+					'description' => __( 'Range start date (ISO-8601 Y-m-d, site timezone).', 'aryo-activity-log' ),
+					'pattern'     => '^\d{4}-\d{2}-\d{2}$',
+				),
+				'date_to'   => array(
+					'type'        => 'string',
+					'description' => __( 'Range end date (ISO-8601 Y-m-d, site timezone). Max 90 days from date_from.', 'aryo-activity-log' ),
+					'pattern'     => '^\d{4}-\d{2}-\d{2}$',
+				),
+			),
+			'additionalProperties' => false,
+		);
+	}
+
+	public static function get_summarize_activity_output_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'range'          => array( 'type' => 'object' ),
+				'total'          => array( 'type' => 'integer' ),
+				'by_action'      => array( 'type' => 'object' ),
+				'by_object_type' => array( 'type' => 'object' ),
+				'top_users'      => array( 'type' => 'array' ),
+				'by_channel'     => array( 'type' => 'object' ),
+				'by_app_name'    => array( 'type' => 'object' ),
+				'time_buckets'   => array( 'type' => 'array' ),
+			),
+			'required'   => array(
+				'range',
+				'total',
+				'by_action',
+				'by_object_type',
+				'top_users',
+				'by_channel',
+				'by_app_name',
+				'time_buckets',
+			),
+		);
+	}
+
+	public static function get_detect_suspicious_input_schema() {
+		$schema = self::get_summarize_activity_input_schema();
+		$schema['properties']['rules'] = array(
+			'type'        => 'array',
+			'description' => __( 'Suspicious rule keys to evaluate (default: all).', 'aryo-activity-log' ),
+			'items'       => array(
+				'type' => 'string',
+				'enum' => array_keys( self::SUSPICIOUS_RULES ),
+			),
+		);
+
+		return $schema;
+	}
+
+	public static function get_detect_suspicious_output_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'range'     => array( 'type' => 'object' ),
+				'findings'  => array(
+					'type'  => 'array',
+					'items' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'rule'       => array( 'type' => 'string' ),
+							'severity'   => array( 'type' => 'string' ),
+							'first_time' => array(
+								'type'        => 'string',
+								'description' => __( 'First matching event time in ISO-8601 format (site timezone).', 'aryo-activity-log' ),
+							),
+							'last_time'  => array(
+								'type'        => 'string',
+								'description' => __( 'Last matching event time in ISO-8601 format (site timezone).', 'aryo-activity-log' ),
+							),
+							'actor'      => array( 'type' => 'string' ),
+							'count'      => array( 'type' => 'integer' ),
+							'log_ids'    => array(
+								'type'  => 'array',
+								'items' => array( 'type' => 'integer' ),
+							),
+						),
+						'required'   => array( 'rule', 'severity', 'first_time', 'last_time', 'actor', 'count', 'log_ids' ),
+					),
+				),
+				'truncated' => array( 'type' => 'boolean' ),
+			),
+			'required'   => array( 'range', 'findings', 'truncated' ),
+		);
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public static function get_filters_output_schema() {
+		return array(
+			'type'       => 'object',
+			'properties' => array(
+				'users'   => array(
+					'type'  => 'array',
+					'items' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'id'   => array( 'type' => 'integer' ),
+							'name' => array( 'type' => 'string' ),
+						),
+					),
+				),
+				'roles'   => array(
+					'type'  => 'array',
+					'items' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'value' => array( 'type' => 'string' ),
+							'label' => array( 'type' => 'string' ),
+						),
+					),
+				),
+				'topics'  => array(
+					'type'  => 'array',
+					'items' => array( 'type' => 'string' ),
+				),
+				'actions' => array(
+					'type'  => 'array',
+					'items' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'value' => array( 'type' => 'string' ),
+							'label' => array( 'type' => 'string' ),
+						),
+					),
+				),
+				'sources' => array(
+					'type'  => 'array',
+					'items' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'value' => array( 'type' => 'string' ),
+							'label' => array( 'type' => 'string' ),
+						),
+					),
+				),
+			),
+			'required'   => array( 'users', 'roles', 'topics', 'actions', 'sources' ),
+		);
+	}
+}

@@ -1,5 +1,7 @@
 <?php
 
+use WPML\LanguageSwitcher\UploadsFolder;
+
 class WPML_LS_Templates {
 
 	const CONFIG_FILE = 'config.json';
@@ -100,14 +102,18 @@ class WPML_LS_Templates {
 			$templates_array_data = [];
 			$templates_paths      = $this->scan_template_paths( $dirs_to_scan );
 
-			foreach ( $templates_paths as $template_path ) {
+			foreach ( $templates_paths as $template_path => $engine ) {
 				$template_path = $this->wpml_file->fix_dir_separator( $template_path );
-				if ( file_exists( $template_path . $this->ds . WPML_LS_Template::FILENAME ) ) {
+				if ( $engine ) {
 					$tpl    = array();
 					$config = $this->parse_template_config( $template_path );
 
-					$tpl['path']     = [ $wpml_core_path, $template_path ];
-					$tpl['version']  = isset( $config['version'] ) ? $config['version'] : '1';
+					$is_core = $this->is_core_template( $template_path );
+
+					$tpl['path']        = [ $wpml_core_path, $template_path ];
+					$tpl['engine']      = $engine;
+					$tpl['php_allowed'] = $this->may_have_php_template( $template_path );
+					$tpl['version']  = $this->get_template_version( $config, $is_core );
 					$tpl['name']     = isset( $config['name'] ) ? $config['name'] : null;
 					$tpl['name']     = $this->get_unique_name( $tpl['name'], $template_path );
 					$tpl['slug']     = sanitize_title_with_dashes( $tpl['name'] );
@@ -123,7 +129,7 @@ class WPML_LS_Templates {
 					$tpl['flag_extension'] = isset( $config['flag_extension'] )
 						? $config['flag_extension'] : null;
 
-					if ( $this->is_core_template( $template_path ) ) {
+					if ( $is_core ) {
 						$tpl['is_core'] = true;
 						$tpl['slug']    = isset( $config['slug'] ) ? $config['slug'] : $tpl['slug'];
 					}
@@ -155,17 +161,36 @@ class WPML_LS_Templates {
 			if ( count( $files ) > 0 ) {
 				foreach ( $files as $file ) {
 					$template_path = $dir . '/' . $file;
-					if ( is_dir( $template_path )
-						 && file_exists( $template_path . $this->ds . WPML_LS_Template::FILENAME )
-						 && file_exists( $template_path . $this->ds . self::CONFIG_FILE )
-					) {
-						$templates_paths[] = $template_path;
+					if ( is_dir( $template_path ) && file_exists( $template_path . $this->ds . self::CONFIG_FILE ) ) {
+						$engine = $this->get_template_engine( $template_path );
+
+						if ( $engine ) {
+							$templates_paths[ $template_path ] = $engine;
+						}
 					}
 				}
 			}
 		}
 
 		return $templates_paths;
+	}
+
+	private function get_template_engine( $template_path ) {
+		if ( $this->may_have_php_template( $template_path )
+			 && file_exists( $template_path . $this->ds . WPML_LS_Template::PHP_FILENAME )
+		) {
+			return WPML_LS_Template::ENGINE_PHP;
+		}
+
+		if ( file_exists( $template_path . $this->ds . WPML_LS_Template::FILENAME ) ) {
+			return WPML_LS_Template::ENGINE_TWIG;
+		}
+
+		return null;
+	}
+
+	private function may_have_php_template( $template_path ) {
+		return ! UploadsFolder::contains( $template_path, (string) $this->get_uploads_path() );
 	}
 
 	private function parse_template_config( $template_path ) {
@@ -210,6 +235,7 @@ class WPML_LS_Templates {
 			$theme = wp_get_theme();
 			$name  = $theme . ' - ' . $name;
 		} elseif ( strpos( $path, $this->wpml_file->fix_dir_separator( $this->get_uploads_path() ) ) === 0 ) {
+			/* translators: Group heading in the language switcher style dropdown, for styles the user uploaded to the site. */
 			$name = __( 'Uploads', 'sitepress' ) . ' - ' . $name;
 		} elseif (
 			strpos( $path, $this->wpml_file->fix_dir_separator( WPML_PLUGINS_DIR ) ) === 0
@@ -237,6 +263,14 @@ class WPML_LS_Templates {
 		return $name;
 	}
 
+	private function get_template_version( array $config, $is_core ) {
+		if ( isset( $config['version'] ) ) {
+			return (string) $config['version'];
+		}
+
+		return $is_core ? ICL_SITEPRESS_SCRIPT_VERSION : '1';
+	}
+
 	private function is_core_template( $path ) {
 		return strpos( $path, $this->wpml_file->fix_dir_separator( WPML_PLUGIN_PATH ) ) === 0;
 	}
@@ -248,6 +282,10 @@ class WPML_LS_Templates {
 		if ( $templates ) {
 			foreach ( $templates as $slug => $data ) {
 				if ( is_array( $data ) ) {
+					if ( ! isset( $data['engine'] ) ) {
+						return false;
+					}
+
 					$templates[ $slug ] = new WPML_LS_Template( $data );
 				}
 			}

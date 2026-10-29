@@ -3,6 +3,7 @@
 namespace WPML\TM;
 
 use WPML\Collect\Support\Traits\Macroable;
+use WPML\Core\SharedKernel\Component\WpmlOrgClient\Domain\WpmlOrgOrigin;
 use WPML\FP\Json;
 use WPML\FP\Logic;
 use WPML\FP\Maybe;
@@ -19,7 +20,9 @@ class Geolocalization {
 				2,
 				function ( $httpPost, $ip ) {
 					$ip  = defined( 'WPML_TM_Geolocalization_IP' ) ? WPML_TM_Geolocalization_IP : $ip;
-					$url = defined( 'OTGS_INSTALLER_WPML_API_URL' ) ? OTGS_INSTALLER_WPML_API_URL : 'https://api.wpml.org';
+					$url = defined( 'OTGS_INSTALLER_WPML_API_URL' )
+							? OTGS_INSTALLER_WPML_API_URL
+							: WpmlOrgOrigin::api();
 
 					$formatRequest = function ( $ip ) {
 						return [

@@ -86,7 +86,7 @@ class WPML_Page_Builders_Media_Shortcodes {
 
 	private function extract_urls_from_shortcode_content( $content, $tag_name ) {
 		$pattern = $this->get_content_pattern( $tag_name );
-		if ( preg_match_all( $pattern, $content, $matches ) && ! empty( $matches[2] ) ) {
+		if ( preg_match_all( $pattern, $content, $matches ) ) {
 			return array_map( 'trim', $matches[2] );
 		}
 
@@ -119,11 +119,11 @@ class WPML_Page_Builders_Media_Shortcodes {
 	}
 
 	private function get_attribute_pattern( $tag, $attribute ) {
-		return '/(\[' . $tag . '(?: [^\]]* | )' . $attribute . '=(?:"|\'))([^"\']*)/';
+		return '/(\[' . preg_quote( $tag, '/' ) . '(?: [^\]]* | )' . preg_quote( $attribute, '/' ) . '=(?:"|\'))([^"\']*)/';
 	}
 
 	private function get_content_pattern( $tag ) {
-		return '/(\[(?:' . $tag . ')[^\]]*\])([^\[]+)/';
+		return '/(\[(?:' . preg_quote( $tag, '/' ) . ')[^\]]*\])([^\[]+)/';
 	}
 
 	private function translate_attributes( $content, $tag, array $attributes ) {
@@ -157,6 +157,10 @@ class WPML_Page_Builders_Media_Shortcodes {
 	}
 
 	private function replace_ids_callback( array $matches ) {
+		if ( ! \WPML\PB\Media\MediaIds::isList( $matches[2] ) ) {
+			return $matches[0];
+		}
+
 		$ids = explode( ',', $matches[2] );
 
 		foreach ( $ids as &$id ) {

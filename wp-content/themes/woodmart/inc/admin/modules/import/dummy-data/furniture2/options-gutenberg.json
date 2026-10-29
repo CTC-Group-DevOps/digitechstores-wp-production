@@ -3,9 +3,7 @@
     "site_custom_width": "1400",
     "default_header": "header_648932",
     "header_banner": "0",
-    "promo_popup": "1",
-    "promo_popup_content_type": "html_block",
-    "popup_html_block": "185",
+    "promo_popup": "0",
     "footer_content_type": "html_block",
     "footer_html_block": "189",
     "footer-bar-bg": {
@@ -27,8 +25,10 @@
             "font-family": "Work Sans",
             "font-weight": "400",
             "font-style": "",
-            "font-subset": "",
-            "font-size": "15",
+            "advanced-variants": [
+                ""
+            ],
+            "font-size": "16",
             "tablet": {
                 "font-size": ""
             },
@@ -69,9 +69,8 @@
             "font-family": "Urbanist",
             "font-weight": "700",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "capitalize",
-            "font-size": "16",
+            "font-size": "18",
             "tablet": {
                 "font-size": ""
             },
@@ -98,8 +97,8 @@
             }
         }
     ],
-    "advanced_typography": {
-        "0": {
+    "advanced_typography": [
+        {
             "custom": "",
             "selector": [
                 "mobile_menu_first_level"
@@ -109,7 +108,6 @@
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "capitalize",
             "font-size": "",
             "tablet": {
@@ -126,7 +124,7 @@
                 "color": ""
             }
         },
-        "1": {
+        {
             "custom": "",
             "selector": [
                 "secondary_navigation_topbar"
@@ -136,7 +134,6 @@
             "font-family": "Work Sans",
             "font-weight": "400",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "",
             "font-size": "",
             "tablet": {
@@ -153,14 +150,16 @@
                 "color": ""
             }
         },
-        "2": {
+        {
             "custom": "",
+            "selector": [
+                ""
+            ],
             "custom-selector": "",
             "google": "1",
             "font-family": "Urbanist",
             "font-weight": "800",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "",
             "font-size": "",
             "tablet": {
@@ -177,7 +176,7 @@
                 "color": ""
             }
         },
-        "3": {
+        {
             "custom": "",
             "selector": [
                 "blog_title"
@@ -187,7 +186,6 @@
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "",
             "font-size": "18",
             "tablet": {
@@ -204,7 +202,7 @@
                 "color": ""
             }
         },
-        "4": {
+        {
             "custom": "",
             "selector": [
                 "product_category_title"
@@ -214,7 +212,6 @@
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "none",
             "font-size": "",
             "tablet": {
@@ -231,15 +228,17 @@
                 "color": ""
             }
         },
-        "{{index}}": {
+        {
             "custom": "",
+            "selector": [
+                "checkout_steps"
+            ],
             "custom-selector": "",
             "google": "0",
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
-            "text-transform": "",
+            "text-transform": "capitalize",
             "font-size": "",
             "tablet": {
                 "font-size": "",
@@ -255,20 +254,8 @@
                 "color": ""
             }
         }
-    },
+    ],
     "page-title-color": "light",
-    "popup-background": {
-        "color": "rgb(245,154,87)",
-        "url": "",
-        "id": "",
-        "repeat": "no-repeat",
-        "size": "contain",
-        "attachment": "",
-        "position": "left center"
-    },
-    "popup_color_scheme": "light",
-    "popup_padding": "eyJkZXZpY2VzIjp7ImRlc2t0b3AiOnsidW5pdCI6InB4IiwidmFsdWUiOiIwIn19fQ==",
-    "popup_width": "480",
     "brands_attribute": "",
     "page-title-size": "large",
     "rounding_size": "custom",
@@ -501,9 +488,6 @@
     "categories_design": "zoom-out",
     "categories_rounding": "custom",
     "custom_categories_rounding_size": "eyJkZXZpY2VzIjp7ImRlc2t0b3AiOnsidW5pdCI6IiUiLCJ2YWx1ZSI6IjUwIn19fQ==",
-    "promo_version": "4",
-    "promo_timeout": "2000",
-    "promo_popup_hide_mobile": "1",
     "checkout_show_product_image": "1",
     "checkout_product_quantity": "1",
     "checkout_remove_button": "1",
@@ -559,5 +543,10 @@
         "image_size_custom_height": "",
         "size": "cover",
         "position": "center top"
-    }
+    },
+    "search_by_sku": "1",
+    "search_by_product_categories": "1",
+    "popular_requests": "Sofa\r\nChair\r\nTable\r\nLighting\r\nBed",
+    "full_search_content_type": "content",
+    "full_search_content_html_block": "1561"
 }

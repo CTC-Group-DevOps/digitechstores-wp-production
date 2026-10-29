@@ -12,7 +12,7 @@ class WPML_Page_Builders_Media_Gutenberg_Update_Factory extends WPML_Page_Builde
 
 	public function create( $find_usage_instead_of_translate = false ) {
 		$media_gutenberg = new WPML_Page_Builders_Media_Gutenberg(
-			$this->get_media_translate( $find_usage_instead_of_translate, true ),
+			$this->get_media_translate( $find_usage_instead_of_translate ),
 			$this->config_option->get_media_in_blocks()
 		);
 
@@ -21,7 +21,7 @@ class WPML_Page_Builders_Media_Gutenberg_Update_Factory extends WPML_Page_Builde
 			$media_gutenberg,
 			$find_usage_instead_of_translate
 				? null
-				: new WPML_Page_Builders_Media_Usage( $this->get_media_translate( $find_usage_instead_of_translate, true ), new WPML_Media_Usage_Factory() )
+				: new WPML_Page_Builders_Media_Usage( $this->get_media_translate( $find_usage_instead_of_translate ), new WPML_Media_Usage_Factory() )
 		);
 	}
 

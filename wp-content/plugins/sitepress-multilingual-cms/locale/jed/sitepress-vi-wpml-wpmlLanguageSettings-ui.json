@@ -11,7 +11,7 @@
             "Chọn loại tệp hình ảnh cho cờ"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "Tùy chọn này chỉ ảnh hưởng đến cờ WPML tích hợp sẵn, không ảnh hưởng đến cờ tùy chỉnh đã tải lên."
+            "Tùy chọn này chỉ ảnh hưởng đến các cờ WPML tích hợp sẵn, không ảnh hưởng đến các cờ tùy chỉnh đã tải lên."
          ],
          "%s format": [
             "Định dạng %s"

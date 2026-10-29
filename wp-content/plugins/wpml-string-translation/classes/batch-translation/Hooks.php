@@ -43,6 +43,12 @@ class Hooks {
 			->then( spreadArgs( StringTranslations::addExisting() ) );
 	}
 
+	public static function addOrphanedBatchSweepHooks( OrphanedBatchSweep $sweep ) {
+		\add_action( 'wpml_tm_ate_retry_cadence', function () use ( $sweep ) {
+			$sweep->run();
+		} );
+	}
+
 	public static function addStringTranslationStatusHooks(
 		callable $updateTranslationStatus,
 		callable $initializeTranslation
@@ -69,10 +75,17 @@ class Hooks {
 		};
 
 		$callDeferredInitializeTranslations = function () use ( &$deferredInitializeTranslations ) {
-			foreach ( $deferredInitializeTranslations as $fn ) {
-				$fn();
+			try {
+				foreach ( $deferredInitializeTranslations as $fn ) {
+					try {
+						$fn();
+					} catch ( \Throwable $e ) {
+						do_action( 'wpml_st_batch_status_init_failed', $e );
+					}
+				}
+			} finally {
+				$deferredInitializeTranslations = [];
 			}
-			$deferredInitializeTranslations = [];
 		};
 
 		WPHooks::onAction( 'wpml_tm_added_translation_element', 10, 2 )->then( spreadArgs( $deferAddedTranslationElement ) );

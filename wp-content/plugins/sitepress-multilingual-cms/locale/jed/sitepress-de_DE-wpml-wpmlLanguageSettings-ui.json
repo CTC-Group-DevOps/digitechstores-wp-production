@@ -8,13 +8,13 @@
             "lang": "de_DE"
          },
          "Choose the image file type for flags": [
-            "Wählen Sie den Bilddateityp für Flaggen"
+            "Wähle den Bilddateityp für Flaggen"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "Diese Option betrifft nur die integrierten WPML-Flaggen, nicht die benutzerdefinierten hochgeladenen."
+            "Diese Option wirkt sich nur auf die integrierten WPML-Flaggen aus, nicht auf die benutzerdefinierten hochgeladenen."
          ],
          "%s format": [
-            "%s-Format"
+            "Format: %s"
          ],
          "Save": [
             "Speichern"

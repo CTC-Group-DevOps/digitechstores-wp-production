@@ -8,13 +8,16 @@ class WPML_Multilingual_Options_Utils {
 	}
 
 	public function get_option_without_filtering( $option_name, $default = null ) {
-
-		$value_query = "SELECT option_value
-						FROM {$this->wpdb->options}
-						WHERE option_name = %s
-						LIMIT 1";
-		$value_sql   = $this->wpdb->prepare( $value_query, $option_name );
-		$value       = $this->wpdb->get_var( $value_sql );
+		$wpdb  = $this->wpdb;
+		$value = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT option_value
+				FROM {$wpdb->options}
+				WHERE option_name = %s
+				LIMIT 1",
+				$option_name
+			)
+		);
 
 		return $value ? maybe_unserialize( $value ) : $default;
 	}

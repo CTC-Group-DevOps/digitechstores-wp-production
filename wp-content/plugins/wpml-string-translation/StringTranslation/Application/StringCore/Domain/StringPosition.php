@@ -4,6 +4,8 @@ namespace WPML\StringTranslation\Application\StringCore\Domain;
 
 class StringPosition {
 
+	const MAX_POSITION_IN_PAGE_LENGTH = 255;
+
 	private $id;
 
 	private $kind;
@@ -39,7 +41,14 @@ class StringPosition {
 	}
 
 	public function setPositionInPage( string $positionInPage ) {
-		$this->positionInPage = $positionInPage;
+		$this->positionInPage = function_exists( 'mb_substr' )
+			? (string) mb_substr(
+				$positionInPage,
+				0,
+				self::MAX_POSITION_IN_PAGE_LENGTH,
+				'UTF-8'
+			)
+			: substr( $positionInPage, 0, self::MAX_POSITION_IN_PAGE_LENGTH );
 	}
 
 	public function getPositionInPage(): string {

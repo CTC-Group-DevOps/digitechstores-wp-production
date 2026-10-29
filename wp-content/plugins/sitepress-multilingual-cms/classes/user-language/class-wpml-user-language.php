@@ -1,11 +1,7 @@
 <?php
 
-use WPML\Element\API\Languages;
-use WPML\FP\Maybe;
-use WPML\FP\Relation;
 use WPML\Language\Detection\CookieLanguage;
 use WPML\LIB\WP\Hooks;
-use WPML\LIB\WP\User;
 use WPML\LIB\WP\Option;
 use WPML\UIPage;
 use WPML\UrlHandling\WPLoginUrlConverter;
@@ -15,8 +11,11 @@ use function WPML\FP\spreadArgs;
 class WPML_User_Language {
 	protected $sitepress;
 
-	private $language_changes_history       = array();
-	private $admin_language_changes_history = array();
+	private $email_language_frames = array();
+
+	private $hooks_registered = false;
+
+	private $users_with_changed_locale = array();
 
 	private $wpdb;
 
@@ -27,34 +26,31 @@ class WPML_User_Language {
 			global $wpdb;
 		}
 		$this->wpdb = $wpdb;
-
-		$this->register_hooks();
 	}
 
 	public function register_hooks() {
+		if ( $this->hooks_registered ) {
+			return;
+		}
+		$this->hooks_registered = true;
+
 		Hooks::onAction( 'wp_login', 10, 2 )
 		     ->then( spreadArgs( [ $this, 'update_user_lang_from_login' ] ) );
-
-		Hooks::onAction( 'init' )
-		     ->then( [ $this, 'add_how_to_set_notice' ] );
 
 		Hooks::onAction( 'wpml_user_profile_options' )
 		     ->then( [ $this, 'show_ui_to_enable_login_translation' ] );
 
 		add_action( 'wpml_switch_language_for_email', array( $this, 'switch_language_for_email_action' ), 10, 1 );
 		add_action( 'wpml_restore_language_from_email', array( $this, 'restore_language_from_email_action' ), 10, 0 );
+		add_action( 'added_user_meta', array( $this, 'remember_added_locale' ), 10, 4 );
+		add_action( 'updated_user_meta', array( $this, 'remember_locale_change' ), 10, 3 );
+		add_action( 'deleted_user_meta', array( $this, 'remember_locale_change' ), 10, 3 );
 		add_action( 'profile_update', array( $this, 'sync_admin_user_language_action' ), 10, 1 );
 		add_action( 'wp_update_user', array( $this, 'clear_user_admin_language_cache_on_wp_update_user' ), 10, 1 );
-		add_action( 'wpml_language_cookie_added', array( $this, 'update_user_lang_on_cookie_update' ) );
 
 		if ( $this->is_editing_current_profile() || $this->is_editing_other_profile() ) {
 			add_filter( 'get_available_languages', array( $this, 'intersect_wpml_wp_languages' ) );
 		}
-
-		register_activation_hook(
-			WPML_PLUGIN_PATH . '/' . WPML_PLUGIN_FILE,
-			[ $this, 'update_user_lang_on_site_setup' ]
-		);
 	}
 
 	public function intersect_wpml_wp_languages( $wp_languages ) {
@@ -73,18 +69,27 @@ class WPML_User_Language {
 	private function switch_language_for_email( $email ) {
 		$language = apply_filters( 'wpml_user_language', null, $email );
 
+		$frame = array(
+			'changed'    => false,
+			'switched'   => false,
+			'admin_lang' => null,
+		);
+
 		if ( $language ) {
-			$user_language  = $this->sitepress->get_current_language();
-			$admin_language = $this->sitepress->get_admin_language();
+			$current_language    = $this->sitepress->get_current_language();
+			$frame['admin_lang'] = $this->sitepress->get_admin_language();
+			$frame['changed']    = $language !== $current_language || $language !== $frame['admin_lang'];
+		}
 
-			if ( $language !== $user_language || $language !== $admin_language ) {
-				$this->language_changes_history[]       = $user_language;
-				$this->admin_language_changes_history[] = $admin_language;
+		$this->email_language_frames[] = $frame;
+		$key                           = count( $this->email_language_frames ) - 1;
 
-				$this->sitepress->switch_lang( $language, true );
+		if ( $frame['changed'] ) {
+			$this->sitepress->switch_lang( $language, false );
 
-				$this->sitepress->set_admin_language( $language );
-			}
+			$this->email_language_frames[ $key ]['switched'] = true;
+
+			$this->sitepress->set_admin_language( $language );
 		}
 	}
 
@@ -93,18 +98,57 @@ class WPML_User_Language {
 	}
 
 	private function wpml_restore_language_from_email() {
-		if ( count( $this->language_changes_history ) > 0 ) {
-			$this->sitepress->switch_lang( array_pop( $this->language_changes_history ), true );
+		if ( ! $this->email_language_frames ) {
+			return;
 		}
-		if ( count( $this->admin_language_changes_history ) > 0 ) {
-			$this->sitepress->set_admin_language( array_pop( $this->admin_language_changes_history ) );
+
+		$frame = array_pop( $this->email_language_frames );
+
+		if ( ! empty( $frame['switched'] ) ) {
+			$this->sitepress->switch_lang();
+		}
+
+		if ( $frame['changed'] ) {
+			$this->sitepress->set_admin_language( $frame['admin_lang'] );
+		}
+	}
+
+	public function remember_added_locale( $meta_id, $user_id, $meta_key, $value ) {
+		if ( 'locale' !== $meta_key ) {
+			return;
+		}
+
+		if ( is_scalar( $value ) && '' !== (string) $value ) {
+			$this->remember_locale_change( $meta_id, $user_id, $meta_key );
+		}
+	}
+
+	public function remember_locale_change( $meta_id, $user_id, $meta_key ) {
+		if ( 'locale' === $meta_key ) {
+			$this->users_with_changed_locale[ (int) $user_id ] = true;
 		}
 	}
 
 	public function sync_admin_user_language_action( $user_id ) {
+		if ( ! $this->consume_locale_change( $user_id ) ) {
+			return;
+		}
+
 		if ( $this->user_needs_sync_admin_lang() ) {
 			$this->sync_admin_user_language( $user_id );
 		}
+	}
+
+	private function consume_locale_change( $user_id ) {
+		$user_id = (int) $user_id;
+
+		if ( empty( $this->users_with_changed_locale[ $user_id ] ) ) {
+			return false;
+		}
+
+		unset( $this->users_with_changed_locale[ $user_id ] );
+
+		return true;
 	}
 
 	public function clear_user_admin_language_cache_on_wp_update_user( $user_id ) {
@@ -112,17 +156,20 @@ class WPML_User_Language {
 	}
 
 	public function sync_default_admin_user_languages() {
-		$sql_users   = 'SELECT user_id FROM ' . $this->wpdb->usermeta . ' WHERE meta_key = %s AND meta_value = %s';
-		$query_users = $this->wpdb->prepare( $sql_users, array( 'locale', '' ) );
-		$user_ids    = $this->wpdb->get_col( $query_users );
+		$wpdb     = $this->wpdb;
+		$user_ids = $wpdb->get_col(
+			$wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value = %s", 'locale', '' )
+		);
 
 		if ( $user_ids ) {
 			$language = $this->sitepress->get_default_language();
 
-			$sql   = 'UPDATE ' . $this->wpdb->usermeta . ' SET meta_value = %s WHERE meta_key = %s and user_id IN (' . wpml_prepare_in( $user_ids ) . ')';
-			$query = $this->wpdb->prepare( $sql, array( $language, 'icl_admin_language' ) );
-
-			$this->wpdb->query( $query );
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE meta_key = %s AND user_id IN (" . implode( ', ', array_fill( 0, count( $user_ids ), '%d' ) ) . ')',
+					array_merge( [ $language, 'icl_admin_language' ], array_map( 'intval', $user_ids ) )
+				)
+			);
 
 			if ( is_array( $user_ids ) ) {
 				foreach ( $user_ids as $user_id ) {
@@ -143,10 +190,6 @@ class WPML_User_Language {
 			$user_language = $this->sitepress->get_default_language();
 		}
 		update_user_meta( $user_id, 'icl_admin_language', $user_language );
-
-		if ( $this->user_admin_language_for_edit( $user_id ) && $this->is_editing_current_profile() ) {
-			$this->set_language_cookie( $user_language );
-		}
 	}
 
 	private function select_language_code_from_locale( $wp_locale ) {
@@ -168,35 +211,6 @@ class WPML_User_Language {
 		$wp_api = $this->sitepress->get_wp_api();
 
 		return $wp_api->version_compare_naked( get_bloginfo( 'version' ), '4.7', '>=' );
-	}
-
-	private function set_language_cookie( $user_language ) {
-		global $wpml_request_handler;
-
-		if ( is_object( $wpml_request_handler ) ) {
-			$wpml_request_handler->set_language_cookie( $user_language );
-		}
-	}
-
-	private function user_admin_language_for_edit( $user_id ) {
-		return get_user_meta( $user_id, 'icl_admin_language_for_edit', true );
-	}
-
-	public function update_user_lang_on_cookie_update( $lang ) {
-		$user_id = get_current_user_id();
-
-		if ( $this->user_needs_sync_admin_lang() && $user_id && $this->user_admin_language_for_edit( $user_id ) ) {
-			update_user_meta( $user_id, 'icl_admin_language', $lang );
-
-			$wpLang = Maybe::of( $lang )
-			               ->map( Languages::getLanguageDetails() )
-			               ->map( Languages::getWPLocale() )
-			               ->getOrElse( null );
-
-			update_user_meta( $user_id, 'locale', $wpLang );
-
-			wp_cache_delete( $user_id, WPML_User_Admin_Language::CACHE_GROUP );
-		}
 	}
 
 	private function is_editing_current_profile() {
@@ -227,83 +241,56 @@ class WPML_User_Language {
 		}
 	}
 
-	public function update_user_lang_from_login( $username, WP_User $user ) {
-        $cookieName = 'wp-wpml_login_lang';
-        Maybe::fromNullable( make( CookieLanguage::class, [ ':defaultLanguage' => '' ] )->get( $cookieName ) )
-             ->map( [ $this->sitepress, 'get_locale_from_language_code' ] )
-             ->reject( Relation::equals( User::getMetaSingle( $user->ID, 'locale' ) ) )
-             ->map( User::updateMeta( $user->ID, 'locale' ) );
+	public function update_user_lang_from_login( $username, $user = null ) {
+		$cookieName = 'wp-wpml_login_lang';
 
-        $secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
-        setcookie( $cookieName, '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN, $secure );
+		$cookieLanguage = make( CookieLanguage::class, [ ':defaultLanguage' => '' ] );
+		$loginLanguage  = $cookieLanguage->get( $cookieName );
+
+		if ( $loginLanguage ) {
+			$this->seed_browsing_language( $cookieLanguage, $loginLanguage );
+		}
+
+		$secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
+		setcookie( $cookieName, '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN, $secure );
 	}
 
-	public function add_how_to_set_notice() {
-		$adminNotices = wpml_get_admin_notices();
+	private function seed_browsing_language( CookieLanguage $cookieLanguage, $languageCode ) {
+		$cookie = make( WPML_Cookie::class );
 
-		$noticeId    = self::class . 'how_to_set_notice';
-		$noticeGroup = self::class;
+		$expires = time() + DAY_IN_SECONDS;
+		$path    = defined( 'COOKIEPATH' ) ? COOKIEPATH : '/';
+		$domain  = $cookieLanguage->get_cookie_domain();
 
-        $notice = new WPML_Notice(
-            $noticeId,
-            self::getNotice(),
-            $noticeGroup
-        );
-        $notice->set_css_class_types( [ 'info' ] );
-        $notice->add_capability_check( [ 'manage_options' ] );
-        $notice->set_dismissible( true );
-        $notice->add_user_restriction( User::getCurrentId() );
-        $notice->add_display_callback(
-            [
-                self::class,
-                'displayNoticeOnlyOnWPDashboardAndWhenTranslationOfLoginAndRegistrationPagesIsDisabled'
-            ] );
-        $adminNotices->add_notice( $notice );
+		$names = [
+			$cookieLanguage->getFrontendCookieName(),
+			$cookieLanguage->getBackendCookieName(),
+		];
+
+		foreach ( $names as $name ) {
+			$cookie->set_cookie( $name, $languageCode, $expires, $path, $domain );
+			$_COOKIE[ $name ] = $languageCode;
+		}
 	}
-
-	public static function getNotice() {
-		ob_start();
-		?>
-		<h2><?php esc_html_e( 'Do you want the WordPress admin to be in a different language?', 'sitepress' ); ?></h2>
-		<p>
-			<?php esc_html_e( 'WPML lets each user choose the admin language, unrelated of the language in which visitors will see the front-end of the site.', 'sitepress' ); ?>
-			<br/>
-			<br/>
-			<?php
-			/* translators: %s is replaced with the word 'profile' wrapped in a link */
-			echo sprintf(
-				__( 'Go to your %s to choose your admin language.', 'sitepress' ),
-				'<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile', 'sitepress' ) . '</a>'
-			);
-			?>
-		</p>
-		<?php
-		return ob_get_clean();
-	}
-
-    public static function displayNoticeOnlyOnWPDashboardAndWhenTranslationOfLoginAndRegistrationPagesIsDisabled(): bool {
-	    global $pagenow;
-
-	    return $pagenow === 'index.php' && ! WPLoginUrlConverter::isEnabled();
-    }
 
 	public function show_ui_to_enable_login_translation() {
 		if ( current_user_can( 'manage_options' ) && ! WPLoginUrlConverter::isEnabled() ) {
 
 			$settingsPage     = UIPage::getSettings() . '#ml-content-setup-sec-wp-login';
+			/* translators: Link text that opens the WPML settings screen. It is the path through the menu, so keep the arrow and translate the two names as they appear in the menu. */
 			$settingsPageLink = '<a href="' . $settingsPage . '">' . __( 'WPML->Settings', 'sitepress' ) . '</a>';
 			// translators: %s link to WPML Settings page
 			$message = esc_html__( 'WPML will include a language switcher on the WordPress login page. To change this, go to %s.', 'sitepress' );
 			?>
 			<tr class="user-language-wrap">
-				<th><?php esc_html_e( 'Login Page:', 'sitepress' ); ?></th>
+				<th><?php /* translators: Label in front of the setting that says in which language the login screen is shown. */ esc_html_e( 'Login Page:', 'sitepress' ); ?></th>
 				<td>
 					<?php wp_nonce_field( 'icl_login_page_translation_nonce', 'icl_login_page_translation_nonce' ); ?>
 					<div id="wpml-login-translation">
 						<p>
 							<?php esc_html_e( 'Your site currently has language switching for the login page disabled.', 'sitepress' ); ?>
 							<button type="button" class="button wpml-login-activate">
-								<?php esc_html_e( 'Activate', 'sitepress' ); ?>
+								<?php /* translators: Link text that opens the plugins screen so an add-on can be turned on. Verb, imperative. */ esc_html_e( 'Activate', 'sitepress' ); ?>
 							</button>
 							<span class="spinner" style="float: none"></span>
 						</p>
@@ -320,7 +307,7 @@ class WPML_User_Language {
 									url: ajaxurl,
 									type: "POST",
 									data: {
-										icl_ajx_action: 'icl_login_page_translation',
+										action: 'wpml_ajx_icl_login_page_translation',
 										_icl_nonce: $('#icl_login_page_translation_nonce').val(),
 										login_page_translation: 1
 									},

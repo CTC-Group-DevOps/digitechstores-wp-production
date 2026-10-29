@@ -20,20 +20,20 @@ class WPML_Home_Url_Filter_Context {
 
 	public function should_not_filter() {
 		return $this->is_rest_request()
-			|| $this->rewriting_rules()
-			|| $this->pagination_link();
+			|| $this->is_called_from_guarded_function();
 	}
 
-	private function is_rest_request() {
+	public function is_rest_request() {
 		return in_array( $this->orig_scheme, array( 'json', 'rest' ), true );
 	}
 
-	private function rewriting_rules() {
-		return $this->debug_backtrace->is_class_function_in_call_stack( 'WP_Rewrite', 'rewrite_rules' );
-	}
+	public function is_called_from_guarded_function() {
+		$functions = array( array( 'WP_Rewrite', 'rewrite_rules' ) );
 
-	private function pagination_link() {
-		return WPML_LANGUAGE_NEGOTIATION_TYPE_PARAMETER === $this->language_negotiation_type
-			   && $this->debug_backtrace->is_function_in_call_stack( 'get_pagenum_link' );
+		if ( WPML_LANGUAGE_NEGOTIATION_TYPE_PARAMETER === $this->language_negotiation_type ) {
+			$functions[] = 'get_pagenum_link';
+		}
+
+		return $this->debug_backtrace->are_functions_in_call_stack( $functions );
 	}
 }

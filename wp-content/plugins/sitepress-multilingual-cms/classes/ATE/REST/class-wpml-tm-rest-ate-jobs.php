@@ -43,7 +43,19 @@ class WPML_TM_REST_ATE_Jobs extends WPML_TM_ATE_Required_Rest_Base {
 		$wpml_job_id  = $request->get_param( 'wpml_job_id' );
 		$ate_job_data = $request->get_param( 'ate_job_data' );
 
-		$this->ate_jobs->store( $wpml_job_id, $ate_job_data );
+		$job = ( new \WPML\TM\Jobs\Authorization\AuthorizedJobResolver( $this->ate_jobs ) )->byLocalId(
+			\WPML\Core\Security\ExecutionContext\ExecutionContextHolder::current(),
+			$wpml_job_id
+		);
+		if ( ! $job ) {
+			return new WP_Error(
+				'wpml_job_forbidden',
+				__( 'You are not allowed to access this translation job.', 'sitepress' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		$this->ate_jobs->store( $job->localId(), $ate_job_data );
 
 		return true;
 	}

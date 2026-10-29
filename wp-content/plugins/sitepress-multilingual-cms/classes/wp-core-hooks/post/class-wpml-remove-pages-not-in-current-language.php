@@ -40,38 +40,47 @@ class WPML_Remove_Pages_Not_In_Current_Language {
 	}
 
 	private function get_posts_in_current_languages( $post_type, $current_language ) {
-		$query = "
-				SELECT p.ID FROM {$this->wpdb->posts} p
-				JOIN {$this->wpdb->prefix}icl_translations wpml_translations ON p.ID = wpml_translations.element_id
-				WHERE wpml_translations.element_type=%s AND p.post_type=%s AND wpml_translations.language_code = %s
-			";
+		$wpdb = $this->wpdb;
 
-		$args = [ 'post_' . $post_type, $post_type, $current_language ];
-
-		return $this->get_post_ids( $this->wpdb->prepare( $query, $args ));
+		return Fns::map(
+			Fns::unary( 'intval' ),
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT p.ID FROM {$wpdb->posts} p
+					JOIN {$wpdb->prefix}icl_translations wpml_translations ON p.ID = wpml_translations.element_id
+					WHERE wpml_translations.element_type=%s AND p.post_type=%s AND wpml_translations.language_code = %s",
+					'post_' . $post_type,
+					$post_type,
+					$current_language
+				)
+			)
+		);
 	}
 
 	private function get_original_posts_in_other_languages( $post_type, $current_language ) {
-		$query = "
-				SELECT p.ID FROM {$this->wpdb->posts} p
-				JOIN {$this->wpdb->prefix}icl_translations wpml_translations ON p.ID = wpml_translations.element_id
-				WHERE wpml_translations.element_type=%s
+		$wpdb = $this->wpdb;
+
+		return Fns::map(
+			Fns::unary( 'intval' ),
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT p.ID FROM {$wpdb->posts} p
+					JOIN {$wpdb->prefix}icl_translations wpml_translations ON p.ID = wpml_translations.element_id
+					WHERE wpml_translations.element_type=%s
 				  AND p.post_type=%s
 				  AND wpml_translations.language_code <> %s
 				  AND wpml_translations.source_language_code IS NULL
 				  AND NOT EXISTS (
-				      SELECT translation_id FROM {$this->wpdb->prefix}icl_translations as other_translation
-				      WHERE other_translation.trid = wpml_translations.trid AND other_translation.language_code = %s
-			      )
-			";
-
-		$args = [ 'post_' . $post_type, $post_type, $current_language, $current_language ];
-
-		return $this->get_post_ids( $this->wpdb->prepare( $query, $args ) );
-	}
-
-	private function get_post_ids( $query ) {
-		return Fns::map( Fns::unary( 'intval' ), $this->wpdb->get_col( $query ) );
+					      SELECT translation_id FROM {$wpdb->prefix}icl_translations as other_translation
+					      WHERE other_translation.trid = wpml_translations.trid AND other_translation.language_code = %s
+					)",
+					'post_' . $post_type,
+					$post_type,
+					$current_language,
+					$current_language
+				)
+			)
+		);
 	}
 
 	private function find_post_type( $get_page_arguments, $new_arr ) {

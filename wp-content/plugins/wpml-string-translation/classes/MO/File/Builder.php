@@ -14,6 +14,6 @@ class Builder extends \WPML\ST\TranslationFile\Builder {
 	}
 	
 	public function get_content( array $strings ) {
-		return $this->generator->getContent( $strings );
+		return $this->generator->getContent( $strings, $this->plural_form );
 	}
 }

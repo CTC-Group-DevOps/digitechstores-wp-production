@@ -21,10 +21,12 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 		'ls_aria_label'          => 'string',
 		'dropdown_ls_aria_label'   => 'string',
 		'dropdown_click_ls_aria_label' => 'string',
+		'has_alternatives'       => 'bool',
 	];
 
 	private $allowed_language_vars = [
 		'code'                   => 'string',
+		'hreflang'               => 'string',
 		'url'                    => 'string',
 		'flag_url'               => 'string',
 		'flag_title'             => 'string',
@@ -53,8 +55,10 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 
 		$vars['current_language_code'] = $this->sitepress->get_current_language();
 		$vars['languages']             = $this->get_language_items( $slot, $template_data );
-		$vars['css_classes']           = $this->get_slot_css_classes( $slot );
+		$vars['has_alternatives']      = $this->has_alternatives( $vars['languages'] );
+		$vars['css_classes']           = $this->get_wrapper_css_classes( $slot );
 		$vars['css_classes_link']      = self::LINK_CSS_CLASS;
+		/* translators: Screen reader name of the language switcher on the site, and the name of the language switcher widget. */
 		$vars['ls_aria_label']         = __( 'Language Switcher', 'sitepress' );
 		$vars['dropdown_ls_aria_label']  = __( 'Language switcher, press tab to navigate to other languages', 'sitepress' );
 		$vars['dropdown_click_ls_aria_label'] = __( 'Language switcher, click to open then tab to navigate', 'sitepress' );
@@ -62,6 +66,20 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 		$vars = $this->add_backward_compatibility_to_wrapper( $vars, $slot );
 
 		return $this->sanitize_vars( $vars, $this->allowed_vars );
+	}
+
+	private function has_alternatives( array $languages ) {
+		foreach ( $languages as $language ) {
+			if ( empty( $language['is_current'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function get_wrapper_css_classes( $slot ) {
+		return $this->add_backward_compatibility_to_wrapper_classes( $this->get_slot_css_classes( $slot ), $slot );
 	}
 
 	public function get_slot_css_classes( $slot ) {
@@ -91,6 +109,8 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 	private function get_language_items( $slot, $template_data ) {
 		$ret = [];
 
+		$is_root_request  = WPML_Root_Page::is_configured_root_request();
+		$current_language = $is_root_request ? null : $this->sitepress->get_current_language();
 
 		$get_ls_args = [
 			'skip_missing' => ! $this->settings->get_setting( 'link_empty' ),
@@ -98,7 +118,7 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 
 		if ( $slot->is_post_translations() ) {
 			$get_ls_args['skip_missing'] = true;
-		} elseif ( ( WPML_Root_Page::uses_html_root() || WPML_Root_Page::get_root_id() ) && WPML_Root_Page::is_current_request_root() ) {
+		} elseif ( $is_root_request ) {
 			$get_ls_args['skip_missing'] = false;
 		}
 
@@ -110,17 +130,20 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 
 		if ( $languages ) {
 
+			$has_other_language = (bool) array_diff( array_keys( $languages ), [ (string) $current_language ] );
+
 			foreach ( $languages as $code => $data ) {
 
-				$is_current_language = $code === $this->sitepress->get_current_language();
+				$is_current_language = null !== $current_language && $code === $current_language;
 
 				if ( ! $slot->get( 'display_link_for_current_lang' ) && $is_current_language ) {
 					continue;
 				}
 
 				$ret[ $code ] = [
-					'code' => $code,
-					'url'  => $data['url'],
+					'code'     => $code,
+					'hreflang' => \WPML\Languages\HreflangTag::forLanguage( (array) $data ) ?: $code,
+					'url'      => $data['url'],
 				];
 
 				if ( $flag_width ) {
@@ -147,22 +170,23 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 					$ret[ $code ]['flag_alt']   = ( $display_name || $display_native ) ? '' : $data['translated_name'];
 				}
 
-				$language_name = $data['translated_name'];
-
 				if ( $display_native ) {
 					$ret[ $code ]['native_name'] = $data['native_name'];
-					$language_name = $data['native_name'];
 				}
 
 				if ( $display_name ) {
 					$ret[ $code ]['display_name'] = $data['translated_name'];
 				}
 
-				if ( $display_name && $display_native ) {
-					$language_name = $data['translated_name'] . ' (' . $data['native_name'] . ')';
-				}
+				$language_name = WPML_LS_Language_Name::compose(
+					$data['native_name'],
+					$data['translated_name'],
+					(bool) $display_native,
+					(bool) $display_name
+				);
 
 				$ret[ $code ]['menu_item_label'] = sprintf(
+					/* translators: Screen reader name of an item of the language switcher. %s: the name of the language it switches to. */
 					__( 'Switch to %s', 'sitepress' ),
 					$language_name
 				);
@@ -174,9 +198,9 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 
 				if ( $slot->is_menu() ) {
 					$ret[ $code ]['db_id']            = $this->get_menu_item_id( $code, $slot );
-					$ret[ $code ]['menu_item_parent'] = $slot->get( 'is_hierarchical' ) && ! $is_current_language && $slot->get( 'display_link_for_current_lang' )
-							? $this->get_menu_item_id( $this->sitepress->get_current_language(), $slot ) : 0;
-					$ret[ $code ]['is_parent']        = $slot->get( 'is_hierarchical' ) && $is_current_language;
+					$ret[ $code ]['menu_item_parent'] = $slot->get( 'is_hierarchical' ) && null !== $current_language && ! $is_current_language && $slot->get( 'display_link_for_current_lang' )
+							? $this->get_menu_item_id( $current_language, $slot ) : 0;
+					$ret[ $code ]['is_parent']        = $slot->get( 'is_hierarchical' ) && $is_current_language && $has_other_language;
 
 					array_unshift( $css_classes, 'menu-item' );
 					array_push( $css_classes, $this->css_prefix . 'menu-item' );
@@ -219,7 +243,7 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 
 			if ( isset( $template_data['flag_extension'] ) ) {
 				$old_ext = pathinfo( $url, PATHINFO_EXTENSION );
-				$url     = preg_replace( '#' . $old_ext . '$#', $template_data['flag_extension'], $url, 1 );
+				$url     = preg_replace( '#' . preg_quote( $old_ext, '#' ) . '$#', $template_data['flag_extension'], $url, 1 );
 			}
 		}
 
@@ -340,12 +364,6 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 					 || $this->is_legacy_template( $slot->template(), 'list-horizontal' )
 				) {
 					$vars['backward_compatibility']['css_id'] = 'lang_sel_list';
-
-					if ( $this->is_legacy_template( $slot->template(), 'list-horizontal' ) ) {
-						$vars['css_classes'] = 'lang_sel_list_horizontal ' . $vars['css_classes'];
-					} else {
-						$vars['css_classes'] = 'lang_sel_list_vertical ' . $vars['css_classes'];
-					}
 				}
 
 				if ( $this->is_legacy_template( $slot->template(), 'dropdown' ) ) {
@@ -355,10 +373,6 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 				if ( $this->is_legacy_template( $slot->template(), 'dropdown-click' ) ) {
 					$vars['backward_compatibility']['css_id'] = 'lang_sel_click';
 				}
-			}
-
-			if ( $slot->is_post_translations() ) {
-				$vars['css_classes'] = 'icl_post_in_other_langs ' . $vars['css_classes'];
 			}
 
 			if ( $slot->is_footer() ) {
@@ -372,6 +386,32 @@ class WPML_LS_Model_Build extends WPML_SP_User {
 		}
 
 		return $vars;
+	}
+
+	private function add_backward_compatibility_to_wrapper_classes( $css_classes, $slot ) {
+
+		if ( ! $this->needs_backward_compatibility() ) {
+			return $css_classes;
+		}
+
+		if ( $slot->is_sidebar() || $slot->is_shortcode_actions() ) {
+
+			if ( $this->is_legacy_template( $slot->template(), 'list-vertical' )
+				 || $this->is_legacy_template( $slot->template(), 'list-horizontal' )
+			) {
+				if ( $this->is_legacy_template( $slot->template(), 'list-horizontal' ) ) {
+					$css_classes = 'lang_sel_list_horizontal ' . $css_classes;
+				} else {
+					$css_classes = 'lang_sel_list_vertical ' . $css_classes;
+				}
+			}
+		}
+
+		if ( $slot->is_post_translations() ) {
+			$css_classes = 'icl_post_in_other_langs ' . $css_classes;
+		}
+
+		return $css_classes;
 	}
 
 	private function is_legacy_template( $template_slug, $type = null ) {

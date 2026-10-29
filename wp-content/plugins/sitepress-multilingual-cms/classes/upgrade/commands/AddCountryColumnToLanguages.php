@@ -4,7 +4,7 @@
 namespace WPML\Upgrade\Commands;
 
 
-class AddCountryColumnToLanguages extends \WPML_Upgrade_Add_Column_To_Table {
+class AddCountryColumnToLanguages extends \WPML_Upgrade_Add_Column_To_Table implements \IWPML_Pre_Setup_Upgrade_Command {
 
 	protected function get_table() {
 		return 'icl_languages';

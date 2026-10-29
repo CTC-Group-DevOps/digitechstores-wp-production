@@ -19,11 +19,19 @@ abstract class Base implements StringsInBlock {
 			$this->block_types = $this->config_option->get();
 		}
 
-		if ( isset( $block->blockName, $this->block_types[ $block->blockName ][ $type ] ) ) {
-			return $this->block_types[ $block->blockName ][ $type ];
-		}
+		$block_config = isset( $block->blockName, $this->block_types[ $block->blockName ][ $type ] )
+			? $this->block_types[ $block->blockName ][ $type ]
+			: null;
 
 		$namespace_config = $this->get_namespace_config( $block, $type );
+
+		if ( is_array( $block_config ) && is_array( $namespace_config ) ) {
+			return $this->mergeConfigs( $namespace_config, $block_config );
+		}
+
+		if ( null !== $block_config ) {
+			return $block_config;
+		}
 
 		if ( $namespace_config ) {
 			return $namespace_config;
@@ -34,6 +42,18 @@ abstract class Base implements StringsInBlock {
 		}
 
 		return null;
+	}
+
+	private function mergeConfigs( array $namespace_config, array $block_config ): array {
+		if ( $this->isList( $namespace_config ) && $this->isList( $block_config ) ) {
+			return array_values( array_unique( array_merge( $namespace_config, $block_config ), SORT_REGULAR ) );
+		}
+
+		return array_merge( $namespace_config, $block_config );
+	}
+
+	private function isList( array $config ): bool {
+		return array_values( $config ) === $config;
 	}
 
 

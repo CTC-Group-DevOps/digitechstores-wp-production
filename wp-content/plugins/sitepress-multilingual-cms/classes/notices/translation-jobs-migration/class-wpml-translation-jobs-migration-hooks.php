@@ -39,8 +39,12 @@ class WPML_Translation_Jobs_Migration_Hooks {
 
 			add_filter( 'wpml_tm_lock_ui', array( $this, 'lock_tm_ui' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_action(
-				'wp_ajax_' . WPML_Translation_Jobs_Migration_Ajax::ACTION,
+			\WPML\Request\Adapter\Ajax::register(
+				WPML_Translation_Jobs_Migration_Ajax::ACTION,
+				\WPML\Request\Policy\Policy::capability(
+					'manage_translations',
+					\WPML\Request\Policy\Authenticity::actionNonce( WPML_Translation_Jobs_Migration_Ajax::ACTION, 'nonce' )
+				),
 				array( $this->ajax_handler, 'run_migration' )
 			);
 		}

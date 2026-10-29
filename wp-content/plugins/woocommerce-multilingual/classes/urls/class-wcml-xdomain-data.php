@@ -1,6 +1,10 @@
 <?php
 
+use WCML\Utilities\RequestFingerprint;
+
 class WCML_xDomain_Data implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC_Action {
+
+	const HANDOFF_TTL = 60;
 
 	private $cookie_handler;
 
@@ -15,7 +19,7 @@ class WCML_xDomain_Data implements \IWPML_Backend_Action, \IWPML_Frontend_Action
 
 	public function pass_data_to_domain( $data ) {
 
-		$wcml_session_id = md5( microtime() . uniqid( (string) mt_rand(), true ) );
+		$wcml_session_id = wp_generate_password( 32, false );
 		$data['wcsid']   = $wcml_session_id;
 		$session_data    = [];
 
@@ -29,6 +33,8 @@ class WCML_xDomain_Data implements \IWPML_Backend_Action, \IWPML_Frontend_Action
 		}
 
 		if ( ! empty( $session_data ) ) {
+			$session_data['expires'] = time() + self::HANDOFF_TTL;
+			$session_data            = ( new RequestFingerprint( false ) )->sign( $session_data );
 			update_option( 'wcml_session_data_' . $wcml_session_id, $session_data );
 		}
 
@@ -37,11 +43,7 @@ class WCML_xDomain_Data implements \IWPML_Backend_Action, \IWPML_Frontend_Action
 
 	public function check_request() {
 
-		if ( has_filter( 'wpml_get_cross_domain_language_data' ) ) {
-			$xdomain_data = apply_filters( 'wpml_get_cross_domain_language_data', [] );
-		} elseif ( isset( $_GET['xdomain_data'] ) ) {
-			$xdomain_data = json_decode( base64_decode( $_GET['xdomain_data'] ), true );
-		}
+		$xdomain_data = apply_filters( 'wpml_get_cross_domain_language_data', [] );
 
 		if ( isset( $xdomain_data['wcsid'] ) ) {
 			$this->set_session_data( $xdomain_data['wcsid'] );
@@ -53,25 +55,36 @@ class WCML_xDomain_Data implements \IWPML_Backend_Action, \IWPML_Frontend_Action
 
 		$data = maybe_unserialize( get_option( 'wcml_session_data_' . $wcml_session_id ) );
 
-		if ( ! empty( $data ) ) {
+		delete_option( 'wcml_session_data_' . $wcml_session_id );
 
-			$session_expiration = time() + (int) apply_filters( 'wc_session_expiration', 60 * 60 * 48 );
-			$secure             = apply_filters( 'wc_session_use_secure_cookie', false );
-
-			if ( isset( $data['session'] ) ) {
-				$this->cookie_handler->set_cookie( 'wp_woocommerce_session_' . COOKIEHASH, $data['session'], $session_expiration, COOKIEPATH, COOKIE_DOMAIN, $secure );
-				$_COOKIE[ 'wp_woocommerce_session_' . COOKIEHASH ] = $data['session'];
-			}
-
-			if ( isset( $data['hash'] ) ) {
-				$this->cookie_handler->set_cookie( 'woocommerce_cart_hash', $data['hash'], $session_expiration, COOKIEPATH, COOKIE_DOMAIN, $secure );
-				$this->cookie_handler->set_cookie( 'woocommerce_items_in_cart', $data['items'], $session_expiration, COOKIEPATH, COOKIE_DOMAIN, $secure );
-				$_COOKIE['woocommerce_cart_hash']     = $data['hash'];
-				$_COOKIE['woocommerce_items_in_cart'] = $data['items'];
-			}
+		if ( empty( $data ) ) {
+			return;
 		}
 
-		delete_option( 'wcml_session_data_' . $wcml_session_id );
+		if ( empty( $data['expires'] ) || time() > $data['expires'] ) {
+			return;
+		}
+
+		$data = ( new RequestFingerprint( false ) )->verify( $data );
+
+		if ( null === $data ) {
+			return;
+		}
+
+		$session_expiration = time() + (int) apply_filters( 'wc_session_expiration', 60 * 60 * 48 );
+		$secure             = apply_filters( 'wc_session_use_secure_cookie', false );
+
+		if ( isset( $data['session'] ) ) {
+			$this->cookie_handler->set_cookie( 'wp_woocommerce_session_' . COOKIEHASH, $data['session'], $session_expiration, COOKIEPATH, COOKIE_DOMAIN, $secure );
+			$_COOKIE[ 'wp_woocommerce_session_' . COOKIEHASH ] = $data['session'];
+		}
+
+		if ( isset( $data['hash'] ) ) {
+			$this->cookie_handler->set_cookie( 'woocommerce_cart_hash', $data['hash'], $session_expiration, COOKIEPATH, COOKIE_DOMAIN, $secure );
+			$this->cookie_handler->set_cookie( 'woocommerce_items_in_cart', $data['items'], $session_expiration, COOKIEPATH, COOKIE_DOMAIN, $secure );
+			$_COOKIE['woocommerce_cart_hash']     = $data['hash'];
+			$_COOKIE['woocommerce_items_in_cart'] = $data['items'];
+		}
 
 	}
 

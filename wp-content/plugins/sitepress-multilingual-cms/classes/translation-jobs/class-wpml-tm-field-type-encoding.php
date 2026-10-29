@@ -17,6 +17,23 @@ class WPML_TM_Field_Type_Encoding {
 		return str_replace( '-', self::CUSTOM_FIELD_KEY_SEPARATOR, $string );
 	}
 
+	public static function fromTermMetaFieldType( $jobFieldType ) {
+		if ( ! preg_match( '/^tfield-(.+)-\d+(?:_(.+))?$/', (string) $jobFieldType, $termMetaField ) ) {
+			return $jobFieldType;
+		}
+		$attributes = isset( $termMetaField[2] ) ? self::termMetaAttributePath( $termMetaField[2] ) : array();
+
+		list( $customFieldType ) = self::encode( $termMetaField[1], array_merge( array( 0 ), $attributes ) );
+
+		return $customFieldType;
+	}
+
+	private static function termMetaAttributePath( $joinedPath ) {
+		preg_match_all( '/\d+(?=_|$)|[^_]+(?:_(?!\d+(?:_|$))[^_]+)*/', $joinedPath, $segments );
+
+		return $segments[0];
+	}
+
 	public static function decode( $custom_field_job_type ) {
 		$custom_field_name = '';
 		$attributes        = array();

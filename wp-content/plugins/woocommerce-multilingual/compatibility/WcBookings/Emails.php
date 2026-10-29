@@ -61,6 +61,7 @@ class Emails implements \IWPML_Action {
 			],
 		] )->each( function( $classes, $hook ) {
 			add_action( $hook, $this->handle( $classes ), self::PRIORITY_BEFORE_EMAIL_TRIGGER );
+			add_action( $hook, $this->closeEmailLanguageScope(), \WCML_Emails::PRIORITY_AFTER_EMAIL_IS_SENT );
 		} );
 	}
 
@@ -108,6 +109,12 @@ class Emails implements \IWPML_Action {
 		}
 
 		return $translatedValue ?: $value;
+	}
+
+	private function closeEmailLanguageScope() {
+		return function() {
+			$this->woocommerce_wpml->emails->close_email_language_scope();
+		};
 	}
 
 	public function handle( $classes ) {

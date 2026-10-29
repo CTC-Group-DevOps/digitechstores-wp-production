@@ -6,9 +6,9 @@ class WPML_REST_Extend_Args implements IWPML_Action {
 
 	private $sitepress;
 
-	private $current_language_backup;
+	private $switches = array();
 
-	private $locale_switched = false;
+	private $embed_scope_open = false;
 
 	public function __construct( SitePress $sitepress ) {
 		$this->sitepress = $sitepress;
@@ -18,6 +18,8 @@ class WPML_REST_Extend_Args implements IWPML_Action {
 		add_filter( 'rest_endpoints', array( $this, 'rest_endpoints' ) );
 		add_filter( 'rest_request_before_callbacks', array( $this, 'rest_request_before_callbacks' ), 10, 3 );
 		add_filter( 'rest_request_after_callbacks', array( $this, 'rest_request_after_callbacks' ) );
+		add_filter( 'rest_pre_serve_request', array( $this, 'rest_pre_serve_request' ), PHP_INT_MAX, 4 );
+		add_filter( 'rest_pre_echo_response', array( $this, 'rest_pre_echo_response' ), PHP_INT_MIN );
 	}
 
 	public function rest_endpoints( array $endpoints ) {
@@ -40,61 +42,55 @@ class WPML_REST_Extend_Args implements IWPML_Action {
 	}
 
 	public function rest_request_before_callbacks( $response, $rest_server, $request ) {
-		$this->current_language_backup = null;
-		$this->locale_switched         = false;
-		$current_language              = $this->sitepress->get_current_language();
-		$rest_language                 = $request->get_param( self::REST_LANGUAGE_ARGUMENT );
-		$target_language               = $rest_language ? $rest_language : $current_language;
+		$current_language = $this->sitepress->get_current_language();
+		$rest_language    = $request->get_param( self::REST_LANGUAGE_ARGUMENT );
+		$switch           = $rest_language && $rest_language !== $current_language;
 
-		if ( $rest_language && $rest_language !== $current_language ) {
-			$this->current_language_backup = $current_language;
+		if ( $switch ) {
 			$this->sitepress->switch_lang( $rest_language );
 		}
-
-		if ( ! $this->has_explicit_user_profile_locale() ) {
-			$this->switch_locale( $target_language );
-		}
+		$this->switches[] = $switch;
 
 		return $response;
 	}
 
 
 	public function rest_request_after_callbacks( $response ) {
-		if ( $this->locale_switched && function_exists( 'restore_previous_locale' ) ) {
-			restore_previous_locale();
-		}
-
-		if ( $this->current_language_backup ) {
-			$this->sitepress->switch_lang( $this->current_language_backup );
+		if ( array_pop( $this->switches ) ) {
+			$this->sitepress->switch_lang();
 		}
 
 		return $response;
 	}
 
-	private function switch_locale( $language_code ) {
-		if ( ! $language_code || ! function_exists( 'switch_to_locale' ) ) {
-			return;
+	public function rest_pre_serve_request( $served, $result, $request, $rest_server ) {
+		if ( $served || ! $request instanceof WP_REST_Request || 'HEAD' === $request->get_method() ) {
+			return $served;
 		}
 
-		$locale = $this->sitepress->get_locale( $language_code );
+		$query_params  = $request->get_query_params();
+		$rest_language = $request->get_param( self::REST_LANGUAGE_ARGUMENT );
 
-		if ( $locale ) {
-			$this->locale_switched = switch_to_locale( $locale );
+		if (
+			isset( $query_params['_embed'] )
+			&& is_string( $rest_language )
+			&& in_array( $rest_language, $this->get_active_language_codes(), true )
+			&& $rest_language !== $this->sitepress->get_current_language()
+		) {
+			$this->sitepress->switch_lang( $rest_language );
+			$this->embed_scope_open = true;
 		}
+
+		return $served;
 	}
 
-	private function has_explicit_user_profile_locale() {
-		if ( ! function_exists( 'get_current_user_id' ) || ! function_exists( 'get_user_meta' ) ) {
-			return false;
+	public function rest_pre_echo_response( $result ) {
+		if ( $this->embed_scope_open ) {
+			$this->embed_scope_open = false;
+			$this->sitepress->switch_lang();
 		}
 
-		$user_id = get_current_user_id();
-
-		if ( ! $user_id ) {
-			return false;
-		}
-
-		return '' !== (string) get_user_meta( $user_id, 'locale', true );
+		return $result;
 	}
 
 	private function get_active_language_codes() {

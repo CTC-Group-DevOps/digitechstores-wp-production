@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add hooks to the edit posts view for the 'product' post type.
  *
  * @class    WC_PB_Admin_Post_Types
- * @version  6.21.0
+ * @version  8.5.16
  */
 class WC_PB_Admin_Post_Types {
 
 	/**
 	 * Hook in.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

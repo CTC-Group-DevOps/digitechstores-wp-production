@@ -5,6 +5,7 @@ namespace WPML\ST\MO\Scan\UI;
 use WPML\Collect\Support\Collection;
 use WPML\ST\MO\Generate\MultiSite\Condition;
 use WPML\ST\TranslationFile\EntryQueries;
+use WPML\UserInterface\Web\Infrastructure\WordPress\Component\Translations\AdminTextsTranslationController;
 
 class Model {
 
@@ -25,11 +26,17 @@ class Model {
 				'domains_to_pre_generate_count' => $domains_to_pre_generate_count,
 				'file_path'                     => WP_LANG_DIR . '/wpml',
 				'is_st_page'                    => $is_st_page,
-				'admin_texts_url'               => 'admin.php?page=' . WPML_ST_FOLDER . '/menu/string-translation.php&trop=1',
+				'localization_url'              => self::localizationUrl(),
 				'is_search'                     => isset( $_GET['search'] ),
 				'run_ror_all_sites'             => ( new Condition() )->shouldRunWithAllSites(),
 			];
 		};
+	}
+
+	private static function localizationUrl( $controller = AdminTextsTranslationController::class ) {
+		$callback = [ $controller, 'localizationSectionUrl' ];
+
+		return is_callable( $callback ) ? admin_url( (string) call_user_func( $callback ) ) : '';
 	}
 
 	private static function filterFilesByType( Collection $files_to_scan, $type ) {

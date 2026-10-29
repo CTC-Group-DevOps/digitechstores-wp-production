@@ -11,29 +11,34 @@ class WPML_TP_Refresh_Language_Pairs {
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_' . self::AJAX_ACTION, array( $this, 'refresh_language_pairs' ) );
+		\WPML\Request\Adapter\Ajax::register( self::AJAX_ACTION, \WPML\Request\Policy\Policy::capability( 'manage_translations', \WPML\Request\Policy\Authenticity::actionNonce( self::AJAX_ACTION, 'nonce' ) ), array( $this, 'refresh_language_pairs' ) );
 	}
 
 	public function refresh_language_pairs() {
+		if ( \WPML\Setup\Initializer::rejectSettingsMutationAjax() ) {
+			return;
+		}
+
 		if ( $this->is_valid_request() ) {
 			try {
 				$this->tp_api->refresh_language_pairs();
 				wp_send_json_success(
 					array(
-						'msg' => __( 'Language pairs refreshed', 'wpml-translation-management' ),
+						'msg' => __( 'Language pairs refreshed', 'sitepress' ),
 					)
 				);
 			} catch ( Exception $e ) {
 				wp_send_json_error(
 					array(
-						'msg' => __( 'Language pairs not refreshed, please try again', 'wpml-translation-management' ),
+						'msg' => __( 'Language pairs not refreshed, please try again', 'sitepress' ),
 					)
 				);
 			}
 		} else {
 			wp_send_json_error(
 				array(
-					'msg' => __( 'Invalid Request', 'wpml-translation-management' ),
+					/* translators: Title of the message shown when a request could not be carried out. */
+					'msg' => __( 'Invalid Request', 'sitepress' ),
 				)
 			);
 		}

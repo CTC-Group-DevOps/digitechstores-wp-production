@@ -7,26 +7,26 @@
             "plural_forms": "nplurals=1; plural=0;",
             "lang": "th"
          },
-         "Edit": [
-            "แก้ไข"
+         "Edit %s": [
+            "แก้ไข %s"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
+         ],
+         "Original:": [
+            "ต้นฉบับ:"
          ],
          "Translation to:": [
             "แปลเป็น:"
          ],
          "Copy from original": [
-            "คัดลอกจากต้นฉบับ"
+            "คัดลอกมาจากต้นฉบับ"
          ],
          "Use Shift+Enter to add a new line.": [
-            "ใช้ Shift+Enter เพื่อเพิ่มบรรทัดใหม่"
-         ],
-         "Original:": [
-            "ต้นฉบับ:"
+            "ใช้ Shift+Enter เพื่อขึ้นบรรทัดใหม่"
          ],
          "Add %s translation": [
             "เพิ่มการแปล %s"
@@ -35,25 +35,22 @@
             "แก้ไขการแปล %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "เพิ่มการแปล %s (สตริงปรากฏบนไซต์และไม่ได้แปล)"
+            "เพิ่มการแปล %s (สตริงนี้ปรากฏบนไซต์และยังไม่ได้แปล)"
          ],
          "Original language %s": [
             "ภาษาต้นฉบับ %s"
          ],
          "Waiting for translator to %s": [
-            "กำลังรอผู้แปลเพื่อ %s"
+            "รอนักแปลสำหรับ %s"
          ],
          "Translation in progress to %s": [
-            "กำลังแปลเป็น %s"
-         ],
-         "In basket for translation to %s": [
-            "อยู่ในตะกร้าสำหรับการแปลเป็น %s"
+            "กำลังดำเนินการแปลเป็น %s"
          ],
          "Translation saved.": [
             "บันทึกการแปลแล้ว"
          ],
          "Translation update failed.": [
-            "อัปเดตการแปลล้มเหลว"
+            "การอัปเดตการแปลล้มเหลว"
          ]
       }
    }

@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bundle-Sells Module
  *
- * @version  6.4.0
+ * @version  8.5.16
  */
 class WC_PB_MMI_Module extends WCS_PB_Abstract_Module {
 
 	/**
 	 * Core.
+	 *
+	 * @return void
 	 */
 	public function load_core() {
 
@@ -34,6 +36,8 @@ class WC_PB_MMI_Module extends WCS_PB_Abstract_Module {
 
 	/**
 	 * Cart.
+	 *
+	 * @return void
 	 */
 	public function load_cart() {
 		// Cart-related functions and hooks.
@@ -42,6 +46,8 @@ class WC_PB_MMI_Module extends WCS_PB_Abstract_Module {
 
 	/**
 	 * Display.
+	 *
+	 * @return void
 	 */
 	public function load_display() {
 		// Display-related functions and hooks.

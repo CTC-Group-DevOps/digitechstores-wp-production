@@ -1,8 +1,12 @@
 <?php
 
+use WPML\FP\Str;
+
 class WCML_WC_Subscriptions implements \IWPML_Action {
 
 	const TRANSLATION_DOMAIN = 'woocommerce_subscriptions';
+
+	const TEXT_DOMAIN = 'woocommerce-subscriptions';
 
 	private $woocommerce_wpml;
 
@@ -22,6 +26,7 @@ class WCML_WC_Subscriptions implements \IWPML_Action {
 	public function add_hooks() {
 		add_action( 'init', [ $this, 'init' ], 9 );
 		add_filter( 'wcml_variation_term_taxonomy_ids', [ $this, 'wcml_variation_term_taxonomy_ids' ] );
+		add_filter( 'wcml_email_text_domain', [ $this, 'set_email_text_domain' ], 10, 2 );
 		add_filter( 'wcml_endpoint_keys_to_options', [ $this, 'endpoint_keys_to_options' ] );
 		add_filter( 'wcml_register_endpoints_store_urls', [ $this, 'register_endpoints_store_urls' ] );
 		add_filter( 'wcml_endpoints_translation_controls', [ $this, 'register_translation_controls' ] );
@@ -45,8 +50,19 @@ class WCML_WC_Subscriptions implements \IWPML_Action {
 			add_filter( 'wcml_should_translate_order_items', [ $this, 'translateSubscriptionProductItems' ], 10, 3 );
 		}
 
-		add_filter( 'woocommerce_generated_manual_renewal_order_renewal_notification', [ $this, 'translate_renewal_notification' ], 9 );
-		add_filter( 'woocommerce_order_status_failed_renewal_notification', [ $this, 'translate_renewal_notification' ], 9 );
+		$close_email_language_scope = function() {
+			$this->woocommerce_wpml->emails->close_email_language_scope();
+		};
+
+		$renewal_notifications = [
+			'woocommerce_generated_manual_renewal_order_renewal_notification',
+			'woocommerce_order_status_failed_renewal_notification',
+		];
+
+		foreach ( $renewal_notifications as $renewal_notification ) {
+			add_filter( $renewal_notification, [ $this, 'translate_renewal_notification' ], 9 );
+			add_action( $renewal_notification, $close_email_language_scope, WCML_Emails::PRIORITY_AFTER_EMAIL_IS_SENT );
+		}
 	}
 
 	public function wcml_variation_term_taxonomy_ids( $get_variation_term_taxonomy_ids ) {
@@ -114,6 +130,19 @@ class WCML_WC_Subscriptions implements \IWPML_Action {
 
 			add_filter( 'woocommerce_email_get_option', [ $this, 'translate_heading_subject' ], 10, 4 );
 		}
+	}
+
+	public function set_email_text_domain( $domain, WC_Email $email ) {
+
+		$plugin = class_exists( 'WC_Subscriptions_Plugin' ) ? WC_Subscriptions_Plugin::instance() : null;
+
+		if ( ! $plugin ) {
+			return $domain;
+		}
+
+		return Str::startsWith( $plugin->get_plugin_directory(), $email->template_base )
+			? self::TEXT_DOMAIN
+			: $domain;
 	}
 
 	public function translate_heading_subject( $return_value, $obj, $value, $key ) {

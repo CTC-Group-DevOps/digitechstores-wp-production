@@ -2,6 +2,8 @@
 
 namespace WPML\StringTranslation\Application\StringCore\Domain;
 
+use WPML\Core\SharedKernel\Component\Language\Domain\LanguageCode;
+
 class StringItem {
 
 	const STRING_TYPE_DEFAULT = 0;
@@ -135,12 +137,12 @@ class StringItem {
 		$this->status = $status;
 	}
 
-	public function refreshStatus( string $defaultLanguageCode, array $allLanguageCodes ) {
+	public function refreshStatus( string $defaultLanguageCode, array $allLanguageCodes ): bool {
 		if ( count( $allLanguageCodes ) === 0 || count( $this->translations ) === 0 ) {
-			return;
+			return false;
 		}
 
-		if ( $defaultLanguageCode !== 'en' && $defaultLanguageCode !== $this->language ) {
+		if ( ! LanguageCode::isEnglish( $defaultLanguageCode ) && $defaultLanguageCode !== $this->language ) {
 			$allLanguageCodes[] = $defaultLanguageCode;
 		}
 
@@ -163,16 +165,19 @@ class StringItem {
 		$translatedLanguagesCount = count( array_intersect( $allLanguageCodes, $translatedLanguageCodes ) );
 
 		if ( $translatedLanguagesCount === 0 ) {
-			$this->status = ICL_STRING_TRANSLATION_NOT_TRANSLATED;
-			return;
+			$this->status = count( $translatedLanguageCodes ) > 0
+				? ICL_STRING_TRANSLATION_PARTIAL
+				: ICL_STRING_TRANSLATION_NOT_TRANSLATED;
+			return true;
 		}
 
 		if ( $translatedLanguagesCount < count( $allLanguageCodes ) ) {
 			$this->status = ICL_STRING_TRANSLATION_PARTIAL;
-			return;
+			return true;
 		}
 
 		$this->status = ICL_STRING_TRANSLATION_COMPLETE;
+		return true;
 	}
 
 	public function getName() {

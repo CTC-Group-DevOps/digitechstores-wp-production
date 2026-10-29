@@ -3,12 +3,6 @@
 use WPML\PB\Gutenberg\StringsInBlock\Base;
 
 class WPML_Compatibility_Theme_Enfold {
-	private $translation_management;
-
-	public function __construct( TranslationManagement $translation_management ) {
-		$this->translation_management = $translation_management;
-	}
-
 
 	public function init_hooks() {
 		add_action( 'wp_insert_post', [ $this, 'wp_insert_post_action' ], 10, 2 );
@@ -45,7 +39,7 @@ class WPML_Compatibility_Theme_Enfold {
 		return $content;
 	}
 
-	function sync_duplicate( $master_post_id, $lang, $post_array, $id ) {
+	public function sync_duplicate( $master_post_id, $lang, $post_array, $id ) {
 		if ( $this->is_active( $master_post_id ) ) {
 			$data = get_post_meta( $master_post_id, '_aviaLayoutBuilderCleanData', true );
 			update_post_meta( $id, '_aviaLayoutBuilderCleanData', $data );
@@ -56,13 +50,11 @@ class WPML_Compatibility_Theme_Enfold {
 		$page_builder_active         = get_post_meta( $post_id, '_aviaLayoutBuilder_active', true );
 		$page_builder_shortcode_tree = get_post_meta( $post_id, '_avia_builder_shortcode_tree', true );
 
-		return $page_builder_active && $page_builder_shortcode_tree !== '';
+		return $page_builder_active && '' !== $page_builder_shortcode_tree;
 	}
 
 	private function is_using_standard_wp_editor() {
-		$doc_translation_method = isset( $this->translation_management->settings['doc_translation_method'] ) ?
-		$this->translation_management->settings['doc_translation_method'] :
-		ICL_TM_TMETHOD_MANUAL;
+		$doc_translation_method = wpml_get_tm_sub_setting( 'doc_translation_method', ICL_TM_TMETHOD_MANUAL );
 
 		return (string) ICL_TM_TMETHOD_MANUAL === (string) $doc_translation_method;
 	}

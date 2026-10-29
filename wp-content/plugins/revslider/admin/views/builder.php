@@ -184,7 +184,7 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 									<?php _e('Help Mode Tooltips', 'revslider');?>
 									<input class="sliderinput easyinit" id="showhidehelpdata" data-evt="showhidehelpdata" type="checkbox" autocomplete="off">
 								</li>
-								<li id="help_menu_support_wrap"><a id="help_menu_support" href="https://account.sliderrevolution.com/portal/?redirect_to=supportsystem" target="_blank"><i class="toptoolbaricon material-icons">forum</i><?php _e('Submit A Support Ticket', 'revslider');?></a></li>
+								<li id="help_menu_support_wrap"><a id="help_menu_support" href="https://account.sliderrevolution.com/portal/?redirect_to=supportsystem" target="_blank"><i class="toptoolbaricon material-icons">forum</i><?php _e('Ticket Support (annual licence)', 'revslider');?></a></li>
 							</ul>
 						</div><!--
 						--><div id="zoomer_wrap_toolbar" class="zoomer_wrap toolbar_selector_icons">

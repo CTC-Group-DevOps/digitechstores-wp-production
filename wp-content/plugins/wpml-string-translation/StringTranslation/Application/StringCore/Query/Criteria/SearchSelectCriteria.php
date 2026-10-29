@@ -16,7 +16,6 @@ class SearchSelectCriteria {
 			'name',
 			'value',
 			'status',
-			'translation_priority',
 			'component_type',
 			'translation_statuses',
 			'sources',

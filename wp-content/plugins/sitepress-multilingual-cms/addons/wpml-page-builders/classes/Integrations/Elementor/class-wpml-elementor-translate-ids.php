@@ -3,6 +3,7 @@
 use WPML\FP\Obj;
 use WPML\FP\Str;
 use WPML\FP\Fns;
+use WPML\PB\Elementor\Helper\ElementTree;
 use function WPML\FP\pipe;
 
 class WPML_Elementor_Translate_IDs implements IWPML_Action {
@@ -57,11 +58,15 @@ class WPML_Elementor_Translate_IDs implements IWPML_Action {
 	}
 
 	public function translate_template_id( $template_id ) {
-		if ( $this->should_translate_template() ) {
+		if ( $this->should_translate_template() && ! $this->is_kit( $template_id ) ) {
 			$template_id = $this->translate_id( $template_id );
 		}
 
 		return $template_id;
+	}
+
+	private function is_kit( $template_id ) {
+		return 'kit' === get_post_meta( (int) $template_id, '_elementor_template_type', true );
 	}
 
 	private function should_translate_template() {
@@ -88,35 +93,40 @@ class WPML_Elementor_Translate_IDs implements IWPML_Action {
 		);
 	}
 
-	public function translate_global_widget_ids( $data_array, $post_id ) {
-		foreach ( $data_array as &$data ) {
-			if ( isset( $data['elType'] ) && 'widget' === $data['elType'] ) {
-				if ( 'global' === $data['widgetType'] ) {
-					$data['templateID'] = $this->translate_id( $data['templateID'] );
-				} elseif ( 'template' === $data['widgetType'] ) {
-					$data['settings']['template_id'] = $this->translate_id( $data['settings']['template_id'] );
-				}
-			}
-			$data['elements'] = $this->translate_global_widget_ids( $data['elements'], $post_id );
-		}
-
-		return $data_array;
+	public function translate_global_widget_ids( $data_array, $post_id = null ) {
+		return ElementTree::map( $data_array, [ $this, 'translate_global_widget_id_in_element' ] );
 	}
 
-	public function translate_product_ids( $data_array, $post_id ) {
-		foreach ( $data_array as &$data ) {
-			if (
-				Obj::prop( 'elType', $data ) === 'widget'
-				&& Obj::prop( 'widgetType', $data ) === 'wc-add-to-cart'
-				&& Obj::propOr( false, 'product_id', $data['settings'] )
-			) {
-				$data['settings']['product_id'] = $this->translate_id( $data['settings']['product_id'] );
-			}
-
-			$data['elements'] = $this->translate_product_ids( $data['elements'], $post_id );
+	public function translate_global_widget_id_in_element( $element ) {
+		if ( ! isset( $element['elType'] ) || 'widget' !== $element['elType'] ) {
+			return $element;
 		}
 
-		return $data_array;
+		$widget_type = Obj::prop( 'widgetType', $element );
+
+		if ( 'global' === $widget_type ) {
+			$element['templateID'] = $this->translate_id( Obj::prop( 'templateID', $element ) );
+		} elseif ( 'template' === $widget_type ) {
+			$element['settings']['template_id'] = $this->translate_id( Obj::path( [ 'settings', 'template_id' ], $element ) );
+		}
+
+		return $element;
+	}
+
+	public function translate_product_ids( $data_array, $post_id = null ) {
+		return ElementTree::map( $data_array, [ $this, 'translate_product_id_in_element' ] );
+	}
+
+	public function translate_product_id_in_element( $element ) {
+		if (
+			Obj::prop( 'elType', $element ) === 'widget'
+			&& Obj::prop( 'widgetType', $element ) === 'wc-add-to-cart'
+			&& Obj::propOr( false, 'product_id', Obj::prop( 'settings', $element ) )
+		) {
+			$element['settings']['product_id'] = $this->translate_id( $element['settings']['product_id'] );
+		}
+
+		return $element;
 	}
 
 	private function translate_id( $element_id, $element_type = null ) {
@@ -137,18 +147,16 @@ class WPML_Elementor_Translate_IDs implements IWPML_Action {
 		return $translated_id;
 	}
 
-	public function translate_ids_in_widget_fields( $data_array, $post_id ) {
-		foreach ( $data_array as &$data ) {
-			if ( isset( $data['elType'] ) && 'widget' === $data['elType'] ) {
-				$data = $this->translate_widget_ids( $data );
-			}
+	public function translate_ids_in_widget_fields( $data_array, $post_id = null ) {
+		return ElementTree::map( $data_array, [ $this, 'translate_widget_field_ids_in_element' ] );
+	}
 
-			if ( ! empty( $data['elements'] ) ) {
-				$data['elements'] = $this->translate_ids_in_widget_fields( $data['elements'], $post_id );
-			}
+	public function translate_widget_field_ids_in_element( $element ) {
+		if ( isset( $element['elType'] ) && 'widget' === $element['elType'] ) {
+			$element = $this->translate_widget_ids( $element );
 		}
 
-		return $data_array;
+		return $element;
 	}
 
 	private function get_widget_fields_with_ids() {

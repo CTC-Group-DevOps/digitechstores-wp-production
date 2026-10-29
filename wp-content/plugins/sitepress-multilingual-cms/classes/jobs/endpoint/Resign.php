@@ -26,6 +26,9 @@ class Resign implements IHandler {
 
 		$result = $jobs
 			->map( Obj::prop( 'job_id' ) )
+			->map( function ( $jobId ) {
+				return (int) $jobId;
+			} )
 			->map( Fns::tap( [ wpml_load_core_tm(), 'resign_translator' ] ) )
 			->values()
 			->toArray();

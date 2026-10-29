@@ -48,8 +48,8 @@ function wc_pb_woocommerce_number_format( price, plain ) {
 		formatted_symbol = plain
 			? symbol
 			: '<span class="woocommerce-Price-currencySymbol">' +
-			  symbol +
-			  '</span>';
+				symbol +
+				'</span>';
 
 	if ( 'left' === position ) {
 		formatted_price = formatted_symbol + formatted_price;
@@ -64,8 +64,8 @@ function wc_pb_woocommerce_number_format( price, plain ) {
 	formatted_price = plain
 		? formatted_price
 		: '<span class="woocommerce-Price-amount amount">' +
-		  formatted_price +
-		  '</span>';
+			formatted_price +
+			'</span>';
 
 	return formatted_price;
 }
@@ -95,7 +95,7 @@ function wc_pb_number_format( number ) {
 		i.substring( j ).replace( /(\d{3})(?=\d)/g, '$1' + t ) +
 		( c
 			? d +
-			  Math.abs( n - i )
+				Math.abs( n - i )
 					.toFixed( c )
 					.slice( 2 )
 			: '' )
@@ -186,7 +186,7 @@ function wc_pb_format_list( arr, args ) {
 				: wc_bundle_params.i18n_string_list_item.replace(
 						'%s',
 						arr[ i ]
-				  );
+					);
 
 			// eslint-disable-next-line eqeqeq -- Preserve coercion for values supplied by WooCommerce and extensions.
 			if ( count == 1 || loop == 1 ) {
@@ -459,8 +459,8 @@ jQuery.fn.wc_get_bundle_script = function () {
 			this.price_data.suffix =
 				wc_bundle_params.price_display_suffix !== ''
 					? ' <small class="woocommerce-price-suffix">' +
-					  wc_bundle_params.price_display_suffix +
-					  '</small>'
+						wc_bundle_params.price_display_suffix +
+						'</small>'
 					: '';
 			this.price_data.suffix_contains_price_incl =
 				wc_bundle_params.price_display_suffix.indexOf(
@@ -867,11 +867,11 @@ jQuery.fn.wc_get_bundle_script = function () {
 						formatted_item_quantity =
 							item_quantity > 1
 								? '<strong>' +
-								  wc_composite_params.i18n_qty_string.replace(
+									wc_composite_params.i18n_qty_string.replace(
 										'%s',
 										item_quantity
-								  ) +
-								  '</strong>'
+									) +
+									'</strong>'
 								: '',
 						formatted_item_meta = '';
 
@@ -928,8 +928,8 @@ jQuery.fn.wc_get_bundle_script = function () {
 						'<span class="content_bundled_product_details">' +
 						( details.image
 							? '<span class="content_bundled_product_image">' +
-							  details.image +
-							  '</span>'
+								details.image +
+								'</span>'
 							: '' ) +
 						'<span class="content_bundled_product_title">' +
 						details.title +
@@ -2150,7 +2150,7 @@ jQuery.fn.wc_get_bundle_script = function () {
 							? 1
 							: price_data.quantities[
 									bundled_item.bundled_item_id
-							  ] * qty,
+								] * qty,
 					product_id =
 						bundled_item.get_product_type() === 'variable'
 							? bundled_item.get_variation_id()
@@ -2160,19 +2160,19 @@ jQuery.fn.wc_get_bundle_script = function () {
 					regular_price = bundled_item.is_subscription()
 						? price_data.regular_prices[
 								bundled_item.bundled_item_id
-						  ]
+							]
 						: price_data.regular_prices[
 								bundled_item.bundled_item_id
-						  ] +
-						  price_data.regular_addons_prices[
+							] +
+							price_data.regular_addons_prices[
 								bundled_item.bundled_item_id
-						  ],
+							],
 					price = bundled_item.is_subscription()
 						? price_data.prices[ bundled_item.bundled_item_id ]
 						: price_data.prices[ bundled_item.bundled_item_id ] +
-						  price_data.addons_prices[
+							price_data.addons_prices[
 								bundled_item.bundled_item_id
-						  ],
+							],
 					regular_recurring_price =
 						price_data.regular_recurring_prices[
 							bundled_item.bundled_item_id
@@ -2543,8 +2543,8 @@ jQuery.fn.wc_get_bundle_script = function () {
 					'yes' === price_data.show_total_string &&
 					wc_bundle_params.i18n_total
 						? '<span class="total">' +
-						  wc_bundle_params.i18n_total +
-						  '</span>'
+							wc_bundle_params.i18n_total +
+							'</span>'
 						: '';
 
 			// Non-recurring price html data.
@@ -2657,7 +2657,7 @@ jQuery.fn.wc_get_bundle_script = function () {
 									? wc_bundle_params.i18n_free
 									: wc_pb_price_format(
 											recurring_component_data.price
-									  ),
+										),
 							formatted_regular_recurring_price =
 								wc_pb_price_format(
 									recurring_component_data.regular_price
@@ -2932,7 +2932,7 @@ jQuery.fn.wc_get_bundle_script = function () {
 				tax_ratios = is_bundled_item
 					? bundle.price_data.prices_tax[
 							bundled_item.bundled_item_id
-					  ]
+						]
 					: bundle.price_data.base_price_tax,
 				addons_raw_price = 0.0;
 
@@ -3004,13 +3004,13 @@ jQuery.fn.wc_get_bundle_script = function () {
 						raw_price = is_bundled_item
 							? bundle.price_data.regular_prices[
 									bundled_item.bundled_item_id
-							  ]
+								]
 							: bundle.price_data.base_regular_price;
 					} else {
 						raw_price = is_bundled_item
 							? bundle.price_data.prices[
 									bundled_item.bundled_item_id
-							  ]
+								]
 							: bundle.price_data.base_price;
 					}
 
@@ -3200,27 +3200,27 @@ jQuery.fn.wc_get_bundle_script = function () {
 					? ''
 					: bundle.price_data.product_ids[
 							this.bundled_item_id
-					  ].toString();
+						].toString();
 			this.nyp =
 				typeof bundle.price_data.product_ids[ this.bundled_item_id ] ===
 				'undefined'
 					? false
 					: bundle.price_data.is_nyp[ this.bundled_item_id ] ===
-					  'yes';
+						'yes';
 			this.sold_individually =
 				typeof bundle.price_data.product_ids[ this.bundled_item_id ] ===
 				'undefined'
 					? false
 					: bundle.price_data.is_sold_individually[
 							this.bundled_item_id
-					  ] === 'yes';
+						] === 'yes';
 			this.priced_individually =
 				typeof bundle.price_data.product_ids[ this.bundled_item_id ] ===
 				'undefined'
 					? false
 					: bundle.price_data.is_priced_individually[
 							this.bundled_item_id
-					  ] === 'yes';
+						] === 'yes';
 			this.variation_id = '';
 
 			this.has_wc_core_gallery_class =
@@ -3633,14 +3633,14 @@ jQuery.fn.wc_get_bundle_script = function () {
 					? wc_bundle_params.i18n_qty_string.replace(
 							'%s',
 							bundled_item_qty_val
-					  )
+						)
 					: '',
 				selection_optional_string =
 					this.is_optional() && this.get_optional_suffix() !== ''
 						? wc_bundle_params.i18n_optional_string.replace(
 								'%s',
 								this.get_optional_suffix()
-						  )
+							)
 						: '',
 				selection_title_incl_qty = wc_bundle_params.i18n_title_string
 					.replace( '%t', selection_title )
@@ -3923,13 +3923,13 @@ jQuery.fn.wc_get_bundle_script = function () {
 					} else {
 						handlers = filters[ hook ];
 						if ( ! context ) {
-							for ( i = handlers.length; i--;  ) {
+							for ( i = handlers.length; i--; ) {
 								if ( handlers[ i ].callback === callback ) {
 									handlers.splice( i, 1 );
 								}
 							}
 						} else {
-							for ( i = handlers.length; i--;  ) {
+							for ( i = handlers.length; i--; ) {
 								handler = handlers[ i ];
 								if (
 									handler.callback === callback &&

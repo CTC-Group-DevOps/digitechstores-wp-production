@@ -11,24 +11,28 @@ use function WPML\FP\curryN;
 
 class Strings {
 
-	const PACKAGE_KIND = 'Block';
-	const PACKAGE_KIND_SLUG = 'block';
-	const PACKAGE_NAME = 'widget';
-	const PACKAGE_TITLE = 'Widget';
+	const PACKAGE_KIND         = 'Block';
+	const PACKAGE_KIND_SLUG    = 'block';
+	const PACKAGE_NAME         = 'widget';
+	const PACKAGE_TITLE        = 'Widget';
+	const PACKAGE_TITLE_PLURAL = 'Widgets';
 
 	const DOMAIN = self::PACKAGE_KIND_SLUG . '-' . self::PACKAGE_NAME;
 
 	public static function fromMo( $locale ) {
 		$langCode = Languages::localeToCode( $locale );
 
-		$encode = curryN( 2, function ( $langCode, $value ) {
-			return [
-				$langCode => [
-					'value'  => $value,
-					'status' => ICL_STRING_TRANSLATION_COMPLETE,
-				],
-			];
-		} );
+		$encode = curryN(
+			2,
+			function ( $langCode, $value ) {
+				return [
+					$langCode => [
+						'value'  => $value,
+						'status' => ICL_STRING_TRANSLATION_COMPLETE,
+					],
+				];
+			}
+		);
 
 		return wpml_collect( self::loadStringsFromMOFile( self::DOMAIN, $locale ) )
 			->map( Obj::path( [ 'translations', 0 ] ) )
@@ -39,15 +43,17 @@ class Strings {
 
 	public static function loadStringsFromMOFile( $domain, $locale ) {
 		return Maybe::of( Manager::getSubdir() . '/' . $domain . "-$locale.mo" )
-		            ->filter( 'file_exists' )
-		            ->map( function ( $file ) {
-			            $mo = make( \MO::class );
-			            $mo->import_from_file( $file );
+					->filter( 'file_exists' )
+					->map(
+						function ( $file ) {
+							$mo = make( \MO::class );
+							$mo->import_from_file( $file );
 
-			            return $mo;
-		            } )
-		            ->map( Obj::prop( 'entries' ) )
-		            ->getOrElse( [] );
+							return $mo;
+						}
+					)
+					->map( Obj::prop( 'entries' ) )
+					->getOrElse( [] );
 	}
 
 	public static function createPackage() {

@@ -41,6 +41,10 @@ class Map {
 		} ) );
 	}
 
+	public static function rememberJobIdForRid( $rid, $jobId ) {
+		self::$rid_to_jobId[ (int) $rid ] = (int) $jobId;
+	}
+
 	public static function jobIdFromDB( $rid ) {
 		global $wpdb;
 		return (int) $wpdb->get_var(

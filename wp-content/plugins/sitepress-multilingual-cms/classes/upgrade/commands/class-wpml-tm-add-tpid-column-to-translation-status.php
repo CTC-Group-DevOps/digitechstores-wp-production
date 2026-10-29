@@ -1,5 +1,7 @@
 <?php
 
+use WPML\Upgrade\TranslationStatusSchema;
+
 class WPML_TM_Add_TP_ID_Column_To_Translation_Status extends WPML_Upgrade_Run_All {
 
 	private $upgrade_schema;
@@ -9,14 +11,10 @@ class WPML_TM_Add_TP_ID_Column_To_Translation_Status extends WPML_Upgrade_Run_Al
 	}
 
 	protected function run() {
-		$table  = 'icl_translation_status';
-		$column = 'tp_id';
-
-		if ( $this->upgrade_schema->does_table_exist( $table ) ) {
-			if ( ! $this->upgrade_schema->does_column_exist( $table, $column ) ) {
-				$this->upgrade_schema->add_column( $table, $column, 'INT NULL DEFAULT NULL' );
-			}
-		}
+		$this->upgrade_schema->ensure_columns(
+			TranslationStatusSchema::TABLE,
+			[ 'tp_id' => TranslationStatusSchema::COLUMNS['tp_id'] ]
+		);
 
 		$this->result = true;
 

@@ -12,6 +12,7 @@ class Hooks {
 
 		add_action( 'rest_api_init', [ Language\Set::class, 'fromUrlQueryVar' ] );
 		add_filter( 'rest_request_before_callbacks', [ Language\Set::class, 'beforeCallbacks' ], 10, 3 );
+		add_filter( 'rest_request_after_callbacks', [ Language\Set::class, 'afterCallbacks' ] );
 		add_action( 'parse_query', [ Generic::class, 'autoAdjustIncludedIds' ] );
 
 		foreach ( [ 'product', 'shop_order', 'product_variation' ] as $type ) {

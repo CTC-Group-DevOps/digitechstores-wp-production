@@ -779,7 +779,20 @@ function brandagent_connectors_execute_operation(
 	}
 
 	/**
-	 * Provision an API key, complete connector authorization, and apply service defaults.
+	 * Check authorization independently of recoverable setup or profile-sync readiness.
+	 *
+	 * @param mixed $connector Connector state.
+	 * @return bool Whether the backend explicitly authorized the connector.
+	 */
+	function brandagent_connectors_is_authorized( $connector ) {
+		return is_array( $connector )
+			&& isset( $connector['authorizationStatus'] )
+			&& is_string( $connector['authorizationStatus'] )
+			&& 0 === strcasecmp( 'authorized', $connector['authorizationStatus'] );
+	}
+
+	/**
+	 * Provision an API key, verify connector authorization, and apply service defaults.
 	 *
 	 * @param string     $provider_id            API-key provider id.
 	 * @param string     $api_key                Validated API key.
@@ -806,9 +819,9 @@ function brandagent_connectors_execute_operation(
 				|| 'disconnected' !== strtolower( (string) $existing_connector['authorizationStatus'] )
 			);
 
-		$stored = brandagent_connectors_set_housecall_pro_api_key( $api_key );
-		if ( is_wp_error( $stored ) ) {
-			return $stored;
+		$validated = brandagent_connectors_validate_housecall_pro_api_key( $api_key );
+		if ( is_wp_error( $validated ) ) {
+			return $validated;
 		}
 
 		if ( $is_active_connector ) {
@@ -844,6 +857,30 @@ function brandagent_connectors_execute_operation(
 			);
 		}
 
+		$authorization_connector = isset( $authorization['connector'] ) && is_array( $authorization['connector'] )
+			? $authorization['connector']
+			: array();
+		$authorization_version = isset( $authorization_connector['authorizationVersion'] )
+			? brandagent_connectors_parse_authorization_version( $authorization_connector['authorizationVersion'] )
+			: null;
+		if (
+			empty( $authorization_connector['connectorId'] )
+			|| ! is_string( $authorization_connector['connectorId'] )
+			|| null === $authorization_version
+		) {
+			return new WP_Error(
+				'invalid_connector_response',
+				'AdsAgentServer did not return a valid connector authorization attempt.',
+				array( 'status' => 502 )
+			);
+		}
+
+		// Begin/reauthorize must finish cleaning up the previous credential before storing its replacement.
+		$stored = brandagent_connectors_set_housecall_pro_api_key( $api_key );
+		if ( is_wp_error( $stored ) ) {
+			return $stored;
+		}
+
 		$completed = brandagent_connectors_complete_api_key_callback( $provider_id, $authorization_state );
 		if ( is_wp_error( $completed ) ) {
 			return $completed;
@@ -851,19 +888,45 @@ function brandagent_connectors_execute_operation(
 
 		$status = brandagent_connectors_get_raw_status();
 		if ( is_wp_error( $status ) ) {
-			return array(
-				'authorizationCompleted'  => true,
-				'configurationApplied'    => false,
-				'configurationErrorCode'  => 'connector_status_refresh_failed',
+			return new WP_Error(
+				'connector_status_refresh_failed',
+				'Housecall Pro authorization could not be verified. Refresh the connector status before trying again.',
+				array( 'status' => 502 )
 			);
 		}
 
 		$connector = brandagent_connectors_find_provider_item( $status['connectors'], $provider_id );
 		if ( empty( $connector['connectorId'] ) ) {
-			return array(
-				'authorizationCompleted' => true,
-				'configurationApplied'   => false,
-				'configurationErrorCode' => 'connector_status_refresh_failed',
+			return new WP_Error(
+				'connector_status_refresh_failed',
+				'Housecall Pro authorization could not be verified. Refresh the connector status before trying again.',
+				array( 'status' => 502 )
+			);
+		}
+
+		if (
+			$authorization_connector['connectorId'] !== $connector['connectorId']
+			|| ! isset( $connector['authorizationVersion'] )
+			|| $authorization_version !== brandagent_connectors_parse_authorization_version( $connector['authorizationVersion'] )
+		) {
+			return new WP_Error(
+				'authorization_version_mismatch',
+				'The connector authorization changed. Refresh the connector status before trying again.',
+				array(
+					'status'    => 409,
+					'connector' => brandagent_connectors_project_connector_for_ui( $connector ),
+				)
+			);
+		}
+
+		if ( ! brandagent_connectors_is_authorized( $connector ) ) {
+			return new WP_Error(
+				'authorization_callback_failed',
+				'Housecall Pro authorization did not complete. Check the API key and reconnect.',
+				array(
+					'status'    => 409,
+					'connector' => brandagent_connectors_project_connector_for_ui( $connector ),
+				)
 			);
 		}
 
@@ -891,10 +954,12 @@ function brandagent_connectors_execute_operation(
 			if ( is_array( $error_data ) && isset( $error_data['connector'] ) ) {
 				$result['connector'] = brandagent_connectors_project_connector_for_ui( $error_data['connector'] );
 			}
+			$result['authorizationCompleted'] = brandagent_connectors_is_authorized( $result['connector'] );
 			return $result;
 		}
 
 		$result['connector'] = $configured['connector'];
+		$result['authorizationCompleted'] = brandagent_connectors_is_authorized( $result['connector'] );
 		return $result;
 	}
 
@@ -926,7 +991,7 @@ function brandagent_connectors_execute_operation(
 			$connector
 		);
 		$result = array(
-			'authorizationCompleted' => true,
+			'authorizationCompleted' => brandagent_connectors_is_authorized( $connector ),
 			'connector'              => brandagent_connectors_project_connector_for_ui( $connector ),
 			'configurationApplied'   => ! is_wp_error( $configured ),
 		);
@@ -942,10 +1007,12 @@ function brandagent_connectors_execute_operation(
 			if ( is_array( $error_data ) && isset( $error_data['connector'] ) ) {
 				$result['connector'] = brandagent_connectors_project_connector_for_ui( $error_data['connector'] );
 			}
+			$result['authorizationCompleted'] = brandagent_connectors_is_authorized( $result['connector'] );
 			return $result;
 		}
 
 		$result['connector'] = $configured['connector'];
+		$result['authorizationCompleted'] = brandagent_connectors_is_authorized( $result['connector'] );
 		return $result;
 	}
 
@@ -959,6 +1026,17 @@ function brandagent_connectors_execute_operation(
 	 * @return array|WP_Error Sanitized connector result.
 	 */
 	function brandagent_connectors_apply_housecall_pro_configuration( $provider_id, $configuration, $connector ) {
+		if ( ! brandagent_connectors_is_authorized( $connector ) ) {
+			return new WP_Error(
+				'connection_not_connected',
+				'Authorize Housecall Pro before applying configuration.',
+				array(
+					'status'    => 409,
+					'connector' => brandagent_connectors_project_connector_for_ui( $connector ),
+				)
+			);
+		}
+
 		$catalog = brandagent_connectors_get_canonical_housecall_pro_catalog( $connector );
 		if ( is_wp_error( $catalog ) ) {
 			if (
@@ -1223,6 +1301,17 @@ function brandagent_connectors_execute_operation(
 			);
 		}
 
+		if ( ! brandagent_connectors_is_authorized( $connector ) ) {
+			return new WP_Error(
+				'connection_not_connected',
+				'Authorize Housecall Pro before applying configuration.',
+				array(
+					'status'    => 409,
+					'connector' => brandagent_connectors_project_connector_for_ui( $connector ),
+				)
+			);
+		}
+
 		$configured = brandagent_connectors_api_request(
 			'POST',
 			'/' . rawurlencode( $connector['connectorId'] ) . '/configuration:defaults?durationMinutes=' . $duration_minutes
@@ -1388,7 +1477,7 @@ function brandagent_connectors_execute_operation(
 	 *
 	 * @param string $provider_id        Provider id.
 	 * @param string $authorization_state One-time authorization state.
-	 * @return array|WP_Error Completion result.
+	 * @return array|WP_Error Transport result; authorization must be verified from connector status.
 	 */
 	function brandagent_connectors_complete_api_key_callback( $provider_id, $authorization_state ) {
 		$backend = brandagent_connectors_get_backend_base_url();
@@ -1419,7 +1508,8 @@ function brandagent_connectors_execute_operation(
 			);
 		}
 
-		return array( 'completed' => true );
+		// Completion HTML is deliberately neutral, including when authorization failed.
+		return array();
 	}
 
 /**

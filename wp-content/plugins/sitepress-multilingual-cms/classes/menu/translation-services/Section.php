@@ -42,7 +42,8 @@ class Section implements \IWPML_TM_Admin_Section {
 	}
 
 	public function get_caption() {
-		return __( 'Translation Services', 'wpml-translation-management' );
+		/* translators: Name of the screen where a translation service is chosen, and its heading. */
+		return __( 'Translation Services', 'sitepress' );
 	}
 
 	public function get_callback() {

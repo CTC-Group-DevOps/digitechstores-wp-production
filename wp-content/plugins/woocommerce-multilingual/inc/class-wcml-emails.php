@@ -7,7 +7,13 @@ class WCML_Emails {
 	const PRIORITY_AFTER_STATUS_CHANGE_EMAIL = 11;
 	const PRIORITY_BEFORE_EMAIL_SET_LANGUAGE = 9;
 
+	const PRIORITY_AFTER_EMAIL_IS_SENT = 1000;
+
+	const SUBJECT_OPTION_KEYS = [ 'subject', 'subject_downloadable', 'subject_partial', 'subject_full', 'subject_paid' ];
+
 	private $order_id = false;
+
+	private $email_language_scope_depth = 0;
 
 	private $locale = false;
 
@@ -44,7 +50,7 @@ class WCML_Emails {
 
 		add_action( 'woocommerce_new_customer_note_notification', [ $this, 'email_heading_note' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
 
-		add_action( 'wp_ajax_woocommerce_mark_order_status', [ $this, 'email_refresh_in_ajax' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
+		\WCML\Request\Ajax::listen( 'woocommerce_mark_order_status', [ $this, 'email_refresh_in_ajax' ], 'WooCommerce order-status change: switches the e-mail language for the host request; verifies the WooCommerce nonce and edit_shop_orders itself', self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
 
 		foreach ( [ 'pending', 'failed', 'cancelled', 'on-hold' ] as $state ) {
 			add_action(
@@ -83,26 +89,29 @@ class WCML_Emails {
 				],
 				self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE
 			);
+
+			add_action(
+				'woocommerce_order_status_' . $state . '_to_on-hold_notification',
+				[
+					$this,
+					'refresh_email_lang',
+				],
+				self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE
+			);
 		}
 
 		add_action( 'woocommerce_before_resend_order_emails', [ $this, 'email_header' ] );
 		add_action( 'woocommerce_after_resend_order_email', [ $this, 'email_footer' ] );
 
+		$this->add_hooks_to_close_the_email_language_scope();
+
 		add_filter( 'icl_current_string_language', [ $this, 'icl_current_string_language' ], 10, 2 );
 
 		add_action( 'woocommerce_order_status_completed', [ $this, 'refresh_email_lang_complete' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
 
-		add_action(
-			'woocommerce_order_status_pending_to_on-hold_notification',
-			[
-				$this,
-				'refresh_email_lang',
-			],
-			self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE
-		);
 		add_action( 'woocommerce_new_customer_note', [ $this, 'refresh_email_lang' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
 
-		foreach ( [ 'pending', 'failed' ] as $from_state ) {
+		foreach ( [ 'pending', 'failed', 'cancelled' ] as $from_state ) {
 			foreach ( [ 'processing', 'completed', 'on-hold' ] as $to_state ) {
 				add_action(
 					'woocommerce_order_status_' . $from_state . '_to_' . $to_state . '_notification',
@@ -132,6 +141,23 @@ class WCML_Emails {
 
 		add_action( 'woocommerce_order_partially_refunded_notification', [ $this, 'refresh_email_lang' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
 		add_action( 'woocommerce_order_fully_refunded_notification', [ $this, 'refresh_email_lang' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
+
+		foreach ( [ 'processing', 'on-hold' ] as $from_state ) {
+			add_action(
+				'woocommerce_order_status_' . $from_state . '_to_cancelled_notification',
+				[
+					$this,
+					'customer_cancelled_order_email',
+				],
+				self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE
+			);
+		}
+
+		foreach ( $this->get_subscription_notification_actions() as $action ) {
+			add_action( $action, [ $this, 'refresh_email_lang' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
+		}
+
+		add_filter( 'woocommerce_email_get_option', [ $this, 'set_email_language_from_object' ], 1, 4 );
 		add_filter( 'woocommerce_email_get_option', [ $this, 'filter_emails_strings' ], 10, 4 );
 
 		add_filter( 'woocommerce_email_setup_locale', '__return_false' );
@@ -174,6 +200,84 @@ class WCML_Emails {
 		add_action( 'woocommerce_no_stock_notification', [ $this, 'no_stock_admin_notification' ], self::PRIORITY_BEFORE_EMAIL_SET_LANGUAGE );
 
 		add_filter( 'woocommerce_rest_pre_insert_shop_order_object', [ $this, 'set_rest_language' ], 10, 2 );
+	}
+
+	private function add_hooks_to_close_the_email_language_scope() {
+		foreach ( $this->get_email_scope_closing_actions() as $action ) {
+			add_action( $action, [ $this, 'close_email_language_scope' ], self::PRIORITY_AFTER_EMAIL_IS_SENT );
+		}
+
+		add_action( 'shutdown', [ $this, 'close_email_language_scope' ], self::PRIORITY_AFTER_EMAIL_IS_SENT );
+	}
+
+	private function get_email_scope_closing_actions() {
+		$actions = [
+			'woocommerce_order_status_completed_notification',
+			'woocommerce_order_status_fully_refunded_notification',
+			'woocommerce_order_status_partially_refunded_notification',
+			'woocommerce_order_fully_refunded_notification',
+			'woocommerce_order_partially_refunded_notification',
+			'woocommerce_new_customer_note_notification',
+			'cancelled_subscription_notification',
+			'expired_subscription_notification',
+			'on-hold_subscription_notification',
+			'reactivated_subscription_notification',
+		];
+
+		$actions = array_merge(
+			$actions,
+			$this->get_subscription_notification_actions(),
+			$this->get_renewal_email_scope_closing_actions()
+		);
+
+		$transitions = [
+			'pending'    => [ 'processing', 'completed', 'cancelled', 'failed', 'on-hold' ],
+			'processing' => [ 'completed', 'cancelled', 'failed', 'on-hold' ],
+			'failed'     => [ 'processing', 'completed', 'on-hold' ],
+			'cancelled'  => [ 'processing', 'completed', 'on-hold' ],
+			'on-hold'    => [ 'processing', 'completed', 'cancelled', 'failed' ],
+		];
+
+		foreach ( $transitions as $from_state => $to_states ) {
+			foreach ( $to_states as $to_state ) {
+				$actions[] = 'woocommerce_order_status_' . $from_state . '_to_' . $to_state . '_notification';
+			}
+		}
+
+		return $actions;
+	}
+
+	private function get_subscription_notification_actions() {
+		return [
+			'woocommerce_scheduled_subscription_customer_notification_renewal',
+			'woocommerce_scheduled_subscription_customer_notification_trial_expiration',
+			'woocommerce_scheduled_subscription_customer_notification_expiration',
+		];
+	}
+
+	private function get_renewal_email_scope_closing_actions() {
+		$statusActions = [
+			'woocommerce_order_status_pending_to_completed',
+			'woocommerce_order_status_failed_to_completed',
+			'woocommerce_order_status_cancelled_to_completed',
+			'woocommerce_order_status_pending_to_processing',
+			'woocommerce_order_status_failed_to_processing',
+			'woocommerce_order_status_cancelled_to_processing',
+			'woocommerce_order_status_on-hold_to_processing',
+			'woocommerce_order_status_completed',
+			'woocommerce_order_status_pending_to_on-hold',
+			'woocommerce_order_status_failed_to_on-hold',
+			'woocommerce_order_status_cancelled_to_on-hold',
+			'woocommerce_generated_manual_renewal_order',
+			'woocommerce_order_status_failed',
+		];
+
+		return array_map(
+			function ( $action ) {
+				return $action . '_renewal_notification';
+			},
+			$statusActions
+		);
 	}
 
 	private function add_hooks_to_restore_language_for_admin_notes() {
@@ -227,6 +331,23 @@ class WCML_Emails {
 	}
 
 
+	public function set_email_language_from_object( $value, WC_Email $email, $old_value, $key ) {
+
+		if ( ! in_array( $key, self::SUBJECT_OPTION_KEYS, true ) || ! $email->is_customer_email() ) {
+			return $value;
+		}
+
+		$order_id = $this->get_order_id_from_email_object( $email );
+		$language = $order_id ? $this->get_order_language( $order_id ) : null;
+
+		if ( $language ) {
+			$this->change_email_language( $language );
+			$this->force_translating_admin_options_in_backend();
+		}
+
+		return $value;
+	}
+
 	public function refresh_email_lang( $order_id ) {
 
 		$language = $this->get_order_language( $order_id );
@@ -274,7 +395,25 @@ class WCML_Emails {
 	}
 
 	public function email_footer() {
-		$this->sitepress->switch_lang( $this->sitepress->get_default_language() );
+		$this->close_email_language_scope();
+	}
+
+	private function open_email_language_scope( $lang ) {
+		if ( $lang && $lang !== $this->sitepress->get_current_language() ) {
+			$this->sitepress->switch_lang( $lang, true );
+			++$this->email_language_scope_depth;
+		}
+	}
+
+	public function close_email_language_scope() {
+		$this->unwind_email_language_scope( 0 );
+	}
+
+	private function unwind_email_language_scope( $depth ) {
+		while ( $this->email_language_scope_depth > $depth ) {
+			$this->sitepress->switch_lang();
+			--$this->email_language_scope_depth;
+		}
 	}
 
 	public function comments_language() {
@@ -298,12 +437,10 @@ class WCML_Emails {
 				$email
 			);
 
-			$email->heading              = $translate( 'heading' );
-			$email->subject              = $translate( 'subject' );
-			@$email->heading_downloadable = $translate( 'heading_downloadable' );
-			@$email->subject_downloadable = $translate( 'subject_downloadable' );
-			$original_enabled_state      = $email->enabled;
-			$email->enabled              = 'no';
+			$email->heading         = $translate( 'heading' );
+			$email->subject         = $translate( 'subject' );
+			$original_enabled_state = $email->enabled;
+			$email->enabled         = 'no';
 			$email->trigger( $order_id );
 			$email->enabled = $original_enabled_state;
 		}
@@ -404,7 +541,9 @@ class WCML_Emails {
 				'failed_order',
 			])->contains( $email->id );
 
-			$translated_value = $this->get_email_translated_string( $key, $email, $isAdminEmail, $value );
+			$domain = apply_filters( 'wcml_email_text_domain', 'woocommerce', $email );
+
+			$translated_value = $this->get_email_translated_string( $key, $email, $isAdminEmail, $value, $domain );
 		}
 
 		return $translated_value ?: $value;
@@ -497,6 +636,32 @@ class WCML_Emails {
 		}
 	}
 
+	public function customer_cancelled_order_email( $order_id ) {
+		$email = $this->getEmailObject( WC_Email_Customer_Cancelled_Order::class, true );
+
+		if ( ! $email instanceof WC_Email_Customer_Cancelled_Order ) {
+			return;
+		}
+
+		$current_locale = $this->locale;
+		$scope_depth    = $this->email_language_scope_depth;
+
+		try {
+			$this->refresh_email_lang( $order_id );
+			$email->trigger( $order_id );
+
+			add_filter(
+				'woocommerce_email_enabled_customer_cancelled_order',
+				self::getPreventDuplicatedNewOrderEmail( $order_id ),
+				PHP_INT_MAX,
+				2
+			);
+		} finally {
+			$this->locale = $current_locale;
+			$this->unwind_email_language_scope( $scope_depth );
+		}
+	}
+
 	public static function getPreventDuplicatedNewOrderEmail( $processedOrderId ) {
 		return function( $isEmailEnabled, $order ) use ( $processedOrderId ) {
 			return $order->get_id() === $processedOrderId ? false : $isEmailEnabled;
@@ -555,7 +720,7 @@ class WCML_Emails {
 			$this->admin_language = $this->sitepress->get_user_admin_language( get_current_user_id(), true );
 		}
 
-		$this->sitepress->switch_lang( $lang, true );
+		$this->open_email_language_scope( $lang );
 		$this->locale = $this->sitepress->get_locale( $lang );
 	}
 
@@ -617,7 +782,7 @@ class WCML_Emails {
 
 		$order_id = apply_filters( 'wcml_send_email_order_id', $order_id );
 
-		if ( $order_id ) {
+		if ( $order_id && did_action( 'woocommerce_after_register_post_type' ) ) {
 			$order_language = WCML_Orders::getLanguage( $order_id );
 			if ( $order_language ) {
 				$current_language = $order_language;
@@ -641,10 +806,16 @@ class WCML_Emails {
 	public function translate_woocommerce_countries( $countries ) {
 
 		if ( isset( $_POST['wc_order_action'] ) && 'send_email_new_order' !== $_POST['wc_order_action'] && isset( $_POST['post_ID'] ) ) {
-			$current_language = $this->sitepress->get_current_language();
-			$this->refresh_email_lang( (int) $_POST['post_ID'] );
-			$countries = include WC()->plugin_path() . '/i18n/countries.php';
-			$this->change_email_language( $current_language );
+			$current_locale = $this->locale;
+			$scope_depth    = $this->email_language_scope_depth;
+
+			try {
+				$this->refresh_email_lang( (int) $_POST['post_ID'] );
+				$countries = include WC()->plugin_path() . '/i18n/countries.php';
+			} finally {
+				$this->locale = $current_locale;
+				$this->unwind_email_language_scope( $scope_depth );
+			}
 		}
 
 		return $countries;
@@ -700,8 +871,12 @@ class WCML_Emails {
 			);
 
 			$this->sitepress->switch_lang( $admin_language );
-			$wcEmails->$method( wc_get_product( $product_id_in_admin_language ) );
-			$this->sitepress->switch_lang();
+
+			try {
+				$wcEmails->$method( wc_get_product( $product_id_in_admin_language ) );
+			} finally {
+				$this->sitepress->switch_lang();
+			}
 		}
 	}
 

@@ -5,6 +5,7 @@ class WPML_Name_Query_Filter_Translated extends WPML_Name_Query_Filter {
 	private $pages_to_langs = array();
 
 	protected function select_best_match( $pages_with_name ) {
+		$this->pages_to_langs = array();
 
 		if ( ! empty( $pages_with_name['matching_ids'] ) ) {
 			$matching_page = $this->get_matching_page_in_requested_lang( $pages_with_name['matching_ids'] );
@@ -67,11 +68,4 @@ class WPML_Name_Query_Filter_Translated extends WPML_Name_Query_Filter {
 		return null;
 	}
 
-	protected function get_from_join_snippet() {
-
-		return " FROM {$this->wpdb->posts} p
-	             JOIN {$this->wpdb->prefix}icl_translations wpml_translations
-					ON p.ID = wpml_translations.element_id
-						AND wpml_translations.element_type = CONCAT('post_', p.post_type ) ";
-	}
 }

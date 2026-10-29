@@ -2,7 +2,7 @@
 define( 'WPML_ST_FOLDER', basename( WPML_ST_PATH ) );
 
 define( 'WPML_ST_URL', plugins_url( '', dirname( __FILE__ ) ) );
-define( 'WPML_ST_MENU_URL', WPML_ST_FOLDER . '/menu/string-translation.php' );
+define( 'WPML_ST_MENU_URL', defined( 'WPML_TM_FOLDER' ) ? WPML_TM_FOLDER . '/menu/main.php&tab=strings' : WPML_ST_FOLDER . '/menu/string-translation.php' );
 
 define( 'ICL_STRING_TRANSLATION_PARTIAL', 2 );
 define( 'ICL_STRING_TRANSLATION_COMPLETE', 10 );

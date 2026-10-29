@@ -105,7 +105,7 @@ class WOE_Formatter_Xls extends WOE_Formatter_Plain_Format {
 			$this->format_number_fields          = false;
 
 			if (!$this->summary_report_products && !$this->summary_report_customers) {
-				$storage_filename = str_replace( '.csv', '', $filename ) . ".storage";
+                $storage_filename = WC_Order_Export_Engine::get_storage_filename($filename);
 				$this->storage = new WOE_Formatter_Storage_Csv($storage_filename);
 				$this->storage->load();
 			}
@@ -627,17 +627,18 @@ class WOE_Formatter_Xls extends WOE_Formatter_Plain_Format {
 
             // start coordinate
             list ($startColumn, $startRow) = Coordinate::coordinateFromString($startCell);
+            $startColumnIndex = Coordinate::columnIndexFromString($startColumn) - 1;
 
             $stored_columns = $this->storage->getColumns();
             // Loop through $source
             foreach ($source as $rowData) {
-                $currentColumn = $startColumn;
+                $columnIndex = $startColumnIndex;
 
 				WC_Order_Export_Engine::$order_id = array_pop( $rowData );
 
                 foreach ($rowData as $index => $cellValue) {
 
-					$columnIndex = Coordinate::columnIndexFromString( $currentColumn ) - 1;
+                    $currentColumn = Coordinate::stringFromColumnIndex($columnIndex + 1);
 
 					if( isset($stored_columns[$columnIndex]) )
 						$column = $stored_columns[$columnIndex];
@@ -682,7 +683,7 @@ class WOE_Formatter_Xls extends WOE_Formatter_Plain_Format {
                         }
                     }
 					do_action( "woe_xls_format_cell", $this, $column->getKey(), $cellValue, $rowData, $columnIndex, $sheet->getCell($currentColumn . $startRow) );
-                    ++$currentColumn;
+                    ++$columnIndex;
                 }
                 ++$startRow;
 				++$this->last_row;

@@ -233,7 +233,7 @@ abstract class WPML_Translation_Job extends WPML_Translation_Job_Helper {
 			}
 			if ( ! $service ) {
 				$service       = new stdClass();
-				$service->name = __( '(inactive and unknown service)', 'wpml-translation-management' );
+				$service->name = __( '(inactive and unknown service)', 'sitepress' );
 			}
 			wp_cache_set( $cache_key, $service, $cache_group );
 		}

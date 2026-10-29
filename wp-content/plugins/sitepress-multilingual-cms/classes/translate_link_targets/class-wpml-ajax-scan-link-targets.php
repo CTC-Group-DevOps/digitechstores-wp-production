@@ -2,6 +2,8 @@
 
 class WPML_Ajax_Scan_Link_Targets extends WPML_WPDB_User implements IWPML_AJAX_Action_Run {
 
+	const COUNT_CAP = 1001;
+
 	private $post_links;
 
 	private $string_links;
@@ -32,9 +34,9 @@ class WPML_Ajax_Scan_Link_Targets extends WPML_WPDB_User implements IWPML_AJAX_A
 		return new WPML_Ajax_Response(
 			true,
 			[
-				'post_count'   => $this->post_links->get_number_to_be_fixed(),
+				'post_count'   => (int) $this->post_links->get_number_to_be_fixed( 0, self::COUNT_CAP ),
 				'string_count' => $this->string_links
-					? $this->string_links->get_number_to_be_fixed()
+					? (int) $this->string_links->get_number_to_be_fixed( 0, self::COUNT_CAP )
 					: 0,
 			]
 		);

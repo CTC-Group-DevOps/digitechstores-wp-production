@@ -7,8 +7,8 @@ use WPML\StringTranslation\Application\StringPackage\Query\Criteria\SearchPopula
 use WPML\StringTranslation\Application\StringPackage\Query\Criteria\StringPackageCriteria;
 
 trait QueryBuilderTrait {
-	protected function getLanguageJoinColumName( string $languageCode ) : string {
-		return esc_sql( preg_replace( '/[^a-zA-Z0-9]/', '_', $languageCode ) ?: $languageCode );
+	protected function sqlStringLiteral( $value ): string {
+		return "'" . esc_sql( (string) $value ) . "'";
 	}
 
 	private function getSourceLanguageCode( $criteria ): string {
@@ -20,23 +20,34 @@ trait QueryBuilderTrait {
 	private function getTargetLanguageCodes( $criteria ): array {
 		$languageCodes = $criteria->getTargetLanguageCode() ?
 			[  $criteria->getTargetLanguageCode() ] :
-			$this->settingsRepository->getActiveSecondaryLanguageCodes();
+			$this->settingsRepository->getActiveLanguageCodes();
 
-		return array_filter(
-			$languageCodes,
-			function ( $languageCode ) use ( $criteria ) {
-				return $languageCode !== $this->getSourceLanguageCode( $criteria );
-			}
+		return array_values(
+			array_filter(
+				$languageCodes,
+				function ( $languageCode ) use ( $criteria ) {
+					return $languageCode !== $this->getSourceLanguageCode( $criteria );
+				}
+			)
 		);
 	}
 
-	private function escapeLanguages( array $languageCodes ): array {
-		return array_map(
-			function ( $languageCode ) {
-				return $this->wpdb->prepare( '%s', $languageCode );
-			},
-			$languageCodes
-		);
+	private function buildStatusColumn( string $t, string $ts ): string {
+		$needsUpdate   = TranslationStatus::NEEDS_UPDATE;
+		$complete      = TranslationStatus::COMPLETE;
+		$cancelled     = TranslationStatus::NOT_TRANSLATED . ', ' . TranslationStatus::ATE_CANCELED;
+		$notTranslated = TranslationStatus::NOT_TRANSLATED;
+
+		return "CASE
+			WHEN {$ts}.needs_update = 1 THEN {$needsUpdate}
+			WHEN {$t}.source_language_code IS NULL THEN {$complete}
+			WHEN {$ts}.status IN ({$cancelled}) THEN IF(
+				EXISTS (SELECT 1 FROM {$this->wpdb->prefix}icl_translate_job j WHERE j.rid = {$ts}.rid AND j.translated = 1),
+				{$complete},
+				{$notTranslated}
+			)
+			ELSE IFNULL({$ts}.status, {$notTranslated})
+		END";
 	}
 
 	private function buildPostTitleCondition(
@@ -64,21 +75,14 @@ trait QueryBuilderTrait {
 		$allowedSortingDirections = [ 'DESC', 'ASC' ];
 		$direction                = $allowedSortingDirections[0];
 
-		$queryPart = 'ORDER BY sp.ID';
+		$sortingCriteria = $criteria->getSorting();
+		if ( $sortingCriteria && $sortingCriteria['by'] === 'title' ) {
+			$sortingOrder = strtoupper( $sortingCriteria['order'] );
+			$direction    = in_array( $sortingOrder, $allowedSortingDirections, true ) ? $sortingOrder : $direction;
 
-		if ( $criteria->getSorting() ) {
-			$sortingCriteria = $criteria->getSorting();
-			$sortingOrder    = strtoupper( $sortingCriteria['order'] );
-
-			if ( $sortingCriteria['by'] === 'title' ) {
-				$direction = in_array( $sortingOrder, $allowedSortingDirections ) ?
-					$sortingOrder :
-					$direction;
-
-				$queryPart = 'ORDER BY sp.title';
-			}
+			return "ORDER BY sp.title {$direction}, sp.ID {$direction}";
 		}
 
-		return $queryPart . ' ' . $direction;
+		return "ORDER BY sp.ID {$direction}";
 	}
 }

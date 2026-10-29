@@ -12,7 +12,12 @@ use WPML\FP\Fns;
 
 class LookupTable implements \IWPML_Action {
 
+	const PRIORITY_BEFORE_LOOKUP_CALLBACK = 5;
+	const PRIORITY_AFTER_LOOKUP_CALLBACK  = 20;
+
 	private $sitepress;
+
+	private $filtersSuspend;
 
 	public function __construct( \SitePress $sitepress ) {
 		$this->sitepress = $sitepress;
@@ -22,11 +27,18 @@ class LookupTable implements \IWPML_Action {
 		Hooks::onAction( 'save_post' )
 			->then( spreadArgs( [ $this, 'triggerUpdateForTranslations' ] ) );
 
-		Hooks::onAction( 'woocommerce_run_product_attribute_lookup_update_callback', 5 )
-			->then( [ $this, 'adjustTermsFilters' ] );
+		Hooks::onAction( 'woocommerce_run_product_attribute_lookup_update_callback', self::PRIORITY_BEFORE_LOOKUP_CALLBACK )
+			->then( [ $this, 'suspendTermsFilters' ] );
+		Hooks::onAction( 'woocommerce_run_product_attribute_lookup_update_callback', self::PRIORITY_AFTER_LOOKUP_CALLBACK )
+			->then( [ $this, 'resumeTermsFilters' ] );
 
 		Hooks::onFilter( 'woocommerce_attribute_lookup_regeneration_step_size' )
 			->then( spreadArgs( Fns::tap( [ $this, 'regenerateTable' ] ) ) );
+		Hooks::onAction( 'woocommerce_run_product_attribute_lookup_regeneration_callback', self::PRIORITY_AFTER_LOOKUP_CALLBACK )
+			->then( [ $this, 'resumeTermsFilters' ] );
+
+		Hooks::onFilter( 'pre_update_option_woocommerce_attribute_lookup_last_product_id_to_process' )
+			->then( spreadArgs( [ $this, 'setLastProductIdAcrossLanguages' ] ) );
 	}
 
 	public function triggerUpdateForTranslations( $productId ) {
@@ -39,22 +51,50 @@ class LookupTable implements \IWPML_Action {
 
 			Hooks::onAction( 'shutdown' )
 				->then( function() use ( $productId, $savedOnBlogId ) {
-					$savedOnAnotherBlog = get_current_blog_id() !== $savedOnBlogId;
-
-					if ( $savedOnAnotherBlog ) {
-						switch_to_blog( $savedOnBlogId );
-					}
-
-					$hasTermsClausesFilter = $this->adjustTermsFilters();
-
-					wc_get_container()->get( ProductAttributesLookupDataStore::class )->on_product_changed( $productId );
-
-					$this->restoreTermsFilters( $hasTermsClausesFilter );
-
-					if ( $savedOnAnotherBlog ) {
-						restore_current_blog();
-					}
+					$this->refreshLookupTable( $productId, $savedOnBlogId );
 				} );
+		}
+	}
+
+	private function refreshLookupTable( $productId, $savedOnBlogId ) {
+		$savedOnAnotherBlog    = get_current_blog_id() !== $savedOnBlogId;
+		$hasTermsClausesFilter = null;
+
+		if ( $savedOnAnotherBlog ) {
+			switch_to_blog( $savedOnBlogId );
+		}
+
+		try {
+			$product = wc_get_product( $productId );
+
+			if ( $product ) {
+				$hasTermsClausesFilter = $this->adjustTermsFilters();
+
+				wc_get_container()->get( ProductAttributesLookupDataStore::class )->on_product_changed( $product );
+			}
+		} catch ( \Throwable $e ) {
+			return;
+		} finally {
+			if ( $hasTermsClausesFilter ) {
+				$this->restoreTermsFilters( $hasTermsClausesFilter );
+			}
+
+			if ( $savedOnAnotherBlog ) {
+				restore_current_blog();
+			}
+		}
+	}
+
+	public function suspendTermsFilters() {
+		if ( ! $this->filtersSuspend ) {
+			$this->filtersSuspend = $this->adjustTermsFilters();
+		}
+	}
+
+	public function resumeTermsFilters() {
+		if ( $this->filtersSuspend ) {
+			$this->restoreTermsFilters( $this->filtersSuspend );
+			$this->filtersSuspend = null;
 		}
 	}
 
@@ -120,8 +160,25 @@ class LookupTable implements \IWPML_Action {
 	}
 
 	public function regenerateTable() {
-		$this->adjustTermsFilters();
+		$this->suspendTermsFilters();
+		$this->suppressLanguageFilterOnProductQueries();
+	}
 
+	public function setLastProductIdAcrossLanguages( $lastProductId ) {
+		$this->suppressLanguageFilterOnProductQueries();
+
+		$ids = wc_get_products(
+			[
+				'return'  => 'ids',
+				'limit'   => 1,
+				'orderby' => [ 'ID' => 'DESC' ],
+			]
+		);
+
+		return $ids ? (int) $ids[0] : $lastProductId;
+	}
+
+	private function suppressLanguageFilterOnProductQueries() {
 		add_filter( 'woocommerce_product_object_query_args', Obj::assoc( 'suppress_filters', true ) );
 	}
 

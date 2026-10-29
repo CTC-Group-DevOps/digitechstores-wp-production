@@ -71,7 +71,7 @@ class Import {
 	 */
 	public function import_xml( $predefined_name, $predefined_type, $block_type = 'floating-block' ) {
 		$external_builder = 'wpb' === woodmart_get_current_page_builder() ? 'wpb' : 'elementor';
-		$builder          = 'native' === woodmart_get_opt( 'current_builder', 'native' ) ? 'gutenberg' : $external_builder;
+		$builder          = 'native' === woodmart_get_opt( 'current_builder' ) ? 'gutenberg' : $external_builder;
 		$version          = $block_type . '-' . $predefined_type . '-' . $predefined_name;
 
 		$this->helpers->set_page_builder( $builder );

@@ -10,6 +10,35 @@ class WPML_Slash_Management {
 		}
 	}
 
+	public function match_path_trailing_slash_to_reference( $url, $reference_url ) {
+		$url_parts = wpml_parse_url( $url );
+		if ( ! is_array( $url_parts ) ) {
+			return $url;
+		}
+
+		$path = isset( $url_parts['path'] ) ? $url_parts['path'] : '';
+		if ( '/' === $path ) {
+			return $url;
+		}
+
+		$reference_path = (string) wpml_parse_url( $reference_url, PHP_URL_PATH );
+		$wants_slash    = '/' === substr( $reference_path, -1 );
+
+		if ( '' === $path ) {
+			$new_path = $wants_slash ? '/' : '';
+		} else {
+			$new_path = $wants_slash ? trailingslashit( $path ) : untrailingslashit( $path );
+		}
+
+		if ( $new_path === $path ) {
+			return $url;
+		}
+
+		$url_parts['path'] = $new_path;
+
+		return http_build_url( $url_parts );
+	}
+
 	private function has_lang_param( $url ) {
 		return strpos( $url, '?lang=' ) !== false || strpos( $url, '&lang=' ) !== false;
 	}
@@ -79,7 +108,7 @@ class WPML_Slash_Management {
 			array_shift( $domain_and_subdir );
 
 			if ( $domain_and_subdir ) {
-				$url_parts['path'] = preg_replace( '/^(' . $url_parts['host'] . ')/', '', $url_parts['path'] );
+				$url_parts['path'] = preg_replace( '/^(' . preg_quote( $url_parts['host'], '/' ) . ')/', '', $url_parts['path'] );
 			} else {
 				unset( $url_parts['path'] );
 			}

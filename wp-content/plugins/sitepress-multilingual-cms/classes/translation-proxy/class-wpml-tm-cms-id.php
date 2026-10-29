@@ -22,19 +22,21 @@ class WPML_TM_CMS_ID extends WPML_TM_Record_User {
 	}
 
 	function cms_id_from_job_id( $job_id ) {
-		$original_element_row = $this->wpdb->get_row(
-			$this->wpdb->prepare(
+		$wpdb = $this->wpdb;
+
+		$original_element_row = $wpdb->get_row(
+			$wpdb->prepare(
 				"SELECT o.element_id,
 									o.element_type,
 									o.language_code as source_lang,
 									i.language_code as target_lang
-							FROM {$this->wpdb->prefix}icl_translations o
-							JOIN {$this->wpdb->prefix}icl_translations i
+							FROM {$wpdb->prefix}icl_translations o
+							JOIN {$wpdb->prefix}icl_translations i
 								ON i.trid = o.trid
 									AND i.source_language_code = o.language_code
-							JOIN {$this->wpdb->prefix}icl_translation_status s
+							JOIN {$wpdb->prefix}icl_translation_status s
 								ON s.translation_id = i.translation_id
-							JOIN {$this->wpdb->prefix}icl_translate_job j
+							JOIN {$wpdb->prefix}icl_translate_job j
 								ON j.rid = s.rid
 							WHERE j.job_id = %d
 							LIMIT 1",
@@ -67,18 +69,20 @@ class WPML_TM_CMS_ID extends WPML_TM_Record_User {
 	}
 
 	public function get_translation_id( $cms_id, $translation_service = false ) {
+		$wpdb = $this->wpdb;
+
 		list( $post_type, $element_id, , $target_lang ) = $this->parse_cms_id( $cms_id );
-		$translation                                    = $this->wpdb->get_row(
-			$this->wpdb->prepare(
+		$translation                                    = $wpdb->get_row(
+			$wpdb->prepare(
 				"
 													SELECT t.translation_id, j.job_id, t.element_id
-													FROM {$this->wpdb->prefix}icl_translations t
-													JOIN {$this->wpdb->prefix}icl_translations o
+													FROM {$wpdb->prefix}icl_translations t
+													JOIN {$wpdb->prefix}icl_translations o
 														ON o.trid = t.trid
 															AND o.element_type = t.element_type
-													LEFT JOIN {$this->wpdb->prefix}icl_translation_status st
+													LEFT JOIN {$wpdb->prefix}icl_translation_status st
 														ON st.translation_id = t.translation_id
-													LEFT JOIN {$this->wpdb->prefix}icl_translate_job j
+													LEFT JOIN {$wpdb->prefix}icl_translate_job j
 														ON j.rid = st.rid
 													WHERE o.element_id=%d
 														AND t.language_code=%s

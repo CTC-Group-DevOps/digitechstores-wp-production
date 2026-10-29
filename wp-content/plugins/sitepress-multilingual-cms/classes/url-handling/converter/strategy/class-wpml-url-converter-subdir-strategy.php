@@ -9,9 +9,6 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 
 	private $root_url;
 
-	private $language_codes_map;
-	private $language_codes_reverse_map;
-
 	private $is_rest_request;
 
 	public function __construct(
@@ -24,10 +21,6 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		$this->use_directory_for_default_lang = (bool) $use_directory_for_default_lang;
 		$this->urls_settings                  = $urls_settings;
 
-		$this->language_codes_map = array_combine( $active_languages, $active_languages );
-		$this->language_codes_map = apply_filters( 'wpml_language_codes_map', $this->language_codes_map );
-
-		$this->language_codes_reverse_map = array_flip( $this->language_codes_map );
 	}
 
 	public function add_hooks() {
@@ -42,9 +35,30 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 	public function convertRestUrl( $url ) {
 		global $sitepress;
 
+		$language = $sitepress->get_current_language();
+
+		if ( ! in_array( $language, $this->active_languages, true ) ) {
+			return $url;
+		}
+
+		if ( $this->is_query_string_rest_url( $url ) ) {
+			return $url;
+		}
+
+		if ( $this->is_index_permalink_rest_url( $url ) ) {
+			$language = $this->get_language_of_current_dir( $language, '' );
+			$language = isset( $this->language_codes_map[ $language ] )
+				? $this->language_codes_map[ $language ]
+				: $language;
+
+			return $language && 'all' !== $language
+				? add_query_arg( 'lang', $language, $url )
+				: $url;
+		}
+
 		$matchTrailingSlash = $url[ strlen( $url ) - 1 ] === '/' ? 'trailingslashit' : 'untrailingslashit';
 
-		return $matchTrailingSlash( $this->convert_url_string( $url, $sitepress->get_current_language() ) );
+		return $matchTrailingSlash( $this->convert_url_string( $url, $language ) );
 	}
 
 	public function get_lang_from_url_string( $url ) {
@@ -66,16 +80,42 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		return $language;
 	}
 
+	private function get_rest_url_prefix() {
+		$prefix = function_exists( 'rest_get_url_prefix' ) ? (string) rest_get_url_prefix() : '';
+		$prefix = trim( $prefix, '/' );
+
+		return '' === $prefix ? 'wp-json' : $prefix;
+	}
+
+	private function is_index_permalink_rest_url( $url ) {
+		$path      = (string) parse_url( $url, PHP_URL_PATH );
+		$rest_path = '/index.php/' . $this->get_rest_url_prefix();
+
+		return $rest_path === $path || false !== strpos( $path, $rest_path . '/' );
+	}
+
+	private function is_query_string_rest_url( $url ) {
+		$query = (string) parse_url( $url, PHP_URL_QUERY );
+		if ( '' === $query ) {
+			return false;
+		}
+		parse_str( $query, $args );
+
+		return isset( $args['rest_route'] );
+	}
+
 	public function convert_url_string( $source_url, $code ) {
-		if ( $this->is_root_url( $source_url ) || $this->skip_convert_url_string( $source_url, $code ) ) {
+		list( $url, $fragment ) = $this->split_fragment( $source_url );
+
+		if ( '' === $url || $this->is_root_url( $url ) || $this->skip_convert_url_string( $source_url, $code ) ) {
 			return $source_url;
 		}
 
-		if ( 'all' === $code && in_array( 'wp-json', explode( '/', $source_url ) ) ) {
+		if ( 'all' === $code && in_array( $this->get_rest_url_prefix(), explode( '/', $url ), true ) ) {
 			return $source_url;
 		}
 
-		$source_url = $this->filter_source_url( $source_url );
+		$source_url = $this->filter_source_url( $url );
 
 		$absolute_home_url = trailingslashit( preg_replace( '#^(http|https)://#', '', $this->get_url_helper()->get_abs_home() ) );
 		$absolute_home_url = strpos( $source_url, $absolute_home_url ) === false ? trailingslashit( get_option( 'home' ) ) : $absolute_home_url;
@@ -103,7 +143,7 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 			$source_url
 		);
 
-		return $this->slash_helper->maybe_user_trailingslashit( $source_url );
+		return $this->slash_helper->maybe_user_trailingslashit( $source_url ) . $fragment;
 	}
 
 	public function convert_admin_url_string( $source_url, $lang ) {
@@ -117,7 +157,7 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		if ( $language ) {
 			$parts = parse_url( get_option( 'home' ) );
 			$path  = isset( $parts['path'] ) ? $parts['path'] : '';
-			$url   = preg_replace( '@^' . $path . '@', '', $url );
+			$url   = preg_replace( '@^' . preg_quote( $path, '@' ) . '@', '', $url );
 
 			return rtrim( $path, '/' ) . '/' . $language . $url;
 		} else {

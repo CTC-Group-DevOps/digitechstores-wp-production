@@ -6,6 +6,7 @@ use WPML\Element\API\PostTranslations;
 use WPML\Element\API\Translations;
 use WPML\FP\Fns;
 use WPML\LIB\WP\Hooks;
+use WPML\TM\PostEditScreen\Endpoints\GetPtcEngineStatus;
 use WPML\TM\PostEditScreen\Endpoints\SetEditorMode;
 use WPML\Core\WP\App\Resources;
 use WPML\API\Settings;
@@ -40,7 +41,8 @@ class TranslationEditorPostSettings {
 			'name' => 'wpml_translation_post_editor',
 			'data' => [
 				'endpoints' => [
-					'setEditorMode' => SetEditorMode::class,
+					'setEditorMode'      => SetEditorMode::class,
+					'getPtcEngineStatus' => GetPtcEngineStatus::class,
 				],
 				'urls' => [
 					'tmdashboard' => admin_url( 'admin.php?page=tm%2Fmenu%2Fmain.php' ),
@@ -60,25 +62,25 @@ class TranslationEditorPostSettings {
 			return;
 		}
 
+		if ( ! apply_filters( 'wpml_tm_post_edit_tm_editor_selector_display', true ) ) {
+			return;
+		}
+
 		list( $useTmEditor, $isWpmlEditorBlocked, $reason ) = \WPML_TM_Post_Edit_TM_Editor_Mode::get_editor_settings( $this->sitepress, $post->ID );
 
-		$editorModeFor = '';
-		$tmSettings = $this->sitepress->get_setting( 'translation-management' );
-		if ( $useTmEditor && ! $isWpmlEditorBlocked ) {
-			list ( $enabledEditor, $editorModeFor ) = $this->getEditorAndMode( $post->ID, $tmSettings, SetEditorMode::TRANSLATION_EDITOR_WPML );
-		} else {
-			list ( $enabledEditor, $editorModeFor ) = $this->getEditorAndMode( $post->ID, $tmSettings, SetEditorMode::TRANSLATION_EDITOR_NATIVE );
+		list ( $enabledEditor, $editorModeFor ) = \WPML_TM_Post_Edit_TM_Editor_Mode::get_translation_editor_with_scope( null, $post->ID );
+		if ( ! $useTmEditor || $isWpmlEditorBlocked ) {
 			$enabledEditor = SetEditorMode::TRANSLATION_EDITOR_NATIVE;
 		}
 		$postTypeLabels = $wp_post_types[ $post->post_type ]->labels;
-		$currentWpmlEditor     = (string) Settings::pathOr( ICL_TM_TMETHOD_ATE, [
-			'translation-management',
-			'doc_translation_method'
-		] );
+		$currentWpmlEditor     = (string) wpml_get_tm_sub_setting( 'doc_translation_method', ICL_TM_TMETHOD_ATE );
 
-		$wpmlEditorName = ICL_TM_TMETHOD_ATE === $currentWpmlEditor
+		$isAte = ICL_TM_TMETHOD_ATE === $currentWpmlEditor;
+
+		$wpmlEditorName = $isAte
 			? esc_attr__( 'Advanced Translation Editor', 'sitepress' )
 			: esc_attr__( 'Classic Translation Editor', 'sitepress' );
+
 		$sourceLang = $this->sitepress->get_element_language_details( $post->ID )->language_code;
 
 		echo '
@@ -97,46 +99,6 @@ class TranslationEditorPostSettings {
 		></div>
 		';
 		echo '<div id="icl-translation-dashboard"></div>';
-	}
-
-	private function getEditorAndMode( $post_id, $tmSettings, $editor = 'wpml' ) {
-		$meta_key = \WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_WPML;
-		$post_type_key = \WPML_TM_Post_Edit_TM_Editor_Mode::TM_KEY_FOR_POST_TYPE_USE_WPML;
-		$global_key = \WPML_TM_Post_Edit_TM_Editor_Mode::TM_KEY_GLOBAL_USE_WPML;
-
-		if ( $editor === SetEditorMode::TRANSLATION_EDITOR_NATIVE ) {
-			$meta_key = \WPML_TM_Post_Edit_TM_Editor_Mode::POST_META_KEY_USE_NATIVE;
-			$post_type_key = \WPML_TM_Post_Edit_TM_Editor_Mode::TM_KEY_FOR_POST_TYPE_USE_NATIVE;
-			$global_key = \WPML_TM_Post_Edit_TM_Editor_Mode::TM_KEY_GLOBAL_USE_NATIVE;
-		}
-
-		$post_meta = get_post_meta( $post_id, $meta_key, true );
-		if ( $post_meta ) {
-			return [
-				$post_meta,
-				SetEditorMode::MODE_FOR_THIS_POST
-			];
-		}
-
-		$post_type = get_post_type( $post_id );
-		if ( isset( $tmSettings[ $post_type_key ][ $post_type ] ) ) {
-			return [
-				$tmSettings[ $post_type_key ][ $post_type ],
-				SetEditorMode::MODE_FOR_POST_TYPE
-			];
-		}
-
-		if ( isset( $tmSettings[ $global_key ] ) ) {
-			return [
-				$tmSettings[ $global_key ],
-				SetEditorMode::MODE_FOR_GLOBAL
-			];
-		}
-
-		return [
-			SetEditorMode::TRANSLATION_EDITOR_DASHBOARD,
-			SetEditorMode::MODE_FOR_GLOBAL
-		];
 	}
 
 	private function registerPostHogAjaxCapture() {

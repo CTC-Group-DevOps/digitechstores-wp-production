@@ -15,19 +15,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for initiating and modifying no/low stock notification e-mails for Product Bundles.
  *
  * @class    WC_PB_Stock_Notifications
- * @version  8.5.10
+ * @version  8.5.16
  */
 class WC_PB_Stock_Notifications {
 
 	/**
 	 * Save bundle stock quantity for use in downstream context.
 	 *
-	 * @var int
+	 * @var int|null
 	 */
 	private static $bundle_stock_quantity;
 
 	/**
+	 * Track which nested deferral calls installed their own filter.
+	 *
+	 * @since 8.5.16
+	 * @var bool[]
+	 */
+	private static $deferred_email_filter_ownership = array();
+
+	/**
 	 * Setup.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -292,11 +302,16 @@ class WC_PB_Stock_Notifications {
 	 * Enable/disable deferring of transactional emails.
 	 *
 	 * @param  boolean $defer Whether to defer transactional emails.
+	 * @return void
 	 */
 	public static function set_deferred_transactional_emails( $defer = true ) {
 		if ( $defer ) {
-			add_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
-		} else {
+			$owns_filter                             = false === has_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
+			self::$deferred_email_filter_ownership[] = $owns_filter;
+			if ( $owns_filter ) {
+				add_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
+			}
+		} elseif ( array_pop( self::$deferred_email_filter_ownership ) ) {
 			remove_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
 		}
 	}

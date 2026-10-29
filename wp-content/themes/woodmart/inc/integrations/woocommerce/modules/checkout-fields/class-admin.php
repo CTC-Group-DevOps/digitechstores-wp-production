@@ -108,6 +108,12 @@ class Admin extends Singleton {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
+
+		check_admin_referer( 'reset_all_fields' );
+
 		delete_option( 'xts_checkout_fields_manager_options' );
 		delete_transient( 'wd_default_checkout_fields' );
 

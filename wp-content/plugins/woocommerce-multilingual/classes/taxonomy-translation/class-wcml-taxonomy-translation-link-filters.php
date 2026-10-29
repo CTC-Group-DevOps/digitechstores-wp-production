@@ -23,15 +23,15 @@ class WCML_Taxonomy_Translation_Link_Filters {
 
 				$link = sprintf(
 					'<a href="%s">%s</a>',
-					$this->get_screen_url( $taxonomy->name ),
-					/* translators: %s is a taxonomy singular label */
-					sprintf( esc_html__( '%s translation', 'woocommerce-multilingual' ), $taxonomy->labels->singular_name )
+					esc_url( $this->get_screen_url( $taxonomy->name ) ),
+					/* translators: Link text that opens WPML's taxonomy translation screen for one taxonomy. %s: the taxonomy's singular name, for example "Product category". */
+					sprintf( esc_html__( '%s translation', 'woocommerce-multilingual' ), esc_html( $taxonomy->labels->singular_name ) )
 				);
 
 				$text = sprintf(
 					/* translators: %1$s is a taxonomy singular label and %2$s is an HTML link */
 					esc_html__( 'Translating %1$s? Use the %2$s table for easier translation.', 'woocommerce-multilingual' ),
-					$taxonomy->labels->name,
+					esc_html( $taxonomy->labels->name ),
 					$link
 				);
 			}

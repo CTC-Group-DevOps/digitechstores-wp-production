@@ -8,8 +8,8 @@ class PostsQueryFiltersFactory {
 		global $wpml_query_filter;
 
 		return new Filters( [
-			[ 'posts_join', [ $wpml_query_filter, 'posts_join_filter' ] ],
-			[ 'posts_where', [ $wpml_query_filter, 'posts_where_filter' ] ],
+			[ 'posts_join', [ $wpml_query_filter, 'posts_join_filter' ], 10, 2 ],
+			[ 'posts_where', [ $wpml_query_filter, 'posts_where_filter' ], 10, 2 ],
 		] );
 	}
 }

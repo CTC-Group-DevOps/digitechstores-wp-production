@@ -519,7 +519,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"17a91c3d-9850-43df-a999-b1cf1ba380f5","blockVersion":"2","textAlign":"center","rowGap":"5","marginBottom":"30","displayWidth":"custom","customWidth":"475"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-17a91c3d wd-custom-width"><!-- wp:wd/paragraph {"blockId":"6b9e6650-7c8d-405d-8176-c13f9aa90049","blockVersion":"2","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-17a91c3d wd-custom-width"><!-- wp:wd/paragraph {"blockId":"6b9e6650-7c8d-405d-8176-c13f9aa90049","blockVersion":"2","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
 <p class="wp-block-wd-paragraph wd-6b9e6650">The Takeover Is Complete</p>
 <!-- /wp:wd/paragraph -->
 
@@ -543,7 +543,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"e7081ef0-34c7-4475-a646-a77da2afb09a","blockVersion":"2","adjacentCount":2,"blocksGap":0,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-e7081ef0"><!-- wp:wd/title {"blockId":"b5225401-df65-40ef-98f9-5e4f85cb29a6","blockVersion":"2","content":"u003cspan class=u0022wd-highlightu0022u003eBuild Your​u003c/spanu003eu003cbru003eNEW PC","tpFontSize":"60","tpLineHeight":"1.3","markFontSize":"80","markFontVariant":"100","markFontWeight":"100","tpFontSizeTablet":"40","tpFontSizeMobile":"30","tpLineHeightUnits":"em","tpLineHeightUnitsTablet":"em","markFontSizeTablet":"60","markFontSizeMobile":"40","marginBottomTablet":"10"} -->
+<div class="wp-block-wd-column wd-e7081ef0"><!-- wp:wd/title {"blockId":"b5225401-df65-40ef-98f9-5e4f85cb29a6","blockVersion":"2","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eBuild Your​\u003c/span\u003e\u003cbr\u003eNEW PC","tpFontSize":"60","tpLineHeight":"1.3","markFontSize":"80","markFontVariant":"100","markFontWeight":"100","tpFontSizeTablet":"40","tpFontSizeMobile":"30","tpLineHeightUnits":"em","tpLineHeightUnitsTablet":"em","markFontSizeTablet":"60","markFontSizeMobile":"40","marginBottomTablet":"10"} -->
 <h2 class="wp-block-wd-title title wd-b5225401"><span class="wd-highlight">Build Your​</span><br>NEW PC</h2>
 <!-- /wp:wd/title -->
 
@@ -597,7 +597,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"a1bb0be2-3f0a-4364-afc6-0cd7102dbda9","blockVersion":"2","textAlign":"center","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","marginBottom":"5","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
+<!-- wp:wd/paragraph {"blockId":"a1bb0be2-3f0a-4364-afc6-0cd7102dbda9","blockVersion":"2","textAlign":"center","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","marginBottom":"5","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
 <p class="wp-block-wd-paragraph wd-align wd-a1bb0be2">Play Like The Pros</p>
 <!-- /wp:wd/paragraph -->
 
@@ -612,7 +612,7 @@
 <!-- wp:wd/row {"blockId":"5cc525ca-263d-44c2-b94e-e83ed8a8fada","blockVersion":"2","columnsGap":20,"paddingUnits":"%","displayWidth":"","paddingRightTablet":"0","paddingLeftTablet":"0"} -->
 <div class="wp-block-wd-row wd-5cc525ca"><!-- wp:wd/column {"blockId":"49b880b0-1303-4e34-a69f-bb492f201938","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-49b880b0"><!-- wp:wd/container {"blockId":"cb41b21f-5b8d-44cf-b929-349ded1c50a1","blockVersion":"2","rowGap":"0","transformHoverTranslateX":"","transformHoverTranslateY":"-10","transformHoverOriginY":"top","transitionTransform":0.3} -->
-<div class="wp-block-wd-container wd-dir-col wd-cb41b21f wd-transform"><!-- wp:wd/title {"blockId":"6502506a-9a90-41b5-9fe6-46ac2505c00b","blockVersion":"2","textAlign":"center","content":"u003cstrongu003eLITE BUILD​u003c/strongu003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
+<div class="wp-block-wd-container wd-dir-col wd-cb41b21f wd-transform"><!-- wp:wd/title {"blockId":"6502506a-9a90-41b5-9fe6-46ac2505c00b","blockVersion":"2","textAlign":"center","content":"\u003cstrong\u003eLITE BUILD​\u003c/strong\u003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
 <h2 class="wp-block-wd-title title wd-align wd-6502506a wd-align-s-center"><strong>LITE BUILD​</strong></h2>
 <!-- /wp:wd/title -->
 
@@ -654,7 +654,7 @@
 
 <!-- wp:wd/column {"blockId":"6b7782c0-00b2-45c4-b1ac-e53b208ab4fd","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-6b7782c0"><!-- wp:wd/container {"blockId":"c0869fcd-28c2-4483-88ba-33fa82a75125","blockVersion":"2","rowGap":"0","transformHoverTranslateX":"","transformHoverTranslateY":"-10","transformHoverOriginY":"top","transitionTransform":0.3} -->
-<div class="wp-block-wd-container wd-dir-col wd-c0869fcd wd-transform"><!-- wp:wd/title {"blockId":"4d5abbd3-3288-4be7-8a2d-26bd17444dd1","blockVersion":"2","textAlign":"center","content":"u003cstrongu003eCORE BUILD​u003c/strongu003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
+<div class="wp-block-wd-container wd-dir-col wd-c0869fcd wd-transform"><!-- wp:wd/title {"blockId":"4d5abbd3-3288-4be7-8a2d-26bd17444dd1","blockVersion":"2","textAlign":"center","content":"\u003cstrong\u003eCORE BUILD​\u003c/strong\u003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
 <h2 class="wp-block-wd-title title wd-align wd-4d5abbd3 wd-align-s-center"><strong>CORE BUILD​</strong></h2>
 <!-- /wp:wd/title -->
 
@@ -696,11 +696,11 @@
 
 <!-- wp:wd/column {"blockId":"aecc22c8-ebb5-4081-8b64-af63ab38f624","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-aecc22c8"><!-- wp:wd/container {"blockId":"47e90313-f122-4d6a-8ebc-16cdce886267","blockVersion":"2","rowGap":"0","transformHoverTranslateX":"","transformHoverTranslateY":"-10","transformHoverOriginY":"top","transitionTransform":0.3} -->
-<div class="wp-block-wd-container wd-dir-col wd-47e90313 wd-transform"><!-- wp:wd/title {"blockId":"87bd16a9-d483-43ff-b2d0-61b31ab3c055","blockVersion":"2","textAlign":"center","content":"u003cstrongu003ePREMIUM BUILD​u003c/strongu003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
+<div class="wp-block-wd-container wd-dir-col wd-47e90313 wd-transform"><!-- wp:wd/title {"blockId":"87bd16a9-d483-43ff-b2d0-61b31ab3c055","blockVersion":"2","textAlign":"center","content":"\u003cstrong\u003ePREMIUM BUILD​\u003c/strong\u003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
 <h2 class="wp-block-wd-title title wd-align wd-87bd16a9 wd-align-s-center"><strong>PREMIUM BUILD​</strong></h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/container {"blockId":"f52cca07-ae4a-4180-b6d9-f70ed05cabde","blockVersion":"2","rowGap":"15","bgColorCode":"#0f0f0f","paddingBottom":"20","boxShadowBlur":3,"boxShadowHoverBlur":9,"boxShadowParentHoverBlur":9,"borderType":"solid","borderColorVariable":"u002du002dwd-primary-color","borderWidth":"2","borderWidthTop":"2","borderWidthRight":"2","borderWidthBottom":"2","borderWidthLeft":"2"} -->
+<!-- wp:wd/container {"blockId":"f52cca07-ae4a-4180-b6d9-f70ed05cabde","blockVersion":"2","rowGap":"15","bgColorCode":"#0f0f0f","paddingBottom":"20","boxShadowBlur":3,"boxShadowHoverBlur":9,"boxShadowParentHoverBlur":9,"borderType":"solid","borderColorVariable":"\u002d\u002dwd-primary-color","borderWidth":"2","borderWidthTop":"2","borderWidthRight":"2","borderWidthBottom":"2","borderWidthLeft":"2"} -->
 <div class="wp-block-wd-container wd-dir-col wd-f52cca07"><!-- wp:wd/container {"blockId":"1ec20d14-b69c-4f1d-8f9a-58a68c0c1389","blockVersion":"2","rowGap":"5","bgImage":{"id":26096,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/hardware-lite-img.jpg"},"paddingTop":"15","paddingRight":"20","paddingBottom":"15","paddingLeft":"20"} -->
 <div class="wp-block-wd-container wd-dir-col wd-1ec20d14"><!-- wp:wd/paragraph {"blockId":"d48daddd-e2c7-4cf6-9b40-a6b8c7aaf94a","blockVersion":"2","textAlign":"center","colorCode":"#fffefe","tpFontSize":"42","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-align wd-d48daddd"><sup>$</sup>2500</p>
@@ -738,7 +738,7 @@
 
 <!-- wp:wd/column {"blockId":"284a9371-dc59-4c18-9347-090d2f57635b","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-284a9371"><!-- wp:wd/container {"blockId":"8623999f-6f1d-474d-8d6f-c6c1b90104b9","blockVersion":"2","rowGap":"0","transformHoverTranslateX":"","transformHoverTranslateY":"-10","transformHoverOriginY":"top","transitionTransform":0.3} -->
-<div class="wp-block-wd-container wd-dir-col wd-8623999f wd-transform"><!-- wp:wd/title {"blockId":"79d7d46a-f863-4463-8524-e6101290e359","blockVersion":"2","textAlign":"center","content":"u003cstrongu003ePRO BUILD​u003c/strongu003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
+<div class="wp-block-wd-container wd-dir-col wd-8623999f wd-transform"><!-- wp:wd/title {"blockId":"79d7d46a-f863-4463-8524-e6101290e359","blockVersion":"2","textAlign":"center","content":"\u003cstrong\u003ePRO BUILD​\u003c/strong\u003e","tpFontSize":"20","tpFontVariant":"600","tpFontWeight":"600","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"alignSelf":"center"} -->
 <h2 class="wp-block-wd-title title wd-align wd-79d7d46a wd-align-s-center"><strong>PRO BUILD​</strong></h2>
 <!-- /wp:wd/title -->
 
@@ -783,7 +783,7 @@
 <!-- wp:wd/section {"blockId":"b9d44b10-9bdd-4a9f-af7d-f638daddee5e","blockVersion":"2","bgType":"gradient","bgGradient":"radial-gradient(rgb(50,39,61) 9%,rgba(50,39,61,0) 58%)","bgGradientPosition":"center left","paddingRight":"0","paddingLeft":"0","marginBottom":"90","overlay":false,"marginBottomMobile":"80"} -->
 <div class="wp-block-wd-section wd-b9d44b10"><!-- wp:wd/row {"blockId":"560f56b2-9df8-46a6-a83f-ec28b9ba7fb8","blockVersion":"2","displayWidth":"full-width","columnsGapTablet":50,"columnsGapMobile":40} -->
 <div class="wp-block-wd-row wd-560f56b2 wd-custom-width"><!-- wp:wd/column {"blockId":"c14a5413-3b4a-402c-8f32-9b1aafa9e6d1","blockVersion":"2","adjacentCount":2,"colWidth":50,"blocksGap":0,"justifyContent":"center","paddingRight":"8","paddingLeft":"8","paddingUnits":"%","adjacentCountTablet":1,"colWidthTablet":100,"paddingRightTablet":"15","paddingLeftTablet":"15"} -->
-<div class="wp-block-wd-column wd-c14a5413"><!-- wp:wd/title {"blockId":"805d050a-1098-4b88-95b3-cb4b1359c421","blockVersion":"2","content":"u003cspan class=u0022wd-highlightu0022u003eGear Upu003c/spanu003eu003cbru003eTHROW DOWN","tpFontSize":"60","tpLineHeight":"1.3","markFontSize":"80","markFontVariant":"100","markFontWeight":"100","marginBottom":"10","tpFontSizeTablet":"40","tpFontSizeMobile":"30","tpLineHeightUnits":"em","tpLineHeightUnitsTablet":"em","markFontSizeTablet":"60","markFontSizeMobile":"40","markLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-c14a5413"><!-- wp:wd/title {"blockId":"805d050a-1098-4b88-95b3-cb4b1359c421","blockVersion":"2","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eGear Up\u003c/span\u003e\u003cbr\u003eTHROW DOWN","tpFontSize":"60","tpLineHeight":"1.3","markFontSize":"80","markFontVariant":"100","markFontWeight":"100","marginBottom":"10","tpFontSizeTablet":"40","tpFontSizeMobile":"30","tpLineHeightUnits":"em","tpLineHeightUnitsTablet":"em","markFontSizeTablet":"60","markFontSizeMobile":"40","markLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-805d050a"><span class="wd-highlight">Gear Up</span><br>THROW DOWN</h2>
 <!-- /wp:wd/title -->
 
@@ -803,7 +803,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"94cbdc0e-5ec3-4955-a90f-b6eaba9d4e0f","blockVersion":"2","adjacentCount":2,"colWidth":50,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-94cbdc0e"><!-- wp:wd/video {"blockId":"5484b8d2-f894-4df9-af43-e8dff06efa60","blockVersion":"2","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=LXb3EKWsInQu0026amp;t=1s","videoActionButton":"overlay","videoImageOverlay":{"id":26188,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/hardware-video-bg.jpg"},"videoSize":"aspect_ratio"} -->
+<div class="wp-block-wd-column wd-94cbdc0e"><!-- wp:wd/video {"blockId":"5484b8d2-f894-4df9-af43-e8dff06efa60","blockVersion":"2","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=LXb3EKWsInQ\u0026amp;t=1s","videoActionButton":"overlay","videoImageOverlay":{"id":26188,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/hardware-video-bg.jpg"},"videoSize":"aspect_ratio"} -->
 <div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-with-aspect-ratio wd-5484b8d2"><iframe allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" loading="lazy" data-lazy-load="https://www.youtube.com/embed/LXb3EKWsInQ?feature=oembed&amp;controls=1&amp;autoplay=1"></iframe><div class="wd-el-video-overlay wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/hardware-video-bg.jpg" alt="" class="wp-image-26188"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/embed/LXb3EKWsInQ?feature=oembed&amp;controls=1&amp;autoplay=1" class="wd-el-video-link wd-el-video-btn-overlay wd-fill"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column --></div>
@@ -811,7 +811,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"0f6095be-55ae-476b-894a-0ef17ad4f8c4","blockVersion":"2","textAlign":"center","rowGap":"5","marginBottom":"30","displayWidth":"custom","customWidth":"475"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-0f6095be wd-custom-width"><!-- wp:wd/paragraph {"blockId":"34e8b5bf-8e7c-481d-8b1a-a6dad604f9b3","blockVersion":"2","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-0f6095be wd-custom-width"><!-- wp:wd/paragraph {"blockId":"34e8b5bf-8e7c-481d-8b1a-a6dad604f9b3","blockVersion":"2","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
 <p class="wp-block-wd-paragraph wd-34e8b5bf">Light On The Wallet​</p>
 <!-- /wp:wd/paragraph -->
 
@@ -837,7 +837,7 @@
 <h2 class="wp-block-wd-title title wd-102a8853">SkyTech Omega​</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/list {"blockId":"00c6e5d7-25fd-4cd7-9130-ba862adc1acf","blockVersion":"2","iconType":"image","svg":"u003csvg class=u0022wd-svg-iconu0022 xmlns=u0022http://www.w3.org/2000/svgu0022 xmlns:xlink=u0022http://www.w3.org/1999/xlinku0022 version=u00221.1u0022 viewBox=u00220 0 26 26u0022 width=u002216pxu0022 height=u002216pxu0022u003eu003cpath d=u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3zu0022 fill=u0022#595ee0u0022u003eu003c/pathu003eu003c/svgu003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
+<!-- wp:wd/list {"blockId":"00c6e5d7-25fd-4cd7-9130-ba862adc1acf","blockVersion":"2","iconType":"image","svg":"\u003csvg class=\u0022wd-svg-icon\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022 xmlns:xlink=\u0022http://www.w3.org/1999/xlink\u0022 version=\u00221.1\u0022 viewBox=\u00220 0 26 26\u0022 width=\u002216px\u0022 height=\u002216px\u0022\u003e\u003cpath d=\u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z\u0022 fill=\u0022#595ee0\u0022\u003e\u003c/path\u003e\u003c/svg\u003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-00c6e5d7"><!-- wp:wd/list-item {"blockId":"542be67a-d095-4ea6-8bae-cda1be396dce","blockVersion":"2","iconType":"image","svg":"","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"}} -->
 <li class="wp-block-wd-list-item wd-542be67a"><div class="wd-icon"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg" alt="" class="wp-image-28575"/></div><span class="wd-list-content">GeForce GTX 1060</span></li>
 <!-- /wp:wd/list-item -->
@@ -877,7 +877,7 @@
 <h2 class="wp-block-wd-title title wd-74306a2e">Ava Lumos</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/list {"blockId":"637d2fba-a810-4175-859d-52522edc93ba","blockVersion":"2","iconType":"image","svg":"u003csvg class=u0022wd-svg-iconu0022 xmlns=u0022http://www.w3.org/2000/svgu0022 xmlns:xlink=u0022http://www.w3.org/1999/xlinku0022 version=u00221.1u0022 viewBox=u00220 0 26 26u0022 width=u002216pxu0022 height=u002216pxu0022u003eu003cpath d=u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3zu0022 fill=u0022#595ee0u0022u003eu003c/pathu003eu003c/svgu003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
+<!-- wp:wd/list {"blockId":"637d2fba-a810-4175-859d-52522edc93ba","blockVersion":"2","iconType":"image","svg":"\u003csvg class=\u0022wd-svg-icon\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022 xmlns:xlink=\u0022http://www.w3.org/1999/xlink\u0022 version=\u00221.1\u0022 viewBox=\u00220 0 26 26\u0022 width=\u002216px\u0022 height=\u002216px\u0022\u003e\u003cpath d=\u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z\u0022 fill=\u0022#595ee0\u0022\u003e\u003c/path\u003e\u003c/svg\u003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-637d2fba"><!-- wp:wd/list-item {"blockId":"1b3555da-d712-41df-b362-18792ca3cec4","blockVersion":"2","iconType":"image","svg":"","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"}} -->
 <li class="wp-block-wd-list-item wd-1b3555da"><div class="wd-icon"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg" alt="" class="wp-image-28575"/></div><span class="wd-list-content">GeForce GTX 1070Ti</span></li>
 <!-- /wp:wd/list-item -->
@@ -917,7 +917,7 @@
 <h2 class="wp-block-wd-title title wd-f9b80447">Iron Conqueror</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/list {"blockId":"70ebb2fc-7bee-4c66-a1d8-a2d32f47147a","blockVersion":"2","iconType":"image","svg":"u003csvg class=u0022wd-svg-iconu0022 xmlns=u0022http://www.w3.org/2000/svgu0022 xmlns:xlink=u0022http://www.w3.org/1999/xlinku0022 version=u00221.1u0022 viewBox=u00220 0 26 26u0022 width=u002216pxu0022 height=u002216pxu0022u003eu003cpath d=u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3zu0022 fill=u0022#595ee0u0022u003eu003c/pathu003eu003c/svgu003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
+<!-- wp:wd/list {"blockId":"70ebb2fc-7bee-4c66-a1d8-a2d32f47147a","blockVersion":"2","iconType":"image","svg":"\u003csvg class=\u0022wd-svg-icon\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022 xmlns:xlink=\u0022http://www.w3.org/1999/xlink\u0022 version=\u00221.1\u0022 viewBox=\u00220 0 26 26\u0022 width=\u002216px\u0022 height=\u002216px\u0022\u003e\u003cpath d=\u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z\u0022 fill=\u0022#595ee0\u0022\u003e\u003c/path\u003e\u003c/svg\u003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-70ebb2fc"><!-- wp:wd/list-item {"blockId":"57a53631-c425-4792-927a-2860d97b1c22","blockVersion":"2","iconType":"image","svg":"","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"}} -->
 <li class="wp-block-wd-list-item wd-57a53631"><div class="wd-icon"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg" alt="" class="wp-image-28575"/></div><span class="wd-list-content">GeForce GTX 1080TI</span></li>
 <!-- /wp:wd/list-item -->
@@ -957,7 +957,7 @@
 <h2 class="wp-block-wd-title title wd-29e75a4a">Maingear Rush</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/list {"blockId":"790ec9ae-af0b-4727-8f1e-a1163bb0ac3f","blockVersion":"2","iconType":"image","svg":"u003csvg class=u0022wd-svg-iconu0022 xmlns=u0022http://www.w3.org/2000/svgu0022 xmlns:xlink=u0022http://www.w3.org/1999/xlinku0022 version=u00221.1u0022 viewBox=u00220 0 26 26u0022 width=u002216pxu0022 height=u002216pxu0022u003eu003cpath d=u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3zu0022 fill=u0022#595ee0u0022u003eu003c/pathu003eu003c/svgu003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
+<!-- wp:wd/list {"blockId":"790ec9ae-af0b-4727-8f1e-a1163bb0ac3f","blockVersion":"2","iconType":"image","svg":"\u003csvg class=\u0022wd-svg-icon\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022 xmlns:xlink=\u0022http://www.w3.org/1999/xlink\u0022 version=\u00221.1\u0022 viewBox=\u00220 0 26 26\u0022 width=\u002216px\u0022 height=\u002216px\u0022\u003e\u003cpath d=\u0022m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z\u0022 fill=\u0022#595ee0\u0022\u003e\u003c/path\u003e\u003c/svg\u003e","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"},"iconSize":"16","marginBottom":"10"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-790ec9ae"><!-- wp:wd/list-item {"blockId":"d2e67b1a-4581-4e54-8fe0-dbe33c0d2d7c","blockVersion":"2","iconType":"image","svg":"","image":{"id":28575,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg"}} -->
 <li class="wp-block-wd-list-item wd-d2e67b1a"><div class="wd-icon"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/w-hardware-checked.svg" alt="" class="wp-image-28575"/></div><span class="wd-list-content">Radeon RX Vega</span></li>
 <!-- /wp:wd/list-item -->
@@ -987,7 +987,7 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"c38e3e55-9698-4330-a4a3-14cae8bc6ee1","blockVersion":"2","textAlign":"center","rowGap":"5","marginBottom":"30","displayWidth":"custom","customWidth":"475"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-c38e3e55 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"d3c537b7-9e2a-45de-aec1-078eb89239eb","blockVersion":"2","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-c38e3e55 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"d3c537b7-9e2a-45de-aec1-078eb89239eb","blockVersion":"2","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
 <p class="wp-block-wd-paragraph wd-d3c537b7">Heavy On Power</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1059,7 +1059,7 @@
 <h2 class="wp-block-wd-title title wd-ec9c1b50">POWER AND BEAUTY​</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/paragraph {"blockId":"285d3651-de38-4367-97f0-d2f895fb3f79","blockVersion":"2","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"36","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"39","tpFontSizeMobile":"24"} -->
+<!-- wp:wd/paragraph {"blockId":"285d3651-de38-4367-97f0-d2f895fb3f79","blockVersion":"2","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"36","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"39","tpFontSizeMobile":"24"} -->
 <p class="wp-block-wd-paragraph wd-285d3651">IN ONE CASE</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1085,7 +1085,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"2c8d777d-a710-48c4-9501-88ec2f62a321","blockVersion":"2","textAlign":"center","rowGap":"5","marginBottom":"30","displayWidth":"custom","customWidth":"475"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-2c8d777d wd-custom-width"><!-- wp:wd/paragraph {"blockId":"5b31a395-96ff-4c45-8564-d398a9a8953a","blockVersion":"2","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-2c8d777d wd-custom-width"><!-- wp:wd/paragraph {"blockId":"5b31a395-96ff-4c45-8564-d398a9a8953a","blockVersion":"2","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpFontVariant":"100","tpFontWeight":"100","tpFontSizeTablet":"22","tpFontSizeMobile":"18"} -->
 <p class="wp-block-wd-paragraph wd-5b31a395">Find Out Our</p>
 <!-- /wp:wd/paragraph -->
 

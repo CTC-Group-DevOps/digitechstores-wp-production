@@ -22,7 +22,7 @@ if ( ! class_exists( 'WC_PB_Background_Process', false ) ) {
  * updates in the background.
  *
  * @class    WC_PB_Background_Updater
- * @version  8.0.0
+ * @version  8.5.16
  */
 class WC_PB_Background_Updater extends WC_PB_Background_Process {
 
@@ -51,6 +51,8 @@ class WC_PB_Background_Updater extends WC_PB_Background_Process {
 
 	/**
 	 * Dispatch updater.
+	 *
+	 * @return array|WP_Error
 	 */
 	public function dispatch() {
 
@@ -59,12 +61,16 @@ class WC_PB_Background_Updater extends WC_PB_Background_Process {
 		if ( is_wp_error( $dispatched ) ) {
 			WC_PB_Core_Compatibility::log( sprintf( 'Unable to dispatch WooCommerce Product Bundles updater: %s', $dispatched->get_error_message() ), 'error', 'wc_pb_db_updates' );
 		}
+
+		return $dispatched;
 	}
 
 	/**
 	 * Handle cron healthcheck.
 	 *
 	 * Restart the background process if not already running and data exists in the queue.
+	 *
+	 * @return void
 	 */
 	public function handle_cron_healthcheck() {
 		if ( $this->is_process_running() ) {
@@ -83,6 +89,8 @@ class WC_PB_Background_Updater extends WC_PB_Background_Process {
 
 	/**
 	 * Schedule event.
+	 *
+	 * @return void
 	 */
 	protected function schedule_event() {
 		if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
@@ -174,6 +182,8 @@ class WC_PB_Background_Updater extends WC_PB_Background_Process {
 
 	/**
 	 * When all tasks complete, update plugin db version and create log entry.
+	 *
+	 * @return void
 	 */
 	protected function complete() {
 		WC_PB_Install::update_complete();

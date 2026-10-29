@@ -14,6 +14,20 @@
 		}
 
 		/**
+		 * Escape a value before it is interpolated into popup HTML.
+		 * Marker fields come from stored block settings and must never be
+		 * inserted as live markup (stored XSS otherwise).
+		 */
+		const escapeHtml = function ( str ) {
+			return String( null === str || undefined === str ? '' : str )
+				.replace( /&/g, '&amp;' )
+				.replace( /</g, '&lt;' )
+				.replace( />/g, '&gt;' )
+				.replace( /"/g, '&quot;' )
+				.replace( /'/g, '&#39;' );
+		};
+
+		/**
 		 * Helper to add markers to our map.
 		 *
 		 * @param map map instance.
@@ -33,7 +47,7 @@
 
 				// add marker title
 				if (this.marker.marker_title) {
-					tooltipContent += `<div class="marker-title"><h5 class="title">${this.marker.marker_title}</h5></div>`;
+					tooltipContent += `<div class="marker-title"><h5 class="title">${escapeHtml(this.marker.marker_title)}</h5></div>`;
 				}
 
 				// marker content
@@ -41,15 +55,16 @@
 
 				// add marker description
 				if (this.marker.marker_description) {
-					tooltipContent += `<div class="marker-description">${this.marker.marker_description}</div>`;
+					tooltipContent += `<div class="marker-description">${escapeHtml(this.marker.marker_description)}</div>`;
 				}
 
 				// add marker button
 				if (this.marker.show_button === 'yes' && this.marker.button_text) {
 					let button_url_target = this.marker.hasOwnProperty('button_url_target') && this.marker.button_url_target ? this.marker.button_url_target : '_blank';
+					let button_url        = /^(https?:|mailto:|tel:|\/|#)/i.test( this.marker.button_url || '' ) ? this.marker.button_url : '';
 					tooltipContent += `<div class="marker-button">
-                                                <a class="btn" target="${button_url_target}" href='${this.marker.button_url}' role="button">
-                                                   ${this.marker.button_text}
+                                                <a class="btn" target="${escapeHtml(button_url_target)}" href="${escapeHtml(button_url)}" role="button">
+                                                   ${escapeHtml(this.marker.button_text)}
                                                 </a>
                                             </div>`;
 				}
@@ -146,8 +161,11 @@
 				let tileUrl = settings.geoapify_custom_tile;
 				tileUrl     = tileUrl.replaceAll( '$', '' );
 
+				let attributionUrl  = settings.osm_custom_attribution_url && /^(https?:|\/|#)/i.test( settings.osm_custom_attribution_url ) ? settings.osm_custom_attribution_url : '';
+				let attributionText = settings.osm_custom_attribution ? settings.osm_custom_attribution : '';
+
 				L.tileLayer( tileUrl, {
-					attribution: `<a href="${ settings.osm_custom_attribution_url ? settings.osm_custom_attribution_url : null }" target="_blank"> ${settings.osm_custom_attribution ? settings.osm_custom_attribution : null} </a> | © OpenStreetMap <a href="https://www.openstreetmap.org/copyright" target="_blank">contributors</a>`,
+					attribution: `<a href="${escapeHtml(attributionUrl)}" target="_blank"> ${escapeHtml(attributionText)} </a> | © OpenStreetMap <a href="https://www.openstreetmap.org/copyright" target="_blank">contributors</a>`,
 					maxZoom: 18
 				}).addTo(map);
 			}

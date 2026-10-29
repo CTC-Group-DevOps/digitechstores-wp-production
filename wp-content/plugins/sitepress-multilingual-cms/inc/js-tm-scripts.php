@@ -68,23 +68,9 @@ if ( ! \WPML\Plugins::isTMActive() && defined( 'WPML_TM_URL' ) ) {
 				true
 			);
 			wp_register_script(
-				'wpml-tp-polling-box-populate',
-				WPML_TM_URL . '/res/js/tp-polling/box-populate.js',
-				array( 'jquery' ),
-				ICL_SITEPRESS_SCRIPT_VERSION,
-				true
-			);
-			wp_register_script(
-				'wpml-tp-polling',
-				WPML_TM_URL . '/res/js/tp-polling/poll-for-translations.js',
-				array( 'jquery', 'wpml-tp-polling-box-populate' ),
-				ICL_SITEPRESS_SCRIPT_VERSION,
-				true
-			);
-			wp_register_script(
 				'wpml-tm-mcs',
 				WPML_TM_URL . '/res/js/mcs/wpml-tm-mcs.js',
-				array( 'wpml-tp-polling', 'jquery' ),
+				array( 'jquery' ),
 				ICL_SITEPRESS_SCRIPT_VERSION,
 				true
 			);

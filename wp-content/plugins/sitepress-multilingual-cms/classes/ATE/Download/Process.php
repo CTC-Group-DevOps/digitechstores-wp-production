@@ -9,13 +9,14 @@ use WPML\Collect\Support\Collection;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
 use WPML\TM\ATE\API\RequestException;
+use WPML\TM\ATE\JobError\Recorder;
 use WPML\TM\ATE\Log\Entry;
 use WPML\TM\ATE\Log\EventsTypes;
 use WPML\TM\ATE\Review\ReviewStatus;
-use WPML_TM_ATE_API;
-use WPML\Translation\TranslateJobErrorServiceFactory;
-use function WPML\FP\pipe;
+use WPML\TM\ATE\TranslateEverything\TaxonomyTermJobApplier;
 use WPML\TM\Jobs\JobLog;
+use WPML_TM_ATE_API;
+use function WPML\FP\pipe;
 
 class Process {
 	private $consumer;
@@ -24,10 +25,18 @@ class Process {
 
 	private $orphanPostCleaner;
 
-	public function __construct( Consumer $consumer, WPML_TM_ATE_API $ateApi, OrphanPostCleaner $orphanPostCleaner ) {
+	private $jobErrorRecorder;
+
+	public function __construct(
+		Consumer $consumer,
+		WPML_TM_ATE_API $ateApi,
+		OrphanPostCleaner $orphanPostCleaner,
+		Recorder $jobErrorRecorder
+	) {
 		$this->consumer          = $consumer;
 		$this->ateApi            = $ateApi;
 		$this->orphanPostCleaner = $orphanPostCleaner;
+		$this->jobErrorRecorder  = $jobErrorRecorder;
 	}
 
 	public function run( $jobs ) {
@@ -46,6 +55,13 @@ class Process {
 		$appendNeedsReviewAndAutomaticValues = function ( $job ) {
 			$data = \WPML\TM\API\Jobs::get( Obj::prop('jobId', $job) );
 
+			if ( ! $data ) {
+				$job = Obj::assoc( 'needsReview', false, $job );
+				$job = Obj::assoc( 'automatic', true, $job );
+
+				return $job;
+			}
+
 			$job = Obj::assoc( 'needsReview', ReviewStatus::doesJobNeedReview( $data ), $job );
 			$job = Obj::assoc( 'automatic', (bool) Obj::prop( 'automatic', $data ), $job );
 			$job = Obj::assoc( 'language_code', Obj::prop( 'language_code', $data ), $job );
@@ -56,6 +72,21 @@ class Process {
 
 		$downloadJob = function( $job ) {
 			$processedJob = null;
+
+			if ( $job instanceof Job && ( $job->isCreditExhausted() || $job->isPaymentPending() ) ) {
+				JobLog::addError(
+					$job->isPaymentPending() ? 'ate_payment_pending' : 'ate_credit_exhausted',
+					[
+						'ate_job_id' => Obj::prop( 'ateJobId', $job ),
+						'wpml_job_id' => Obj::prop( 'jobId', $job ),
+						'ate_status' => Obj::prop( 'ateStatus', $job ),
+						'message'    => Obj::prop( 'message', $job ),
+						'source'     => 'per-item download status',
+					]
+				);
+
+				return null;
+			}
 
 			try {
 				$processedJob = $this->consumer->process( $job );
@@ -71,8 +102,13 @@ class Process {
 						);
 
 						$message .= ' ' . $stringifyError(
-								$iclTranslationManagement->messages_by_type( 'error ')
+								$iclTranslationManagement->messages_by_type( 'error' )
 							);
+					}
+
+					$termReason = TaxonomyTermJobApplier::lastFailureReason();
+					if ( '' !== $termReason ) {
+						$message .= ' ' . $termReason;
 					}
 
 					throw new Exception( $message );
@@ -114,10 +150,10 @@ class Process {
 			return;
 		}
 
-		\WPML\LIB\WP\Cache::flushGroup( WPML_ELEMENT_TRANSLATIONS_CACHE_GROUP, true );
-
 		$cache = new \WPML_WP_Cache( WPML_ELEMENT_TRANSLATIONS_CACHE_GROUP );
 		$cache->flush_group_cache( true );
+
+		wp_cache_delete( WPML_ELEMENT_TRANSLATIONS_CACHE_GROUP, \WPML\LIB\WP\Cache::KEYS );
 
 		$this->deleteFrontEndElementTranslationsCache( $jobs );
 	}
@@ -188,7 +224,8 @@ class Process {
 			$entry->ateJobId  = Obj::prop('ateJobId', $job);
 			$entry->wpmlJobId = Obj::prop('jobId', $job);
 			$entry->extraData = [ 'downloadUrl' => Obj::prop('url', $job) ];
-			$this->createJobError( $entry, $previous ? $previous : $e );
+			$errorType = $e instanceof RequestException ? Recorder::TYPE_DOWNLOAD : Recorder::TYPE_APPLY;
+			$this->createJobError( $entry, $previous ? $previous : $e, $errorType );
 		}
 
 		if ( $e instanceof RequestException ) {
@@ -212,7 +249,7 @@ class Process {
 			$entry->ateJobId  = Obj::prop( 'ateJobId', $job );
 			$entry->wpmlJobId = Obj::prop( 'jobId', $job );
 			$entry->extraData = [ 'downloadUrl' => Obj::prop( 'url', $job ) ];
-			$this->createJobError( $entry, $previous ? $previous : $e );
+			$this->createJobError( $entry, $previous ? $previous : $e, Recorder::TYPE_APPLY );
 		}
 
 		$entry->eventType = EventsTypes::JOB_DOWNLOAD;
@@ -220,34 +257,11 @@ class Process {
 		wpml_tm_ate_ams_log( $entry, true );
 	}
 
-	private function createJobError( $entry, $error ) {
+	private function createJobError( $entry, $error, $errorType ) {
 		$jobId     = Obj::prop( 'wpmlJobId', $entry );
 		$ateJobId  = Obj::prop( 'ateJobId', $entry );
 		$message   = Obj::prop( 'description', $entry );
-		$errorData = $this->convertErrorToArray( $error );
 
-		$service = TranslateJobErrorServiceFactory::create();
-		$service->logError( $jobId, $ateJobId, 'DownloadError', $message, $errorData );
-	}
-
-
-	private function convertErrorToArray( $error ) {
-		$trace      = $error->getTrace();
-		$stackTrace = [];
-
-		foreach ( $trace as $traceItem ) {
-			$file = isset( $traceItem['file'] ) ? $traceItem['file'] : '[internal function]';
-			$line = isset( $traceItem['line'] ) ? $traceItem['line'] : 0;
-
-			$stackTrace[] = $file . ':' . $line;
-		}
-
-		return [
-			'message' => $error->getMessage(),
-			'code'    => $error->getCode(),
-			'file'    => $error->getFile(),
-			'line'    => $error->getLine(),
-			'trace'   => $stackTrace,
-		];
+		$this->jobErrorRecorder->recordThrowable( $jobId, $ateJobId, $errorType, $message, $error );
 	}
 }

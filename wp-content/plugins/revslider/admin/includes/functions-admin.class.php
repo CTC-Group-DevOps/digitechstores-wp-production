@@ -416,19 +416,28 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		if($this->get_val($import_file, 'size') > wp_max_upload_size()) return array('error' => __('Exceeded filesize limit', 'revslider'));
 
 		$mime_types = array_merge($this->get_val($SR_GLOBALS, array('mime_types', 'image')), $this->get_val($SR_GLOBALS, array('mime_types', 'video')));
-		$file_mime	= mime_content_type($path);
+		//without ext/fileinfo mime_content_type() is missing, and the check would trust the extension alone
+		$file_mime	= function_exists('mime_content_type') ? mime_content_type($path) : false;
+		if($file_mime === false){
+			$wp_mime	= wp_get_image_mime($path);
+			$file_mime	= ($wp_mime !== false) ? $wp_mime : '';
+		}
 		if(!in_array($file_mime, $mime_types)) return array('error' => __('WordPress doesn\'t allow this filetype', 'revslider'));
 
-		$file_name	= basename($this->get_val($import_file, 'name'));
+		$file_name	= sanitize_file_name(basename($this->get_val($import_file, 'name')));
+		if($file_name === '') return array('error' => __('Invalid file name', 'revslider'));
 		$file_type	= wp_check_filetype($file_name, $mime_types);
 		if($this->get_val($file_type, 'ext', false) === false || $this->get_val($file_type, 'type', false) === false) return array('error' => __('WordPress doesn\'t allow this filetype', 'revslider'));
+
+		//an SVG is cleaned while it is still the temporary upload, never in the public uploads folder
+		if($file_mime === 'image/svg+xml' && !$this->sanitize_svg_file($path)) return array('error' => __('SVG could not be sanitized', 'revslider'));
 		
 		$upload_dir = wp_upload_dir();
-		$new_path	= $path;
+		$new_path	= trailingslashit($upload_dir['path']) . $file_name; //the old loop started from the temp file, so every upload became 1-<name>
 		$i			= 0;
 		while(file_exists($new_path)){
 			$i++;
-			$new_path = $upload_dir['path']. '/' .$i. '-' .$file_name;
+			$new_path = trailingslashit($upload_dir['path']) . $i . '-' . $file_name;
 		}
 		
 		if(move_uploaded_file($path, $new_path)){
@@ -601,7 +610,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'notRegNoAddOns' => __('Register to unlock AddOns', 'revslider'),
 			'notRegNoSupport' => __('Register to unlock Support', 'revslider'),
 			'notRegNoLibrary' => __('Register to unlock Library', 'revslider'),
-			'notRegNoUpdates' => __('Register to unlock Updates', 'revslider'),
 			'notRegNoTemplates' => __('Register to unlock Templates', 'revslider'),
 			'areyousureupdateplugin' => __('Do you want to start the Update process?', 'revslider'),
 			'areyousureupgradepluginsr7' => __('Do you want to start the SR7 upgrade process?', 'revslider'),
@@ -609,6 +617,9 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'areyousurenotmigratedto7text' => __('Some modules were created with very old Slider Revolution versions and were not migrated to SR6 yet.<br><br>If you continue upgrading to SR7 now, these modules may not be available.<br><br>Please migrate older modules in SR6 before updating to SR7.<br<br>Check the browser console for the full list of affected modules.<br><br>Are you sure you want to continue?', 'revslider'),
 			'areyousurenotmigratedto7continue' => __('I want to upgrade', 'revslider'),
 			'areyousurenotmigratedto7cancel' => __('Cancel and wait', 'revslider'),
+			'sr68notprepared' => __('Modules not prepared for SR7 yet: %s', 'revslider'),
+			'sr68notpreparedtext' => __('SR7 tries again to prepare them after the update. Your SR6 data stays as a backup. Update anyway?', 'revslider'),
+			'sr68updateanyway' => __('Update anyway', 'revslider'),
 			'gfontsprecachenote' => __('Google Fonts need to be precached before they become available in the frontend.', 'revslider'),
 			'gfontsprecachenotesub' => __('Do you want to start the precaching process now?', 'revslider'),
 			'gfontsprecache' => __('Google Fonts Precaching', 'revslider'),
@@ -938,8 +949,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'lastslidenodelete' => __('"Last Slide in Module. Can not be deleted"', 'revslider'),
 			'deletingslider' => __('Deleting Slider', 'revslider'),
 			'active_sr_tmp_obl' => __('Template & Object Library', 'revslider'),
-			'active_sr_inst_upd' => __('Instant Updates', 'revslider'),
-			'active_sr_one_on_one' => __('1on1 Support', 'revslider'),			
+			'active_sr_one_on_one' => __('Ticket Support (annual licence)', 'revslider'),			
 			'noticepositionreseted' => __('Layer positions has been reset', 'revslider'),			
 			'parallaxsettoenabled' => __('Parallax is now generally Enabled', 'revslider'),			
 			'filtertransitionissuepre' => __('Some slide transitions do not support filters. If problems occur, please try a different slide transition / filter pairing', 'revslider'),

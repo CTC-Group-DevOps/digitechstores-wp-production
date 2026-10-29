@@ -19,7 +19,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	public function addLogSubmenuPage() {
 		add_submenu_page(
 			WPML_PLUGIN_FOLDER . '/menu/support.php',
-			__( 'Advanced Translation Editor Error Logs', 'wpml-translation-management' ),
+			__( 'Advanced Translation Editor Error Logs', 'sitepress' ),
 			'ATE logs',
 			'manage_options',
 			self::SUBMENU_HANDLE,

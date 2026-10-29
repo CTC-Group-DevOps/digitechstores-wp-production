@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_REST_API {
 
@@ -42,6 +42,8 @@ class WC_PB_REST_API {
 
 	/**
 	 * Setup order class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -60,6 +62,8 @@ class WC_PB_REST_API {
 
 	/**
 	 * Filters REST API order responses to add custom data.
+	 *
+	 * @return void
 	 */
 	public static function filter_order_fields() {
 
@@ -124,6 +128,8 @@ class WC_PB_REST_API {
 
 	/**
 	 * Register custom REST API fields for product requests.
+	 *
+	 * @return void
 	 */
 	public static function register_product_fields() {
 
@@ -776,7 +782,7 @@ class WC_PB_REST_API {
 	 *
 	 * @param  string     $key Field key.
 	 * @param  WC_Product $product Product object.
-	 * @return array
+	 * @return mixed
 	 */
 	public static function get_product_field( $key, $product ) {
 
@@ -1098,6 +1104,7 @@ class WC_PB_REST_API {
 	 *
 	 * @param  WC_Order $order Order object.
 	 * @param  array    $request Request data.
+	 * @return mixed
 	 */
 	public static function add_bundle_to_order( $order, $request ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -1356,8 +1363,8 @@ class WC_PB_REST_API {
 	/**
 	 * Append bundled items data to order data.
 	 *
-	 * @param  array    $order_data Order data.
-	 * @param  WC_Order $order  Order object.
+	 * @param  array                    $order_data Order data.
+	 * @param  WC_Order|WC_Order_Refund $order      Order object.
 	 * @return array
 	 */
 	private static function get_extended_order_data( $order_data, $order ) {
@@ -1423,6 +1430,8 @@ class WC_PB_REST_API {
 
 	/**
 	 * Filters WC v1-v3 REST API order response content to add bundle container/children item references.
+	 *
+	 * @return void
 	 */
 	private static function add_legacy_hooks() {
 		add_filter( 'woocommerce_api_order_response', array( __CLASS__, 'legacy_order_response' ), 10, 4 );

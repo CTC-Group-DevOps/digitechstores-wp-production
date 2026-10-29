@@ -8,7 +8,7 @@
             "lang": "ar"
          },
          "Not included in String Translation": [
-            "غير متضمن في ترجمة السلاسل"
+            "غير مدرج في ترجمة النصوص"
          ],
          "Registered and locked": [
             "مسجل ومقفل"
@@ -29,25 +29,25 @@
             "خطأ في الاتصال"
          ],
          "The action failed.": [
-            "فشل الإجراء."
+            "فشلت العملية."
          ],
          "All (%d)": [
-            "كل (%d)"
+            "الكل (%d)"
          ],
          "Included in String Translation (%d)": [
-            "متضمن في ترجمة السلاسل (%d)"
+            "مدرج في ترجمة النصوص (%d)"
          ],
          "Not included in String Translation (%d)": [
-            "غير متضمن في ترجمة السلاسل (%d)"
+            "غير مدرج في ترجمة النصوص (%d)"
          ],
          "This setting is locked by a WPML configuration file.": [
-            "هذا الإعداد مقفل بواسطة ملف تهيئة WPML."
+            "هذا الإعداد مقفل بواسطة ملف تكوين WPML."
          ],
          "Option": [
             "خيار"
          ],
          "Value": [
-            "قيمة"
+            "القيمة"
          ],
          "Type": [
             "النوع"
@@ -56,28 +56,28 @@
             "الحالة"
          ],
          "Export as a WPML configuration file": [
-            "تصدير كملف تهيئة WPML"
+            "تصدير كملف تكوين WPML"
          ],
          "Cancel": [
             "إلغاء"
          ],
          "Save the following to a wpml-config.xml in the root of your theme or plugin.": [
-            "احفظ ما يلي في ملف wpml-config.xml في جذر القالب أو المكون الإضافي الخاص بك."
+            "احفظ ما يلي في ملف wpml-config.xml في المجلد الجذري لقالبك أو إضافتك."
          ],
          "No options found.": [
             "لم يتم العثور على خيارات."
          ],
          "Make sure you saved your theme options at least once. Some themes only add these to the wp_options table after the user explicitly saves changes to the theme defaults.": [
-            "تأكد من حفظ خيارات القالب الخاص بك مرة واحدة على الأقل. بعض القوالب لا تضيف هذه إلى جدول wp_options إلا بعد أن يحفظ المستخدم التغييرات على إعدادات القالب الافتراضية صراحةً."
+            "تأكد من حفظ خيارات القالب الخاص بك مرة واحدة على الأقل. تضيف بعض القوالب هذه الخيارات إلى جدول wp_options فقط بعد أن يقوم المستخدم بحفظ التغييرات على الإعدادات الافتراضية للقالب بشكل صريح."
          ],
          "Add to String Translation": [
-            "إضافة إلى ترجمة السلاسل"
+            "أضف إلى ترجمة النصوص"
          ],
          "Remove from String Translation": [
-            "إزالة من ترجمة السلاسل"
+            "إزالة من ترجمة النصوص"
          ],
          "Included in String Translation": [
-            "متضمن في ترجمة السلاسل"
+            "مدرج في ترجمة النصوص"
          ]
       }
    }

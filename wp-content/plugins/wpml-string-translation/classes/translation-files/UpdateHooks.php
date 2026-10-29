@@ -70,7 +70,9 @@ class UpdateHooks implements \IWPML_Action {
 		call_user_func( $this->resetDomainsCache );
 
 		$outdated_entities        = $this->domains_locales_mapper->get_from_translation_ids( $this->updated_translation_ids );
-		$this->entities_to_update = $this->entities_to_update->merge( $outdated_entities );
+		$this->entities_to_update = $this->entities_to_update->merge( $outdated_entities )
+			->unique( [ DomainsLocalesMapper::class, 'entityKey' ] )
+			->values();
 
 		$this->entities_to_update->each(
 			function ( $entity ) {
@@ -113,10 +115,16 @@ class UpdateHooks implements \IWPML_Action {
 	}
 
 	private function update_file( $domain, $locale ) {
-		$this->file_manager->remove( $domain, $locale );
 		if ( $this->file_manager->handles( $domain ) ) {
-			return $this->file_manager->add( $domain, $locale );
+			try {
+				return $this->file_manager->add( $domain, $locale );
+			} catch ( \RuntimeException $e ) {
+				return false;
+			}
 		}
+
+		$this->file_manager->remove( $domain, $locale );
+
 		return false;
 	}
 }

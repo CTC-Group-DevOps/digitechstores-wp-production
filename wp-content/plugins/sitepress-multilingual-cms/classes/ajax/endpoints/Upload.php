@@ -53,6 +53,7 @@ class Upload implements IHandler {
 						$error_message = __( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'sitepress' );
 						break;
 					case UPLOAD_ERR_FORM_SIZE:
+						/* translators: Error message shown when the file being uploaded is too big. %s: the largest size allowed, in bytes. */
 						$error_message = sprintf( __( 'The uploaded file exceeds %s bytes.', 'sitepress' ), 100000 );
 						break;
 					case UPLOAD_ERR_PARTIAL:
@@ -78,7 +79,9 @@ class Upload implements IHandler {
 			}
 		};
 
-		return Either::fromNullable( $data->get( 'name' ) )
+		$fileName = $data->get( 'name' );
+
+		return Either::fromNullable( is_string( $fileName ) ? $fileName : null )
 		             ->map( Obj::prop( Fns::__, $_FILES ) )
 		             ->map( $upload( $data->get( 'path' ) ) )
 		             ->chain( $handleError )

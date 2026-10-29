@@ -14,19 +14,27 @@ class WPML_Term_Clauses {
 
 	private $cache = null;
 
+	private $opt_out;
+
 	public function __construct(
 		SitePress $sitepress,
 		wpdb $wpdb,
 		WPML_Display_As_Translated_Taxonomy_Query $display_as_translated_query,
-		WPML_Debug_BackTrace $debug_backtrace
+		WPML_Debug_BackTrace $debug_backtrace,
+		?WPML_Term_Query_Opt_Out $opt_out = null
 	) {
 		$this->sitepress                   = $sitepress;
 		$this->wpdb                        = $wpdb;
 		$this->display_as_translated_query = $display_as_translated_query;
 		$this->debug_backtrace             = $debug_backtrace;
+		$this->opt_out                     = $opt_out ? $opt_out : new WPML_Term_Query_Opt_Out( $sitepress );
 	}
 
 	public function filter( $clauses, $taxonomies, $args ) {
+		if ( $this->opt_out->is_stand_down_requested() ) {
+			return $clauses;
+		}
+
 		if (
 			! $taxonomies
 			|| ( class_exists( 'WPML\TaxonomyTermTranslation\Hooks' ) && TermTranslationHooks::shouldSkip( $args ) )
@@ -75,7 +83,9 @@ class WPML_Term_Clauses {
 			return '';
 		} else {
 			$display_as_translated_snippet = $this->get_display_as_translated_snippet( $lang, $this->sitepress->get_default_language() );
-			return $this->wpdb->prepare( " AND ( icl_t.language_code = %s OR {$display_as_translated_snippet} ) ", $lang );
+			$language                     = $this->wpdb->prepare( '%s', $lang );
+
+			return ' AND ( icl_t.language_code = ' . $language . ' OR ' . $display_as_translated_snippet . ' ) ';
 		}
 	}
 

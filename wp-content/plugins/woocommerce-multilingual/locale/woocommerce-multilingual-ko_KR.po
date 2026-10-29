@@ -1,0 +1,3631 @@
+# Copyright (C) 2026 OnTheGoSystems
+# This file is distributed under the same license as the WPML Multilingual & Multicurrency for WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WPML Multilingual & Multicurrency for WooCommerce 5.6.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-multilingual\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-12T13:36:01+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: woocommerce-multilingual\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Plugin Name of the plugin
+#. translators: The plugin's own name, used as a link text, as a link tooltip and as the admin menu label. It is a product name and stays in English.
+#: wpml-woocommerce.php
+#: classes/AdminNotices/ExportImport.php:189
+#: inc/admin-menus/class-wcml-admin-menus.php:419
+msgid "WPML Multilingual & Multicurrency for WooCommerce"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce"
+
+#. Plugin URI of the plugin
+#: wpml-woocommerce.php
+msgid "https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml"
+msgstr "https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml"
+
+#. Description of the plugin
+#: wpml-woocommerce.php
+msgid "Make your store multilingual and enable multiple currencies | <a href=\"https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml\">Documentation</a>"
+msgstr "상점을 다국어로 만들고 다중 통화를 활성화하세요 | <a href=\"https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml\">문서</a>"
+
+#. Author of the plugin
+#: wpml-woocommerce.php
+msgid "OnTheGoSystems"
+msgstr "OnTheGoSystems"
+
+#. Author URI of the plugin
+#: wpml-woocommerce.php
+msgid "http://www.onthegosystems.com/"
+msgstr "http://www.onthegosystems.com/"
+
+#. translators: Description of the language input offered to an AI assistant that queries WooCommerce products and orders.
+#: classes/Abilities/Hooks.php:75
+msgid "Language of the content to read."
+msgstr "읽을 콘텐츠의 언어입니다."
+
+#. translators: Description of the currency input offered to an AI assistant that queries WooCommerce products and orders.
+#: classes/Abilities/Hooks.php:87
+msgid "Currency for the returned prices."
+msgstr "반환된 가격의 통화입니다."
+
+#. translators: Heading of an admin notice about a caching plugin. "WPML Multilingual & Multicurrency for WooCommerce" is the plugin name and stays in English.
+#: classes/AdminNotices/CachePlugins.php:34
+msgid "WPML Multilingual & Multicurrency for WooCommerce detected an active cache plugin on your site."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 사이트에서 활성 캐시 플러그인을 감지했습니다."
+
+#. translators: First line of the admin notice about a caching plugin, under the heading.
+#: classes/AdminNotices/CachePlugins.php:36
+msgid "Caching may cause currency display issues for your customers if you are using the multicurrency feature."
+msgstr "다중 통화 기능을 사용하는 경우 캐싱으로 인해 고객에게 통화 표시 문제가 발생할 수 있습니다."
+
+#. translators: Last line of the admin notice about a caching plugin; "this" is the wrong currency being shown to shoppers.
+#: classes/AdminNotices/CachePlugins.php:38
+msgid "To avoid this, set your cache plugin to not cache pages for visitors that have a cookie set in their browser."
+msgstr "이를 방지하려면 브라우저에 쿠키가 설정된 방문자에 대해 캐시 플러그인이 페이지를 캐싱하지 않도록 설정하세요."
+
+#. translators: Heading of an admin notice telling the shop owner that Twig currency-switcher templates are going away. Keep the bold tags around the feature name.
+#: classes/AdminNotices/CurrencySwitcherUseTwigTemplate.php:56
+msgid "Important: Action Needed for Your <b>Currency Switcher</b>"
+msgstr "중요: <b>통화 전환기</b>에 대한 조치가 필요합니다"
+
+#. translators: First paragraph of the admin notice about Twig currency-switcher templates. Keep the bold tags around the feature name; "Twig" is a template technology and stays in English.
+#: classes/AdminNotices/CurrencySwitcherUseTwigTemplate.php:58
+msgid "We detected that your site is using a <b>Currency Switcher</b> built with Twig templates. For security reasons, support for Twig-based templates will be discontinued in the upcoming version of WPML Multilingual & Multicurrency for WooCommerce 5.6."
+msgstr "사이트에서 Twig 템플릿으로 제작된 <b>통화 전환기</b>를 사용 중인 것으로 감지되었습니다. 보안상의 이유로 곧 출시될 WPML Multilingual & Multicurrency for WooCommerce 5.6 버전부터 Twig 기반 템플릿 지원이 중단됩니다."
+
+#. translators: Line that introduces the list of steps in the admin notice about Twig currency-switcher templates. Keep the bold tags around the feature name.
+#: classes/AdminNotices/CurrencySwitcherUseTwigTemplate.php:60
+msgid "To ensure your <b>Currency Switcher</b> continues working smoothly:"
+msgstr "<b>통화 전환기</b>가 계속 원활하게 작동하도록 하려면:"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/AdminNotices/CurrencySwitcherUseTwigTemplate.php:66
+#, php-format
+msgid "- Switch to a PHP-based template - you can select one from the %1$sconfiguration page%2$s."
+msgstr "- PHP 기반 템플릿으로 전환하세요. %1$s구성 페이지%2$s에서 선택할 수 있습니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/AdminNotices/CurrencySwitcherUseTwigTemplate.php:74
+#, php-format
+msgid "- Need a custom solution? %1$sContact our support%2$s - we’re here to help you migrate safely."
+msgstr "- 맞춤형 솔루션이 필요하신가요? %1$s지원팀에 문의%2$s하세요. 안전한 마이그레이션을 도와드리겠습니다."
+
+#. translators: Closing paragraph of the admin notice about Twig currency-switcher templates. Keep the bold tags around the feature name.
+#: classes/AdminNotices/CurrencySwitcherUseTwigTemplate.php:81
+msgid "We recommend updating your <b>Currency Switcher</b> as soon as possible to avoid disruptions when the new version of WPML Multilingual & Multicurrency for WooCommerce is released."
+msgstr "새 버전의 WPML Multilingual & Multicurrency for WooCommerce가 출시될 때 중단을 방지하려면 가능한 한 빨리 <b>통화 전환기</b>를 업데이트하는 것이 좋습니다."
+
+#. translators: %s is a link.
+#: classes/AdminNotices/ExportImport.php:154
+#, php-format
+msgid "Migrating your multilingual shop? With %s you can transfer your translated content to a new site, including cross-sells, up-sells, and product attributes."
+msgstr "다국어 상점을 이전하시나요? %s를 사용하면 교차 판매, 업셀 및 상품 속성을 포함하여 번역된 콘텐츠를 새 사이트로 전송할 수 있습니다."
+
+#. translators: %1$s and %2$s are both links.
+#: classes/AdminNotices/ExportImport.php:165
+#, php-format
+msgid "Looking to import your multilingual shop? With %1$s and %2$s in both your original and new site, you can export and import your translations automatically."
+msgstr "다국어 상점을 가져오고 싶으신가요? 원본 사이트와 새 사이트 모두에 %1$s 및 %2$s가 있으면 번역을 자동으로 내보내고 가져올 수 있습니다."
+
+#. translators: Name of the WPML Export and Import plugin, used as a link text and as the link's tooltip in an admin notice. It is a product name and stays in English.
+#: classes/AdminNotices/ExportImport.php:177
+msgid "WPML Export and Import"
+msgstr "WPML Export and Import"
+
+#. translators: Heading of an admin notice shown when multicurrency is on but only one currency exists.
+#: classes/AdminNotices/MultiCurrencyMissing.php:52
+msgid "You haven't added any secondary currencies"
+msgstr "보조 통화가 추가되지 않았습니다"
+
+#. translators: Body of the admin notice shown when multicurrency is on but only one currency exists; "this setting" is multicurrency mode.
+#: classes/AdminNotices/MultiCurrencyMissing.php:54
+msgid "Please add another currency to fully utilize multicurrency mode. If you do not need multiple currencies, you can disable this setting to improve your site's performance."
+msgstr "다중 통화 모드를 완전히 활용하려면 다른 통화를 추가하세요. 다중 통화가 필요하지 않은 경우 이 설정을 비활성화하여 사이트 성능을 향상시킬 수 있습니다."
+
+#. translators: Link text at the end of the admin notice about having only one currency; it opens the multicurrency settings tab.
+#: classes/AdminNotices/MultiCurrencyMissing.php:58
+msgid "Configure multicurrency mode"
+msgstr "다중 통화 모드 구성"
+
+#. translators: Button label in an admin notice that opens the plugin's review page on WordPress.org. Verb, imperative: write a review.
+#: classes/AdminNotices/Review.php:48
+msgid "Review WPML Multilingual & Multicurrency for WooCommerce"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce 검토"
+
+#. translators: Heading of the admin notice that congratulates the shop owner on the first order paid in a secondary currency.
+#: classes/AdminNotices/Review.php:60
+msgid "Congrats on making your first multicurrency sale!"
+msgstr "첫 번째 다중 통화 판매를 축하합니다!"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/AdminNotices/Review.php:66
+#, php-format
+msgid "Want to help <strong>WPML Multilingual & Multicurrency for WooCommerce</strong> plugin? %1$sGive us a review%2$s!"
+msgstr "<strong>WPML Multilingual & Multicurrency for WooCommerce</strong> 플러그인을 도와주시겠습니까? %1$s리뷰를 남겨주세요%2$s!"
+
+#. translators: Only entry of the currency dropdown on the WooCommerce reports, shown when the shop has no orders yet.
+#: classes/currencies/class-wcml-admin-currency-selector.php:89
+#: inc/currencies/class-wcml-multi-currency-reports.php:164
+msgid "Currency - no orders found"
+msgstr "통화 - 주문을 찾을 수 없음"
+
+#. translators: Error returned when a request carries an expired or missing security token.
+#: classes/currencies/class-wcml-admin-currency-selector.php:108
+#: classes/Multicurrency/StripeConnect/Hooks.php:68
+#: compatibility/WcBookings/MulticurrencyHooks.php:736
+#: inc/class-wcml-orders.php:279
+#: inc/currencies/class-wcml-multi-currency-orders.php:439
+#: inc/currencies/class-wcml-multi-currency-reports.php:139
+msgid "Invalid nonce"
+msgstr "유효하지 않은 보안 토큰입니다."
+
+#. translators: First line of the notice shown after saving a variable product, when only the product's own fields were synced.
+#: classes/EditorScopedSync/Notices.php:196
+msgid "WPML synced translations for product-level changes only."
+msgstr "WPML이 상품 수준 변경 사항에 대해서만 번역을 동기화했습니다."
+
+#. translators: 1: number of synced variations, 2: total variations in product
+#: classes/EditorScopedSync/Notices.php:200
+#, php-format
+msgid "WPML synced translations for %1$d of %2$d variations."
+msgstr "WPML이 %2$d개의 변형 중 %1$d개에 대한 번역을 동기화했습니다."
+
+#. translators: %d: number of variations that were not checked
+#: classes/EditorScopedSync/Notices.php:214
+#, php-format
+msgid "%d other variation was not checked because its data didn't change here."
+msgid_plural "%d other variations were not checked because their data didn't change here."
+msgstr[0] "데이터가 여기서 변경되지 않았기 때문에 다른 %d개의 변형은 확인되지 않았습니다."
+
+#. translators: %s: "Force update all" label
+#: classes/EditorScopedSync/Notices.php:228
+#, php-format
+msgid "If you've made changes <strong>outside this editor</strong> (for example, retranslating an attribute term), use <em>%s</em> below to make sure every translation is current."
+msgstr "<strong>이 에디터 외부</strong>에서 변경한 사항이 있는 경우(예: 속성 용어 재번역), 아래의 <em>%s</em>를 사용하여 모든 번역이 최신 상태인지 확인하세요."
+
+#. translators: Name of the button on the same notice, used inside the sentence above it. Verb phrase, imperative: sync every variation now.
+#: classes/EditorScopedSync/Notices.php:230
+msgid "Force update all"
+msgstr "모두 강제 업데이트"
+
+#. translators: Button label on the notice shown after saving a variable product. Verb, imperative.
+#: classes/EditorScopedSync/Notices.php:236
+msgid "Force update all variation translations"
+msgstr "모든 변형 번역 강제 업데이트"
+
+#. translators: %s: link to the WCML Settings page
+#: classes/EditorScopedSync/Notices.php:243
+#, php-format
+msgid "You can switch to <em>\"Always check all variations\"</em> on the %s."
+msgstr "%s에서 <em>“항상 모든 변형 확인”</em>으로 전환할 수 있습니다."
+
+#. translators: Link text pointing at the plugin's Settings page, inside the notice shown after saving a variable product.
+#: classes/EditorScopedSync/Notices.php:248
+#: classes/EditorScopedSync/Notices.php:444
+msgid "WCML Settings page"
+msgstr "WCML 설정 페이지"
+
+#. translators: Text read out by screen readers after a link that opens in a new browser tab.
+#: classes/EditorScopedSync/Notices.php:250
+#: classes/EditorScopedSync/Notices.php:446
+msgid "(opens in a new tab)"
+msgstr "(새 탭에서 열림)"
+
+#. translators: Label the button changes to while it is syncing every variation of the product.
+#: classes/EditorScopedSync/Notices.php:264
+msgid "Syncing all variations…"
+msgstr "모든 변형 동기화 중…"
+
+#. translators: Label the button changes to when syncing every variation has finished.
+#: classes/EditorScopedSync/Notices.php:275
+msgid "Done — all variations synced"
+msgstr "완료 — 모든 변형 동기화됨"
+
+#. translators: Confirmation shown next to the button after every variation was synced. %d: the product's numeric ID.
+#: classes/EditorScopedSync/Notices.php:278
+#, php-format
+msgid "Sync completed for product #%d."
+msgstr "상품 #%d에 대한 동기화가 완료되었습니다."
+
+#. translators: Label the button changes to when syncing the variations failed; "console" is the browser's developer console.
+#: classes/EditorScopedSync/Notices.php:281
+msgid "Failed — see console"
+msgstr "실패 — 콘솔을 확인하세요"
+
+#. translators: Start of the button label when syncing the variations threw an error; the error text is appended after it. Keep the trailing space.
+#: classes/EditorScopedSync/Notices.php:285
+msgid "Error — "
+msgstr "오류 — "
+
+#. translators: Accessible label (screen readers) of the close button that hides an admin notice. Verb, imperative.
+#: classes/EditorScopedSync/Notices.php:413
+#: inc/admin-menus/class-wcml-admin-menus.php:356
+#: inc/class-wcml-cart-sync-warnings.php:94
+msgid "Dismiss"
+msgstr "무시하기"
+
+#. translators: 1: number of variations checked, 2: number of translation languages
+#: classes/EditorScopedSync/Notices.php:418
+#, php-format
+msgid "WPML verified %1$d variation × %2$d language on this save. None of them had changes that needed syncing."
+msgid_plural "WPML verified %1$d variations × %2$d languages on this save. None of them had changes that needed syncing."
+msgstr[0] "WPML이 이번 저장에서 %1$d개의 변형 × %2$d개의 언어를 확인했습니다. 동기화가 필요한 변경 사항이 있는 항목은 없었습니다."
+
+#. translators: Second paragraph of the notice shown after a save that checked every variation and changed none; the quoted text is the name of a setting on the plugin's Settings page and is translated the same way there.
+#: classes/EditorScopedSync/Notices.php:432
+msgid "That's wasted work. Switching to <em>\"Only sync variations edited in the editor\"</em> would make saves like this much faster — WPML will only sync the variations you actually changed and tell you what was skipped."
+msgstr "불필요한 작업이 발생했습니다. <em>“에디터에서 편집된 변형만 동기화”</em>로 전환하면 이와 같은 저장이 훨씬 빨라집니다. WPML은 실제로 변경한 변형만 동기화하고 건너뛴 항목을 알려줍니다."
+
+#. translators: %s: link to the WCML Settings page
+#: classes/EditorScopedSync/Notices.php:439
+#, php-format
+msgid "You can switch on the %s."
+msgstr "%s에서 전환할 수 있습니다."
+
+#. translators: Link text that permanently hides the notice about variation syncing. Verb phrase, imperative.
+#: classes/EditorScopedSync/Notices.php:452
+msgid "Don't show this again on this site"
+msgstr "이 사이트에서 다시 표시하지 않음"
+
+#. translators: Heading of the section on the plugin's Settings page that controls how variations are synced.
+#: classes/EditorScopedSync/Settings.php:81
+msgid "Variation translation sync on product save"
+msgstr "상품 저장 시 변형 번역 동기화"
+
+#. translators: Tooltip of the help icon next to the variation-sync heading on the Settings page. "Translation Dashboard" and "Translate Everything Automatically" are WPML screen names.
+#: classes/EditorScopedSync/Settings.php:82
+msgid "Choose how WPML updates variation translations when you save a variable product. Affects saves in the WooCommerce product editor only — Translation Dashboard and Translate Everything Automatically always run a complete sync."
+msgstr "가변 상품을 저장할 때 WPML이 변형 번역을 업데이트하는 방법을 선택하세요. WooCommerce 상품 에디터에서의 저장에만 영향을 미칩니다. 번역 대시보드 및 모든 항목 자동 번역은 항상 전체 동기화를 실행합니다."
+
+#. translators: First line under the variation-sync heading on the Settings page.
+#: classes/EditorScopedSync/Settings.php:87
+msgid "Choose how WPML updates variation translations when you save a variable product."
+msgstr "가변 상품을 저장할 때 WPML이 변형 번역을 업데이트하는 방법을 선택하세요."
+
+#. translators: Second line under the variation-sync heading on the Settings page. Keep the bold tags around the WPML screen names.
+#: classes/EditorScopedSync/Settings.php:90
+msgid "Affects saves in the WooCommerce product editor only. <b>Translation Dashboard</b> and <b>Translate Everything</b> Automatically always run a complete sync."
+msgstr "WooCommerce 상품 에디터에서의 저장에만 영향을 미칩니다. <b>번역 대시보드</b> 및 <b>모든 항목 자동 번역</b>은 항상 전체 동기화를 실행합니다."
+
+#. translators: Label of the first radio button of the variation-sync setting. Verb phrase, imperative.
+#: classes/EditorScopedSync/Settings.php:99
+msgid "Always check all variations"
+msgstr "항상 모든 변형 확인"
+
+#. translators: Explanation under the first radio button of the variation-sync setting.
+#: classes/EditorScopedSync/Settings.php:101
+msgid "On every save, WPML checks every variation in every language and syncs anything that's out of date."
+msgstr "저장할 때마다 WPML은 모든 언어의 모든 변형을 확인하고 최신 상태가 아닌 항목을 동기화합니다."
+
+#. translators: Label of the second radio button of the variation-sync setting. Verb phrase, imperative; "the editor" is the WooCommerce product editor.
+#: classes/EditorScopedSync/Settings.php:111
+msgid "Only sync variations edited in the editor"
+msgstr "에디터에서 편집된 변형만 동기화"
+
+#. translators: Explanation under the second radio button of the variation-sync setting.
+#: classes/EditorScopedSync/Settings.php:113
+msgid "WPML syncs only the variations changed in this save. After each save, WPML shows what was synced and offers a one-click full sync."
+msgstr "WPML은 이번 저장에서 변경된 변형만 동기화합니다. 저장 후 WPML은 동기화된 항목을 보여주고 원클릭 전체 동기화를 제공합니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/Email/Settings/TranslationControls.php:119
+#, php-format
+msgid "To translate custom WooCommerce email notifications, go to the %1$sTranslation Dashboard%2$s."
+msgstr "사용자 정의 WooCommerce 이메일 알림을 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: %s is the month day
+#: classes/multi-currency/class-wcml-exchange-rates.php:416
+#, php-format
+msgid "Monthly on the %s"
+msgstr "매월 %s일에"
+
+#. translators: %s is the week day
+#: classes/multi-currency/class-wcml-exchange-rates.php:425
+#, php-format
+msgid "Weekly on %s"
+msgstr "매주 %s에"
+
+#. translators: Error shown on the multicurrency screen when the exchange-rate service could not be reached.
+#: classes/multi-currency/exchange-rate-services/Service.php:169
+msgid "Cannot get exchange rates. Connection failed."
+msgstr "환율을 가져올 수 없습니다. 연결에 실패했습니다."
+
+#. translators: 1: Currency, 2: Cart total.
+#: classes/multi-currency/payment-gateways/class-wcml-currencies-payment-gateways.php:293
+#, php-format
+msgid "Please note that the payment will be made in %1$s. Your total will be approximately %2$s, depending on the current exchange rate."
+msgstr "결제는 %1$s로 이루어집니다. 현재 환율에 따라 총액은 약 %2$s입니다."
+
+#. translators: Status shown next to a payment method WPML cannot yet set currencies for.
+#: classes/multi-currency/payment-gateways/class-wcml-not-supported-payment-gateway.php:17
+msgid "Not yet supported"
+msgstr "아직 지원되지 않음"
+
+#. translators: Tooltip of the currency settings of the direct bank transfer payment method.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-bacs.php:16
+msgid "Set the currency in which your customer will see the final price when they checkout. Choose which accounts they will see in their payment message."
+msgstr "고객이 결제할 때 최종 가격을 확인하게 될 통화를 설정하세요. 결제 메시지에 표시될 계좌를 선택하세요."
+
+#. translators: Column heading and field label for the currency of an order, in the WooCommerce analytics reports, the payment-gateway settings and the plugin's multicurrency screen. Noun, singular.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-bacs.php:19
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal-v2.php:33
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal.php:68
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:32
+#: classes/Multicurrency/Analytics/Export.php:31
+#: classes/Multicurrency/Analytics/Export.php:34
+#: classes/Multicurrency/Analytics/Hooks.php:102
+#: classes/Multicurrency/UI/Hooks.php:200
+#: inc/class-wcml-wc-gateways.php:363
+msgid "Currency"
+msgstr "통화"
+
+#. translators: Label of the dropdown that picks which bank account a currency uses, in the direct bank transfer settings.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-bacs.php:21
+msgid "Bank Account"
+msgstr "은행 계좌"
+
+#. translators: Option of the bank-account dropdown: every account is offered to the shopper.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-bacs.php:23
+msgid "All Accounts"
+msgstr "모든 계좌"
+
+#. translators: Option of the bank-account dropdown: every account held in the currency chosen above.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-bacs.php:25
+msgid "All in selected currency"
+msgstr "선택한 통화의 모든 계좌"
+
+#. translators: Label of the field holding the PayPal address that receives payments in this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal-v2.php:35
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal.php:70
+msgid "PayPal Email"
+msgstr "PayPal 이메일"
+
+#. translators: Label of the field holding the PayPal merchant identifier used for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal-v2.php:37
+msgid "Merchant ID"
+msgstr "판매자 ID"
+
+#. translators: Label of the field holding the PayPal client identifier used for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal-v2.php:39
+msgid "Client ID"
+msgstr "클라이언트 ID"
+
+#. translators: Label of the field holding the PayPal secret key used for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal-v2.php:41
+msgid "Secret Key"
+msgstr "비밀 키"
+
+#. translators: %s is currency code.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal-v2.php:43
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal.php:72
+#, php-format
+msgid "This gateway does not support %s. To show this gateway please select another currency."
+msgstr "이 게이트웨이는 %s를 지원하지 않습니다. 이 게이트웨이를 표시하려면 다른 통화를 선택하세요."
+
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal.php:404
+msgid "WPML could not read this payment from PayPal, so no refund was sent. Please try the refund again."
+msgstr "WPML이 PayPal에서 이 결제 정보를 읽을 수 없어 환불이 전송되지 않았습니다. 환불을 다시 시도하십시오."
+
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal.php:478
+msgid "The refund amount is too small to send to PayPal in the currency of the payment, so no refund was sent. Refund a larger amount, or record the refund manually in WooCommerce."
+msgstr "환불 금액이 결제 통화로 PayPal에 보내기에 너무 적어 환불이 전송되지 않았습니다. 더 큰 금액을 환불하거나 WooCommerce에서 수동으로 환불을 기록하십시오."
+
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-paypal.php:487
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:217
+msgid "WPML could not work out how much to refund on this order, so no refund was sent. Check the exchange rate for the order's currency in WPML's multicurrency settings, then try the refund again."
+msgstr "WPML이 이 주문에 대해 환불할 금액을 계산할 수 없어 환불이 전송되지 않았습니다. WPML의 다중 통화 설정에서 주문 통화의 환율을 확인한 후 환불을 다시 시도하십시오."
+
+#. translators: Label of the field holding the Stripe publishable key used on the live shop for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:34
+msgid "Live Publishable Key"
+msgstr "라이브 공개 키"
+
+#. translators: Label of the field holding the Stripe secret key used on the live shop for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:36
+msgid "Live Secret Key"
+msgstr "라이브 비밀 키"
+
+#. translators: Label of the field holding the Stripe publishable key used in test mode for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:38
+msgid "Test Publishable Key"
+msgstr "테스트 공개 키"
+
+#. translators: Label of the field holding the Stripe secret key used in test mode for this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:40
+msgid "Test Secret Key"
+msgstr "테스트 비밀 키"
+
+#. translators: Button label. The merchant clicks it to connect a Stripe account to this currency for the live shop.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:42
+msgid "Connect with Stripe"
+msgstr "Stripe와 연결"
+
+#. translators: Button label. The merchant clicks it to connect a Stripe test account to this currency.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:44
+msgid "Connect a test account"
+msgstr "테스트 계정 연결"
+
+#. translators: Button label. The currency already has a live Stripe account, and the merchant clicks it to connect a different one.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:46
+msgid "Reconnect with Stripe"
+msgstr "Stripe와 다시 연결"
+
+#. translators: Button label. The currency already has a Stripe test account, and the merchant clicks it to connect a different one.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:48
+msgid "Reconnect the test account"
+msgstr "테스트 계정 다시 연결"
+
+#. translators: Status text. It tells the merchant that this currency has a Stripe account.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:50
+msgid "Connected with Stripe"
+msgstr "Stripe와 연결됨"
+
+#. translators: Confirmation message. WCML shows it before it sends the merchant to Stripe, because unsaved changes on the screen are lost.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:52
+msgid "You will continue on Stripe. Save your changes first. Anything unsaved on this screen is lost."
+msgstr "Stripe에서 계속 진행됩니다. 먼저 변경 사항을 저장하십시오. 이 화면에서 저장하지 않은 내용은 모두 삭제됩니다."
+
+#. translators: Error message. WCML shows it when the connection to Stripe does not complete.
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:54
+#: classes/Multicurrency/StripeConnect/Hooks.php:77
+msgid "Stripe could not be connected. Please try again."
+msgstr "Stripe를 연결할 수 없습니다. 다시 시도하십시오."
+
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:199
+msgid "This payment is already refunded in full on Stripe, so no refund was sent. Record the refund manually in WooCommerce instead."
+msgstr "이 결제는 이미 Stripe에서 전액 환불되었으므로 환불이 전송되지 않았습니다. 대신 WooCommerce에서 수동으로 환불을 기록하십시오."
+
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:208
+msgid "The refund amount is too small to send to Stripe in the currency of the payment, so no refund was sent. Refund a larger amount, or record the refund manually in WooCommerce."
+msgstr "환불 금액이 결제 통화로 Stripe에 보내기에 너무 적어 환불이 전송되지 않았습니다. 더 큰 금액을 환불하거나 WooCommerce에서 수동으로 환불을 기록하십시오."
+
+#: classes/multi-currency/payment-gateways/class-wcml-payment-gateway-stripe.php:261
+msgid "WPML could not read this payment from Stripe, so no refund was sent. Please try the refund again."
+msgstr "WPML이 Stripe에서 이 결제 정보를 읽을 수 없어 환불이 전송되지 않았습니다. 환불을 다시 시도하십시오."
+
+#. translators: %1$s is the currency PayPal took the payment in, for example USD. %2$s is the currency of the order, for example AED.
+#: classes/multi-currency/payment-gateways/class-wcml-paypal-refund-notice.php:173
+#, php-format
+msgid "PayPal took this payment in %1$s, and WooCommerce can only send a refund in %2$s. Refund this order in your PayPal account, then record it here with \"Refund manually\"."
+msgstr "PayPal은 이 결제를 %1$s(으)로 처리했으며, WooCommerce는 %2$s(으)로만 환불을 보낼 수 있습니다. PayPal 계정에서 이 주문을 환불한 다음, 여기에서 “수동으로 환불”로 기록하십시오."
+
+#. translators: Column heading for the language of an order or a product, in the WooCommerce analytics reports and their exported files. Noun.
+#: classes/Multicurrency/Analytics/Export.php:26
+#: classes/Reports/Orders/Hooks.php:25
+msgid "Language"
+msgstr "언어"
+
+#. translators: Heading of the section added to a WooCommerce shipping method's settings.
+#: classes/Multicurrency/Shipping/AdminHooks.php:67
+msgid "Costs and values in custom currencies"
+msgstr "사용자 정의 통화의 비용 및 값"
+
+#. translators: Explanation under the shipping-costs heading in a WooCommerce shipping method's settings; "above" and "here" are the fields before and after this text.
+#: classes/Multicurrency/Shipping/AdminHooks.php:71
+msgid "WPML Multilingual & Multicurrency for WooCommerce by default will multiply all your costs and values defined above by currency exchange rates. If you don't want this and you prefer static values instead, you can define them here."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce는 기본적으로 위에서 정의한 모든 비용과 값에 환율을 곱합니다. 이를 원하지 않고 대신 고정된 값을 선호하는 경우 여기에서 정의할 수 있습니다."
+
+#. translators: Label of the dropdown that turns per-currency shipping costs on, in a WooCommerce shipping method's settings.
+#: classes/Multicurrency/Shipping/AdminHooks.php:86
+msgid "Enable costs in custom currencies"
+msgstr "사용자 정의 통화 비용 활성화"
+
+#. translators: First option in the dropdown that controls per-currency shipping costs.
+#: classes/Multicurrency/Shipping/AdminHooks.php:92
+msgid "Calculate shipping costs in other currencies automatically"
+msgstr "다른 통화의 배송비를 자동으로 계산"
+
+#. translators: Second option in the dropdown that controls per-currency shipping costs.
+#: classes/Multicurrency/Shipping/AdminHooks.php:94
+msgid "Set shipping costs in other currencies manually"
+msgstr "다른 통화의 배송비를 수동으로 설정"
+
+#. translators: %s is the currency code
+#: classes/Multicurrency/Shipping/FreeShipping.php:18
+#, php-format
+msgctxt "The label for the field with minimal order amount in additional currency. The currency symbol will be added in place of %s specifier."
+msgid "Minimal order amount in %s"
+msgstr "%s의 최소 주문 금액"
+
+#. translators: %s is the currency code
+#: classes/Multicurrency/Shipping/FreeShipping.php:32
+#, php-format
+msgctxt "The description for the field with minimal order amount in additional currency. The currency symbol will be added in place of %s specifier."
+msgid "The minimal order amount if customer choose %s as a purchase currency."
+msgstr "고객이 구매 통화로 %s를 선택한 경우의 최소 주문 금액입니다."
+
+#. translators: %1$s is a shipping class name and %2$s is a language code
+#: classes/Multicurrency/Shipping/ShippingClasses.php:63
+#, php-format
+msgid "Your shipping class %1$s has been created in %2$s language. Please switch your language if you want to provide shipping costs in different currencies for this class."
+msgstr "배송 클래스 %1$s가 %2$s 언어로 생성되었습니다. 이 클래스에 대해 다른 통화로 배송비를 제공하려면 언어를 전환하세요."
+
+#. translators: %1$s is a shipping class name and %2$s is a currency code
+#: classes/Multicurrency/Shipping/ShippingClasses.php:74
+#, php-format
+msgid "\"%1$s\" shipping class cost in %2$s"
+msgstr "%2$s에서의 “%1$s” 배송 클래스 비용"
+
+#. translators: Placeholder text shown in an empty shipping-cost field, short for "not applicable".
+#: classes/Multicurrency/Shipping/ShippingClasses.php:77
+#: classes/Multicurrency/Shipping/ShippingClasses.php:89
+msgid "N/A"
+msgstr "해당 없음"
+
+#. translators: %s is a currency code
+#: classes/Multicurrency/Shipping/ShippingClasses.php:86
+#, php-format
+msgid "No shipping class cost in %s"
+msgstr "%s에 배송 클래스 비용 없음"
+
+#. translators: %s is a currency code
+#: classes/Multicurrency/Shipping/VariableCost.php:15
+#, php-format
+msgctxt "The label for the field with shipping cost in additional currency. The currency symbol will be added in place of %s specifier."
+msgid "Cost in %s"
+msgstr "%s 비용"
+
+#. translators: %s is a currency code
+#: classes/Multicurrency/Shipping/VariableCost.php:27
+#, php-format
+msgctxt "The description for the field with shipping cost in additional currency. The currency symbol will be added in place of %s specifier."
+msgid "The shipping cost if customer choose %s as a purchase currency."
+msgstr "고객이 구매 통화로 %s를 선택한 경우의 배송비입니다."
+
+#: classes/Multicurrency/StripeConnect/Connect.php:97
+msgid "Your site needs HTTPS to connect a live Stripe account. You can still connect a test account."
+msgstr "실제 Stripe 계정을 연결하려면 사이트에 HTTPS가 필요합니다. 테스트 계정은 여전히 연결할 수 있습니다."
+
+#: classes/Multicurrency/StripeConnect/Connect.php:111
+msgid "Stripe did not return a connection link. Please try again."
+msgstr "Stripe에서 연결 링크를 반환하지 않았습니다. 다시 시도하십시오."
+
+#. translators: %s is a currency code, for example NZD.
+#: classes/Multicurrency/StripeConnect/Connect.php:286
+#, php-format
+msgid "Stripe is now connected for %s."
+msgstr "이제 %s에 대해 Stripe가 연결되었습니다."
+
+#. translators: %s is a currency code, for example NZD.
+#: classes/Multicurrency/StripeConnect/Connect.php:291
+#, php-format
+msgid "Stripe could not be connected for %s. Please try again."
+msgstr "%s에 대해 Stripe를 연결할 수 없습니다. 다시 시도하십시오."
+
+#. translators: Heading of the currencies table on the plugin's multicurrency screen. Noun, plural.
+#: classes/Multicurrency/UI/Hooks.php:198
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:68
+msgid "Currencies"
+msgstr "통화"
+
+#. translators: Button label on the plugin's multicurrency screen. Verb, imperative.
+#: classes/Multicurrency/UI/Hooks.php:202
+msgid "Add currency"
+msgstr "통화 추가"
+
+#. translators: Column heading for a currency's exchange rate on the multicurrency screen. Noun: the exchange rate, not a price or a rating.
+#: classes/Multicurrency/UI/Hooks.php:204
+msgid "Rate"
+msgstr "환율"
+
+#. translators: Marker shown in lower case next to the shop's default currency in the currencies list. Adjective.
+#: classes/Multicurrency/UI/Hooks.php:206
+msgid "default"
+msgstr "기본"
+
+#. translators: Link text that opens a currency's settings on the multicurrency screen. Verb, imperative.
+#: classes/Multicurrency/UI/Hooks.php:208
+msgid "Edit"
+msgstr "편집"
+
+#. translators: Label of the setting that picks which currency a visitor sees when they switch language.
+#: classes/Multicurrency/UI/Hooks.php:210
+msgid "Currency displayed first"
+msgstr "가장 먼저 표시되는 통화"
+
+#. translators: Tooltip of the setting that picks which currency a visitor sees when they switch language.
+#: classes/Multicurrency/UI/Hooks.php:212
+msgid "Choose which currency to display when a client switches languages"
+msgstr "고객이 언어를 전환할 때 표시할 통화를 선택하세요."
+
+#. translators: Button label that cancels a delete and keeps the currency. Verb, imperative.
+#: classes/Multicurrency/UI/Hooks.php:214
+msgid "Keep"
+msgstr "유지"
+
+#. translators: Button and link text that removes a currency or a currency switcher. Verb, imperative.
+#: classes/Multicurrency/UI/Hooks.php:216
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:146
+msgid "Delete"
+msgstr "삭제"
+
+#. translators: Heading of the table where each language gets the currencies it may show.
+#: classes/Multicurrency/UI/Hooks.php:218
+msgid "Currencies to display for each language"
+msgstr "각 언어별로 표시할 통화"
+
+#. translators: Hint shown in place of the per-language currencies table while the shop has only one currency.
+#: classes/Multicurrency/UI/Hooks.php:220
+msgid "Add a secondary currency to choose which currencies appear for each language."
+msgstr "각 언어별로 표시할 통화를 선택하려면 보조 통화를 추가하세요."
+
+#. translators: %1$s is for language name and %2$s for currency name
+#: classes/Multicurrency/UI/Hooks.php:222
+#, php-format
+msgid "Enable %1$s for %2$s"
+msgstr "%2$s에 대해 %1$s 활성화"
+
+#. translators: %1$s is for language name and %2$s for currency name
+#: classes/Multicurrency/UI/Hooks.php:224
+#, php-format
+msgid "Disable %1$s for %2$s"
+msgstr "%2$s에 대해 %1$s 비활성화"
+
+#. translators: Tab title and link text opening the settings of the plugin or of one currency. Noun, plural.
+#: classes/Multicurrency/UI/Hooks.php:226
+#: inc/template-classes/class-wcml-menus-wrap.php:50
+#: inc/template-classes/class-wcml-multilingual-ui.php:127
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:71
+msgid "Settings"
+msgstr "설정"
+
+#. translators: Title of the dialog that adds a currency to the shop. Verb phrase, imperative.
+#: classes/Multicurrency/UI/Hooks.php:228
+msgid "Add new currency"
+msgstr "새 통화 추가"
+
+#. translators: %s for currency label
+#: classes/Multicurrency/UI/Hooks.php:230
+#, php-format
+msgid "Currency settings for %s"
+msgstr "%s의 통화 설정"
+
+#. translators: Label of the dropdown that picks the currency to add, in the add-currency dialog. Verb phrase, imperative.
+#: classes/Multicurrency/UI/Hooks.php:232
+msgid "Select currency"
+msgstr "통화 선택"
+
+#. translators: Label of the exchange-rate field in a currency's settings. Noun.
+#: classes/Multicurrency/UI/Hooks.php:234
+msgid "Exchange Rate"
+msgstr "환율"
+
+#. translators: Validation hint under the exchange-rate field: only digits may be typed.
+#: classes/Multicurrency/UI/Hooks.php:236
+msgid "Only numeric"
+msgstr "숫자만 가능"
+
+#. translators: %s for currency exchange rate value
+#: classes/Multicurrency/UI/Hooks.php:238
+#, php-format
+msgid "(previous value: %s)"
+msgstr "(이전 값: %s)"
+
+#. translators: Label above the sample price that shows how amounts will look in this currency.
+#: classes/Multicurrency/UI/Hooks.php:240
+msgid "Currency Preview"
+msgstr "통화 미리보기"
+
+#. translators: Label of the setting that places the currency symbol before or after the amount.
+#: classes/Multicurrency/UI/Hooks.php:242
+msgid "Currency Position"
+msgstr "통화 위치"
+
+#. translators: Option of the currency-symbol position setting: the symbol goes before the amount.
+#: classes/Multicurrency/UI/Hooks.php:244
+msgid "Left"
+msgstr "왼쪽"
+
+#. translators: Option of the currency-symbol position setting: the symbol goes after the amount.
+#: classes/Multicurrency/UI/Hooks.php:246
+msgid "Right"
+msgstr "오른쪽"
+
+#. translators: Option of the currency-symbol position setting: the symbol goes before the amount with a space between them.
+#: classes/Multicurrency/UI/Hooks.php:248
+msgid "Left with space"
+msgstr "왼쪽(공백 포함)"
+
+#. translators: Option of the currency-symbol position setting: the symbol goes after the amount with a space between them.
+#: classes/Multicurrency/UI/Hooks.php:250
+msgid "Right with space"
+msgstr "오른쪽(공백 포함)"
+
+#. translators: Label of the field holding the character that separates thousands in an amount.
+#: classes/Multicurrency/UI/Hooks.php:252
+msgid "Thousand Separator"
+msgstr "천 단위 구분 기호"
+
+#. translators: Option shown in the separator dropdowns for a space character; the brackets say it is a description, not a literal value.
+#: classes/Multicurrency/UI/Hooks.php:254
+msgid "(Space)"
+msgstr "(공백)"
+
+#. translators: Label of the field holding the character that separates the decimals in an amount.
+#: classes/Multicurrency/UI/Hooks.php:256
+msgid "Decimal Separator"
+msgstr "소수점 구분 기호"
+
+#. translators: Label of the field holding how many decimal digits an amount shows.
+#: classes/Multicurrency/UI/Hooks.php:258
+msgid "Number of Decimals"
+msgstr "소수점 자리수"
+
+#. translators: Label of the dropdown that rounds converted prices to a whole number.
+#: classes/Multicurrency/UI/Hooks.php:260
+msgid "Rounding to the nearest integer"
+msgstr "가장 가까운 정수로 반올림"
+
+#. translators: Option of the price-rounding dropdown: no rounding is applied. Adjective describing the setting, not a command.
+#: classes/Multicurrency/UI/Hooks.php:262
+msgid "Disabled"
+msgstr "비활성화됨"
+
+#. translators: Option of the price-rounding dropdown: round the price upwards.
+#: classes/Multicurrency/UI/Hooks.php:264
+msgid "Up"
+msgstr "올림"
+
+#. translators: Option of the price-rounding dropdown: round the price downwards.
+#: classes/Multicurrency/UI/Hooks.php:266
+msgid "Down"
+msgstr "내림"
+
+#. translators: Option of the price-rounding dropdown: round the price to the closest whole number.
+#: classes/Multicurrency/UI/Hooks.php:268
+msgid "Nearest"
+msgstr "가장 가까운 값"
+
+#. translators: Label of the field that sets the step prices are rounded to, such as 10 or 100.
+#: classes/Multicurrency/UI/Hooks.php:270
+msgid "Increment for nearest integer"
+msgstr "가장 가까운 정수에 대한 증분"
+
+#. translators: %s is an HTML break line
+#: classes/Multicurrency/UI/Hooks.php:272
+#, php-format
+msgid "The resulting price will be an increment of this value after initial rounding.%se.g.:"
+msgstr "결과 가격은 초기 반올림 후 이 값의 증분이 됩니다.%s예:"
+
+#. translators: Example line in the tooltip of the rounding-increment field. Keep the numbers; &raquo; is the arrow between the price before and after rounding.
+#: classes/Multicurrency/UI/Hooks.php:274
+msgid "1454.07 &raquo; 1454 when set to 1"
+msgstr "1로 설정 시 1454.07 &raquo; 1454"
+
+#. translators: Example line in the tooltip of the rounding-increment field. Keep the numbers; &raquo; is the arrow between the price before and after rounding.
+#: classes/Multicurrency/UI/Hooks.php:276
+msgid "1454.07 &raquo; 1450 when set to 10"
+msgstr "10으로 설정 시 1454.07 &raquo; 1450"
+
+#. translators: Example line in the tooltip of the rounding-increment field. Keep the numbers; &raquo; is the arrow between the price before and after rounding.
+#: classes/Multicurrency/UI/Hooks.php:278
+msgid "1454.07 &raquo; 1500 when set to 100"
+msgstr "100으로 설정 시 1454.07 &raquo; 1500"
+
+#. translators: %s is an HTML break line
+#: classes/Multicurrency/UI/Hooks.php:280
+#, php-format
+msgid "Round the converted price to the closest integer. %se.g. 15.78 becomes 16.00"
+msgstr "변환된 가격을 가장 가까운 정수로 반올림합니다. %s예: 15.78은 16.00이 됩니다."
+
+#. translators: First line of the tooltip of the auto-subtract field; "the amount obtained previously" is the price after rounding.
+#: classes/Multicurrency/UI/Hooks.php:282
+msgid "The value to be subtracted from the amount obtained previously."
+msgstr "이전 단계에서 얻은 금액에서 뺄 값입니다."
+
+#. translators: Second line of the tooltip of the auto-subtract field, giving a worked example. Keep the numbers.
+#: classes/Multicurrency/UI/Hooks.php:284
+msgid "For 1454.07, when the increment for the nearest integer is 100 and the auto-subtract amount is 1, the resulting amount is 1499."
+msgstr "1454.07의 경우, 가장 가까운 정수 증분이 100이고 자동 빼기 금액이 1이면 결과 금액은 1499가 됩니다."
+
+#. translators: Label of the field holding the amount taken off a price after rounding.
+#: classes/Multicurrency/UI/Hooks.php:286
+msgid "Autosubtract amount"
+msgstr "자동 빼기 금액"
+
+#. translators: Heading of the section of a currency's settings that lists the payment methods it may use.
+#: classes/Multicurrency/UI/Hooks.php:288
+msgid "Payment Gateways"
+msgstr "결제 게이트웨이"
+
+#. translators: %s is a currency code
+#: classes/Multicurrency/UI/Hooks.php:290
+#, php-format
+msgid "Custom settings for %s"
+msgstr "%s에 대한 사용자 정의 설정"
+
+#. translators: Link text that opens the WPML documentation. Verb phrase, imperative.
+#: classes/Multicurrency/UI/Hooks.php:293
+#: inc/template-classes/class-wcml-pointer-ui.php:39
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:79
+msgid "Learn more"
+msgstr "더 알아보기"
+
+#. translators: Error shown under a field of the currency settings when what was typed is not a number.
+#: classes/Multicurrency/UI/Hooks.php:295
+msgid "Please enter a valid number"
+msgstr "유효한 숫자를 입력하세요"
+
+#. translators: Error shown in the currency settings dialog when the server did not store the currency. Two short sentences; the second one is an imperative.
+#: classes/Multicurrency/UI/Hooks.php:297
+msgid "The currency was not saved. Try again."
+msgstr "통화가 저장되지 않았습니다. 다시 시도하십시오."
+
+#. translators: Error shown next to the "Show currencies based on" options when the server did not store the choice. Two short sentences; the second one is an imperative.
+#: classes/Multicurrency/UI/Hooks.php:299
+msgid "The setting was not saved. Try again."
+msgstr "설정이 저장되지 않았습니다. 다시 시도하십시오."
+
+#. translators: Button label that closes a dialog and discards the changes. Verb, imperative: the action, not the state "cancelled".
+#: classes/Multicurrency/UI/Hooks.php:301
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:362
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:137
+#: inc/template-classes/store-urls/class-wcml-store-urls-edit-base-ui.php:54
+msgid "Cancel"
+msgstr "취소"
+
+#. translators: Button label that stores the settings of a dialog. Verb, imperative.
+#: classes/Multicurrency/UI/Hooks.php:303
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:139
+#: inc/template-classes/store-urls/class-wcml-store-urls-edit-base-ui.php:56
+msgid "Save"
+msgstr "저장"
+
+#. translators: Label above the dropdown that limits a currency to certain countries; the sentence continues with the choice made in the dropdown.
+#: classes/Multicurrency/UI/Hooks.php:305
+msgid "Currency available in"
+msgstr "통화 사용 가능 국가"
+
+#. translators: Option of the availability dropdown of a currency or a payment method: no country limit.
+#: classes/Multicurrency/UI/Hooks.php:307
+#: classes/PaymentGateways/Hooks.php:176
+msgid "All countries"
+msgstr "모든 국가"
+
+#. translators: Label that introduces the list of excluded countries for a currency; keep the colon and the trailing space, the country list follows on the same line.
+#: classes/Multicurrency/UI/Hooks.php:309
+msgid "All countries except: "
+msgstr "다음 국가 제외: "
+
+#. translators: Option of the availability dropdown of a currency or a payment method; the three dots say that countries have to be picked next.
+#: classes/Multicurrency/UI/Hooks.php:311
+#: classes/PaymentGateways/Hooks.php:180
+msgid "All countries except..."
+msgstr "다음 국가 제외..."
+
+#. translators: Option of the availability dropdown of a currency or a payment method: only the countries picked next.
+#: classes/Multicurrency/UI/Hooks.php:313
+#: classes/PaymentGateways/Hooks.php:182
+msgid "Specific countries"
+msgstr "특정 국가"
+
+#. translators: Label above the dropdown that decides what picks the shopper's currency; the sentence continues with the choice made in the dropdown.
+#: classes/Multicurrency/UI/Hooks.php:315
+msgid "Show currencies based on"
+msgstr "통화 표시 기준"
+
+#. translators: Tooltip on the disabled "Site Language" option, shown when WPML is not installed. A link with the buy text follows it.
+#: classes/Multicurrency/UI/Hooks.php:317
+msgid "You need the WPML plugin to make your store multilingual and display currencies based on site language. Don't have it yet?"
+msgstr "상점을 다국어로 만들고 사이트 언어에 따라 통화를 표시하려면 WPML 플러그인이 필요합니다. 아직 없으신가요?"
+
+#. translators: Link text at the end of the tooltip about the missing WPML plugin; it opens the WPML shop. Verb phrase, imperative.
+#: classes/Multicurrency/UI/Hooks.php:319
+msgid "Purchase WPML now"
+msgstr "지금 WPML 구매하기"
+
+#. translators: Option of the "Show currencies based on" dropdown: the language the visitor is browsing in decides the currency.
+#: classes/Multicurrency/UI/Hooks.php:321
+msgid "Site Language"
+msgstr "사이트 언어"
+
+#. translators: Option of the "Show currencies based on" dropdown: the shopper's country decides the currency.
+#: classes/Multicurrency/UI/Hooks.php:323
+msgid "Client Location"
+msgstr "고객 위치"
+
+#. translators: Heading of the settings that appear once currencies are chosen by the shopper's location.
+#: classes/Multicurrency/UI/Hooks.php:325
+msgid "Location based"
+msgstr "위치 기반"
+
+#. translators: Explanation under the location-based currency settings. "MaxMind Geolocation" is a service name and stays in English.
+#: classes/Multicurrency/UI/Hooks.php:327
+msgid "WooCommerce integrates with MaxMind Geolocation to reliably determine the location of your customers."
+msgstr "WooCommerce는 MaxMind Geolocation과 통합되어 고객의 위치를 안정적으로 파악합니다."
+
+#. translators: Confirmation shown once a MaxMind key is saved; a link to the WooCommerce settings page follows it, so keep the trailing space and leave the sentence open.
+#: classes/Multicurrency/UI/Hooks.php:329
+msgid "Great! Now you can use Geolocation to determine default currency for chosen languages. You can edit that key in "
+msgstr "좋습니다! 이제 지오로케이션을 사용하여 선택한 언어의 기본 통화를 결정할 수 있습니다. 해당 키는 다음에서 편집할 수 있습니다: "
+
+#. translators: Link text that closes the confirmation sentence about the saved MaxMind key; it opens the WooCommerce settings.
+#: classes/Multicurrency/UI/Hooks.php:332
+msgid "WooCommerce settings page."
+msgstr "WooCommerce 설정 페이지."
+
+#. translators: Label of the field holding the licence key of the MaxMind geolocation service. "MaxMind" is a service name and stays in English.
+#: classes/Multicurrency/UI/Hooks.php:334
+msgid "MaxMind Licence Key"
+msgstr "MaxMind 라이선스 키"
+
+#. translators: Button label that puts the entered values into effect. Verb, imperative.
+#: classes/Multicurrency/UI/Hooks.php:336
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:360
+msgid "Apply"
+msgstr "적용"
+
+#. translators: Warning under the MaxMind licence-key field.
+#: classes/Multicurrency/UI/Hooks.php:338
+msgid "Please note: without a free MaxMind key, your geolocation calls will be limited and your site performance may be impacted."
+msgstr "참고: 무료 MaxMind 키가 없으면 지오로케이션 호출이 제한되고 사이트 성능에 영향을 줄 수 있습니다."
+
+#. translators: Link text under the MaxMind licence-key field; it opens the WooCommerce documentation. Verb phrase, imperative.
+#: classes/Multicurrency/UI/Hooks.php:341
+msgid "Learn how to generate a free license key"
+msgstr "무료 라이선스 키를 생성하는 방법 알아보기"
+
+#. translators: %s is a date
+#: classes/Multicurrency/UI/Hooks.php:378
+#, php-format
+msgid "Set on %s"
+msgstr "%s에 설정됨"
+
+#. translators: Heading of the dialog that limits a payment method to certain countries.
+#: classes/PaymentGateways/Hooks.php:174
+msgid "Country availability"
+msgstr "국가별 가용성"
+
+#. translators: Label that introduces the list of countries excluded for a payment method; the country list follows.
+#: classes/PaymentGateways/Hooks.php:178
+msgid "All countries except"
+msgstr "다음 국가 제외"
+
+#. translators: Tooltip of the icon that opens the country-availability dialog of a payment method.
+#: classes/PaymentGateways/Hooks.php:184
+msgid "Configure per country availability for this payment gateway"
+msgstr "이 결제 게이트웨이에 대한 국가별 가용성 구성"
+
+#. translators: Button label that stores the settings of the screen. Verb phrase, imperative.
+#: classes/PaymentGateways/Hooks.php:187
+#: inc/template-classes/class-wcml-settings-ui.php:156
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:115
+msgid "Save changes"
+msgstr "변경 사항 저장"
+
+#. translators: Confirmation shown next to the save button after the settings were stored.
+#: classes/PaymentGateways/Hooks.php:189
+msgid "Settings saved."
+msgstr "설정이 저장되었습니다."
+
+#. translators: Error shown next to the save button when the settings could not be stored.
+#: classes/PaymentGateways/Hooks.php:191
+msgid "Error saving settings."
+msgstr "설정 저장 중 오류가 발생했습니다."
+
+#. translators: Admin notice asking the shop owner to delete a plugin whose feature is now built in. Both names are product names and stay in English.
+#: classes/PaymentGateways/Hooks.php:291
+msgid "We noticed that you're using WooCommerce Gateways Country Limiter plugin which is now integrated into WPML Multilingual & Multicurrency for WooCommerce. Please remove it!"
+msgstr "현재 WPML Multilingual & Multicurrency for WooCommerce에 통합된 WooCommerce Gateways Country Limiter 플러그인을 사용 중인 것으로 확인되었습니다. 해당 플러그인을 제거해 주세요!"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/PaymentGateways/Strings.php:33
+#, php-format
+msgid "To translate custom text for payment methods, go to the %1$sTranslation Dashboard%2$s."
+msgstr "결제 수단의 사용자 정의 텍스트를 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/Permalinks/Settings/TranslationControls.php:55
+#, php-format
+msgid "To translate permalinks for product taxonomies, go to %1$sWPML Multilingual & Multicurrency for WooCommerce → Store URLs%2$s."
+msgstr "상품 분류 체계의 고유주소를 번역하려면 %1$sWPML Multilingual & Multicurrency for WooCommerce → 상점 URL%2$s로 이동하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/Permalinks/Settings/TranslationControls.php:63
+#, php-format
+msgid "To translate product permalinks, go to %1$sWPML Multilingual & Multicurrency for WooCommerce → Store URLs%2$s."
+msgstr "상품 고유주소를 번역하려면 %1$sWPML Multilingual & Multicurrency for WooCommerce → 상점 URL%2$s로 이동하세요."
+
+#. translators: Link text that opens the help bubble about translating product-category and product-tag URL slugs, on the WooCommerce permalinks settings.
+#: classes/Permalinks/Settings/TranslationControls.php:74
+msgid "How to translate permalinks for product taxonomies"
+msgstr "상품 분류 체계의 고유주소를 번역하는 방법"
+
+#. translators: Link text that opens the help bubble about translating product URL slugs, on the WooCommerce permalinks settings.
+#: classes/Permalinks/Settings/TranslationControls.php:82
+msgid "How to translate product permalinks"
+msgstr "상품 고유주소를 번역하는 방법"
+
+#. translators: Button label in the WPML help bubble on the products list; it opens the Translation Dashboard. Verb phrase, imperative.
+#: classes/pointers/class-wcml-pointers.php:43
+msgid "Translate WooCommerce products"
+msgstr "WooCommerce 상품 번역"
+
+#. translators: Button label in the WPML help bubble on the shipping-classes screen; it opens the taxonomy translation screen. Verb phrase, imperative.
+#: classes/pointers/class-wcml-pointers.php:56
+msgid "Translate shipping classes"
+msgstr "배송 클래스 번역"
+
+#. translators: Button label in the WPML help bubble on the WooCommerce currency settings; it opens the plugin's multicurrency screen. Verb phrase, imperative.
+#: classes/pointers/class-wcml-pointers.php:70
+msgid "Configure multicurrency for multilingual sites"
+msgstr "다국어 사이트를 위한 다중 통화 구성"
+
+#. translators: Button label in the WPML help bubble on the WooCommerce store URL settings. Verb phrase, imperative; endpoints are the URL parts such as cart and checkout.
+#: classes/pointers/class-wcml-pointers.php:85
+msgid "Translate endpoints"
+msgstr "엔드포인트 번역"
+
+#. translators: Default link text of the help bubble shown next to a setting that WPML translates; "this" is the setting the bubble sits on.
+#: classes/PointerUi/Factory.php:18
+#: inc/template-classes/class-wcml-pointer-ui.php:21
+msgid "How to translate this?"
+msgstr "이것을 어떻게 번역하나요?"
+
+#. translators: First paragraph the plugin adds to the site's privacy policy draft.
+#: classes/privacy/class-wcml-privacy-content.php:21
+msgid "WPML Multilingual & Multicurrency for WooCommerce will use cookies to understand the basket info when using languages in domains and to transfer data between the domains."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce는 도메인별 언어를 사용할 때 장바구니 정보를 파악하고 도메인 간에 데이터를 전송하기 위해 쿠키를 사용합니다."
+
+#. translators: Second paragraph the plugin adds to the site's privacy policy draft; "these reports" are the WooCommerce sales reports.
+#: classes/privacy/class-wcml-privacy-content.php:23
+msgid "WPML Multilingual & Multicurrency for WooCommerce will also use cookies to identify the language and currency of each customer’s order as well as the currency of the reports created by WooCommerce. WPML Multilingual & Multicurrency for WooCommerce extends these reports by adding the currency’s information."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce는 또한 각 고객 주문의 언어와 통화뿐만 아니라 WooCommerce에서 생성된 보고서의 통화를 식별하기 위해 쿠키를 사용합니다. WPML Multilingual & Multicurrency for WooCommerce는 통화 정보를 추가하여 이러한 보고서를 확장합니다."
+
+#. translators: Error returned by the WooCommerce REST API when the currency asked for is not one of the shop's. %s: the currency code that was sent.
+#: classes/Rest/Exceptions/InvalidCurrency.php:16
+#, php-format
+msgid "Invalid currency parameter: \"%s\""
+msgstr "유효하지 않은 통화 파라미터: “%s”"
+
+#. translators: Error returned by the WooCommerce REST API when the language asked for is not active on the site. %s: the language code that was sent.
+#: classes/Rest/Exceptions/InvalidLanguage.php:16
+#, php-format
+msgid "Invalid language parameter: \"%s\""
+msgstr "유효하지 않은 언어 파라미터: “%s”"
+
+#. translators: Error returned by the WooCommerce REST API when no product has the requested identifier. %d: the product's numeric ID.
+#: classes/Rest/Exceptions/InvalidProduct.php:16
+#, php-format
+msgid "Product not found: %d"
+msgstr "상품을 찾을 수 없음: %d"
+
+#. translators: Error returned by the WooCommerce REST API when no product category, tag or attribute value has the requested identifier. %d: its numeric ID.
+#: classes/Rest/Exceptions/InvalidTerm.php:16
+#, php-format
+msgid "Term not found: %d"
+msgstr "용어를 찾을 수 없음: %d"
+
+#. translators: Error returned by the WooCommerce REST API. Keep the two quoted parameter names in English: they are what the caller has to send.
+#: classes/Rest/Exceptions/MissingLanguage.php:13
+#: classes/Rest/Wrapper/Products/Products.php:122
+msgid "Using \"translation_of\" requires providing a \"lang\" parameter too"
+msgstr "“translation_of”를 사용하려면 “lang” 파라미터도 제공해야 합니다"
+
+#. translators: Tab title of the plugin's screen that lists what is translated. Adjective used as a name.
+#: classes/StandAlone/UI/AdminMenu.php:46
+#: inc/template-classes/class-wcml-menus-wrap.php:44
+msgid "Multilingual"
+msgstr "다국어"
+
+#. translators: Tab title and heading of the plugin's screen for currencies. One word, the name of the feature.
+#: classes/StandAlone/UI/AdminMenu.php:52
+#: inc/template-classes/class-wcml-menus-wrap.php:56
+#: inc/template-classes/class-wcml-multilingual-ui.php:140
+#: inc/template-classes/status/class-wcml-status-multi-currencies-ui.php:34
+msgid "Multicurrency"
+msgstr "다중 통화"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/StandAlone/UI/AdminMenu.php:76
+#, php-format
+msgid "To run your store in multiple languages, you need to use the %1$sWPML plugin%2$s."
+msgstr "상점을 여러 언어로 운영하려면 %1$sWPML 플러그인%2$s을 사용해야 합니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/StandAlone/UI/AdminMenu.php:80
+#, php-format
+msgid "If you have it already, install and activate it. Otherwise, %1$sbuy WPML%2$s."
+msgstr "이미 가지고 있다면 설치하고 활성화하세요. 그렇지 않다면 %1$sWPML을 구매%2$s하세요."
+
+#. translators: Second half of the notice shown when WPML is missing; "Multilingual CMS" and "Multilingual Agency" are the names of WPML accounts and stay in English.
+#: classes/StandAlone/UI/AdminMenu.php:82
+msgid "You will need either the Multilingual CMS or Multilingual Agency package to use WPML with WooCommerce."
+msgstr "WooCommerce와 함께 WPML을 사용하려면 Multilingual CMS 또는 Multilingual Agency 패키지가 필요합니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/StandAlone/UI/AdminMenu.php:88
+#, php-format
+msgid "You can still use the %1$smulticurrency features%2$s without buying anything."
+msgstr "구매하지 않고도 %1$s다중 통화 기능%2$s을 계속 사용할 수 있습니다."
+
+#. translators: Link text that opens WPML's taxonomy translation screen for one taxonomy. %s: the taxonomy's singular name, for example "Product category".
+#: classes/taxonomy-translation/class-wcml-taxonomy-translation-link-filters.php:37
+#, php-format
+msgid "%s translation"
+msgstr "%s 번역"
+
+#. translators: %1$s is a taxonomy singular label and %2$s is an HTML link
+#: classes/taxonomy-translation/class-wcml-taxonomy-translation-link-filters.php:42
+#, php-format
+msgid "Translating %1$s? Use the %2$s table for easier translation."
+msgstr "%1$s를 번역하시나요? 더 쉬운 번역을 위해 %2$s 테이블을 사용하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/TMDashboard/Hooks.php:58
+#, php-format
+msgid "To translate product details, including their taxonomy, use this dashboard. If you need to translate taxonomy independently or adjust store and currency settings, visit: %1$sWPML Multilingual & Multicurrency for WooCommerce documentation%2$s."
+msgstr "분류 체계를 포함한 상품 세부 정보를 번역하려면 이 대시보드를 사용하세요. 분류 체계를 독립적으로 번역하거나 상점 및 통화 설정을 조정해야 하는 경우 %1$sWPML Multilingual & Multicurrency for WooCommerce 문서%2$s를 방문하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: classes/TranslationControls/Hooks.php:123
+#, php-format
+msgid "To translate this content, go to the %1$sTranslation Dashboard%2$s."
+msgstr "이 콘텐츠를 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: Text of the help bubble next to a WooCommerce setting whose text WPML has not registered yet; "this text" is the setting's own value.
+#: classes/TranslationControls/Hooks.php:137
+msgid "To see how to translate this text, save your changes here first."
+msgstr "이 텍스트를 번역하는 방법을 보려면 먼저 여기에서 변경 사항을 저장하세요."
+
+#. translators: Label of the setting that aligns the header of translated WooCommerce emails, on the WooCommerce email settings.
+#: classes/WcEmailSettings/MultilingualHooks.php:36
+msgid "Header alignment for translations"
+msgstr "번역을 위한 헤더 정렬"
+
+#. translators: %s is an HTML break line - after about 65 characters the text will no longer be visible
+#: classes/WcEmailSettings/MultilingualHooks.php:39
+#, php-format
+msgid "Automatically align email headers based on%slanguage direction (right-to-left or left-to-right)."
+msgstr "언어 방향(오른쪽에서 왼쪽 또는 왼쪽에서 오른쪽)에 따라%s이메일 헤더를 자동으로 정렬합니다."
+
+#. translators: First option of the email header-alignment setting. "Header alignment" is the name of the WooCommerce setting shown above it and is translated the same way there.
+#: classes/WcEmailSettings/MultilingualHooks.php:44
+msgid "Off – use the \"Header alignment\" setting above"
+msgstr "끄기 – 위의 “헤더 정렬” 설정을 사용합니다"
+
+#. translators: Second option of the email header-alignment setting: WPML picks the alignment from the language's writing direction.
+#: classes/WcEmailSettings/MultilingualHooks.php:46
+msgid "On – align automatically"
+msgstr "켜기 – 자동으로 정렬합니다"
+
+#. translators: Name of the first step of the plugin's setup wizard, shown in the step list.
+#: classes/wcml-setup/class-wcml-setup.php:39
+msgid "Introduction"
+msgstr "소개"
+
+#. translators: Name of the setup-wizard step that translates the cart, checkout and other WooCommerce pages.
+#: classes/wcml-setup/class-wcml-setup.php:47
+msgid "Store Pages"
+msgstr "상점 페이지"
+
+#. translators: Name of the setup-wizard step that translates the product attributes shared by the whole shop.
+#: classes/wcml-setup/class-wcml-setup.php:58
+msgid "Global Attributes"
+msgstr "전역 속성"
+
+#. translators: Name of the setup-wizard step that turns on more than one currency.
+#: classes/wcml-setup/class-wcml-setup.php:68
+msgid "Multiple Currencies"
+msgstr "다중 통화"
+
+#. translators: Heading of the group of tour fields in WPML's translation editor for a product.
+#: compatibility/AdventureTours/class-wcml-adventure-tours.php:117
+msgid "Tour Data"
+msgstr "투어 데이터"
+
+#. translators: Label of the title field of an item in WPML's translation editor for a product. Noun.
+#: compatibility/AdventureTours/class-wcml-adventure-tours.php:125
+#: compatibility/WcBookings/class-wcml-bookings.php:631
+#: compatibility/WcTabManager/class-wcml-tab-manager.php:342
+#: compatibility/WcTabManager/class-wcml-tab-manager.php:351
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:184
+msgid "Title"
+msgstr "제목"
+
+#. translators: Label of the body-text field of a tour tab in WPML's translation editor for a product. Noun.
+#: compatibility/AdventureTours/class-wcml-adventure-tours.php:128
+msgid "Content"
+msgstr "내용"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/TableRateShipping/class-wcml-table-rate-shipping.php:176
+#, php-format
+msgid "To translate the Method Title, go to the %1$sTranslation Dashboard%2$s."
+msgstr "메소드 제목을 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/TableRateShipping/class-wcml-table-rate-shipping.php:189
+#, php-format
+msgid "To translate Labels, go to the %1$sTranslation Dashboard%2$s."
+msgstr "레이블을 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: Help text on the extra product options panel. %1$s: opening link tag, %2$s: closing link tag. "Translation Dashboard" is a WPML screen name.
+#: compatibility/TmExtraProductOptions/class-wcml-extra-product-options.php:31
+#, php-format
+msgid "To translate custom product fields, save your changes here first, then go to the %1$sTranslation Dashboard%2$s."
+msgstr "사용자 정의 상품 필드를 번역하려면 먼저 여기에서 변경 사항을 저장한 다음 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: Label of the first radio button on a bookable product: WPML converts the booking costs using the exchange rate.
+#: compatibility/WcBookings/class-wcml-accommodation-bookings.php:58
+#: compatibility/WcBookings/MulticurrencyHooks.php:333
+msgid "Calculate costs in other currencies automatically"
+msgstr "다른 통화의 비용을 자동으로 계산"
+
+#. translators: Label of the second radio button on a bookable product: the shop owner types each currency's booking costs.
+#: compatibility/WcBookings/class-wcml-accommodation-bookings.php:64
+#: compatibility/WcBookings/MulticurrencyHooks.php:339
+msgid "Set costs in other currencies manually"
+msgstr "다른 통화의 비용을 수동으로 설정"
+
+#. translators: Heading of the group of booking fields in WPML's translation editor for a product.
+#: compatibility/WcBookings/class-wcml-bookings.php:604
+msgid "Bookings"
+msgstr "예약"
+
+#. translators: Label of the field holding the word a bookable product uses for its resources, in WPML's translation editor.
+#: compatibility/WcBookings/class-wcml-bookings.php:609
+msgid "Resources Label"
+msgstr "리소스 레이블"
+
+#. translators: Heading of the group of booking-resource fields in WPML's translation editor for a product. Noun, plural.
+#: compatibility/WcBookings/class-wcml-bookings.php:618
+#: compatibility/WcBookings/class-wcml-bookings.php:620
+msgid "Resources"
+msgstr "리소스"
+
+#. translators: Heading of the group of person-type fields of a bookable product in WPML's translation editor.
+#: compatibility/WcBookings/class-wcml-bookings.php:642
+msgid "Person Types"
+msgstr "인원 유형"
+
+#. translators: Label of the field holding the name of one person type of a bookable product, in WPML's translation editor.
+#: compatibility/WcBookings/class-wcml-bookings.php:651
+msgid "Person Type Name"
+msgstr "인원 유형 이름"
+
+#. translators: Label of a description field in WPML's translation editor for a product. Noun.
+#: compatibility/WcBookings/class-wcml-bookings.php:654
+#: compatibility/WcCompositeProducts/class-wcml-composite-products.php:188
+#: compatibility/WcCompositeProducts/class-wcml-composite-products.php:215
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:281
+#: compatibility/WcProductBundles/class-wcml-product-bundles.php:391
+msgid "Description"
+msgstr "설명"
+
+#. translators: Name shown for the resources-label field in the list of a product's translatable fields.
+#: compatibility/WcBookings/class-wcml-bookings.php:747
+msgid "Resources label"
+msgstr "리소스 레이블"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/WcBookings/class-wcml-bookings.php:1364
+#, php-format
+msgid "To translate Resources, go to the %1$sTranslation Dashboard%2$s and send the associated product for translation."
+msgstr "리소스를 번역하려면 %1$s번역 대시보드%2$s로 이동하여 관련 상품을 번역으로 보내세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/WcBookings/class-wcml-bookings.php:1377
+#, php-format
+msgid "To translate Person Types, go to the %1$sTranslation Dashboard%2$s and send the associated product for translation."
+msgstr "인원 유형을 번역하려면 %1$s번역 대시보드%2$s로 이동하여 관련 상품을 번역으로 보내세요."
+
+#. translators: Row heading of the currency dropdown on the WooCommerce bookings screen.
+#: compatibility/WcBookings/MulticurrencyHooks.php:691
+msgid "Booking currency"
+msgstr "예약 통화"
+
+#. translators: Heading of the group of composite-product component fields in WPML's translation editor. "Composite Products" is the name of the WooCommerce extension.
+#: compatibility/WcCompositeProducts/class-wcml-composite-products.php:175
+msgid "Composite Products ( Components )"
+msgstr "복합 상품 ( 구성 요소 )"
+
+#. translators: Label of a name field in WPML's translation editor for a product. Noun.
+#: compatibility/WcCompositeProducts/class-wcml-composite-products.php:185
+#: compatibility/WcCompositeProducts/class-wcml-composite-products.php:212
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:278
+#: compatibility/WcProductBundles/class-wcml-product-bundles.php:379
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:231
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:324
+msgid "Name"
+msgstr "이름"
+
+#. translators: Heading of the group of composite-product scenario fields in WPML's translation editor. "Composite Products" is the name of the WooCommerce extension.
+#: compatibility/WcCompositeProducts/class-wcml-composite-products.php:202
+msgid "Composite Products ( Scenarios )"
+msgstr "복합 상품 ( 시나리오 )"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:170
+#, php-format
+msgid "To translate global add-ons, go to the %1$sTranslation Dashboard%2$s."
+msgstr "글로벌 애드온을 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: %s is a product addon name
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:274
+#, php-format
+msgid "Product Add-ons Group \"%s\""
+msgstr "상품 애드온 그룹 “%s”"
+
+#. translators: Label of the field holding the hint text of a product add-on, in WPML's translation editor. Noun: the grey text shown inside an empty field.
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:285
+msgid "Placeholder"
+msgstr "자리 표시자"
+
+#. translators: Heading of the group of add-on option labels in WPML's translation editor for a product. Noun, plural.
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:293
+msgid "Options"
+msgstr "옵션"
+
+#. translators: Label of the field holding one add-on option's text, in WPML's translation editor. Noun: the text the shopper reads.
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:297
+msgid "Label"
+msgstr "레이블"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/WcProductAddons/class-wcml-product-addons.php:389
+#, php-format
+msgid "To translate per-product add-ons, go to the %1$sTranslation Dashboard%2$s and send the associated product for translation."
+msgstr "상품별 애드온을 번역하려면 %1$s번역 대시보드%2$s로 이동하여 관련 상품을 번역으로 보내세요."
+
+#. translators: Heading of the per-currency price settings of a product add-on, and the title of the dialog that opens them.
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:330
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:356
+msgid "Multi-currency settings"
+msgstr "다중 통화 설정"
+
+#. translators: Label of the first radio button of the per-currency price settings: WPML converts the price using the exchange rate.
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:332
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:69
+msgid "Calculate prices in other currencies automatically"
+msgstr "다른 통화의 가격을 자동으로 계산"
+
+#. translators: Label of the second radio button of the per-currency price settings: the shop owner types each currency's price.
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:334
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:77
+msgid "Set prices in other currencies manually"
+msgstr "다른 통화의 가격을 수동으로 설정"
+
+#. translators: %s is an option label
+#: compatibility/WcProductAddons/MulticurrencyHooks.php:358
+#, php-format
+msgid "Here you can set different prices for the %s in multiple currencies:"
+msgstr "여기에서 여러 통화로 %s에 대한 다른 가격을 설정할 수 있습니다:"
+
+#. translators: Heading of the group of bundle fields in WPML's translation editor. "Product Bundles" is the name of the WooCommerce extension.
+#: compatibility/WcProductBundles/class-wcml-product-bundles.php:354
+msgid "Product Bundles"
+msgstr "상품 번들"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/WcSubscriptions/class-wcml-wc-subscriptions.php:122
+#, php-format
+msgid "You can translate text for subscription products from the %1$sTranslation Dashboard%2$s."
+msgstr "구독 상품의 텍스트는 %1$s번역 대시보드%2$s에서 번역할 수 있습니다."
+
+#. translators: Label of the recurring price field on a subscription product's per-currency prices.
+#: compatibility/WcSubscriptions/MulticurrencyHooks.php:150
+msgid "Subscription Price"
+msgstr "구독 가격"
+
+#. translators: Label of the one-off joining fee field on a subscription product's per-currency prices.
+#: compatibility/WcSubscriptions/MulticurrencyHooks.php:152
+msgid "Sign-up Fee"
+msgstr "가입비"
+
+#. translators: Heading of the group of product-tab fields in WPML's translation editor.
+#: compatibility/WcTabManager/class-wcml-tab-manager.php:327
+msgid "Product tabs"
+msgstr "상품 탭"
+
+#. translators: Label of the field holding a product tab's heading, in WPML's translation editor. Noun.
+#: compatibility/WcTabManager/class-wcml-tab-manager.php:345
+msgid "Heading"
+msgstr "제목"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: compatibility/WcTabManager/class-wcml-tab-manager.php:735
+#: compatibility/YikesCustomProductTabs/class-wcml-yikes-custom-product-tabs.php:240
+#, php-format
+msgid "To translate custom per-product tabs, go to the %1$sTranslation Dashboard%2$s and send the associated product for translation."
+msgstr "상품별 사용자 정의 탭을 번역하려면 %1$s번역 대시보드%2$s로 이동하여 관련 상품을 번역으로 보내세요."
+
+#. translators: Heading of the group of custom product-tab fields in WPML's translation editor.
+#: compatibility/YikesCustomProductTabs/class-wcml-yikes-custom-product-tabs.php:56
+msgid "Custom Tabs"
+msgstr "사용자 정의 탭"
+
+#. translators: Label of the field holding a custom product tab's title, in WPML's translation editor.
+#: compatibility/YikesCustomProductTabs/class-wcml-yikes-custom-product-tabs.php:68
+msgid "Tab Title"
+msgstr "탭 제목"
+
+#. translators: First line of the notice on the products list explaining why WordPress's Quick Edit is hidden; a list of what to do instead follows. "Quick Edit" is the WordPress feature name.
+#: inc/admin-menus/class-wcml-admin-menus.php:222
+msgid "Quick Edit isn't available for product translations:"
+msgstr "상품 번역에는 빠른 편집을 사용할 수 없습니다:"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/admin-menus/class-wcml-admin-menus.php:229
+#, php-format
+msgid "- To edit this product's translation, use the %1$sTranslation Dashboard%2$s."
+msgstr "- 이 상품의 번역을 편집하려면 %1$s번역 대시보드%2$s를 사용하세요."
+
+#. translators: Item of the list in the notice about Quick Edit on the products list. Keep the leading dash.
+#: inc/admin-menus/class-wcml-admin-menus.php:236
+msgid "- To edit the original product, switch back to the default language."
+msgstr "- 원본 상품을 편집하려면 기본 언어로 다시 전환하세요."
+
+#. translators: Link text under the plugin's name on the plugins screen; it opens the plugin's multilingual settings.
+#: inc/admin-menus/class-wcml-admin-menus.php:330
+msgid "Multilingual Settings"
+msgstr "다국어 설정"
+
+#. translators: Link text under the plugin's name on the plugins screen; it opens the plugin's currency settings.
+#: inc/admin-menus/class-wcml-admin-menus.php:335
+msgid "Multicurrency Settings"
+msgstr "다중 통화 설정"
+
+#. translators: 1: open <a> tag, 2: close <a> tag
+#: inc/admin-menus/class-wcml-admin-menus.php:351
+#, php-format
+msgid "It’s recommended that you translate products from the %1$sTranslation Dashboard%2$s."
+msgstr "%1$s번역 대시보드%2$s에서 상품을 번역하는 것이 권장됩니다."
+
+#. translators: Short name of this plugin, used as an admin menu item and as a card title. An abbreviation and stays in English.
+#: inc/admin-menus/class-wcml-admin-menus.php:427
+#: inc/template-classes/class-wcml-multilingual-ui.php:131
+msgid "WCML"
+msgstr "WCML"
+
+#. translators: Description of the widget in the WordPress widgets screen; "it" is the widget.
+#: inc/class-wcml-cart-removed-items-widget.php:9
+msgid "Shows a list of the products that existed in the cart before the cart is reset on the front end after switching the language or the currency. It will be hidden when there are no products to show."
+msgstr "언어나 통화를 전환한 후 프런트엔드에서 장바구니가 재설정되기 전에 장바구니에 있던 상품 목록을 표시합니다. 표시할 상품이 없으면 숨겨집니다."
+
+#. translators: Name of the widget in the WordPress widgets screen; it lists what the shopper had in the cart before switching language or currency.
+#: inc/class-wcml-cart-removed-items-widget.php:15
+msgid "Products before cart reset"
+msgstr "장바구니 재설정 전 상품"
+
+#. translators: Title of the dialog that warns the shopper their cart will be emptied when they change language.
+#: inc/class-wcml-cart-switch-lang-functions.php:80
+msgid "Switching language?"
+msgstr "언어를 전환하시겠습니까?"
+
+#. translators: %s is a language name
+#: inc/class-wcml-cart-switch-lang-functions.php:84
+#, php-format
+msgid "You've switched the language and there are items in the cart. If you keep the %s language, the cart will be emptied and you will have to add the items again to the cart."
+msgstr "언어를 전환했으며 장바구니에 품목이 있습니다. %s 언어를 유지하면 장바구니가 비워지며 품목을 장바구니에 다시 추가해야 합니다."
+
+#. translators: %s is a language name
+#: inc/class-wcml-cart-switch-lang-functions.php:91
+#, php-format
+msgid "Keep %s"
+msgstr "%s 유지"
+
+#. translators: %s is a language name
+#: inc/class-wcml-cart-switch-lang-functions.php:93
+#, php-format
+msgid "Switch back to %s"
+msgstr "%s(으)로 다시 전환"
+
+#. translators: First sentence of the admin warning about the cart losing its contents on a language or currency switch.
+#: inc/class-wcml-cart-sync-warnings.php:74
+msgctxt "Reset cart option warning 1"
+msgid "Because of some elements in your site configuration, when the users switch the currency or the language on the front end, the cart content might not be synchronized correctly."
+msgstr "사이트 구성의 일부 요소로 인해 사용자가 프런트엔드에서 통화나 언어를 전환할 때 장바구니 콘텐츠가 올바르게 동기화되지 않을 수 있습니다."
+
+#. translators: %s is link to "reset cart configuration"
+#: inc/class-wcml-cart-sync-warnings.php:76
+#, php-format
+msgctxt "Reset cart option warning 2"
+msgid "It is recommended that you %s with the option to reset the cart in a situation like this."
+msgstr "이와 같은 상황에서 장바구니를 재설정하는 옵션을 사용하여 %s하는 것이 권장됩니다."
+
+#. translators: Link text placed inside the sentence "It is recommended that you ... with the option to reset the cart"; it opens the plugin's settings. Verb phrase, lower case because it sits mid-sentence.
+#: inc/class-wcml-cart-sync-warnings.php:79
+msgid "configure WPML Multilingual & Multicurrency for WooCommerce"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce 설정"
+
+#. translators: Link text at the end of the cart warning; it opens the WPML documentation.
+#: inc/class-wcml-cart-sync-warnings.php:87
+msgid "More details"
+msgstr "더 알아보기"
+
+#. translators: Title of the dialog that warns the shopper their cart will be emptied when they change currency.
+#: inc/class-wcml-cart.php:199
+msgid "Switching currency?"
+msgstr "통화를 전환하시겠습니까?"
+
+#. translators: Body of the dialog that warns the shopper their cart will be emptied when they change currency.
+#: inc/class-wcml-cart.php:201
+msgid "Your cart is not empty! After you switched the currency, all items from the cart will be removed and you have to add them again."
+msgstr "장바구니가 비어 있지 않습니다! 통화를 전환하면 장바구니의 모든 품목이 제거되며 다시 추가해야 합니다."
+
+#. translators: %s is a currency
+#: inc/class-wcml-cart.php:203
+#, php-format
+msgid "Keep using %s"
+msgstr "%s 계속 사용"
+
+#. translators: Button label that confirms the currency switch and empties the cart. Verb, imperative.
+#: inc/class-wcml-cart.php:205
+msgid "Proceed"
+msgstr "진행하기"
+
+#. translators: %s is the number of reviews
+#: inc/class-wcml-comments.php:373
+#, php-format
+msgid "Show reviews in all languages  (%s)"
+msgstr "모든 언어로 리뷰 표시 (%s)"
+
+#. translators: %1$s is a language name and %2$s is the number of reviews
+#: inc/class-wcml-comments.php:389
+#, php-format
+msgid "Show only reviews in %1$s (%2$s)"
+msgstr "%1$s 언어로 된 리뷰만 표시 (%2$s)"
+
+#. translators: Marker shown in brackets after a product review that WPML translated. Adjective describing the review, not a command; lower case because it sits inside brackets after the text.
+#: inc/class-wcml-comments.php:438
+msgid "translated"
+msgstr "번역됨"
+
+#. translators: Link that expands the original-language text under a translated product review. Verb phrase, imperative.
+#: inc/class-wcml-comments.php:464
+msgid "Show original"
+msgstr "원본 보기"
+
+#. translators: %1$s is a URL and %2$s is a version number
+#: inc/class-wcml-dependencies.php:124
+#, php-format
+msgid "WPML Multilingual & Multicurrency for WooCommerce is enabled but not effective. It is not compatible with  <a href=\"%1$s\">WPML</a> versions prior %2$s."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 활성화되었지만 적용되지 않았습니다. %2$s 이전 버전의 <a href=\"%1$s\">WPML</a>과는 호환되지 않습니다."
+
+#. translators: Admin notice shown when the plugin is active but WPML's own setup is unfinished.
+#: inc/class-wcml-dependencies.php:140
+msgid "WPML Multilingual & Multicurrency for WooCommerce is enabled but not effective. Please finish the installation of WPML first."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 활성화되었지만 적용되지 않았습니다. 먼저 WPML 설치를 완료하세요."
+
+#. translators: %1$s is a URL and %2$s is a version number
+#: inc/class-wcml-dependencies.php:152
+#, php-format
+msgid "WPML Multilingual & Multicurrency for WooCommerce is enabled but not effective. It is not compatible with  <a href=\"%1$s\">Woocommerce</a> versions prior %2$s."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 활성화되었지만 적용되지 않았습니다. %2$s 이전 버전의 <a href=\"%1$s\">Woocommerce</a>와는 호환되지 않습니다."
+
+#. translators: %1$s is a URL and %2$s is a version number
+#: inc/class-wcml-dependencies.php:172
+#, php-format
+msgid "WPML Multilingual & Multicurrency for WooCommerce is enabled but not effective. It is not compatible with  <a href=\"%1$s\">WPML String Translation</a> versions prior %2$s."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 활성화되었지만 적용되지 않았습니다. %2$s 이전 버전의 <a href=\"%1$s\">WPML String Translation</a>과는 호환되지 않습니다."
+
+#. translators: Link text that opens the WPML support forum, inside an admin notice.
+#: inc/class-wcml-dependencies.php:205
+msgid "WPML support"
+msgstr "WPML 지원"
+
+#. translators: Part 1/6 of a message telling users that some taxonomies, required for WCML to work, are not set as translatable when they should
+#: inc/class-wcml-dependencies.php:208
+msgctxt "Default taxonomies must be translatable: 1/6"
+msgid "Some taxonomies in your site are forced to be untranslatable. This is causing a problem when you're trying to run a multilingual WooCommerce site."
+msgstr "사이트의 일부 분류 체계가 번역 불가능으로 강제 설정되어 있습니다. 이로 인해 다국어 WooCommerce 사이트를 운영하려고 할 때 문제가 발생하고 있습니다."
+
+#. translators: Part 2/6 of a message telling users that some taxonomies, required for WCML to work, are not set as translatable when they should
+#: inc/class-wcml-dependencies.php:210
+msgctxt "Default taxonomies must be translatable: 2/6"
+msgid "A plugin or the theme are probably doing this."
+msgstr "플러그인이나 테마가 이 작업을 수행하고 있을 가능성이 높습니다."
+
+#. translators: Part 3/6 of a message telling users that some taxonomies, required for WCML to work, are not set as translatable when they should
+#: inc/class-wcml-dependencies.php:212
+msgctxt "Default taxonomies must be translatable: 3/6"
+msgid "What you can do:"
+msgstr "수행할 수 있는 작업:"
+
+#. translators: Part 4/6 of a message telling users that some taxonomies, required for WCML to work, are not set as translatable when they should
+#: inc/class-wcml-dependencies.php:214
+msgctxt "Default taxonomies must be translatable: 4/6"
+msgid "1. Temporarily disable plugins and see if this message disappears."
+msgstr "1. 일시적으로 플러그인을 비활성화하고 이 메시지가 사라지는지 확인합니다."
+
+#. translators: Part 5/6 of a message telling users that some taxonomies, required for WCML to work, are not set as translatable when they should
+#: inc/class-wcml-dependencies.php:216
+msgctxt "Default taxonomies must be translatable: 5/6"
+msgid "2. Temporarily switch the theme and see if this message disappears."
+msgstr "2. 일시적으로 테마를 전환하고 이 메시지가 사라지는지 확인합니다."
+
+#. translators: Part 6 of 6 of the admin notice about product taxonomies that were forced to be untranslatable. %s: a link reading "WPML support".
+#: inc/class-wcml-dependencies.php:218
+#, php-format
+msgctxt "Default taxonomies must be translatable: 6/6"
+msgid "It's best to contact %s, tell that you're getting this message and offer to send a Duplicator copy of the site. We will work with the theme/plugin author and fix the problem for good. In the meanwhile, we'll give you a temporary solution, so you're not stuck."
+msgstr "가장 좋은 방법은 %s에 연락하여 이 메시지가 표시된다고 알리고 사이트의 Duplicator 복사본을 보내겠다고 제안하는 것입니다. 저희가 테마/플러그인 제작자와 협력하여 문제를 완전히 해결하겠습니다. 그동안 작업이 중단되지 않도록 임시 해결책을 제공해 드리겠습니다."
+
+#. translators: The word joining the last two names of a list of missing plugins, with a space on each side. Conjunction, lower case.
+#: inc/class-wcml-dependencies.php:278
+msgid "and"
+msgstr "및"
+
+#. translators: %s is a list of plugin names
+#: inc/class-wcml-dependencies.php:286
+#, php-format
+msgid "WPML Multilingual & Multicurrency for WooCommerce is enabled but not effective. It requires %s in order to work."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 활성화되었지만 적용되지 않았습니다. 작동하려면 %s이(가) 필요합니다."
+
+#. translators: %1$s: opening link tag to the Plugins admin screen, %2$s: plugin name, %3$s: closing link tag
+#: inc/class-wcml-dependencies.php:292
+#, php-format
+msgid "Please %1$sactivate %2$s%3$s."
+msgstr "%1$s%2$s%3$s을(를) 활성화하세요."
+
+#. translators: Admin notice shown when the plugin is active but the plugins it needs are missing.
+#: inc/class-wcml-dependencies.php:314
+msgid "WPML Multilingual & Multicurrency for WooCommerce is enabled but not effective."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 활성화되었지만 적용되지 않았습니다."
+
+#. translators: First line of the admin notice about the site's permalink structure.
+#: inc/class-wcml-dependencies.php:338
+msgid "Because this site uses the default permalink structure, you cannot use slug translation for product permalinks."
+msgstr "이 사이트는 기본 고유주소 구조를 사용하므로 상품 고유주소에 슬러그 번역을 사용할 수 없습니다."
+
+#. translators: Second line of the admin notice about the site's permalink structure.
+#: inc/class-wcml-dependencies.php:341
+msgid "Please choose a different permalink structure or disable slug translation."
+msgstr "다른 고유주소 구조를 선택하거나 슬러그 번역을 비활성화하세요."
+
+#. translators: Link text at the end of the permalink notice; it opens the WordPress permalink settings.
+#: inc/class-wcml-dependencies.php:344
+msgid "Permalink settings"
+msgstr "고유주소 설정"
+
+#. translators: Link text at the end of the permalink notice; it opens WPML's setting for translating the product URL slug. Verb phrase, imperative.
+#: inc/class-wcml-dependencies.php:347
+msgid "Configure products slug translation"
+msgstr "상품 슬러그 번역 구성"
+
+#. translators: Admin error shown when the plugin's own configuration file is missing. Keep the file name in English.
+#: inc/class-wcml-dependencies.php:379
+msgid "wpml-config.xml file missing from WPML Multilingual & Multicurrency for WooCommerce folder."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce 폴더에 wpml-config.xml 파일이 없습니다."
+
+#. translators: %s is a field name
+#: inc/class-wcml-dependencies.php:412
+#, php-format
+msgid "Custom field %s configuration from wpml-config.xml file was altered!"
+msgstr "wpml-config.xml 파일의 사용자 정의 필드 %s 구성이 변경되었습니다!"
+
+#. translators: %s is a custom post type name
+#: inc/class-wcml-dependencies.php:444
+#, php-format
+msgid "Custom type %s configuration from wpml-config.xml file was altered!"
+msgstr "wpml-config.xml 파일의 사용자 정의 유형 %s 구성이 변경되었습니다!"
+
+#. translators: %s is a custom taxonomy name
+#: inc/class-wcml-dependencies.php:476
+#, php-format
+msgid "Custom taxonomy %s configuration from wpml-config.xml file was altered!"
+msgstr "wpml-config.xml 파일의 사용자 정의 분류 체계 %s 구성이 변경되었습니다!"
+
+#. translators: %1$s and %2$s are opening and closing HTML italic tags and %3$s and %4$s are opening and closing HTML link tags
+#: inc/class-wcml-install.php:288
+#, php-format
+msgid "We detected a problem in your WPML configuration: the %1$sproduct_type%2$s taxonomy is set as translatable and this would cause problems with translated products. You can fix this in the %3$sMultilingual Content Setup page%4$s."
+msgstr "WPML 구성에서 문제를 발견했습니다: %1$sproduct_type%2$s 분류 체계가 번역 가능으로 설정되어 있으며, 이는 번역된 상품에 문제를 일으킬 수 있습니다. %3$s다국어 콘텐츠 설정 페이지%4$s에서 이를 수정할 수 있습니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML italic tags and %3$s and %4$s are opening and closing HTML link tags
+#: inc/class-wcml-install.php:304
+#, php-format
+msgid "We detected that the %1$sproduct_type%2$s field was set incorrectly for some product translations. This happened because the product_type taxonomy was translated. You can fix this in the WPML Multilingual & Multicurrency for WooCommerce %3$stroubleshooting page%4$s."
+msgstr "일부 상품 번역에 대해 %1$sproduct_type%2$s 필드가 잘못 설정된 것을 발견했습니다. 이는 product_type 분류 체계가 번역되었기 때문에 발생했습니다. WPML Multilingual & Multicurrency for WooCommerce %3$s문제 해결 페이지%4$s에서 이를 수정할 수 있습니다."
+
+#. translators: Message shown while the plugin downloads its own translations in the background.
+#: inc/class-wcml-languages-upgrader.php:121
+msgid "Downloading translations... Please don't close this page."
+msgstr "번역 다운로드 중... 이 페이지를 닫지 마세요."
+
+#. translators: Label of the dropdown that sets an order's language, in the order editor.
+#: inc/class-wcml-orders.php:221
+msgid "Order language:"
+msgstr "주문 언어:"
+
+#. translators: Confirmation the shop owner sees before changing an order's language in the order editor.
+#: inc/class-wcml-orders.php:238
+msgid "All the products will be removed from the current order in order to change the language"
+msgstr "언어를 변경하기 위해 현재 주문에서 모든 상품이 제거됩니다"
+
+#. translators: %s is the post title
+#: inc/class-wcml-products.php:243
+#, php-format
+msgid "Quick edit \"%s\" inline"
+msgstr "“%s” 인라인 빠른 편집"
+
+#. translators: Link text in the products list that opens WordPress's inline editor. "Quick Edit" is the WordPress feature name; translate it the same way WordPress does.
+#: inc/class-wcml-products.php:248
+msgid "Quick Edit"
+msgstr "빠른 편집"
+
+#. translators: Confirmation notice shown after the plugin's settings were stored.
+#: inc/class-wcml-requests.php:168
+#: inc/currencies/class-wcml-multi-currency-configuration.php:107
+msgid "Your settings have been saved."
+msgstr "설정이 저장되었습니다."
+
+#. translators: Error page shown when the logged-in user is not allowed to run the request.
+#: inc/class-wcml-requests.php:226
+msgid "You do not have permission to perform this action."
+msgstr "이 작업을 수행할 권한이 없습니다."
+
+#. translators: Button label in WPML's translation editor for a product that opens the file picker. Verb phrase, imperative.
+#: inc/class-wcml-resources.php:266
+msgid "Choose a file"
+msgstr "파일 선택"
+
+#. translators: Tooltip of the disabled save button in WPML's translation editor for a product.
+#: inc/class-wcml-resources.php:268
+msgid "At least one of these fields is required: title, content or excerpt"
+msgstr "제목, 내용 또는 요약문 중 하나 이상의 필드가 필요합니다"
+
+#. translators: Tooltip of the button that gives a translation job back, in WPML's translation editor for a product.
+#: inc/class-wcml-resources.php:270
+msgid "This translation job will no longer be assigned to you. Other translators will be able take it and continue the translation."
+msgstr "이 번역 작업은 더 이상 귀하에게 할당되지 않습니다. 다른 번역가가 작업을 가져와 번역을 계속할 수 있습니다."
+
+#. translators: Tooltip and alternative text of the padlock icon next to a field the translator may not change; "its value" is the field's value.
+#: inc/class-wcml-resources.php:373
+msgid "This field is locked for editing because WPML will copy its value from the original language."
+msgstr "WPML이 원본 언어의 값을 복사하므로 이 필드는 편집할 수 없도록 잠겨 있습니다."
+
+#. translators: %1$s is the post title inside a HTML link pointing to the post edit screen, %2$s and %3$s are opening and closing HTML link tags
+#: inc/class-wcml-resources.php:393
+#, php-format
+msgid "This is a translation of %1$s. Some of the fields are not editable. It's recommended that you translate products from the %2$sTranslation Dashboard%3$s."
+msgstr "이것은 %1$s의 번역본입니다. 일부 필드는 편집할 수 없습니다. %2$s번역 대시보드%3$s에서 상품을 번역하는 것이 권장됩니다."
+
+#. translators: Name of the WooCommerce cart page, and the heading of the cart section of the plugin's settings. Noun.
+#: inc/class-wcml-store-pages.php:397
+#: inc/template-classes/class-wcml-settings-ui.php:113
+msgid "Cart"
+msgstr "장바구니"
+
+#. translators: Name of the WooCommerce checkout page. Noun, the page where the shopper pays.
+#: inc/class-wcml-store-pages.php:399
+msgid "Checkout"
+msgstr "결제"
+
+#. translators: Name of the WooCommerce payment page. Keep the arrow: it says the page sits under Checkout. "Pay" is a verb.
+#: inc/class-wcml-store-pages.php:401
+msgid "Checkout &rarr; Pay"
+msgstr "결제 &rarr; 지불"
+
+#. translators: Name of the WooCommerce page shown after a successful payment.
+#: inc/class-wcml-store-pages.php:403
+msgid "Order Received"
+msgstr "주문 완료"
+
+#. translators: Name of the WooCommerce page where a shopper manages their account.
+#: inc/class-wcml-store-pages.php:405
+msgid "My Account"
+msgstr "내 계정"
+
+#. translators: Name of the WooCommerce page where a shopper changes their password. Verb phrase.
+#: inc/class-wcml-store-pages.php:407
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+#. translators: Name of the WooCommerce page where a shopper edits their billing and delivery address. Verb phrase.
+#: inc/class-wcml-store-pages.php:409
+msgid "Edit My Address"
+msgstr "내 주소 편집"
+
+#. translators: Name of the WooCommerce page that signs the shopper out.
+#: inc/class-wcml-store-pages.php:411
+msgid "Logout"
+msgstr "로그아웃"
+
+#. translators: Name of the WooCommerce page where a shopper asks for a new password.
+#: inc/class-wcml-store-pages.php:413
+msgid "Lost Password"
+msgstr "비밀번호 분실"
+
+#. translators: Name of the WooCommerce page showing one order. Verb phrase.
+#: inc/class-wcml-store-pages.php:415
+msgid "View Order"
+msgstr "주문 보기"
+
+#. translators: Name of the WooCommerce page listing the products. Noun.
+#: inc/class-wcml-store-pages.php:417
+msgid "Shop"
+msgstr "상점"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/class-wcml-store-pages.php:737
+#, php-format
+msgid "To quickly translate this and other WooCommerce store pages, please run the %1$ssetup wizard%2$s."
+msgstr "이 페이지와 다른 WooCommerce 상점 페이지를 빠르게 번역하려면 %1$s설정 마법사%2$s를 실행하세요."
+
+#. translators: %1$s/%2$s and %3$s/%4$s are opening and closing HTML link tags
+#: inc/class-wcml-terms.php:108
+#, php-format
+msgid "To translate %1$s please use the %2$s translation%3$s page, inside the %4$sWPML Multilingual & Multicurrency for WooCommerce admin%5$s."
+msgstr "%1$s을(를) 번역하려면 %4$sWPML Multilingual & Multicurrency for WooCommerce 관리자%5$s 내의 %2$s 번역%3$s 페이지를 사용하세요."
+
+#. translators: %d is a number of products
+#: inc/class-wcml-terms.php:493
+#, php-format
+msgid "%d products left"
+msgstr "%d개의 상품 남음"
+
+#. translators: Message shown when copying a taxonomy's terms to the other languages has finished.
+#: inc/class-wcml-terms.php:497
+msgid "Synchronization complete!"
+msgstr "동기화 완료!"
+
+#. translators: %s is a taxonomy name
+#: inc/class-wcml-terms.php:539
+#: inc/class-wcml-terms.php:575
+#, php-format
+msgid "Invalid taxonomy %s"
+msgstr "유효하지 않은 분류 체계 %s"
+
+#. translators: Line on the taxonomy synchronisation screen. %1$s: the plural name of the content type, for example "products", %2$s: the plural name of the taxonomy, for example "product categories". Both arrive in bold.
+#: inc/class-wcml-terms.php:723
+#, php-format
+msgid "Some translated %1$s have different %2$s assignments."
+msgstr "일부 번역된 %1$s에 다른 %2$s 할당이 있습니다."
+
+#. translators: Button label on the taxonomy synchronisation screen. %1$s: the plural name of the taxonomy, %2$s: the plural name of the content type. Both arrive in bold. Verb phrase, imperative.
+#: inc/class-wcml-terms.php:729
+#, php-format
+msgid "Update %1$s for all translated %2$s"
+msgstr "모든 번역된 %2$s에 대해 %1$s 업데이트"
+
+#. translators: %1$s is a taxonomy name and %2$s is a post type name
+#: inc/class-wcml-terms.php:738
+#, php-format
+msgid "All %1$s have the same %2$s assignments."
+msgstr "모든 %1$s에 동일한 %2$s 할당이 있습니다."
+
+#. translators: %1$s is a taxonomy name and %2$s is a post type name
+#: inc/class-wcml-terms.php:748
+#, php-format
+msgid "Successfully updated %1$s for all translated %2$s."
+msgstr "모든 번역된 %2$s에 대해 %1$s을(를) 성공적으로 업데이트했습니다."
+
+#. translators: Name of the URL part that precedes every product address, on the plugin's store URLs screen.
+#: inc/class-wcml-url-translation.php:885
+msgid "Product Base"
+msgstr "상품 주소 기준"
+
+#. translators: Name of the URL part that precedes every product-tag address, on the plugin's store URLs screen.
+#: inc/class-wcml-url-translation.php:891
+msgid "Product Tag Base"
+msgstr "상품 태그 기준"
+
+#. translators: Name of the URL part that precedes every product-category address, on the plugin's store URLs screen.
+#: inc/class-wcml-url-translation.php:897
+msgid "Product Category Base"
+msgstr "상품 카테고리 기준"
+
+#. translators: Name of the URL part that precedes every product-attribute address, on the plugin's store URLs screen.
+#: inc/class-wcml-url-translation.php:903
+msgid "Product Attribute Base"
+msgstr "상품 속성 기준"
+
+#. translators: Name of the URL part of one product attribute, on the plugin's store URLs screen.
+#: inc/class-wcml-url-translation.php:909
+msgid "Attribute Slug"
+msgstr "속성 슬러그"
+
+#. translators: %s is a slug
+#: inc/class-wcml-url-translation.php:918
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:92
+#, php-format
+msgid "Endpoint: %s"
+msgstr "엔드포인트: %s"
+
+#. translators: Warning under the product-category URL field when it repeats the site's post-category URL part.
+#: inc/class-wcml-wc-strings.php:297
+msgid "You are using the same value as for the regular category base. This is known to create conflicts resulting in urls not working properly."
+msgstr "일반 카테고리 기준과 동일한 값을 사용하고 있습니다. 이는 URL이 제대로 작동하지 않는 충돌을 일으키는 것으로 알려져 있습니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/class-wcml-wc-strings.php:458
+#, php-format
+msgid "To translate attributes, go to the %1$sTranslation Dashboard%2$s and send the associated product for translation."
+msgstr "속성을 번역하려면 %1$s번역 대시보드%2$s로 이동하여 관련 상품을 번역으로 보내세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/currencies/class-wcml-multi-currency-configuration.php:276
+#, php-format
+msgid "The default currency was changed. In order to show accurate prices in all currencies, you need to update the exchange rates under the %1$sMulti-currency%2$s configuration."
+msgstr "기본 통화가 변경되었습니다. 모든 통화에서 정확한 가격을 표시하려면 %1$s다중 통화%2$s 구성에서 환율을 업데이트해야 합니다."
+
+#. translators: First entry of the currency filter above the orders list: do not filter by currency.
+#: inc/currencies/class-wcml-multi-currency-orders.php:77
+msgid "Show all currencies"
+msgstr "모든 통화 표시"
+
+#. translators: Label of the dropdown that sets an order's currency, in the order editor.
+#: inc/currencies/class-wcml-multi-currency-orders.php:168
+msgid "Order currency:"
+msgstr "주문 통화:"
+
+#. translators: Confirmation the shop owner sees before changing an order's currency in the order editor.
+#: inc/currencies/class-wcml-multi-currency-orders.php:182
+msgid "All the products will be removed from the current order in order to change the currency"
+msgstr "통화를 변경하기 위해 현재 주문에서 모든 상품이 제거됩니다"
+
+#. translators: Confirmation shown after the currencies were dragged into a new order on the multicurrency screen; "order" here is the sequence they are listed in, not a purchase.
+#: inc/currencies/currency-switcher/class-wcml-currency-switcher-ajax.php:37
+msgid "Currencies order updated"
+msgstr "통화 순서가 업데이트되었습니다"
+
+#. translators: Name of the WordPress uploads folder, shown in front of a currency-switcher template's name to say where the template file lives.
+#: inc/currencies/currency-switcher/class-wcml-currency-switcher-templates.php:334
+msgid "Uploads"
+msgstr "업로드"
+
+#. translators: Name of the widget in the WordPress widgets screen; it lets a shopper change currency.
+#: inc/currencies/currency-switcher/class-wcml-currency-switcher-widget.php:11
+msgid "Currency switcher"
+msgstr "통화 전환기"
+
+#. translators: Button label in the currency-switcher widget that opens its settings. Verb phrase, imperative.
+#: inc/currencies/currency-switcher/class-wcml-currency-switcher-widget.php:54
+msgid "Customize the currency switcher"
+msgstr "통화 전환기 사용자 정의"
+
+#. translators: Message shown in place of the currency switcher preview, the exchange-rates table and the status list while the shop has only one currency.
+#: inc/currencies/currency-switcher/class-wcml-currency-switcher.php:131
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:41
+#: inc/template-classes/status/class-wcml-status-multi-currencies-ui.php:36
+msgid "You haven't added any secondary currencies."
+msgstr "보조 통화를 추가하지 않았습니다."
+
+#. translators: Label of the checkbox on a downloadable product that overrides the shop-wide setting for translated download files.
+#: inc/template-classes/class-wcml-custom-files-ui.php:29
+msgid "Use custom settings for translations download files"
+msgstr "번역 다운로드 파일에 사용자 정의 설정 사용"
+
+#. translators: Label of the option that gives every translation of a product the same download files.
+#: inc/template-classes/class-wcml-custom-files-ui.php:31
+#: inc/template-classes/class-wcml-settings-ui.php:85
+msgid "Use the same files for translations"
+msgstr "번역에 동일한 파일 사용"
+
+#. translators: Label of the option that gives each translation of this product its own download files.
+#: inc/template-classes/class-wcml-custom-files-ui.php:33
+msgid "Add separate download files for translations when you translate this product"
+msgstr "이 상품을 번역할 때 번역용 별도 다운로드 파일 추가"
+
+#. translators: Warning shown on the plugin's screens when product categories, tags or attributes are still untranslated.
+#: inc/template-classes/class-wcml-menus-wrap.php:39
+#: inc/template-classes/class-wcml-sync-taxonomy.php:56
+msgid "You have untranslated terms!"
+msgstr "번역되지 않은 용어가 있습니다!"
+
+#. translators: Tab title and card title of the screen where the shop's URL parts are translated.
+#: inc/template-classes/class-wcml-menus-wrap.php:62
+#: inc/template-classes/class-wcml-multilingual-ui.php:98
+msgid "Store URLs"
+msgstr "상점 URL"
+
+#. translators: Tab title and heading of the screen with the plugin's diagnostic checks. Noun.
+#: inc/template-classes/class-wcml-menus-wrap.php:68
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:59
+msgid "Status"
+msgstr "상태"
+
+#. translators: Tab title and heading of the screen with the plugin's repair tools.
+#: inc/template-classes/class-wcml-menus-wrap.php:74
+#: inc/template-classes/class-wcml-settings-ui.php:169
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:53
+#: inc/template-classes/status/class-wcml-status-ui.php:55
+msgid "Troubleshooting"
+msgstr "문제 해결"
+
+#. translators: Card title and button label that open WPML's Translation Dashboard filtered to products. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-multilingual-ui.php:39
+#: inc/template-classes/class-wcml-multilingual-ui.php:46
+#: inc/template-classes/class-wcml-multilingual-ui.php:107
+#: inc/template-classes/status/class-wcml-status-products-ui.php:39
+msgid "Translate Products"
+msgstr "상품 번역"
+
+#. translators: Description under the "Translate Products" card; the arrow separates the WPML menu item from the screen inside it. Both are WPML screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:41
+msgid "Go to WPML &rarr; Translation Dashboard to translate Products"
+msgstr "상품을 번역하려면 WPML &rarr; 번역 대시보드로 이동하세요"
+
+#. translators: Card title and button label that open WPML's Taxonomy Translation screen. Verb phrase, imperative; "taxonomy" covers product categories, tags and attributes.
+#: inc/template-classes/class-wcml-multilingual-ui.php:51
+#: inc/template-classes/class-wcml-multilingual-ui.php:58
+msgid "Translate Taxonomy"
+msgstr "분류 체계 번역"
+
+#. translators: Description under the "Translate Taxonomy" card; the arrow separates the WPML menu item from the screen inside it. Both are WPML screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:53
+msgid "Go to WPML &rarr; Taxonomy Translation to translate Taxonomy terms manually"
+msgstr "분류 체계 용어를 수동으로 번역하려면 WPML &rarr; 분류 체계 번역으로 이동하세요"
+
+#. translators: Text of the toggle that opens the manual translation links on the plugin's multilingual screen.
+#: inc/template-classes/class-wcml-multilingual-ui.php:64
+msgid "Prefer to translate manually?"
+msgstr "수동으로 번역하시겠습니까?"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/class-wcml-multilingual-ui.php:67
+#, php-format
+msgid "To manually translate products, go to %1$sProducts%2$s and click on the \"plus\" icon."
+msgstr "상품을 수동으로 번역하려면 %1$s상품%2$s으로 이동하여 “플러스” 아이콘을 클릭하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/class-wcml-multilingual-ui.php:73
+#, php-format
+msgid "To manually translate product categories, tags and attributes, go to %1$sWPML &rarr; Taxonomy Translation%2$s."
+msgstr "상품 카테고리, 태그 및 속성을 수동으로 번역하려면 %1$sWPML &rarr; 분류 체계 번역%2$s으로 이동하세요."
+
+#. translators: Heading of the section of cards about translating the shop. Noun, singular.
+#: inc/template-classes/class-wcml-multilingual-ui.php:94
+msgid "Translation"
+msgstr "번역"
+
+#. translators: Description under the "Store URLs" card; the arrows separate the WPML menu items, which are screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:100
+msgid "Translate the WooCommerce slugs (Shop, Product base, etc.) at WPML → Translations → Store URLs."
+msgstr "WPML → 번역 → 상점 URL에서 WooCommerce 슬러그(상점, 상품 기준 등)를 번역하세요."
+
+#. translators: button label on the legacy WCML directory page
+#: inc/template-classes/class-wcml-multilingual-ui.php:103
+msgid "Open Store URLs ›"
+msgstr "상점 URL 열기 ›"
+
+#. translators: Description under the "Translate Products" card; the arrows separate the WPML menu items, which are screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:109
+msgid "Go to WPML → Translations → Dashboard to translate Products."
+msgstr "상품을 번역하려면 WPML → 번역 → 대시보드로 이동하세요."
+
+#. translators: Button label on the "Translate Products" card. Verb phrase, imperative; keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:112
+msgid "Translate Products ›"
+msgstr "상품 번역 ›"
+
+#. translators: Card title on the plugin's multilingual screen. Verb phrase, imperative; "taxonomies" covers product categories, tags and attributes.
+#: inc/template-classes/class-wcml-multilingual-ui.php:116
+msgid "Translate product taxonomies"
+msgstr "상품 분류 체계 번역"
+
+#. translators: Description under the "Translate product taxonomies" card; the arrows separate the WPML menu items, which are screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:118
+msgid "Go to WPML → Translations → Taxonomy to translate product categories, tags and attributes."
+msgstr "상품 카테고리, 태그 및 속성을 번역하려면 WPML → 번역 → 분류 체계로 이동하세요."
+
+#. translators: Button label on the "Translate product taxonomies" card. Verb phrase, imperative; keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:121
+msgid "Translate Taxonomies ›"
+msgstr "분류 체계 번역 ›"
+
+#. translators: Description under the "WCML" card; the arrows separate the WPML menu items, which are screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:133
+msgid "Products, media, downloads, reviews, cart and the variation translation sync — all in WPML → Settings → WCML."
+msgstr "상품, 미디어, 다운로드, 리뷰, 장바구니 및 변형 번역 동기화 — 모두 WPML → 설정 → WCML에 있습니다."
+
+#. translators: Button label on the "WCML" card. Verb phrase, imperative; keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:136
+msgid "Open WCML Settings ›"
+msgstr "WCML 설정 열기 ›"
+
+#. translators: Description under the "Multicurrency" card; the arrows separate the WPML menu items, which are screen names.
+#: inc/template-classes/class-wcml-multilingual-ui.php:142
+msgid "Configure currencies, exchange rates and currency switchers at WPML → Settings → Multicurrency."
+msgstr "WPML → 설정 → 다중 통화에서 통화, 환율 및 통화 전환기를 구성하세요."
+
+#. translators: Button label on the "Multicurrency" card. Verb phrase, imperative; keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:145
+msgid "Open Multicurrency ›"
+msgstr "다중 통화 열기 ›"
+
+#. translators: Heading of the section of cards about diagnosing and repairing the shop. Noun.
+#: inc/template-classes/class-wcml-multilingual-ui.php:151
+msgid "Support"
+msgstr "지원"
+
+#. translators: Card title that opens the plugin's diagnostic screen. "WCML" is the plugin's short name and stays in English.
+#: inc/template-classes/class-wcml-multilingual-ui.php:155
+msgid "WCML status"
+msgstr "WCML 상태"
+
+#. translators: Description under the "WCML status" card.
+#: inc/template-classes/class-wcml-multilingual-ui.php:157
+msgid "Diagnostic checks for store pages, products, taxonomies, multicurrency and plugins."
+msgstr "상점 페이지, 상품, 분류 체계, 다중 통화 및 플러그인에 대한 진단 확인."
+
+#. translators: Button label on the "WCML status" card. Verb phrase, imperative; keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:160
+msgid "Open WCML status ›"
+msgstr "WCML 상태 열기 ›"
+
+#. translators: Card title that opens the plugin's safe repair tools. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-multilingual-ui.php:164
+msgid "Fix WCML translations"
+msgstr "WCML 번역 수정"
+
+#. translators: Description under the "Fix WCML translations" card.
+#: inc/template-classes/class-wcml-multilingual-ui.php:166
+msgid "Safe bulk tools to sync product variations, galleries and stock; register missing reviews; create missing attribute translations."
+msgstr "상품 변형, 갤러리 및 재고를 동기화하고, 누락된 리뷰를 등록하며, 누락된 속성 번역을 생성하는 안전한 일괄 도구입니다."
+
+#. translators: Button label on the "Fix WCML translations" card; the words after "Open" are that card's own title. Keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:169
+msgid "Open Fix WCML translations ›"
+msgstr "WCML 번역 수정 열기 ›"
+
+#. translators: Card title that opens the read-only list of the plugin's settings.
+#: inc/template-classes/class-wcml-multilingual-ui.php:173
+msgid "WCML configuration log"
+msgstr "WCML 구성 로그"
+
+#. translators: Description under the "WCML configuration log" card.
+#: inc/template-classes/class-wcml-multilingual-ui.php:175
+msgid "Read-only snapshot of the WCML configuration. Copy when WPML Support asks."
+msgstr "WCML 구성의 읽기 전용 스냅샷입니다. WPML 지원팀에서 요청할 때 복사하세요."
+
+#. translators: Button label on the "WCML configuration log" card; the words after "Open" are that card's own title. Keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:178
+msgid "Open WCML configuration log ›"
+msgstr "WCML 구성 로그 열기 ›"
+
+#. translators: Card title that opens the plugin's advanced repair tools.
+#: inc/template-classes/class-wcml-multilingual-ui.php:182
+msgid "WCML translation maintenance"
+msgstr "WCML 번역 유지 관리"
+
+#. translators: Description under the "WCML translation maintenance" card.
+#: inc/template-classes/class-wcml-multilingual-ui.php:184
+msgid "Advanced repair tools — only run when WPML Support asks you to."
+msgstr "고급 복구 도구 — WPML 지원팀에서 요청할 때만 실행하세요."
+
+#. translators: Button label on the "WCML translation maintenance" card; the words after "Open" are that card's own title. Keep the arrow at the end.
+#: inc/template-classes/class-wcml-multilingual-ui.php:187
+msgid "Open WCML translation maintenance ›"
+msgstr "WCML 번역 유지 관리 열기 ›"
+
+#. translators: Introduction at the top of the plugin's multilingual screen, above the cards.
+#: inc/template-classes/class-wcml-multilingual-ui.php:193
+msgid "WPML is installed on this site, so WCML's controls have moved into WPML. Pick the area you need."
+msgstr "이 사이트에 WPML이 설치되어 있으므로 WCML의 제어 기능이 WPML로 이동되었습니다. 필요한 영역을 선택하세요."
+
+#. translators: Label of the checkbox that lets a product attribute's values be translated, on the attribute screen. Adjective, asked as a question.
+#: inc/template-classes/class-wcml-not-translatable-attributes.php:32
+msgid "Translatable?"
+msgstr "번역 가능합니까?"
+
+#. translators: Explanation under the "Translatable?" checkbox; "this" is the checkbox.
+#: inc/template-classes/class-wcml-not-translatable-attributes.php:34
+msgid "Enable this if you want to translate attribute values with WPML Multilingual & Multicurrency for WooCommerce"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce로 속성 값을 번역하려면 이 옵션을 활성화하세요"
+
+#. translators: Warning shown when the "Translatable?" checkbox of a product attribute is turned off.
+#: inc/template-classes/class-wcml-not-translatable-attributes.php:36
+msgid "Existing translations and variations associated will be deleted."
+msgstr "기존 번역 및 관련 변형이 삭제됩니다."
+
+#. translators: %s is a currency or language name
+#: inc/template-classes/class-wcml-removed-cart-items-ui.php:44
+#, php-format
+msgid "Products removed after switching to %s:"
+msgstr "%s(으)로 전환한 후 제거된 상품:"
+
+#. translators: Button label that empties the list of products removed from the cart. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-removed-cart-items-ui.php:48
+msgid "Clear list"
+msgstr "목록 지우기"
+
+#. translators: Heading of the section of the plugin's settings that copies product properties to the translations.
+#: inc/template-classes/class-wcml-settings-ui.php:47
+msgid "Products Synchronization"
+msgstr "상품 동기화"
+
+#. translators: Tooltip of the "Products Synchronization" section heading.
+#: inc/template-classes/class-wcml-settings-ui.php:49
+msgid "Configure specific product properties that should be synced to translations."
+msgstr "번역으로 동기화되어야 하는 특정 상품 속성을 구성합니다."
+
+#. translators: Label of the checkbox that copies a product's publishing date to its translations.
+#: inc/template-classes/class-wcml-settings-ui.php:53
+msgid "Sync publishing date for translated products."
+msgstr "번역된 상품의 발행 날짜를 동기화합니다."
+
+#. translators: Label of the checkbox that copies the manual sort order of products and their categories to the translations; "order" here is the sequence they are listed in, not a purchase.
+#: inc/template-classes/class-wcml-settings-ui.php:58
+msgid "Sync products and product taxonomies order."
+msgstr "상품 및 상품 분류 체계 순서를 동기화합니다."
+
+#. translators: Heading of the section of the plugin's settings that copies product images to the translations.
+#: inc/template-classes/class-wcml-settings-ui.php:64
+msgid "Products Media Synchronization"
+msgstr "상품 미디어 동기화"
+
+#. translators: Tooltip of the "Products Media Synchronization" section heading.
+#: inc/template-classes/class-wcml-settings-ui.php:66
+msgid "Configure thumbnail and gallery synchronization to translations."
+msgstr "번역으로의 썸네일 및 갤러리 동기화를 구성합니다."
+
+#. translators: Label of the checkbox that falls back to the original product's images when a translation has none.
+#: inc/template-classes/class-wcml-settings-ui.php:70
+msgid "Display original images on the translated product front page if images not specified"
+msgstr "이미지가 지정되지 않은 경우 번역된 상품 프런트 페이지에 원본 이미지 표시"
+
+#. translators: Heading of the section of the plugin's settings that controls the files a downloadable product's translations offer.
+#: inc/template-classes/class-wcml-settings-ui.php:76
+msgid "Products Download Files"
+msgstr "상품 다운로드 파일"
+
+#. translators: Tooltip of the "Products Download Files" section heading. The line break and spacing are only how the text is laid out in the file; translate it as one sentence.
+#: inc/template-classes/class-wcml-settings-ui.php:78
+msgid ""
+"If you are using downloadable products, you can choose to have their paths\n"
+"                                            synchronized, or seperate for each language."
+msgstr "다운로드 가능한 상품을 사용하는 경우, 해당 경로를 \n 동기화하거나 각 언어별로 별도로 설정할 수 있습니다."
+
+#. translators: Label of the option that gives each translated product its own download files, in the plugin's settings.
+#: inc/template-classes/class-wcml-settings-ui.php:87
+msgid "Add separate download files for translations when translating products"
+msgstr "상품 번역 시 번역용 별도 다운로드 파일 추가"
+
+#. translators: Heading of the section of the plugin's settings about how reviews are shown.
+#: inc/template-classes/class-wcml-settings-ui.php:92
+msgid "Product reviews"
+msgstr "상품 리뷰"
+
+#. translators: Tooltip of the "Product reviews" section heading.
+#: inc/template-classes/class-wcml-settings-ui.php:94
+msgid "Define how to display product reviews on the product page by default. The customer will be still able to filter reviews by language."
+msgstr "기본적으로 상품 페이지에 상품 리뷰를 표시하는 방법을 정의합니다. 고객은 여전히 언어별로 리뷰를 필터링할 수 있습니다."
+
+#. translators: Label of the checkbox that shows reviews written in every language on a product page.
+#: inc/template-classes/class-wcml-settings-ui.php:105
+msgid "By default, show reviews in all languages"
+msgstr "기본적으로 모든 언어로 리뷰 표시"
+
+#. translators: Tooltip of the "Cart" section heading in the plugin's settings.
+#: inc/template-classes/class-wcml-settings-ui.php:111
+msgid "You can choose to clear the cart contents when you change language or currency in case you have problems in cart or checkout page"
+msgstr "장바구니나 결제 페이지에 문제가 있는 경우 언어나 통화를 변경할 때 장바구니 내용을 지우도록 선택할 수 있습니다"
+
+#. translators: Heading of the two options that decide what happens to a full cart when the shopper changes language.
+#: inc/template-classes/class-wcml-settings-ui.php:116
+msgid "Switching languages when there are items in the cart"
+msgstr "장바구니에 품목이 있을 때 언어 전환"
+
+#. translators: Label of the first option for a full cart on a language switch: keep the cart and swap the products for their translations.
+#: inc/template-classes/class-wcml-settings-ui.php:118
+msgid "Synchronize cart content when switching languages"
+msgstr "언어 전환 시 장바구니 콘텐츠 동기화"
+
+#. translators: Label of the second option for a full cart on a language or currency switch: ask the shopper first, then empty the cart.
+#: inc/template-classes/class-wcml-settings-ui.php:120
+#: inc/template-classes/class-wcml-settings-ui.php:129
+msgid "Prompt for a confirmation and reset the cart"
+msgstr "확인 메시지 표시 및 장바구니 재설정"
+
+#. translators: Heading of the two options that decide what happens to a full cart when the shopper changes currency.
+#: inc/template-classes/class-wcml-settings-ui.php:125
+msgid "Switching currencies when there are items in the cart"
+msgstr "장바구니에 상품이 있을 때 통화 전환"
+
+#. translators: Label of the first option for a full cart on a currency switch: keep the cart and reprice it.
+#: inc/template-classes/class-wcml-settings-ui.php:127
+msgid "Synchronize cart content when switching currencies"
+msgstr "통화 전환 시 장바구니 콘텐츠 동기화"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/class-wcml-settings-ui.php:135
+#, php-format
+msgid "This feature was disabled. Please enable %1$sWPML cookies%2$s to continue."
+msgstr "이 기능은 비활성화되었습니다. 계속하려면 %1$sWPML 쿠키%2$s를 활성화하세요."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/class-wcml-settings-ui.php:145
+#, php-format
+msgid "Not sure which option to choose? Read about %1$spotential issues when switching languages and currencies while the cart has items%2$s."
+msgstr "어떤 옵션을 선택해야 할지 모르겠나요? %1$s장바구니에 상품이 있는 상태에서 언어 및 통화를 전환할 때 발생할 수 있는 문제%2$s에 대해 읽어보세요."
+
+#. translators: Heading of the setting that picks which editor is used to translate products.
+#: inc/template-classes/class-wcml-settings-ui.php:176
+msgid "Product Translation Interface"
+msgstr "상품 번역 인터페이스"
+
+#. translators: Tooltip of the "Product Translation Interface" heading; "It" is the WPML Translation Editor.
+#: inc/template-classes/class-wcml-settings-ui.php:178
+msgid "The recommended way is using the WPML Translation Editor. It is streamlined for making the translation process much easier while also providing a much better integration with various WooCommerce extensions."
+msgstr "권장되는 방법은 WPML 번역 에디터를 사용하는 것입니다. 이 에디터는 번역 프로세스를 훨씬 쉽게 만들도록 간소화되었으며 다양한 WooCommerce 확장 기능과 훨씬 더 나은 통합을 제공합니다."
+
+#. translators: First option of the product-translation setting; it is the name of WPML's own editing screen.
+#: inc/template-classes/class-wcml-settings-ui.php:184
+msgid "WPML Translation Editor"
+msgstr "WPML 번역 에디터"
+
+#. translators: Second option of the product-translation setting: WooCommerce's own product editor is used instead.
+#: inc/template-classes/class-wcml-settings-ui.php:189
+msgid "Native WooCommerce product editing screen"
+msgstr "기본 WooCommerce 상품 편집 화면"
+
+#. translators: Warning in the dialog shown when the shop owner switches away from the WPML Translation Editor.
+#: inc/template-classes/class-wcml-settings-ui.php:194
+msgid "If you are using a page builder to design WooCommerce products, you should only use WPML's Translation Editor."
+msgstr "페이지 빌더를 사용하여 WooCommerce 상품을 디자인하는 경우 WPML 번역 에디터만 사용해야 합니다."
+
+#. translators: Button that confirms the switch away from the WPML Translation Editor, in the page-builder warning dialog.
+#: inc/template-classes/class-wcml-settings-ui.php:196
+msgid "OK (translate with the WordPress editor)"
+msgstr "확인 (WordPress 에디터로 번역)"
+
+#. translators: Button that keeps the WPML Translation Editor, in the page-builder warning dialog. "Cancel" is the verb: undo the switch.
+#: inc/template-classes/class-wcml-settings-ui.php:198
+msgid "Cancel (stay with the Translation Editor)"
+msgstr "취소 (번역 에디터 유지)"
+
+#. translators: %s is a taxonomy name
+#: inc/template-classes/class-wcml-st-taxonomy-ui.php:19
+#, php-format
+msgid "Set different slugs in different languages for %s on WPML Multilingual & Multicurrency for WooCommerce URLs translations page"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce URL 번역 페이지에서 %s에 대해 언어별로 다른 슬러그 설정"
+
+#. translators: %s is an attribute name
+#: inc/template-classes/class-wcml-st-taxonomy-ui.php:27
+#, php-format
+msgid "To translate the attribute slug, please set the option \"Enable archives?\" for the attribute %s in WooCommerce"
+msgstr "속성 슬러그를 번역하려면 WooCommerce에서 %s 속성에 대해 “아카이브를 활성화하시겠습니까?” 옵션을 설정하세요."
+
+#. translators: Button label on the taxonomy synchronisation screen. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-sync-taxonomy.php:46
+msgid "Synchronize attributes and update product variations"
+msgstr "속성 동기화 및 상품 변형 업데이트"
+
+#. translators: Explanation under the attribute-synchronisation button; "This" is the button's action.
+#: inc/template-classes/class-wcml-sync-taxonomy.php:48
+msgid "This will automatically generate variations for translated products corresponding to recently translated attributes."
+msgstr "최근에 번역된 속성에 해당하는 번역된 상품의 변형을 자동으로 생성합니다."
+
+#. translators: %s is a number of product variations
+#: inc/template-classes/class-wcml-sync-taxonomy.php:50
+#, php-format
+msgid "Currently, there are %s variations that need to be created."
+msgstr "현재 생성해야 할 변형이 %s개 있습니다."
+
+#. translators: %s is a taxonomy name
+#: inc/template-classes/class-wcml-sync-taxonomy.php:52
+#, php-format
+msgid "Synchronize %s assignment in content"
+msgstr "콘텐츠 내 %s 할당 동기화"
+
+#. translators: %s is a taxonomy name
+#: inc/template-classes/class-wcml-sync-taxonomy.php:54
+#, php-format
+msgid "This action lets you automatically apply the %s taxonomy to your content in different languages. It will scan the original content and apply the same taxonomy to translated content."
+msgstr "이 작업을 통해 여러 언어로 된 콘텐츠에 %s 분류 체계를 자동으로 적용할 수 있습니다. 원본 콘텐츠를 스캔하여 번역된 콘텐츠에도 동일한 분류 체계를 적용합니다."
+
+#. translators: Warning at the top of the Troubleshooting screen, above the repair tools.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:55
+msgid "Please make a backup of your database before using these tools"
+msgstr "이 도구를 사용하기 전에 데이터베이스를 백업하십시오"
+
+#. translators: Diagnostic line on the Troubleshooting screen. %s: how many products the shop has, arriving in bold. The brackets around "s" cover both one and several.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:62
+#, php-format
+msgid "There are <strong>%s product(s)</strong> in total."
+msgstr "총 <strong>%s개의 상품</strong>이 있습니다."
+
+#. translators: Diagnostic line on the Troubleshooting screen. %s: how many of the shop's products have variations, arriving in bold. The brackets around "s" cover both one and several.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:64
+#, php-format
+msgid "There are <strong>%s product(s)</strong> with variations."
+msgstr "변형이 있는 상품이 <strong>%s개</strong> 있습니다."
+
+#. translators: Diagnostic line on the Troubleshooting screen. %s: how many product variations the shop has in total, arriving in bold. The brackets around "s" cover both one and several.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:66
+#, php-format
+msgid "There are <strong>%s variation(s)</strong> in total."
+msgstr "총 <strong>%s개의 변형</strong>이 있습니다."
+
+#. translators: Heading of the group of repair tools that copy data from the original products to their translations.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:71
+msgid "Synchronize data into translations"
+msgstr "번역본으로 데이터 동기화"
+
+#. translators: Label of the repair tool that recreates missing variations on translated products. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:74
+msgid "Synchronize product variations"
+msgstr "상품 변형 동기화"
+
+#. translators: Label of the repair tool that copies product image galleries to the translations. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:76
+msgid "Synchronize products image galleries"
+msgstr "상품 이미지 갤러리 동기화"
+
+#. translators: Label of the repair tool that copies a product category's layout and image to its translations. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:78
+msgid "Synchronize metadata for product categories (display type, thumbnail)"
+msgstr "상품 카테고리 메타데이터 동기화 (표시 유형, 썸네일)"
+
+#. translators: Label of the repair tool that copies stock levels to the translations. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:80
+msgid "Synchronize stock for products and product variations"
+msgstr "상품 및 상품 변형 재고 동기화"
+
+#. translators: Heading of the group of repair tools that mend the links between an original and its translations. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:86
+msgid "Fix multilingual information"
+msgstr "다국어 정보 수정"
+
+#. translators: Label of the repair tool that reconnects translated variations to their originals. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:89
+msgid "Fix incorrect or missing translation links for product variations"
+msgstr "상품 변형의 잘못되었거나 누락된 번역 링크 수정"
+
+#. translators: Heading of the group of repair tools for product categories, tags and attributes. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:94
+msgid "Fix product taxonomies"
+msgstr "상품 분류 체계 수정"
+
+#. translators: Label of the repair tool that stops product types being translated and removes the translations already made. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:97
+msgid "Set product types as not translatable and delete unwanted translations"
+msgstr "상품 유형을 번역 불가능으로 설정하고 원치 않는 번역 삭제"
+
+#. translators: Label of the repair tool that creates the missing attribute translations; a dropdown of attributes follows the colon. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:99
+msgid "Create missing translations for product attributes:"
+msgstr "누락된 상품 속성 번역 생성:"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:104
+#, php-format
+msgid "To translate product taxonomies, go to the %1$sTaxonomy Translation%2$s page."
+msgstr "상품 분류 체계를 번역하려면 %1$s분류 체계 번역%2$s 페이지로 이동하세요."
+
+#. translators: First entry of the attribute dropdown of a repair tool: no attribute is picked. Lower case, as it sits in a list of attribute names.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:111
+msgid "none"
+msgstr "해당 없음"
+
+#. translators: Heading of the group of repair tools for reviews. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:116
+msgid "Fix missing product reviews"
+msgstr "누락된 상품 리뷰 수정"
+
+#. translators: Label of the repair tool that makes reviews WPML has not registered available for translation.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:119
+msgid "Allow to translate missing product reviews"
+msgstr "누락된 상품 리뷰 번역 허용"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:124
+#, php-format
+msgid "To translate product reviews, go to the %1$sTranslation Dashboard%2$s."
+msgstr "상품 리뷰를 번역하려면 %1$s번역 대시보드%2$s로 이동하세요."
+
+#. translators: Heading of the group of repair tools that remove leftover data.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:131
+msgid "Cleanup tools"
+msgstr "정리 도구"
+
+#. translators: Label of the repair tool that deletes leftover custom fields from translations. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:134
+msgid "Remove unused custom fields from product and variation translations"
+msgstr "상품 및 변형 번역에서 사용하지 않는 사용자 정의 필드 제거"
+
+#. translators: Button label that starts the ticked repair tools. Verb phrase, imperative.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:139
+msgid "Run the selected tools"
+msgstr "선택한 도구 실행"
+
+#. translators: Label the run button changes to while the repair tools are working. A state, not a command.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:141
+msgid "Processing"
+msgstr "처리 중"
+
+#. translators: Heading above the read-only list of the plugin's settings on the Troubleshooting screen.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:145
+msgid "WPML Multilingual & Multicurrency for WooCommerce settings"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce 설정"
+
+#. translators: Progress line shown while the repair tools run. %s: how many items have been handled so far; the number counts up as the work goes on.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:150
+#, php-format
+msgid "%s items processed"
+msgstr "%s개 항목 처리됨"
+
+#. translators: Progress line shown while a repair tool is working. A state, not a command; keep the three dots.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:154
+msgid "Processing..."
+msgstr "처리 중..."
+
+#. translators: Progress line shown when a repair tool has finished. A state, not a command.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:156
+msgid "Completed"
+msgstr "완료됨"
+
+#. translators: Error shown when a repair tool failed.
+#: inc/template-classes/class-wcml-troubleshooting-ui.php:158
+msgid "Something went wrong, please reload the page and try again"
+msgstr "문제가 발생했습니다. 페이지를 새로 고침하고 다시 시도하세요."
+
+#. translators: Button in the currency-switcher design dialog that empties every colour field. Verb phrase, imperative.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:32
+msgid "Clear all colors"
+msgstr "모든 색상 지우기"
+
+#. translators: Name of a ready-made colour scheme for the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:36
+msgid "Gray"
+msgstr "회색"
+
+#. translators: Name of a ready-made colour scheme for the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:40
+msgid "White"
+msgstr "흰색"
+
+#. translators: Name of a ready-made colour scheme for the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:44
+msgid "Blue"
+msgstr "파란색"
+
+#. translators: Label of the colour field for the currency switcher's border. Noun.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:49
+msgid "Border"
+msgstr "테두리"
+
+#. translators: Label of the colour field for the text of the currency the shopper is using.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:51
+msgid "Current currency font color"
+msgstr "현재 통화 글꼴 색상"
+
+#. translators: Label of the colour field for the text of the currencies the shopper is not using.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:53
+msgid "Other currency font color"
+msgstr "기타 통화 글꼴 색상"
+
+#. translators: Label of the colour field for the background of the currency the shopper is using.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:55
+msgid "Current currency background color"
+msgstr "현재 통화 배경색"
+
+#. translators: Label of the colour field for the background of the currencies the shopper is not using.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:57
+msgid "Other currency background color"
+msgstr "기타 통화 배경색"
+
+#. translators: Label of the setting that picks whether the currency switcher uses the built-in look or a custom one.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:62
+msgid "Currency switcher style"
+msgstr "통화 전환기 스타일"
+
+#. translators: Option of the currency-switcher style setting: the look that ships with the plugin.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:64
+msgid "Core"
+msgstr "코어"
+
+#. translators: Option of the currency-switcher style setting: a look the shop owner defines. Adjective.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:66
+msgid "Custom"
+msgstr "사용자 정의"
+
+#. translators: Hint under the custom currency-switcher template field. Keep the tag names in English: they are HTML.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:68
+msgid "Allowed HTML tags: <img> <span> <u> <strong> <em>"
+msgstr "허용된 HTML 태그: <img> <span> <u> <strong> <em>"
+
+#. translators: Label of the field holding the layout each currency is printed with in the switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:72
+msgid "Template for currency switcher"
+msgstr "통화 전환기 템플릿"
+
+#. translators: Heading above the list of placeholders that may be used in the currency-switcher template.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:74
+msgid "Available parameters"
+msgstr "사용 가능한 파라미터"
+
+#. translators: Example shown under the currency-switcher template field. Only the word "Default" is translated: the rest is the template itself and every per cent sign and word inside one must be left exactly as it is.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:76
+#, php-format
+msgid "Default: %name% (%1$symbol%) - %2$code%"
+msgstr "기본값: %name% (%1$symbol%) - %2$code%"
+
+#. translators: Link that collapses the currency-switcher template help again. Verb phrase, imperative; it is the counterpart of "Learn more".
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:81
+msgid "Hide more"
+msgstr "숨기기"
+
+#. translators: Line introducing the list of placeholders usable in the currency-switcher template.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:83
+msgid "You can customize the currency switcher template using these parameters:"
+msgstr "다음 파라미터를 사용하여 통화 전환기 템플릿을 사용자 정의할 수 있습니다:"
+
+#. translators: %1$s is the bolded placeholder for the currency name, %name%
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:86
+#, php-format
+msgid "%1$s: Full name of the currency (e.g., “Euro”)."
+msgstr "%1$s: 통화의 전체 이름 (예: “Euro”)."
+
+#. translators: %1$s is the bolded placeholder for the currency symbol, %symbol%
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:91
+#, php-format
+msgid "%1$s: Standard symbol representing the currency (e.g., “$” or “€”)."
+msgstr "%1$s: 통화를 나타내는 표준 기호 (예: “$” 또는 “€”)."
+
+#. translators: %1$s is the bolded placeholder for the standard currency code, %code%
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:96
+#, php-format
+msgid "%1$s: Standard code representing the currency (e.g., USD for United States Dollar)."
+msgstr "%1$s: 통화를 나타내는 표준 코드 (예: 미국 달러의 경우 USD)."
+
+#. translators: %1$s and %2$s are <strong> tags; %3$s and %4$s are opening and closing HTML link tags.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:101
+#, php-format
+msgid "Additionally, you can use HTML tags %1$s(img, span, em, strong, u)%2$s to customize the output when the switcher style is set to %1$sList of currencies%2$s, %3$sin line with official HTML standards for the select tag%4$s."
+msgstr "또한, 전환기 스타일이 %1$s통화 목록%2$s으로 설정된 경우 %1$s(img, span, em, strong, u)%2$s HTML 태그를 사용하여 %3$sselect 태그에 대한 공식 HTML 표준에 따라%4$s 출력을 사용자 정의할 수 있습니다."
+
+#. translators: Heading of the colour settings of the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:113
+msgid "Currency switcher colors"
+msgstr "통화 전환기 색상"
+
+#. translators: Label of the dropdown that picks a ready-made colour scheme for the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:115
+msgid "Color theme"
+msgstr "색상 테마"
+
+#. translators: Heading of the colour fields used when the shopper's pointer is not over the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:117
+msgid "Normal"
+msgstr "일반"
+
+#. translators: Heading of the colour fields used while the shopper's pointer is over the currency switcher.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:119
+msgid "Hover"
+msgstr "호버"
+
+#. translators: First entry of the colour-theme dropdown, shown before a scheme is chosen. Verb phrase, imperative.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:121
+msgid "Select a preset"
+msgstr "프리셋 선택"
+
+#. translators: Label of the dropdown that picks where in the theme the currency switcher is shown.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:125
+msgid "Widget area"
+msgstr "위젯 영역"
+
+#. translators: Label of the field holding the heading shown above the currency switcher in the theme.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:127
+msgid "Widget title"
+msgstr "위젯 제목"
+
+#. translators: First entry of the widget-area dropdown, shown before an area is picked. Keep the dashes: they mark it as an instruction, not an area name.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:129
+msgid "-- Choose a widget area --"
+msgstr "-- 위젯 영역 선택 --"
+
+#. translators: Column heading and label above the sample currency switcher, showing how it will look. Noun.
+#: inc/template-classes/currency-switcher/class-wcml-currency-switcher-options-dialog.php:133
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:138
+msgid "Preview"
+msgstr "미리보기"
+
+#. translators: Label of the normal price field in the per-currency prices of a product.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:39
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:85
+msgid "Regular Price"
+msgstr "정상 가격"
+
+#. translators: Label of the reduced price field in the per-currency prices of a product.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:41
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:87
+msgid "Sale Price"
+msgstr "할인 가격"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:61
+#, php-format
+msgid "Multi-currency is enabled, but no secondary currencies have been set. %1$sAdd secondary currency%2$s."
+msgstr "다중 통화가 활성화되었지만 보조 통화가 설정되지 않았습니다. %1$s보조 통화 추가%2$s."
+
+#. translators: Tooltip of the link that opens the per-currency prices of a product.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:71
+msgid "Click to see the prices in the other currencies as they are currently shown on the front end."
+msgstr "클릭하여 현재 프런트엔드에 표시되는 다른 통화 가격을 확인하세요."
+
+#. translators: Link that opens the per-currency prices of a product. Verb, imperative: reveal them; it is the counterpart of "Hide".
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:73
+msgid "Show"
+msgstr "표시"
+
+#. translators: Link that closes the per-currency prices of a product. Verb, imperative; it is the counterpart of "Show".
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:75
+msgid "Hide"
+msgstr "숨기기"
+
+#. translators: Heading above the fields where the shop owner types a product's price in each currency.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:79
+msgid "Enter prices in other currencies"
+msgstr "다른 통화로 가격 입력"
+
+#. translators: Link that closes the per-currency price fields of a product. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:81
+msgid "Hide prices in other currencies"
+msgstr "다른 통화 가격 숨기기"
+
+#. translators: Text shown in place of a price field when the price is converted from the default currency.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:83
+msgid "Determined automatically based on exchange rate"
+msgstr "환율에 따라 자동으로 결정됨"
+
+#. translators: Label of the sale-price date range of a product in one currency. Noun: the dates the sale price runs.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:89
+msgid "Schedule"
+msgstr "일정"
+
+#. translators: Option for the sale dates of a product in one currency: use the same dates as the shop's default currency.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:91
+msgid "Same as default currency"
+msgstr "기본 통화와 동일"
+
+#. translators: Link that opens the sale start and end date fields of a product in one currency. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:93
+msgid "Set dates"
+msgstr "날짜 설정"
+
+#. translators: Link that closes the sale date fields again. Verb, imperative.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:95
+msgid "Collapse"
+msgstr "접기"
+
+#. translators: Placeholder text in the sale start-date field. Keep the three dots: they say a date is expected.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:97
+msgid "From&hellip;"
+msgstr "시작&hellip;"
+
+#. translators: Placeholder text in the sale end-date field. Keep the three dots: they say a date is expected.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:99
+msgid "To&hellip;"
+msgstr "종료&hellip;"
+
+#. translators: Error shown under a sale-price field when the sale price is not lower than the normal price.
+#: inc/template-classes/multi-currency/class-wcml-custom-prices-ui.php:101
+msgid "Please enter in a value less than the regular price"
+msgstr "정상 가격보다 낮은 값을 입력하세요"
+
+#. translators: Shown in place of a date when the exchange rates have not been updated yet. Lower case, it sits after "Last updated".
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:32
+msgid "never"
+msgstr "안 함"
+
+#. translators: Heading of the section that fetches exchange rates from an online service.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:39
+msgid "Automatic Exchange Rates"
+msgstr "자동 환율"
+
+#. translators: Label of the checkbox that turns on fetching exchange rates from an online service.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:43
+msgid "Enable automatic exchange rates"
+msgstr "자동 환율 활성화"
+
+#. translators: Label of the dropdown that picks which online service the exchange rates come from.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:45
+msgid "Exchange rates source"
+msgstr "환율 소스"
+
+#. translators: Label of the field holding a percentage added to the fetched exchange rate before it is used.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:47
+msgid "Lifting charge"
+msgstr "수수료"
+
+#. translators: Explanation under the lifting-charge field; "the table above" is the list of currencies and their rates.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:49
+msgid "The lifting charge adjusts the exchange rate provided by the selected service before it is saved. The exchange rates displayed in the table above include the lifting charge."
+msgstr "수수료는 선택한 서비스에서 제공하는 환율을 저장하기 전에 조정합니다. 위 표에 표시된 환율에는 수수료가 포함되어 있습니다."
+
+#. translators: %s is an exchange rates service
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:51
+#, php-format
+msgid "Exchange rate = %s exchange rate x (1 + lifting charge / 100)"
+msgstr "환율 = %s 환율 x (1 + 수수료 / 100)"
+
+#. translators: Label of the field holding the key that identifies the shop to the exchange-rate service. "API key" stays in English: it is what the service calls it.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:53
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:73
+msgid "API key (required)"
+msgstr "API 키 (필수)"
+
+#. translators: Label of the dropdown that sets how often the exchange rates are fetched.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:55
+msgid "Update frequency"
+msgstr "업데이트 빈도"
+
+#. translators: Button that fetches the exchange rates once, straight away. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:57
+msgid "Update manually now"
+msgstr "지금 수동으로 업데이트"
+
+#. translators: Tooltip of the disabled "Update manually now" button.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:59
+msgid "You have to save all settings before updating exchange rates"
+msgstr "환율을 업데이트하기 전에 모든 설정을 저장해야 합니다"
+
+#. translators: Option of the update-frequency dropdown: rates are only fetched when the shop owner asks.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:61
+msgid "Manually"
+msgstr "수동"
+
+#. translators: Option of the update-frequency dropdown: rates are fetched every hour.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:63
+msgid "Hourly"
+msgstr "매시간"
+
+#. translators: Option of the update-frequency dropdown: rates are fetched once a day.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:65
+msgid "Daily"
+msgstr "매일"
+
+#. translators: Option of the update-frequency dropdown; a weekday dropdown follows it on the same line, so the phrase stays open.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:67
+msgid "Weekly on"
+msgstr "매주"
+
+#. translators: Option of the update-frequency dropdown; a day-of-month dropdown follows it on the same line, so the phrase stays open.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:69
+msgid "Monthly on the"
+msgstr "매월"
+
+#. translators: Placeholder text in the empty API-key field of the exchange-rate service. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:71
+msgid "Enter API key"
+msgstr "API 키 입력"
+
+#. translators: Warning shown when the Fixer.io exchange-rate service is picked. Keep the numbers, the currency code and the price.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:75
+msgid "WARNING! Minor limitations include 1000 requests/month limit and EUR being the only available base currency for customers using a free account. If you need more than 1000 requests per month or want to use all 170 available base currencies, you’ll need to choose one of the paid plans starting at only $10 per month."
+msgstr "경고! 무료 계정을 사용하는 고객의 경우 월 1,000회 요청 제한 및 EUR만 기준 통화로 사용할 수 있는 등의 사소한 제한 사항이 있습니다. 월 1,000회 이상의 요청이 필요하거나 170개의 모든 기준 통화를 사용하려면 월 $10부터 시작하는 유료 플랜 중 하나를 선택해야 합니다."
+
+#. translators: Warning shown when the exchange rates are set to update every hour.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:77
+msgid "Updating the exchange rates on an hourly basis generates around 744 API calls a month. Please check that your exchange rates source can accommodate this higher usage."
+msgstr "환율을 매시간 업데이트하면 한 달에 약 744회의 API 호출이 발생합니다. 환율 소스가 이 높은 사용량을 수용할 수 있는지 확인하세요."
+
+#. translators: %s is a date and time
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:81
+#, php-format
+msgid "Last updated: %s"
+msgstr "마지막 업데이트: %s"
+
+#. translators: Confirmation shown after the exchange rates were fetched.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:85
+msgid "Exchange rates updated successfully"
+msgstr "환율이 성공적으로 업데이트되었습니다"
+
+#. translators: Link that opens the website of the chosen exchange-rate service. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php:87
+msgid "Visit website"
+msgstr "웹사이트 방문"
+
+#. translators: Column heading above the switches that turn each currency on or off. Two verbs, imperative, joined by a slash.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:66
+msgid "Enable/disable"
+msgstr "활성화/비활성화"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:83
+#, php-format
+msgid "The multi-currency mode cannot be enabled as a specific currency was not set. Go to the %1$sWooCommerce settings%2$s page and select the default currency for your store."
+msgstr "특정 통화가 설정되지 않아 다중 통화 모드를 활성화할 수 없습니다. %1$sWooCommerce 설정%2$s 페이지로 이동하여 상점의 기본 통화를 선택하세요."
+
+#. translators: Label of the checkbox that lets the shop sell in more than one currency.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:97
+msgid "Enable the multicurrency mode"
+msgstr "다중 통화 모드 활성화"
+
+#. translators: Link next to the multicurrency checkbox; it opens the WPML documentation.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:100
+msgid "Multicurrency documentation"
+msgstr "다중 통화 문서"
+
+#. translators: Heading of the setting about products whose price is typed per currency rather than converted.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:104
+msgid "Custom prices"
+msgstr "사용자 정의 가격"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:107
+#, php-format
+msgid "Show only products with %1$scustom prices%2$s in secondary currencies"
+msgstr "보조 통화에 %1$s사용자 정의 가격%2$s이 있는 상품만 표시"
+
+#. translators: Tooltip of the custom-prices setting.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:112
+msgid "When enabled, products with prices based on the exchange rate are hidden"
+msgstr "활성화하면 환율에 따른 가격이 책정된 상품은 숨겨집니다"
+
+#. translators: Warning shown when the shop owner leaves the multicurrency screen with unsaved changes.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:117
+msgid "The changes you made will be lost if you navigate away from this page."
+msgstr "이 페이지에서 벗어나면 변경 사항이 손실됩니다."
+
+#. translators: Error shown when every currency was switched off for a language.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:119
+msgid "At least one currency must be enabled for this language!"
+msgstr "이 언어에 대해 적어도 하나의 통화가 활성화되어야 합니다!"
+
+#. translators: Heading of the section holding the settings shared by every currency switcher.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:126
+msgid "Currency switcher options"
+msgstr "통화 전환기 옵션"
+
+#. translators: Explanation under the "Currency switcher options" heading.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:128
+msgid "All currency switchers in your site are affected by the settings in this section."
+msgstr "사이트의 모든 통화 전환기는 이 섹션의 설정에 영향을 받습니다."
+
+#. translators: Heading of the list the shop owner drags to set the sequence currencies appear in; "order" here is the sequence, not a purchase.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:130
+msgid "Order of currencies"
+msgstr "통화 순서"
+
+#. translators: Label of the field holding extra style rules for the currency switchers. "CSS" stays in English.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:132
+msgid "Additional CSS"
+msgstr "추가 CSS"
+
+#. translators: Row heading for a currency switcher placed in a theme widget area.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:134
+msgid "Widget Currency Switcher"
+msgstr "위젯 통화 전환기"
+
+#. translators: Row heading for the currency switcher shown on a product page.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:136
+msgid "Product page Currency Switcher"
+msgstr "상품 페이지 통화 전환기"
+
+#. translators: Column heading for where a currency switcher sits on the page. Noun.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:140
+msgid "Position"
+msgstr "위치"
+
+#. translators: Column heading above the edit and delete links of each currency switcher. Noun, plural.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:142
+msgid "Actions"
+msgstr "작업"
+
+#. translators: Column heading above the single link of a currency switcher row. Noun, singular.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:144
+msgid "Action"
+msgstr "작업"
+
+#. translators: Link that opens a currency switcher's design settings. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:148
+msgid "Edit currency switcher"
+msgstr "통화 전환기 편집"
+
+#. translators: Link that places another currency switcher in a theme widget area. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:150
+msgid "Add a new currency switcher to a widget area"
+msgstr "위젯 영역에 새 통화 전환기 추가"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:153
+#, php-format
+msgid "Your theme does not support a currency switcher widget. Please %1$sadd your currency switcher%2$s using a shortcode or PHP."
+msgstr "사용 중인 테마가 통화 전환기 위젯을 지원하지 않습니다. 단축 코드나 PHP를 사용하여 %1$s통화 전환기를 추가%2$s하세요."
+
+#. translators: Label above the sample currency switcher, showing how it will look on the site.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:162
+msgid "Currency switcher preview"
+msgstr "통화 전환기 미리보기"
+
+#. translators: Hint above the draggable list of currencies; "order" here is the sequence they appear in.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:169
+msgid "Drag and drop the currencies to change their order"
+msgstr "통화를 드래그 앤 드롭하여 순서를 변경하세요"
+
+#. translators: Label of the checkbox that adds a currency switcher to every product page.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:171
+msgid "Show a currency switcher on the product page template"
+msgstr "상품 페이지 템플릿에 통화 전환기 표시"
+
+#. translators: Title of the dialog that changes the design of the product-page currency switcher. Verb phrase, imperative.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:238
+msgid "Edit Product Currency Switcher"
+msgstr "상품 통화 전환기 편집"
+
+#. translators: Title of the dialog that designs a currency switcher being added to a theme widget area.
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:241
+msgid "New Widget Area Currency Switcher"
+msgstr "새 위젯 영역 통화 전환기"
+
+#. translators: %s is sidebar name
+#: inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php:244
+#, php-format
+msgid "Edit %s Currency Switcher"
+msgstr "%s 통화 전환기 편집"
+
+#. translators: Heading of the setup-wizard step where the shop owner picks the attributes to translate.
+#: inc/template-classes/setup/class-wcml-setup-attributes-ui.php:44
+msgid "Which product attributes should be translatable?"
+msgstr "어떤 상품 속성을 번역하시겠습니까?"
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/setup/class-wcml-setup-attributes-ui.php:48
+#, php-format
+msgid "WPML allows you to %1$stranslate your product attributes%2$s. Some attributes, like the ones based on numbers and codes, can be universal and might not need to be translated."
+msgstr "WPML을 사용하면 %1$s상품 속성을 번역%2$s할 수 있습니다. 숫자나 코드 기반의 일부 속성은 범용적일 수 있으므로 번역이 필요하지 않을 수 있습니다."
+
+#. translators: Line above the attribute list in the setup wizard; the list follows the colon.
+#: inc/template-classes/setup/class-wcml-setup-attributes-ui.php:53
+msgid "Select which attributes in your store should be translatable:"
+msgstr "상점에서 번역할 속성을 선택하세요:"
+
+#. translators: Shown in place of the attribute list in the setup wizard when the shop has no product attributes.
+#: inc/template-classes/setup/class-wcml-setup-attributes-ui.php:55
+msgid "There are no attributes defined"
+msgstr "정의된 속성이 없습니다"
+
+#. translators: Button label that moves the setup wizard on to the next step. Verb, imperative.
+#: inc/template-classes/setup/class-wcml-setup-attributes-ui.php:57
+#: inc/template-classes/setup/class-wcml-setup-store-pages-ui.php:78
+msgid "Continue"
+msgstr "계속하기"
+
+#. translators: Button label that returns the setup wizard to the previous step. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-attributes-ui.php:59
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:28
+#: inc/template-classes/setup/class-wcml-setup-store-pages-ui.php:80
+msgid "Go back"
+msgstr "뒤로 가기"
+
+#. translators: Title at the top of the setup wizard; the arrow separates the plugin name from the screen. Both are names and stay in English.
+#: inc/template-classes/setup/class-wcml-setup-header.php:39
+msgid "WPML Multilingual & Multicurrency for WooCommerce › Setup Wizard"
+msgstr "WPML Multilingual & Multicurrency for WooCommerce › Setup Wizard"
+
+#. translators: Heading of the first step of the setup wizard.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:12
+msgid "Let's make your WooCommerce store multilingual"
+msgstr "WooCommerce 상점을 다국어로 만들어 보세요"
+
+#. translators: Line above the list of what the setup wizard will do; the list follows the colon.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:16
+msgid "To get started, we need to set up the following:"
+msgstr "시작하려면 다음 사항을 설정해야 합니다:"
+
+#. translators: Name of one step of the setup wizard, used in the step list and as that step's heading. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:18
+#: inc/template-classes/setup/class-wcml-setup-store-pages-ui.php:74
+msgid "Create store pages in all your site's languages"
+msgstr "사이트의 모든 언어로 상점 페이지 생성"
+
+#. translators: Item in the list of what the setup wizard will do. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:20
+msgid "Choose which product attributes you want to translate"
+msgstr "번역할 상품 속성 선택"
+
+#. translators: Item in the list of what the setup wizard will do. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:22
+msgid "Set your translation options"
+msgstr "번역 옵션 설정"
+
+#. translators: Item in the list of what the setup wizard will do. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:24
+msgid "Decide if you want to add multiple currencies to your store"
+msgstr "상점에 다중 통화를 추가할지 결정"
+
+#. translators: Button label that starts the setup wizard.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:28
+msgid "Let's continue"
+msgstr "계속하기"
+
+#. translators: Link that leaves the setup wizard without running it; written in the shop owner's own voice.
+#: inc/template-classes/setup/class-wcml-setup-introduction-ui.php:30
+msgid "I'll do the setup later"
+msgstr "나중에 설정하겠습니다"
+
+#. translators: Heading of the setup-wizard step about multicurrency.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:12
+msgid "Do you want to add more currencies to your store?"
+msgstr "상점에 통화를 더 추가하시겠습니까?"
+
+#. translators: Line above the list of what multicurrency offers, in the setup wizard; the list follows the colon.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:14
+msgid "You will be able to:"
+msgstr "다음이 가능합니다:"
+
+#. translators: Item in the list of what multicurrency offers, in the setup wizard. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:16
+msgid "Add a currency switcher to your store"
+msgstr "상점에 통화 전환기 추가"
+
+#. translators: Item in the list of what multicurrency offers, in the setup wizard. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:18
+msgid "Set exchange rates"
+msgstr "환율 설정"
+
+#. translators: Item in the list of what multicurrency offers, in the setup wizard. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:20
+msgid "Create custom pricing in each currency"
+msgstr "각 통화별 사용자 정의 가격 생성"
+
+#. translators: Last item in the list of what multicurrency offers, in the setup wizard.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:22
+msgid "And more!"
+msgstr "그 외 다양한 기능!"
+
+#. translators: Button in the setup wizard that turns multicurrency on.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:24
+msgid "Yes, enable multicurrency mode"
+msgstr "예, 다중 통화 모드를 활성화합니다"
+
+#. translators: Button in the setup wizard that leaves the shop on one currency.
+#: inc/template-classes/setup/class-wcml-setup-multi-currency-ui.php:26
+msgid "No, use only one currency"
+msgstr "아니요, 하나의 통화만 사용합니다"
+
+#. translators: Heading of the admin notice that invites the shop owner to run the setup wizard. Verb phrase, imperative.
+#: inc/template-classes/setup/class-wcml-setup-notice.php:13
+msgid "Make your store multilingual"
+msgstr "상점을 다국어로 만들기"
+
+#. translators: %1$s and %2$s are opening and closing HTML strong tags
+#: inc/template-classes/setup/class-wcml-setup-notice.php:16
+#, php-format
+msgid "Set up %1$sWPML Multilingual & Multicurrency for WooCommerce%2$s to translate your store and add more currencies."
+msgstr "상점을 번역하고 통화를 추가하려면 %1$sWPML Multilingual & Multicurrency for WooCommerce%2$s를 설정하세요."
+
+#. translators: Button in the admin notice that opens the setup wizard. Verb phrase, imperative; "Setup Wizard" is the screen's name.
+#: inc/template-classes/setup/class-wcml-setup-notice.php:21
+msgid "Start the Setup Wizard"
+msgstr "Setup Wizard 시작"
+
+#. translators: Line in the store-pages step of the setup wizard, shown when some WooCommerce pages are missing; the language list follows the colon. "Continue" is the button below it.
+#: inc/template-classes/setup/class-wcml-setup-store-pages-ui.php:41
+msgid "Click continue to create missing WooCommerce pages translate your store pages into the following languages:"
+msgstr "계속을 클릭하여 누락된 WooCommerce 페이지를 생성하고 상점 페이지를 다음 언어로 번역하세요:"
+
+#. translators: Line in the store-pages step of the setup wizard, shown when every WooCommerce page exists; the language list follows the colon. "Continue" is the button below it.
+#: inc/template-classes/setup/class-wcml-setup-store-pages-ui.php:57
+msgid "Click continue to translate your store pages into the following languages:"
+msgstr "계속을 클릭하여 상점 페이지를 다음 언어로 번역하세요:"
+
+#. translators: Explanation under the heading of the store-pages step of the setup wizard; the four names are WooCommerce page names.
+#: inc/template-classes/setup/class-wcml-setup-store-pages-ui.php:76
+msgid "WPML automatically generates translated versions of default WooCommerce pages, such as Shop, Account, Checkout, and Cart."
+msgstr "WPML은 상점, 계정, 결제, 장바구니와 같은 기본 WooCommerce 페이지의 번역된 버전을 자동으로 생성합니다."
+
+#. translators: Heading of the block on the Status screen that lists settings needing attention.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:50
+msgid "Configuration Warnings"
+msgstr "구성 경고"
+
+#. translators: Warning on the Status screen; the list of languages follows the colon.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:52
+msgid "Your product permalink base is not translated to:"
+msgstr "상품 고유주소 기준이 다음 언어로 번역되지 않았습니다:"
+
+#. translators: Link on the Status screen that opens the store URLs screen. Verb phrase, imperative.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:54
+msgid "Translate URLs"
+msgstr "URL 번역"
+
+#. translators: Warning on the Status screen about the site's default language.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:56
+msgid "Running WPML Multilingual & Multicurrency for WooCommerce with default language other than English."
+msgstr "영어가 아닌 기본 언어로 WPML Multilingual & Multicurrency for WooCommerce를 실행 중입니다."
+
+#. translators: Second line of the Status warning about a default language other than English; "This" is that setup.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:58
+msgid "This may cause problems with URLs in different languages."
+msgstr "이로 인해 다른 언어의 URL에 문제가 발생할 수 있습니다."
+
+#. translators: Link on the Status screen that opens WPML's language settings. Verb phrase, imperative.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:60
+msgid "Change default language"
+msgstr "기본 언어 변경"
+
+#. translators: Introduction of the configuration warnings on the Status screen.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:62
+msgid "There are some settings that require careful attention."
+msgstr "주의가 필요한 일부 설정이 있습니다."
+
+#. translators: Warning on the Status screen that the plugin's own configuration file has been overridden. Keep the file name in English.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:64
+msgid "Some settings from the WPML Multilingual & Multicurrency for WooCommerce wpml-config.xml file have been overwritten."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce wpml-config.xml 파일의 일부 설정이 덮어써졌습니다."
+
+#. translators: %s is link to Multilingual Content Setup
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:66
+#, php-format
+msgid "You should check WPML configuration files added by other plugins or manual settings on the %s section."
+msgstr "다른 플러그인에 의해 추가된 WPML 구성 파일이나 %s 섹션의 수동 설정을 확인해야 합니다."
+
+#. translators: Link text on the Status screen; it is the name of a WPML screen and is translated the same way there.
+#: inc/template-classes/status/class-wcml-status-config-warnings-ui.php:68
+msgid "Multilingual Content Setup"
+msgstr "다국어 콘텐츠 설정"
+
+#. translators: Heading of the block on the Status screen about product images. Noun.
+#: inc/template-classes/status/class-wcml-status-media-ui.php:23
+msgid "Media"
+msgstr "미디어"
+
+#. translators: %s is a plugin name
+#: inc/template-classes/status/class-wcml-status-media-ui.php:26
+#, php-format
+msgid "%s is not active."
+msgstr "%s이(가) 활성화되지 않았습니다."
+
+#. translators: %s is a plugin name
+#: inc/template-classes/status/class-wcml-status-media-ui.php:28
+#, php-format
+msgid "%s is not required in order to run WPML Multilingual & Multicurrency for WooCommerce but it’s recommended if you want to use separate product images and galleries for different languages."
+msgstr "%s은(는) WPML Multilingual & Multicurrency for WooCommerce를 실행하는 데 필수 사항은 아니지만, 언어별로 별도의 상품 이미지와 갤러리를 사용하려는 경우 권장됩니다."
+
+#. translators: %s is a plugin name
+#: inc/template-classes/status/class-wcml-status-media-ui.php:30
+#: inc/template-classes/status/class-wcml-status-status-ui.php:28
+#, php-format
+msgid "%s is installed and active."
+msgstr "%s이(가) 설치 및 활성화되었습니다."
+
+#. translators: %s is a list of currency codes
+#: inc/template-classes/status/class-wcml-status-multi-currencies-ui.php:38
+#, php-format
+msgid "Secondary currencies: %s"
+msgstr "보조 통화: %s"
+
+#. translators: Line on the Status screen shown when the shop sells in one currency only.
+#: inc/template-classes/status/class-wcml-status-multi-currencies-ui.php:40
+msgid "Multi-currency is not enabled."
+msgstr "다중 통화가 활성화되지 않았습니다."
+
+#. translators: Link on the Status screen that opens the multicurrency screen. Verb phrase, imperative.
+#: inc/template-classes/status/class-wcml-status-multi-currencies-ui.php:42
+msgid "Add Currencies"
+msgstr "통화 추가"
+
+#. translators: Heading of the block on the Status screen that counts untranslated products.
+#: inc/template-classes/status/class-wcml-status-products-ui.php:33
+msgid "Products Missing Translations"
+msgstr "번역이 누락된 상품"
+
+#. translators: Line on the Status screen counting untranslated products in one language. %1$d: how many are missing, %2$s: the language name.
+#: inc/template-classes/status/class-wcml-status-products-ui.php:35
+#, php-format
+msgid "%1$d %2$s translation missing."
+msgstr "%2$s 번역이 %1$d개 누락되었습니다."
+
+#. translators: Line on the Status screen counting untranslated products in one language, when more than one is missing. %1$d: how many are missing, %2$s: the language name.
+#: inc/template-classes/status/class-wcml-status-products-ui.php:37
+#, php-format
+msgid "%1$d %2$s translations missing."
+msgstr "%2$s 번역이 %1$d개 누락되었습니다."
+
+#. translators: Line on the Status screen shown when every product is translated.
+#: inc/template-classes/status/class-wcml-status-products-ui.php:41
+msgid "Right now, there are no products needing translation."
+msgstr "현재 번역이 필요한 상품이 없습니다."
+
+#. translators: Heading of the block on the Status screen that lists the plugins this one needs.
+#: inc/template-classes/status/class-wcml-status-status-ui.php:26
+msgid "Plugins Status"
+msgstr "플러그인 상태"
+
+#. translators: %s is a plugin name
+#: inc/template-classes/status/class-wcml-status-status-ui.php:30
+#, php-format
+msgid "%s is set up."
+msgstr "%s이(가) 설정되었습니다."
+
+#. translators: %s is a plugin name
+#: inc/template-classes/status/class-wcml-status-status-ui.php:32
+#, php-format
+msgid "%s is not set up."
+msgstr "%s이(가) 설정되지 않았습니다."
+
+#. translators: Explanation under the "Plugins Status" heading on the Status screen.
+#: inc/template-classes/status/class-wcml-status-status-ui.php:37
+msgid "WPML Multilingual & Multicurrency for WooCommerce depends on several plugins to work. If any required plugin is missing, you should install and activate it."
+msgstr "WPML Multilingual & Multicurrency for WooCommerce가 작동하려면 여러 플러그인이 필요합니다. 필수 플러그인이 누락된 경우 설치하고 활성화해야 합니다."
+
+#. translators: Heading of the block on the Status screen about the cart, checkout and other WooCommerce pages.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:39
+msgid "WooCommerce Store Pages"
+msgstr "WooCommerce 상점 페이지"
+
+#. translators: Explanation under the "WooCommerce Store Pages" heading; "this menu" is the block itself.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:41
+msgid "To run a multilingual e-commerce site, you need to have the WooCommerce shop pages translated to all the site's languages. Once all the pages are installed you can add the translations for them from this menu."
+msgstr "다국어 이커머스 사이트를 운영하려면 WooCommerce 상점 페이지를 사이트의 모든 언어로 번역해야 합니다. 모든 페이지가 설치되면 이 메뉴에서 번역을 추가할 수 있습니다."
+
+#. translators: Warning on the Status screen when a WooCommerce page is missing in the original language.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:43
+msgid "One or more WooCommerce pages have not been created."
+msgstr "하나 이상의 WooCommerce 페이지가 생성되지 않았습니다."
+
+#. translators: Button on the Status screen that creates the missing WooCommerce pages. Verb phrase, imperative.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:45
+msgid "Install WooCommerce Pages"
+msgstr "WooCommerce 페이지 설치"
+
+#. translators: Warning on the Status screen; the list of languages follows the colon.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:47
+msgid "WooCommerce store pages do not exist for these languages:"
+msgstr "다음 언어에 대한 WooCommerce 상점 페이지가 존재하지 않습니다:"
+
+#. translators: Button on the Status screen that creates the missing translations of the WooCommerce pages. Verb phrase, imperative.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:49
+msgid "Create missing translations"
+msgstr "누락된 번역 생성"
+
+#. translators: Line on the Status screen; the list of pages follows it, so keep the colon and the trailing space.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:51
+msgid "These pages are currently being translated by translators via WPML: "
+msgstr "이 페이지들은 현재 WPML을 통해 번역가들이 번역하고 있습니다: "
+
+#. translators: Line on the Status screen shown when every WooCommerce page has all its translations.
+#: inc/template-classes/status/class-wcml-status-store-pages-ui.php:53
+msgid "WooCommerce store pages are translated to all the site's languages."
+msgstr "WooCommerce 상점 페이지가 사이트의 모든 언어로 번역되었습니다."
+
+#. translators: Heading of the block on the Status screen that counts untranslated product categories, tags and attributes.
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:27
+msgid "Taxonomies Missing Translations"
+msgstr "분류 체계 번역 누락"
+
+#. translators: Explanation under the "Taxonomies Missing Translations" heading.
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:29
+msgid "To run a fully translated site, you should translate all taxonomy terms. Some store elements, such as variations, depend on taxonomy translation."
+msgstr "완전히 번역된 사이트를 운영하려면 모든 분류 체계 용어를 번역해야 합니다. 변형과 같은 일부 상점 요소는 분류 체계 번역에 의존합니다."
+
+#. translators: %s is a taxonomy name
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:31
+#, php-format
+msgid "%s do not require translation."
+msgstr "%s은(는) 번역이 필요하지 않습니다."
+
+#. translators: Status of one product category, tag or attribute on the Status screen.
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:33
+msgid "This taxonomy requires translation."
+msgstr "이 분류 체계는 번역이 필요합니다."
+
+#. translators: Line on the Status screen counting untranslated terms of one taxonomy. %1$d: how many terms are missing translations, %2$s: the taxonomy's name, for example "product category".
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:35
+#, php-format
+msgid "%1$d %2$s is missing translations."
+msgstr "%2$s %1$d개의 번역이 누락되었습니다."
+
+#. translators: Line on the Status screen counting untranslated terms of one taxonomy, when more than one is missing. %1$d: how many terms are missing translations, %2$s: the taxonomy's plural name, for example "product categories".
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:37
+#, php-format
+msgid "%1$d %2$s are missing translations."
+msgstr "%2$s %1$d개의 번역이 누락되었습니다."
+
+#. translators: %s is a taxonomy name
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:39
+#, php-format
+msgid "Translate %s"
+msgstr "%s 번역"
+
+#. translators: Status of one product category, tag or attribute on the Status screen.
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:41
+msgid "This taxonomy does not require translation."
+msgstr "이 분류 체계는 번역이 필요하지 않습니다."
+
+#. translators: %s is a taxonomy name
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:43
+#, php-format
+msgid "All %s are translated."
+msgstr "모든 %s이(가) 번역되었습니다."
+
+#. translators: Line on the Status screen shown when every product category, tag and attribute is translated.
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:45
+msgid "Right now, there are no taxonomy terms needing translation."
+msgstr "현재 번역이 필요한 분류 체계 용어가 없습니다."
+
+#. translators: %1$s and %2$s are opening and closing HTML link tags
+#: inc/template-classes/status/class-wcml-status-taxonomies-ui.php:47
+#, php-format
+msgid "To configure product taxonomies or attributes as translatable or not translatable, go to the %1$sMultilingual Content Setup%2$s"
+msgstr "상품 분류 체계 또는 속성을 번역 가능 또는 번역 불가능으로 구성하려면 %1$s다국어 콘텐츠 설정%2$s으로 이동하세요."
+
+#. translators: Column heading above the untranslated URL part, on the store URLs screen. Noun.
+#: inc/template-classes/store-urls/class-wcml-store-urls-edit-base-ui.php:50
+msgid "Original"
+msgstr "원본"
+
+#. translators: Column heading above the translated URL part; the language name follows it on the same line, so the phrase stays open.
+#: inc/template-classes/store-urls/class-wcml-store-urls-edit-base-ui.php:52
+msgid "Translation to"
+msgstr "다음으로 번역:"
+
+#. translators: Name of the URL part of the shop page, on the store URLs screen.
+#: inc/template-classes/store-urls/class-wcml-store-urls-edit-base-ui.php:76
+msgid "Product Shop Base"
+msgstr "상품 상점 기준"
+
+#. translators: Status shown for the language a URL part was written in, on the store URLs screen.
+#: inc/template-classes/store-urls/class-wcml-store-urls-translation-statuses-ui.php:58
+msgid "Original language"
+msgstr "원본 언어"
+
+#. translators: Link that reopens an already translated URL part because the original changed. Verb phrase, imperative.
+#: inc/template-classes/store-urls/class-wcml-store-urls-translation-statuses-ui.php:60
+msgid "Update translation"
+msgstr "번역 업데이트"
+
+#. translators: Link that translates a URL part for the first time, on the store URLs screen. Verb phrase, imperative.
+#: inc/template-classes/store-urls/class-wcml-store-urls-translation-statuses-ui.php:62
+msgid "Add translation"
+msgstr "번역 추가"
+
+#. translators: Link that changes the existing translation of a URL part. Verb phrase, imperative.
+#: inc/template-classes/store-urls/class-wcml-store-urls-translation-statuses-ui.php:64
+msgid "Edit translation"
+msgstr "번역 편집"
+
+#. translators: Introduction at the top of the store URLs screen.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:61
+msgid "This page allows you to translate all strings that are being used by WooCommerce in building different type of urls. Translating them enables you to have fully localized urls that match the language of the pages."
+msgstr "이 페이지에서는 다양한 유형의 URL을 생성할 때 WooCommerce에서 사용하는 모든 문자열을 번역할 수 있습니다. 이를 번역하면 페이지 언어와 일치하는 완전히 현지화된 URL을 가질 수 있습니다."
+
+#. translators: %1$s/%2$s and %3$s/%4$s are opening and closing HTML link tags
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:64
+#, php-format
+msgid "You can enter or edit your default values on the %1$sPermalinks settings%2$s page or, for the endpoints, on the WooCommerce %3$sAdvanced settings%4$s page."
+msgstr "%1$s고유주소 설정%2$s 페이지에서 기본값을 입력하거나 편집할 수 있으며, 엔드포인트의 경우 WooCommerce %3$s고급 설정%4$s 페이지에서 편집할 수 있습니다."
+
+#. translators: Link text inside a sentence on the store URLs screen; it opens the WordPress permalink settings. Lower case because it sits mid-sentence.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:74
+msgid "permalinks settings"
+msgstr "고유주소 설정"
+
+#. translators: Link text on the store URLs screen; it opens the WooCommerce account settings.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:76
+msgid "Account settings"
+msgstr "계정 설정"
+
+#. translators: Column heading naming which URL part a row is about, on the store URLs screen; a slug is the readable part of a web address.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:78
+msgid "Slug type"
+msgstr "슬러그 유형"
+
+#. translators: Column heading above the untranslated URL part, on the store URLs screen.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:80
+msgid "Original Slug"
+msgstr "원본 슬러그"
+
+#. translators: Row label on the store URLs screen for the address of the WooCommerce shop page.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:82
+msgid "Shop page"
+msgstr "상점 페이지"
+
+#. translators: Row label on the store URLs screen for the URL part that precedes every product address.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:84
+msgid "Product base"
+msgstr "상품 기준"
+
+#. translators: Row label on the store URLs screen for the URL part that precedes every product-category address.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:86
+msgid "Product category base"
+msgstr "상품 카테고리 기준"
+
+#. translators: Row label on the store URLs screen for the URL part that precedes every product-tag address.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:88
+msgid "Product tag base"
+msgstr "상품 태그 기준"
+
+#. translators: Row label on the store URLs screen for the URL part that precedes every product-attribute address.
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:90
+msgid "Product attribute base"
+msgstr "상품 속성 기준"
+
+#. translators: %s is a slug
+#: inc/template-classes/store-urls/class-wcml-store-urls-ui.php:94
+#, php-format
+msgid "Attribute slug: %s"
+msgstr "속성 슬러그: %s"
+
+#. translators: Name of the kind of content being translated, shown at the top of WPML's translation editor. Noun, singular.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:117
+msgid "Product"
+msgstr "상품"
+
+#. translators: Label of the field holding the readable part of a product's web address, in WPML's translation editor.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:187
+msgid "Slug"
+msgstr "슬러그"
+
+#. translators: Label of the main body-text field of a product in WPML's translation editor; the two words are the names WooCommerce and WordPress each give the same field.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:198
+msgid "Content / Description"
+msgstr "콘텐츠 / 설명"
+
+#. translators: Heading of the short-description field of a product in WPML's translation editor. It is the WordPress field name.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:202
+msgid "Excerpt"
+msgstr "요약"
+
+#. translators: Heading of the field holding the message a shopper gets after buying the product, in WPML's translation editor.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:207
+msgid "Purchase note"
+msgstr "구매 참고 사항"
+
+#. translators: Heading of the group of product image fields in WPML's translation editor. Noun, plural.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:216
+msgid "Images"
+msgstr "이미지"
+
+#. translators: Heading of the group of attributes defined on this product alone, in WPML's translation editor.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:227
+msgid "Custom Product attributes"
+msgstr "사용자 정의 상품 속성"
+
+#. translators: Label of the field holding a custom attribute's values in WPML's translation editor; the brackets say there may be one or several.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:234
+msgid "Value(s)"
+msgstr "값"
+
+#. translators: Heading of the group of extra product fields in WPML's translation editor. It is the WordPress term for them.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:250
+msgid "Custom Fields"
+msgstr "사용자 정의 필드"
+
+#. translators: Heading of the group of a product's variation fields in WPML's translation editor.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:300
+msgid "Variations data"
+msgstr "변형 데이터"
+
+#. translators: %s is a product ID
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:314
+#, php-format
+msgid "Download Files for Variation #%s"
+msgstr "변형 #%s용 파일 다운로드"
+
+#. translators: Heading of the group of downloadable-file fields of a product in WPML's translation editor.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:317
+msgid "Download Files"
+msgstr "파일 다운로드"
+
+#. translators: Label of the field holding the web address of a downloadable file, in WPML's translation editor.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:328
+msgid "File URL"
+msgstr "파일 URL"
+
+#. translators: Heading of the group of fields of a product sold on another site, in WPML's translation editor. It is the WooCommerce product type.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:341
+msgid "External Product"
+msgstr "외부 상품"
+
+#. translators: Label of the field holding the address of the other site where an external product is sold.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:343
+msgid "Product url"
+msgstr "상품 URL"
+
+#. translators: Label of the field holding what the buy button of an external product says.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:345
+msgid "Button text"
+msgstr "버튼 텍스트"
+
+#. translators: Warning above the product-category and tag fields in WPML's translation editor: the translation is shared by every product using that term.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:361
+msgid "Changes in these translations will affect terms in general! ( Not only for this product )"
+msgstr "이 번역을 변경하면 일반적인 용어에 영향을 미칩니다! ( 이 상품에만 해당되는 것이 아님 )"
+
+#. translators: Error returned when a product translation is saved with none of its three main fields filled in.
+#: inc/translation-editor/class-wcml-editor-ui-product-job.php:713
+msgid "Content, title, and excerpt are empty."
+msgstr "콘텐츠, 제목 및 요약이 비어 있습니다."

@@ -280,7 +280,7 @@ class Fields_Table extends WP_List_Table {
 
 		$change_options = get_option( 'xts_checkout_fields_manager_options', array() );
 		?>
-		<a href="<?php echo esc_attr( add_query_arg( 'reset-all-fields', true, $this->admin->get_base_url() ) ); ?>" class="xts-reset-all-fields xts-bordered-btn xts-color-warning<?php echo empty( $change_options ) ? ' xts-hidden' : ''; ?>">
+		<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'reset-all-fields', true, $this->admin->get_base_url() ), 'reset_all_fields' ) ); ?>" class="xts-reset-all-fields xts-bordered-btn xts-color-warning<?php echo empty( $change_options ) ? ' xts-hidden' : ''; ?>">
 			<?php esc_html_e( 'Reset all', 'woodmart' ); ?>
 		</a>
 		<?php

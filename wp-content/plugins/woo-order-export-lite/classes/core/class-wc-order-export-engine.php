@@ -17,6 +17,8 @@ class WC_Order_Export_Engine {
 	public static $orders_exported = 0;
 	public static $make_separate_orders = false;
 
+    const STORAGE_TRANSIENT_PREFIX = 'woe_storage_';
+
 	public static function make_filename( $mask, $called_for_filename=true ) {
 		$time = apply_filters( 'woe_make_filename_current_time', current_time( 'timestamp' ) );
 		$date = WC_Order_Export_Data_Extractor::get_date_range( self::$current_job_settings, false );
@@ -87,6 +89,70 @@ class WC_Order_Export_Engine {
 
 		return $filename;
 	}
+    private static function storage_key($filename) {
+        return self::STORAGE_TRANSIENT_PREFIX . md5((string) $filename);
+    }
+
+    private static function fallback_storage_filename($filename) {
+        return $filename . '.storage';
+    }
+
+
+    private static function storage_transient($action, $key, $value = null) {
+        global $_wp_using_ext_object_cache;
+
+        $previous                   = $_wp_using_ext_object_cache;
+        $_wp_using_ext_object_cache = false;
+
+        if ($action == 'get') {
+            $result = get_transient($key);
+        } elseif ($action == 'set') {
+            $result = set_transient($key, $value, HOUR_IN_SECONDS);
+        } else {
+            $result = delete_transient($key);
+        }
+
+        $_wp_using_ext_object_cache = $previous;
+
+        return $result;
+    }
+
+    public static function get_storage_filename($filename) {
+        $key     = self::storage_key($filename);
+        $storage = self::storage_transient('get', $key);
+
+        if ($storage AND file_exists($storage)) {
+            self::storage_transient('set', $key, $storage);
+
+            return $storage;
+        }
+
+        $storage = self::tempnam(sys_get_temp_dir(), 'woe-storage-');
+        if (!$storage) {
+            return self::fallback_storage_filename($filename);
+        }
+
+        self::storage_transient('set', $key, $storage);
+
+        return $storage;
+    }
+
+    public static function delete_storage_file($filename) {
+        $key     = self::storage_key($filename);
+        $storage = self::storage_transient('get', $key);
+
+        if ($storage) {
+            self::storage_transient('delete', $key);
+            if (file_exists($storage)) {
+                wp_delete_file($storage);
+            }
+        }
+
+        $fallback = self::fallback_storage_filename($filename);
+        if (file_exists($fallback)) {
+            wp_delete_file($fallback);
+        }
+    }
 
 	protected static function get_order_labels( $settings, $format, $field_formats_list ) {
 		$fields = $settings['order_fields'];
@@ -532,10 +598,10 @@ class WC_Order_Export_Engine {
 		} elseif ( $make_mode == 'preview' ) {
                         if (preg_match('/setup_field_/i', $sort_field)) {
                             $sql .= apply_filters( "woe_sql_get_order_ids_order_by",
-					" ORDER BY order_id DESC" ) . " LIMIT " . ( $limit !== false ? $limit : 1 );
+					" ORDER BY order_id DESC" ) . " LIMIT " . ( $limit !== false ? intval( $limit ) : 1 );
                         } else {
                             $sql .= apply_filters( "woe_sql_get_order_ids_order_by",
-					" ORDER BY " . $settings['sort'] . " " . $settings['sort_direction'] ) . " LIMIT " . ( $limit !== false ? $limit : 1 );
+					" ORDER BY " . $settings['sort'] . " " . $settings['sort_direction'] ) . " LIMIT " . ( $limit !== false ? intval( $limit ) : 1 );
                         }
 
 		} elseif ( $make_mode == 'partial' ) {
@@ -674,6 +740,7 @@ class WC_Order_Export_Engine {
 		$settings['sort'] = $sort_field;
 		$settings = apply_filters('woe_adjust_settings_for_known_orders', $settings, $order_ids);
 
+        try {
 		$formater = self::init_formater( '', $settings, $filename, $labels, $static_vals, 0 );
 
 		// prepare for XLS/CSV moved to plain formatter
@@ -715,6 +782,12 @@ class WC_Order_Export_Engine {
 //		self::maybe_output_summary_report( $formater );
 		$formater->finish();
 		do_action( 'woe_finish_custom_formatter' );
+
+        } catch ( \Throwable $e ) {
+            self::delete_storage_file( $filename );
+            wp_delete_file( $filename );
+            throw $e;
+        }
 
 		do_action( 'woe_export_finished' );
 

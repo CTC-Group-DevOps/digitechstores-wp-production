@@ -2,6 +2,7 @@
 
 use WPML\PB\Cornerstone\Modules\ModuleWithItemsFromConfig;
 use WPML\FP\Obj;
+use WPML\PB\TranslationJob\SourceLabels;
 
 class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Translatable_Nodes {
 
@@ -117,26 +118,31 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'card_front_text_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Card: Front Text Content', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
 					[
 						'field'       => 'card_back_text_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Card: Back Text Content', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
 					[
 						'field'       => 'anchor_text_primary_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Card: Anchor Text Primary Content', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
 					[
 						'field'       => 'anchor_text_secondary_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Card: Anchor Text Secondary Content', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
 					[
 						'field'       => 'anchor_href',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Card: Anchor Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					],
@@ -147,6 +153,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'alert_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Alert Content: Alert', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -157,6 +164,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'text_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Text Content: Text', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -167,11 +175,13 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'quote_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Quote: Quote Content', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
 					[
 						'field'       => 'quote_cite_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Quote: Quote Cite', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -182,11 +192,13 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'counter_number_prefix_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Counter: Number Prefix', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
 					[
 						'field'       => 'counter_number_suffix_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Counter: Number Suffix', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -197,6 +209,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Content Area: Content', 'sitepress' ),
 						'editor_type' => 'AREA',
 					],
@@ -207,6 +220,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'breadcrumbs_home_label_text',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Breadcrumbs: Home Label Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -217,6 +231,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'audio_embed_code',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Audio: Embed Code', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -227,6 +242,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'text_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Headline Content: Headline', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -237,6 +253,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'off_canvas_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Canvas Content: Canvas', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -247,6 +264,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'modal_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Modal Content: Modal', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -257,6 +275,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'dropdown_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Dropdown Content: Dropdown', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					],
@@ -267,11 +286,13 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'anchor_text_primary_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Anchor Text: Primary Content', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
 					[
 						'field'       => 'anchor_text_secondary_content',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Anchor Text: Secondary Content', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -282,6 +303,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'video_embed_code',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Video: Embed Code', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -292,6 +314,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'search_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Search Inline: Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -302,6 +325,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'search_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Search Modal: Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -312,6 +336,7 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 				'fields'     => [
 					[
 						'field'       => 'search_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Cornerstone. Before the colon is the name Cornerstone gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Search Dropdown: Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					],
@@ -331,6 +356,6 @@ class WPML_Cornerstone_Translatable_Nodes implements IWPML_Page_Builders_Transla
 	}
 
 	public function initialize_nodes_to_translate() {
-		$this->nodes_to_translate = apply_filters( 'wpml_cornerstone_modules_to_translate', self::get_nodes_to_translate() );
+		$this->nodes_to_translate = apply_filters( 'wpml_cornerstone_modules_to_translate', SourceLabels::run( [ self::class, 'get_nodes_to_translate' ] ) );
 	}
 }

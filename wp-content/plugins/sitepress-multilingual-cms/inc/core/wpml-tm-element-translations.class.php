@@ -74,7 +74,7 @@ class WPML_TM_Element_Translations extends WPML_TM_Record_User {
 	}
 
 	public function get_translation_review_status( $trid, $language_code ) {
-		if ( ! isset( $this->translation_review_status_cache[ $trid ][ $language_code ] ) ) {
+		if ( ! isset( $this->job_id_cache[ $trid ][ $language_code ] ) ) {
 			$this->init_job_id( $trid, $language_code );
 		}
 
@@ -88,7 +88,18 @@ class WPML_TM_Element_Translations extends WPML_TM_Record_User {
 		if ( ! isset( $this->job_id_cache[ $trid ][ $target_lang_code ] ) ) {
 			$jobs         = $wpdb->get_results(
 				$wpdb->prepare(
-					$this->sql_select_for_statuses( 't.trid = %d' ),
+					"SELECT
+						t.trid,
+						tj.job_id,
+						ts.status,
+						ts.review_status,
+						ts.needs_update,
+						t.language_code,
+						SUBSTRING_INDEX(t.element_type, '_', 1) AS element_type_prefix
+					FROM {$wpdb->prefix}icl_translate_job tj
+					JOIN {$wpdb->prefix}icl_translation_status ts ON tj.rid = ts.rid
+					JOIN {$wpdb->prefix}icl_translations t ON ts.translation_id = t.translation_id
+					WHERE t.trid = %d",
 					$trid
 				)
 			);
@@ -96,6 +107,10 @@ class WPML_TM_Element_Translations extends WPML_TM_Record_User {
 
 			foreach ( $active_langs as $lang_code ) {
 				$this->cache_job_in_lang( $jobs, $lang_code, $trid );
+			}
+
+			if ( $target_lang_code && ! isset( $this->job_id_cache[ $trid ][ $target_lang_code ] ) ) {
+				$this->cache_job_in_lang( $jobs, $target_lang_code, $trid );
 			}
 		}
 	}
@@ -107,12 +122,36 @@ class WPML_TM_Element_Translations extends WPML_TM_Record_User {
 
 		global $wpdb, $wpml_language_resolution;
 
-		$trids         = array_map( 'absint', $trids );
-		$trids         = array_unique( $trids );
-		$list_of_trids = implode( ',', $trids );
+		$trids = array_unique( array_map( 'absint', $trids ) );
+
+		$trids = array_values(
+			array_filter(
+				$trids,
+				function ( $trid ) {
+					return ! isset( $this->job_id_cache[ $trid ] );
+				}
+			)
+		);
+		if ( ! $trids ) {
+			return;
+		}
 
 		$jobs = $wpdb->get_results(
-			$this->sql_select_for_statuses( "t.trid IN ($list_of_trids)" )
+			$wpdb->prepare(
+				"SELECT
+					t.trid,
+					tj.job_id,
+					ts.status,
+					ts.review_status,
+					ts.needs_update,
+					t.language_code,
+					SUBSTRING_INDEX(t.element_type, '_', 1) AS element_type_prefix
+				FROM {$wpdb->prefix}icl_translate_job tj
+				JOIN {$wpdb->prefix}icl_translation_status ts ON tj.rid = ts.rid
+				JOIN {$wpdb->prefix}icl_translations t ON ts.translation_id = t.translation_id
+				WHERE t.trid IN (" . implode( ', ', array_fill( 0, count( $trids ), '%d' ) ) . ')',
+				$trids
+			)
 		);
 		$active_langs = $wpml_language_resolution->get_active_language_codes();
 
@@ -124,30 +163,12 @@ class WPML_TM_Element_Translations extends WPML_TM_Record_User {
 			$jobs_per_trid[ $job->trid ][] = $job;
 		}
 
-		foreach ( $jobs_per_trid as $trid => $trid_jobs ) {
+		foreach ( $trids as $trid ) {
+			$trid_jobs = isset( $jobs_per_trid[ $trid ] ) ? $jobs_per_trid[ $trid ] : [];
 			foreach ( $active_langs as $lang_code ) {
 				$this->cache_job_in_lang( $trid_jobs, $lang_code, $trid );
 			}
 		}
-	}
-
-	private function sql_select_for_statuses( $where ) {
-		global $wpdb;
-		return "SELECT
-				t.trid,
-				tj.job_id,
-				ts.status,
-				ts.review_status,
-				ts.needs_update,
-				t.language_code,
-				SUBSTRING_INDEX(t.element_type, '_', 1)
-				AS element_type_prefix
-			FROM {$wpdb->prefix}icl_translate_job tj
-			JOIN {$wpdb->prefix}icl_translation_status ts
-			ON tj.rid = ts.rid
-			JOIN {$wpdb->prefix}icl_translations t
-			ON ts.translation_id = t.translation_id
-			WHERE $where";
 	}
 
 	private function cache_job_in_lang( $jobs, $lang, $trid ) {

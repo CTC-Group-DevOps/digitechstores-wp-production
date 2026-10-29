@@ -6,6 +6,7 @@ use SitePress;
 use function WPML\Container\make;
 use WPML\ST\Gettext\Filters\IFilter;
 use WPML\ST\StringsFilter\Provider;
+use WPML\ST\TranslationFile\PluralForms;
 
 class Hooks implements \IWPML_Action {
 
@@ -92,10 +93,14 @@ class Hooks implements \IWPML_Action {
 	}
 
 	public function ngettext_filter( $translation, $single, $plural, $number, $domain, $context = false ) {
-		if ( $number == 1 ) {
+		$form = PluralForms::getIndexForDomain( (string) $domain, (int) $number );
+
+		if ( 0 === $form ) {
 			$string_to_translate = $single;
-		} else {
+		} elseif ( 1 === $form ) {
 			$string_to_translate = $plural;
+		} else {
+			$string_to_translate = $single . sprintf( \WPML_ST_Translations_File_JED::PLURAL_SUFFIX_PATTERN, $form );
 		}
 
 		return $this->gettext_with_context_filter( $translation, $string_to_translate, $context, $domain );

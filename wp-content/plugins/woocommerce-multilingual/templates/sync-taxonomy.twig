@@ -10,7 +10,7 @@
             <input type="hidden" name="languages_processed" value="0" />
             <div id="wcml_tt_sync_assignment" style="{{ display|e }}" >
                 <p>
-                    <input class="button-secondary" type="submit" value="{{ strings.sync_update|e }}" />
+                    <input class="wpml-button base-btn" type="submit" value="{{ strings.sync_update|e }}" />
                     <img src="{{ loader_url|e }}" alt="loading" height="16" width="16" class="wcml_tt_spinner" />
                 </p>
                 <span class="errors icl_error_text"></span>
@@ -31,7 +31,7 @@
             <input type="hidden" name="taxonomy" value="{{ taxonomy }}"/>
             {{ nonces.sync_taxonomies|raw }}
             <p>
-                <input class="button-secondary" type="submit" value="{{ strings.sync_in_cont|format( tax_name )|e }}"/>
+                <input class="wpml-button base-btn" type="submit" value="{{ strings.sync_in_cont|format( tax_name )|e }}"/>
                 <img src="{{ loader_url|e }}" alt="loading" height="16" width="16" class="wcml_tt_spinner"/>
             </p>
             <span class="errors icl_error_text"></span>

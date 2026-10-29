@@ -486,7 +486,7 @@
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=23157</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"052e3119-1062-43a3-b64d-ed207b29b151","blockVersion":"2","effect":"fade","pagination":false,"autoplay":true,"autoplaySpeed":"25000","stretch":true,"height":"700","marginTop":"-40","marginBottom":"80","heightMobile":"600","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-fade wd-stretched wd-autoplay-on wd-052e3119"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="fade" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"1abaa47c-d69d-4046-a6d7-b3769f29c389","blockVersion":"2","blockGap":0,"align":"flex-start","effect":"fade","aspectRatio":"","image":{"id":23167,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/cosmetics-slide-1-bg-opt.jpg","width":2048,"height":700},"bgImage":{"id":"","url":""},"bgColorCode":"#f8f8f8","paddingBottom":"100","imagePositionMobile":"custom","imageCustomPositionXMobile":"-583","imageCustomPositionYMobile":"0","bgPositionMobile":"custom","bgCustomPositionXMobile":"-583","bgCustomPositionYMobile":"0"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-1abaa47c"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"cbe454bd-2ecd-4b77-b78c-63095f8932c5","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"48","tpLineHeight":"1.3","animation":"slide-from-bottom","tpFontSizeTablet":"40","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-1abaa47c"><div class="wd-slide-container"><!-- wp:wd/paragraph {"blockId":"cbe454bd-2ecd-4b77-b78c-63095f8932c5","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"48","tpLineHeight":"1.3","animation":"slide-from-bottom","tpFontSizeTablet":"40","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_100 wd-cbe454bd">Commodo</p>
 <!-- /wp:wd/paragraph -->
 
@@ -494,7 +494,7 @@
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_200 wd-6ddfe843">The Best Natural</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"a028ad4d-d0bb-4acb-9ca6-84e4ec43a3a1","blockVersion":"2","content":"u0026amp; Organic Mascara.","tpFontSize":"58","tpLineHeight":"1.3","tpFontVariant":"300","tpFontWeight":"300","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"300","tpFontSizeTablet":"42","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"a028ad4d-d0bb-4acb-9ca6-84e4ec43a3a1","blockVersion":"2","content":"\u0026amp; Organic Mascara.","tpFontSize":"58","tpLineHeight":"1.3","tpFontVariant":"300","tpFontWeight":"300","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"300","tpFontSizeTablet":"42","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_300 wd-a028ad4d">&amp; Organic Mascara.</h2>
 <!-- /wp:wd/title -->
 
@@ -510,7 +510,7 @@
 <!-- wp:wd/slider-item {"blockId":"798f16eb-9a51-47c7-b3b7-ed1032f11cb0","blockVersion":"2","effect":"fade","aspectRatio":"","image":{"id":23168,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/cosmetics-slide-2-bg-opt.jpg","width":2048,"height":700},"bgImage":{"id":"","url":""},"bgColorCode":"#f8f8f8","paddingTop":"0","paddingBottom":"0"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-798f16eb"><div class="wd-slide-container"><!-- wp:wd/row {"blockId":"40db3372-64ce-42b1-b71c-9674687feeca","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-40db3372"><!-- wp:wd/column {"blockId":"014c5296-603c-4ca7-9adc-2302a61394ba","blockVersion":"2","adjacentCount":2,"blocksGap":0,"justifyContent":"center","textAlign":"center"} -->
-<div class="wp-block-wd-column wd-align wd-014c5296"><!-- wp:wd/paragraph {"blockId":"81060594-e9b9-45b2-9d4e-5b8afd370132","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"48","tpLineHeight":"1.3","animation":"slide-from-bottom","tpFontSizeTablet":"40","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-align wd-014c5296"><!-- wp:wd/paragraph {"blockId":"81060594-e9b9-45b2-9d4e-5b8afd370132","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"48","tpLineHeight":"1.3","animation":"slide-from-bottom","tpFontSizeTablet":"40","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_100 wd-81060594">Montesa</p>
 <!-- /wp:wd/paragraph -->
 
@@ -555,7 +555,7 @@
 
 <!-- wp:wd/container {"blockId":"e239df8c-13df-410e-97e7-dfe551123280","blockVersion":"2","paddingRight":"20","paddingLeft":"20","marginTop":"-40"} -->
 <div class="wp-block-wd-container wd-dir-col wd-e239df8c"><!-- wp:wd/container {"blockId":"e7a8489b-fb16-4f88-b7a9-13fa6ccd471b","blockVersion":"2","textAlign":"center","rowGap":"0","positionZIndex":"2","bgColorCode":"#fefefe","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","displayWidth":"","customWidth":""} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-e7a8489b"><!-- wp:wd/title {"blockId":"1e0cad32-30cb-4aaa-adbf-41dee9f7d784","blockVersion":"2","content":"SERUMS u0026amp; OILS","tpFontSize":"18","marginBottom":"5"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-e7a8489b"><!-- wp:wd/title {"blockId":"1e0cad32-30cb-4aaa-adbf-41dee9f7d784","blockVersion":"2","content":"SERUMS \u0026amp; OILS","tpFontSize":"18","marginBottom":"5"} -->
 <h2 class="wp-block-wd-title title wd-1e0cad32">SERUMS &amp; OILS</h2>
 <!-- /wp:wd/title -->
 
@@ -618,11 +618,11 @@
 
 <!-- wp:wd/row {"blockId":"f085e3ac-a2ba-4335-a9a9-e2ec89947bbd","blockVersion":"2","marginBottom":"80","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-row wd-f085e3ac"><!-- wp:wd/column {"blockId":"bfbf58dc-3f9e-4f50-9385-519d88f9e52d","blockVersion":"2","adjacentCount":2,"colWidth":25,"blocksGap":10,"justifyContent":"center","textAlign":"center"} -->
-<div class="wp-block-wd-column wd-align wd-bfbf58dc"><!-- wp:wd/paragraph {"blockId":"2a9551f2-7299-418d-b0f8-02f6691f36bd","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-align wd-bfbf58dc"><!-- wp:wd/paragraph {"blockId":"2a9551f2-7299-418d-b0f8-02f6691f36bd","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-2a9551f2">Commodo integer</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"62ac0007-2a60-4b42-8dfe-d3c89082ce0d","blockVersion":"2","content":"PROFESSIONALu003cbru003eu003cspan class=u0022wd-highlightu0022u003eSKINCAREu003c/spanu003e","tpFontSize":"36","tpFontVariant":"400","tpFontWeight":"400","markFontVariant":"300","markFontWeight":"300","animationDelay":"200","tpFontSizeTablet":"22","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"62ac0007-2a60-4b42-8dfe-d3c89082ce0d","blockVersion":"2","content":"PROFESSIONAL\u003cbr\u003e\u003cspan class=\u0022wd-highlight\u0022\u003eSKINCARE\u003c/span\u003e","tpFontSize":"36","tpFontVariant":"400","tpFontWeight":"400","markFontVariant":"300","markFontWeight":"300","animationDelay":"200","tpFontSizeTablet":"22","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-62ac0007">PROFESSIONAL<br><span class="wd-highlight">SKINCARE</span></h2>
 <!-- /wp:wd/title -->
 
@@ -644,11 +644,11 @@
 
 <!-- wp:wd/row {"blockId":"5ffca9a1-3f65-4154-8766-efcaf207ea06","blockVersion":"2","marginBottom":"80","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-row wd-5ffca9a1"><!-- wp:wd/column {"blockId":"2187bc63-7d82-441c-9cce-d3a47f807176","blockVersion":"2","adjacentCount":2,"colWidth":25,"blocksGap":10,"justifyContent":"center","textAlign":"center"} -->
-<div class="wp-block-wd-column wd-align wd-2187bc63"><!-- wp:wd/paragraph {"blockId":"b1dc2216-286a-4964-808c-c737b37db44b","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-align wd-2187bc63"><!-- wp:wd/paragraph {"blockId":"b1dc2216-286a-4964-808c-c737b37db44b","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-b1dc2216">Commodo integer</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"57810f0d-4604-4708-a761-0a1766d28b65","blockVersion":"2","content":"REVITALIZINGu003cbru003eu003cspan class=u0022wd-highlightu0022u003eFACE MASKSu003c/spanu003e","tpFontSize":"36","tpFontVariant":"400","tpFontWeight":"400","markFontVariant":"300","markFontWeight":"300","animationDelay":"200","tpFontSizeTablet":"22","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"57810f0d-4604-4708-a761-0a1766d28b65","blockVersion":"2","content":"REVITALIZING\u003cbr\u003e\u003cspan class=\u0022wd-highlight\u0022\u003eFACE MASKS\u003c/span\u003e","tpFontSize":"36","tpFontVariant":"400","tpFontWeight":"400","markFontVariant":"300","markFontWeight":"300","animationDelay":"200","tpFontSizeTablet":"22","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-57810f0d">REVITALIZING<br><span class="wd-highlight">FACE MASKS</span></h2>
 <!-- /wp:wd/title -->
 
@@ -675,7 +675,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"dbde9022-346e-43cd-a075-79848954a41a","blockVersion":"2","adjacentCount":2,"blocksGap":0,"justifyContent":"center","paddingTop":"60","paddingBottom":"60","paddingTopMobile":"40"} -->
-<div class="wp-block-wd-column wd-dbde9022"><!-- wp:wd/title {"blockId":"5538b180-f261-4720-a632-a6bc0e58eba9","blockVersion":"2","content":"u003cstrongu003eDiscover a beautiful youu003c/strongu003e with our new u003cspan class=u0022wd-highlightu0022u003eMakeup Essentialsu003c/spanu003e","tpFontSize":"46","tpFontVariant":"300","tpFontWeight":"300","markFontFamily":"var(u002du002dwd-alternative-font)","markColorVariable":"u002du002dwd-primary-color","marginBottom":"15","displayWidth":"custom","customWidth":"588","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
+<div class="wp-block-wd-column wd-dbde9022"><!-- wp:wd/title {"blockId":"5538b180-f261-4720-a632-a6bc0e58eba9","blockVersion":"2","content":"\u003cstrong\u003eDiscover a beautiful you\u003c/strong\u003e with our new \u003cspan class=\u0022wd-highlight\u0022\u003eMakeup Essentials\u003c/span\u003e","tpFontSize":"46","tpFontVariant":"300","tpFontWeight":"300","markFontFamily":"var(\u002d\u002dwd-alternative-font)","markColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"15","displayWidth":"custom","customWidth":"588","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
 <h2 class="wp-block-wd-title title wd-5538b180 wd-custom-width"><strong>Discover a beautiful you</strong> with our new <span class="wd-highlight">Makeup Essentials</span></h2>
 <!-- /wp:wd/title -->
 
@@ -737,7 +737,7 @@
 <!-- wp:wd/section {"blockId":"078ce4bd-9307-40d3-b793-ceb2e209e1df","blockVersion":"2","paddingBottom":"80","marginBottom":"80","borderType":"solid","borderColorCode":"rgba(0,0,0,0.11)","borderWidthBottom":"1","borderWidthLock":false,"paddingBottomMobile":"60","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-section wd-078ce4bd"><!-- wp:wd/row {"blockId":"95e07b63-8912-40d4-9b5c-1c4b698e3142","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-95e07b63"><!-- wp:wd/column {"blockId":"fc104ae5-c17a-42d2-9c34-dd3dff58cc96","blockVersion":"2","adjacentCount":2,"blocksGap":0,"justifyContent":"center","textAlign":"center","flexOrderMobile":"2"} -->
-<div class="wp-block-wd-column wd-align wd-fc104ae5"><!-- wp:wd/title {"blockId":"75f18b6d-a493-4d79-8116-952d8eecb1e6","blockVersion":"2","content":"u003cstrongu003eEnjoy the best qualityu003c/strongu003e, cosmetics made by u003cspan class=u0022wd-highlightu0022u003eWoodMartu003c/spanu003e","tpFontSize":"46","tpFontVariant":"300","tpFontWeight":"300","markFontFamily":"var(u002du002dwd-alternative-font)","markColorVariable":"u002du002dwd-primary-color","marginBottom":"15","displayWidth":"","customWidth":"","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
+<div class="wp-block-wd-column wd-align wd-fc104ae5"><!-- wp:wd/title {"blockId":"75f18b6d-a493-4d79-8116-952d8eecb1e6","blockVersion":"2","content":"\u003cstrong\u003eEnjoy the best quality\u003c/strong\u003e, cosmetics made by \u003cspan class=\u0022wd-highlight\u0022\u003eWoodMart\u003c/span\u003e","tpFontSize":"46","tpFontVariant":"300","tpFontWeight":"300","markFontFamily":"var(\u002d\u002dwd-alternative-font)","markColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"15","displayWidth":"","customWidth":"","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
 <h2 class="wp-block-wd-title title wd-75f18b6d"><strong>Enjoy the best quality</strong>, cosmetics made by <span class="wd-highlight">WoodMart</span></h2>
 <!-- /wp:wd/title -->
 
@@ -769,7 +769,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"239bcaa7-6570-4846-a0e2-1f4ad698a0a4","blockVersion":"2","textAlign":"center","rowGap":"10"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-239bcaa7"><!-- wp:wd/paragraph {"blockId":"76bed173-6331-4b4f-b9b9-b68278c707f5","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-239bcaa7"><!-- wp:wd/paragraph {"blockId":"76bed173-6331-4b4f-b9b9-b68278c707f5","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-76bed173">Commodo integer</p>
 <!-- /wp:wd/paragraph -->
 
@@ -790,12 +790,12 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/infobox {"blockId":"2efadec7-30e9-483a-8fd9-491c0f24dbb1","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"flex-start"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-2efadec7"><!-- wp:wd/icon {"blockId":"be0da2fa-47c4-466d-8984-3c1a55b1faa3","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"52"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-2efadec7"><!-- wp:wd/icon {"blockId":"be0da2fa-47c4-466d-8984-3c1a55b1faa3","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"52"} -->
 <div class="wp-block-wd-icon wd-with-text wd-be0da2fa"><span class="wd-text-icon">1.</span></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"48fa9d6e-5e0a-4a9b-b23a-d5286065870d","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-48fa9d6e"><!-- wp:wd/title {"blockId":"9755a058-9aff-48da-9c1e-4d0c161ac84c","blockVersion":"2","content":"SALTS u0026amp; SUGARS","tpFontSize":"18"} -->
+<div class="wp-block-wd-container wd-dir-col wd-48fa9d6e"><!-- wp:wd/title {"blockId":"9755a058-9aff-48da-9c1e-4d0c161ac84c","blockVersion":"2","content":"SALTS \u0026amp; SUGARS","tpFontSize":"18"} -->
 <h2 class="wp-block-wd-title title wd-9755a058">SALTS &amp; SUGARS</h2>
 <!-- /wp:wd/title -->
 
@@ -812,7 +812,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/infobox {"blockId":"13fc1510-0730-4eaf-a3c8-ebdc2006eca1","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"flex-start"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-13fc1510"><!-- wp:wd/icon {"blockId":"fb6fff78-3615-4881-8bb1-5b7bc4da45d3","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"52"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-13fc1510"><!-- wp:wd/icon {"blockId":"fb6fff78-3615-4881-8bb1-5b7bc4da45d3","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"52"} -->
 <div class="wp-block-wd-icon wd-with-text wd-fb6fff78"><span class="wd-text-icon">2.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -834,7 +834,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/infobox {"blockId":"eef812f8-ee43-4474-8aaf-9cf5cca2f865","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"flex-start"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-eef812f8"><!-- wp:wd/icon {"blockId":"b4f65c74-765f-4198-8434-939422b9f88b","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"52"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-eef812f8"><!-- wp:wd/icon {"blockId":"b4f65c74-765f-4198-8434-939422b9f88b","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"52"} -->
 <div class="wp-block-wd-icon wd-with-text wd-b4f65c74"><span class="wd-text-icon">3.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -853,7 +853,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"7f085ebd-ff20-467e-96ff-aac3be1b7e61","blockVersion":"2","textAlign":"center","rowGap":"10","marginBottom":"30"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-7f085ebd"><!-- wp:wd/paragraph {"blockId":"4a053285-5d97-4ef1-a534-0cd351346f01","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-7f085ebd"><!-- wp:wd/paragraph {"blockId":"4a053285-5d97-4ef1-a534-0cd351346f01","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"26","tpLineHeight":"1.3","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-4a053285">Commodo integer</p>
 <!-- /wp:wd/paragraph -->
 

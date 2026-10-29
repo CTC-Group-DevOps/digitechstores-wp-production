@@ -37,23 +37,24 @@ class WPML_Resolve_Object_Url_Helper implements IWPML_Resolve_Object_Url {
 		$translations = $this->cached_retrieve_translations( $url );
 		if ( $translations && isset( $translations[ $lang_code ]->element_type ) ) {
 
-			$current_lang = $this->sitepress->get_current_language();
 			$this->sitepress->switch_lang( $lang_code );
 
-			$element = explode( '_', $translations[ $lang_code ]->element_type );
-			$type    = array_shift( $element );
-			$subtype = implode( '_', $element );
-			switch ( $type ) {
-				case 'post':
-					$new_url = get_permalink( $translations[ $lang_code ]->element_id );
-					break;
-				case 'tax':
-					$term    = get_term_by( 'term_taxonomy_id', $translations[ $lang_code ]->element_id, $subtype );
-					$new_url = $term ? get_term_link( $term ) : false;
-					break;
+			try {
+				$element = explode( '_', $translations[ $lang_code ]->element_type );
+				$type    = array_shift( $element );
+				$subtype = implode( '_', $element );
+				switch ( $type ) {
+					case 'post':
+						$new_url = get_permalink( $translations[ $lang_code ]->element_id );
+						break;
+					case 'tax':
+						$term    = get_term_by( 'term_taxonomy_id', $translations[ $lang_code ]->element_id, $subtype );
+						$new_url = $term ? get_term_link( $term ) : false;
+						break;
+				}
+			} finally {
+				$this->sitepress->switch_lang();
 			}
-
-			$this->sitepress->switch_lang( $current_lang );
 		}
 
 		$this->lock = false;

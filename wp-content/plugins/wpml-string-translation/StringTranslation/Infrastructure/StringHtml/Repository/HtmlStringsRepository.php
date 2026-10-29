@@ -5,6 +5,7 @@ namespace WPML\StringTranslation\Infrastructure\StringHtml\Repository;
 use WPML\StringTranslation\Application\StringHtml\Repository\HtmlStringsRepositoryInterface;
 use WPML\StringTranslation\Application\StringHtml\Validator\IsExcludedHtmlStringValidatorInterface;
 use WPML\FP\Str;
+use WPML\Utilities\Utf8Html;
 use WPML\StringTranslation\Application\StringHtml\Repository\HtmlStringsFromScriptTagRepositoryInterface;
 
 class HtmlStringsRepository implements HtmlStringsRepositoryInterface {
@@ -30,7 +31,7 @@ class HtmlStringsRepository implements HtmlStringsRepositoryInterface {
 		}
 
 		$prevErrors = libxml_use_internal_errors(true);
-		$dom->loadHTML( $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING );
+		Utf8Html::load( $dom, $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING );
 		$errors = libxml_get_errors();
 		libxml_clear_errors();
 		libxml_use_internal_errors( $prevErrors );

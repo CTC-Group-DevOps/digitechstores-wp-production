@@ -9,11 +9,11 @@ class WCML_Tracking_Link {
 	const WPML_ACCOUNT              = 'https://wpml.org/shop/account/';
 	const WPML_AUTO_TRANSLATION_DOC = 'https://wpml.org/documentation/automatic-translation/';
 
-	const WCML_MAIN_DOC                  = 'https://wpml.org/documentation/related-projects/woocommerce-multilingual/';
-	const WCML_MULTI_CURRENCY_DOC        = 'https://wpml.org/documentation/related-projects/woocommerce-multilingual/multi-currency-support-woocommerce/';
-	const WCML_CLEAR_CART_DOC            = 'https://wpml.org/documentation/related-projects/woocommerce-multilingual/clearing-cart-contents-when-language-or-currency-change/';
-	const WCML_DISPLAY_AS_TRANSLATED_DOC = 'https://wpml.org/documentation/related-projects/woocommerce-multilingual/displaying-untranslated-products-in-secondary-languages/';
-	const WCML_TRANSLATE_EMAILS_DOC      = 'https://wpml.org/documentation/related-projects/woocommerce-multilingual/how-to-translate-woocommerce';
+	const WCML_MAIN_DOC                  = 'https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/';
+	const WCML_MULTI_CURRENCY_DOC        = 'https://wpml.org/documentation/translating-your-contents/multi-currency-woocommerce/';
+	const WCML_CLEAR_CART_DOC            = 'https://wpml.org/translating-your-contents/multi-currency-and-payment-gateways-for-woocommerce/';
+	const WCML_DISPLAY_AS_TRANSLATED_DOC = 'https://wpml.org/translating-your-contents/translate-woocommerce/';
+	const WCML_TRANSLATE_EMAILS_DOC      = 'https://wpml.org/documentation/translating-your-contents/woocommerce/';
 	const WCML_TRANSLATE_EMAILS_CAMPAIGN = 'woocommerce-emails';
 
 	const WCML_BOOKINGS_DOC                 = 'https://wpml.org/documentation/woocommerce-extensions-compatibility/translating-woocommerce-bookings-woocommerce-multilingual/';

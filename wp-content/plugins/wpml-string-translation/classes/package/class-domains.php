@@ -19,10 +19,12 @@ class Domains {
 	}
 
 	public function getDomains() {
+		$wpdb = $this->wpdb;
+
 		if ( ! $this->domains ) {
 			$this->domains = wpml_collect(
 				$this->wpdb->get_col(
-					"SELECT CONCAT(kind_slug, '-', name) FROM {$this->wpdb->prefix}icl_string_packages"
+					"SELECT CONCAT(kind_slug, '-', name) FROM {$wpdb->prefix}icl_string_packages"
 				)
 			);
 		}

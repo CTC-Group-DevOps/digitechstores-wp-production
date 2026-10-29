@@ -24,15 +24,17 @@
 					<pubDate>Thu, 08 Aug 2024 11:59:55 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/?post_type=woodmart_layout&#038;p=539</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/row {"blockId":"84abfcca-f144-4a41-9e37-bb0aa2121cee","blockVersion":"2","marginTop":"-20","marginBottom":"40"} -->
-<div class="wp-block-wd-row wd-84abfcca"><!-- wp:wd/column {"blockId":"855cdc34-45dd-4101-a279-3cc6997d17c0","blockVersion":"2","adjacentCount":2,"colWidth":58,"adjacentCountTablet":2,"colWidthTablet":50} -->
-<div class="wp-block-wd-column wd-855cdc34"><!-- wp:wd/sp-gallery {"blockId":"d165747e-5aa8-4ae1-ace1-f08c3d9dc960","blockVersion":"2"} /--></div>
+											<content:encoded><![CDATA[<!-- wp:wd/woo-breadcrumbs {"blockId":"90f1dc73-9c83-4ec1-bd58-e8d3fb9a6f97","blockVersion":"2","nowrapMd":true,"marginTop":"-20"} /-->
+
+<!-- wp:wd/row {"blockId":"84abfcca-f144-4a41-9e37-bb0aa2121cee","blockVersion":"2","marginBottom":"40"} -->
+<div class="wp-block-wd-row wd-84abfcca"><!-- wp:wd/column {"blockId":"855cdc34-45dd-4101-a279-3cc6997d17c0","blockVersion":"2","positionType":"relative","bgColorCode":"#ffffff","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","adjacentCount":2,"colWidth":58,"alignItems":"center","adjacentCountTablet":2,"colWidthTablet":50} -->
+<div class="wp-block-wd-column wd-align-is-lg-center wd-855cdc34"><!-- wp:wd/sp-gallery {"blockId":"d165747e-5aa8-4ae1-ace1-f08c3d9dc960","blockVersion":"2","productLabels":false,"positionType":"sticky","positionTop":"50","displayWidth":"custom","customWidth":"550"} /-->
+
+<!-- wp:wd/sp-product-labels {"blockId":"78fc4d71-c279-4092-ae8f-8f8d8f60e6df","blockVersion":"2","exclude":"attrs","positionType":"absolute","positionTop":"15","positionRight":"15"} /--></div>
 <!-- /wp:wd/column -->
 
-<!-- wp:wd/column {"blockId":"c1b5ef2e-ec1a-4bd0-b2f4-0bd6bc4d232a","blockVersion":"2","adjacentCount":2,"colWidth":42,"sticky":true,"stickyOffset":"150","adjacentCountTablet":2,"colWidthTablet":50,"stickyTablet":true} -->
-<div class="wp-block-wd-column wd-sticky-on-lg wd-sticky-on-md-sm wd_sticky_offset_150 wd-c1b5ef2e"><!-- wp:wd/woo-breadcrumbs {"blockId":"90f1dc73-9c83-4ec1-bd58-e8d3fb9a6f97","blockVersion":"2","nowrapMd":true} /-->
-
-<!-- wp:wd/woo-notices {"blockId":"bbdc581c-fffa-4b33-81f9-2a6c9902e365","blockVersion":"2"} /-->
+<!-- wp:wd/column {"blockId":"c1b5ef2e-ec1a-4bd0-b2f4-0bd6bc4d232a","blockVersion":"2","adjacentCount":2,"colWidth":42,"sticky":false,"stickyOffset":"150","adjacentCountTablet":2,"colWidthTablet":50} -->
+<div class="wp-block-wd-column wd-c1b5ef2e"><!-- wp:wd/woo-notices {"blockId":"bbdc581c-fffa-4b33-81f9-2a6c9902e365","blockVersion":"2"} /-->
 
 <!-- wp:wd/sp-title {"blockId":"e67f78ba-a22e-48cd-8454-c6a59c4f8c2f","blockVersion":"2","tpFontVariant":"700","tpFontWeight":"700"} /-->
 
@@ -44,15 +46,13 @@
 
 <!-- wp:wd/sp-countdown {"blockId":"d1e1e9b4-52b1-4d06-9ef3-055081445a0d","blockVersion":"2"} /-->
 
-<!-- wp:wd/sp-add-to-cart {"blockId":"4688fd48-2f45-467e-ae5a-f58d1867242d","blockVersion":"2","buttonDesign":"full"} /-->
+<!-- wp:wd/container {"blockId":"bc9f2be0-05e4-46bd-ab44-adbc123aadfe","blockVersion":"2","direction":"row","align":"end","colGap":"10"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-end wd-bc9f2be0"><!-- wp:wd/sp-add-to-cart {"blockId":"4688fd48-2f45-467e-ae5a-f58d1867242d","blockVersion":"2","buttonDesign":"full","flexSize":"grow"} /-->
+
+<!-- wp:wd/sp-wishlist-btn {"blockId":"56bd3c71-12fa-498c-95f2-a69d9b480091","blockVersion":"2","linkPaddingTop":"10","linkPaddingRight":"10","linkPaddingBottom":"10","linkPaddingLeft":"10","style":"icon"} /--></div>
+<!-- /wp:wd/container -->
 
 <!-- wp:wd/woo-hook {"blockId":"e68cdee9-3f9c-49b2-9449-4c721d1ae4ed","blockVersion":"2","hook":"woocommerce_single_product_summary"} /-->
-
-<!-- wp:wd/sp-wishlist-btn {"blockId":"d2811669-e335-4340-8ce9-6e2b24c140b6","blockVersion":"2"} /-->
-
-<!-- wp:wd/divider {"blockId":"3d2023a8-aada-4d9a-8f35-c2fb6581a86e","blockVersion":"2"} -->
-<div class="wp-block-wd-divider wd-style-line wd-3d2023a8"></div>
-<!-- /wp:wd/divider -->
 
 <!-- wp:wd/sp-additional-info-table {"blockId":"10f81041-3b01-4440-ad5c-d958bc3fb045","blockVersion":"2","title":false,"include":"1","layout":"grid","style":"default","columns":4} /-->
 
@@ -88,16 +88,16 @@
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/products {"blockId":"3bad6e8e-6be1-467c-9009-34ebadcca335","blockVersion":"2","show_title":true,"post_type":"recently_viewed","layout":"carousel","items_per_page":"7","products_with_background":true,"marginBottom":"40","slides_per_view":"5.5","hide_pagination_control":true,"hide_scrollbar":false,"hide_scrollbarTablet":false,"hide_scrollbarMobile":false,"sync_parent_id":"wd_3bad6e8e","productsBackgroundCode":"#ffffff","slides_per_viewTablet":"3.5","slides_per_viewMobile":"1.5","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} -->
-<!-- wp:wd/title {"blockId":"166db57d-971b-411b-9e4a-945f4d396aa1","blockVersion":"2","content":"You May Be Interested In…","tpFontSize":"22","tpFontSizeMobile":"20"} -->
-<h2 class="wp-block-wd-title title wd-166db57d">You May Be Interested In…</h2>
+<!-- wp:wd/products {"blockId":"3bad6e8e-6be1-467c-9009-34ebadcca335","blockVersion":"2","show_title":true,"post_type":"related","layout":"carousel","items_per_page":"7","products_with_background":true,"marginBottom":"40","slides_per_view":"5.5","hide_pagination_control":true,"hide_scrollbar":false,"hide_scrollbarTablet":false,"hide_scrollbarMobile":false,"sync_parent_id":"wd_3bad6e8e","productsBackgroundCode":"#ffffff","slides_per_viewTablet":"3.5","slides_per_viewMobile":"1.5","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} -->
+<!-- wp:wd/title {"blockId":"166db57d-971b-411b-9e4a-945f4d396aa1","blockVersion":"2","content":"Related products","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<h2 class="wp-block-wd-title title wd-166db57d">Related products</h2>
 <!-- /wp:wd/title -->
 <!-- /wp:wd/products -->]]></content:encoded>
 															<wp:post_id>539</wp:post_id>
 					<wp:post_date><![CDATA[2024-08-08 11:59:55]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-08-08 11:59:55]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-08-11 06:24:33]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-08-11 06:24:33]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-05 13:40:20]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-05 13:40:20]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[single-product-vegetables]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

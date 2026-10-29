@@ -34,7 +34,6 @@ class Notices implements \IWPML_Backend_Action {
 		} else {
 			add_action( 'shutdown', [ $this, 'maybePersistSwitchHint' ], self::PRIORITY_BEFORE_SAVE_SUMMARY );
 			add_action( 'edit_form_top', [ $this, 'maybeRenderSwitchHint' ] );
-			add_action( 'admin_init', [ $this, 'maybeHandleSwitchHintDismiss' ] );
 		}
 	}
 
@@ -46,6 +45,9 @@ class Notices implements \IWPML_Backend_Action {
 		$productId = $this->getRequestProductId();
 
 		if ( ! $productId ) {
+			return;
+		}
+		if ( ! current_user_can( 'edit_post', $productId ) ) {
 			return;
 		}
 
@@ -106,7 +108,7 @@ class Notices implements \IWPML_Backend_Action {
 
 		$editedCount  = count( $summary['edited'] ?? [] );
 		$total        = (int) $summary['total'];
-		$skippedCount = max( 0, $total - $editedCount - count( $summary['deleted'] ?? 0 ) );
+		$skippedCount = max( 0, $total - $editedCount - count( $summary['deleted'] ?? [] ) );
 
 		if ( $skippedCount <= 0 ) {
 			delete_transient( self::SYNC_SUMMARY_TRANSIENT_PREFIX . $postId );
@@ -133,6 +135,7 @@ class Notices implements \IWPML_Backend_Action {
 					<strong style="flex:1">
 						<?php
 						if ( 0 === $editedCount ) {
+							/* translators: First line of the notice shown after saving a variable product, when only the product's own fields were synced. */
 							esc_html_e( 'WPML synced translations for product-level changes only.', 'woocommerce-multilingual' );
 						} else {
 							echo esc_html( sprintf(
@@ -166,13 +169,14 @@ class Notices implements \IWPML_Backend_Action {
 						printf(
 							/* translators: %s: "Force update all" label */
 							wp_kses_post( __( 'If you\'ve made changes <strong>outside this editor</strong> (for example, retranslating an attribute term), use <em>%s</em> below to make sure every translation is current.', 'woocommerce-multilingual' ) ),
+							/* translators: Name of the button on the same notice, used inside the sentence above it. Verb phrase, imperative: sync every variation now. */
 							esc_html__( 'Force update all', 'woocommerce-multilingual' )
 						);
 						?>
 					</p>
 					<p>
 						<button type="button" class="button" id="wcml-esn-force-update">
-							<?php esc_html_e( 'Force update all variation translations', 'woocommerce-multilingual' ); ?>
+							<?php /* translators: Button label on the notice shown after saving a variable product. Verb, imperative. */ esc_html_e( 'Force update all variation translations', 'woocommerce-multilingual' ); ?>
 						</button>
 					</p>
 					<p style="margin-top:8px;color:#3c434a;">
@@ -183,7 +187,9 @@ class Notices implements \IWPML_Backend_Action {
 							sprintf(
 								'<a href="%s" target="_blank" rel="noopener">%s<span class="screen-reader-text"> %s</span>&nbsp;<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" style="vertical-align:-1px;"><path d="M3.5 1.5v1H8.79L1.65 9.64l.71.71L9.5 3.21V8.5h1V1.5h-7z"/></svg></a>',
 								esc_url( admin_url( 'admin.php?page=wpml-wcml&tab=settings' ) ),
+								/* translators: Link text pointing at the plugin's Settings page, inside the notice shown after saving a variable product. */
 								esc_html__( 'WCML Settings page', 'woocommerce-multilingual' ),
+								/* translators: Text read out by screen readers after a link that opens in a new browser tab. */
 								esc_html__( '(opens in a new tab)', 'woocommerce-multilingual' )
 							)
 						);
@@ -198,7 +204,7 @@ class Notices implements \IWPML_Backend_Action {
 				var btn = document.getElementById('wcml-esn-force-update');
 				if (!btn) return;
 				btn.addEventListener('click', function () {
-					btn.textContent = '<?php echo esc_js( __( 'Syncing all variations…', 'woocommerce-multilingual' ) ); ?>';
+					btn.textContent = '<?php echo esc_js( /* translators: Label the button changes to while it is syncing every variation of the product. */ __( 'Syncing all variations…', 'woocommerce-multilingual' ) ); ?>';
 					btn.disabled = true;
 					var data = new FormData();
 					data.append('action', '<?php echo esc_js( ForceUpdateEndpoint::ACTION ); ?>');
@@ -209,17 +215,17 @@ class Notices implements \IWPML_Backend_Action {
 						.then(function (j) {
 							var out = document.getElementById('wcml-esn-force-update-result');
 							if (j && j.success) {
-								btn.textContent = '<?php echo esc_js( __( 'Done — all variations synced', 'woocommerce-multilingual' ) ); ?>';
+								btn.textContent = '<?php echo esc_js( /* translators: Label the button changes to when syncing every variation has finished. */ __( 'Done — all variations synced', 'woocommerce-multilingual' ) ); ?>';
 								if (out) {
 									out.style.display = 'block';
-									out.textContent = '<?php echo esc_js( sprintf( __( 'Sync completed for product #%d.', 'woocommerce-multilingual' ), $postId ) ); ?>';
+									out.textContent = '<?php echo esc_js( sprintf( /* translators: Confirmation shown next to the button after every variation was synced. %d: the product's numeric ID. */ __( 'Sync completed for product #%d.', 'woocommerce-multilingual' ), $postId ) ); ?>';
 								}
 							} else {
-								btn.textContent = '<?php echo esc_js( __( 'Failed — see console', 'woocommerce-multilingual' ) ); ?>';
+								btn.textContent = '<?php echo esc_js( /* translators: Label the button changes to when syncing the variations failed; "console" is the browser's developer console. */ __( 'Failed — see console', 'woocommerce-multilingual' ) ); ?>';
 								console.error(j);
 							}
 						})
-						.catch(function (e) { console.error(e); btn.textContent = '<?php echo esc_js( __( 'Error — ', 'woocommerce-multilingual' ) ); ?>' + e; })
+						.catch(function (e) { console.error(e); btn.textContent = '<?php echo esc_js( /* translators: Start of the button label when syncing the variations threw an error; the error text is appended after it. Keep the trailing space. */ __( 'Error — ', 'woocommerce-multilingual' ) ); ?>' + e; })
 						.finally(function () { btn.disabled = false; });
 				});
 			})();
@@ -239,6 +245,9 @@ class Notices implements \IWPML_Backend_Action {
 		$productId = $this->getRequestProductId();
 
 		if ( ! $productId || get_post_type( $productId ) !== 'product' ) {
+			return;
+		}
+		if ( ! current_user_can( 'edit_post', $productId ) ) {
 			return;
 		}
 
@@ -304,13 +313,15 @@ class Notices implements \IWPML_Backend_Action {
 
 		$variations   = (int) ( $hint['variation_count'] ?? 0 );
 		$translations = (int) ( $hint['translation_count'] ?? 0 );
-		$dismissUrl   = wp_nonce_url(
-			add_query_arg( [
-				'wcml_esn_dismiss' => 'heavy_load',
-				'post'             => $postId,
-				'action'           => 'edit',
-			], admin_url( 'post.php' ) ),
-			'wcml_esn_dismiss_heavy_load'
+		$dismissUrl   = \WCML_Requests::dismissUrl(
+			self::SWITCH_HINT_DISMISS_KEY,
+			add_query_arg(
+				[
+					'post'   => $postId,
+					'action' => 'edit',
+				],
+				admin_url( 'post.php' )
+			)
 		);
 
 		$settingsUrl = admin_url( 'admin.php?page=wpml-wcml&tab=settings' );
@@ -325,7 +336,7 @@ class Notices implements \IWPML_Backend_Action {
 		</style>
 		<div class="wcml-esn-notice-a" data-product-id="<?php echo (int) $postId; ?>">
 			<button type="button" class="dismiss-x" onclick="this.closest('.wcml-esn-notice-a').remove()"
-				aria-label="<?php esc_attr_e( 'Dismiss', 'woocommerce-multilingual' ); ?>">×</button>
+				aria-label="<?php /* translators: Accessible label (screen readers) of the close button that hides an admin notice. Verb, imperative. */ esc_attr_e( 'Dismiss', 'woocommerce-multilingual' ); ?>">×</button>
 			<p class="lede">
 				<?php
 				echo esc_html( sprintf(
@@ -343,6 +354,7 @@ class Notices implements \IWPML_Backend_Action {
 			</p>
 			<p class="meta">
 				<?php
+				/* translators: Second paragraph of the notice shown after a save that checked every variation and changed none; the quoted text is the name of a setting on the plugin's Settings page and is translated the same way there. */
 				echo wp_kses_post( __( 'That\'s wasted work. Switching to <em>"Only sync variations edited in the editor"</em> would make saves like this much faster — WPML will only sync the variations you actually changed and tell you what was skipped.', 'woocommerce-multilingual' ) );
 				?>
 			</p>
@@ -354,40 +366,21 @@ class Notices implements \IWPML_Backend_Action {
 					sprintf(
 						'<a href="%s" target="_blank" rel="noopener">%s<span class="screen-reader-text"> %s</span>&nbsp;<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" style="vertical-align:-1px;"><path d="M3.5 1.5v1H8.79L1.65 9.64l.71.71L9.5 3.21V8.5h1V1.5h-7z"/></svg></a>',
 						esc_url( $settingsUrl ),
+						/* translators: Link text pointing at the plugin's Settings page, inside the notice shown after saving a variable product. */
 						esc_html__( 'WCML Settings page', 'woocommerce-multilingual' ),
+						/* translators: Text read out by screen readers after a link that opens in a new browser tab. */
 						esc_html__( '(opens in a new tab)', 'woocommerce-multilingual' )
 					)
 				);
 				?>
 				<span style="margin:0 8px;color:#dcdcde;">|</span>
 				<a href="<?php echo esc_url( $dismissUrl ); ?>" style="color:#646970;">
-					<?php esc_html_e( 'Don\'t show this again on this site', 'woocommerce-multilingual' ); ?>
+					<?php /* translators: Link text that permanently hides the notice about variation syncing. Verb phrase, imperative. */ esc_html_e( 'Don\'t show this again on this site', 'woocommerce-multilingual' ); ?>
 				</a>
 			</p>
 		</div>
 		<?php
 		delete_transient( self::SWITCH_HINT_TRANSIENT_PREFIX . $postId );
-	}
-
-	public function maybeHandleSwitchHintDismiss() {
-		if ( ! isset( $_GET['wcml_esn_dismiss'] ) || 'heavy_load' !== $_GET['wcml_esn_dismiss'] ) {
-			return;
-		}
-
-		$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'wcml_esn_dismiss_heavy_load' ) ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-		$settings = $this->woocommerce_wpml->get_settings();
-		$settings[ self::SWITCH_HINT_DISMISS_KEY ] = '1';
-		$this->woocommerce_wpml->update_settings( $settings );
-
-		wp_safe_redirect( remove_query_arg( [ 'wcml_esn_dismiss', '_wpnonce' ] ) );
-		exit;
 	}
 
 	private function getRequestProductId(): int {

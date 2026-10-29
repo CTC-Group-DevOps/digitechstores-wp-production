@@ -16,18 +16,20 @@ class AutoRegisterStringsNotice {
 			$noticeId             = 'AutoRegisterStringsNotice';
 
 			if ( $autoRegisterDisabled ) {
-				$stPath = $wp_api->constant( 'WPML_ST_FOLDER' ) . '/menu/string-translation';
-
 				$linkHref   = ! empty( $_GET['trop'] )
-					? admin_url( 'admin.php?page=' . $stPath . '.php#dashboard_wpml_st_autoregister' )
+					? admin_url( 'admin.php?page=tm/menu/main.php&tab=strings#dashboard_wpml_st_autoregister' )
 					: '#dashboard_wpml_st_autoregister';
-				$linkText   = '<a href="' . $linkHref . '" id="wpml_open_autoregistration_setting">' . __( 'Click here to enable it', 'wpml-string-translation' ) . '</a>';
-				$noticeText = __( 'String auto registration is disabled. ', 'wpml-string-translation' );
+				$noticeText = sprintf(
+					/* translators: Notice on the WPML screens when automatic string registration is off. %1$s: opening link tag, %2$s: closing link tag; the words between them become the link. */
+					__( 'String auto registration is disabled. %1$sClick here to enable it%2$s', 'wpml-string-translation' ),
+					'<a href="' . esc_url( $linkHref ) . '" id="wpml_open_autoregistration_setting">',
+					'</a>'
+				);
 				$notice     = $notices->get_new_notice(
-					$noticeId, $noticeText . $linkText
+					$noticeId, $noticeText
 				)->set_css_class_types( 'warning' );
 				$notice->set_dismissible( true );
-				$notice->set_restrict_to_screen_ids( [ $stPath ] );
+				$notice->add_display_callback( [ StringTranslationPage::class, 'isCurrent' ] );
 				$notices->add_notice( $notice );
 			} elseif ( ! $autoRegisterDisabled && ! is_null( $notices->get_notice( $noticeId ) ) ) {
 				$notices->remove_notice( $notices::DEFAULT_GROUP, $noticeId );

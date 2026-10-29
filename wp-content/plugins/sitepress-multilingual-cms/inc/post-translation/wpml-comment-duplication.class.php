@@ -16,6 +16,8 @@ class WPML_Comment_Duplication{
 			), array( 'comment_ID' => $comment['comment_ID'] ), array( '%d', '%d' ), array( '%d' )
 		);
 		wp_update_comment_count_now($duplicate_of);
+
+		do_action( 'wpml_comment_counts_mark_out_of_date' );
 	}
 
 	public function get_correct_parent($comment, $dup_id){
@@ -76,6 +78,8 @@ class WPML_Comment_Duplication{
 		}
 
 		wp_update_comment_count_now ( $dup_id );
+
+		do_action( 'wpml_comment_counts_mark_out_of_date' );
 	}
 
 	private function duplicate_exists( $dup_id, $original_cid ) {

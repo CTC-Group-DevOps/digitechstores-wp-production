@@ -19,7 +19,7 @@ class WPML_ST_String_Tracking_AJAX implements IWPML_Action {
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_' . $this->action, array( $this, 'render_string_position' ) );
+		\WPML\Request\Adapter\Ajax::register( $this->action, \WPML\Request\Policy\Policy::capability( [ 'wpml_manage_string_translation', 'manage_translations' ], \WPML\Request\Policy\Authenticity::actionNonce( $this->action, 'nonce' ) ), array( $this, 'render_string_position' ) );
 	}
 
 	public function render_string_position() {

@@ -33,8 +33,10 @@ class WPML_Page_Builders_Media_Shortcodes_Update implements IWPML_PB_Media_Updat
 			->set_source_lang( $element->get_source_language_code() )
 			->translate( $post->post_content );
 
-		if ( $this->media_usage ) {
-			$this->media_usage->update( $element->get_source_element()->get_id() );
+		$source_element = $element->get_source_element();
+
+		if ( $this->media_usage && $source_element ) {
+			$this->media_usage->update( $source_element->get_id() );
 		}
 
 		if ( $post->post_content !== $post_content ) {

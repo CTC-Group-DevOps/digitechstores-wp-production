@@ -4,6 +4,7 @@ namespace WPML\PB\Elementor\V4;
 
 use WPML\FP\Obj;
 use WPML\LIB\WP\Hooks as WPHooks;
+use WPML\PB\Elementor\Helper\ElementTree;
 
 use function WPML\FP\spreadArgs;
 
@@ -27,17 +28,15 @@ class Hooks implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 	}
 
 	public function translateContentIds( array $data ) {
-		foreach ( $data as &$element ) {
-			if ( $this->isV4Widget( $element ) ) {
-				$element['settings'] = $this->translateSettingsIds( $element['settings'] );
-			}
+		return ElementTree::map( $data, [ $this, 'translateElementIds' ] );
+	}
 
-			if ( ! empty( $element['elements'] ) ) {
-				$element['elements'] = $this->translateContentIds( $element['elements'] );
-			}
+	public function translateElementIds( array $element ) {
+		if ( $this->isV4Widget( $element ) ) {
+			$element['settings'] = $this->translateSettingsIds( $element['settings'] );
 		}
 
-		return $data;
+		return $element;
 	}
 
 	private function isV4Widget( array $element ) {

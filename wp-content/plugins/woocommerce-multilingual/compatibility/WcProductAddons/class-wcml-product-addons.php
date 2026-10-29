@@ -216,11 +216,14 @@ class WCML_Product_Addons implements IWPML_Action {
 				$addons_section = new WPML_Editor_UI_Field_Section( sprintf( __( 'Product Add-ons Group "%s"', 'woocommerce-multilingual' ), $addon_data->get( 'name' ) ) );
 
 				$group       = new WPML_Editor_UI_Field_Group( '', true );
+				/* translators: Label of a name field in WPML's translation editor for a product. Noun. */
 				$addon_field = new WPML_Editor_UI_Single_Line_Field( self::ADDON_PREFIX . $addon_id . '_name', __( 'Name', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $addon_field );
+				/* translators: Label of a description field in WPML's translation editor for a product. Noun. */
 				$addon_field = new WPML_Editor_UI_Single_Line_Field( self::ADDON_PREFIX . $addon_id . '_description', __( 'Description', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $addon_field );
 				if ( $addon_data->offsetExists( 'placeholder' ) ) {
+					/* translators: Label of the field holding the hint text of a product add-on, in WPML's translation editor. Noun: the grey text shown inside an empty field. */
 					$addon_field = new WPML_Editor_UI_Single_Line_Field( self::ADDON_PREFIX . $addon_id . '_placeholder', __( 'Placeholder', 'woocommerce-multilingual' ), $data, false );
 					$group->add_field( $addon_field );
 				}
@@ -228,9 +231,11 @@ class WCML_Product_Addons implements IWPML_Action {
 
 				if ( $addon_data->offsetExists( 'options' ) && $addon_data->get( 'options' ) ) {
 
+					/* translators: Heading of the group of add-on option labels in WPML's translation editor for a product. Noun, plural. */
 					$labels_group = new WPML_Editor_UI_Field_Group( __( 'Options', 'woocommerce-multilingual' ), true );
 
 					foreach ( $addon_data->get( 'options' ) as $option_id => $option ) {
+						/* translators: Label of the field holding one add-on option's text, in WPML's translation editor. Noun: the text the shopper reads. */
 						$option_label_field = new WPML_Editor_UI_Single_Line_Field( self::ADDON_PREFIX . $addon_id . '_option_' . $option_id . '_label', __( 'Label', 'woocommerce-multilingual' ), $data, false );
 						$labels_group->add_field( $option_label_field );
 					}

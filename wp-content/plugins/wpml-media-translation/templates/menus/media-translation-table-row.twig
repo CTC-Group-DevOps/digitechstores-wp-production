@@ -18,7 +18,7 @@
 	data-has-usages-in-posts-by-reference="{% if attachment.has_usages_in_posts_by_reference %}1{% else %}0{% endif %}">
 	<td class="wpml-col-media-title">
         <span title="{{ languages[attachment.language].name }}" class="wpml-media-original-flag js-otgs-popover-tooltip"
-			  data-tippy-distance="-12">
+			  data-tippy-distance="-12" tabindex="-1">
             <img src="{{ languages[attachment.language].flag }}" width="16" height="12" alt="{{ attachment.language }}">
         </span>
 		<span class="wpml-media-wrapper">
@@ -35,6 +35,7 @@
 					 data-tippy-maxWidth= "{{ attachment.preview.width }}px"
 					 data-tippy-content="{{ '<img style=\"max-width:100%;width:auto;max-height:' ~ attachment.preview.height ~ 'px;height:auto;\" src="' ~ attachment.url ~ '" />' }}"
 					 class="js-otgs-popover-tooltip"
+					 tabindex="-1"
 				 {% endif %}
 			>
         </span>
@@ -59,15 +60,19 @@
 		{% for code, language in languages %}
 			{% if target_language is empty or target_language == code %}
 				{% if attachment.language == code %}
-					<span class="js-otgs-popover-tooltip" data-tippy-distance="-12"
-						  title="{{ languages[attachment.language].name }}: {{ strings.original_language }}">
-                                    <i class="otgs-ico-original"></i>
+					<span class="js-otgs-popover-tooltip" data-tippy-distance="-12" tabindex="-1" role="img"
+						  title="{{ languages[attachment.language].name }}: {{ strings.original_language }}"
+						  aria-label="{{ languages[attachment.language].name }}: {{ strings.original_language }}">
+                                    <i class="otgs-ico-original" aria-hidden="true"></i>
                                 </span>
 				{% else %}
 					<span class="wpml-media-wrapper js-otgs-popover-tooltip"
 						  id="media-attachment-{{ attachment.post.ID }}-{{ code }}"
 						  data-file-name="{{ attachment.translations[code].file_name }}"
+						  tabindex="-1"
 						  title="{{ strings.edit_translation | format(languages[code].name ) }}"
+						  data-label-add="{{ strings.add_translation_for | format(languages[code].name ) }}"
+						  data-label-edit="{{ strings.edit_translation | format(languages[code].name ) }}"
                             {% if not attachment.translations[code].media_is_translated %}
 								data-tippy-distance="-12"
 							{% endif %}
@@ -84,13 +89,15 @@
 						  data-media-is-translated="{{ attachment.translations[code].media_is_translated }}"
 						  data-custom_fields="{{ attachment.translations[code].custom_fields|json_encode }}"
 					>
-                                    <a class="js-open-media-translation-dialog {% if attachment.translations[code].media_is_translated %}wpml-media-translation-image{% endif %}">
+                                    <a class="js-open-media-translation-dialog {% if attachment.translations[code].media_is_translated %}wpml-media-translation-image{% endif %}"
+                                       role="button" tabindex="0"
+                                       aria-label="{% if attachment.translations[code].id %}{{ strings.edit_translation | format(languages[code].name ) }}{% else %}{{ strings.add_translation_for | format(languages[code].name ) }}{% endif %}">
                                         <img src="{{ attachment.translations[code].thumb.src }}"
 											 width="{{ attachment.thumb.width }}" height="{{ attachment.thumb.height }}"
 											 alt="{{ attachment.language }}"
 											 {% if not attachment.is_image %}class="is-non-image"{% endif %}
 											{% if not attachment.translations[code].media_is_translated %}style="display:none"{% endif %}>
-                                        <i class="{% if attachment.translations[code].id %}otgs-ico-edit{% else %}otgs-ico-add{% endif %}"
+                                        <i class="{% if attachment.translations[code].id %}otgs-ico-edit{% else %}otgs-ico-add{% endif %}" aria-hidden="true"
 										   {% if attachment.translations[code].media_is_translated %}style="display:none"{% endif %}></i>
                                     </a>
                                 </span>

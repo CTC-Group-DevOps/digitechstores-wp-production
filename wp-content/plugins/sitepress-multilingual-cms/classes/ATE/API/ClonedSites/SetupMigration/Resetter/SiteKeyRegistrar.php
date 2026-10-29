@@ -6,6 +6,12 @@ use WPML\TM\ATE\ClonedSites\SetupMigration\SiteKeyRemoveServiceFactory;
 
 class SiteKeyRegistrar {
 
+	const REGISTERED = 'registered';
+
+	const REFUSED = 'refused';
+
+	const NOT_CHECKED = 'not_checked';
+
 	private $factory;
 
 	public function __construct( ?SiteKeyRemoveServiceFactory $factory = null ) {
@@ -13,8 +19,10 @@ class SiteKeyRegistrar {
 	}
 
 	public function register( string $siteKey ): bool {
-		icl_set_setting( 'site_key', null, true );
+		return self::REGISTERED === $this->registerWithOutcome( $siteKey );
+	}
 
+	public function registerWithOutcome( string $siteKey ): string {
 		$result = $this->factory->createInstaller()->save_site_key( [
 			'repository_id' => 'wpml',
 			'nonce'         => wp_create_nonce( 'save_site_key_wpml' ),
@@ -23,11 +31,13 @@ class SiteKeyRegistrar {
 		] );
 
 		if ( ! empty( $result['error'] ) ) {
-			return false;
+			return empty( $result['key_not_checked'] ) && empty( $result['postponed'] )
+				? self::REFUSED
+				: self::NOT_CHECKED;
 		}
 
 		icl_set_setting( 'site_key', $siteKey, true );
 
-		return true;
+		return self::REGISTERED;
 	}
 }

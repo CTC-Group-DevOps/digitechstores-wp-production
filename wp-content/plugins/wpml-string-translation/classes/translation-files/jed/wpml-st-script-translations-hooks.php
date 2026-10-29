@@ -37,6 +37,7 @@ class WPML_ST_Script_Translations_Hooks implements IWPML_Action {
 			$wpml_filepath = $this->jed_file_manager->get( $domain, $locale );
 		} elseif ( is_readable( $filepath ) ) {
 			$locale        = $this->get_file_locale( $filepath, $domain );
+			$locale        = apply_filters( 'wpml_st_script_translation_file_locale', $locale, $filepath );
 			$domain        = WPML_ST_JED_Domain::get( $domain, $handler );
 			$wpml_filepath = $this->jed_file_manager->get( $domain, $locale );
 			$wpml_filepath = $this->maybe_update_custom_file_with_new_native_translations( $wpml_filepath, $filepath, $domain, $locale );

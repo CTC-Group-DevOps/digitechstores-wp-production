@@ -19,15 +19,14 @@ class WPML_Sticky_Posts_Lang_Filter {
 
 		$result = array();
 		foreach ( $posts as $post_id ) {
-			if (
-				$this->post_translation->get_element_lang_code( $post_id ) === $lang ||
-				$this->is_post_type_valid_in_any_language( $this->post_translation->get_type( $post_id ) )
-			) {
-				$result[] = $post_id;
+			if ( $this->post_translation->get_element_lang_code( $post_id ) === $lang ) {
+				$result[] = (int) $post_id;
+			} elseif ( $this->is_post_type_valid_in_any_language( $this->post_translation->get_type( $post_id ) ) ) {
+				$result[] = (int) $this->post_translation->element_id_in( $post_id, $lang, true );
 			}
 		}
 
-		return $result;
+		return array_values( array_unique( $result ) );
 	}
 
 	private function is_post_type_valid_in_any_language( $post_type ) {

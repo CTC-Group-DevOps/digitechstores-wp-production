@@ -44,7 +44,7 @@
                     </li>
                 {% endif %}
                 {% for domain, domains_statistics in component_data.domains %}
-                    <li{% if showDomainsList %} data-domainListItem="1" style="display: none"{% endif %}><a title="{{ domains_statistics.title_all_strings }}" href="{{ domains_statistics.domain_link }}">{{ domain }}</a></li>
+                    <li{% if showDomainsList %} data-domainListItem="1" style="display: none"{% endif %}>{% if domains_statistics.domain_link %}<a title="{{ domains_statistics.title_all_strings }}" href="{{ domains_statistics.domain_link }}">{{ domain }}</a>{% else %}{{ domain }}{% endif %}</li>
                 {% endfor %}
             </ul>
         {% endif %}

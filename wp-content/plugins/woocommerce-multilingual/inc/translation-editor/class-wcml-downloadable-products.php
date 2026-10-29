@@ -106,9 +106,11 @@ class WCML_Downloadable_Products {
 				$orig_var_files   = $this->get_files_data( $original_id );
 				$file_paths_array = [];
 				foreach ( $orig_var_files as $key => $var_file ) {
-					$key_file                              = md5( $data[ md5( 'file-url' . $key . $original_id ) ] . $data[ md5( 'file-name' . $key . $original_id ) ] );
-					$file_paths_array[ $key_file ]['name'] = $data[ md5( 'file-name' . $key . $original_id ) ];
-					$file_paths_array[ $key_file ]['file'] = $data[ md5( 'file-url' . $key . $original_id ) ];
+					$file_name                             = sanitize_text_field( $data[ md5( 'file-name' . $key . $original_id ) ] );
+					$file_url                              = esc_url_raw( $data[ md5( 'file-url' . $key . $original_id ) ] );
+					$key_file                              = md5( $file_url . $file_name );
+					$file_paths_array[ $key_file ]['name'] = $file_name;
+					$file_paths_array[ $key_file ]['file'] = $file_url;
 				}
 				update_post_meta( $trnsl_id, self::DOWNLOADABLE_FILES_META, $file_paths_array );
 			} else {

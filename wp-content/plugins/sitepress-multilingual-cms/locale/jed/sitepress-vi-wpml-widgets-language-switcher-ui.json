@@ -11,13 +11,13 @@
             "Tất cả"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "Để hiển thị khối HTML Tùy chỉnh này bằng một ngôn ngữ cụ thể, trước tiên hãy đặt nó vào bên trong một khối Nhóm."
+            "Để hiển thị khối HTML tùy chỉnh này bằng một ngôn ngữ cụ thể, trước tiên hãy đặt khối đó vào bên trong một khối Nhóm."
          ],
          "Place inside Group block": [
-            "Đặt vào khối Nhóm"
+            "Đặt vào bên trong khối Nhóm"
          ],
          "Display on language": [
-            "Hiển thị theo ngôn ngữ"
+            "Hiển thị trên ngôn ngữ"
          ]
       }
    }

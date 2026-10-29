@@ -30,8 +30,64 @@ class Gutenberg_FB extends Singleton {
 	public function init() {
 		add_action( 'init', array( $this, 'register_meta_fields' ), 100 );
 
+		add_filter( 'wpml_config_array', array( $this, 'add_wpml_meta_fields' ) );
+
 		add_action( 'rest_pre_insert_wd_floating_block', array( $this, 'handle_rest_post_save' ), 10, 3 );
 		add_filter( 'woodmart_post_blocks_css', array( $this, 'render_css' ), 10, 3 );
+	}
+
+	/**
+	 * Configure floating block settings to be copied by WPML.
+	 *
+	 * @param array $config WPML configuration.
+	 * @return array
+	 */
+	public function add_wpml_meta_fields( $config ) {
+		if ( empty( $config['wpml-config'] ) || ! is_array( $config['wpml-config'] ) ) {
+			return $config;
+		}
+
+		if ( empty( $config['wpml-config']['custom-fields'] ) || ! is_array( $config['wpml-config']['custom-fields'] ) ) {
+			$config['wpml-config']['custom-fields'] = array();
+		}
+
+		if ( empty( $config['wpml-config']['custom-fields']['custom-field'] ) ) {
+			$config['wpml-config']['custom-fields']['custom-field'] = array();
+		}
+
+		$custom_fields = $config['wpml-config']['custom-fields']['custom-field'];
+
+		if ( isset( $custom_fields['value'] ) ) {
+			$custom_fields = array( $custom_fields );
+		}
+
+		$registered_fields = array();
+
+		foreach ( $custom_fields as $index => $custom_field ) {
+			if ( empty( $custom_field['value'] ) || 0 !== strpos( $custom_field['value'], 'wd_' ) ) {
+				continue;
+			}
+
+			$custom_fields[ $index ]['attr']['action'] = 'copy';
+			$registered_fields[]                       = $custom_field['value'];
+		}
+
+		foreach ( array_keys( $this->get_block_attributes() ) as $meta_key ) {
+			if ( 0 !== strpos( $meta_key, 'wd_' ) || in_array( $meta_key, $registered_fields, true ) ) {
+				continue;
+			}
+
+			$custom_fields[] = array(
+				'value' => $meta_key,
+				'attr'  => array(
+					'action' => 'copy',
+				),
+			);
+		}
+
+		$config['wpml-config']['custom-fields']['custom-field'] = $custom_fields;
+
+		return $config;
 	}
 
 	/**

@@ -7,53 +7,50 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "nl_NL"
          },
-         "Edit": [
-            "Bewerken"
+         "Edit %s": [
+            "%s bewerken"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
+         ],
+         "Original:": [
+            "Origineel:"
          ],
          "Translation to:": [
             "Vertaling naar:"
          ],
          "Copy from original": [
-            "Kopiëren van origineel"
+            "Kopiëren uit origineel"
          ],
          "Use Shift+Enter to add a new line.": [
             "Gebruik Shift+Enter om een nieuwe regel toe te voegen."
          ],
-         "Original:": [
-            "Origineel:"
-         ],
          "Add %s translation": [
-            "Voeg %s vertaling toe"
+            "%s-vertaling toevoegen"
          ],
          "Edit %s translation": [
-            "Bewerk %s vertaling"
+            "%s-vertaling bewerken"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "Voeg %s vertaling toe (de string verschijnt op de site en is niet vertaald)"
+            "%s-vertaling toevoegen (de string verschijnt op de site en is niet vertaald)"
          ],
          "Original language %s": [
-            "Oorspronkelijke taal %s"
+            "Originele taal %s"
          ],
          "Waiting for translator to %s": [
-            "Wachten op vertaler om %s"
+            "Wachten op vertaler naar %s"
          ],
          "Translation in progress to %s": [
-            "Vertaling bezig naar %s"
-         ],
-         "In basket for translation to %s": [
-            "In winkelmandje voor vertaling naar %s"
+            "Vertaling naar %s in uitvoering"
          ],
          "Translation saved.": [
             "Vertaling opgeslagen."
          ],
          "Translation update failed.": [
-            "Vertaling bijwerken mislukt."
+            "Update van vertaling mislukt."
          ]
       }
    }

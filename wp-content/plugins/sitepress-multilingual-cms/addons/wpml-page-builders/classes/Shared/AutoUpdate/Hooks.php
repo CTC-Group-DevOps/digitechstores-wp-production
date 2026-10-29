@@ -74,7 +74,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 
 	public function afterRegisterAllStringsInShutdown() {
 		if ( $this->translationStatusesUpdaters ) {
-			do_action( 'wpml_cache_clear' );
+			self::clearTmCaches();
 
 			foreach ( $this->translationStatusesUpdaters as $originalPostId => $translationStatusesUpdater ) {
 				if ( \get_post( $originalPostId ) ) {
@@ -82,6 +82,14 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 					$this->resaveTranslations( $originalPostId );
 				}
 			}
+		}
+	}
+
+	private static function clearTmCaches() {
+		if ( function_exists( 'icl_cache_clear' ) ) {
+			icl_cache_clear( 'wpml-pb-auto-update', true );
+		} else {
+			do_action( 'wpml_cache_clear' );
 		}
 	}
 

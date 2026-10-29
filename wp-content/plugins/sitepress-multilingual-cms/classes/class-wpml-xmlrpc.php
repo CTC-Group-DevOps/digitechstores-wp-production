@@ -94,9 +94,27 @@ class WPML_XMLRPC extends WPML_SP_User {
 	}
 
 	public function xmlrpc_methods( $methods ) {
-		$methods['wpml.get_post_trid'] = array( $this, 'get_post_trid' );
-		$methods['wpml.get_languages'] = array( $this, 'get_languages' );
+		$login = \WPML\Request\Policy\Policy::authorize(
+			array( $this, 'authenticate_xmlrpc_user' ),
+			\WPML\Request\Policy\Authenticity::none( 'XML-RPC carries the WordPress username/password in the call arguments' ),
+			'authenticated WordPress user (wp_xmlrpc_server::login with the call credentials)'
+		);
+
+		$methods = \WPML\Request\Adapter\XmlRpc::method( $methods, 'wpml.get_post_trid', $login, array( $this, 'get_post_trid' ) );
+		$methods = \WPML\Request\Adapter\XmlRpc::method( $methods, 'wpml.get_languages', $login, array( $this, 'get_languages' ) );
 
 		return apply_filters( 'wpml_xmlrpc_methods', $methods );
+	}
+
+	public function authenticate_xmlrpc_user( $args ) {
+		$username = isset( $args[1] ) && is_string( $args[1] ) ? $args[1] : '';
+		$password = isset( $args[2] ) && is_string( $args[2] ) ? $args[2] : '';
+		$server   = $this->sitepress->get_wp_api()->get_wp_xmlrpc_server();
+
+		if ( '' === $username || '' === $password || ! $server->login( $username, $password ) ) {
+			return is_object( $server ) && isset( $server->error ) && is_object( $server->error ) ? $server->error : false;
+		}
+
+		return true;
 	}
 }

@@ -25,18 +25,23 @@ abstract class BaseTranslationGuiLabels implements \IWPML_DIC_Action, \IWPML_Bac
 	}
 
 	public function adjustObjectLabels( $postTypeObject ) {
-		$pts = $this->getPostTypes();
-		if ( 'portfolio' === $postTypeObject->name ) {
-			$foo = 'bar';
-		}
 		if ( ! in_array( $postTypeObject->name, $this->getPostTypes(), true ) ) {
 			return $postTypeObject;
 		}
 
-		$postTypeObject->labels->name          = $this->formatLabel( $postTypeObject->labels->name, $postTypeObject->name, true );
-		$postTypeObject->labels->singular_name = $this->formatLabel( $postTypeObject->labels->singular_name, $postTypeObject->name, false );
+		$labelled = $this->labelledCopy( $postTypeObject );
 
-		return $postTypeObject;
+		$labelled->labels->name          = $this->formatLabel( $postTypeObject->labels->name, $postTypeObject->name, true );
+		$labelled->labels->singular_name = $this->formatLabel( $postTypeObject->labels->singular_name, $postTypeObject->name, false );
+
+		return $labelled;
+	}
+
+	protected function labelledCopy( $postTypeObject ) {
+		$labelled         = clone $postTypeObject;
+		$labelled->labels = clone $postTypeObject->labels;
+
+		return $labelled;
 	}
 
 	public function adjustObjectsLabels( $postTypeObjects ) {

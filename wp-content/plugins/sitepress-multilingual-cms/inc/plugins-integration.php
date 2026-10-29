@@ -42,6 +42,14 @@ function wpml_plugins_integration_setup() {
 		$factories_to_load[] = \WPML\Compatibility\GoogleSiteKit\Hooks::class;
 	}
 
+	if ( defined( 'WPUM_VERSION' ) ) {
+		$factories_to_load[] = \WPML\Compatibility\WPUserManager\Hooks::class;
+	}
+
+	if ( defined( 'WPSEO_VERSION' ) ) {
+		$factories_to_load[] = \WPML\Compatibility\YoastSEO\SitemapPermalinks::class;
+	}
+
 	$action_filter_loader = new WPML_Action_Filter_Loader();
 	$action_filter_loader->load( $factories_to_load );
 }

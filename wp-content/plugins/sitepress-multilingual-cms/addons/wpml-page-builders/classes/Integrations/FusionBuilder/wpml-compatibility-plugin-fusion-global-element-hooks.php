@@ -61,7 +61,11 @@ class WPML_Compatibility_Plugin_Fusion_Global_Element_Hooks extends BaseHooks im
 			add_action( 'manage_fusion_form_custom_column', [ $this, 'add_language_column_content' ], 10, 2 );
 
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-			add_action( 'wp_ajax_' . self::ACTION, [ $this, 'get_template_translation_icons' ] );
+			\WPML\PB\Request\Ajax::register(
+				self::ACTION,
+				[ 'capability' => 'edit_posts', 'nonce' => [ self::ACTION, 'nonce' ] ],
+				[ $this, 'get_template_translation_icons' ]
+			);
 		}
 
 		add_filter( 'wpml_ls_exclude_in_menu', [ $this, 'wpml_ls_exclude_in_menu_filter' ] );
@@ -169,6 +173,10 @@ class WPML_Compatibility_Plugin_Fusion_Global_Element_Hooks extends BaseHooks im
 
 		$icons = [];
 		foreach ( $ids as $id ) {
+			if ( ! current_user_can( 'edit_post', $id ) ) {
+				continue;
+			}
+
 			$icons[ $id ] = '';
 			foreach ( $this->activeLanguages as $language_data ) {
 				$icon_html = $this->postStatusDisplay->get_status_html( $id, $language_data['code'] );

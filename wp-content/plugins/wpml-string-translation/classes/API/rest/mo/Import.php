@@ -49,6 +49,7 @@ class Import extends \WPML\ST\Rest\Base {
 		return [
 			'total'        => $totalPending,
 			'remaining'    => $queue->get_pending(),
+			/* translators: Message on the Theme and plugins localization page after a scan. %s: the number of translation files found. "Their" refers to those files. Keep the word "WPML" and both full stops: the page starts the message at "WPML" and puts the first sentence in bold. */
 			'scan_message' => __( 'WPML found %s new or updated .mo files. Their texts were added to the translations table.', 'wpml-string-translation' ),
 		];
 	}

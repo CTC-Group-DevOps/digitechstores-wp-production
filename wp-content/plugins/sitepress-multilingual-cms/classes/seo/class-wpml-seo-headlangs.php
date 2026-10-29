@@ -74,6 +74,7 @@ class WPML_SEO_HeadLangs {
 		foreach ( array( 1, 10 ) as $priority ) {
 			$label = __( 'As early as possible', 'sitepress' );
 			if ( $priority > 1 ) {
+				/* translators: Option that says where in the page WPML writes the language links. %d: the number that sets the order, the higher the later. */
 				$label = sprintf( esc_html__( 'Later in the head section (priority %d)', 'sitepress' ), $priority );
 			}
 			$options[ $priority ] = array(
@@ -85,11 +86,11 @@ class WPML_SEO_HeadLangs {
 		?>
 		<div class="wpml-section wpml-section-seo-options" id="lang-sec-9-5">
 			<div class="wpml-section-header">
-				<h3><?php esc_html_e( 'SEO Options', 'sitepress' ); ?></h3>
+				<h3><?php /* translators: Heading of the section with the settings for search engines. */ esc_html_e( 'SEO Options', 'sitepress' ); ?></h3>
 			</div>
 			<div class="wpml-section-content">
 				<form id="icl_seo_options" name="icl_seo_options" action="">
-					<?php wp_nonce_field( 'icl_seo_options_nonce', '_icl_nonce' ); ?>
+					<?php wpml_nonce_field_with_id( 'icl_seo_options_nonce', '_icl_nonce', 'icl_seo_options_nonce' ); ?>
 					<p>
 						<input type="checkbox" id="icl_seo_head_langs" class="wpml-checkbox-native" name="icl_seo_head_langs"
 							<?php
@@ -120,7 +121,7 @@ class WPML_SEO_HeadLangs {
 					</p>
 					<p class="buttons-wrap">
 						<span class="icl_ajx_response" id="icl_ajx_response_seo"> </span>
-						<input class="button-primary wpml-button base-btn" name="save" value="<?php esc_attr_e( 'Save', 'sitepress' ); ?>" type="submit"/>
+						<input class="button-primary wpml-button base-btn" name="save" value="<?php /* translators: Button label that keeps what was entered. Verb, imperative. */ esc_attr_e( 'Save', 'sitepress' ); ?>" type="submit"/>
 					</p>
 				</form>
 			</div>
@@ -174,26 +175,6 @@ class WPML_SEO_HeadLangs {
 	}
 
 	private function get_hreflang_code( $lang ) {
-		$ordered_keys = [ 'tag', 'default_locale' ];
-
-		$hreflang_code = '';
-		foreach ( $ordered_keys as $key ) {
-			if ( array_key_exists( $key, $lang ) && trim( $lang[ $key ] ) ) {
-				$hreflang_code = $lang[ $key ];
-				break;
-			}
-		}
-
-		$hreflang_code = strtolower( str_replace( '_', '-', $hreflang_code ) );
-
-		if ( $this->is_valid_hreflang_code( $hreflang_code ) ) {
-			return trim( $hreflang_code );
-		}
-
-		return '';
-	}
-
-	private function is_valid_hreflang_code( $code ) {
-		return strlen( trim( $code ) ) >= 2;
+		return \WPML\Languages\HreflangTag::forLanguage( (array) $lang );
 	}
 }

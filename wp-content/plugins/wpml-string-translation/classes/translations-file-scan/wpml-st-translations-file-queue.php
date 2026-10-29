@@ -1,12 +1,15 @@
 <?php
 
 use WPML\ST\TranslationFile\EntryQueries;
+use WPML\ST\TranslationFile\PluralForms;
 use WPML\ST\TranslationFile\QueueFilter;
 
 class WPML_ST_Translations_File_Queue {
 	const DEFAULT_LIMIT = 20000;
 	const TIME_LIMIT    = 10;
 	const LOCK_FIELD    = '_wpml_st_file_scan_in_progress';
+
+	const UNREADABLE_LOGGED_FIELD = '_wpml_st_file_scan_unreadable_logged';
 
 	private $file_dictionary;
 
@@ -19,6 +22,8 @@ class WPML_ST_Translations_File_Queue {
 	private $limit;
 
 	private $transient;
+
+	private $unreadable = array();
 
 	public function __construct(
 		WPML_ST_Translations_File_Dictionary $file_dictionary,
@@ -52,7 +57,14 @@ class WPML_ST_Translations_File_Queue {
 
 				if ( ! $queueFilter || $queueFilter->isSelected( $file ) ) {
 
-					$translations = $this->file_scan->load_translations( $file->get_full_path() );
+					$full_path = $file->get_full_path();
+					if ( ! $this->file_scan->can_read( $full_path ) ) {
+						$this->unreadable[ $file->get_path() ] = true;
+						$this->log_unreadable_once( $file, $full_path );
+						continue;
+					}
+
+					$translations = $this->file_scan->load_translations( $full_path );
 
 					try {
 						$number_of_translations = count( $translations );
@@ -73,6 +85,11 @@ class WPML_ST_Translations_File_Queue {
 							$file->get_domain(),
 							$this->map_language_code( $file->get_file_locale() )
 						);
+
+						$plural_forms = $this->file_scan->get_plural_forms( $full_path );
+						if ( $plural_forms ) {
+							PluralForms::save( $file->get_domain(), $file->get_file_locale(), $plural_forms );
+						}
 
 						$file->set_imported_strings_count( $file->get_imported_strings_count() + $imported_in_file );
 
@@ -99,6 +116,31 @@ class WPML_ST_Translations_File_Queue {
 		}
 	}
 
+	private function log_unreadable_once( WPML_ST_Translations_File_Entry $file, $full_path ) {
+		$logged = $this->transient->get( self::UNREADABLE_LOGGED_FIELD );
+		$logged = is_array( $logged ) ? $logged : array();
+		$key    = $file->get_path_hash();
+		if ( isset( $logged[ $key ] ) ) {
+			return;
+		}
+
+		$logged[ $key ] = 1;
+		$this->transient->set( self::UNREADABLE_LOGGED_FIELD, $logged, MINUTE_IN_SECONDS * 60 * 24 * 7 );
+
+		error_log( 'WPML String Translation: the translation file "' . $full_path . '" (stored as "' . $file->get_path() . '") cannot be read; it stays pending and is imported once it can be read.' );
+	}
+
+	private function get_pending_files() {
+		$unreadable = $this->unreadable;
+
+		return array_filter(
+			$this->file_dictionary->get_not_imported_files(),
+			function ( WPML_ST_Translations_File_Entry $file ) use ( $unreadable ) {
+				return ! isset( $unreadable[ $file->get_path() ] );
+			}
+		);
+	}
+
 	private function map_language_code( $locale ) {
 		$language_code = $this->language_records->get_language_code( $locale );
 
@@ -119,11 +161,11 @@ class WPML_ST_Translations_File_Queue {
 	}
 
 	public function is_processing() {
-		return 0 !== count( $this->file_dictionary->get_not_imported_files() );
+		return 0 !== count( $this->get_pending_files() );
 	}
 
 	public function get_pending() {
-		return count( $this->file_dictionary->get_not_imported_files() );
+		return count( $this->get_pending_files() );
 	}
 
 	public function getPendingByFilter( QueueFilter $queueFilter ) {

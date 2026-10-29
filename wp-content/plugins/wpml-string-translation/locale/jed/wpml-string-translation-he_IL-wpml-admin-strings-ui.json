@@ -32,7 +32,7 @@
             "הפעולה נכשלה."
          ],
          "All (%d)": [
-            "כל (%d)"
+            "הכל (%d)"
          ],
          "Included in String Translation (%d)": [
             "כלול בתרגום מחרוזות (%d)"
@@ -41,7 +41,7 @@
             "לא כלול בתרגום מחרוזות (%d)"
          ],
          "This setting is locked by a WPML configuration file.": [
-            "הגדרה זו נעולה על ידי קובץ תצורה של WPML."
+            "הגדרה זו נעולה על ידי קובץ הגדרות של WPML."
          ],
          "Option": [
             "אפשרות"
@@ -56,19 +56,19 @@
             "מצב"
          ],
          "Export as a WPML configuration file": [
-            "ייצוא כקובץ תצורה של WPML"
+            "ייצוא כקובץ הגדרות של WPML"
          ],
          "Cancel": [
             "ביטול"
          ],
          "Save the following to a wpml-config.xml in the root of your theme or plugin.": [
-            "שמור את הדברים הבאים לקובץ wpml-config.xml בתיקיית הבסיס של התבנית או התוסף שלך."
+            "שמור את התוכן הבא לקובץ wpml-config.xml בתיקיית השורש של ערכת העיצוב או התוסף שלך."
          ],
          "No options found.": [
             "לא נמצאו אפשרויות."
          ],
          "Make sure you saved your theme options at least once. Some themes only add these to the wp_options table after the user explicitly saves changes to the theme defaults.": [
-            "ודא ששמרת את אפשרויות התבנית שלך לפחות פעם אחת. חלק מהתבניות מוסיפות אותן לטבלת wp_options רק לאחר שהמשתמש שומר במפורש שינויים לברירות המחדל של התבנית."
+            "ודא ששמרת את אפשרויות ערכת העיצוב לפחות פעם אחת. חלק מערכות העיצוב מוסיפות אותן לטבלת wp_options רק לאחר שהמשתמש שומר במפורש שינויים בברירות המחדל של ערכת העיצוב."
          ],
          "Add to String Translation": [
             "הוסף לתרגום מחרוזות"

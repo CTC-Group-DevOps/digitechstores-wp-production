@@ -103,7 +103,17 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 		 * registers them to WordPress and ready for use.
 		 */
 		public function admin_init() {
-			// register settings sections.
+			$this->wp_headers_and_footers_register_settings_sections();
+			$this->wp_headers_and_footers_register_settings_fields();
+			$this->wp_headers_and_footers_register_settings();
+		}
+
+		/**
+		 * Register settings sections with WordPress.
+		 *
+		 * @return void
+		 */
+		private function wp_headers_and_footers_register_settings_sections() {
 			foreach ( $this->settings_sections as $section ) {
 				if ( false === get_option( $section['id'] ) ) {
 					add_option( $section['id'] );
@@ -120,11 +130,16 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 
 				add_settings_section( $section['id'], $section['title'], $callback, $section['id'] );
 			}
+		}
 
-			// Register settings fields.
+		/**
+		 * Register settings fields with WordPress.
+		 *
+		 * @return void
+		 */
+		private function wp_headers_and_footers_register_settings_fields() { // NOSONAR - it will be removed in the future.
 			foreach ( $this->settings_fields as $section => $field ) {
 				foreach ( $field as $option ) {
-
 					$name     = $option['name'];
 					$type     = isset( $option['type'] ) ? $option['type'] : 'text';
 					$label    = isset( $option['label'] ) ? $option['label'] : '';
@@ -151,11 +166,31 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 					add_settings_field( "{$section}[{$name}]", $label, $callback, $section, $section, $args );
 				}
 			}
+		}
 
-			// Creates our settings in the options table.
+		/**
+		 * Register settings in the options table.
+		 *
+		 * @return void
+		 */
+		private function wp_headers_and_footers_register_settings() {
 			foreach ( $this->settings_sections as $section ) {
 				register_setting( $section['id'], $section['id'], array( $this, 'sanitize_options' ) );
 			}
+		}
+
+		/**
+		 * Build the placeholder HTML attribute for an input/textarea.
+		 *
+		 * @param array $args Settings field args.
+		 * @return string
+		 */
+		private function wp_headers_and_footers_get_placeholder_attribute( $args ) {
+			if ( empty( $args['placeholder'] ) ) {
+				return '';
+			}
+
+			return ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
 		}
 
 		/**
@@ -183,7 +218,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 			$value       = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
 			$size        = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 			$type        = isset( $args['type'] ) ? $args['type'] : 'text';
-			$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
+			$placeholder = $this->wp_headers_and_footers_get_placeholder_attribute( $args );
 
 			$html  = sprintf( '<input type="%1$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s]" value="%5$s"%6$s/>', $type, $size, $args['section'], $args['id'], $value, $placeholder );
 			$html .= $this->get_field_description( $args );
@@ -209,7 +244,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 			$value       = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
 			$size        = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 			$type        = isset( $args['type'] ) ? $args['type'] : 'number';
-			$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
+			$placeholder = $this->wp_headers_and_footers_get_placeholder_attribute( $args );
 			$min         = empty( $args['min'] ) ? '' : ' min="' . $args['min'] . '"';
 			$max         = empty( $args['max'] ) ? '' : ' max="' . $args['max'] . '"';
 			$step        = empty( $args['max'] ) ? '' : ' step="' . $args['step'] . '"';
@@ -314,10 +349,16 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 
 			$value       = esc_textarea( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
 			$size        = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
-			$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
+			$placeholder = $this->wp_headers_and_footers_get_placeholder_attribute( $args );
 
-			$html  = sprintf( '<textarea rows="5" cols="100" class="%1$s-text" id="%2$s[%3$s]" name="%2$s[%3$s]"%4$s>%5$s</textarea>', $size, $args['section'], $args['id'], $placeholder, $value );
+			$readonly = current_user_can( 'unfiltered_html' ) ? '' : ' readonly';
+
+			$html  = sprintf( '<textarea rows="5" cols="100" class="%1$s-text" id="%2$s[%3$s]" name="%2$s[%3$s]"%4$s%5$s>%6$s</textarea>', $size, $args['section'], $args['id'], $placeholder, $readonly, $value );
 			$html .= $this->get_field_description( $args );
+
+			if ( $readonly ) {
+				$html .= '<p class="description">' . esc_html__( 'You need the unfiltered_html capability to edit scripts on this site.', 'wp-headers-and-footers' ) . '</p>';
+			}
 
 			echo $html; // @codingStandardsIgnoreLine.
 		}
@@ -370,7 +411,6 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 
 			$value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
 			$size  = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
-			$id    = $args['section'] . '[' . $args['id'] . ']';
 			$label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File', 'wp-headers-and-footers' );
 
 			$html  = sprintf( '<input type="text" class="%1$s-text wpsa-url" id="%2$s[%3$s]" name="%2$s[%3$s]" value="%4$s"/>', $size, $args['section'], $args['id'], $value );
@@ -413,6 +453,52 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 		}
 
 		/**
+		 * Keep the stored scripts when the current user lacks the unfiltered_html capability.
+		 *
+		 * Clearing a script is still allowed so factory reset keeps working.
+		 *
+		 * @since 3.2.0
+		 * @param array $options Submitted options.
+		 * @return array
+		 */
+		private function enforce_unfiltered_html( $options ) {
+
+			if ( ! is_array( $options ) || current_user_can( 'unfiltered_html' ) ) {
+				return $options;
+			}
+
+			$stored  = get_option( 'wpheaderandfooter_basics' );
+			$stored  = is_array( $stored ) ? $stored : array();
+			$blocked = false;
+
+			foreach ( array( 'wp_header_textarea', 'wp_body_textarea', 'wp_footer_textarea' ) as $key ) {
+				if ( ! array_key_exists( $key, $options ) ) {
+					continue;
+				}
+
+				$new = (string) $options[ $key ];
+				$old = isset( $stored[ $key ] ) ? (string) $stored[ $key ] : '';
+
+				if ( '' === trim( $new ) || $new === $old ) {
+					continue;
+				}
+
+				$options[ $key ] = $old;
+				$blocked         = true;
+			}
+
+			if ( $blocked ) {
+				add_settings_error(
+					'wpheaderandfooter_basics',
+					'wpheaderandfooter_unfiltered_html',
+					__( 'Your scripts were not saved. You need the unfiltered_html capability to add or change scripts on this site.', 'wp-headers-and-footers' )
+				);
+			}
+
+			return $options;
+		}
+
+		/**
 		 * Sanitize callback for Settings API.
 		 *
 		 * @param array $options sanitize option.
@@ -425,6 +511,8 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 			if ( ! $options ) {
 				return $options;
 			}
+
+			$options = $this->enforce_unfiltered_html( $options );
 
 			foreach ( $options as $option_slug => $option_value ) {
 				$sanitize_callback = $this->get_sanitize_callback( $option_slug );
@@ -457,7 +545,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 			}
 
 			// Iterate over registered fields and see if we can find proper callback.
-			foreach ( $this->settings_fields as $section => $options ) {
+			foreach ( $this->settings_fields as $options ) {
 				foreach ( $options as $option ) {
 					if ( $option['name'] !== $slug ) {
 						continue;
@@ -498,8 +586,6 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 		public function show_navigation() {
 			$html = '<h2 class="nav-tab-wrapper">';
 
-			$count = count( $this->settings_sections );
-
 			foreach ( $this->settings_sections as $tab ) {
 				$html .= sprintf( '<a href="#%1$s" class="nav-tab" id="%1$s-tab">%2$s</a>', $tab['id'], $tab['title'] );
 			}
@@ -517,8 +603,13 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 		public function show_forms() {
 			?>
 			<div class="header-and-footer-setting">
-				<?php foreach ( $this->settings_sections as $form ) { ?>
-					<div id="<?php echo esc_attr( $form['id'] ); ?>" class="group">
+				<?php
+				$is_first_section = true;
+				foreach ( $this->settings_sections as $form ) {
+					$group_class       = $is_first_section ? 'group is_show' : 'group';
+					$is_first_section = false;
+					?>
+					<div id="<?php echo esc_attr( $form['id'] ); ?>" class="<?php echo esc_attr( $group_class ); ?>">
 						<form method="post" action="options.php">
 							<?php
 							do_action( 'wsa_form_top_' . $form['id'], $form );
@@ -561,27 +652,26 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 				</div>
 				<div class="sidebar postbox">
 					<h2><span class="dashicons dashicons-share-alt"> </span><?php esc_html_e( 'Recommended Plugins', 'wp-headers-and-footers' ); ?></h2>
-					<!-- <p>Following are the plugins highly recommend by Team WPBrigade.</p> -->
 					<ul class="plugins_lists">
 						<li>
-							<a href="https://loginpress.pro/?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" data-count="none" target="_blank" title="<?php esc_html_e( 'Customize your login screen', 'wp-headers-and-footers' ); ?>">
+							<a class="hnf-plugin-loginpress" href="https://loginpress.pro/?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" data-count="none" target="_blank" title="<?php esc_html_e( 'Customize your login screen', 'wp-headers-and-footers' ); ?>">
 								<?php esc_html_e( 'LoginPress: Login Page Customizer', 'wp-headers-and-footers' ); ?>
 							</a>
 						</li>
 
 						<li>
-							<a href="https://analytify.io/ref/73/?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Share with your facebook friends about this awesome plugin.', 'wp-headers-and-footers' ); ?>">
+							<a class="hnf-plugin-analytify" href="https://analytify.io/ref/73/?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Share with your facebook friends about this awesome plugin.', 'wp-headers-and-footers' ); ?>">
 								<?php esc_html_e( 'Analytify: Google Analytics for WordPress ', 'wp-headers-and-footers' ); ?>
 							</a>
 						</li>
 
 						<li>
-							<a href="https://simplesocialbuttons.com?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Socialize your Website', 'wp-headers-and-footers' ); ?>">
+							<a class="hnf-plugin-ssb" href="https://simplesocialbuttons.com?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Socialize your Website', 'wp-headers-and-footers' ); ?>">
 								<?php esc_html_e( 'Simple Social Buttons', 'wp-headers-and-footers' ); ?>
 							</a>
 						</li>
 						<li>
-							<a href="https://wpbrigade.com/recommend/maintenance-mode?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Socialize your Website', 'wp-headers-and-footers' ); ?>">
+							<a class="hnf-plugin-ucmm" href="https://wpbrigade.com/recommend/maintenance-mode?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Socialize your Website', 'wp-headers-and-footers' ); ?>">
 							<?php esc_html_e( 'Under Construction & Maintenance mode', 'wp-headers-and-footers' ); ?>
 							</a>
 						</li>
@@ -589,7 +679,6 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 				</div>
 			</div>
 			<?php
-			// wp_enqueue_script( 'wpheaderandfooter_admin_script', plugins_url( '/asset/js/settings-api-script.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
 			$this->script();
 		}
 
@@ -607,16 +696,15 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 					$('.wp-color-picker-field').wpColorPicker();
 
 					// Switches option sections
-					$('.group').removeClass('is_show');
 					var activetab = '';
 					if (typeof(localStorage) != 'undefined' ) {
 						activetab = localStorage.getItem("activetab");
 					}
-					if (activetab != '' && $(activetab).length ) {
-						$(activetab).addClass('is_show');
-					} else {
-						$('.group:first').addClass('is_show');
-					}
+					var $active_group = ( activetab != '' && $(activetab).length )
+						? $(activetab)
+						: $('.group:first');
+					$active_group.addClass('is_show');
+					$('.group').not($active_group).removeClass('is_show');
 					$('.group .collapsed').each(function(){
 						$(this).find('input:checked').parent().parent().parent().nextAll().each(
 						function(){
@@ -635,16 +723,21 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 						$('.nav-tab-wrapper a:first').addClass('nav-tab-active');
 					}
 					$('.nav-tab-wrapper a').click(function(evt) {
-						
+						evt.preventDefault();
+
 						$('.nav-tab-wrapper a').removeClass('nav-tab-active');
 						$(this).addClass('nav-tab-active').blur();
 						var clicked_group = $(this).attr('href');
 						if (typeof(localStorage) != 'undefined' ) {
 							localStorage.setItem("activetab", $(this).attr('href'));
 						}
-						$('.group').removeClass('is_show');
 						$(clicked_group).addClass('is_show');
-						evt.preventDefault();
+						$('.group').not(clicked_group).removeClass('is_show');
+						$(clicked_group).find('.CodeMirror').each(function() {
+							if (this.CodeMirror) {
+								this.CodeMirror.refresh();
+							}
+						});
 					});
 
 					$('.wpsa-browse').on('click', function (event) {

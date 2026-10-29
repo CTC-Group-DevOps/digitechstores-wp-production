@@ -7,7 +7,12 @@ use WPML\FP\Obj;
 use WPML\FP\Str;
 use WPML\LIB\WP\Attachment;
 use WPML\TM\Jobs\FieldId;
+use WPML\TM\XLIFF\DeclaredPlaceholders;
+use WPML\TM\XLIFF\SegmentedSuggestion;
 use WPML\Utilities\Labels;
+use WPML\TM\API\Jobs;
+use WPML\TM\XLIFF\CurrentTranslation;
+use WPML\Translation\TranslationElements\FieldCompression;
 use function WPML\FP\spreadArgs;
 
 class WPML_TM_Xliff_Writer {
@@ -16,6 +21,9 @@ class WPML_TM_Xliff_Writer {
 	const DEFAULT_GROUP_ID       = 'Main_Content-0';
 	const CUSTOM_FIELDS_GROUP    = 'Custom Fields';
 	const CUSTOM_FIELDS_GROUP_ID = 'Custom_Fields-0';
+
+	const WP_EDITOR_MODIFIED_TIMESTAMP  = 'translation_modified_timestamp';
+	const WP_EDITOR_GENERATED_TIMESTAMP = 'generated_timestamp';
 
 	protected $job_factory;
 
@@ -28,7 +36,11 @@ class WPML_TM_Xliff_Writer {
 
 	private $is_xliff_for_ate = false;
 
+	private $shouldMarkDeclaredPlaceholders = false;
+
 	private $use_translation_memory = false;
+
+	private $human_translated_fields = array();
 
 	private $valid_html_tag_regex;
 
@@ -44,29 +56,51 @@ class WPML_TM_Xliff_Writer {
 		$this->use_translation_memory = defined( 'WPML_USE_ST_TRANSLATION_MEMORY' ) && WPML_USE_ST_TRANSLATION_MEMORY;
 	}
 
+	public function withDeclaredPlaceholders() {
+		$this->shouldMarkDeclaredPlaceholders = true;
+
+		return $this;
+	}
+
 	public function get_job_xliff_file( $job_id ) {
 
 		return $this->generate_xliff_file( $this->generate_job_xliff( $job_id ) );
 	}
 
-	public function generate_job_xliff( $job_id, $apply_memory = true ) {
+	public function generate_job_xliff( $job_id ) {
+		return $this->create_job_xliff( $job_id )['xliff'];
+	}
+
+	public function generate_job_xliff_or_null( $job_id ) {
+		$result = $this->create_job_xliff( $job_id );
+
+		return $result['has_units'] ? $result['xliff'] : null;
+	}
+
+	private function create_job_xliff( $job_id ) {
 		global $iclTranslationManagement;
 
 		$job = $iclTranslationManagement->get_translation_job( (int) $job_id, true, false, 1 );
+
+		if ( ! is_object( $job ) ) {
+			return array(
+				'xliff'     => '',
+				'has_units' => false,
+			);
+		}
 
 		$this->is_xliff_for_ate =
 			'local' === $job->translation_service
 			&& \WPML_TM_ATE_Status::is_enabled_and_activated();
 
-
-		$translation_units  = $this->get_job_translation_units_data( $job, $apply_memory );
+		$translation_units  = $this->get_job_translation_units_data( $job );
 		$original           = $job_id . '-' . md5( $job_id . $job->original_doc_id );
 		$original_post_type = isset( $job->original_post_type ) ? $job->original_post_type : null;
 
-
-
 		$external_file_url = $this->get_external_url( $job );
 		$this->get_translator_notes( $job );
+
+		$wp_editor_extra_units = $this->get_wp_editor_extra_units( $job );
 
 		$xliff = $this->generate_xliff(
 			$original,
@@ -76,10 +110,14 @@ class WPML_TM_Xliff_Writer {
 			$external_file_url,
 			$original_post_type,
 			$job->wpml_words_to_translate_count,
-			$job->wpml_automatic_translation_costs
+			$job->wpml_automatic_translation_costs,
+			$wp_editor_extra_units
 		);
 
-		return $xliff;
+		return array(
+			'xliff'     => $xliff,
+			'has_units' => ! empty( $translation_units ),
+		);
 	}
 
 	public function get_strings_xliff_file( $strings, $source_language, $target_language ) {
@@ -103,7 +141,8 @@ class WPML_TM_Xliff_Writer {
 		$external_file_url = null,
 		$original_post_type = null,
 		$words_to_translate_count = null,
-		$automatic_translation_costs = null
+		$automatic_translation_costs = null,
+		array $wp_editor_extra_units = array()
 	) {
 		global $sitepress;
 
@@ -121,7 +160,7 @@ class WPML_TM_Xliff_Writer {
 
 		$jobSender = \WPML\TM\ATE\JobSender\JobSenderRepository::get();
 
-		$string = $xliff
+		$xliff
 			->setFileAttributes(
 				array(
 					'original'                           => $original_id,
@@ -144,10 +183,13 @@ class WPML_TM_Xliff_Writer {
 				)
 			)
 			->setPhaseGroup( $phase_group )
-			->setTranslationUnits( $translation_units )
-			->toString();
+			->setTranslationUnits( $translation_units );
 
-		return $string;
+		if ( ! empty( $wp_editor_extra_units ) ) {
+			$xliff->setTranslationUnits( $wp_editor_extra_units );
+		}
+
+		return $xliff->toString();
 	}
 
 	private function get_xliff_version() {
@@ -206,13 +248,15 @@ class WPML_TM_Xliff_Writer {
 		return array();
 	}
 
-	private function get_job_translation_units_data( $job, $apply_memory ) {
+	private function get_job_translation_units_data( $job ) {
 		$translation_units = array();
 		$elements = $job->elements;
 
 		if ( ! $elements ) {
 			return $translation_units;
 		}
+
+		$this->human_translated_fields = $this->load_human_translated_fields( $job );
 
 		$elements = array_values( array_filter( $elements, function( $element ) {
 			return ( 1 === (int) $element->field_translate );
@@ -227,14 +271,14 @@ class WPML_TM_Xliff_Writer {
 		}, $elementsAsFields );
 
 		$elementsPairs = Lst::zip( $elements, $elementsAsFields );
-		Fns::map( spreadArgs( function( $element, $elementAsField ) use ( &$translation_units, $apply_memory ) {
-			$this->processElement( $element, $elementAsField, $translation_units, $apply_memory );
+		Fns::map( spreadArgs( function( $element, $elementAsField ) use ( &$translation_units ) {
+			$this->processElement( $element, $elementAsField, $translation_units );
 		} ), $elementsPairs );
 
 		return apply_filters( 'wpml_tm_adjust_translation_job', $translation_units, $job );
 	}
 
-	private function processElement( $element, $extraData, &$translationUnits, $applyMemory ) {
+	private function processElement( $element, $extraData, &$translationUnits ) {
 		if ( isset( $extraData['images'] ) && count( $extraData['images'] ) > 0 && ! $this->has_group_image_been_handled( $extraData ) ) {
 			$this->handle_extra_data_images( $element, $extraData, $translationUnits );
 		};
@@ -243,7 +287,7 @@ class WPML_TM_Xliff_Writer {
 			unset( $extraData['images'] );
 		}
 
-		$this->handle_field_data( $element, $extraData, $translationUnits, $applyMemory );
+		$this->handle_field_data( $element, $extraData, $translationUnits );
 	}
 
 	private function has_group_image_been_handled( $extra_data ) {
@@ -267,7 +311,7 @@ class WPML_TM_Xliff_Writer {
 		return false;
 	}
 
-	private function handle_field_data( $element, $extra_data, &$translation_units, $apply_memory ) {
+	private function handle_field_data( $element, $extra_data, &$translation_units ) {
 		$field_data_translated = base64_decode( $element->field_data_translated );
 		$field_data            = base64_decode( $element->field_data );
 
@@ -285,6 +329,8 @@ class WPML_TM_Xliff_Writer {
 				$element
 			);
 		}
+		$target_holds_a_translation = '' !== trim( (string) $field_data_translated );
+
 		if ( ! null === $field_data_translated || '' === $field_data_translated ) {
 			$field_data_translated = $this->remove_invalid_chars( $field_data );
 		}
@@ -329,31 +375,81 @@ class WPML_TM_Xliff_Writer {
 				$is_translation_memory_outdated = ( '0' === $element->field_finished && $element->has_previous_translation );
 			}
 
-			if ( $this->use_translation_memory ) {
-				$is_translated_from_memory = $apply_memory && $element->translated_from_memory;
-			} else {
-				$is_translated_from_memory = $apply_memory
-				                             && $element->has_previous_translation
-				                             && $element->field_finished;
+			$is_suggested_translation = $target_holds_a_translation
+				&& (
+					! empty( $element->has_previous_translation )
+					|| ( $this->use_translation_memory && ! empty( $element->translated_from_memory ) )
+				);
+
+			$segment_pairs = null;
+			if (
+				$is_suggested_translation
+				&& '' !== $field_data_translated
+				&& $this->is_xliff_for_ate
+				&& ! FieldId::is_any_term_field( $element->field_type )
+			) {
+				$segment_pairs = SegmentedSuggestion::split_pair( $field_data, $field_data_translated );
 			}
 
-			$translation_units_data = $this->get_translation_unit_data(
-				$element->field_type,
-				$field_name,
-				$field_data,
-				$apply_memory ? $field_data_translated : null,
-				$is_translated_from_memory,
-				$element->field_wrap_tag,
-				$extra_data,
-				$is_translation_memory_outdated
-			);
+			$completed_by_a_human = '' !== trim( (string) $field_data_translated )
+				&& isset( $this->human_translated_fields[ $element->field_type ] )
+				&& trim( $this->human_translated_fields[ $element->field_type ] ) === trim( (string) $field_data_translated );
 
-			if ( 'title' === $field_name ) {
-				array_unshift( $translation_units, $translation_units_data );
+			if ( $segment_pairs ) {
+				foreach ( $segment_pairs as $segment_index => $segment_pair ) {
+					$segment_field_id       = 0 === $segment_index
+						? $element->field_type
+						: $element->field_type . SegmentedSuggestion::SEGMENT_ID_SUFFIX . ( $segment_index + 1 );
+					$translation_units_data = $this->get_translation_unit_data(
+						$segment_field_id,
+						$field_name,
+						$this->markDeclaredPlaceholders( $segment_pair['source'], $element, $extra_data ),
+						$segment_pair['target'],
+						$is_suggested_translation,
+						$element->field_wrap_tag,
+						$extra_data,
+						$is_translation_memory_outdated,
+						$completed_by_a_human
+					);
+
+					if ( 'title' === $field_name ) {
+						array_unshift( $translation_units, $translation_units_data );
+					} else {
+						$translation_units[] = $translation_units_data;
+					}
+				}
 			} else {
-				$translation_units[] = $translation_units_data;
+				$translation_units_data = $this->get_translation_unit_data(
+					$element->field_type,
+					$field_name,
+					$this->markDeclaredPlaceholders( $field_data, $element, $extra_data ),
+					$field_data_translated,
+					$is_suggested_translation,
+					$element->field_wrap_tag,
+					$extra_data,
+					$is_translation_memory_outdated,
+					$completed_by_a_human
+				);
+
+				if ( 'title' === $field_name ) {
+					array_unshift( $translation_units, $translation_units_data );
+				} else {
+					$translation_units[] = $translation_units_data;
+				}
 			}
 		}
+	}
+
+	private function markDeclaredPlaceholders( $field_data, $element, $extra_data ) {
+		if ( ! $this->shouldMarkDeclaredPlaceholders || ! $this->is_xliff_for_ate ) {
+			return $field_data;
+		}
+
+		$patterns = apply_filters( 'wpml_tm_xliff_unit_placeholders', [], $element, $extra_data );
+
+		$patterns = array_values( array_unique( array_filter( (array) $patterns, 'is_string' ) ) );
+
+		return DeclaredPlaceholders::encode( (string) $field_data, $patterns );
 	}
 
 	private function handle_extra_data_images( $element, $extra_data_images, &$translation_units ) {
@@ -426,16 +522,32 @@ class WPML_TM_Xliff_Writer {
 	}
 
 	private function getExtraData( $field ) {
-		$fieldType = Obj::propOr( '', 'field_type', $field );
-		$title     = Obj::propOr( '', 'title', $field );
-		$group     = Obj::propOr( '', 'group', $field );
-		$imageUrl  = Obj::propOr( '', 'image', $field );
-		$purpose   = Obj::propOr( '', 'purpose', $field );
+		$extradataArray = self::buildFieldExtradata(
+			$field,
+			(bool) FieldId::is_a_custom_field( Obj::propOr( '', 'field_type', $field ) )
+		);
+
+		foreach ( [ 'uid', 'uids' ] as $identityKey ) {
+			$identity = Obj::propOr( '', $identityKey, $field );
+
+			if ( '' !== $identity ) {
+				$extradataArray[ $identityKey ] = (string) $identity;
+			}
+		}
+
+		return $extradataArray;
+	}
+
+	public static function buildFieldExtradata( array $field, $isCustomField ) {
+		$title    = Obj::propOr( '', 'title', $field );
+		$group    = Obj::propOr( '', 'group', $field );
+		$imageUrl = Obj::propOr( '', 'image', $field );
+		$purpose  = Obj::propOr( '', 'purpose', $field );
 
 		if ( is_array( $group ) ) {
 			$groupTitleString = implode( '/', array_values( $group ) );
 			$groupIdString    = implode( '/', array_keys( $group ) );
-		} elseif ( FieldId::is_a_custom_field( $fieldType ) ) {
+		} elseif ( $isCustomField ) {
 			$title            = Str::pregReplace( '/^' . FieldId::CUSTOM_FIELD_PREFIX . '/', '', $title );
 			$groupTitleString = self::CUSTOM_FIELDS_GROUP;
 			$groupIdString    = self::CUSTOM_FIELDS_GROUP_ID;
@@ -446,7 +558,7 @@ class WPML_TM_Xliff_Writer {
 
 		$extradataArray = [
 			'unit'     => Labels::labelize( $title ),
-			'type'     => FieldId::is_a_custom_field( $fieldType ) ? 'custom_field' : 'text',
+			'type'     => $isCustomField ? 'custom_field' : 'text',
 			'group'    => $groupTitleString,
 			'group_id' => $groupIdString,
 		];
@@ -507,10 +619,11 @@ class WPML_TM_Xliff_Writer {
 		$field_name,
 		$field_data,
 		$field_data_translated,
-		$is_translated_from_memory = false,
+		$is_suggested_translation = false,
 		$field_wrap_tag = '',
 		$extradata = [],
-		$is_translation_memory_outdated = false
+		$is_translation_memory_outdated = false,
+		$completed_by_a_human = false
 	) {
 		global $sitepress;
 
@@ -545,10 +658,12 @@ class WPML_TM_Xliff_Writer {
 			$translation_unit['extradata'] = $extradata;
 		}
 
-		if ( $is_translated_from_memory ) {
+		if ( $is_suggested_translation && '' !== $field_data_translated ) {
 			$translation_unit['target']['attributes'] = array(
 				'state'           => 'needs-review-translation',
-				'state-qualifier' => $is_translation_memory_outdated ? 'leveraged-tm' : 'tm-suggestion',
+				'state-qualifier' => CurrentTranslation::is( $field_data, $field_data_translated, $is_translation_memory_outdated, $completed_by_a_human )
+					? 'tm-suggestion'
+					: 'leveraged-tm',
 			);
 		}
 
@@ -574,9 +689,42 @@ class WPML_TM_Xliff_Writer {
 	}
 
 	private function remove_line_breaks_inside_tag_callback( array $matches ) {
-		$tag_string = preg_replace( '/([\n\r\t ]+)/', ' ', $matches[0] );
-		$tag_string = preg_replace( '/(<[\s]+)/', '<', $tag_string );
-		return preg_replace( '/([\s]+>)/', '>', $tag_string );
+		$parts = preg_split(
+			'/("[^"]*"|\'[^\']*\')/',
+			$matches[0],
+			-1,
+			PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
+		);
+
+		if ( ! is_array( $parts ) ) {
+			return $matches[0];
+		}
+
+		$tag_string = '';
+		foreach ( $parts as $part ) {
+			if ( self::is_quoted_value( $part ) ) {
+				$tag_string .= $part;
+				continue;
+			}
+
+			$part        = preg_replace( '/[\n\r\t ]+/', ' ', $part );
+			$part        = preg_replace( '/<[\s]+/', '<', $part );
+			$part        = preg_replace( '/[\s]+>/', '>', $part );
+			$tag_string .= $part;
+		}
+
+		return $tag_string;
+	}
+
+	private static function is_quoted_value( $part ) {
+		if ( strlen( $part ) < 2 ) {
+			return false;
+		}
+
+		$first = $part[0];
+		$last  = substr( $part, -1 );
+
+		return ( '"' === $first && '"' === $last ) || ( "'" === $first && "'" === $last );
 	}
 
 	private function remove_invalid_chars( $string ) {
@@ -606,6 +754,16 @@ class WPML_TM_Xliff_Writer {
 	}
 
 	private function is_valid_unit_content( $content ) {
+		$stripped = preg_replace(
+			'/[\x{00A0}\x{1680}\x{180E}\x{2000}-\x{200D}\x{2028}\x{2029}\x{202F}\x{205F}\x{2060}\x{3000}\x{FEFF}\x{FFFE}]/u',
+			'',
+			(string) $content
+		);
+
+		if ( null !== $stripped ) {
+			$content = $stripped;
+		}
+
 		return '' !== trim( $content );
 	}
 
@@ -705,5 +863,302 @@ class WPML_TM_Xliff_Writer {
 		$directory     = dirname( $relative_path );
 
 		return trailingslashit( $upload_dir['baseurl'] ) . trailingslashit( $directory ) . $thumbnail_filename;
+	}
+
+	private function has_previous_non_wpml_editor_job( $job ) {
+		if ( ! isset( $job->job_id ) ) {
+			return false;
+		}
+
+		if ( isset( $job->editor ) && $this->is_non_wpml_editor( $job->editor ) ) {
+			return true;
+		}
+
+		$previous_job = Jobs::getPreviousJob( $job->job_id );
+
+		return is_object( $previous_job ) && $this->is_non_wpml_editor( $previous_job->editor );
+	}
+
+	private function is_non_wpml_editor( $editor ) {
+		return ! in_array( $editor, [ WPML_TM_Editors::ATE, WPML_TM_Editors::WPML ], true );
+	}
+
+	private function load_human_translated_fields( $job ) {
+		if ( ! isset( $job->job_id ) ) {
+			return array();
+		}
+
+		$previous_job = Jobs::getPreviousJob( $job->job_id );
+
+		if ( ! is_object( $previous_job ) || ! $this->is_completed_by_a_human( $previous_job ) ) {
+			return array();
+		}
+
+		global $wpdb;
+
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT field_type, field_data_translated
+				FROM {$wpdb->prefix}icl_translate
+				WHERE job_id = %d AND field_translate = 1",
+				(int) $previous_job->job_id
+			)
+		);
+
+		$fields = array();
+		foreach ( (array) $rows as $row ) {
+			$value = FieldCompression::decompress( $row->field_data_translated );
+			if ( '' !== trim( (string) $value ) ) {
+				$fields[ $row->field_type ] = (string) $value;
+			}
+		}
+
+		return $fields;
+	}
+
+	private function is_completed_by_a_human( $jobRow ) {
+		$isFinished = 1 === (int) $jobRow->translated;
+		if ( ! $isFinished ) {
+			return false;
+		}
+
+		$writtenInAnEditorAPersonUses = in_array( $jobRow->editor, [ WPML_TM_Editors::WP, WPML_TM_Editors::WPML ], true );
+		$ownedByATranslator           = ! (int) $jobRow->automatic && (int) $jobRow->translator_id > 0;
+
+		return $writtenInAnEditorAPersonUses || $ownedByATranslator;
+	}
+
+	private function get_wp_editor_extra_units( $job ) {
+		if ( ! $this->is_xliff_for_ate ) {
+			return [];
+		}
+
+		if ( ! $this->has_previous_non_wpml_editor_job( $job ) ) {
+			return [];
+		}
+
+		if ( ! isset( $job->elements ) || ! is_array( $job->elements ) ) {
+			return [];
+		}
+
+		$extra_units = [];
+		$extradata = null;
+
+		foreach ( $job->elements as $element ) {
+			if ( 1 === (int) $element->field_translate ) {
+				continue;
+			}
+
+			if ( 'body' === $element->field_type ) {
+				$original_post_id   = isset( $job->original_doc_id ) ? (int) $job->original_doc_id : 0;
+				$translated_post_id = isset( $job->element_type_prefix, $job->element_id ) && 'post' === $job->element_type_prefix
+					? (int) $job->element_id
+					: 0;
+
+				$pb_source = $this->get_element_uid_markup( $original_post_id );
+				$pb_target = $this->get_element_uid_markup( $translated_post_id );
+
+				if ( null !== $pb_source && null !== $pb_target ) {
+					$source = $this->remove_invalid_chars( $pb_source );
+					$target = $this->remove_invalid_chars( $pb_target );
+				} else {
+					$source = base64_decode( $element->field_data );
+					$source = $this->remove_invalid_chars( $source );
+					$source = $this->remove_line_breaks_inside_tags( $source );
+
+					$target = base64_decode( $element->field_data_translated );
+					$target = $this->remove_invalid_chars( $target );
+					$target = $this->remove_line_breaks_inside_tags( $target );
+
+					if ( ! $this->is_valid_unit_content( $target ) ) {
+						continue;
+					}
+
+					$source = $this->decorate_wp_editor_markup( $source, $original_post_id );
+					$target = $this->decorate_wp_editor_markup( $target, $translated_post_id );
+				}
+
+				if ( null === $extradata ) {
+					$extradata = $this->get_wp_editor_extradata( $job );
+				}
+
+				$extra_units[] = $this->build_wp_editor_translation_unit(
+					$element->field_type,
+					$source,
+					$target,
+					$extradata
+				);
+			}
+		}
+
+		return $extra_units;
+	}
+
+	private function get_wp_editor_extradata( $job ) {
+		$extradata = [];
+
+		$modified_timestamp = $this->get_translation_modified_timestamp( $job );
+
+		if ( null !== $modified_timestamp ) {
+			$extradata[ self::WP_EDITOR_MODIFIED_TIMESTAMP ] = $modified_timestamp;
+		}
+
+		$extradata[ self::WP_EDITOR_GENERATED_TIMESTAMP ] = time();
+
+		return $extradata;
+	}
+
+	private function get_translation_modified_timestamp( $job ) {
+		$element_type_prefix = isset( $job->element_type_prefix ) ? $job->element_type_prefix : '';
+
+		if ( 'post' !== $element_type_prefix ) {
+			return null;
+		}
+
+		$element_id = isset( $job->element_id ) ? (int) $job->element_id : 0;
+
+		if ( ! $element_id ) {
+			return null;
+		}
+
+		$post = get_post( $element_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			return null;
+		}
+
+		$modified = $post->post_modified_gmt;
+
+		if ( empty( $modified ) || '0000-00-00 00:00:00' === $modified ) {
+			return null;
+		}
+
+		$timestamp = strtotime( $modified . ' UTC' );
+
+		return false === $timestamp ? null : $timestamp;
+	}
+
+	private function build_wp_editor_translation_unit( $type, $source, $target, array $extradata = [] ) {
+		$unit = [
+			'attributes' => [
+				'resname'   => 'wpml-wp-editor:' . $type,
+				'restype'   => 'string',
+				'datatype'  => 'html',
+				'id'        => 'wpml-wp-editor:' . $type,
+				'translate' => 'no',
+			],
+			'source'     => [ 'content' => $source ],
+			'target'     => [ 'content' => $target ],
+			'note'       => [ 'content' => '' ],
+		];
+
+		if ( $extradata ) {
+			$unit['extradata'] = $extradata;
+		}
+
+		return $unit;
+	}
+
+	private function get_element_uid_markup( $post_id ) {
+		if ( $post_id <= 0 ) {
+			return null;
+		}
+
+		$markup = apply_filters( 'wpml_pb_element_uid_markup', null, $post_id );
+
+		return is_string( $markup ) && '' !== $markup ? $markup : null;
+	}
+
+	private function decorate_wp_editor_markup( $markup, $post_id ) {
+		if ( ! function_exists( 'has_blocks' ) || ! has_blocks( $markup ) ) {
+			return $markup;
+		}
+
+		$block_uids = apply_filters( 'wpml_pb_block_uids', [], $post_id, $markup );
+		$block_uids = is_array( $block_uids ) ? $block_uids : [];
+
+		$uid_timestamps = apply_filters( 'wpml_pb_block_uid_timestamps', [], $post_id );
+
+		$block_texts = apply_filters( 'wpml_pb_block_uid_texts', [], $post_id, $markup );
+		$block_texts = is_array( $block_texts ) ? $block_texts : [];
+
+		$blocks  = parse_blocks( $markup );
+		$changed = false;
+
+		$this->decorate_blocks_with_uids( $blocks, '', $block_uids, $uid_timestamps, $changed, $block_texts );
+
+		return $changed ? serialize_blocks( $blocks ) : $markup;
+	}
+
+	private function decorate_blocks_with_uids( array &$blocks, $prefix, array $block_uids, array $uid_timestamps, &$changed, array $block_texts = [] ) {
+		foreach ( $blocks as $position => &$block ) {
+			$path = '' === $prefix ? (string) $position : $prefix . '.' . $position;
+
+			if ( ! empty( $block['blockName'] ) ) {
+				$uid = isset( $block_uids[ $path ] ) ? (string) $block_uids[ $path ] : '';
+
+				if ( '' === $uid && ! empty( $block['attrs']['wpmlUid'] ) ) {
+					$uid = (string) $block['attrs']['wpmlUid'];
+				}
+
+				if ( '' !== $uid && ! empty( $block['innerContent'] ) ) {
+					$this->stamp_block_with_uid( $block, $uid, $uid_timestamps, $changed );
+				} elseif ( '' !== $uid && isset( $block_texts[ $path ] ) && '' !== (string) $block_texts[ $path ] ) {
+					$this->stamp_void_block_with_uid( $block, $uid, (string) $block_texts[ $path ], $uid_timestamps, $changed );
+				}
+			}
+
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$this->decorate_blocks_with_uids( $block['innerBlocks'], $path, $block_uids, $uid_timestamps, $changed, $block_texts );
+			}
+		}
+		unset( $block );
+	}
+
+	private function stamp_block_with_uid( array &$block, $uid, array $uid_timestamps, &$changed ) {
+		$attributes = ' data-wpml-uid="' . esc_attr( $uid ) . '"';
+
+		if ( isset( $uid_timestamps[ $uid ]['created'] ) ) {
+			$attributes .= ' data-wpml-created="' . (int) $uid_timestamps[ $uid ]['created'] . '"';
+		}
+		if ( isset( $uid_timestamps[ $uid ]['modified'] ) ) {
+			$attributes .= ' data-wpml-modified="' . (int) $uid_timestamps[ $uid ]['modified'] . '"';
+		}
+
+		foreach ( $block['innerContent'] as $index => $chunk ) {
+			if ( null === $chunk || false === strpos( $chunk, '<' ) ) {
+				continue;
+			}
+
+			$decorated = preg_replace( '/<([a-zA-Z][a-zA-Z0-9:-]*)/', '<$1' . $attributes, $chunk, 1 );
+
+			if ( null !== $decorated && $decorated !== $chunk ) {
+				$block['innerContent'][ $index ] = $decorated;
+
+				unset( $block['attrs']['wpmlUid'] );
+
+				$changed = true;
+			}
+
+			break;
+		}
+	}
+
+	private function stamp_void_block_with_uid( array &$block, $uid, $text, array $uid_timestamps, &$changed ) {
+		$attributes = ' data-wpml-uid="' . esc_attr( $uid ) . '"';
+
+		if ( isset( $uid_timestamps[ $uid ]['created'] ) ) {
+			$attributes .= ' data-wpml-created="' . (int) $uid_timestamps[ $uid ]['created'] . '"';
+		}
+
+		if ( isset( $uid_timestamps[ $uid ]['modified'] ) ) {
+			$attributes .= ' data-wpml-modified="' . (int) $uid_timestamps[ $uid ]['modified'] . '"';
+		}
+
+		$wrapper               = '<div' . $attributes . '>' . force_balance_tags( $text ) . '</div>';
+		$block['innerHTML']    = $wrapper;
+		$block['innerContent'] = [ $wrapper ];
+		unset( $block['attrs']['wpmlUid'] );
+		$changed = true;
 	}
 }

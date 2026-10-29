@@ -1,6 +1,6 @@
 <?php
 
-class WCML_Update_Product_Gallery_Translation_Factory implements IWPML_Backend_Action_Loader {
+class WCML_Update_Product_Gallery_Translation_Factory implements IWPML_Backend_Action_Loader, IWPML_AJAX_Action_Loader, IWPML_REST_Action_Loader {
 
 	public function create() {
 		global $sitepress;

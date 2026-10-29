@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Print Invoices & Packing Lists Integration.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_PIP_Compatibility {
 
 	/**
 	 * The document being processed.
 	 *
-	 * @var WC_PIP_Document
+	 * @var WC_PIP_Document|null
 	 */
 	public static $document;
 
@@ -34,6 +34,8 @@ class WC_PB_PIP_Compatibility {
 
 	/**
 	 * Add hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -127,6 +129,7 @@ class WC_PB_PIP_Compatibility {
 	 * Modify the returned order items and products to return the correct items/weights/values for shipping.
 	 *
 	 * @since  5.5.0
+	 * @return void
 	 */
 	public static function add_filters() {
 		add_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10, 2 );
@@ -137,6 +140,7 @@ class WC_PB_PIP_Compatibility {
 	 * Remove filters above.
 	 *
 	 * @since  5.5.0
+	 * @return void
 	 */
 	public static function remove_filters() {
 		remove_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10 );
@@ -364,6 +368,7 @@ class WC_PB_PIP_Compatibility {
 	 *
 	 * @param  int           $item_id Order item ID.
 	 * @param  WC_Order_Item $item Order item.
+	 * @return void
 	 */
 	public static function add_assembled_order_item_meta( $item_id, $item ) {
 
@@ -428,7 +433,8 @@ class WC_PB_PIP_Compatibility {
 
 			$product = wc_get_product( $order_item->get_product_id() );
 
-			if ( ! $product->needs_shipping() ) {
+			// The bundle product may have been deleted since the order was placed.
+			if ( $product instanceof WC_Product && ! $product->needs_shipping() ) {
 
 				if ( self::$recounting_items ) {
 					$hide = true;

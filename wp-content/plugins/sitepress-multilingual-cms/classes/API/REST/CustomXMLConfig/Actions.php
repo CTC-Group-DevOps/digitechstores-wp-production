@@ -34,6 +34,9 @@ class Actions extends \WPML_REST_Base {
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'update_content' ],
+				'args'     => [
+					'content' => [ 'type' => 'string' ],
+				],
 			]
 		);
 		parent::register_route(
@@ -41,6 +44,9 @@ class Actions extends \WPML_REST_Base {
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'validate_content' ],
+				'args'     => [
+					'content' => [ 'type' => 'string' ],
+				],
 			]
 		);
 	}

@@ -21,6 +21,29 @@
 			return value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 		};
 
+		var escapeHtml = function(value) {
+			return String(value)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		};
+
+		/**
+		 * Titles come from the server as plain text. Match on the raw text and escape
+		 * every part separately, so the highlight never lands inside an HTML entity.
+		 */
+		var highlightTitle = function(title, query) {
+			if (!query) {
+				return escapeHtml(title);
+			}
+
+			return String(title).split(new RegExp('(' + escapeRegExChars(query) + ')', 'gi')).map(function(part, index) {
+				return index % 2 ? '<strong>' + escapeHtml(part) + '</strong>' : escapeHtml(part);
+			}).join('');
+		};
+
 		$('form.woodmart-ajax-search').each(function() {
 			var $this         = $(this),
 			    number        = parseInt($this.data('count')),
@@ -129,11 +152,7 @@
 							woodmartThemeModule.$document.trigger('wood-images-loaded');
 						},
 						formatResult    : function(suggestion, currentValue) {
-							if (currentValue === '&') {
-								currentValue = '&#038;';
-							}
-							var pattern     = '(' + escapeRegExChars(currentValue) + ')',
-								returnValue = '';
+							var returnValue = '';
 
 							if (suggestion.divider) {
 								returnValue += ' <div class="suggestion-divider-title title">' + suggestion.divider + '</div>';
@@ -145,9 +164,7 @@
 
 							if (suggestion.value) {
 								returnValue += ' <div class="wd-suggestion-content wd-set-mb reset-last-child">';
-								returnValue += '<div class="wd-entities-title">' + suggestion.value
-									.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
-									.replace(/&lt;(\/?strong)&gt;/g, '<$1>') + '</div>';
+								returnValue += '<div class="wd-entities-title">' + highlightTitle(suggestion.value, currentValue) + '</div>';
 							}
 
 							if (sku && suggestion.sku) {
@@ -166,7 +183,7 @@
 								var ariaLabel = '';
 
 								if (suggestion.value) {
-									ariaLabel = `aria-label="${suggestion.value.replace(/(<([^>]+)>)/ig, '')}"`;
+									ariaLabel = `aria-label="${escapeHtml(suggestion.value)}"`;
 								}
 
 								returnValue += ` <a class="wd-fill" href="${suggestion.permalink}" ${ariaLabel}></a>`;

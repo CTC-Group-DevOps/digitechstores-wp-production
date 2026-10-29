@@ -45,7 +45,7 @@ $bundled_item_title_html = str_replace( '&', '&amp;', $bundled_item_title );
 						array(
 							'bundled_item' => $bundled_item,
 						),
-						false,
+						'',
 						WC_PB()->plugin_path() . '/templates/'
 					);
 				}

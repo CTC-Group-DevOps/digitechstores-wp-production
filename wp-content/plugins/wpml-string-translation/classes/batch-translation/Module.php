@@ -42,6 +42,8 @@ class Module {
 		);
 
 		Hooks::addStringTranslationStatusHooks( StringTranslations::updateStatus(), $initializeTranslation );
+
+		Hooks::addOrphanedBatchSweepHooks( new OrphanedBatchSweep( $wpdb ) );
 	}
 
 	public static function getString( $id = null ) {

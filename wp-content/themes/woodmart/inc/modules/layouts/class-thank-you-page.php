@@ -30,6 +30,19 @@ class Thank_You_Page extends Layout_Type {
 			return false;
 		}
 
+		$supplied_key = ( isset( $_GET['key'] ) && is_string( $_GET['key'] ) ) ? wc_clean( wp_unslash( $_GET['key'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$is_order_owner = $order->get_customer_id() && get_current_user_id() === $order->get_customer_id();
+
+		if (
+			! ( wp_is_serving_rest_request() && current_user_can( 'edit_posts' ) ) &&
+			! hash_equals( (string) $order->get_order_key(), $supplied_key ) &&
+			! $is_order_owner &&
+			! current_user_can( 'manage_woocommerce' )
+		) {
+			return false;
+		}
+
 		$verify_known_shoppers = apply_filters( 'woocommerce_order_received_verify_known_shoppers', true );
 		$order_customer_id     = $order->get_customer_id();
 		$order_id              = $order->get_id();

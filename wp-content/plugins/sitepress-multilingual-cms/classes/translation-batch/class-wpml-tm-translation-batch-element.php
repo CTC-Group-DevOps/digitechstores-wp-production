@@ -9,14 +9,11 @@ class WPML_TM_Translation_Batch_Element {
 
 	private $target_langs;
 
-	private $media_to_translations;
-
 	public function __construct(
 		$element_id,
 		$element_type,
 		$source_lang,
-		array $target_languages,
-		array $media_to_translations = array()
+		array $target_languages
 	) {
 		if ( ! $element_id ) {
 			throw new InvalidArgumentException( 'Element id has to be defined' );
@@ -44,11 +41,10 @@ class WPML_TM_Translation_Batch_Element {
 			}
 		}
 
-		$this->element_id            = $element_id;
-		$this->element_type          = $element_type;
-		$this->source_lang           = $source_lang;
-		$this->target_langs          = $target_languages;
-		$this->media_to_translations = $media_to_translations;
+		$this->element_id   = $element_id;
+		$this->element_type = $element_type;
+		$this->source_lang  = $source_lang;
+		$this->target_langs = $target_languages;
 	}
 
 
@@ -66,9 +62,5 @@ class WPML_TM_Translation_Batch_Element {
 
 	public function get_target_langs() {
 		return $this->target_langs;
-	}
-
-	public function get_media_to_translations() {
-		return $this->media_to_translations;
 	}
 }

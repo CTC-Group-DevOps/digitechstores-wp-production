@@ -49,8 +49,11 @@ class WCML_Sensei implements \IWPML_Action {
 			return;
 		}
 
-		if ( $post->post_type == 'quiz' && isset( $_POST['ID'] ) ) {
-			$this->save_post_actions( $_POST['ID'], get_post( $_POST['ID'] ) );
+		if ( 'quiz' === $post->post_type ) {
+			$lesson_id = (int) get_post_meta( $post_id, '_quiz_lesson', true );
+			if ( $lesson_id > 0 && 'lesson' === get_post_type( $lesson_id ) ) {
+				$this->save_post_actions( $lesson_id, get_post( $lesson_id ) );
+			}
 		}
 
 		$trid         = $sitepress->get_element_trid( $post_id, 'post_' . $post->post_type );

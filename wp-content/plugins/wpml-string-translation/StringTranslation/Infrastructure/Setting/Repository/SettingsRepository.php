@@ -5,6 +5,7 @@ namespace WPML\StringTranslation\Infrastructure\Setting\Repository;
 use WPML\FP\Str;
 use WPML\StringTranslation\Application\Setting\Repository\SettingsRepositoryInterface;
 use WPML\StringTranslation\Application\Setting\Repository\UrlRepositoryInterface;
+use WPML\StringTranslation\Infrastructure\TranslateEverything\EnglishSourceLanguage;
 use WPML\ST\MO\Hooks\PreloadThemeMoFile;
 
 class SettingsRepository implements SettingsRepositoryInterface {
@@ -13,9 +14,15 @@ class SettingsRepository implements SettingsRepositoryInterface {
 
 	const DETECT_JS_STRINGS = 'detect_js_strings';
 
+	const AUTOREGISTER_STRINGS_ENABLED_TIME_KEY = 'autoregister_strings_enabled_time';
+
+	const AUTOREGISTER_STRINGS_TIMEOUT = 2 * HOUR_IN_SECONDS;
+
 	const MAX_QUEUED_FRONTEND_STRINGS_COUNT = 2500;
 
 	private $sitepress;
+
+	private $wpLocaleSwitches = [];
 
 	private $urlRepository;
 
@@ -26,6 +33,8 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	private $isAutoregistrationEnabled = false;
 
 	private $shouldSkipAutoregistrationForCurrentLanguage;
+
+	private $englishSourceLanguageCode = [];
 
 	private $shouldNotAutoregisterStringsFromCurrentUrl;
 
@@ -77,10 +86,19 @@ class SettingsRepository implements SettingsRepositoryInterface {
 			return;
 		}
 
-		$settings = $this->getSettings();
+		$isEnabled = $value !== SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED;
+
+		$settings = $this->freshSettings();
 		$settings['autoregister_strings'] = $value;
+
+		if ( $isEnabled ) {
+			$settings[ self::AUTOREGISTER_STRINGS_ENABLED_TIME_KEY ] = time();
+		} else {
+			unset( $settings[ self::AUTOREGISTER_STRINGS_ENABLED_TIME_KEY ] );
+		}
+
 		$this->saveSettings( $settings );
-		$this->updateWpmlSettingToPreloadThemeMoFilesAutomatically( $value !== SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED );
+		$this->updateWpmlSettingToPreloadThemeMoFilesAutomatically( $isEnabled );
 	}
 
 	private function updateWpmlSettingToPreloadThemeMoFilesAutomatically( bool $isEnabled ) {
@@ -94,50 +112,94 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	public function getAutoregisterStringsTypeSetting(): int {
 		$settings = $this->getSettings();
 		if ( ! isset( $settings['autoregister_strings'] ) ) {
-			$settings['autoregister_strings'] = SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED;
-			$this->saveSettings( $settings );
+			$settings = $this->settingsWithKey(
+				'autoregister_strings',
+				SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED,
+				function ( array $settings ) {
+					return isset( $settings['autoregister_strings'] );
+				}
+			);
 		}
 
-		return (int)$settings['autoregister_strings'];
+		$type = (int) $settings['autoregister_strings'];
+
+		if ( $type === SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED ) {
+			return $type;
+		}
+
+		return $this->endAutoregisterStringsModeIfHorizonPassed( $type, $settings );
+	}
+
+	private function endAutoregisterStringsModeIfHorizonPassed( int $type, array $settings ): int {
+		if ( $this->autoregisterHorizonIsRunning( $settings ) ) {
+			return $type;
+		}
+
+		$settings = $this->settings = $this->freshSettings();
+		$type     = (int) ( $settings['autoregister_strings'] ?? SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED );
+		if ( $type === SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED || $this->autoregisterHorizonIsRunning( $settings ) ) {
+			return $type;
+		}
+
+		if ( $this->autoregisterEnabledAt( $settings ) <= 0 ) {
+			$this->saveKey( self::AUTOREGISTER_STRINGS_ENABLED_TIME_KEY, time() );
+
+			return $type;
+		}
+
+		$settings['autoregister_strings'] = SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED;
+		unset( $settings[ self::AUTOREGISTER_STRINGS_ENABLED_TIME_KEY ] );
+		$this->saveSettings( $settings );
+		$this->updateWpmlSettingToPreloadThemeMoFilesAutomatically( false );
+
+		return SettingsRepositoryInterface::AUTOREGISTER_STRINGS_TYPE_DISABLED;
+	}
+
+	private function autoregisterEnabledAt( array $settings ): int {
+		return (int) ( $settings[ self::AUTOREGISTER_STRINGS_ENABLED_TIME_KEY ] ?? 0 );
+	}
+
+	private function autoregisterHorizonIsRunning( array $settings ): bool {
+		$enabledAt = $this->autoregisterEnabledAt( $settings );
+
+		return $enabledAt > 0 && time() - $enabledAt < self::AUTOREGISTER_STRINGS_TIMEOUT;
 	}
 
 	public function getVisibleColumns(): array {
-		$settings = $this->getSettings();
-		if ( ! isset( $settings['visible_columns'] ) || ! is_array( $settings['visible_columns'] ) ) {
-			$settings['visible_columns'] = array('title' => true, 'name' => true, 'domain' => true, 'source' => true, 'type' => false);
-			$this->saveSettings( $settings );
-		}
+		$settings = $this->settingsWithKey(
+			'visible_columns',
+			[ 'title' => true, 'name' => true, 'domain' => true, 'source' => true, 'type' => false ],
+			function ( array $settings ) {
+				return isset( $settings['visible_columns'] ) && is_array( $settings['visible_columns'] );
+			}
+		);
 
 		return $settings['visible_columns'];
 	}
 
 
 	public function setShouldRegisterBackendStringsSetting( bool $shouldRegisterBackendStrings ) {
-		$settings = $this->getSettings();
-		$settings['autoregister_strings_should_register_backend_strings'] = $shouldRegisterBackendStrings;
-		$this->saveSettings( $settings );
+		$this->saveKey( 'autoregister_strings_should_register_backend_strings', $shouldRegisterBackendStrings );
 	}
 
 	public function getShouldRegisterBackendStringsSetting(): bool {
-		$settings = $this->getSettings();
-		if ( ! isset( $settings['autoregister_strings_should_register_backend_strings'] ) ) {
-			$settings['autoregister_strings_should_register_backend_strings'] = false;
-			$this->saveSettings( $settings );
-		}
+		$settings = $this->settingsWithKey(
+			'autoregister_strings_should_register_backend_strings',
+			false,
+			function ( array $settings ) {
+				return isset( $settings['autoregister_strings_should_register_backend_strings'] );
+			}
+		);
 
 		return $settings['autoregister_strings_should_register_backend_strings'];
 	}
 
 	public function setNewTranslationsWereLoadedSetting() {
-		$settings = $this->getSettings();
-		$settings['autoregister_strings_were_new_translations_loaded'] = true;
-		$this->saveSettings( $settings );
+		$this->saveKey( 'autoregister_strings_were_new_translations_loaded', true );
 	}
 
 	public function unsetNewTranslationsWereLoadedSetting() {
-		$settings = $this->getSettings();
-		unset( $settings['autoregister_strings_were_new_translations_loaded'] );
-		$this->saveSettings( $settings );
+		$this->removeKeyFromSettings( 'autoregister_strings_were_new_translations_loaded' );
 	}
 
 	public function wereNewTranslationsLoaded(): bool {
@@ -150,13 +212,11 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	}
 
 	public function saveKeyToSettings( string $keyName, $value = 1 ) {
-		$settings = $this->getSettings();
-		$settings[ $keyName ] = $value;
-		$this->saveSettings( $settings );
+		$this->saveKey( $keyName, $value );
 	}
 
 	public function removeKeyFromSettings( string $keyName ) {
-		$settings = $this->getSettings();
+		$settings = $this->freshSettings();
 		unset( $settings[ $keyName ] );
 		$this->saveSettings( $settings );
 	}
@@ -171,24 +231,43 @@ class SettingsRepository implements SettingsRepositoryInterface {
 		return isset( $settings[ $keyName ] ) ? (string) $settings[ $keyName ] : '';
 	}
 
-	private function getSettings() {
-		if ( ! is_null( $this->settings ) ) {
-			return $this->settings;
-		}
-
-		$this->settings = $this->sitepress->get_setting( 'st' );
-		if ( ! is_array( $this->settings ) ) {
-			$this->settings = [];
+	private function getSettings(): array {
+		if ( is_null( $this->settings ) ) {
+			$this->settings = $this->freshSettings();
 		}
 
 		return $this->settings;
 	}
 
-	private function saveSettings( $settings ) {
+	private function freshSettings(): array {
+		$settings = $this->sitepress->get_setting( 'st' );
+
+		return is_array( $settings ) ? $settings : [];
+	}
+
+	private function settingsWithKey( string $keyName, $default, callable $hasKey ): array {
+		$settings = $this->getSettings();
+		if ( $hasKey( $settings ) ) {
+			return $settings;
+		}
+
+		$this->settings = $this->freshSettings();
+
+		return $hasKey( $this->settings ) ? $this->settings : $this->saveKey( $keyName, $default );
+	}
+
+	private function saveKey( string $keyName, $value ): array {
+		$settings             = $this->freshSettings();
+		$settings[ $keyName ] = $value;
+
+		return $this->saveSettings( $settings );
+	}
+
+	private function saveSettings( array $settings ): array {
 		$this->sitepress->set_setting( 'st', $settings );
 		$this->sitepress->save_settings();
 
-		$this->settings = $settings;
+		return $this->settings = $settings;
 	}
 
 	public function getIsCurrentUserAdmin(): bool {
@@ -216,7 +295,7 @@ class SettingsRepository implements SettingsRepositoryInterface {
 			return $this->shouldSkipAutoregistrationForCurrentLanguage;
 		}
 
-		$this->shouldSkipAutoregistrationForCurrentLanguage = 'en' === $this->sitepress->get_current_language();
+		$this->shouldSkipAutoregistrationForCurrentLanguage = $this->getEnglishSourceLanguageCode() === $this->sitepress->get_current_language();
 
 		return $this->shouldSkipAutoregistrationForCurrentLanguage;
 	}
@@ -238,8 +317,19 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	}
 
 	public function getDefaultLanguageLocaleCode(): string {
-		$activeLanguages = $this->getActiveLanguages();
-		return $activeLanguages[ $this->getDefaultLanguageCode() ]['default_locale'];
+		return (string) $this->sitepress->get_locale_from_language_code( $this->getDefaultLanguageCode() );
+	}
+
+	public function getEnglishSourceLanguageCode(): string {
+		$activeCodes = $this->getActiveLanguageCodes();
+		$defaultCode = $this->getDefaultLanguageCode();
+		$key         = implode( ',', $activeCodes ) . '|' . $defaultCode;
+
+		if ( ! isset( $this->englishSourceLanguageCode[ $key ] ) ) {
+			$this->englishSourceLanguageCode = [ $key => EnglishSourceLanguage::resolve( $activeCodes, $defaultCode ) ];
+		}
+
+		return $this->englishSourceLanguageCode[ $key ];
 	}
 
 	public function getActiveSecondaryLanguageCodes(): array {
@@ -260,7 +350,7 @@ class SettingsRepository implements SettingsRepositoryInterface {
 
 	public function getActiveSecondaryLanguageLocales(): array {
 		$activeLanguages       = $this->getActiveLanguages();
-		$defaultLanguageLocale = $activeLanguages[ $this->getDefaultLanguageCode() ]['default_locale'];
+		$defaultLanguageLocale = $this->getDefaultLanguageLocaleCode();
 
 		$locales = [];
 		foreach ( $activeLanguages as $activeLanguageName => $activeLanguageData ) {
@@ -272,6 +362,53 @@ class SettingsRepository implements SettingsRepositoryInterface {
 		}
 
 		return $locales;
+	}
+
+	public function getActiveSecondaryLanguageLocalePairs(): array {
+		$defaultLanguageCode = $this->getDefaultLanguageCode();
+		$pairs               = [];
+
+		foreach ( $this->getActiveLanguages() as $languageCode => $languageData ) {
+			if (
+				$languageCode === $defaultLanguageCode
+				|| ! isset( $languageData['default_locale'] )
+				|| ! is_string( $languageData['default_locale'] )
+				|| '' === $languageData['default_locale']
+			) {
+				continue;
+			}
+
+			$pairs[] = [
+				'languageCode' => (string) $languageCode,
+				'locale'       => $languageData['default_locale'],
+			];
+		}
+
+		return $pairs;
+	}
+
+	public function getStringHarvestLanguageLocalePairs(): array {
+		$pairs       = $this->getActiveSecondaryLanguageLocalePairs();
+		$defaultCode = $this->getDefaultLanguageCode();
+
+		if ( '' === $defaultCode || \WPML\Core\SharedKernel\Component\Language\Domain\LanguageCode::isEnglish( $defaultCode ) ) {
+			return $pairs;
+		}
+
+		$defaultLocale = $this->getDefaultLanguageLocaleCode();
+		if ( '' === $defaultLocale ) {
+			return $pairs;
+		}
+
+		array_unshift(
+			$pairs,
+			[
+				'languageCode' => $defaultCode,
+				'locale'       => $defaultLocale,
+			]
+		);
+
+		return $pairs;
 	}
 
 	public function getLanguageDetails( string $languageCode ): array {
@@ -323,12 +460,15 @@ class SettingsRepository implements SettingsRepositoryInterface {
 			return $this->shouldNotAutoregisterStringsFromCurrentUrl = true;
 		}
 
-		if ( ! $this->urlRepository->isFrontendRequest() ) {
+		if ( ! $this->urlRepository->isFrontendRequest() && ! $this->getShouldRegisterBackendStringsSetting() ) {
 			return $this->shouldNotAutoregisterStringsFromCurrentUrl = true;
 		}
 
+		$restPrefix = trim( function_exists( 'rest_get_url_prefix' ) ? (string) rest_get_url_prefix() : '', '/' );
+		$restPrefix = '' === $restPrefix ? 'wp-json' : $restPrefix;
+
 		$this->shouldNotAutoregisterStringsFromCurrentUrl = (
-			$url === '/wp-json/' ||
+			$url === '/' . $restPrefix . '/' ||
 			Str::startsWith( '/wp-cron', $url )
 		);
 
@@ -345,10 +485,16 @@ class SettingsRepository implements SettingsRepositoryInterface {
 		$this->isAdmin = $this->getIsAdminFromCapabilities();
 	}
 
-	public function switchToLocale( string $locale, array $domainsToAllowReloadTranslations = [] ) {
-		switch_to_locale( $locale );
-		$languageCode = explode('_', $locale )[0];
-		$this->sitepress->switch_lang( $languageCode );
+	public function switchToLocale( string $locale, array $domainsToAllowReloadTranslations = [], $languageCode = null ) {
+		if ( ! is_string( $languageCode ) || '' === $languageCode ) {
+			$languageCode = $this->getActiveLanguageCodeForLocale( $locale );
+		}
+
+		if ( '' !== $languageCode ) {
+			$this->sitepress->switch_lang( $languageCode );
+		}
+
+		$this->wpLocaleSwitches[] = (bool) switch_to_locale( $locale );
 
 		global $l10n_unloaded;
 		foreach ( array_unique( $domainsToAllowReloadTranslations ) as $domain ) {
@@ -357,21 +503,44 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	}
 
 	public function restorePreviousLocale() {
-		restore_previous_locale();
+		if ( array_pop( $this->wpLocaleSwitches ) ) {
+			restore_previous_locale();
+		}
 		$this->sitepress->switch_lang();
 	}
 
+	public function resolveLanguageCodeFromLocale( string $locale ): string {
+		$code = '';
+		if ( method_exists( $this->sitepress, 'get_language_code_from_locale' ) ) {
+			$code = (string) $this->sitepress->get_language_code_from_locale( $locale );
+		}
+
+		return '' !== $code ? $code : $this->getDefaultLanguageCode();
+	}
+
+	private function getActiveLanguageCodeForLocale( string $locale ): string {
+		foreach ( $this->getActiveLanguages() as $languageCode => $languageData ) {
+			if ( isset( $languageData['default_locale'] ) && $languageData['default_locale'] === $locale ) {
+				return (string) $languageCode;
+			}
+		}
+
+		return '';
+	}
+
 	public function getAllTargetLanguagesBySource( $sourceLanguageCode ): array {
-		if ( $sourceLanguageCode === 'en' ) {
+		$activeLanguageCodes = $this->getActiveLanguageCodes();
+
+		if ( $sourceLanguageCode === $this->getEnglishSourceLanguageCode() ) {
 			return array_filter(
-				$this->getActiveLanguageCodes(),
+				$activeLanguageCodes,
 				function ( $languageCode ) use ( $sourceLanguageCode ) {
 					return $languageCode !== $sourceLanguageCode;
 				}
 			);
 		}
 
-		return $this->getActiveLanguageCodes();
+		return $activeLanguageCodes;
 	}
 
 	public function getLanguageForDomain( string $domain ): string {
@@ -380,11 +549,11 @@ class SettingsRepository implements SettingsRepositoryInterface {
 
 		return ( isset( $settings[ $key ] ) && isset( $settings[ $key ][ $domain ] ) )
 			? $settings[ $key ][ $domain ]
-			: 'en';
+			: $this->getEnglishSourceLanguageCode();
 	}
 
 	public function setLanguageForDomain( string $domain, string $language ) {
-		$settings = $this->getSettings();
+		$settings = $this->freshSettings();
 		$key      = 'lang_of_domain';
 
 		if ( ! isset( $settings[ $key ] ) ) {
@@ -415,15 +584,11 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	}
 
 	public function enableStringTracking() {
-		$settings = $this->getSettings();
-		$settings[self::STRING_TRACKING_SETTINGS_KEY] = 1;
-		$this->saveSettings( $settings );
+		$this->saveKey( self::STRING_TRACKING_SETTINGS_KEY, 1 );
 	}
 
 	public function disableStringTracking() {
-		$settings = $this->getSettings();
-		$settings[self::STRING_TRACKING_SETTINGS_KEY] = 0;
-		$this->saveSettings( $settings );
+		$this->saveKey( self::STRING_TRACKING_SETTINGS_KEY, 0 );
 	}
 
 	public function setVisibleColumns( array $columns ) {
@@ -436,16 +601,11 @@ class SettingsRepository implements SettingsRepositoryInterface {
 			ARRAY_FILTER_USE_BOTH
 		);
 
-		$settings = $this->getSettings();
-
-		$settings['visible_columns'] = $filteredColumns;
-		$this->saveSettings( $settings );
+		$this->saveKey( 'visible_columns', $filteredColumns );
 	}
 
 	public function setDetectStringsInJS( int $detectStringsInJS ) {
-		$settings = $this->getSettings();
-		$settings[ self::DETECT_JS_STRINGS ] = $detectStringsInJS;
-		$this->saveSettings( $settings );
+		$this->saveKey( self::DETECT_JS_STRINGS, $detectStringsInJS );
 	}
 
 	public function getDetectStringsInJS(): bool {

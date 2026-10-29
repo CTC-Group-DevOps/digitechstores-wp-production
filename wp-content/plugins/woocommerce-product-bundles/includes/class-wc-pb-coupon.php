@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Coupon functions and filters.
  *
  * @class    WC_PB_Coupon
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Coupon {
 
@@ -30,6 +30,8 @@ class WC_PB_Coupon {
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

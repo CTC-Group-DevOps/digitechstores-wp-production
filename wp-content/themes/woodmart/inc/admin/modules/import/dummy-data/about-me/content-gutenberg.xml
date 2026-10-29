@@ -27,7 +27,7 @@
 											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"7d491e92-474d-4f4f-a7fd-91f7b7056811","bgImage":{"id":27563,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/old-about-me.jpg"},"bgPosition":"center center","bgDisplaySize":"cover","paddingTop":"240","paddingBottom":"240","marginBottom":"0","overlayType":"gradient","overlayGradient":"linear-gradient(180deg,rgba(255,255,255,0.9) 24%,rgba(122,122,122,0.02) 100%)","overlay":true,"paddingTopMobile":"150","paddingBottomMobile":"150"} -->
 <div id="wd-7d491e92" class="wp-block-wd-section wd-bg-parent"><div class="wd-bg-overlay"></div><!-- wp:wd/row {"blockId":"77b0c47f-c47a-4e88-97fc-79c5a7b3e71f"} -->
 <div id="wd-77b0c47f" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"81b1b8bf-2b99-49ab-acbf-4a95b7b406e2","adjacentCount":2,"blocksGap":30,"bgColorCode":"#ffffff","paddingTop":"40","paddingRight":"40","paddingBottom":"40","paddingLeft":"40","paddingLock":true} -->
-<div id="wd-81b1b8bf" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"14b4be03-e8db-4ab1-9d13-f1cea631f8a7","content":"My name isu003cbru003e- Steve Rogers.","tpFontSize":"46","tpLineHeight":"1.2","displayWidth":"","customWidth":"","tpFontSizeTablet":"22","tpLineHeightUnits":"em"} -->
+<div id="wd-81b1b8bf" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"14b4be03-e8db-4ab1-9d13-f1cea631f8a7","content":"My name is\u003cbr\u003e- Steve Rogers.","tpFontSize":"46","tpLineHeight":"1.2","displayWidth":"","customWidth":"","tpFontSizeTablet":"22","tpLineHeightUnits":"em"} -->
 <h2 id="wd-14b4be03" class="wp-block-wd-title title">My name is<br>- Steve Rogers.</h2>
 <!-- /wp:wd/title -->
 

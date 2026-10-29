@@ -20,6 +20,50 @@ class WPML_TP_Sync_Update_Job {
 		$this->sitepress = $sitepress;
 	}
 
+	public function cancel( WPML_TM_Job_Entity $job, $untranslatedStatus = ICL_TM_NOT_TRANSLATED ) {
+		if ( ! array_key_exists( $job->get_type(), $this->strategies ) ) {
+			return $job;
+		}
+
+		$wpdb = $this->wpdb;
+
+		$row = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT status, translation_id FROM {$wpdb->prefix}icl_translation_status WHERE rid = %d",
+				$job->get_id()
+			)
+		);
+
+		if ( ! $row ) {
+			return $job;
+		}
+
+		$freshStatus = (int) $row->status;
+
+		if ( in_array( $freshStatus, [ ICL_TM_COMPLETE, ICL_TM_NOT_TRANSLATED, ICL_TM_ATE_CANCELLED ], true ) ) {
+			$job->set_status( $freshStatus );
+
+			return $job;
+		}
+
+		try {
+			$status = \WPML\Translation\PreviousStateServiceFactory::create()->revertToPreviousState(
+				(int) $row->translation_id,
+				(int) $untranslatedStatus
+			);
+		} catch ( \WPML\PHP\Exception\InvalidItemIdException $e ) {
+			return $job;
+		}
+
+		$job->set_status( $status );
+
+		if ( ICL_TM_NOT_TRANSLATED === $status && WPML_TM_Job_Entity::POST_TYPE === $job->get_type() ) {
+			$this->delete_orphan_translation( $job );
+		}
+
+		return $job;
+	}
+
 	public function update_state( WPML_TM_Job_Entity $job ) {
 		if ( ! array_key_exists( $job->get_type(), $this->strategies ) ) {
 			return $job;
@@ -54,18 +98,23 @@ class WPML_TP_Sync_Update_Job {
 			array( 'rid' => $rid )
 		);
 
-		if (
-			ICL_TM_NOT_TRANSLATED === $job->get_status()
-			&& ( $post_type = Post::getType( $job->get_original_element_id() ) )
-		) {
+		if ( ICL_TM_NOT_TRANSLATED === $job->get_status() ) {
+			$this->delete_orphan_translation( $job );
+		}
+
+		return $job;
+	}
+
+	private function delete_orphan_translation( WPML_TM_Job_Entity $job ): void {
+		$post_type = Post::getType( $job->get_original_element_id() );
+
+		if ( $post_type ) {
 			$this->sitepress->delete_orphan_element(
 				$job->get_original_element_id(),
 				'post_' . $post_type,
 				$job->get_target_language()
 			);
 		}
-
-		return $job;
 	}
 
 

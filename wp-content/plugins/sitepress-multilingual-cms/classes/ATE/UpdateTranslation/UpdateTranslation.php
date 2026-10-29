@@ -24,9 +24,10 @@ class UpdateTranslation implements IHandler {
 		$suppliedPostId   = $data->get( 'postId' );
 		$completedInATE   = $data->get( 'completedInATE' );
 		$clickedBackInATE = $data->get( 'clickedBackInATE' );
-		$job              = Jobs::get( $jobId );
 
-		if ( ! $job || ! Jobs::shouldBeATESynced( $job ) ) {
+		$job = Jobs::get( $jobId );
+
+		if ( ! $job || ! ( Jobs::shouldBeATESynced( $job ) || self::isDeliveredPostLeftInReviewEditing( $job ) ) ) {
 			return Either::left( 'Insufficient permissions' );
 		}
 
@@ -83,9 +84,22 @@ class UpdateTranslation implements IHandler {
 		$userClickedCompleteInATE = Fns::always( $completedInATE === 'COMPLETED' );
 		$otherwise                = Fns::always( true );
 
+		$deliveredStatus = $completedInATE === 'COMPLETED'
+			? 'already-applied-reload-required'
+			: 'applied-without-changes';
+
 		$handleATEResult = Logic::cond( [
 			[ $shouldApplyXLIFF, $applyXLIFF ],
-			[ $isDelivered, Fns::always( Either::of( 'applied-without-changes'  ) ) ],
+			[
+				$isDelivered,
+				function () use ( $job, $jobId, $deliveredStatus ) {
+					if ( self::isPostJob( $job ) ) {
+						$this->maybeSetNeedsReviewStatus( $jobId );
+					}
+
+					return Either::of( $deliveredStatus );
+				},
+			],
 			[ $userClickedCompleteInATE, Fns::always( Either::of( 'underway' ) ) ],
 			[ $isTranslating, Fns::always( Either::of( 'in-progress' ) ) ],
 			[ Logic::isEmpty(), Fns::always( Either::left( 'error' ) ) ],
@@ -95,6 +109,17 @@ class UpdateTranslation implements IHandler {
 		return Either::of( $jobId )
 		             ->map( [ $ateAPI, 'checkJobStatus' ] )
 		             ->chain( $handleATEResult );
+	}
+
+	private static function isDeliveredPostLeftInReviewEditing( $job ): bool {
+		return ICL_TM_COMPLETE === (int) Obj::prop( 'status', $job )
+			&& ReviewStatus::EDITING === Obj::prop( 'review_status', $job )
+			&& self::isPostJob( $job )
+			&& \WPML_TM_Editors::ATE === Obj::prop( 'editor', $job );
+	}
+
+	private static function isPostJob( $job ): bool {
+		return 'post' === Obj::prop( 'element_type_prefix', $job );
 	}
 
 	private function isAuthorized( $job, $postId ) {

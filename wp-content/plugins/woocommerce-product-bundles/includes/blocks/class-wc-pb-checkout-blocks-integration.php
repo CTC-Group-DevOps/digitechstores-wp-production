@@ -11,7 +11,7 @@ use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
 /**
  * Class for integrating with WooCommerce Blocks scripts.
  *
- * @version  8.5.10
+ * @version  8.5.16
  */
 class WC_PB_Checkout_Blocks_Integration implements IntegrationInterface {
 
@@ -25,7 +25,7 @@ class WC_PB_Checkout_Blocks_Integration implements IntegrationInterface {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_PB_Checkout_Blocks_Integration
+	 * @var WC_PB_Checkout_Blocks_Integration|null
 	 */
 	protected static $_instance = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
@@ -67,6 +67,8 @@ class WC_PB_Checkout_Blocks_Integration implements IntegrationInterface {
 
 	/**
 	 * When called invokes any initialization/setup for the integration.
+	 *
+	 * @return void
 	 */
 	public function initialize() {
 
@@ -109,10 +111,10 @@ class WC_PB_Checkout_Blocks_Integration implements IntegrationInterface {
 				$style_path = 'assets/css/frontend/checkout-blocks.css';
 				$style_url  = WC_PB()->plugin_url() . '/' . $style_path;
 
-				wp_enqueue_style(
+				wp_register_style(
 					'wc-pb-checkout-blocks',
 					$style_url,
-					'',
+					array(),
 					WC_PB()->get_file_version( WC_PB_ABSPATH . $style_path ),
 					'all'
 				);
@@ -131,7 +133,30 @@ class WC_PB_Checkout_Blocks_Integration implements IntegrationInterface {
 			}
 		);
 
+		add_filter( 'register_block_type_args', array( $this, 'add_block_styles' ), 10, 2 );
+
 		$this->is_initialized = true;
+	}
+
+	/**
+	 * Load frontend styles only when a supported block renders.
+	 *
+	 * @since 8.5.14
+	 * @param array  $args Block registration arguments.
+	 * @param string $block_name Block name.
+	 * @return array
+	 */
+	public function add_block_styles( $args, $block_name ) {
+		if ( ! is_array( $args ) || ! in_array( $block_name, array( 'woocommerce/cart', 'woocommerce/checkout', 'woocommerce/mini-cart' ), true ) ) {
+			return $args;
+		}
+
+		$styles = $args['view_style_handles'] ?? array();
+		$styles = is_array( $styles ) ? $styles : array();
+
+		$args['view_style_handles'] = array_values( array_unique( array_merge( $styles, array( 'wc-pb-checkout-blocks' ) ) ) );
+
+		return $args;
 	}
 
 	/**

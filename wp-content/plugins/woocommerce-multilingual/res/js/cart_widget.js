@@ -13,21 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    var getCookieValue = function (name) {
-        return document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '';
-    }
-
-    // If it was stored in a different language, we need to refresh it because the language has changed.
-    if (actions.current_language != sessionStorage.getItem('wcml_current_language')) {
-        sessionStorage.setItem('wcml_current_language', actions.current_language);
-        actions.force_reset = 1;
-    }
-
-    // Check sessionStorage as well as cookies, for backward compatibility.
-    var empty_cart_hash = !sessionStorage.getItem('woocommerce_cart_hash')
-        && !getCookieValue('woocommerce_cart_hash');
-
-    if (empty_cart_hash || actions.force_reset == 1) {
+    // WooCommerce refreshes the fragments itself when the cart changes. This is only for
+    // a refresh WooCommerce cannot see.
+    if (actions.force_reset == 1) {
         setTimeout(wcml_reset_cart_fragments, 0);
     }
 });
@@ -35,7 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function wcml_reset_cart_fragments() {
     try {
         document.body.dispatchEvent(new Event('wc_fragment_refresh'));
-        sessionStorage.removeItem('wc_fragments');
+
+        if (typeof wc_cart_fragments_params !== 'undefined') {
+            sessionStorage.removeItem(wc_cart_fragments_params.fragment_name);
+        }
     } catch (err) { }
 }
 

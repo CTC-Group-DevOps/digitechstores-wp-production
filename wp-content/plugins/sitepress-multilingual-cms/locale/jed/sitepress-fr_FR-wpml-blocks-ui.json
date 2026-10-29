@@ -17,10 +17,10 @@
             "Ajoutez un raccourci vers ce bloc lors du chargement de la page en utilisant l’URL « #anchor »."
          ],
          "Additional CSS class(es)": [
-            "Classe(s) CSS additionnelle(s)"
+            "Classe(s) CSS supplémentaire(s)"
          ],
          "Separate multiple classes with spaces.": [
-            "Séparez les classes multiples par des espaces."
+            "Séparez les différentes classes par des espaces."
          ],
          "Color": [
             "Couleur"
@@ -41,16 +41,16 @@
             "Marge du bloc"
          ],
          "Block padding": [
-            "Rembourrage du bloc"
+            "Marge interne du bloc"
          ],
          "LANGUAGE": [
             "LANGUE"
          ],
          "Language spacing": [
-            "Espacement de la langue"
+            "Espacement des langues"
          ],
          "Language padding": [
-            "Rembourrage de la langue"
+            "Marge interne de la langue"
          ],
          "Display": [
             "Affichage"
@@ -80,13 +80,13 @@
             "Espacement"
          ],
          "Switch to %s": [
-            "Passer à %s"
+            "Passer en %s"
          ],
          "Available languages": [
             "Langues disponibles"
          ],
          "Allow wrapping to multiple lines": [
-            "Autoriser le retour à la ligne"
+            "Autoriser le retour à la ligne sur plusieurs lignes"
          ],
          "Open on click": [
             "Ouvrir au clic"
@@ -107,7 +107,7 @@
             "Sélecteur de langue"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Sélecteur de langue, appuyez sur tabulation pour naviguer vers d’autres langues"
+            "Sélecteur de langue, appuyez sur la touche Tab pour naviguer vers les autres langues"
          ],
          "Typography": [
             "Typographie"
@@ -143,7 +143,7 @@
             "Justifier les éléments à droite"
          ],
          "Justify items space between": [
-            "Justifier les éléments avec espacement"
+            "Justifier les éléments avec un espace entre"
          ],
          "Horizontal": [
             "Horizontal"
@@ -180,9 +180,6 @@
          ],
          "displays the WPML Language Switcher": [
             "affiche le sélecteur de langue WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Affiche le sélecteur de langue WPML. <br/> Apprenez <a>comment traduire ce bloc</a>."
          ],
          "Navigation Language Switcher": [
             "Sélecteur de langue de navigation"

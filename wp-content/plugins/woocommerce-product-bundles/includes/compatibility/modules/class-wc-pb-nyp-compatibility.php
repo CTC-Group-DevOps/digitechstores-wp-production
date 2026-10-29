@@ -14,19 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * NYP Compatibility.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_NYP_Compatibility {
 
 	/**
 	 * NYP field name suffix.
 	 *
-	 * @var array
+	 * @var int|string|null
 	 */
 	protected static $nyp_suffix = '';
 
 	/**
 	 * Initialize!
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -157,9 +159,9 @@ class WC_PB_NYP_Compatibility {
 	/**
 	 * Sets a unique suffix for unique NYP products. The suffix is set and re-set globally before validating and adding to cart.
 	 *
-	 * @param  string $suffix - The suffix.
-	 * @param  int    $product_id - The product ID.
-	 * @return string
+	 * @param  string|false $suffix - The suffix.
+	 * @param  int          $product_id - The product ID.
+	 * @return string|false
 	 */
 	public static function nyp_cart_suffix( $suffix, $product_id ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 

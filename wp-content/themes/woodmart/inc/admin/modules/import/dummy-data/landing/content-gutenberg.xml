@@ -76,7 +76,7 @@
 <div id="wd-153743fb" class="wp-block-wd-icon"><img class="wp-image-21008" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/landing-brand-vitra.png" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"514d3d4d-65fd-45be-bed1-a06cea193c7a","content":"Grand Repos u0026amp; Panchinau003cbru003eAliquam Parturient​","tpFontSize":"48","marginBottom":"5","displayWidth":"custom","customWidth":"510","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
+<!-- wp:wd/title {"blockId":"514d3d4d-65fd-45be-bed1-a06cea193c7a","content":"Grand Repos \u0026amp; Panchina\u003cbr\u003eAliquam Parturient​","tpFontSize":"48","marginBottom":"5","displayWidth":"custom","customWidth":"510","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
 <h2 id="wd-514d3d4d" class="wp-block-wd-title title wd-custom-width">Grand Repos &amp; Panchina<br>Aliquam Parturient​</h2>
 <!-- /wp:wd/title -->
 
@@ -131,7 +131,7 @@
 <!-- wp:wd/section {"blockId":"4ee240b2-b103-47b1-a1fa-d01e4085393a","bgType":"video","bgImage":{"id":"","url":""},"bgExternalVideo":"https://www.youtube.com/watch?v=lR3spOdggNc","bgVideo":{"id":28588,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/landing-video-bg.mp4"},"bgVideoSource":"local","bgPosition":"top center","bgAttachment":"fixed","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"160","paddingBottom":"160","marginBottom":"80","alignSelf":"start","paddingTopTablet":"120","paddingBottomTablet":"120","marginBottomMobile":"70"} -->
 <div id="wd-4ee240b2" class="wp-block-wd-section wd-align-s-start wd-bg-parent"><div class="wd-bg-video"><video class="wd-bg-video-html" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/landing-video-bg.mp4" autoplay muted loop playsinline></video></div><!-- wp:wd/container {"blockId":"12379b52-cd47-410b-a6b1-18dbd6000409"} -->
 <div id="wd-12379b52" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/container {"blockId":"6d15af6d-9910-4566-a6e3-a087bf483295","rowGap":"15","colorScheme":"light","bgColorCode":"rgba(0,0,0,0.5)","paddingTop":"70","paddingRight":"70","paddingBottom":"70","paddingLeft":"70","paddingLock":true,"alignSelf":"start","displayWidth":"custom","customWidth":"640","paddingTopMobile":"50","paddingRightMobile":"36","paddingBottomMobile":"70","paddingLeftMobile":"36","marginLeftTablet":"0","alignSelfTablet":"start","alignSelfMobile":"center","displayWidthTablet":"custom"} -->
-<div id="wd-6d15af6d" class="wp-block-wd-container wd-dir-col color-scheme-light wd-custom-width wd-align-s-start wd-align-s-start-md wd-align-s-center-sm"><!-- wp:wd/title {"blockId":"e876a64b-418e-4e56-b664-b3e0b01cdefa","content":"Vestibu enimaru003cbru003eposuere aliqi soles.","tpFontSize":"48","marginBottom":"5","displayWidth":"custom","customWidth":"510","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
+<div id="wd-6d15af6d" class="wp-block-wd-container wd-dir-col color-scheme-light wd-custom-width wd-align-s-start wd-align-s-start-md wd-align-s-center-sm"><!-- wp:wd/title {"blockId":"e876a64b-418e-4e56-b664-b3e0b01cdefa","content":"Vestibu enimar\u003cbr\u003eposuere aliqi soles.","tpFontSize":"48","marginBottom":"5","displayWidth":"custom","customWidth":"510","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
 <h2 id="wd-e876a64b" class="wp-block-wd-title title wd-custom-width">Vestibu enimar<br>posuere aliqi soles.</h2>
 <!-- /wp:wd/title -->
 
@@ -277,7 +277,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/section {"blockId":"b92c0e99-c0aa-4e66-b472-596b0d6e34ee","bgImage":{"id":21005,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/landing-bg-3.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"100","paddingBottom":"280","paddingBottomMobile":"220"} -->
-<div id="wd-b92c0e99" class="wp-block-wd-section"><!-- wp:wd/title {"blockId":"1460a151-ebb5-49e5-822e-2decf57281b2","textAlign":"center","content":"Grand Repos u0026amp; Panchina","tpFontSize":"48","alignSelf":"center","displayWidth":"","customWidth":"425","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
+<div id="wd-b92c0e99" class="wp-block-wd-section"><!-- wp:wd/title {"blockId":"1460a151-ebb5-49e5-822e-2decf57281b2","textAlign":"center","content":"Grand Repos \u0026amp; Panchina","tpFontSize":"48","alignSelf":"center","displayWidth":"","customWidth":"425","tpFontSizeTablet":"36","tpFontSizeMobile":"28"} -->
 <h2 id="wd-1460a151" class="wp-block-wd-title title wd-align wd-align-s-center">Grand Repos &amp; Panchina</h2>
 <!-- /wp:wd/title -->
 

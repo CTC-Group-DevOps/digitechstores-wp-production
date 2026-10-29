@@ -15,8 +15,6 @@ $setPartialDicConfigFromCore = function() {
 $setPartialDicConfigFromCore();
 
 if ( is_admin() ) {
-	require_once WCML_PLUGIN_PATH . '/addons/wpml-dependencies/lib/inc/icl-admin-notifier.php';
-
 	$loadOtgsIconsStyles = function() {
 		$vendor_root_url = WCML_PLUGIN_URL . '/vendor';
 		require_once WCML_PLUGIN_PATH . '/vendor/otgs/icons/loader.php';
@@ -34,8 +32,4 @@ if ( is_admin() ) {
 	( new \WCML\StandAlone\DependencyAssets( WCML_WPML_DEPENDENCY_URL ) )->add_hooks();
 
 	wcml_wpml_get_admin_notices();
-
-	( new WPML_Action_Filter_Loader() )->load( [
-		\WPML\Notices\DismissNotices::class,
-	] );
 }

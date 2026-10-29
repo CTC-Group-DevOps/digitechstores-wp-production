@@ -7,8 +7,8 @@ class ExportImport implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	const PRIORITY = 8;
 	const GROUP    = 'wpml-import-notices';
 
-	const WPML_IMPORT_URL = 'https://wpml.org/documentation/related-projects/wpml-export-and-import/?utm_source=plugin&utm_medium=gui&utm_campaign=wpml-export-import&utm_term=admin-notice';
-	const WCML_URL        = 'https://wpml.org/documentation/related-projects/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml&utm_term=admin-notice';
+	const WPML_IMPORT_URL = 'https://wpml.org/documentation/translating-your-contents/multilingual-content-import/?utm_source=plugin&utm_medium=gui&utm_campaign=wpml-export-import&utm_term=admin-notice';
+	const WCML_URL        = 'https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml&utm_term=admin-notice';
 
 	const NOTICE_CLASSES = [
 		'wpml-import-notice',
@@ -139,6 +139,7 @@ class ExportImport implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 
 	private function getWpmlImportLink() {
 		$url   = self::WPML_IMPORT_URL;
+		/* translators: Name of the WPML Export and Import plugin, used as a link text and as the link's tooltip in an admin notice. It is a product name and stays in English. */
 		$title = esc_html__( 'WPML Export and Import', 'woocommerce-multilingual' );
 		return '<a class="wpml-external-link" href="' . esc_url( $url ) . '" title="' . esc_attr( $title ) . '" target="_blank">'
 			. esc_html( $title )
@@ -147,6 +148,7 @@ class ExportImport implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 
 	private function getWcmlLink() {
 		$url   = self::WCML_URL;
+		/* translators: The plugin's own name, used as a link text, as a link tooltip and as the admin menu label. It is a product name and stays in English. */
 		$title = esc_html__( 'WPML Multilingual & Multicurrency for WooCommerce', 'woocommerce-multilingual' );
 		return '<a class="wpml-external-link" href="' . esc_url( $url ) . '" title="' . esc_attr( $title ) . '" target="_blank">'
 			. esc_html( $title )

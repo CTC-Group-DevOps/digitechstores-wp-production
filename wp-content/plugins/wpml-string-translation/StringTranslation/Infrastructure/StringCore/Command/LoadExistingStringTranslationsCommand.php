@@ -39,12 +39,15 @@ class LoadExistingStringTranslationsCommand implements LoadExistingStringTransla
 
 	private function updateStringTranslationStatuses( array $strings ) {
 		$allLanguageCodes = $this->settingsRepository->getActiveSecondaryLanguageCodes();
+		$recomputed       = [];
 		foreach ( $strings as $string ) {
-			$string->refreshStatus( $this->settingsRepository->getDefaultLanguageCode(), $allLanguageCodes );
+			if ( $string->refreshStatus( $this->settingsRepository->getDefaultLanguageCode(), $allLanguageCodes ) ) {
+				$recomputed[] = $string;
+			}
 		}
 
 		$stringsByStatus = [];
-		foreach ( $strings as $string ) {
+		foreach ( $recomputed as $string ) {
 			if ( ! array_key_exists( $string->getStatus(), $stringsByStatus ) ) {
 				$stringsByStatus[ $string->getStatus() ] = [];
 			}

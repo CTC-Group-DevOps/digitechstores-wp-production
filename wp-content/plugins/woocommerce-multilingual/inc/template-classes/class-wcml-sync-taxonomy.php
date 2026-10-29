@@ -34,7 +34,9 @@ class WCML_Sync_Taxonomy extends WCML_Templates_Factory {
 			'tax_name'             => $this->taxonomy_obj->labels->name,
 			'tax_singular_name'    => '<i>' . $this->taxonomy_obj->labels->singular_name . '</i>',
 			'strings'              => [
+				/* translators: Button label on the taxonomy synchronisation screen. Verb phrase, imperative. */
 				'sync_update'       => __( 'Synchronize attributes and update product variations', 'woocommerce-multilingual' ),
+				/* translators: Explanation under the attribute-synchronisation button; "This" is the button's action. */
 				'auto_generate'     => __( 'This will automatically generate variations for translated products corresponding to recently translated attributes.', 'woocommerce-multilingual' ),
 				/* translators: %s is a number of product variations */
 				'vars_to_create'    => __( 'Currently, there are %s variations that need to be created.', 'woocommerce-multilingual' ),
@@ -42,6 +44,7 @@ class WCML_Sync_Taxonomy extends WCML_Templates_Factory {
 				'sync_in_cont'      => __( 'Synchronize %s assignment in content', 'woocommerce-multilingual' ),
 				/* translators: %s is a taxonomy name */
 				'auto_apply'        => __( 'This action lets you automatically apply the %s taxonomy to your content in different languages. It will scan the original content and apply the same taxonomy to translated content.', 'woocommerce-multilingual' ),
+				/* translators: Warning shown on the plugin's screens when product categories, tags or attributes are still untranslated. */
 				'untranslated_warn' => __( 'You have untranslated terms!', 'woocommerce-multilingual' ),
 			],
 			'nonces'               => [

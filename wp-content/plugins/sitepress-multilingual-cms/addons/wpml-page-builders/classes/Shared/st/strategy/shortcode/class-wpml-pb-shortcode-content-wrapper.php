@@ -29,6 +29,7 @@ class WPML_PB_Shortcode_Content_Wrapper {
 	public function get_wrapped_content() {
 		$this->split_content();
 		$this->parse_shortcodes();
+		$this->drop_in_tag_shortcodes();
 		$this->analyze_unwrapped_text();
 		$this->insert_wrappers();
 		return $this->content;
@@ -95,6 +96,52 @@ class WPML_PB_Shortcode_Content_Wrapper {
 				unset( $this->shortcodes[ $key ] );
 			}
 		}
+	}
+
+	private function drop_in_tag_shortcodes() {
+		$in_tag_starts = $this->get_in_tag_shortcode_starts();
+
+		$this->shortcodes = array_values(
+			array_filter(
+				$this->shortcodes,
+				function ( $shortcode ) use ( $in_tag_starts ) {
+					return ! isset( $in_tag_starts[ $shortcode['start'] ] );
+				}
+			)
+		);
+	}
+
+	private function get_in_tag_shortcode_starts() {
+		$shortcodes     = array_values( $this->shortcodes );
+		$shortcodes_cnt = count( $shortcodes );
+		$content_length = count( (array) $this->content_array );
+		$in_tag_starts  = array();
+		$is_in_tag      = false;
+		$index          = 0;
+
+		for ( $i = 0; $i < $content_length; $i++ ) {
+			while ( $index < $shortcodes_cnt && $shortcodes[ $index ]['start'] < $i ) {
+				$index++;
+			}
+
+			if ( $index < $shortcodes_cnt && $shortcodes[ $index ]['start'] === $i ) {
+				if ( $is_in_tag ) {
+					$in_tag_starts[ $i ] = true;
+				}
+				$i = $shortcodes[ $index ]['end'];
+				continue;
+			}
+
+			$char = $this->content_array[ $i ];
+
+			if ( ! $is_in_tag && '<' === $char && isset( $this->content_array[ $i + 1 ] ) && preg_match( '/^[A-Za-z\/]$/', $this->content_array[ $i + 1 ] ) ) {
+				$is_in_tag = true;
+			} elseif ( $is_in_tag && '>' === $char ) {
+				$is_in_tag = false;
+			}
+		}
+
+		return $in_tag_starts;
 	}
 
 	private function analyze_unwrapped_text() {
@@ -224,8 +271,21 @@ class WPML_PB_Shortcode_Content_Wrapper {
 			->getOrElse( $content );
 	}
 
+	public static function hasOnlyInTagShortcodes( $content, array $shortcodes ) {
+		if ( '' === (string) $content ) {
+			return false;
+		}
+
+		$wrapper = new self( $content, $shortcodes );
+		$wrapper->split_content();
+		$wrapper->parse_shortcodes();
+
+		return $wrapper->shortcodes
+			&& count( $wrapper->shortcodes ) === count( $wrapper->get_in_tag_shortcode_starts() );
+	}
+
 	public static function isStrippedContentDifferent( $content ) {
-		$content_with_stripped_shortcode = preg_replace( '/\[([\S]*)[^\]]*\][\s\S]*\[\/(\1)\]|\[[^\]]*\]/', '', $content );
+		$content_with_stripped_shortcode = preg_replace( '/\[([\S]*)[^\]]*\][\s\S]*?\[\/(\1)\]|\[[^\]]*\]/', '', $content );
 		$content_with_stripped_shortcode = trim( $content_with_stripped_shortcode );
 		return ! empty( $content_with_stripped_shortcode ) && trim( $content ) !== $content_with_stripped_shortcode;
 	}

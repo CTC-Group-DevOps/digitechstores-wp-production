@@ -1,30 +1,32 @@
 /* global woodmart_settings */
 (function($) {
 	woodmartThemeModule.productImages = function() {
-		var currentImage,
-		    $productGallery   = $('.woocommerce-product-gallery'),
-		    $mainImages       = $('.woocommerce-product-gallery__wrapper'),
-		    PhotoSwipeTrigger = '.wd-show-product-gallery-wrap > a';
+		var $document = $(document);
 
-		if ($productGallery.hasClass('image-action-popup')) {
-			PhotoSwipeTrigger += ', .woocommerce-product-gallery__image > a';
-		}
+		$document.off('.wdProductImages');
 
-		$productGallery.on('click', '.woocommerce-product-gallery__image > a', function(e) {
-			e.preventDefault();
-		});
-
-		$productGallery.on('click', PhotoSwipeTrigger, function(e) {
+		$document.on('click.wdProductImages', '.woocommerce-product-gallery .woocommerce-product-gallery__image > a', function(e) {
 			e.preventDefault();
 
 			var $this = $(this);
+			var $productGallery = $this.closest('.woocommerce-product-gallery');
 
-			currentImage = $this.attr('href');
+			if (!$productGallery.hasClass('image-action-popup')) {
+				return;
+			}
 
-			var items = getProductItems();
-
-			woodmartThemeModule.callPhotoSwipe(getCurrentGalleryIndex(e), items);
+			openPhotoSwipe(e, $productGallery);
 		});
+
+		$document.on('click.wdProductImages', '.woocommerce-product-gallery .wd-show-product-gallery-wrap > a', function(e) {
+			e.preventDefault();
+
+			openPhotoSwipe(e, $(this).closest('.woocommerce-product-gallery'));
+		});
+
+		var openPhotoSwipe = function(e, $productGallery) {
+			woodmartThemeModule.callPhotoSwipe(getCurrentGalleryIndex(e), getProductItems($productGallery));
+		};
 
 		var getCurrentGalleryIndex = function(e) {
 			var index = 0;
@@ -43,15 +45,15 @@
 			return index;
 		};
 
-		var getProductItems = function() {
+		var getProductItems = function($productGallery) {
 			var items = [];
 
-			$mainImages.find('figure a img').each(function() {
+			$productGallery.find('.woocommerce-product-gallery__wrapper figure a img').each(function() {
 				var $this = $(this);
 				var src     = $this.attr('data-large_image'),
-				    width   = $this.attr('data-large_image_width'),
-				    height  = $this.attr('data-large_image_height'),
-				    caption = $this.attr('data-caption');
+					width   = $this.attr('data-large_image_width'),
+					height  = $this.attr('data-large_image_height'),
+					caption = $this.attr('data-caption');
 
 				if ( $this.parents('.wd-carousel-item.wd-with-video').length ) {
 					var videoContent = $this.parents('.wd-with-video')[0].outerHTML;

@@ -5,7 +5,7 @@ namespace WPML\PB\Gutenberg\StringsInBlock\DOMHandler;
 class StandardBlock extends DOMHandle {
 
 	protected function getInnerHTMLFromChildNodes( \DOMNode $element, $context ) {
-		$innerHTML = "";
+		$innerHTML = '';
 		$children  = $element->childNodes;
 
 		foreach ( $children as $child ) {
@@ -15,7 +15,6 @@ class StandardBlock extends DOMHandle {
 		return $innerHTML;
 	}
 
-	protected function appendExtraChildNodes( \DOMNode $clone, \DOMNode $element ) {
-
+	protected function appendExtraChildNodes( \DOMNode $clonedElement, \DOMNode $element ) {
 	}
 }

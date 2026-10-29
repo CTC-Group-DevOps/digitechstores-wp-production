@@ -68,6 +68,7 @@ class WPML_LS_Menu_Item {
 		$this->attr_title = $ls_menu_item_label;
 
 		if ( $is_dropdown_ls_parent ) {
+			$this->link_role     = 'button';
 			$this->aria_expanded = 'false';
 			$this->aria_controls = 'wpml-ls-submenu-' . ( isset( $lang['db_id'] ) ? $lang['db_id'] : 'default' );
 		}

@@ -11,16 +11,16 @@
             "متقدم"
          ],
          "HTML anchor": [
-            "مرساة HTML"
+            "مربط HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "أضف اختصارًا لهذه الكتلة عند تحميل الصفحة باستخدام عنوان URL ”#anchor“."
+            "أضف اختصارًا لهذا المكون عند تحميل الصفحة باستخدام عنوان URL ”#anchor“."
          ],
          "Additional CSS class(es)": [
-            "فئات CSS إضافية"
+            "فئة (فئات) CSS إضافية"
          ],
          "Separate multiple classes with spaces.": [
-            "افصل الفئات المتعددة بمسافات."
+            "افصل بين الفئات المتعددة بمسافات."
          ],
          "Color": [
             "اللون"
@@ -35,13 +35,13 @@
             "الأبعاد"
          ],
          "BLOCK": [
-            "الكتلة"
+            "المكون"
          ],
          "Block margin": [
-            "هامش الكتلة"
+            "هامش المكون"
          ],
          "Block padding": [
-            "حشوة الكتلة"
+            "حشوة المكون"
          ],
          "LANGUAGE": [
             "اللغة"
@@ -62,7 +62,7 @@
             "إظهار اسم اللغة"
          ],
          "Display language name in": [
-            "عرض اسم اللغة في"
+            "عرض اسم اللغة بـ"
          ],
          "Style": [
             "النمط"
@@ -107,10 +107,10 @@
             "مبدل اللغة"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "مبدل اللغة، اضغط على Tab للتنقل إلى لغات أخرى"
+            "مبدل اللغة، اضغط على مفتاح tab للتنقل إلى لغات أخرى"
          ],
          "Typography": [
-            "الطباعة"
+            "تنسيق الخط"
          ],
          "Background": [
             "الخلفية"
@@ -134,16 +134,16 @@
             "الرمز"
          ],
          "Justify items left": [
-            "محاذاة العناصر إلى اليسار"
+            "محاذاة العناصر لليسار"
          ],
          "Justify items center": [
-            "محاذاة العناصر إلى المنتصف"
+            "محاذاة العناصر للمركز"
          ],
          "Justify items right": [
-            "محاذاة العناصر إلى اليمين"
+            "محاذاة العناصر لليمين"
          ],
          "Justify items space between": [
-            "محاذاة العناصر مع تباعد متساوٍ"
+            "توزيع العناصر بمسافات متساوية"
          ],
          "Horizontal": [
             "أفقي"
@@ -167,7 +167,7 @@
             "أب"
          ],
          "AB": [
-            "أ ب"
+            "أب"
          ],
          "ab": [
             "أب"
@@ -180,9 +180,6 @@
          ],
          "displays the WPML Language Switcher": [
             "يعرض مبدل لغة WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "يعرض مبدل لغة WPML. <br/> تعرّف على <a>كيفية ترجمة هذه الكتلة</a>."
          ],
          "Navigation Language Switcher": [
             "مبدل لغة التنقل"

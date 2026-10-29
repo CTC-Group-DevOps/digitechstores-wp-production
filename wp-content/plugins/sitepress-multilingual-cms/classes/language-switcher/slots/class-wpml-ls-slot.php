@@ -77,6 +77,18 @@ class WPML_LS_Slot {
 			}
 			$this->properties[ $allowed_property ] = $this->sanitize( $value, $meta_data );
 		}
+
+		$this->keep_something_to_display();
+	}
+
+	public function keep_something_to_display() {
+		foreach ( array( 'display_flags', 'display_names_in_native_lang', 'display_names_in_current_lang' ) as $option ) {
+			if ( ! empty( $this->properties[ $option ] ) ) {
+				return;
+			}
+		}
+
+		$this->properties['display_names_in_current_lang'] = 1;
 	}
 
 	protected function get_allowed_properties() {

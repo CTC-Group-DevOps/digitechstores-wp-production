@@ -16,7 +16,11 @@ class WPML_PB_Handle_Custom_Fields implements IWPML_Action {
 		), 10, 2 );
 	}
 
-	public function is_page_builder_page_filter( $is_page_builder_page, WP_Post $post ) {
+	public function is_page_builder_page_filter( $is_page_builder_page, $post = null ) {
+		if ( ! $post instanceof WP_Post ) {
+			return $is_page_builder_page;
+		}
+
 		if ( $this->data_settings->is_handling_post( $post->ID ) ) {
 			$is_page_builder_page = true;
 		}

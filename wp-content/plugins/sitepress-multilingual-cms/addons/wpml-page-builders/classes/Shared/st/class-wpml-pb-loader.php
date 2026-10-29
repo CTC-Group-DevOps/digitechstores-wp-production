@@ -25,8 +25,21 @@ class WPML_PB_Loader {
 		$page_builder_config_import->add_hooks();
 		if ( $page_builder_config_import->has_settings() ) {
 			$strategy = new WPML_PB_Shortcode_Strategy( new WPML_Page_Builder_Settings() );
-			$strategy->add_shortcodes( $page_builder_config_import->get_settings() );
+			$strategy->set_shortcodes_provider(
+				function () use ( $page_builder_config_import ) {
+					return $page_builder_config_import->get_settings();
+				}
+			);
 			$page_builder_strategies[] = $strategy;
+
+			add_filter(
+				'wpml_pb_element_uid_markup_providers',
+				function ( $providers ) use ( $strategy ) {
+					$providers[] = new \WPML\PB\ElementUid\Markup\ShortcodeProvider( $strategy, new WPML_PB_Shortcode_Encoding() );
+
+					return $providers;
+				}
+			);
 
 			$is_media_translation_plugin_enabled = defined( 'WPML_MEDIA_VERSION' ) && $page_builder_config_import->get_media_settings();
 
@@ -52,7 +65,6 @@ class WPML_PB_Loader {
 				$pb_integration->add_strategy( $strategy );
 			}
 		}
-
 	}
 
 	private static function load_hooks() {
@@ -60,10 +72,12 @@ class WPML_PB_Loader {
 			WPML_PB_Handle_Post_Body::class,
 			WPML\PB\AutoUpdate\Hooks::class,
 			WPML\PB\Shutdown\Hooks::class,
+			WPML\PB\ElementUid\Hooks::class,
 			WPML\PB\GutenbergCleanup\ShortcodeHooks::class,
 			WPML\PB\Shortcode\AdjustIdsHooks::class,
 			WPML\PB\Strings\RegisterHooks::class,
 			WPML\PB\Media\Hooks::class,
+			WPML\PB\AnchorLinks\Hooks::class,
 		];
 
 		make( WPML_Action_Filter_Loader::class )->load( $hooks );

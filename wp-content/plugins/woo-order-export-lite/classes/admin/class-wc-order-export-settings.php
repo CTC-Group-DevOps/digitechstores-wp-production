@@ -25,7 +25,8 @@ class WC_Order_Export_Main_Settings {
 			'cron_key'                             => null,
 			'ipn_url'                              => '',
 
-			'notify_failed_jobs'		       => 0,
+			'deactivate_failed_jobs'		       => 0,
+			'notify_failed_jobs'		           => 0,
 			'notify_failed_jobs_email_subject'     => '',
 			'notify_failed_jobs_email_recipients'  => '',
 

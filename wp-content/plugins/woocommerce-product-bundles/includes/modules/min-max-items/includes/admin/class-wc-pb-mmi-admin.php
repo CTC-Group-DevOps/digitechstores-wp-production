@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin functions and filters.
  *
  * @class    WC_PB_MMI_Admin
- * @version  6.6.0
+ * @version  8.5.16
  */
 class WC_PB_MMI_Admin {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -39,6 +41,8 @@ class WC_PB_MMI_Admin {
 
 	/**
 	 * Admin min/max settings.
+	 *
+	 * @return void
 	 */
 	public static function display_options() {
 

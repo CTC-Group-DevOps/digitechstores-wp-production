@@ -22,7 +22,8 @@ class FPFRuleResolver implements RuleResolver {
 			$product_fields = $cart_item['flexible_product_fields'] ?? [];
 			foreach ( $product_fields as $field ) {
 				if ( $field['name'] === $rules['selection'] ) {
-					$raw_result = in_array( $field['value'], $rules['values'], true );
+					$field_value = $field['org_value'] ?? $field['value'];
+					$raw_result  = in_array( $field_value, $rules['values'], true );
 				}
 			}
 		}

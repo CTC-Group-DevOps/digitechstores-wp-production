@@ -58,10 +58,12 @@ class FindTranslationDetailsQuery implements FindTranslationDetailsQueryInterfac
 		return array_map(
 			function( $row ) {
 				$getIntOrNull = function( $row, $key ) {
-					return is_numeric( $row[ $key ] ) ? (int) $row[ $key ] : null;
+					return isset( $row[ $key ] ) && is_numeric( $row[ $key ] )
+						? (int) $row[ $key ]
+						: null;
 				};
 				$getStringOrNull = function( $row, $key ) {
-					return is_string( $row[ $key ] ) && strlen( $row[ $key ] ) > 0
+					return isset( $row[ $key ] ) && is_string( $row[ $key ] ) && strlen( $row[ $key ] ) > 0
 						? $row[ $key ]
 						: null;
 				};

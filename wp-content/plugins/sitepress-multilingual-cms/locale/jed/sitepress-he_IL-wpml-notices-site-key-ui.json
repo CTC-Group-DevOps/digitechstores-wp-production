@@ -8,7 +8,7 @@
             "lang": "he_IL"
          },
          "Get a key for this site": [
-            "קבל מפתח עבור אתר זה"
+            "קבל מפתח לאתר זה"
          ],
          "Site key:": [
             "מפתח אתר:"
@@ -17,25 +17,25 @@
             "הזן את מפתח האתר שלך כאן"
          ],
          "Registering...": [
-            "נרשם..."
+            "רושם..."
          ],
          "Register": [
-            "הרשמה"
+            "רשום"
          ],
          "A New Site Key Is Required": [
             "נדרש מפתח אתר חדש"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "כדי להמשיך להשתמש בתכונות WPML כמו תרגום אוטומטי ועדכוני תוספים, אנא רשום את האתר שלך שוב. אל דאגה, התוכן והתרגומים הקיימים שלך בטוחים."
+            "כדי להמשיך להשתמש בתכונות WPML כמו תרגום אוטומטי ועדכוני תוספים, עליך לרשום את האתר שלך מחדש. אל דאגה, התוכן והתרגומים הקיימים שלך בטוחים."
          ],
          "Site key registered successfully!": [
             "מפתח האתר נרשם בהצלחה!"
          ],
          "Page will reload in %d seconds...": [
-            "הדף ייטען מחדש בעוד %d שניות..."
+            "העמוד ייטען מחדש בעוד %d שניות..."
          ],
          "Registration failed. Please try again.": [
-            "ההרשמה נכשלה. אנא נסה שוב."
+            "הרישום נכשל. נסה שוב."
          ]
       }
    }

@@ -20,19 +20,27 @@ class WPML_TM_Jobs_Summary_Report_Process {
 
 	public function send() {
 		foreach ( $this->jobs as $manager_id => $jobs ) {
-			if ( array_key_exists( WPML_TM_Jobs_Summary::JOBS_COMPLETED_KEY, $jobs ) ) {
-				$this->view
-					->set_jobs( $jobs )
-					->set_manager_id( $manager_id )
-					->set_summary_text( $this->report_model->get_summary_text() );
-
-				$this->send_email( $manager_id );
+			if ( ! array_key_exists( WPML_TM_Jobs_Summary::JOBS_COMPLETED_KEY, $jobs ) ) {
+				continue;
 			}
+
+			$manager = get_userdata( $manager_id );
+
+			if ( ! $manager instanceof WP_User ) {
+				continue;
+			}
+
+			$this->view
+				->set_jobs( $jobs )
+				->set_manager_id( $manager_id )
+				->set_summary_text( $this->report_model->get_summary_text() );
+
+			$this->send_email( $manager );
 		}
 	}
 
-	private function send_email( $manager_id ) {
-		$to      = get_userdata( $manager_id )->user_email;
+	private function send_email( WP_User $manager ) {
+		$to      = $manager->user_email;
 		$subject = sprintf( $this->report_model->get_subject(), get_bloginfo( 'name' ), date( 'd/F/Y', time() ) );
 		$message = $this->view->get_report_content();
 		$headers = array(

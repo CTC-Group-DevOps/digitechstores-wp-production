@@ -31,7 +31,7 @@
 
 <!-- wp:wd/li-product-labels {"blockId":"a468209f-b9b6-4fbf-906c-d842db86f1d5","blockVersion":"2","exclude":"2009,2008,2007,2006","positionType":"absolute","positionZIndex":"2","positionTop":"15","positionLeft":"15","displayWidth":"fit-content"} /-->
 
-<!-- wp:wd/li-product-wishlist {"blockId":"12bf832b-7218-4e65-b542-a674a416c9b0","blockVersion":"2","positionType":"absolute","positionZIndex":"2","positionTop":"15","positionRight":"15","transitionOpacity":0.3,"opacity":0,"opacityParentHover":1,"displayWidth":"fit-content","opacityTablet":1} /-->
+<!-- wp:wd/li-product-wishlist {"blockId":"12bf832b-7218-4e65-b542-a674a416c9b0","blockVersion":"2","linkPaddingTop":"15","linkPaddingRight":"15","linkPaddingBottom":"15","linkPaddingLeft":"15","positionType":"absolute","positionZIndex":"2","positionTop":"0","positionRight":"0","transitionOpacity":0.3,"opacity":0,"opacityParentHover":1,"displayWidth":"fit-content","opacityTablet":1} /-->
 
 <!-- wp:wd/li-product-thumbnail {"blockId":"c2ba3201-bc06-4151-9e5a-5183ee59915a","blockVersion":"2","image_on_hover":false,"transformTranslateX":"","transformTranslateY":"0","transformHoverTranslateX":"","transformHoverTranslateY":"","transformParentHoverTranslateX":"","transformParentHoverTranslateY":"-40","transitionTransform":0.3,"transformParentHoverTranslateYTablet":"0"} /-->
 
@@ -60,8 +60,8 @@
 															<wp:post_id>51</wp:post_id>
 					<wp:post_date><![CDATA[2026-07-02 07:30:00]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2026-07-02 07:30:00]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-11 06:17:34]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-11 06:17:34]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-14 12:42:07]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-14 12:42:07]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[product-loop-item-books-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

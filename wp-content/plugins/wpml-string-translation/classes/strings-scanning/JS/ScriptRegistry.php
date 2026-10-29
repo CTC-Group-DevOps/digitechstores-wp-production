@@ -78,53 +78,40 @@ class ScriptRegistry {
 	}
 
 	public static function getAbsScriptPathsForComponents( $id, $type ) {
-		$needle = null;
+		$component_dir = false;
 
 		if ( 'plugin' === $type ) {
-			$parts  = explode( '/', $id );
-			$needle = wp_normalize_path( WP_PLUGIN_DIR . '/' . $parts[0] . '/' ) ;
+			$parts         = explode( '/', $id );
+			$component_dir = \WPML_ST_Path_Confinement::resolve_contained(
+				WP_PLUGIN_DIR . '/' . $parts[0],
+				WP_PLUGIN_DIR
+			);
 		} elseif ( 'theme' === $type ) {
 			$theme = wp_get_theme( $id );
 			if ( $theme->exists() ) {
-				$theme_dir = \WPML_ST_Path_Confinement::resolve_contained(
+				$component_dir = \WPML_ST_Path_Confinement::resolve_contained(
 					$theme->get_stylesheet_directory(),
 					$theme->get_theme_root()
 				);
 			}
+		}
 
-			if ( ! empty( $theme_dir ) ) {
-				return wpml_collect( self::getPersistedPaths() )
-					->filter( function( $relFilePath ) use ( $theme_dir ) {
-						return false !== \WPML_ST_Path_Confinement::resolve_contained(
-							ABSPATH . wp_normalize_path( $relFilePath ),
-							$theme_dir
-						);
-					} )
-					->map( function( $relFilePath ) {
-						return ABSPATH . $relFilePath;
-					} )
-					->values()
-					->toArray();
-			}
-
+		if ( empty( $component_dir ) ) {
 			return [];
 		}
 
-		if ( $needle ) {
-			return wpml_collect( self::getPersistedPaths() )
-				->filter( function( $relFilePath ) use ( $needle ) {
-					$haystack = ABSPATH . wp_normalize_path( $relFilePath );
-
-					return strpos( $haystack, $needle ) === 0;
-				} )
-				->map( function( $relFilePath ) {
-					return ABSPATH . $relFilePath;
-				} )
-				->values()
-				->toArray();
-		}
-
-		return [];
+		return wpml_collect( self::getPersistedPaths() )
+			->filter( function( $relFilePath ) use ( $component_dir ) {
+				return false !== \WPML_ST_Path_Confinement::resolve_contained(
+					ABSPATH . wp_normalize_path( $relFilePath ),
+					$component_dir
+				);
+			} )
+			->map( function( $relFilePath ) {
+				return ABSPATH . $relFilePath;
+			} )
+			->values()
+			->toArray();
 	}
 
 	public static function getHandleAndTextdomainByPath( $absPath ) {

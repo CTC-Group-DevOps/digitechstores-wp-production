@@ -11,19 +11,19 @@
             "Kies het bestandstype voor vlaggen"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "Deze optie is alleen van invloed op de ingebouwde WPML-vlaggen, niet op de aangepaste geüploade vlaggen."
+            "Deze optie heeft alleen invloed op de ingebouwde WPML-vlaggen, niet op de aangepaste geüploade vlaggen."
          ],
          "%s format": [
-            "%s-formaat"
+            "%s-indeling"
          ],
          "Save": [
             "Opslaan"
          ],
          "The new format has been saved.": [
-            "Het nieuwe formaat is opgeslagen."
+            "De nieuwe indeling is opgeslagen."
          ],
          "Failed to save the new format": [
-            "Nieuw formaat opslaan mislukt"
+            "Het opslaan van de nieuwe indeling is mislukt"
          ]
       }
    }

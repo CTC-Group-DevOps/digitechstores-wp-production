@@ -11,13 +11,13 @@
             "الكل"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "لعرض كتلة HTML المخصصة هذه بلغة معينة، ضعها أولاً داخل كتلة مجموعة."
+            "لعرض مكون HTML المخصص هذا بلغة معينة، ضعه أولاً داخل مكون مجموعة."
          ],
          "Place inside Group block": [
-            "ضع داخل كتلة مجموعة"
+            "ضعه داخل مكون مجموعة"
          ],
          "Display on language": [
-            "عرض باللغة"
+            "عرض في اللغة"
          ]
       }
    }

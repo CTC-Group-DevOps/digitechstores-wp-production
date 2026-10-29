@@ -25,8 +25,8 @@ class WPML_TM_Email_Jobs_Summary_View extends WPML_TM_Email_View {
 	}
 
 	private function get_jobs_limit() {
-		$tm_settings = $this->sitepress->get_setting( 'translation-management', array() );
-		$limit = isset( $tm_settings['notification']['job_limits'] ) ? (int) $tm_settings['notification']['job_limits'] : 0;
+		$notification = wpml_get_tm_sub_setting( 'notification', array() );
+		$limit        = isset( $notification['job_limits'] ) ? (int) $notification['job_limits'] : 0;
 		return 0 === $limit ? null : $limit;
 	}
 
@@ -36,11 +36,13 @@ class WPML_TM_Email_Jobs_Summary_View extends WPML_TM_Email_View {
 
 		$model = array(
 			'strings' => array(
-				'strings_text' => __( 'Strings', 'wpml-translation-management' ),
-				'start_translating_text' => __( 'start translating', 'wpml-translation-management' ),
-				'take' => _x( 'take it', 'Take a translation job waiting for a translator', 'wpml-translation-management' ),
+				/* translators: Name of a kind of content in the translation screens: the single texts of the site, as opposed to posts and pages. Plural noun. */
+				'strings_text' => __( 'Strings', 'sitepress' ),
+				/* translators: Link text in the email WPML sends to a translator; it opens the screen where the work begins. It starts in lower case because it sits inside a sentence. Verb phrase, imperative. */
+				'start_translating_text' => __( 'start translating', 'sitepress' ),
+				'take' => _x( 'take it', 'Take a translation job waiting for a translator', 'sitepress' ),
 				'strings_link' => admin_url(
-					'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php'
+					'admin.php?page=tm%2Fmenu%2Fmain.php&tab=strings'
 				),
 				'closing_sentence' => $this->get_closing_sentence(),
 			),
@@ -74,9 +76,10 @@ class WPML_TM_Email_Jobs_Summary_View extends WPML_TM_Email_View {
 				if ( ! $string_added || 'string' !== $element['type'] ) {
 					$model_elements[] = array(
 						'original_link'          => get_permalink( $element['element_id'] ),
-						'original_text'          => sprintf( __( 'Link to original document %d', 'wpml-translation-management' ), $element['element_id'] ),
+						/* translators: %d: original document ID. */
+						'original_text'          => sprintf( __( 'Link to original document %d', 'sitepress' ), $element['element_id'] ),
 						'start_translating_link' => admin_url(
-							'admin.php?page=' . WPML_TM_FOLDER . '%2Fmenu%2Ftranslations-queue.php&job_id=' . $element['job_id']
+							'admin.php?page=' . WPML_TM_FOLDER . '%2Fmenu%2Fmain.php&tab=tasks&job_id=' . $element['job_id']
 						),
 						'type' => $element['type'],
 					);
@@ -93,7 +96,8 @@ class WPML_TM_Email_Jobs_Summary_View extends WPML_TM_Email_View {
 
 			if ( ! empty( $model_elements ) ) {
 				$model['lang_pairs'][ $lang_pair ] = array(
-					'title'    => sprintf( __( 'From %1$s to %2$s:', 'wpml-translation-management' ), $source_lang['english_name'], $target_lang['english_name'] ),
+					/* translators: Heading of a group of jobs in the email WPML sends about translation work. %1$s: the language the content is written in, %2$s: the language it is translated into. */
+					'title'    => sprintf( __( 'From %1$s to %2$s:', 'sitepress' ), $source_lang['english_name'], $target_lang['english_name'] ),
 					'elements' => $model_elements,
 				);
 			}
@@ -113,22 +117,23 @@ class WPML_TM_Email_Jobs_Summary_View extends WPML_TM_Email_View {
 	public function render_link_to_jobs() {
 		return sprintf(
 			'<p><a href="%1$s">%2$s</a></p>',
-			admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '%2Fmenu%2Ftranslations-queue.php' ),
-			__( 'View all assigned jobs', 'wpml-translation-management' )
+			admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '%2Fmenu%2Fmain.php&tab=tasks' ),
+			__( 'View all assigned jobs', 'sitepress' )
 		);
 	}
 
 	public function render_footer() {
 		$site_url     = get_bloginfo( 'url' );
-		$profile_link = '<a href="' . admin_url( 'profile.php' ) . '" style="color: #ffffff;">' . esc_html__( 'Your Profile', '' ) .'</a>';
+		$profile_link = '<a href="' . admin_url( 'profile.php' ) . '" style="color: #ffffff;">' . /* translators: Text of the link to the reader's own profile page, in the footer of the email WPML sends about translation work. */ esc_html__( 'Your Profile', 'sitepress' ) .'</a>';
 
 		$bottom_text = sprintf(
+			/* translators: Last lines of the email WPML sends about translation work. %1$s: the name of the site, %2$s: a link to the site, already wrapped in its tags. The words in quotation marks are the label of a setting in the user's own profile, so use the same wording there. */
 			__(
 				'You are receiving this email because you have a translator 
 			account in %1$s. To stop receiving notifications, 
 			log-in to %2$s and unselect "Send me a notification email 
 			when there is something new to translate". Please note that 
-			this will take you out of the translators pool.', 'wpml-translation-management'
+			this will take you out of the translators pool.', 'sitepress'
 			),
 			$site_url,
 			$profile_link
@@ -170,9 +175,10 @@ class WPML_TM_Email_Jobs_Summary_View extends WPML_TM_Email_View {
 		$sentence = null;
 
 		if ( WPML_TM_ATE_Status::is_enabled_and_activated() ) {
-			$link = '<a href="https://wpml.org/documentation/translating-your-contents/advanced-translation-editor/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmltm">' . __( "WPML's Advanced Translation Editor", 'wpml-translation-management' ) . '</a>';
+			$link = '<a href="' . esc_url( \WPML\OutboundLinks\OutboundLinks::to( 'https://wpml.org/documentation/translating-your-contents/advanced-translation-editor/', array( 'medium' => 'notice', 'campaign' => 'translation-management' ) ) ) . '">' . __( "WPML's Advanced Translation Editor", 'sitepress' ) . '</a>';
 
-			$sentence = sprintf( __( "Need help translating? Read how to use %s.", 'wpml-translation-management' ), $link );
+			/* translators: %s: link to documentation. */
+			$sentence = sprintf( __( "Need help translating? Read how to use %s.", 'sitepress' ), $link );
 		}
 
 		return $sentence;

@@ -18,6 +18,8 @@ class WCML_Multi_Currency_Prices {
 
 	const WC_DEFAULT_STEP = 10;
 
+	private const RECALCULATION_SIGNATURE_SESSION_KEY = 'wcml_recalculate_totals_signature';
+
 	private $currency_options;
 
 	private $multi_currency;
@@ -85,7 +87,7 @@ class WCML_Multi_Currency_Prices {
 
 		add_filter( 'wc_price_args', [ $this, 'filter_wc_price_args_on_order_admin_screen' ] );
 
-		add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'recalculate_totals' ], PHP_INT_MAX );
+		add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'recalculate_totals_if_unchanged' ], PHP_INT_MAX );
 
 		add_filter( 'option_woocommerce_price_thousand_sep', [ $this, 'filter_currency_thousand_sep_option' ] );
 		add_filter( 'option_woocommerce_price_decimal_sep', [ $this, 'filter_currency_decimal_sep_option' ] );
@@ -198,11 +200,23 @@ class WCML_Multi_Currency_Prices {
 		static $unlocked = true;
 
 		if (
+			$this->isSavingPost
+			|| ! $this->is_multi_currency_filters_loaded()
+			|| ! in_array( get_post_type( $object_id ), [ 'product', 'product_variation' ], true )
+		) {
+			return $null;
+		}
+
+		$schedule_keys = [ '_sale_price_dates_from', '_sale_price_dates_to' ];
+
+		if ( in_array( $meta_key, $schedule_keys, true ) ) {
+			return $this->get_sale_schedule_meta( $object_id, $meta_key, $single ) ?? $null;
+		}
+
+		if (
 			$unlocked
-			&& ! $this->isSavingPost
-			&& $this->is_multi_currency_filters_loaded()
-			&& in_array( get_post_type( $object_id ), [ 'product', 'product_variation' ], true )
 			&& in_array( $meta_key, wcml_price_custom_fields( $object_id ), true )
+			&& ! wcml_is_importing()
 		) {
 			$unlocked = false;
 			$currency = $this->multi_currency->get_client_currency();
@@ -248,6 +262,23 @@ class WCML_Multi_Currency_Prices {
 		}
 
 		return $price ?? $null;
+	}
+
+	private function get_sale_schedule_meta( $object_id, $meta_key, $single ) {
+		if ( wcml_is_importing() ) {
+			return null;
+		}
+
+		$dates = $this->multi_currency->custom_prices->get_sale_price_dates_in_currency(
+			$object_id,
+			$this->multi_currency->get_client_currency()
+		);
+
+		if ( ! isset( $dates[ $meta_key ] ) ) {
+			return null;
+		}
+
+		return $single ? $dates[ $meta_key ] : [ $dates[ $meta_key ] ];
 	}
 
 	public function convert_price_amount( $amount, $currency = false ) {
@@ -434,7 +465,7 @@ class WCML_Multi_Currency_Prices {
 	public function add_currency_to_variation_prices_hash( $data ) {
 
 		$data['currency']            = $this->multi_currency->get_client_currency();
-		$data['exchange_rates_hash'] = md5( wp_json_encode( $this->multi_currency->get_exchange_rates() ) );
+		$data['exchange_rates_hash'] = $this->get_exchange_rates_hash();
 
 		return $data;
 
@@ -458,6 +489,36 @@ class WCML_Multi_Currency_Prices {
 
 	public function recalculate_totals() {
 		WC()->cart->calculate_totals();
+	}
+
+	public function recalculate_totals_if_unchanged() {
+		if ( ! WC()->session instanceof WC_Session ) {
+			$this->recalculate_totals();
+
+			return;
+		}
+
+		if ( WC()->session->get( self::RECALCULATION_SIGNATURE_SESSION_KEY ) === $this->get_cart_recalculation_signature() ) {
+			return;
+		}
+
+		$this->recalculate_totals();
+		WC()->session->set( self::RECALCULATION_SIGNATURE_SESSION_KEY, $this->get_cart_recalculation_signature() );
+	}
+
+	private function get_cart_recalculation_signature(): string {
+		return implode(
+			'|',
+			[
+				$this->multi_currency->get_client_currency(),
+				$this->get_exchange_rates_hash(),
+				WC()->cart->get_cart_hash(),
+			]
+		);
+	}
+
+	private function get_exchange_rates_hash(): string {
+		return md5( wp_json_encode( $this->multi_currency->get_exchange_rates() ) );
 	}
 
 	public function filter_woocommerce_cart_subtotal( $cart_subtotal, $compound, $cart_object ) {
@@ -638,5 +699,4 @@ class WCML_Multi_Currency_Prices {
 
 		return $filters_loaded;
 	}
-
 }

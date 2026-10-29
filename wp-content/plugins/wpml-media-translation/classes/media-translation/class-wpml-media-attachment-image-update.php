@@ -1,29 +1,17 @@
 <?php
 
-/**
- * Class WPML_Media_Attachment_Image_Update
- * Allows adding a custom image to a translated attachment
- */
 class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 
 	const TRANSIENT_FILE_UPLOAD_PREFIX = 'wpml_media_file_update_';
 
-	/**
-	 * @var wpdb
-	 */
 	private $wpdb;
 
-	/**
-	 * WPML_Media_Attachment_Image_Update constructor.
-	 *
-	 * @param wpdb $wpdb
-	 */
 	public function __construct( wpdb $wpdb ) {
 		$this->wpdb = $wpdb;
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_wpml_media_upload_file', array( $this, 'handle_upload' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_media_upload_file', \WPML\Request\Policy\Policy::capability( 'upload_files', \WPML\Request\Policy\Authenticity::actionNonce( 'media-translation', 'wpnonce' ) ), array( $this, 'handle_upload' ) );
 	}
 
 	public function handle_upload() {
@@ -34,19 +22,46 @@ class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 		$this->process_uploaded_file();
 	}
 
-	/**
-	 * Upload file and generate thumbnail or document icon.
-	 *
-	 * A thumbnail is shown on the media translation before confirming the upload.
-	 * WordPress only generates a thumbnail after the upload is complete, so a thumbnail must be created beforehand.
-	 *
-	 * @return void
-	 */
 	private function process_uploaded_file() {
+		check_ajax_referer( 'media-translation', 'wpnonce' );
+
 		$original_attachment_id = (int) $_POST['original-attachment-id'];
 		$attachment_id          = (int) $_POST['attachment-id'];
-		$file_array             = $_FILES['file'];
-		$target_language        = $_POST['language'];
+
+		if ( ! self::can_upload_translated_file( $original_attachment_id, $attachment_id ) ) {
+			wp_send_json_error( __( 'You are not allowed to edit this item.', 'wpml-media' ) );
+			return;
+		}
+
+		$target_language = \WPML\Language\RequestedLanguage::validate(
+			isset( $_POST['language'] ) ? sanitize_text_field( wp_unslash( $_POST['language'] ) ) : '',
+			\WPML\Language\RequestedLanguage::SCOPE_CONFIGURED
+		);
+		if ( null === $target_language ) {
+			wp_send_json_error( __( 'Invalid target language.', 'wpml-media' ) );
+			return;
+		}
+
+		$transient_key = self::TRANSIENT_FILE_UPLOAD_PREFIX . $original_attachment_id . '_' . $target_language;
+
+		if ( ! empty( $_POST['discard'] ) ) {
+			$this->delete_staged_files( get_transient( $transient_key ) );
+			delete_transient( $transient_key );
+			wp_send_json_success();
+			return;
+		}
+
+		if ( ! isset( $_FILES['file'] ) ) {
+			wp_send_json_error( __( 'No file uploaded.', 'wpml-media' ) );
+			return;
+		}
+		$file_array = array(
+			'name'     => isset( $_FILES['file']['name'] ) ? sanitize_file_name( wp_unslash( $_FILES['file']['name'] ) ) : '',
+			'type'     => isset( $_FILES['file']['type'] ) ? sanitize_mime_type( wp_unslash( $_FILES['file']['type'] ) ) : '',
+			'tmp_name' => isset( $_FILES['file']['tmp_name'] ) && is_string( $_FILES['file']['tmp_name'] ) ? $_FILES['file']['tmp_name'] : '',
+			'error'    => isset( $_FILES['file']['error'] ) ? (int) $_FILES['file']['error'] : UPLOAD_ERR_NO_FILE,
+			'size'     => isset( $_FILES['file']['size'] ) ? (int) $_FILES['file']['size'] : 0,
+		);
 
 		$upload_overrides = apply_filters( 'wpml_media_wp_upload_overrides', array( 'test_form' => false ) );
 		$file             = wp_handle_upload( $file_array, $upload_overrides );
@@ -69,7 +84,7 @@ class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 				}
 			} else {
 				if ( $this->is_pdf_or_video( $file['type'] ) ) {
-					$thumb = $this->generate_thumb_for_pdf_or_video_file( $file, $editor, $attachment_id );
+					$thumb = $this->generate_thumb_for_pdf_or_video_file( $file, $editor );
 				} else {
 					$thumb = $this->resize_thumbnail( $editor );
 				}
@@ -86,8 +101,10 @@ class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 			$thumb_url = wp_mime_type_icon( $file['type'] );
 		}
 
+		$this->delete_staged_files( get_transient( $transient_key ) );
+
 		set_transient(
-			self::TRANSIENT_FILE_UPLOAD_PREFIX . $original_attachment_id . '_' . $target_language,
+			$transient_key,
 			array(
 				'upload' => $file,
 				'thumb'  => $thumb_path,
@@ -104,53 +121,89 @@ class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 		);
 	}
 
-	/**
-	 * Check if file type is pdf or video.
-	 *
-	 * @param string $file_type
-	 * @return bool
-	 */
+	private static function can_upload_translated_file( $original_attachment_id, $attachment_id ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return false;
+		}
+
+		if ( ! current_user_can( 'edit_post', $original_attachment_id ) ) {
+			return false;
+		}
+
+		return ! $attachment_id || current_user_can( 'edit_post', $attachment_id );
+	}
+
 	private function is_pdf_or_video( $file_type ) {
 		return 'application/pdf' === $file_type || stripos( $file_type, 'video' ) !== false;
 	}
 
-	/**
-	 * Create a thumbnail for the pdf or video.
-	 *
-	 * @param array           $file
-	 * @param WP_Image_Editor $editor
-	 * @param int             $attachment_id
-	 * @return array|WP_Error
-	 */
-	private function generate_thumb_for_pdf_or_video_file( $file, WP_Image_Editor $editor, $attachment_id ) {
-		$dirname      = dirname( $file['file'] ) . '/';
-		$ext          = pathinfo( $file['file'], PATHINFO_EXTENSION );
-		$preview_file = $dirname . wp_unique_filename( $dirname, wp_basename( $file['file'], '.' . $ext ) . "-{$ext}.jpg" );
+	private function generate_thumb_for_pdf_or_video_file( $file, WP_Image_Editor $editor ) {
+		$this->resize_to_thumbnail_size( $editor );
 
-		$editor->save( $preview_file, 'image/jpeg' );
+		$dirname = dirname( $file['file'] ) . '/';
+		$ext     = pathinfo( $file['file'], PATHINFO_EXTENSION );
+		$size    = $editor->get_size();
 
-		$thumb               = $this->resize_thumbnail( $editor );
-		$attachment_metadata = wp_get_attachment_metadata( $attachment_id );
-		$attachment_size     = [
-			'file'      => basename( $preview_file ),
-			'width'     => $thumb['width'],
-			'height'    => $thumb['height'],
-			'mime-type' => 'image/jpeg',
-		];
+		$filename = wp_unique_filename(
+			$dirname,
+			sprintf(
+				'%s-%s-%dx%d.jpg',
+				wp_basename( $file['file'], '.' . $ext ),
+				$ext,
+				$size['width'],
+				$size['height']
+			)
+		);
 
-		$attachment_metadata['sizes']['thumbnail'] = $attachment_size;
-		$attachment_metadata['sizes']['full']      = $attachment_size;
-
-		wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
-
-		return $thumb;
+		return $editor->save( $dirname . $filename, 'image/jpeg' );
 	}
 
-	/**
-	 * Check if a thumbnail can be created.
-	 *
-	 * @return bool
-	 */
+	private function delete_staged_files( $staged ) {
+		if ( ! is_array( $staged ) ) {
+			return;
+		}
+
+		if ( ! empty( $staged['upload']['file'] ) ) {
+			self::delete_staged_file( $staged['upload']['file'] );
+		}
+
+		if ( ! empty( $staged['thumb'] ) ) {
+			self::delete_staged_file( $staged['thumb'] );
+		}
+	}
+
+	public static function delete_staged_file( $path ) {
+		if ( ! self::is_inside_uploads_dir( $path ) ) {
+			return false;
+		}
+
+		wp_delete_file( $path );
+
+		return true;
+	}
+
+	public static function is_inside_uploads_dir( $path ) {
+		if ( ! is_string( $path ) || '' === $path ) {
+			return false;
+		}
+
+		$upload_dir = wp_get_upload_dir();
+		$basedir    = isset( $upload_dir['basedir'] ) ? (string) $upload_dir['basedir'] : '';
+		if ( '' === $basedir ) {
+			return false;
+		}
+
+		$normalized_base = rtrim( wp_normalize_path( $basedir ), '/' ) . '/';
+		$normalized_path = wp_normalize_path( $path );
+		if ( 0 !== strpos( $normalized_path, $normalized_base ) ) {
+			return false;
+		}
+
+		$relative = substr( $normalized_path, strlen( $normalized_base ) );
+
+		return '' !== $relative && ! in_array( '..', explode( '/', $relative ), true );
+	}
+
 	private function is_thumbnail_creation_enabled() {
 		$thumbnail_size_w = get_option( 'thumbnail_size_w' );
 		$thumbnail_size_h = get_option( 'thumbnail_size_h' );
@@ -162,13 +215,14 @@ class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 		return true;
 	}
 
-	/**
-	 * Resize the thumbnail if it is larger than the settings size
-	 *
-	 * @param WP_Image_Editor $editor
-	 * @return array|WP_Error
-	 */
 	private function resize_thumbnail( $editor ) {
+
+		$this->resize_to_thumbnail_size( $editor );
+
+		return $editor->save();
+	}
+
+	private function resize_to_thumbnail_size( WP_Image_Editor $editor ) {
 
 		$size             = $editor->get_size();
 		$thumbnail_size_w = get_option( 'thumbnail_size_w' );
@@ -180,15 +234,15 @@ class WPML_Media_Attachment_Image_Update implements IWPML_Action {
 				wp_send_json_error( $resizing->get_error_message() );
 			}
 		}
-
-		return $editor->save();
 	}
 
 	private function is_valid_action() {
 		$is_attachment_id = isset( $_POST['attachment-id'] );
 		$is_post_action   = isset( $_POST['action'] ) && 'wpml_media_upload_file' === $_POST['action'];
 
-		return $is_attachment_id && $is_post_action && wp_verify_nonce( $_POST['wpnonce'], 'media-translation' );
+		return $is_attachment_id && $is_post_action
+			&& isset( $_POST['wpnonce'] )
+			&& wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpnonce'] ) ), 'media-translation' );
 	}
 
 }

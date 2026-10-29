@@ -416,6 +416,7 @@ class Main extends Singleton {
 						AND meta_key = '_product_id' 
 						AND meta_value = %d
 					)
+					AND o.type = 'shop_order'
 					AND o.status IN ('wc-completed', 'wc-processing')
 					AND o.date_created_gmt >= %s
 					AND o.date_created_gmt <= %s

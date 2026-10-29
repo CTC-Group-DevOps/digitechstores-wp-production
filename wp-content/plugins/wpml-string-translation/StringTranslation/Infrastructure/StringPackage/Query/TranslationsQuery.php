@@ -28,6 +28,10 @@ class TranslationsQuery {
 		$sourceLanguage = $this->getSourceLanguageCode( $criteria );
 		$targetLanguageCodes = $this->getTargetLanguageCodes( $criteria );
 
+		if ( empty( $targetLanguageCodes ) ) {
+			return $this->addTranslationStatusString( $stringPackages, [], $criteria );
+		}
+
 		$stringPackageIds = [];
 		$stringPackageKindSlugs = [];
 		foreach ( $stringPackages as $stringPackage ) {
@@ -41,15 +45,7 @@ class TranslationsQuery {
       SELECT 
         source_t.element_id as string_package_id,
         target_t.language_code,
-        CASE
-          WHEN ts.needs_update = 1 THEN 3
-          WHEN target_t.trid IS NOT NULL
-            AND (
-              target_t.source_language_code IS NULL
-              OR ts.status = 0
-            ) THEN 10
-          ELSE IFNULL(ts.status, 0)
-        END as status,
+        {$this->buildStatusColumn( 'target_t', 'ts' )} as status,
         ts.needs_update,
         ts.review_status,
         target_t.element_id as translation_element_id,
@@ -63,10 +59,9 @@ class TranslationsQuery {
       WHERE source_t.element_id IN (" . wpml_prepare_in( $stringPackageIds, '%d' ) . ")
         AND source_t.element_type IN (" . wpml_prepare_in( $stringPackageKindSlugs, '%s' ) . ")
         AND source_t.language_code = %s
-        AND target_t.source_language_code = %s
     ";
 
-		$sql = $this->wpdb->prepare( $sql, $sourceLanguage, $sourceLanguage );
+		$sql = $this->wpdb->prepare( $sql, $sourceLanguage );
 
 		$translationStatuses = $this->wpdb->get_results( $sql, ARRAY_A );
 

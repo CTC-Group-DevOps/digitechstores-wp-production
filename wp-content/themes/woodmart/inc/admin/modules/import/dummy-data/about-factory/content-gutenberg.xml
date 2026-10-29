@@ -46,7 +46,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"8d99c936-79e5-461a-af18-3d068f1a6383","adjacentCount":2,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div id="wd-8d99c936" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"ca6d1a8a-2d1c-4691-9949-0e5130742b58","content":"How our manufactory design and works with u003cspan class=u0022wd-highlightu0022u003ehandmade creationsu003c/spanu003e","tpFontSize":"32","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"28","tpFontSizeMobile":"22","displayWidthTablet":"full-width","customWidthTablet":"450"} -->
+<div id="wd-8d99c936" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"ca6d1a8a-2d1c-4691-9949-0e5130742b58","content":"How our manufactory design and works with \u003cspan class=\u0022wd-highlight\u0022\u003ehandmade creations\u003c/span\u003e","tpFontSize":"32","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"28","tpFontSizeMobile":"22","displayWidthTablet":"full-width","customWidthTablet":"450"} -->
 <h2 id="wd-ca6d1a8a" class="wp-block-wd-title title wd-custom-width">How our manufactory design and works with <span class="wd-highlight">handmade creations</span></h2>
 <!-- /wp:wd/title -->
 
@@ -124,7 +124,7 @@
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/section {"blockId":"2ca9b53a-6172-408f-86f9-999399794a89","blockGap":30,"positionZIndex":"1","paddingTop":"220","paddingBottom":"50","marginBottom":"-40","overlayColorVariable":"u002du002dwd-primary-color","overlay":true,"overlayOpacity":0.1,"paddingTopMobile":"50"} -->
+<!-- wp:wd/section {"blockId":"2ca9b53a-6172-408f-86f9-999399794a89","blockGap":30,"positionZIndex":"1","paddingTop":"220","paddingBottom":"50","marginBottom":"-40","overlayColorVariable":"\u002d\u002dwd-primary-color","overlay":true,"overlayOpacity":0.1,"paddingTopMobile":"50"} -->
 <div id="wd-2ca9b53a" class="wp-block-wd-section wd-bg-parent"><div class="wd-bg-overlay"></div><!-- wp:wd/title {"blockId":"e87ea2cd-b24c-4e05-b8ca-68b29aff94c6","textAlign":"center","content":"Lobortis parturient hendrerit suspendisse fringilla idvel ridiculus hac eu massa et orci sociosqu.​","tpFontSize":"22","alignSelf":"center","displayWidth":"custom","customWidth":"596","tpFontSizeMobile":"20","displayWidthTablet":"custom","customWidthTablet":"565"} -->
 <h2 id="wd-e87ea2cd" class="wp-block-wd-title title wd-align wd-custom-width wd-align-s-center">Lobortis parturient hendrerit suspendisse fringilla idvel ridiculus hac eu massa et orci sociosqu.​</h2>
 <!-- /wp:wd/title -->
@@ -137,7 +137,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"810e20d7-b789-41b7-8a54-d09c89dd5129","metadata":{"name":"Infobox content"}} -->
-<div id="wd-810e20d7" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"0f73ea71-b94c-429a-8434-81206d80cdbb","content":"DESIGN PROCESS","tpFontSize":"16","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"16"} -->
+<div id="wd-810e20d7" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"0f73ea71-b94c-429a-8434-81206d80cdbb","content":"DESIGN PROCESS","tpFontSize":"16","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"16"} -->
 <h2 id="wd-0f73ea71" class="wp-block-wd-title title">DESIGN PROCESS</h2>
 <!-- /wp:wd/title -->
 
@@ -155,7 +155,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"86a9f18a-150e-489e-ae7a-89c5976a5d47","metadata":{"name":"Infobox content"}} -->
-<div id="wd-86a9f18a" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"95a912f2-061b-4aff-aa1e-cdfe25b3eadd","content":"CREATIVE IDEAS","tpFontSize":"16","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-86a9f18a" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"95a912f2-061b-4aff-aa1e-cdfe25b3eadd","content":"CREATIVE IDEAS","tpFontSize":"16","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 id="wd-95a912f2" class="wp-block-wd-title title">CREATIVE IDEAS</h2>
 <!-- /wp:wd/title -->
 
@@ -173,7 +173,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"f99f0d0f-6298-4741-b6e0-db98957db942","metadata":{"name":"Infobox content"}} -->
-<div id="wd-f99f0d0f" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"d83c4c46-5269-4607-a41c-c6903265a715","content":"HANDMADE MASTERS","tpFontSize":"16","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-f99f0d0f" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"d83c4c46-5269-4607-a41c-c6903265a715","content":"HANDMADE MASTERS","tpFontSize":"16","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 id="wd-d83c4c46" class="wp-block-wd-title title">HANDMADE MASTERS</h2>
 <!-- /wp:wd/title -->
 
@@ -191,7 +191,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"9a545901-8dc6-4dbd-9df8-c71fe00faf9d","metadata":{"name":"Infobox content"}} -->
-<div id="wd-9a545901" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"520f6bcd-2631-446d-aec8-6339162513e3","content":"FAST DELIV1ERY","tpFontSize":"16","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-9a545901" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"520f6bcd-2631-446d-aec8-6339162513e3","content":"FAST DELIV1ERY","tpFontSize":"16","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 id="wd-520f6bcd" class="wp-block-wd-title title">FAST DELIV1ERY</h2>
 <!-- /wp:wd/title -->
 

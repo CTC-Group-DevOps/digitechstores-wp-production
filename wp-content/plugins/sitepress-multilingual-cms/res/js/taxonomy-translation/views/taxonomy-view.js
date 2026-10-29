@@ -36,6 +36,7 @@
 			});
 			self.listenTo(self.model, 'newTaxonomySet', self.renderNewTaxonomy);
 			self.listenTo(self.model, 'syncDataLoaded', self.renderNewTaxonomy);
+			self.listenTo(self.model, 'termsLoadFailed', self.showLoadError);
 
 			return self;
 		},
@@ -175,6 +176,7 @@
 			}
 			self.addLabelTranslation(mainFragment, renderedFragment);
 			self.$el.html(renderedFragment);
+			jQuery('.wpml-taxonomy-load-error').remove();
 			jQuery(".icl_tt_label").on("click", self.openPopUPLabel);
 			self.showLoadingSpinner( false );
 			self.isRendered = true;
@@ -254,10 +256,19 @@
 		},
 		showLoadingSpinner: function( state ) {
 			if ( state === undefined || state ) {
+				jQuery('.wpml-taxonomy-load-error').remove();
 				jQuery('.wpml-loading-taxonomy').show();
 			} else {
 				jQuery('.wpml-loading-taxonomy').hide();
 			}
+		},
+		showLoadError: function () {
+			var notice = jQuery( '<div class="notice notice-error inline wpml-taxonomy-load-error" role="alert"><p></p></div>' );
+
+			notice.find( 'p' ).text( labels.termsLoadFailed );
+			jQuery( '.wpml-taxonomy-load-error' ).remove();
+			jQuery( '.wpml-loading-taxonomy' ).hide();
+			this.$el.before( notice );
 		}
 
 	});

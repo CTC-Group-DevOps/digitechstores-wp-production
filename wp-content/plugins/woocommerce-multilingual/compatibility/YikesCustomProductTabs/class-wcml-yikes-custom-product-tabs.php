@@ -34,6 +34,7 @@ class WCML_YIKES_Custom_Product_Tabs implements \IWPML_Action {
 		$orig_prod_tabs = $this->get_product_tabs( $product_id );
 
 		if ( $orig_prod_tabs ) {
+			/* translators: Heading of the group of custom product-tab fields in WPML's translation editor. */
 			$tabs_section = new WPML_Editor_UI_Field_Section( __( 'Custom Tabs', 'woocommerce-multilingual' ) );
 
 			$keys     = array_keys( $orig_prod_tabs );
@@ -45,6 +46,7 @@ class WCML_YIKES_Custom_Product_Tabs implements \IWPML_Action {
 					$divider = false;
 				}
 				$group     = new WPML_Editor_UI_Field_Group( '', $divider );
+				/* translators: Label of the field holding a custom product tab's title, in WPML's translation editor. */
 				$tab_field = new WPML_Editor_UI_Single_Line_Field( 'tab_' . $key . '_title', __( 'Tab Title', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $tab_field );
 				$tab_field = new WCML_Editor_UI_WYSIWYG_Field( 'tab_' . $key . '_content', null, $data, false );
@@ -92,7 +94,7 @@ class WCML_YIKES_Custom_Product_Tabs implements \IWPML_Action {
 
 		$orig_prod_tabs = $this->get_product_tabs( $original_product_id );
 
-		if ( ( isset( $_POST['icl_ajx_action'] ) && ( 'make_duplicates' === $_POST['icl_ajx_action'] ) ) || ( get_post_meta( $trnsl_product_id, '_icl_lang_duplicate_of', true ) ) ) {
+		if ( apply_filters( 'wpml_is_operation', false, 'make_duplicates' ) || ( get_post_meta( $trnsl_product_id, '_icl_lang_duplicate_of', true ) ) ) {
 			update_post_meta( $trnsl_product_id, self::CUSTOM_TABS_FIELD, $orig_prod_tabs );
 		} elseif ( $orig_prod_tabs ) {
 			$trnsl_product_tabs = [];

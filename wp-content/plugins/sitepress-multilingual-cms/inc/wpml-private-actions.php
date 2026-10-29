@@ -25,7 +25,14 @@ function new_duplicated_terms_filter( $post_ids, $duplicates_only = true ) {
 				    	get_taxonomy_labels( $tax )->name . '</a></p>';
 		}
 
-		$text .= '<p align="right"><a target="_blank" href="https://wpml.org/documentation/getting-started-guide/translating-post-categories-and-custom-taxonomies/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore#synchronizing-hierarchical-taxonomies">Help about translating taxonomy >></a></p>';
+		$taxonomy_help_url = \WPML\OutboundLinks\OutboundLinks::to(
+			'https://wpml.org/documentation/translating-your-contents/taxonomy/',
+			array(
+				'medium'   => 'settings',
+				'campaign' => 'taxonomy-translation',
+			)
+		);
+		$text             .= '<p align="right"><a target="_blank" href="' . esc_url( $taxonomy_help_url ) . '">Help about translating taxonomy >></a></p>';
 
 		$notice = new WPML_Notice( 'wpml-taxonomy-hierarchy-sync', $text, 'wpml-core' );
 		$notice->set_css_class_types( 'info' );
@@ -103,6 +110,7 @@ function wpml_get_admin_notices() {
 }
 
 function wpml_validate_language_domain_action() {
+	$result = WPML_Language_Domain_Validation::UNREACHABLE;
 
 	if ( wp_verify_nonce(
 		filter_input( INPUT_POST, 'nonce' ),
@@ -112,12 +120,20 @@ function wpml_validate_language_domain_action() {
 		$http                    = new WP_Http();
 		$wp_api                  = $sitepress->get_wp_api();
 		$language_domains_helper = new WPML_Language_Domain_Validation( $wp_api, $http );
-		$res                     = $language_domains_helper->is_valid( filter_input( INPUT_POST, 'url' ) );
+		$url                     = esc_url_raw( wp_unslash( (string) filter_input( INPUT_POST, 'url' ) ) );
+		$result                  = $language_domains_helper->validate( $url );
 	}
-	if ( ! empty( $res ) ) {
-		wp_send_json_success( __( 'Valid', 'sitepress' ) );
+
+	if ( WPML_Language_Domain_Validation::VALID === $result ) {
+		wp_send_json_success( WPML_Language_Domain_Validation::label( $result ) );
 	}
-	wp_send_json_error( __( 'Not valid', 'sitepress' ) );
+
+	wp_send_json_error(
+		array(
+			'status'  => $result,
+			'message' => WPML_Language_Domain_Validation::label( $result ),
+		)
+	);
 }
 
-add_action( 'wp_ajax_validate_language_domain', 'wpml_validate_language_domain_action' );
+\WPML\Request\Adapter\Ajax::register( 'validate_language_domain', \WPML\Request\Policy\Policy::capability( 'wpml_manage_languages', \WPML\Request\Policy\Authenticity::actionNonce( 'validate_language_domain', 'nonce' ) ), 'wpml_validate_language_domain_action' );

@@ -1,5 +1,7 @@
 <?php
 
+use WPML\PB\Cornerstone\Utils;
+
 class WPML_Cornerstone_Data_Settings implements IWPML_Page_Builders_Data_Settings {
 
 	public function get_meta_field() {
@@ -43,7 +45,15 @@ class WPML_Cornerstone_Data_Settings implements IWPML_Page_Builders_Data_Setting
 	}
 
 	public function is_handling_post( $postId ) {
-		return get_post_meta( $postId, $this->get_meta_field(), true )
-			&& ! get_post_meta( $postId, '_cornerstone_override', true );
+		if ( get_post_meta( $postId, '_cornerstone_override', true ) ) {
+			return false;
+		}
+
+		if ( Utils::isLayoutPostType( get_post_type( $postId ) ) ) {
+			$post = get_post( $postId );
+			return ! empty( $post->post_content );
+		}
+
+		return (bool) get_post_meta( $postId, $this->get_meta_field(), true );
 	}
 }

@@ -175,40 +175,6 @@ if ( ! function_exists( 'woodmart_output_sku_in_blocks_item_data' ) ) {
 	add_filter( 'woocommerce_get_item_data', 'woodmart_output_sku_in_blocks_item_data', 5, 2 );
 }
 
-if ( ! function_exists( 'woodmart_output_sku_in_cart' ) ) {
-	/**
-	 * Show SKU in cart.
-	 *
-	 * @param array   $cart_item Product item.
-	 * @param integer $cart_item_key Cart item key.
-	 * @return void
-	 */
-	function woodmart_output_sku_in_cart( $cart_item, $cart_item_key ) {
-		if ( ! woodmart_get_opt( 'show_sku_in_cart' ) ) {
-			return;
-		}
-
-		$_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-
-		if ( ! $_product || ! $_product->get_sku() ) {
-			return;
-		}
-
-		?>
-		<div class="wd-product-detail wd-product-sku">
-			<span class="wd-label">
-				<?php echo esc_html__( 'SKU:', 'woodmart' ); ?>
-			</span>
-			<span class="wd-sku">
-				<?php echo esc_html( $_product->get_sku() ); ?>
-			</span>
-		</div>
-		<?php
-	}
-
-	add_action( 'woocommerce_after_cart_item_name', 'woodmart_output_sku_in_cart', 5, 2 );
-}
-
 if ( ! function_exists( 'woodmart_woo_set_gutenberg_editor_for_product' ) ) {
 	/**
 	 * Set Gutenberg editor for product.
@@ -332,6 +298,15 @@ if ( ! function_exists( 'woodmart_save_product_builder_mode' ) ) {
 		}
 
 		if ( ! $post_id || 'product' !== get_post_type( $post_id ) ) {
+			return;
+		}
+
+		/*
+		 * This runs on admin_init too, so a request can reach it outside the normal
+		 * product-save flow. Make sure the current user is actually allowed to edit
+		 * this product before writing any meta to it.
+		 */
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 
@@ -968,6 +943,14 @@ if ( ! function_exists( 'woodmart_get_products_tab_ajax' ) ) {
 	function woodmart_get_products_tab_ajax() {
 		if ( ! empty( $_POST['atts'] ) ) { // phpcs:ignore.
 			$atts = woodmart_clean( $_POST['atts'] ); // phpcs:ignore.
+
+			// Shortcode content is echoed via do_shortcode() downstream; never accept it from the request.
+			unset( $atts['inner_content'] );
+
+			if ( ! empty( $atts['query_post_type'] ) ) {
+				$atts['query_post_type'] = woodmart_restrict_query_post_type( $atts['query_post_type'] );
+			}
+
 			if ( isset( $atts['elementor'] ) && $atts['elementor'] ) {
 				$data = woodmart_elementor_products_tab_template( $atts );
 			} else {
@@ -986,6 +969,30 @@ if ( ! function_exists( 'woodmart_get_products_tab_ajax' ) ) {
 }
 
 
+if ( ! function_exists( 'woodmart_restrict_query_post_type' ) ) {
+	/**
+	 * Restrict a caller-supplied products query post type to product post types.
+	 *
+	 * The products AJAX handlers below are public (nopriv); without this an
+	 * attacker could set query_post_type to an arbitrary type (e.g. shop_coupon)
+	 * and dump its titles — coupon codes — through the generic product card template.
+	 *
+	 * @param mixed $query_post_type Raw value (string or array).
+	 * @return string|array Sanitized value limited to product post types.
+	 */
+	function woodmart_restrict_query_post_type( $query_post_type ) {
+		$allowed_post_types = array( 'product', 'product_variation' );
+
+		if ( is_array( $query_post_type ) ) {
+			$query_post_type = array_values( array_intersect( $query_post_type, $allowed_post_types ) );
+
+			return empty( $query_post_type ) ? 'product' : $query_post_type;
+		}
+
+		return in_array( $query_post_type, $allowed_post_types, true ) ? $query_post_type : 'product';
+	}
+}
+
 if ( ! function_exists( 'woodmart_get_shortcode_products_ajax' ) ) {
 	/**
 	 * Get products shortcode ajax.
@@ -995,6 +1002,14 @@ if ( ! function_exists( 'woodmart_get_shortcode_products_ajax' ) ) {
 			$atts              = woodmart_clean( $_POST['atts'] ); // phpcs:ignore.
 			$paged             = ( empty( $_POST['paged'] ) ) ? 2 : sanitize_text_field( (int) $_POST['paged'] ); // phpcs:ignore.
 			$atts['ajax_page'] = $paged;
+
+			// Never let the caller supply shortcode content: it is echoed via
+			// do_shortcode() downstream and is not needed for AJAX load-more.
+			unset( $atts['inner_content'] );
+
+			if ( ! empty( $atts['query_post_type'] ) ) {
+				$atts['query_post_type'] = woodmart_restrict_query_post_type( $atts['query_post_type'] );
+			}
 
 			if ( isset( $atts['elementor'] ) && $atts['elementor'] ) {
 				$data = woodmart_elementor_products_template( $atts );
@@ -1768,7 +1783,7 @@ if ( ! function_exists( 'woocommerce_show_product_images' ) ) {
 	 *
 	 * @return void
 	 */
-	function woocommerce_show_product_images() {
+	function woocommerce_show_product_images() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 		wc_get_template(
 			'single-product/product-image.php',
 			array(
@@ -3027,15 +3042,16 @@ if ( ! function_exists( 'woodmart_get_recently_viewed_products' ) ) {
 		$attributes = array();
 
 		foreach ( $_POST['attr'] as $key => $value ) { //phpcs:ignore
+			// Shortcode content is echoed via do_shortcode() downstream; never accept it from the request.
 			if ( 'inner_content' === $key ) {
-				$unescaped = stripslashes( $value );
-
-				$attributes[ $key ] = wp_kses_post( html_entity_decode( $unescaped, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
-
 				continue;
 			}
 
 			$attributes[ $key ] = woodmart_clean( $value );
+		}
+
+		if ( ! empty( $attributes['query_post_type'] ) ) {
+			$attributes['query_post_type'] = woodmart_restrict_query_post_type( $attributes['query_post_type'] );
 		}
 
 		if ( 'elementor' === woodmart_get_current_page_builder() ) {
@@ -3517,7 +3533,7 @@ if ( ! function_exists( 'woodmart_is_cart_page_using_block' ) ) {
 
 		$result = false;
 
-		if ( class_exists( '\Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils' ) ) {
+		if ( function_exists( 'wc_get_page_id' ) && class_exists( '\Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils' ) ) {
 			$result = \Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils::is_cart_block_default();
 		} elseif ( function_exists( 'wc_get_page_id' ) ) {
 			$page_id = wc_get_page_id( 'cart' );
@@ -3546,7 +3562,7 @@ if ( ! function_exists( 'woodmart_is_checkout_page_using_block' ) ) {
 
 		$result = false;
 
-		if ( class_exists( '\Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils' ) ) {
+		if ( function_exists( 'wc_get_page_id' ) && class_exists( '\Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils' ) ) {
 			$result = \Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils::is_checkout_block_default();
 		} elseif ( function_exists( 'wc_get_page_id' ) ) {
 			$page_id = wc_get_page_id( 'checkout' );

@@ -8,16 +8,16 @@
             "lang": "it_IT"
          },
          "All": [
-            "Tutti"
+            "Tutte"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "Per visualizzare questo blocco HTML personalizzato in una lingua specifica, inseriscilo prima all’interno di un blocco Gruppo."
+            "Per visualizzare questo blocco HTML personalizzato in una lingua specifica, inseriscilo prima all'interno di un blocco Gruppo."
          ],
          "Place inside Group block": [
-            "Inserisci all’interno del blocco Gruppo"
+            "Inserisci nel blocco Gruppo"
          ],
          "Display on language": [
-            "Visualizza per lingua"
+            "Visualizza nella lingua"
          ]
       }
    }

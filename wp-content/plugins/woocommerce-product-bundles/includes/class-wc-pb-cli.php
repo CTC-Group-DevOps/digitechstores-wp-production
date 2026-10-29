@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * DB updating and other stuff via WP-CLI.
  *
  * @class    WC_PB_CLI
- * @version  7.1.0
+ * @version  8.5.16
  */
 class WC_PB_CLI {
 
@@ -28,6 +28,8 @@ class WC_PB_CLI {
 
 	/**
 	 * Load command files.
+	 *
+	 * @return void
 	 */
 	private function includes() {
 		require_once WC_PB_ABSPATH . 'includes/cli/class-wc-pb-cli-update.php';
@@ -36,6 +38,8 @@ class WC_PB_CLI {
 
 	/**
 	 * Sets up and hooks WP CLI to our CLI code.
+	 *
+	 * @return void
 	 */
 	private function hooks() {
 		WP_CLI::add_hook( 'after_wp_load', 'WC_PB_CLI_Update::register_command' );

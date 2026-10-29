@@ -253,6 +253,7 @@ class WCML_Currency_Switcher_Templates {
 			$theme = wp_get_theme();
 			$name  = $theme . ' - ' . $name;
 		} elseif ( strpos( $path, $this->wpml_file->fix_dir_separator( $this->get_uploads_path() ) ) === 0 ) {
+			/* translators: Name of the WordPress uploads folder, shown in front of a currency-switcher template's name to say where the template file lives. */
 			$name = __( 'Uploads', 'woocommerce-multilingual' ) . ' - ' . $name;
 		} elseif (
 			strpos( $path, $this->wpml_file->fix_dir_separator( WP_PLUGIN_DIR ) ) === 0
@@ -372,28 +373,28 @@ class WCML_Currency_Switcher_Templates {
 		}
 
 		if ( $switcher_data['color_scheme']['font_other_normal'] || $switcher_data['color_scheme']['background_other_normal'] ) {
-			$css .= "$wrapper_class li>a {";
+			$css .= $this->getItemSelectors( $wrapper_class, 'li' ) . '{';
 			$css .= $switcher_data['color_scheme']['font_other_normal'] ? 'color:' . $switcher_data['color_scheme']['font_other_normal'] . ';' : '';
 			$css .= $switcher_data['color_scheme']['background_other_normal'] ? 'background-color:' . $switcher_data['color_scheme']['background_other_normal'] . ';' : '';
 			$css .= '}';
 		}
 
 		if ( $switcher_data['color_scheme']['font_other_hover'] || $switcher_data['color_scheme']['background_other_hover'] ) {
-			$css .= "$wrapper_class li:hover>a, $wrapper_class li:focus>a {";
+			$css .= $this->getItemSelectors( $wrapper_class, [ 'li:hover', 'li:focus', 'li:focus-within' ] ) . '{';
 			$css .= $switcher_data['color_scheme']['font_other_hover'] ? 'color:' . $switcher_data['color_scheme']['font_other_hover'] . ';' : '';
 			$css .= $switcher_data['color_scheme']['background_other_hover'] ? 'background-color:' . $switcher_data['color_scheme']['background_other_hover'] . ';' : '';
 			$css .= '}';
 		}
 
 		if ( $switcher_data['color_scheme']['font_current_normal'] || $switcher_data['color_scheme']['background_current_normal'] ) {
-			$css .= "$wrapper_class .wcml-cs-active-currency>a {";
+			$css .= $this->getItemSelectors( $wrapper_class, '.wcml-cs-active-currency' ) . '{';
 			$css .= $switcher_data['color_scheme']['font_current_normal'] ? 'color:' . $switcher_data['color_scheme']['font_current_normal'] . ';' : '';
 			$css .= $switcher_data['color_scheme']['background_current_normal'] ? 'background-color:' . $switcher_data['color_scheme']['background_current_normal'] . ';' : '';
 			$css .= '}';
 		}
 
 		if ( $switcher_data['color_scheme']['font_current_hover'] || $switcher_data['color_scheme']['background_current_hover'] ) {
-			$css .= "$wrapper_class .wcml-cs-active-currency:hover>a, $wrapper_class .wcml-cs-active-currency:focus>a {";
+			$css .= $this->getItemSelectors( $wrapper_class, [ '.wcml-cs-active-currency:hover', '.wcml-cs-active-currency:focus', '.wcml-cs-active-currency:focus-within' ] ) . '{';
 			$css .= $switcher_data['color_scheme']['font_current_hover'] ? 'color:' . $switcher_data['color_scheme']['font_current_hover'] . ';' : '';
 			$css .= $switcher_data['color_scheme']['background_current_hover'] ? 'background-color:' . $switcher_data['color_scheme']['background_current_hover'] . ';' : '';
 			$css .= '}';
@@ -402,6 +403,16 @@ class WCML_Currency_Switcher_Templates {
 		return $css;
 	}
 
+	private function getItemSelectors( $wrapper_class, $parent_selectors ) {
+		$selectors = [];
+
+		foreach ( (array) $parent_selectors as $parent_selector ) {
+			$selectors[] = "$wrapper_class $parent_selector>button";
+			$selectors[] = "$wrapper_class $parent_selector>a";
+		}
+
+		return implode( ', ', $selectors );
+	}
 
 	public function get_inline_style( $switcher_id, $switcher_template, $css ) {
 		$style_id = 'wcml-cs-inline-styles-' . $switcher_id . '-' . $switcher_template;

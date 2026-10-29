@@ -7,6 +7,7 @@ abstract class WPML_Translate_Link_Targets_In_Content extends WPML_WPDB_User {
 	protected $number_of_links_fixed;
 	protected $pro_translation;
 	private $translate_link_target_global_state;
+	private $last_batch_was_full = false;
 
 	const MAX_TO_FIX_FOR_NEW_CONTENT = 10;
 
@@ -50,6 +51,7 @@ abstract class WPML_Translate_Link_Targets_In_Content extends WPML_WPDB_User {
 		$this->get_contents_with_links_needing_fix( $start, $count );
 		$last_content_processed      = 0;
 		$this->number_of_links_fixed = 0;
+		$this->last_batch_was_full = $count > 0 && count( $this->content_to_fix ) >= $count;
 
 		foreach ( $this->content_to_fix as $content ) {
 
@@ -60,6 +62,10 @@ abstract class WPML_Translate_Link_Targets_In_Content extends WPML_WPDB_User {
 		$this->scanning_in_progress = false;
 
 		return $last_content_processed;
+	}
+
+	public function last_batch_was_full() {
+		return $this->last_batch_was_full;
 	}
 
 	abstract protected function get_contents_with_links_needing_fix( $start = 0, $count = 0 );

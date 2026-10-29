@@ -21,7 +21,7 @@ if ( ! class_exists( 'WC_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_PB_DB_Sync_Task_Runner
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 
@@ -58,6 +58,8 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 	 *
 	 * Skips processing if Action Scheduler has taken over stock sync,
 	 * so stale queued background tasks from the previous sync method do not run.
+	 *
+	 * @return void
 	 */
 	public function maybe_handle() {
 		/**
@@ -122,6 +124,8 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 	 * Handle cron healthcheck.
 	 *
 	 * Restart the background process if not already running and data exists in the queue.
+	 *
+	 * @return void
 	 */
 	public function handle_cron_healthcheck() {
 
@@ -141,6 +145,8 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 
 	/**
 	 * Schedule event.
+	 *
+	 * @return void
 	 */
 	protected function schedule_event() {
 		if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
@@ -413,6 +419,8 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 
 	/**
 	 * When all tasks complete, create a log entry.
+	 *
+	 * @return void
 	 */
 	protected function complete() {
 		WC_PB_Core_Compatibility::log( 'Sync complete.', 'info', 'wc_pb_db_sync_tasks' );

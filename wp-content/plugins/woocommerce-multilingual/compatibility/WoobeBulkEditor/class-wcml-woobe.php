@@ -1,5 +1,7 @@
 <?php
 
+use WCML\Utilities\CustomFieldPreferences;
+
 class WCML_Woobe implements \IWPML_Action {
 
 	private $sitepress;
@@ -37,8 +39,7 @@ class WCML_Woobe implements \IWPML_Action {
 	}
 
 	private function is_field_set_to_copy( $field_key ) {
-		$settings                  = $this->sitepress->get_settings();
-		$field_translation_setting = isset( $settings['translation-management']['custom_fields_translation'][ '_' . $field_key ] ) ? $settings['translation-management']['custom_fields_translation'][ '_' . $field_key ] : null;
-		return $field_translation_setting === $this->sitepress->get_wp_api()->constant( 'WPML_COPY_CUSTOM_FIELD' );
+		return CustomFieldPreferences::mode( '_' . $field_key )
+			=== $this->sitepress->get_wp_api()->constant( 'WPML_COPY_CUSTOM_FIELD' );
 	}
 }

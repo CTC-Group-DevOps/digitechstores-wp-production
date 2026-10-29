@@ -3,13 +3,13 @@
 namespace WPML\PB\Elementor\Config\DynamicElements\EssentialAddons;
 
 use WPML\FP\Obj;
-use WPML\FP\Relation;
+use WPML\PB\Elementor\Helper\Path;
 use function WPML\FP\compose;
 
 class TeamMember {
 
 	public static function get() {
-		$isEATeamMember = Relation::propEq( 'widgetType', 'eael-team-member' );
+		$isEATeamMember = Path::propEq( 'widgetType', 'eael-team-member' );
 
 		$socialLinkLens = compose(
 			Obj::lensProp( 'settings' ),

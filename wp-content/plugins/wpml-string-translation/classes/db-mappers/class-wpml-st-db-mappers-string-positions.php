@@ -8,38 +8,46 @@ class WPML_ST_DB_Mappers_String_Positions {
 	}
 
 	public function get_count_of_positions_by_string_and_kind( $string_id, $kind ) {
-		$query = "
-			SELECT COUNT(id)
-	        FROM {$this->wpdb->prefix}icl_string_positions 
-	        WHERE string_id = %d AND kind = %d
-        ";
+		$wpdb = $this->wpdb;
 
-		$sql = $this->wpdb->prepare( $query, $string_id, $kind );
-		return (int) $this->wpdb->get_var( $sql );
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(id)
+				 FROM {$wpdb->prefix}icl_string_positions
+				 WHERE string_id = %d AND kind = %d",
+				$string_id,
+				$kind
+			)
+		);
 	}
 
 	public function get_positions_by_string_and_kind( $string_id, $kind ) {
-		$query = "
-			SELECT position_in_page
-            FROM {$this->wpdb->prefix}icl_string_positions
-          	WHERE string_id = %d AND kind = %d
-        ";
+		$wpdb = $this->wpdb;
 
-		$sql = $this->wpdb->prepare( $query, $string_id, $kind );
-
-		return $this->wpdb->get_col( $sql );
+		return $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT position_in_page
+				 FROM {$wpdb->prefix}icl_string_positions
+				 WHERE string_id = %d AND kind = %d",
+				$string_id,
+				$kind
+			)
+		);
 	}
 
 	public function is_string_tracked( $string_id, $position, $kind ) {
-		$query = "
-			SELECT id
-            FROM {$this->wpdb->prefix}icl_string_positions
-            WHERE string_id=%d AND position_in_page=%s AND kind=%s
-		";
+		$wpdb = $this->wpdb;
 
-		$sql = $this->wpdb->prepare( $query, $string_id, $position, $kind );
-
-		return (bool) $this->wpdb->get_var( $sql );
+		return (bool) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT id
+				 FROM {$wpdb->prefix}icl_string_positions
+				 WHERE string_id = %d AND position_in_page = %s AND kind = %s",
+				$string_id,
+				$position,
+				$kind
+			)
+		);
 	}
 
 	public function insert( $string_id, $position, $kind ) {

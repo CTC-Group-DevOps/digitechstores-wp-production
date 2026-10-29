@@ -397,7 +397,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$meta = ($meta == '') ? 'default' : $meta;
 
 		$page_bg = get_post_meta(get_the_ID(), 'rs_page_bg_color', true);
-		$page_bg = ($page_bg == '') ? '' : $page_bg;
 
 		$blank = get_page_template_slug(get_the_ID()) == "../public/views/revslider-page-template.php";
 		$blankcheck = $blank ? 'checked' : '';
@@ -410,13 +409,14 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$latest_version	= get_option('revslider-latest-version', RS_REVISION);
 
 		?>
+		<?php wp_nonce_field('revslider_meta_box', 'rs_meta_box_nonce'); ?>
 		<ul class="revslider_settings _TPRB_">
 			<li id="slide_template_row">
 				<label class="rs_wp_ppset" for="revslider_blank_template"><?php _e('Blank Template','revslider'); ?></label><input id="rs_blank_template" name="rs_blank_template" <?php echo $blankcheck;?> class="" type="checkbox" >
 			</li>
 			<li id="slide_template_row">
 				<div id="rs_page_bg_color_column" class="" <?php echo $hide_page_bg;?>>
-					<label class="rs_wp_ppset"><?php _e('Page Color', 'revslider');?></label><input type="text" data-editing="<?php _e('Background Color', 'revslider');?>" name="rs_page_bg_color" id="rs_page_bg_color" class="my-color-field" value="<?php echo $page_bg; ?>">					
+					<label class="rs_wp_ppset"><?php _e('Page Color', 'revslider');?></label><input type="text" data-editing="<?php _e('Background Color', 'revslider');?>" name="rs_page_bg_color" id="rs_page_bg_color" class="my-color-field" value="<?php echo esc_attr($page_bg); ?>">					
 				</div>
 				<div class="clear"></div>				
 			</li>
@@ -424,7 +424,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				<label class="rs_wp_ppset" id="slide_template_text"><?php _e('Slide Template', 'revslider');?></label><select style="max-width:82px" name="slide_template" id="slide_template">
 				<?php
 				foreach($output as $handle => $name){
-					echo '<option ' . selected($handle, $meta) . ' value="' . $handle . '">' . $name . '</option>';
+					echo '<option ' . selected($handle, $meta) . ' value="' . esc_attr($handle) . '">' . esc_html($name) . '</option>';
 				}
 				?></select>
 			</li>
@@ -448,13 +448,13 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * on save post meta. Update metaboxes data from post, add it to the post meta 
 	 * @before: RevSliderBaseAdmin::onSavePost();
 	 */
-	public static function on_save_post(){
+	public static function on_save_post($post_id = 0){
 		$f = RevSliderGlobals::instance()->get('RevSliderFunctions');
 
-		$post_id = $f->get_post_var('ID');
-
 		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id; //protection against autosave
-		if(empty($post_id)) return false;
+		if(empty($post_id) || wp_is_post_revision($post_id)) return false;
+		//only a save from our meta box, for a post this user may edit: any other save would empty the fields it did not send
+		if(!isset($_POST['rs_meta_box_nonce']) || !wp_verify_nonce($_POST['rs_meta_box_nonce'], 'revslider_meta_box') || !current_user_can('edit_post', $post_id)) return false;
 		
 		// Slide Template
 		$slide_template = $f->get_post_var('slide_template');
@@ -472,7 +472,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		}
 
 		// Blank Page Template Background Color
-		$rs_page_bg_color = $f->get_post_var('rs_page_bg_color');
+		$rs_page_bg_color = $f->sanitize_css_color($f->get_post_var('rs_page_bg_color'));
 		if(strtolower($rs_page_bg_color) === '#ffffff'){
 			delete_post_meta($post_id, 'rs_page_bg_color');
 		}else{
@@ -507,15 +507,37 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$library	= new RevSliderObjectLibrary();
 		$template	= new RevSliderTemplate();
 		
-		$uol = isset($_REQUEST['update_object_library']);
-		$library->_get_list($uol);
-		
-		$us = isset($_REQUEST['update_shop']);
-		$template->_get_template_list($us);
+		$library->_get_list(false);
+		$template->_get_template_list(false);
 
-		$upgrade->force = in_array($this->get_val($_REQUEST, 'checkforupdates', 'false'), array('true', true), true);
+		$upgrade->force = false;
 		$upgrade->_retrieve_version_info();
 		$upgrade->add_update_checks();
+
+		//this runs before WordPress knows the user, and admin-ajax is admin for a visitor too: forced refreshes wait for init
+		if(isset($_REQUEST['update_object_library']) || isset($_REQUEST['update_shop']) || isset($_REQUEST['checkforupdates'])) add_action('init', array($this, 'do_forced_update_checks'));
+	}
+
+	/**
+	 * the refreshes the request asks for, only for someone who may manage the site
+	 * @since: 6.8.0
+	 */
+	public function do_forced_update_checks(){
+		if(!current_user_can('manage_options')) return;
+
+		if(isset($_REQUEST['update_object_library'])){
+			$library = new RevSliderObjectLibrary();
+			$library->_get_list(true);
+		}
+		if(isset($_REQUEST['update_shop'])){
+			$template = new RevSliderTemplate();
+			$template->_get_template_list(true);
+		}
+		if(in_array($this->get_val($_REQUEST, 'checkforupdates', 'false'), array('true', true), true)){
+			$upgrade = new RevSliderUpdate(RS_REVISION);
+			$upgrade->force = true;
+			$upgrade->_retrieve_version_info();
+		}
 	}
 
 	/**
@@ -664,7 +686,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		<tr class="plugin-update-tr active">
             <td colspan="<?php echo $wp_list_table->get_column_count(); ?>" class="plugin-update colspanchange">
                 <div class="update-message notice inline notice-warning notice-alt">
-				<p><?php _e('There is a new version (<a href="https://sr6archive.sliderrevolution.com/documentation/changelog/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo#'.$revision.'" target="_blank">'.$rs_latest_version.'</a>) of Slider Revolution available. To update directly <a href="javascript:;" onclick="RVS.F.showRegisterSliderInfo();">register your license key now</a> or <a href="https://account.sliderrevolution.com/portal/pricing/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo" target="_blank">purchase a new license key</a> to access <a href="https://www.sliderrevolution.com/premium-slider-revolution/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo" target="_blank">all premium features</a>.', 'revslider'); ?></p>
+				<p><?php printf(__('There is a new version (%1$s) of Slider Revolution available. Security fixes for Slider Revolution 6 are free until 1 March 2028, and the update to Slider Revolution 7 is free: %2$s.', 'revslider'), '<a href="https://sr6archive.sliderrevolution.com/documentation/changelog/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo#'.$revision.'" target="_blank">'.esc_html($rs_latest_version).'</a>', '<a href="'.esc_url(admin_url('admin.php?page=revslider')).'">'.__('open the Slider Revolution dashboard', 'revslider').'</a>'); ?></p>
                 </div>
 			</td>
         </tr>

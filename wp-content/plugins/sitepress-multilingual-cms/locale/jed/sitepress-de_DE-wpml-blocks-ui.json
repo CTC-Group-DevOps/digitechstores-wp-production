@@ -14,13 +14,13 @@
             "HTML-Anker"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Fügen Sie diesem Block beim Laden der Seite über die URL „#anchor“ eine Verknüpfung hinzu."
+            "Füge eine Verknüpfung zu diesem Block hinzu, wenn die Seite über die URL „#anchor“ geladen wird."
          ],
          "Additional CSS class(es)": [
             "Zusätzliche CSS-Klasse(n)"
          ],
          "Separate multiple classes with spaces.": [
-            "Trennen Sie mehrere Klassen durch Leerzeichen."
+            "Trenne mehrere Klassen durch Leerzeichen."
          ],
          "Color": [
             "Farbe"
@@ -32,16 +32,16 @@
             "%"
          ],
          "Dimensions": [
-            "Abmessungen"
+            "Dimensionen"
          ],
          "BLOCK": [
             "BLOCK"
          ],
          "Block margin": [
-            "Blockrand"
+            "Block-Außenabstand"
          ],
          "Block padding": [
-            "Block-Padding"
+            "Block-Innenabstand"
          ],
          "LANGUAGE": [
             "SPRACHE"
@@ -50,7 +50,7 @@
             "Sprachabstand"
          ],
          "Language padding": [
-            "Sprach-Padding"
+            "Sprach-Innenabstand"
          ],
          "Display": [
             "Anzeige"
@@ -62,13 +62,13 @@
             "Sprachname anzeigen"
          ],
          "Display language name in": [
-            "Sprachname anzeigen in"
+            "Sprachnamen anzeigen in"
          ],
          "Style": [
             "Stil"
          ],
          "Flag settings": [
-            "Flaggeneinstellungen"
+            "Flaggen-Einstellungen"
          ],
          "Width": [
             "Breite"
@@ -80,13 +80,13 @@
             "Abstand"
          ],
          "Switch to %s": [
-            "Wechseln zu %s"
+            "Zu %s wechseln"
          ],
          "Available languages": [
             "Verfügbare Sprachen"
          ],
          "Allow wrapping to multiple lines": [
-            "Umbruch auf mehrere Zeilen zulassen"
+            "Zeilenumbruch zulassen"
          ],
          "Open on click": [
             "Beim Klicken öffnen"
@@ -101,13 +101,13 @@
             "Ausrichtung"
          ],
          "Orientation": [
-            "Orientierung"
+            "Ausrichtung"
          ],
          "Language Switcher": [
             "Sprachumschalter"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Sprachumschalter, drücken Sie Tab, um zu anderen Sprachen zu navigieren"
+            "Sprachumschalter, drücke die Tab-Taste, um zu anderen Sprachen zu navigieren"
          ],
          "Typography": [
             "Typografie"
@@ -116,16 +116,16 @@
             "Hintergrund"
          ],
          "Language Text": [
-            "Sprachtext"
+            "Sprach-Text"
          ],
          "Language Background": [
-            "Sprachhintergrund"
+            "Sprach-Hintergrund"
          ],
          "Current language text": [
-            "Aktueller Sprachtext"
+            "Text der aktuellen Sprache"
          ],
          "Current language background": [
-            "Aktueller Sprachhintergrund"
+            "Hintergrund der aktuellen Sprache"
          ],
          "Full name": [
             "Vollständiger Name"
@@ -134,16 +134,16 @@
             "Code"
          ],
          "Justify items left": [
-            "Elemente links ausrichten"
+            "Elemente linksbündig ausrichten"
          ],
          "Justify items center": [
-            "Elemente zentrieren"
+            "Elemente zentriert ausrichten"
          ],
          "Justify items right": [
-            "Elemente rechts ausrichten"
+            "Elemente rechtsbündig ausrichten"
          ],
          "Justify items space between": [
-            "Elemente mit Abstand ausrichten"
+            "Elemente mit Abstand dazwischen ausrichten"
          ],
          "Horizontal": [
             "Horizontal"
@@ -161,7 +161,7 @@
             "Groß"
          ],
          "X-Large": [
-            "X-groß"
+            "Extra groß"
          ],
          "Ab": [
             "Ab"
@@ -181,14 +181,11 @@
          "displays the WPML Language Switcher": [
             "zeigt den WPML-Sprachumschalter an"
          ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Zeigt den WPML-Sprachumschalter an. <br/> Erfahren Sie, <a>wie Sie diesen Block übersetzen</a>."
-         ],
          "Navigation Language Switcher": [
             "Navigations-Sprachumschalter"
          ],
          "Reset all": [
-            "Alle zurücksetzen"
+            "Alles zurücksetzen"
          ]
       }
    }

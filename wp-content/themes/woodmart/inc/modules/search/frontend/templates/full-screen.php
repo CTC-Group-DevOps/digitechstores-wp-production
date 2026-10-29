@@ -23,7 +23,7 @@ $this->enqueue_scripts();
 		<input type="hidden" name="post_type" value="<?php echo esc_attr( $args['post_type'] ); ?>">
 
 		<?php if ( 'full-screen' !== $args['type'] ) : ?>
-			<span tabindex="0" aria-label="<?php esc_attr_e( 'Clear search', 'woodmart' ); ?>" class="wd-clear-search wd-role-btn<?php echo get_search_query() ? '' : ' wd-hide'; ?>"></span>
+			<span tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Clear search', 'woodmart' ); ?>" class="wd-clear-search wd-role-btn<?php echo get_search_query() ? '' : ' wd-hide'; ?>"></span>
 		<?php endif; ?>
 
 		<?php if ( $args['show_categories'] && 'product' === $args['post_type'] ) : ?>

@@ -4,7 +4,7 @@ if ( ! function_exists( 'wd_gutenberg_tp_customer_details' ) ) {
 	function wd_gutenberg_tp_customer_details( $block_attributes ) {
 		$wrapper_classes = wd_get_gutenberg_element_classes( $block_attributes );
 		$el_id           = wd_get_gutenberg_element_id( $block_attributes );
-		$is_builder      = 'woodmart_layout' === get_post_type();
+		$is_builder      = 'woodmart_layout' === get_post_type() && current_user_can( 'edit_post', get_the_ID() );
 
 		if ( ! empty( $block_attributes['textAlign'] ) || ! empty( $block_attributes['textAlignTablet'] ) || ! empty( $block_attributes['textAlignMobile'] ) ) {
 			$wrapper_classes .= ' wd-align';

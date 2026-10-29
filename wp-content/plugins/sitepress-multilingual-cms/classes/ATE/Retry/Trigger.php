@@ -17,6 +17,6 @@ class Trigger {
 	}
 
 	public function setLastRetry( $time ) {
-		OptionManager::updateWithoutAutoLoad( self::RETRY_LAST, self::OPTION_GROUP, $time );
+		OptionManager::update( self::RETRY_LAST, self::OPTION_GROUP, $time );
 	}
 }

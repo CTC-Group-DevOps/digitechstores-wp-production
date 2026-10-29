@@ -7,6 +7,8 @@ class WPML_ST_Slug_Translation_UI_Save implements IWPML_Action {
 	const ACTION_HOOK_FOR_POST = 'wpml_save_cpt_sync_settings';
 	const ACTION_HOOK_FOR_TAX  = 'wpml_save_taxonomy_sync_settings';
 
+	const NOTICE_GROUP = 'wpml-st-slug-original-language';
+
 	private $settings;
 
 	private $records;
@@ -36,6 +38,9 @@ class WPML_ST_Slug_Translation_UI_Save implements IWPML_Action {
 	}
 
 	public function save_element_type_slug_translation_options() {
+		if ( function_exists( 'wpml_get_admin_notices' ) ) {
+			wpml_get_admin_notices()->remove_notice_group( self::NOTICE_GROUP );
+		}
 		if ( $this->settings->is_enabled() && ! empty( $_POST['translate_slugs'] ) ) {
 
 			foreach ( $_POST['translate_slugs'] as $type => $data ) {
@@ -95,7 +100,15 @@ class WPML_ST_Slug_Translation_UI_Save implements IWPML_Action {
 			}
 
 			if ( $string->get_language() !== $original_lang ) {
-				$string->set_language( $original_lang );
+				$valid = \WPML\Language\RequestedLanguage::validate( $original_lang, \WPML\Language\RequestedLanguage::SCOPE_CONFIGURED );
+
+				if ( null === $valid ) {
+					$this->refuse_original_language( $type, $original_lang );
+					$original_lang = $string->get_language();
+				} else {
+					$original_lang = $valid;
+					$string->set_language( $original_lang );
+				}
 			}
 
 			if ( isset( $data['langs'] ) ) {
@@ -103,15 +116,40 @@ class WPML_ST_Slug_Translation_UI_Save implements IWPML_Action {
 				foreach ( $this->sitepress->get_active_languages() as $code => $lang ) {
 
 					if ( $code !== $original_lang ) {
-						$translation_value = $this->sanitize_slug( $data['langs'][ $code ] );
+						$posted_slug       = isset( $data['langs'][ $code ] ) ? $data['langs'][ $code ] : '';
+						$translation_value = $this->sanitize_slug( $posted_slug );
 						$translation_value = urldecode( $translation_value );
-						$string->set_translation( $code, $translation_value, ICL_TM_COMPLETE );
+
+						if ( '' === $translation_value ) {
+							$string->set_translation( $code, '', ICL_TM_NOT_TRANSLATED );
+						} else {
+							$string->set_translation( $code, $translation_value, ICL_TM_COMPLETE );
+						}
 					}
 				}
 			}
 
 			$string->update_status();
 		}
+	}
+
+	private function refuse_original_language( $type, $lang ) {
+		if ( ! function_exists( 'wpml_get_admin_notices' ) ) {
+			return;
+		}
+
+		$text = sprintf(
+			/* translators: Error shown on the WPML settings page after saving slug translations. %1$s: the content type, for example "product". %2$s: the language code that was refused, for example "hi". */
+			__( 'The original language of the "%1$s" slug was not changed: "%2$s" is not one of this site\'s languages.', 'wpml-string-translation' ),
+			esc_html( $type ),
+			esc_html( $lang )
+		);
+
+		$notices = wpml_get_admin_notices();
+		$notice  = $notices->create_notice( 'refused-' . $type, $text, self::NOTICE_GROUP );
+		$notice->set_css_class_types( 'error' );
+		$notice->set_dismissible( true );
+		$notices->add_notice( $notice, true );
 	}
 
 	private function register_string_if_not_exit( $type ) {

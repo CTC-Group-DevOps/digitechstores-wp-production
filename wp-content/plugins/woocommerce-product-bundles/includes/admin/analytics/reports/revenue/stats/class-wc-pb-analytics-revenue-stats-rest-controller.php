@@ -18,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\ParameterException;
 /**
  * WC_PB_Analytics_Revenue_Stats_REST_Controller class.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Revenue_Stats_REST_Controller extends WC_REST_Reports_Controller {
 
@@ -49,7 +49,7 @@ class WC_PB_Analytics_Revenue_Stats_REST_Controller extends WC_REST_Reports_Cont
 	 * Get all items.
 	 *
 	 * @param WP_REST_Request $request Request data.
-	 * @return array|WP_Error
+	 * @return WP_REST_Response|WP_Error
 	 */
 	public function get_items( $request ) {
 
@@ -119,12 +119,12 @@ class WC_PB_Analytics_Revenue_Stats_REST_Controller extends WC_REST_Reports_Cont
 	/**
 	 * Prepare a report object for serialization.
 	 *
-	 * @param Array           $report  Report data.
+	 * @param array|stdClass  $report  Report data.
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response
 	 */
 	public function prepare_item_for_response( $report, $request ) {
-		$data = $report;
+		$data = (array) $report;
 
 		$context = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data    = $this->add_additional_fields_to_object( $data, $request );
@@ -140,7 +140,7 @@ class WC_PB_Analytics_Revenue_Stats_REST_Controller extends WC_REST_Reports_Cont
 		 *
 		 * @since 6.9.0
 		 * @param WP_REST_Response $response The response object.
-		 * @param array            $report   The original report data.
+		 * @param array|stdClass   $report   The original report data.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
 		return apply_filters( 'woocommerce_rest_prepare_report_bundles_stats', $response, $report, $request );

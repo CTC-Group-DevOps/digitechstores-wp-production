@@ -21,6 +21,7 @@ class WPML_TP_Jobs_API extends WPML_TP_API {
 
 	private function get_chunk_of_job_statuses( $tp_job_ids ) {
 		$request = new WPML_TP_API_Request( '/jobs.json' );
+		$request->set_timeout( \WPML\TM\TranslationProxy\SendTuning::receiveCallTimeoutSeconds() );
 		$request->set_params(
 			array(
 				'filter'    => array(
@@ -70,6 +71,7 @@ class WPML_TP_Jobs_API extends WPML_TP_API {
 		}
 
 		$request = new WPML_TP_API_Request( '/jobs/{job_id}.json' );
+		$request->set_timeout( \WPML\TM\TranslationProxy\SendTuning::receiveCallTimeoutSeconds() );
 		$request->set_params( $params );
 		$request->set_method( 'PUT' );
 
@@ -93,6 +95,7 @@ class WPML_TP_Jobs_API extends WPML_TP_API {
 		$this->log( 'Get revised jobs' );
 
 		$request = new WPML_TP_API_Request( '/jobs.json' );
+		$request->set_timeout( \WPML\TM\TranslationProxy\SendTuning::receiveCallTimeoutSeconds() );
 		$request->set_params(
 			array(
 				'filter'    => array(

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Notices
- * @version  6.12.4
+ * @version  8.5.16
  */
 class WC_PB_Notices {
 
@@ -42,6 +42,8 @@ class WC_PB_Notices {
 
 	/**
 	 * Constructor.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -111,6 +113,8 @@ class WC_PB_Notices {
 
 	/**
 	 * Save notice options to the DB.
+	 *
+	 * @return void
 	 */
 	public static function save_notice_options() {
 		if ( self::$should_update ) {

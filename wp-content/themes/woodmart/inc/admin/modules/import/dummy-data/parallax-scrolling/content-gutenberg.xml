@@ -33,7 +33,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"011fecd2-554e-4bcb-9ece-68bd583ecbdf","adjacentCount":2,"colWidth":50,"blocksGap":10,"justifyContent":"center","paddingRight":"7","paddingLeft":"7","paddingUnits":"%","parallaxScroll":true,"parallaxScrollY":30,"paddingTopMobile":"60","paddingBottomMobile":"60"} -->
-<div id="wd-011fecd2" class="wp-block-wd-column wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_30 wd_scroll_z_0 wd_scroll_smoothness_30"><!-- wp:wd/paragraph {"blockId":"28103366-6b08-46a8-ab45-0104b211de55","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
+<div id="wd-011fecd2" class="wp-block-wd-column wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_30 wd_scroll_z_0 wd_scroll_smoothness_30"><!-- wp:wd/paragraph {"blockId":"28103366-6b08-46a8-ab45-0104b211de55","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
 <p id="wd-28103366" class="wp-block-wd-paragraph wd-align wd-hide-sm">01.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -41,7 +41,7 @@
 <p id="wd-8b524a7f" class="wp-block-wd-paragraph">Woodmart extra feature</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"f580e532-ac89-4c16-b8a1-8d9e144f06d7","content":"Y-axis u003cspan class=u0022wd-highlightu0022u003ebiasu003c/spanu003eu003cbru003eVertical scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"f580e532-ac89-4c16-b8a1-8d9e144f06d7","content":"Y-axis \u003cspan class=\u0022wd-highlight\u0022\u003ebias\u003c/span\u003e\u003cbr\u003eVertical scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
 <h2 id="wd-f580e532" class="wp-block-wd-title title">Y-axis <span class="wd-highlight">bias</span><br>Vertical scrolling.</h2>
 <!-- /wp:wd/title -->
 
@@ -65,7 +65,7 @@
 <!-- wp:wd/section {"blockId":"36909510-d25b-4c69-a239-bc8e6d499e45","paddingRight":"0","paddingLeft":"0","marginBottom":"120","marginBottomTablet":"80","marginBottomMobile":"60"} -->
 <div id="wd-36909510" class="wp-block-wd-section"><!-- wp:wd/row {"blockId":"d9fc4d51-a77e-4c1e-9f52-a298b5af7a74","columnsGap":0,"displayWidth":"full-width"} -->
 <div id="wd-d9fc4d51" class="wp-block-wd-row wd-custom-width"><!-- wp:wd/column {"blockId":"41a8bffd-d40f-4567-a482-f0bf5802a37e","adjacentCount":2,"colWidth":50,"blocksGap":10,"alignItems":"flex-end","justifyContent":"center","textAlign":"start","paddingRight":"7","paddingLeft":"7","paddingUnits":"%","parallaxScroll":true,"parallaxScrollY":30,"alignItemsMobile":"flex-start","paddingTopMobile":"60","paddingBottomMobile":"60","flexOrderMobile":"2"} -->
-<div id="wd-41a8bffd" class="wp-block-wd-column wd-align-is-lg-flex-end wd-align-is-sm-flex-start wd-align wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_30 wd_scroll_z_0 wd_scroll_smoothness_30"><!-- wp:wd/paragraph {"blockId":"ba2c7e4a-b24b-4416-904a-6114d7937b99","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
+<div id="wd-41a8bffd" class="wp-block-wd-column wd-align-is-lg-flex-end wd-align-is-sm-flex-start wd-align wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_30 wd_scroll_z_0 wd_scroll_smoothness_30"><!-- wp:wd/paragraph {"blockId":"ba2c7e4a-b24b-4416-904a-6114d7937b99","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
 <p id="wd-ba2c7e4a" class="wp-block-wd-paragraph wd-align wd-hide-sm">02.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -73,7 +73,7 @@
 <p id="wd-0354e06b" class="wp-block-wd-paragraph wd-align-s-start">Woodmart extra feature</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"3b5fb777-85cf-4190-ba39-19f616335708","content":"Y-axis u003cspan class=u0022wd-highlightu0022u003ebiasu003c/spanu003eu003cbru003eVertical scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","alignSelf":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"3b5fb777-85cf-4190-ba39-19f616335708","content":"Y-axis \u003cspan class=\u0022wd-highlight\u0022\u003ebias\u003c/span\u003e\u003cbr\u003eVertical scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","alignSelf":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
 <h2 id="wd-3b5fb777" class="wp-block-wd-title title wd-align-s-start">Y-axis <span class="wd-highlight">bias</span><br>Vertical scrolling.</h2>
 <!-- /wp:wd/title -->
 
@@ -144,7 +144,7 @@
 <div id="wd-2224c909" class="wp-block-wd-section"><!-- wp:wd/row {"blockId":"9e66acd2-057c-419d-b977-9f61b48476a8","columnsGap":0,"displayWidth":"full-width","columnsGapTablet":60,"columnsGapMobile":40} -->
 <div id="wd-9e66acd2" class="wp-block-wd-row wd-custom-width"><!-- wp:wd/column {"blockId":"028f0595-8e8c-45bc-9ec6-cd738e3f19f8","adjacentCount":2,"colWidth":50,"blocksGap":null,"justifyContent":"center","paddingUnits":"%","parallaxScroll":true,"parallaxScrollX":80,"parallaxScrollY":-1,"adjacentCountTablet":1,"colWidthTablet":100,"alignItemsMobile":"flex-start","flexOrderMobile":"1"} -->
 <div id="wd-028f0595" class="wp-block-wd-column wd-align-is-sm-flex-start wd-parallax-on-scroll wd_scroll_x_80 wd_scroll_y_-1 wd_scroll_z_0 wd_scroll_smoothness_30"><!-- wp:wd/container {"blockId":"3e48b85d-6022-4bdc-ad34-f490f5194c84","rowGap":"10","alignSelf":"center","displayWidth":"custom","customWidth":"600"} -->
-<div id="wd-3e48b85d" class="wp-block-wd-container wd-dir-col wd-custom-width wd-align-s-center"><!-- wp:wd/paragraph {"blockId":"9fab6704-c675-4835-916f-c537b630f11f","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
+<div id="wd-3e48b85d" class="wp-block-wd-container wd-dir-col wd-custom-width wd-align-s-center"><!-- wp:wd/paragraph {"blockId":"9fab6704-c675-4835-916f-c537b630f11f","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
 <p id="wd-9fab6704" class="wp-block-wd-paragraph wd-align wd-hide-sm">03.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -152,7 +152,7 @@
 <p id="wd-c27c0a1a" class="wp-block-wd-paragraph wd-align-s-start">Woodmart extra feature</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"e68f6a6e-76aa-4a7a-a4b2-5b0210bfe3cf","content":"X-axis u003cspan class=u0022wd-highlightu0022u003ebiasu003c/spanu003eu003cbru003eHorizontal scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","alignSelf":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"e68f6a6e-76aa-4a7a-a4b2-5b0210bfe3cf","content":"X-axis \u003cspan class=\u0022wd-highlight\u0022\u003ebias\u003c/span\u003e\u003cbr\u003eHorizontal scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","alignSelf":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
 <h2 id="wd-e68f6a6e" class="wp-block-wd-title title wd-align-s-start">X-axis <span class="wd-highlight">bias</span><br>Horizontal scrolling.</h2>
 <!-- /wp:wd/title -->
 
@@ -190,7 +190,7 @@
 
 <!-- wp:wd/column {"blockId":"5aa06ef8-7df8-492e-b719-3932710361a1","adjacentCount":2,"colWidth":50,"blocksGap":null,"justifyContent":"center","paddingUnits":"%","parallaxScroll":true,"parallaxScrollX":80,"parallaxScrollY":-1,"adjacentCountTablet":1,"colWidthTablet":100,"alignItemsMobile":"flex-start"} -->
 <div id="wd-5aa06ef8" class="wp-block-wd-column wd-align-is-sm-flex-start wd-parallax-on-scroll wd_scroll_x_80 wd_scroll_y_-1 wd_scroll_z_0 wd_scroll_smoothness_30"><!-- wp:wd/container {"blockId":"4031a225-088e-4cdb-a719-0c441026779d","rowGap":"10","alignSelf":"center","displayWidth":"custom","customWidth":"600"} -->
-<div id="wd-4031a225" class="wp-block-wd-container wd-dir-col wd-custom-width wd-align-s-center"><!-- wp:wd/paragraph {"blockId":"1e4d76b4-1d08-4904-a48a-5f2645e55004","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
+<div id="wd-4031a225" class="wp-block-wd-container wd-dir-col wd-custom-width wd-align-s-center"><!-- wp:wd/paragraph {"blockId":"1e4d76b4-1d08-4904-a48a-5f2645e55004","textAlign":"end","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
 <p id="wd-1e4d76b4" class="wp-block-wd-paragraph wd-align wd-hide-sm">04.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -198,7 +198,7 @@
 <p id="wd-3fb8e290" class="wp-block-wd-paragraph wd-align-s-start">Woodmart extra feature</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"ced81ded-c8ec-40ec-acbb-ed0bcd0d69aa","content":"X-axis u003cspan class=u0022wd-highlightu0022u003ebiasu003c/spanu003eu003cbru003eHorizontal scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","alignSelf":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"ced81ded-c8ec-40ec-acbb-ed0bcd0d69aa","content":"X-axis \u003cspan class=\u0022wd-highlight\u0022\u003ebias\u003c/span\u003e\u003cbr\u003eHorizontal scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","alignSelf":"start","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
 <h2 id="wd-ced81ded" class="wp-block-wd-title title wd-align-s-start">X-axis <span class="wd-highlight">bias</span><br>Horizontal scrolling.</h2>
 <!-- /wp:wd/title -->
 
@@ -222,7 +222,7 @@
 
 <!-- wp:wd/container {"blockId":"c6727608-c0bc-49ef-a98d-bfaf0386dc67","marginBottom":"80","marginBottomTablet":"40"} -->
 <div id="wd-c6727608" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/container {"blockId":"5f93eb7b-e1d9-46d8-ae37-d05316d0ffc2","textAlign":"center","rowGap":"10","marginBottom":"40","parallaxScroll":true,"parallaxScrollY":-1,"parallaxScrollZ":-80,"marginBottomTablet":"80","marginBottomMobile":"60"} -->
-<div id="wd-5f93eb7b" class="wp-block-wd-container wd-dir-col wd-align wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_-1 wd_scroll_z_-80 wd_scroll_smoothness_30"><!-- wp:wd/paragraph {"blockId":"d10fd9ff-20e4-45f3-a038-caf99b335ebf","textAlign":"start","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
+<div id="wd-5f93eb7b" class="wp-block-wd-container wd-dir-col wd-align wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_-1 wd_scroll_z_-80 wd_scroll_smoothness_30"><!-- wp:wd/paragraph {"blockId":"d10fd9ff-20e4-45f3-a038-caf99b335ebf","textAlign":"start","colorCode":"rgba(0,0,0,0.05)","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"140","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"-120","hideOnMobile":true,"tpLineHeightUnits":"em"} -->
 <p id="wd-d10fd9ff" class="wp-block-wd-paragraph wd-align wd-hide-sm">05.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -230,7 +230,7 @@
 <p id="wd-6de2afb7" class="wp-block-wd-paragraph">Woodmart extra feature</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"c15a2810-9b78-4c4c-b4d8-69c453a63f0e","content":"Z-axis u003cspan class=u0022wd-highlightu0022u003ebiasu003c/spanu003eu003cbru003eZoom in/out scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"c15a2810-9b78-4c4c-b4d8-69c453a63f0e","content":"Z-axis \u003cspan class=\u0022wd-highlight\u0022\u003ebias\u003c/span\u003e\u003cbr\u003eZoom in/out scrolling.","tpFontSize":"46","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"32","tpFontSizeMobile":"24","tpLineHeightUnits":"em"} -->
 <h2 id="wd-c15a2810" class="wp-block-wd-title title">Z-axis <span class="wd-highlight">bias</span><br>Zoom in/out scrolling.</h2>
 <!-- /wp:wd/title -->
 

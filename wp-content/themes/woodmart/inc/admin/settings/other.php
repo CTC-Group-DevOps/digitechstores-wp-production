@@ -29,7 +29,7 @@ Options::add_field(
 				'value' => 'native',
 			),
 		),
-		'default'     => 'native',
+		'default'     => 'external',
 		'tags'        => array(
 			esc_html__( 'page builder', 'woodmart' ),
 			esc_html__( 'primary editor', 'woodmart' ),
@@ -48,7 +48,7 @@ Options::add_field(
 		'description' => esc_html__( 'Allows editing product content using the Gutenberg block editor.', 'woodmart' ),
 		'type'        => 'switcher',
 		'section'     => 'other_section',
-		'default'     => '1',
+		'default'     => '0',
 		'priority'    => 7,
 		'class'       => 'xts-preset-field-disabled',
 	)

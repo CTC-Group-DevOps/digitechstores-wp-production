@@ -14,16 +14,16 @@
             "Neo HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Thêm lối tắt vào khối này khi tải trang bằng URL “#anchor”."
+            "Thêm phím tắt cho khối này khi tải trang bằng URL “#anchor”."
          ],
          "Additional CSS class(es)": [
             "Lớp CSS bổ sung"
          ],
          "Separate multiple classes with spaces.": [
-            "Tách nhiều lớp bằng dấu cách."
+            "Phân tách nhiều lớp bằng dấu cách."
          ],
          "Color": [
-            "Màu"
+            "Màu sắc"
          ],
          "px": [
             "px"
@@ -62,7 +62,7 @@
             "Hiển thị tên ngôn ngữ"
          ],
          "Display language name in": [
-            "Hiển thị tên ngôn ngữ trong"
+            "Hiển thị tên ngôn ngữ bằng"
          ],
          "Style": [
             "Kiểu"
@@ -83,10 +83,10 @@
             "Chuyển sang %s"
          ],
          "Available languages": [
-            "Ngôn ngữ có sẵn"
+            "Ngôn ngữ hiện có"
          ],
          "Allow wrapping to multiple lines": [
-            "Cho phép xuống nhiều dòng"
+            "Cho phép ngắt thành nhiều dòng"
          ],
          "Open on click": [
             "Mở khi nhấp"
@@ -107,7 +107,7 @@
             "Bộ chuyển đổi ngôn ngữ"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Bộ chuyển đổi ngôn ngữ, nhấn tab để điều hướng đến các ngôn ngữ khác"
+            "Bộ chuyển đổi ngôn ngữ, nhấn tab để điều hướng sang các ngôn ngữ khác"
          ],
          "Typography": [
             "Kiểu chữ"
@@ -134,22 +134,22 @@
             "Mã"
          ],
          "Justify items left": [
-            "Căn chỉnh các mục sang trái"
+            "Căn trái các mục"
          ],
          "Justify items center": [
-            "Căn chỉnh các mục vào giữa"
+            "Căn giữa các mục"
          ],
          "Justify items right": [
-            "Căn chỉnh các mục sang phải"
+            "Căn phải các mục"
          ],
          "Justify items space between": [
-            "Căn chỉnh các mục cách đều"
+            "Căn đều các mục"
          ],
          "Horizontal": [
-            "Ngang"
+            "Nằm ngang"
          ],
          "Vertical": [
-            "Dọc"
+            "Thẳng đứng"
          ],
          "Normal": [
             "Bình thường"
@@ -176,13 +176,10 @@
             "Nhỏ"
          ],
          "Displays the WPML Language Switcher.": [
-            "Hiển thị bộ chuyển đổi ngôn ngữ WPML."
+            "Hiển thị Bộ chuyển đổi ngôn ngữ WPML."
          ],
          "displays the WPML Language Switcher": [
             "hiển thị Bộ chuyển đổi ngôn ngữ WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Hiển thị Bộ chuyển đổi ngôn ngữ WPML. <br/> Tìm hiểu <a>cách dịch khối này</a>."
          ],
          "Navigation Language Switcher": [
             "Bộ chuyển đổi ngôn ngữ điều hướng"

@@ -24,7 +24,7 @@
 					<pubDate>Fri, 29 Nov 2024 13:58:40 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35650</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-cb2daed8" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -36,7 +36,7 @@
 
 <!-- wp:wd/blog {"blockId":"3894ec91-7aa4-4748-b921-174746cf6269","items_per_page":"6","pagination":"more-btn","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} /-->
 
-<!-- wp:wd/paragraph {"blockId":"04cbd6ce-03d3-464d-b5b0-b4e57ba04bf8","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"04cbd6ce-03d3-464d-b5b0-b4e57ba04bf8","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-04cbd6ce" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -48,7 +48,7 @@
 
 <!-- wp:wd/blog {"blockId":"1f6d77b5-0b00-448e-8c65-73c4626399c9","items_per_page":"6","pagination":"more-btn","blog_grid_design":"meta-image","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} /-->
 
-<!-- wp:wd/paragraph {"blockId":"e781d7dc-f9d7-4508-80d3-bb6391156815","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"e781d7dc-f9d7-4508-80d3-bb6391156815","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-e781d7dc" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -60,7 +60,7 @@
 
 <!-- wp:wd/blog {"blockId":"b663b8e3-84ed-4032-b791-22b2f45ba3c0","items_per_page":"6","pagination":"more-btn","blog_grid_design":"mask","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} /-->
 
-<!-- wp:wd/paragraph {"blockId":"a4b5dd64-0019-4473-a9bd-9a61142d2e5e","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"a4b5dd64-0019-4473-a9bd-9a61142d2e5e","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-a4b5dd64" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -74,7 +74,7 @@
 <div id="wd-2c037898" class="wp-block-wd-container wd-dir-col wd-align wd-custom-width"><!-- wp:wd/blog {"blockId":"8920e471-cbbe-4150-a620-997d1e1a40e1","items_per_page":"3","pagination":"","layout":"list","blog_columns":1,"img_size":"full","displayWidth":"","customWidth":""} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"52fa758a-b05e-44ee-81ab-b3c9c5bbfc52","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"52fa758a-b05e-44ee-81ab-b3c9c5bbfc52","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-52fa758a" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -88,7 +88,7 @@
 <div id="wd-173195e7" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/blog {"blockId":"eafe31e9-ec25-4e8d-8cf2-7c1f89c3cc42","items_per_page":"3","pagination":"","layout":"list","blog_list_design":"small-images","displayWidth":"custom","customWidth":"790"} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"28e921dc-169c-4e2c-8257-298625e50bac","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"28e921dc-169c-4e2c-8257-298625e50bac","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-28e921dc" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -102,7 +102,7 @@
 <div id="wd-eb520fd3" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/blog {"blockId":"7fd5d19a-f06e-43d1-9efd-a46f11a9bec4","items_per_page":"4","pagination":"more-btn","layout":"list","blog_list_design":"chess","displayWidth":"custom","customWidth":"790"} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"780f5e59-b714-44bd-bf6b-7cb59fc83541","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"780f5e59-b714-44bd-bf6b-7cb59fc83541","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-780f5e59" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -116,7 +116,7 @@
 <div id="wd-dd2b956a" class="wp-block-wd-container wd-dir-col wd-align wd-custom-width"><!-- wp:wd/blog {"blockId":"01c0ebd2-f0d4-4a09-81bb-bf662de01ce5","items_per_page":"3","pagination":"","layout":"list","blog_list_design":"default-alt","blog_columns":1,"img_size":"full","displayWidth":"","customWidth":""} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"6727b931-7792-4e99-ae25-33079e3eb828","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"6727b931-7792-4e99-ae25-33079e3eb828","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-6727b931" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -130,7 +130,7 @@
 <div id="wd-1f03057f" class="wp-block-wd-container wd-dir-col wd-align wd-custom-width"><!-- wp:wd/blog {"blockId":"f3bf5b42-195a-4c59-afbe-b2058896589d","items_per_page":"3","pagination":"","layout":"list","blog_list_design":"list","blog_columns":1,"img_size":"full","displayWidth":"","customWidth":""} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-c4b0820c" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 

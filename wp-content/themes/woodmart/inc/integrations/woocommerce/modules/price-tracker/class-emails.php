@@ -192,13 +192,16 @@ class Emails {
 
 		foreach ( $subscriptions_groped as $email => $subscriptions ) {
 			foreach ( $subscriptions as $subscription ) {
-				$product       = wc_get_product( $subscription->variation_id ? $subscription->variation_id : $subscription->product_id );
+				$product = wc_get_product( $subscription->variation_id ? $subscription->variation_id : $subscription->product_id );
+
+				if ( ! $product instanceof WC_Product || ! $product->is_in_stock() ) {
+					continue;
+				}
+
 				$product_price = $product->get_price();
 				$desired_price = floatval( $subscription->desired_price );
 
 				if (
-					! $product instanceof WC_Product ||
-					! $product->is_in_stock() ||
 					$product_price > $subscription->product_price ||
 					( ! empty( $desired_price ) && $product_price > $desired_price )
 				) {

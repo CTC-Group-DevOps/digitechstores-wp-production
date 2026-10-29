@@ -15,6 +15,8 @@ class LanguageNegotiation {
 	const DOMAIN = 2;
 	const PARAMETER = 3;
 
+	const SUNRISE_DOMAINS_CONSTANT = 'WPML_SUNRISE_MULTISITE_DOMAINS';
+
 	const DIRECTORY_STRING = 'directory';
 	const DOMAIN_STRING = 'domain';
 	const PARAMETER_STRING = 'parameter';
@@ -24,6 +26,22 @@ class LanguageNegotiation {
 		self::DOMAIN_STRING    => self::DOMAIN,
 		self::PARAMETER_STRING => self::PARAMETER,
 	];
+
+	public static function isDomainModeAvailable() {
+		global $wpmu_version, $sitepress;
+
+		if ( isset( $wpmu_version ) ) {
+			return false;
+		}
+
+		$wpApi = $sitepress ? $sitepress->get_wp_api() : new \WPML_WP_API();
+
+		if ( ! $wpApi->is_multisite() ) {
+			return true;
+		}
+
+		return (bool) $wpApi->constant( self::SUNRISE_DOMAINS_CONSTANT );
+	}
 
 	public static function init() {
 		global $sitepress;

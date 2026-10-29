@@ -92,6 +92,7 @@ abstract class Hooks implements IWPML_Backend_Action, IWPML_DIC_Action, IWPML_RE
 	}
 
 	protected function getInstructionsWithoutRegisteredStrings( $domain, $search = '' ) {
+		/* translators: Text of the help bubble next to a WooCommerce setting whose text WPML has not registered yet; "this text" is the setting's own value. */
 		return esc_html__( 'To see how to translate this text, save your changes here first.', 'woocommerce-multilingual' );
 	}
 

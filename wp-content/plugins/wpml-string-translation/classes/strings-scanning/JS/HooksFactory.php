@@ -4,6 +4,7 @@ namespace WPML\ST\StringsScanning\JS;
 
 use WPML\FP\Obj;
 use WPML\StringTranslation\Infrastructure\Setting\Repository\SettingsRepository;
+use WPML\StringTranslation\Infrastructure\Setting\Repository\UrlRepository;
 
 class HooksFactory implements \IWPML_Backend_Action_Loader, \IWPML_Frontend_Action_Loader {
 
@@ -15,7 +16,7 @@ class HooksFactory implements \IWPML_Backend_Action_Loader, \IWPML_Frontend_Acti
 		$shouldMonitorJSScripts = $isDetectionEnabled
 		                          && ! wp_doing_ajax()
 		                          && ! wp_doing_cron()
-		                          && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST );
+		                          && ! self::isRestRequest();
 
 		if ( $shouldMonitorJSScripts ) {
 			$hooks[] = new ScriptRegisterHooks();
@@ -32,5 +33,13 @@ class HooksFactory implements \IWPML_Backend_Action_Loader, \IWPML_Frontend_Acti
 		global $sitepress;
 
 		return (bool) Obj::prop( SettingsRepository::DETECT_JS_STRINGS, (array) $sitepress->get_setting( 'st' ) );
+	}
+
+	private static function isRestRequest(): bool {
+		global $sitepress;
+
+		$urlRepository = \WPML\Container\make( UrlRepository::class, [ ':sitepress' => $sitepress ] );
+
+		return $urlRepository->getRequestIsRest();
 	}
 }

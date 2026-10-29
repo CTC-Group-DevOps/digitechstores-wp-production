@@ -34,18 +34,14 @@ class TranslationGuiLabels extends BaseTranslationGuiLabels {
 
 	public function adjustObjectLabels( $postTypeObject ) {
 		if ( $postTypeObject->name === self::POST_TYPE_LAYOUT_SECTION ) {
-			$postTypeObject->labels->singular_name = $this->formatLabel( $postTypeObject->labels->singular_name, $postTypeObject->name, false );
-			return $postTypeObject;
+			$labelled = $this->labelledCopy( $postTypeObject );
+
+			$labelled->labels->singular_name = $this->formatLabel( $postTypeObject->labels->singular_name, $postTypeObject->name, false );
+
+			return $labelled;
 		}
 
-		if ( ! in_array( $postTypeObject->name, $this->getPostTypes(), true ) ) {
-			return $postTypeObject;
-		}
-
-		$postTypeObject->labels->name          = $this->formatLabel( $postTypeObject->labels->name, $postTypeObject->name, true );
-		$postTypeObject->labels->singular_name = $this->formatLabel( $postTypeObject->labels->singular_name, $postTypeObject->name, false );
-
-		return $postTypeObject;
+		return parent::adjustObjectLabels( $postTypeObject );
 	}
 
 }

@@ -25,7 +25,8 @@ class WPML_Display_As_Translated_Default_Lang_Messages {
 		wp_enqueue_script(
 			'wpml-default-lang-change-message',
 			ICL_PLUGIN_URL . '/res/js/display-as-translated/toggle-default-lang-change-message.js',
-			array( 'jquery' )
+			array( 'jquery' ),
+			ICL_SITEPRESS_SCRIPT_VERSION
 		);
 	}
 

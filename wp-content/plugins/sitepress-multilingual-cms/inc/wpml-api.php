@@ -1,5 +1,8 @@
 <?php
 
+use WPML\Core\Component\CustomFieldPreferences\Domain\ElementType;
+use WPML\TM\Settings\PreferenceResolver;
+
 define( 'WPML_API_SUCCESS', 0 );
 define( 'WPML_API_ERROR', 99 );
 define( 'WPML_API_INVALID_LANGUAGE_CODE', 1 );
@@ -322,7 +325,7 @@ function wpml_check_user_is_translator( $from_language, $to_language ) {
 			)
 		);
 		if ( $translation_languages ) {
-			foreach ( unserialize( $translation_languages->meta_value ) as $key => $language ) {
+			foreach ( unserialize( $translation_languages->meta_value, [ 'allowed_classes' => false ] ) as $key => $language ) {
 				if ( $key == $from_language ) {
 					$is_translator = array_key_exists( $to_language, $language );
 				}
@@ -357,7 +360,7 @@ function wpml_generate_controls( $post_id, $cred_form_id, $current_language = fa
 		if ( array_key_exists( $active_language['code'], $translations ) ) {
 			$controls[ $active_language['code'] ]['action'] = 'edit';
 			$post_url                                       = get_permalink( $translations[ $active_language['code'] ]->element_id );
-			if ( $post_url && ( false === strpos( $post_url, '?' ) || ( false === strpos( $post_url, '?' ) && $sitepress_settings['language_negotiation_type'] != '3' ) ) ) {
+			if ( $post_url && ( false === strpos( $post_url, '?' ) || ( false === strpos( $post_url, '?' ) && WPML_LANGUAGE_NEGOTIATION_TYPE_PARAMETER !== WPML_URL_Format::of( $sitepress_settings ) ) ) ) {
 				$controls[ $active_language['code'] ]['url'] = $post_url . '?action=edit_translation&cred-edit-form=' . $cred_form_id;
 			} else {
 				$controls[ $active_language['code'] ]['url'] = $post_url . '&action=edit_translation&cred-edit-form=' . $cred_form_id;
@@ -365,7 +368,7 @@ function wpml_generate_controls( $post_id, $cred_form_id, $current_language = fa
 		} else {
 			$controls[ $active_language['code'] ]['action'] = 'create';
 			$post_url                                       = get_permalink( $post_id );
-			if ( $post_url && ( false === strpos( $post_url, '?' ) || ( false === strpos( $post_url, '?' ) && $sitepress_settings['language_negotiation_type'] != '3' ) ) ) {
+			if ( $post_url && ( false === strpos( $post_url, '?' ) || ( false === strpos( $post_url, '?' ) && WPML_LANGUAGE_NEGOTIATION_TYPE_PARAMETER !== WPML_URL_Format::of( $sitepress_settings ) ) ) ) {
 				$controls[ $active_language['code'] ]['url'] = get_permalink( $post_id ) . '?action=create_translation&trid=' . $trid . '&to_lang=' . $active_language['code'] . '&source_lang=' . $current_language . '&cred-edit-form=' . $cred_form_id;
 			} else {
 				$controls[ $active_language['code'] ]['url'] = get_permalink( $post_id ) . '&action=create_translation&trid=' . $trid . '&to_lang=' . $active_language['code'] . '&source_lang=' . $current_language . '&cred-edit-form=' . $cred_form_id;
@@ -385,13 +388,10 @@ function wpml_get_original_content( $post_id, $field, $field_name = false ) {
 	switch ( $field ) {
 		case 'title':
 			return $post->post_title;
-			break;
 		case 'content':
 			return $post->post_content;
-			break;
 		case 'excerpt':
 			return $post->post_excerpt;
-			break;
 		case 'categories':
 			$terms = get_the_terms( $post->ID, 'category' );
 			$taxs  = array();
@@ -401,7 +401,6 @@ function wpml_get_original_content( $post_id, $field, $field_name = false ) {
 				}
 			}
 			return $taxs;
-			break;
 		case 'tags':
 			$terms = get_the_terms( $post->ID, 'post_tag' );
 			$taxs  = array();
@@ -411,7 +410,6 @@ function wpml_get_original_content( $post_id, $field, $field_name = false ) {
 				}
 			}
 			return $taxs;
-			break;
 		case 'taxonomies':
 			return $field_name
 				? wpml_get_synchronizing_taxonomies( $post_id, $field_name )
@@ -456,22 +454,13 @@ function wpml_get_synchronizing_taxonomies( $post_id, $tax_name ) {
 }
 
 function wpml_get_synchronizing_fields( $post_id, $field_name ) {
-	global $sitepress_settings;
-	$custom_fields_values = array();
+	$custom_fields_values = [];
 	if ( ! empty( $post_id ) ) {
 
-		if ( is_array( $sitepress_settings['translation-management']['custom_fields_translation'] ) ) {
-
-			foreach ( $sitepress_settings['translation-management']['custom_fields_translation'] as $cf => $op ) {
-
-				if ( $cf == $field_name && ( $op == '2' || $op == '1' ) ) {
-					$values = get_post_meta( $post_id, $cf, false );
-					if ( ! empty( $values ) ) {
-						foreach ( $values as $key => $value ) {
-							$custom_fields_values[ $key ] = $value;
-						}
-					}
-				}
+		$mode = PreferenceResolver::mode( ElementType::POST, $field_name );
+		if ( in_array( $mode, [ WPML_COPY_CUSTOM_FIELD, WPML_TRANSLATE_CUSTOM_FIELD ], true ) ) {
+			foreach ( get_post_meta( $post_id, $field_name, false ) as $key => $value ) {
+				$custom_fields_values[ $key ] = $value;
 			}
 		}
 	}

@@ -15,6 +15,7 @@ class WPML_Simple_Language_Selector extends WPML_SP_User {
 				'id'                 => '',
 				'name'               => '',
 				'show_please_select' => true,
+				/* translators: First option in a dropdown, shown before the user has picked anything. The dashes keep it apart from the real values. */
 				'please_select_text' => __( '-- Please select --', 'sitepress' ),
 				'selected'           => '',
 				'echo'               => false,
@@ -28,7 +29,7 @@ class WPML_Simple_Language_Selector extends WPML_SP_User {
 			$options
 		);
 
-		if ( $options['languages'] ) {
+		if ( is_array( $options['languages'] ) ) {
 			$languages = $options['languages'];
 		} else {
 			$languages = $this->sitepress->get_languages( $this->sitepress->get_admin_language() );

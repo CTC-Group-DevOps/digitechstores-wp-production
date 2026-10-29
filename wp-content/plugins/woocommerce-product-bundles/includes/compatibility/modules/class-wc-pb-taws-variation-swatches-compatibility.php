@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * ThemeAlien Variation Swatches for WooCommerce
  *
- * @version  8.5.4
+ * @version  8.5.16
  */
 class WC_PB_TAWS_Variation_Swatches_Compatibility {
 
 	/**
 	 * Initialization.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

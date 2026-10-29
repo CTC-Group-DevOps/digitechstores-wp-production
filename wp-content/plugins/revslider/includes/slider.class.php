@@ -2216,7 +2216,8 @@ class RevSliderSlider extends RevSliderFunctions {
 
 				if ( ! $post ||
 				     ! is_post_type_viewable( get_post_type_object( $post->post_type ) ) ||
-				     post_password_required( $post ) )
+				     post_password_required( $post ) ||
+				     ! $this->viewer_may_read( $post ) )
 				{
 					unset($posts[$k]);
 				}
@@ -2224,6 +2225,28 @@ class RevSliderSlider extends RevSliderFunctions {
 		}
 
 		return $posts;
+	}
+
+	/**
+	 * The statuses a module may list for whoever views it. WP_Query without post_status adds drafts, pending and
+	 * scheduled posts whenever is_admin(), and admin-ajax is admin for a visitor too. Someone who may edit posts keeps them
+	 * @since: 6.8.0
+	 * @return array|null null leaves the query as it was
+	 */
+	private function viewer_statuses(){
+		if(current_user_can('edit_posts')) return null;
+		return current_user_can('read_private_posts') ? array('publish', 'private') : array('publish');
+	}
+
+	/**
+	 * Whether the viewer may read this post: a public status, or the right to read it. A gallery image passes, its file is public anyway
+	 * @since: 6.8.0
+	 */
+	private function viewer_may_read($post){
+		if($post->post_type === 'attachment') return true;
+		$status = get_post_status($post);
+		$public = function_exists('is_post_status_viewable') ? is_post_status_viewable($status) : $status === 'publish';
+		return $public || current_user_can('read_post', $post->ID);
 	}
 	
 	/**
@@ -2857,6 +2880,8 @@ class RevSliderSlider extends RevSliderFunctions {
 		}
 		
 		$query	= array_merge($query, $additional);
+		$statuses = $this->viewer_statuses();
+		if(!isset($query['post_status']) && $statuses !== null) $query['post_status'] = $statuses;
 		$query	= apply_filters('revslider_get_posts', $query, $slider_id);
 		$object	= new WP_Query($query);
 		$posts	= $object->posts;
@@ -2864,6 +2889,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		//check if we used the [gallery] shortcode, but added posts instead if images
 		if(empty($posts) && $is_gal){
 			unset($query['post_status']);
+			if($statuses !== null) $query['post_status'] = $statuses;
 			$object	= new WP_Query($query);
 			$posts	= $object->posts;
 			if(!empty($posts)) $this->is_gallery = false; //setting this will make sure to fetch images from the posts instead of the image id directly
@@ -2952,6 +2978,8 @@ class RevSliderSlider extends RevSliderFunctions {
 			}
 			$query = array_merge($query, $addition);
 		}
+		$statuses = $this->viewer_statuses();
+		if(!isset($query['post_status']) && $statuses !== null) $query['post_status'] = $statuses;
 		
 		$query		= apply_filters('revslider_get_posts', $query, $slider_id);
 		$full_posts	= new WP_Query($query);
@@ -3198,7 +3226,7 @@ class RevSliderSlider extends RevSliderFunctions {
 					$_meta = (strpos($meta, ':') !== false) ? explode(':', $meta) : false;
 					if($_meta === false) continue;
 					if($_meta[0] === 'meta'){
-						$raw_data['meta'][$_meta[1]] = get_post_meta($post_id, $_meta[1], true);
+						$raw_data['meta'][$_meta[1]] = $this->get_post_meta_safe($post_id, $_meta[1]);
 					}elseif($_meta[0] === 'author_avatar'){
 						if(count($_meta) !== 2) continue;
 						$_meta[1] = intval($_meta[1]);
@@ -3515,6 +3543,29 @@ class RevSliderSlider extends RevSliderFunctions {
 	}
 
 	/**
+	 * keeps only the harmless counts of a slider's source: the rest holds stream logins and API keys
+	 * @since: 6.8.0
+	 */
+	public function modify_slider_data($obj, $setting = 'slider_params'){
+		if(!isset($obj[$setting]['source'])) return $obj;
+
+		$modify_allow	= array('excerptLimit', 'maxPosts', 'maxProducts', 'count');
+		$modify_sources	= array('post', 'specific_posts', 'specific_post', 'woo', 'woocommerce', 'instagram', 'facebook', 'flickr', 'twitter', 'vimeo', 'youtube');
+		$source			= $obj[$setting]['source'];
+		$obj[$setting]['source'] = array('type' => $this->get_val($source, 'type'));
+		foreach($modify_sources as $m_source){
+			if(!isset($source[$m_source])) continue;
+			foreach($modify_allow as $allow){
+				if(!isset($source[$m_source][$allow])) continue;
+
+				$obj[$setting]['source'][$m_source][$allow] = $source[$m_source][$allow];
+			}
+		}
+
+		return $obj;
+	}
+
+	/**
 	 * returns a slider object with all slides and static slide in v6 or v7 format for JSON/REST
 	 * sensitive data needs to be removed: source as it contains stream login data
 	 */
@@ -3529,8 +3580,6 @@ class RevSliderSlider extends RevSliderFunctions {
 		if($lang !== 'all' && $modify === true) $slider->change_language($lang);
 		
 		$slider_id		= $slider->get_id();
-		$modify_allow	= array('excerptLimit', 'maxPosts', 'maxProducts', 'count');
-		$modify_sources	= array('post', 'specific_posts', 'specific_post', 'woo', 'woocommerce', 'instagram', 'facebook', 'flickr', 'twitter', 'vimeo', 'youtube');
 		$modify_setting	= ($slider->v7) ? 'settings' : 'slider_params';
 		$type			= ($slider->v7) ? $slider->get_param('type') : $slider->get_param('type');
 		$hero			= ($type === 'hero') ? true : false;
@@ -3650,18 +3699,7 @@ class RevSliderSlider extends RevSliderFunctions {
 			}
 		}
 
-		if($modify === true && isset($obj[$modify_setting]['source'])){ //make sure to have the source overwritten for streams, if we are not in backend
-			$source = $obj[$modify_setting]['source'];
-			$obj[$modify_setting]['source'] = array('type' => $this->get_val($obj, array($modify_setting, 'source', 'type')));
-			foreach($modify_sources as $m_source){
-				if(!isset($source[$m_source])) continue;
-				foreach($modify_allow as $allow){
-					if(!isset($source[$m_source][$allow])) continue;
-
-					$obj[$modify_setting]['source'][$m_source][$allow] = $source[$m_source][$allow];
-				}
-			}
-		}
+		if($modify === true) $obj = $this->modify_slider_data($obj, $modify_setting); //make sure to have the source overwritten for streams, if we are not in backend
 		
 		$obj['addOns'] = array();
 		

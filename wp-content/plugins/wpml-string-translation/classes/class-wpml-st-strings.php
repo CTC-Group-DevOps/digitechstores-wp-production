@@ -2,6 +2,7 @@
 
 use WPML\API\Sanitize;
 use WPML\ST\TranslationFile\StringCollation;
+use WPML\ST\StringValue;
 
 class WPML_ST_Strings {
 	use StringCollation;
@@ -11,6 +12,8 @@ class WPML_ST_Strings {
 	private $sitepress;
 	private $wp_query;
 	private $wpdb;
+
+	private $has_text_usable = null;
 
 	public function __construct( $sitepress, $wpdb, $wp_query ) {
 		$this->wpdb      = $wpdb;
@@ -28,8 +31,6 @@ class WPML_ST_Strings {
 
 		$status_filter = isset( $_GET['status'] ) ? (int) $_GET['status'] : false;
 
-		$translation_priority = isset( $_GET['translation-priority'] ) ? $_GET['translation-priority'] : false;
-
 		if ( false !== $status_filter ) {
 			if ( ICL_TM_COMPLETE === $status_filter ) {
 				$extra_cond .= ' AND s.status = ' . ICL_TM_COMPLETE;
@@ -41,15 +42,6 @@ class WPML_ST_Strings {
 				$extra_cond .= ' AND s.status IN (' . ICL_STRING_TRANSLATION_PARTIAL . ',' . ICL_TM_NEEDS_UPDATE . ',' . ICL_TM_NOT_TRANSLATED . ',' . ICL_TM_WAITING_FOR_TRANSLATOR . ')';
 			} elseif ( ICL_TM_WAITING_FOR_TRANSLATOR !== $status_filter ) {
 				$extra_cond .= ' AND s.status IN (' . ICL_STRING_TRANSLATION_PARTIAL . ',' . ICL_TM_NEEDS_UPDATE . ',' . ICL_TM_NOT_TRANSLATED . ',' . ICL_TM_WAITING_FOR_TRANSLATOR . ')';
-			}
-		}
-
-		if ( false !== $translation_priority ) {
-			$esc_translation_priority = esc_sql( $translation_priority );
-			if ( __( 'Optional', 'sitepress' ) === $translation_priority ) {
-				$extra_cond .= " AND s.translation_priority IN ( '" . $esc_translation_priority . "', '' ) ";
-			} else {
-				$extra_cond .= " AND s.translation_priority = '" . $esc_translation_priority . "' ";
 			}
 		}
 
@@ -88,7 +80,7 @@ class WPML_ST_Strings {
 			}
 
 			if ( $this->is_troubleshooting_filter_enabled() ) {
-				$joins[] = ' INNER JOIN  ' . $this->wpdb->prefix . 'icl_translate it ON it.field_data_translated = sp.name and it.field_type="original_id"';
+				$joins[] = ' INNER JOIN  ' . $this->wpdb->prefix . "icl_translate it ON it.field_data_translated = sp.name and it.field_type='original_id'";
 			}
 		}
 
@@ -124,7 +116,7 @@ class WPML_ST_Strings {
 			}
 		}
 
-		return WPML\ST\Basket\Status::add( $string_translations, array_keys( $active_languages ) );
+		return $string_translations;
 	}
 
 	private function get_context() {
@@ -254,7 +246,7 @@ class WPML_ST_Strings {
 			FROM {$this->wpdb->prefix}icl_strings s
 			{$join_clause}
 			{$extra_sql}
-			WHERE 1 {$extra_cond} AND TRIM(s.value) <> ''
+			WHERE 1 {$extra_cond} {$this->filter_empty_value()}
 			{$excluded_package_condition}
 			GROUP BY context {$this->getCollateForContextColumn( $this->wpdb )}
 			ORDER BY context ASC
@@ -282,7 +274,7 @@ class WPML_ST_Strings {
 
 		$not_sql             = $is_exclusive ? 'NOT' : '';
 		$check_sp_id_text    = $is_exclusive ? '  OR s.string_package_id IS NULL ' : '';
-		$not_selected_string = "'" . implode( "', '", $not_selected ) . "'";
+		$not_selected_string = wpml_prepare_in( $not_selected, '%s' );
 		$sql                 = " AND (sp.kind {$not_sql} IN ( {$not_selected_string} ) {$check_sp_id_text}) ";
 
 		return $sql;
@@ -315,11 +307,21 @@ class WPML_ST_Strings {
 	}
 
 	private function filter_empty_value() {
-		return " AND TRIM(s.value) <> ''";
+		return $this->has_text_is_usable()
+			? ' AND s.has_text = 1'
+			: " AND TRIM(s.value) <> ''";
+	}
+
+	private function has_text_is_usable() {
+		if ( null === $this->has_text_usable ) {
+			$this->has_text_usable = StringValue::isReady();
+		}
+
+		return $this->has_text_usable;
 	}
 
 	private function order_limits( $offset, $limit ) {
-		return "  ORDER BY string_id DESC LIMIT {$offset},{$limit}";
+		return '  ORDER BY string_id DESC LIMIT ' . (int) $offset . ',' . (int) $limit;
 	}
 
 	private function set_pagination_counts( $limit, $num_rows ) {
@@ -331,7 +333,7 @@ class WPML_ST_Strings {
 	}
 
 	private function build_sql_start( $selects = array(), $joins = array() ) {
-		array_unshift( $selects, 'DISTINCT s.id AS string_id, s.language AS string_language, s.string_package_id, s.context, s.gettext_context, s.name, s.value, s.status AS status, s.translation_priority' );
+		array_unshift( $selects, 'DISTINCT s.id AS string_id, s.language AS string_language, s.string_package_id, s.context, s.gettext_context, s.name, s.value, s.status AS status' );
 
 		return 'SELECT ' . implode( ', ', $selects ) . " FROM {$this->wpdb->prefix}icl_strings s " . implode( PHP_EOL, $joins ) . ' ';
 	}
@@ -371,7 +373,7 @@ class WPML_ST_Strings {
 	}
 
 	private function is_troubleshooting_filter_enabled() {
-		return '1' === array_key_exists( 'troubleshooting', $_GET ) && $_GET['troubleshooting'];
+		return (bool) filter_input( INPUT_GET, 'troubleshooting', FILTER_VALIDATE_BOOLEAN );
 	}
 
 	private function must_show_all_results() {

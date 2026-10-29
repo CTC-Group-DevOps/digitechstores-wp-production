@@ -38,12 +38,12 @@ class WPML_TM_Old_Editor implements IWPML_Action {
 			}
 
 			if ( WPML_TM_Editors::WPML === $old_editor && $this->is_ate_enabled_and_manager_wizard_completed() ) {
-				$text   = __( 'You activated the Advanced Translation Editor for this site, but you are updating an old translation. WPML opened the Standard Translation Editor, so you can update this translation. When you translate new content, you\'ll get the Advanced Translation Editor with all its features. To change your settings, go to WPML Settings.', 'sitepress' );
+				$text   = __( 'You activated the <b>Advanced Translation Editor</b> for this site, but you are updating an old translation. WPML opened the Standard Translation Editor, so you can update this translation. When you translate new content, you\'ll get the <b>Advanced Translation Editor</b> with all its features. To change your settings, go to WPML Settings.', 'sitepress' );
 				$notice = new WPML_Notice( self::NOTICE_ID, $text, self::NOTICE_GROUP );
 				$notice->set_css_class_types( 'notice-info' );
 				$notice->set_dismissible( true );
 				$notice->add_display_callback( 'WPML_TM_Page::is_translation_editor_page' );
-				wpml_get_admin_notices()->add_notice( $notice, true );
+				wpml_get_admin_notices()->add_notice( $notice );
 			} else {
 				wpml_get_admin_notices()->remove_notice( self::NOTICE_GROUP, self::NOTICE_ID );
 			}

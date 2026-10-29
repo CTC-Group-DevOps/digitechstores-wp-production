@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Blocks Compatibility.
  *
- * @version 6.15.0
+ * @version 8.5.16
  */
 class WC_PB_Blocks_Compatibility {
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

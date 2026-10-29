@@ -3,7 +3,7 @@
 namespace WPML\Upgrade\Commands;
 
 use WPML\Core\BackgroundTask\Model\BackgroundTask;
-use SitePress_Setup;
+use WPML\Upgrade\CreateTable;
 
 class CreateBackgroundTaskTable implements \IWPML_Upgrade_Command {
 
@@ -40,8 +40,7 @@ class CreateBackgroundTaskTable implements \IWPML_Upgrade_Command {
 	}
 
 	public static function create_table_if_not_exists( $wpdb ) {
-		$table_name      = $wpdb->prefix . BackgroundTask::TABLE_NAME;
-		$charset_collate = SitePress_Setup::get_charset_collate();
+		$table_name = $wpdb->prefix . BackgroundTask::TABLE_NAME;
 
 		$query = "
 			CREATE TABLE IF NOT EXISTS `{$table_name}` (
@@ -51,13 +50,13 @@ class CreateBackgroundTaskTable implements \IWPML_Upgrade_Command {
 				`starting_date` DATETIME NULL,
 				`total_count` INT UNSIGNED NOT NULL DEFAULT 0,
 				`completed_count` INT UNSIGNED NOT NULL DEFAULT 0,
-				`completed_ids` TEXT NULL DEFAULT NULL,
-				`payload` TEXT NULL DEFAULT NULL,
+				`completed_ids` LONGTEXT NULL DEFAULT NULL,
+				`payload` LONGTEXT NULL DEFAULT NULL,
 				`retry_count` SMALLINT UNSIGNED NOT NULL DEFAULT 0
-			) {$charset_collate};
+			)
 		";
 
-		return $wpdb->query( $query );
+		return CreateTable::create( $wpdb, $table_name, $query );
 	}
 
 }

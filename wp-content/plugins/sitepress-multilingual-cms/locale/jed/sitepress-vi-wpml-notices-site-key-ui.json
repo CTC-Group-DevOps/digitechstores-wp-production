@@ -14,7 +14,7 @@
             "Khóa trang web:"
          ],
          "Enter your site key here": [
-            "Nhập khóa trang web của bạn vào đây"
+            "Nhập khóa trang web của bạn tại đây"
          ],
          "Registering...": [
             "Đang đăng ký..."
@@ -35,7 +35,7 @@
             "Trang sẽ tải lại sau %d giây..."
          ],
          "Registration failed. Please try again.": [
-            "Đăng ký không thành công. Vui lòng thử lại."
+            "Đăng ký thất bại. Vui lòng thử lại."
          ]
       }
    }

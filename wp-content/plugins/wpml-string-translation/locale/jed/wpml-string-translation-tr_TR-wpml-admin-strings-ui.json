@@ -8,10 +8,10 @@
             "lang": "tr_TR"
          },
          "Not included in String Translation": [
-            "Dize Çevirisine dahil değil"
+            "Dizgi Çevirisi'ne dahil değil"
          ],
          "Registered and locked": [
-            "Kaydedildi ve kilitlendi"
+            "Kayıtlı ve kilitli"
          ],
          "Text": [
             "Metin"
@@ -29,19 +29,19 @@
             "İletişim hatası"
          ],
          "The action failed.": [
-            "Eylem başarısız oldu."
+            "İşlem başarısız oldu."
          ],
          "All (%d)": [
-            "Tüm (%d)"
+            "Tümü (%d)"
          ],
          "Included in String Translation (%d)": [
-            "Dize çevirisine dahil (%d)"
+            "Dizgi çevirisine dahil edilenler (%d)"
          ],
          "Not included in String Translation (%d)": [
-            "Dize Çevirisine dahil değil (%d)"
+            "Dizgi Çevirisi'ne dahil edilmeyenler (%d)"
          ],
          "This setting is locked by a WPML configuration file.": [
-            "Bu ayar bir WPML yapılandırma dosyası tarafından kilitlenmiştir."
+            "Bu ayar bir WPML yapılandırma dosyası tarafından kilitlenmiş."
          ],
          "Option": [
             "Seçenek"
@@ -62,22 +62,22 @@
             "İptal"
          ],
          "Save the following to a wpml-config.xml in the root of your theme or plugin.": [
-            "Aşağıdakileri temanızın veya eklentinizin kök dizinindeki wpml-config.xml dosyasına kaydedin."
+            "Aşağıdakileri temanızın veya eklentinizin kök dizinindeki bir wpml-config.xml dosyasına kaydedin."
          ],
          "No options found.": [
-            "Seçenek bulunamadı."
+            "Hiçbir seçenek bulunamadı."
          ],
          "Make sure you saved your theme options at least once. Some themes only add these to the wp_options table after the user explicitly saves changes to the theme defaults.": [
-            "Tema seçeneklerinizi en az bir kez kaydettiğinizden emin olun. Bazı temalar bunları yalnızca kullanıcı tema varsayılanlarında yapılan değişiklikleri açıkça kaydettikten sonra wp_options tablosuna ekler."
+            "Tema seçeneklerinizi en az bir kez kaydettiğinizden emin olun. Bazı temalar bunları wp_options tablosuna ancak kullanıcı tema varsayılanlarında yapılan değişiklikleri açıkça kaydettikten sonra ekler."
          ],
          "Add to String Translation": [
-            "Dize çevirisine ekle"
+            "Dizgi çevirisine ekle"
          ],
          "Remove from String Translation": [
-            "Dize çevirisinden kaldır"
+            "Dizgi çevirisinden kaldır"
          ],
          "Included in String Translation": [
-            "Dize çevirisine dahil"
+            "Dizgi çevirisine dahil edildi"
          ]
       }
    }

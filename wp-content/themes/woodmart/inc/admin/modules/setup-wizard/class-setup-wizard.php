@@ -29,7 +29,7 @@ class Setup_Wizard extends Singleton {
 	 * Constructor.
 	 */
 	public function init() {
-		if ( isset( $_GET['skip_setup'] ) ) { // phpcs:ignore WordPress.Security
+		if ( isset( $_GET['skip_setup'] ) && current_user_can( 'manage_options' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			update_option( 'woodmart_setup_status', 'done', false );
 		}
 
@@ -261,7 +261,7 @@ class Setup_Wizard extends Singleton {
 	 * Set page builder.
 	 */
 	public function set_page_builder() {
-		if ( ! $this->is_setup() || ! isset( $_GET['step'] ) || 'plugins' !== $_GET['step'] || ! isset( $_GET['wd_builder'] ) ) { // phpcs:ignore
+		if ( ! current_user_can( 'manage_options' ) || ! $this->is_setup() || ! isset( $_GET['step'] ) || 'plugins' !== $_GET['step'] || ! isset( $_GET['wd_builder'] ) ) { // phpcs:ignore
 			return;
 		}
 
@@ -275,6 +275,9 @@ class Setup_Wizard extends Singleton {
 			if ( 'gutenberg' !== $builder ) {
 				$xts_woodmart_options['current_builder']               = 'external';
 				$xts_woodmart_options['enable_gutenberg_for_products'] = false;
+			} else {
+				$xts_woodmart_options['current_builder']               = 'native';
+				$xts_woodmart_options['enable_gutenberg_for_products'] = true;
 			}
 
 			$options->update_options( $xts_woodmart_options );

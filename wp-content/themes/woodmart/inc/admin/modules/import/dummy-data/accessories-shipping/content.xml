@@ -36,8 +36,8 @@
 															<wp:post_id>28</wp:post_id>
 					<wp:post_date><![CDATA[2022-08-18 12:03:22]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2022-08-18 12:03:22]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2023-08-28 09:05:48]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2023-08-28 09:05:48]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-23 10:36:39]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-23 10:36:39]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[shipping]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -66,7 +66,7 @@
 						</wp:postmeta>
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[woodmart_shortcodes_custom_css]]></wp:meta_key>
-							<wp:meta_value><![CDATA[.wd-rs-64ec635ca0a8e.wd-el-video{height: 400px !important;}#wd-626fe0f173ff5 .title-subtitle{line-height:25px;font-size:15px;}@media (max-width: 1199px) {.website-wrapper .wd-rs-626a4f29e5091{margin-bottom:40px !important;}.website-wrapper .wd-rs-626a3da7dbe7d{margin-bottom:40px !important;}.website-wrapper .wd-rs-626a3dad76441{margin-bottom:20px !important;}.website-wrapper .wd-rs-6329d8aa9e3f9{margin-right:-120px !important;}#wd-626fe0f173ff5 .title-subtitle{line-height:23px;font-size:13px;}}@media (max-width: 767px) {.website-wrapper .wd-rs-626a4f29e5091{padding-top:90px !important;}.website-wrapper .wd-rs-626a49065dac2{margin-bottom:40px !important;}.website-wrapper .wd-rs-6329d8aa9e3f9{margin-right:0px !important;}#wd-626fe0f173ff5 .title-subtitle{line-height:22px;font-size:12px;}}]]></wp:meta_value>
+							<wp:meta_value><![CDATA[.wd-rs-64ec635ca0a8e.wd-el-video{height: 400px !important;}#wd-626fe0f173ff5 .title-subtitle{line-height:25px;font-size:15px;}@media (max-width: 1199.98px) {html .wd-rs-626a4f29e5091{margin-bottom:40px !important;}html .wd-rs-626a3da7dbe7d{margin-bottom:40px !important;}html .wd-rs-626a3dad76441{margin-bottom:20px !important;}html .wd-rs-6329d8aa9e3f9{margin-right:-120px !important;}#wd-626fe0f173ff5 .title-subtitle{line-height:23px;font-size:13px;}}@media (max-width: 767.98px) {html .wd-rs-626a4f29e5091{padding-top:90px !important;}html .wd-rs-626a49065dac2{margin-bottom:40px !important;}html .wd-rs-6329d8aa9e3f9{margin-right:0px !important;}#wd-626fe0f173ff5 .title-subtitle{line-height:22px;font-size:12px;}}]]></wp:meta_value>
 						</wp:postmeta>
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>

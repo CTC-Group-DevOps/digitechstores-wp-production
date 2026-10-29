@@ -1,7 +1,15 @@
 <?php
 
+use WPML\XMLConfig\Log\NoticeDismissal;
+
 class WPML_Config_Update_Log implements WPML_Log {
 	const OPTION_NAME = 'wpml-xml-config-update-log';
+
+	private $notice_dismissal;
+
+	public function __construct( ?NoticeDismissal $notice_dismissal = null ) {
+		$this->notice_dismissal = $notice_dismissal ?: new NoticeDismissal();
+	}
 
 	public function get( $page_size = 0, $page = 0 ) {
 		$data = get_option( self::OPTION_NAME );
@@ -25,6 +33,7 @@ class WPML_Config_Update_Log implements WPML_Log {
 
 	public function clear() {
 		$this->save( array() );
+		$this->notice_dismissal->forget();
 	}
 
 	public function save( array $data ) {
@@ -60,10 +69,20 @@ class WPML_Config_Update_Log implements WPML_Log {
 	}
 
 	public function get_log_url() {
-		return add_query_arg( array( 'page' => self::get_support_page_log_section() ), get_admin_url( null, 'admin.php#xml-config-log' ) );
+		return add_query_arg(
+			array(
+				'page' => self::get_support_page_log_section(),
+				'tool' => self::get_support_page_log_tool(),
+			),
+			get_admin_url( null, 'admin.php' )
+		);
 	}
 
 	public static function get_support_page_log_section() {
 		return WPML_PLUGIN_FOLDER . '/menu/support.php';
+	}
+
+	public static function get_support_page_log_tool() {
+		return 'remote-xml-config-log';
 	}
 }

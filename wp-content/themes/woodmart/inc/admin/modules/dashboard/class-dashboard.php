@@ -694,7 +694,7 @@ class Dashboard extends Singleton {
 
 		$current_page      = isset( $_GET['page'] ) ? wp_unslash( $_GET['page'] ) : ''; // phpcs:ignore
 		$current_post_type = isset( $_GET['post_type'] ) ? wp_unslash( $_GET['post_type'] ) : ''; // phpcs:ignore
-		$builder           = 'native' === woodmart_get_opt( 'current_builder', 'native' ) ? 'gutenberg' : woodmart_get_current_page_builder();
+		$builder           = 'native' === woodmart_get_opt( 'current_builder' ) ? 'gutenberg' : woodmart_get_current_page_builder();
 		$classes          .= ' xts-builder-' . $builder;
 
 		if ( in_array( $current_page, $this->get_allowed_pages(), true ) || ( ( 'edit.php' === $hook_suffix || 'edit-tags.php' === $hook_suffix ) && in_array( $current_post_type, $this->get_allowed_post_types(), true ) ) ) {

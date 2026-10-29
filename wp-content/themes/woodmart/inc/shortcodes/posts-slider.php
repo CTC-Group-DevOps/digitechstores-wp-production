@@ -427,7 +427,7 @@ if ( ! function_exists( 'woodmart_carousel_query_item' ) ) {
 			setup_postdata( $post );
 		}
 
-		if ( get_option( 'woocommerce_hide_out_of_stock_items' ) === 'yes' && ! $product && is_object( $post ) ) {
+		if ( woodmart_woocommerce_installed() && get_option( 'woocommerce_hide_out_of_stock_items' ) === 'yes' && ! $product && is_object( $post ) ) {
 			$product = wc_get_product( $post->ID );
 
 			// Duplicate condition from content-product.php to remove the SLIDE wrapper.

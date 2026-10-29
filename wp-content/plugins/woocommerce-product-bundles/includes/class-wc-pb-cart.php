@@ -17,21 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Cart {
 	/**
 	 * Validation context for 'validate_bundle_configuration'.
 	 * Possible values: 'add-to-cart'|'add-to-order'|'cart'.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $validation_context = null;
 
 	/**
 	 * Flag to avoid infinite loops when removing a bundle parent via a child.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $removing_container_key = null;
 
@@ -39,7 +39,7 @@ class WC_PB_Cart {
 	 * The single instance of the class.
 	 *
 	 * @since 5.0.0
-	 * @var WC_PB_Cart
+	 * @var WC_PB_Cart|null
 	 */
 	protected static $_instance = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
@@ -87,6 +87,7 @@ class WC_PB_Cart {
 	 * Add hooks.
 	 *
 	 * @since  6.15.0
+	 * @return void
 	 */
 	public function add_hooks() {
 
@@ -176,7 +177,7 @@ class WC_PB_Cart {
 	 *
 	 * @since  5.8.1
 	 *
-	 * @return string
+	 * @return int
 	 */
 	public function is_cart_session_loaded() {
 		return did_action( 'woocommerce_cart_loaded_from_session' );
@@ -217,7 +218,7 @@ class WC_PB_Cart {
 	 * @param  array $configuration   Bundle configuration - @see 'get_posted_bundle_configuration()'.
 	 * @param  array $cart_item_data  Custom cart item data to pass to 'WC_Cart::add_to_cart()'.
 	 *
-	 * @return string|WP_Error
+	 * @return string|bool|WP_Error
 	 */
 	public function add_bundle_to_cart( $product_id, $quantity, $configuration = array(), $cart_item_data = array() ) {
 
@@ -547,7 +548,7 @@ class WC_PB_Cart {
 	protected function configure_stamp_data( array $input_config, WC_Product $product ): array {
 		$posted_config = array();
 
-		if ( ! is_object( $product ) || ! $product->is_type( 'bundle' ) ) {
+		if ( ! $product->is_type( 'bundle' ) ) {
 			return $posted_config;
 		}
 
@@ -1415,7 +1416,7 @@ class WC_PB_Cart {
 	 * @param  array      $variation       Variation data.
 	 * @param  array      $cart_item_data  Cart item data.
 	 *
-	 * @return boolean
+	 * @return string|false
 	 */
 	private function bundled_add_to_cart( $bundle_id, $product, $quantity = 1, $variation_id = '', $variation = array(), $cart_item_data = array() ) {
 
@@ -1519,7 +1520,7 @@ class WC_PB_Cart {
 	 *
 	 * @param  string $cart_item_key  Cart item key.
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	public function is_removing_container_cart_item( $cart_item_key ) {
 		return $this->removing_container_key === $cart_item_key;
@@ -1563,6 +1564,8 @@ class WC_PB_Cart {
 
 	/**
 	 * Check bundle cart item configurations on cart load.
+	 *
+	 * @return void
 	 */
 	public function check_cart_items() {
 
@@ -2055,7 +2058,8 @@ class WC_PB_Cart {
 			}
 		}
 
-		if ( wc_pb_maybe_is_bundled_cart_item( $cart_session_item ) ) {
+		// Earlier filters can rebuild child links during Order Again.
+		if ( wc_pb_maybe_is_bundled_cart_item( $cart_item ) || wc_pb_maybe_is_bundled_cart_item( $cart_session_item ) ) {
 
 			// Load 'bundled_by' field.
 			if ( ! isset( $cart_item['bundled_by'] ) ) {
@@ -2066,7 +2070,7 @@ class WC_PB_Cart {
 				$cart_item['bundled_item_id'] = $cart_session_item['bundled_item_id'];
 			}
 
-			$bundle_container_item = wc_pb_get_bundled_cart_item_container( $cart_session_item );
+			$bundle_container_item = wc_pb_get_bundled_cart_item_container( $cart_item );
 			if ( $bundle_container_item ) {
 
 				$bundle = $bundle_container_item['data'];

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Memberships Integration: Discounts inheritance.
  *
- * @version  8.5.12
+ * @version  8.5.16
  */
 class WC_PB_Members_Compatibility {
 
@@ -50,6 +50,8 @@ class WC_PB_Members_Compatibility {
 
 	/**
 	 * Initialization.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -392,6 +394,8 @@ class WC_PB_Members_Compatibility {
 
 	/**
 	 * Enables discount filtering.
+	 *
+	 * @return void
 	 */
 	public static function enable_member_discount_inheritance() {
 		self::$inherit_member_discount = true;
@@ -399,6 +403,8 @@ class WC_PB_Members_Compatibility {
 
 	/**
 	 * Disables discount filtering.
+	 *
+	 * @return void
 	 */
 	public static function disable_member_discount_inheritance() {
 		self::$inherit_member_discount = false;

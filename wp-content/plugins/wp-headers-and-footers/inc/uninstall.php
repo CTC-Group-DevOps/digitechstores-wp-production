@@ -25,6 +25,7 @@ if ( ! is_multisite() ) {
 		delete_option( 'wpheaderandfooter_basics_logger' );
 		delete_option( 'wpheaderandfooter_active_time' );
 		delete_option( 'wpheaderandfooter_review_dismiss' );
+		delete_option( 'wpheaderandfooter_unslash_migrated' );
 	}
 
 } else {
@@ -45,6 +46,7 @@ if ( ! is_multisite() ) {
 			delete_option( 'wpheaderandfooter_basics_logger' );
 			delete_option( 'wpheaderandfooter_active_time' );
 			delete_option( 'wpheaderandfooter_review_dismiss' );
+			delete_option( 'wpheaderandfooter_unslash_migrated' );
 		}
 
 		restore_current_blog();

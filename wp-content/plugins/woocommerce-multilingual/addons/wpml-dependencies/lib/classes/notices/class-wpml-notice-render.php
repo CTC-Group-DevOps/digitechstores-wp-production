@@ -5,6 +5,47 @@ class WPML_Notice_Render {
 	private $hide_html_added;
 	private $collapse_html_added;
 
+	public static function allowed_html() {
+		$global = array(
+			'id'       => true,
+			'class'    => true,
+			'style'    => true,
+			'title'    => true,
+			'role'     => true,
+			'tabindex' => true,
+			'data-*'   => true,
+			'aria-*'   => true,
+			'dir'      => true,
+			'lang'     => true,
+		);
+
+		$allowed = array();
+		foreach ( array(
+			'p', 'div', 'span', 'strong', 'b', 'em', 'i', 'u', 's', 'small', 'mark', 'code', 'pre', 'kbd', 'samp', 'var',
+			'br', 'hr', 'ul', 'ol', 'li', 'dl', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'q', 'cite',
+			'abbr', 'sup', 'sub', 'del', 'ins', 'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td', 'caption',
+			'fieldset', 'legend',
+		) as $tag ) {
+			$allowed[ $tag ] = $global;
+		}
+
+		$allowed['a']        = $global + array( 'href' => true, 'target' => true, 'rel' => true, 'name' => true, 'download' => true );
+		$allowed['img']      = $global + array( 'src' => true, 'alt' => true, 'width' => true, 'height' => true, 'srcset' => true, 'sizes' => true, 'loading' => true );
+		$allowed['label']    = $global + array( 'for' => true );
+		$allowed['form']     = $global + array( 'action' => true, 'method' => true, 'name' => true );
+		$allowed['input']    = $global + array( 'type' => true, 'name' => true, 'value' => true, 'placeholder' => true, 'size' => true, 'disabled' => true, 'checked' => true, 'readonly' => true, 'required' => true, 'maxlength' => true, 'min' => true, 'max' => true, 'step' => true, 'autocomplete' => true );
+		$allowed['button']   = $global + array( 'type' => true, 'name' => true, 'value' => true, 'disabled' => true );
+		$allowed['select']   = $global + array( 'name' => true, 'disabled' => true, 'multiple' => true );
+		$allowed['option']   = $global + array( 'value' => true, 'selected' => true, 'disabled' => true );
+		$allowed['textarea'] = $global + array( 'name' => true, 'rows' => true, 'cols' => true, 'placeholder' => true, 'disabled' => true, 'readonly' => true );
+
+		return apply_filters( 'wpml_notice_allowed_html', $allowed );
+	}
+
+	public static function filter_html( $html ) {
+		return wp_kses( (string) $html, self::allowed_html() );
+	}
+
 	public function render( WPML_Notice $notice ) {
 		echo $this->get_html( $notice );
 	}
@@ -14,7 +55,7 @@ class WPML_Notice_Render {
 
 		if ( $this->must_display_notice( $notice ) ) {
 			if ( $notice->should_be_text_only() ) {
-				return $notice->get_text();
+				return self::filter_html( $notice->get_text() );
 			}
 
 			$actions_html = $this->get_actions_html( $notice );
@@ -25,7 +66,7 @@ class WPML_Notice_Render {
 					$temp_types[] = 'notice-' . $temp_type;
 				}
 				if ( strpos( $temp_type, 'notice-' ) === 0 ) {
-					$temp_types[] = substr( $temp_type, 0, strlen( 'notice-' ) );
+					$temp_types[] = substr( $temp_type, strlen( 'notice-' ) );
 				}
 			}
 			$temp_classes = $notice->get_css_classes();
@@ -42,11 +83,11 @@ class WPML_Notice_Render {
 
 			$class = implode( ' ', $classes );
 
-			$result .= '<div class="' . $class . '" data-id="' . esc_attr( $notice->get_id() ) . '" data-group="' . esc_attr( $notice->get_group() ) . '"';
+			$result .= '<div class="' . esc_attr( $class ) . '" data-id="' . esc_attr( (string) $notice->get_id() ) . '" data-group="' . esc_attr( $notice->get_group() ) . '"';
 			$result .= $this->get_data_nonce_attribute();
 
 			if ( $this->hide_html_added || $notice->can_be_hidden() ) {
-				$result .= ' data-hide-text="' . __( 'Hide', 'sitepress' ) . '" ';
+				$result .= ' data-hide-text="' . esc_attr__( 'Hide', 'sitepress' ) . '" ';
 			}
 			$result .= '>';
 
@@ -89,11 +130,15 @@ class WPML_Notice_Render {
 	}
 
 	public function must_display_notice( WPML_Notice $notice ) {
-		if ( ! $notice->is_for_current_user() || ! $notice->is_user_cap_allowed() ) {
+		try {
+			if ( ! $notice->is_for_current_user() || ! $notice->is_user_cap_allowed() ) {
+				return false;
+			}
+
+			return $this->is_current_page_allowed( $notice ) && $this->is_allowed_by_callback( $notice );
+		} catch ( \Throwable $e ) {
 			return false;
 		}
-
-		return $this->is_current_page_allowed( $notice ) && $this->is_allowed_by_callback( $notice );
 	}
 
 	private function get_actions_html( WPML_Notice $notice ) {
@@ -113,6 +158,7 @@ class WPML_Notice_Render {
 	}
 
 	private function sanitize_and_format_text( $text ) {
+		$text              = (string) $text;
 		$backticks_pattern = '|`(.*)`|U';
 		preg_match_all( $backticks_pattern, $text, $matches );
 
@@ -128,55 +174,45 @@ class WPML_Notice_Render {
 			$sanitized_notice = str_replace( $matches[0], $matches_to_sanitize, $sanitized_notice );
 		}
 
-		return stripslashes( $sanitized_notice );
+		return self::filter_html( stripslashes( $sanitized_notice ) );
 	}
 
 	private function get_hide_html( $localized_text = null ) {
-		$hide_html  = '';
-		$hide_html .= '<span class="otgs-notice-hide notice-hide"><span class="screen-reader-text">';
-		if ( $localized_text ) {
-			$hide_html .= esc_html( $localized_text );
-		} else {
-			$hide_html .= esc_html__( 'Hide this notice.', 'sitepress' );
-		}
-		$hide_html .= '</span></span>';
+		return $this->get_control_html(
+			'otgs-notice-hide notice-hide',
+			esc_html__( 'Hide this notice.', 'sitepress' ),
+			$localized_text
+		);
+	}
 
-		return $hide_html;
+	private function get_control_html( $class, $default_text, $localized_text = null ) {
+		return '<button type="button" class="' . esc_attr( $class ) . '">'
+			. '<span class="screen-reader-text">'
+			. ( $localized_text ? esc_html( $localized_text ) : $default_text )
+			. '</span></button>';
 	}
 
 	private function get_dismiss_html( $localized_text = null ) {
-		$dismiss_html  = '';
-		$dismiss_html .= '<span class="otgs-notice-dismiss notice-dismiss">';
-		$dismiss_html .= '<span class="screen-reader-text"><input class="otgs-notice-dismiss-check" type="checkbox" value="1" />';
-		if ( $localized_text ) {
-			$dismiss_html .= esc_html( $localized_text );
-		} else {
-			$dismiss_html .= esc_html__( 'Dismiss this notice.', 'sitepress' );
-		}
-		$dismiss_html .= '</span></span>';
-
-		return $dismiss_html;
+		return $this->get_control_html(
+			'otgs-notice-dismiss notice-dismiss',
+			esc_html__( 'Dismiss this notice.', 'sitepress' ),
+			$localized_text
+		);
 	}
 
 	private function get_collapse_html( $localized_text = null ) {
-		$hide_html = '<span class="otgs-notice-collapse-hide"><span class="screen-reader-text">';
-		if ( $localized_text ) {
-			$hide_html .= esc_html( $localized_text );
-		} else {
-			$hide_html .= esc_html__( 'Hide this notice.', 'sitepress' );
-		}
-		$hide_html .= '</span></span>';
-
-		return $hide_html;
+		return $this->get_control_html(
+			'otgs-notice-collapse-hide',
+			esc_html__( 'Hide this notice.', 'sitepress' ),
+			$localized_text
+		);
 	}
 
 	private function get_collapsed_html( WPML_Notice $notice, $localized_text = null ) {
 		$content = '
 			<div class="otgs-notice-collapsed-text">
-				<p>%s 
-					<span class="otgs-notice-collapse-show notice-collapse"><span class="screen-reader-text">
+				<p>%s
 					%s
-					</span></span>
 				</p>
 			</div>
 			<div class="otgs-notice-collapse-text">
@@ -186,9 +222,13 @@ class WPML_Notice_Render {
 
 		$content = sprintf(
 			$content,
-			$notice->get_collapsed_text(),
-			$localized_text ? esc_html( $localized_text ) : esc_html__( 'Show this notice.', 'sitepress' ),
-			$notice->get_text()
+			self::filter_html( $notice->get_collapsed_text() ),
+			$this->get_control_html(
+				'otgs-notice-collapse-show notice-collapse',
+				esc_html__( 'Show this notice.', 'sitepress' ),
+				$localized_text
+			),
+			self::filter_html( $notice->get_text() )
 		);
 
 		return $content;
@@ -206,7 +246,7 @@ class WPML_Notice_Render {
 			if ( $action->get_url() ) {
 				$action_html .= $this->get_action_anchor( $action );
 			} else {
-				$action_html .= $action->get_text();
+				$action_html .= self::filter_html( $action->get_text() );
 			}
 		}
 
@@ -229,28 +269,27 @@ class WPML_Notice_Render {
 			if ( is_string( $action->must_display_as_button() ) ) {
 				$button_style = $action->must_display_as_button();
 			}
-			$action_url_classes[] = esc_attr( $button_style );
-			$action_url_classes[] = 'notice-action-' . esc_attr( $button_style );
+			$action_url_classes[] = $button_style;
+			$action_url_classes[] = 'notice-action-' . $button_style;
 		} else {
 			$action_url_classes[] = 'notice-action-link';
 		}
 		$anchor_attributes['class'] = implode( ' ', $action_url_classes );
 
 		if ( $action->get_group_to_dismiss() ) {
-			$anchor_attributes['data-dismiss-group'] = esc_attr( $action->get_group_to_dismiss() );
+			$anchor_attributes['data-dismiss-group'] = $action->get_group_to_dismiss();
 		}
 		if ( $action->get_js_callback() ) {
-			$anchor_attributes['data-js-callback'] = esc_attr( $action->get_js_callback() )
-													 . '"';
+			$anchor_attributes['data-js-callback'] = $action->get_js_callback();
 		}
 
 		foreach ( $anchor_attributes as $name => $value ) {
-			$action_url .= ' ' . $name . '="' . $value . '"';
+			$action_url .= ' ' . $name . '="' . esc_attr( $value ) . '"';
 		}
 
 		$action_url .= $this->get_data_nonce_attribute();
 		$action_url .= '>';
-		$action_url .= $action->get_text();
+		$action_url .= self::filter_html( $action->get_text() );
 		$action_url .= '</a>';
 
 		return $action_url;
@@ -289,7 +328,7 @@ class WPML_Notice_Render {
 	}
 
 	private function is_current_page_allowed( WPML_Notice $notice ) {
-		$current_page = array_key_exists( 'page', $_GET ) ? $_GET['page'] : null;
+		$current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
 		if ( ! $this->is_current_screen_allowed( $notice ) ) {
 			return false;

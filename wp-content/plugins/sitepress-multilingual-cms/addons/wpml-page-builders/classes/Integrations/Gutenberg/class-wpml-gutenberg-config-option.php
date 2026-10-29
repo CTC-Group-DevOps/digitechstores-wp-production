@@ -20,17 +20,12 @@ class WPML_Gutenberg_Config_Option {
 
 		if ( isset( $config_data['wpml-config']['gutenberg-blocks']['gutenberg-block'] ) ) {
 			foreach ( $config_data['wpml-config']['gutenberg-blocks']['gutenberg-block'] as $block_config ) {
-				$block_name            = self::get_block_name( $block_config );
-				$blocks[ $block_name ] = [];
-
 				if ( '1' === $block_config['attr']['translate'] ) {
 					$blocks = $this->add_block_xpaths( $blocks, $block_config );
 					$blocks = $this->add_block_attribute_keys( $blocks, $block_config );
 					$blocks = $this->add_block_label( $blocks, $block_config );
-
-					if ( ! $blocks[ $block_name ] ) {
-						unset( $blocks[ $block_name ] );
-					}
+				} else {
+					$blocks[ self::get_block_name( $block_config ) ] = [];
 				}
 
 				$ids_in_blocks   = $this->add_ids_in_block_xpath( $ids_in_blocks, $block_config );
@@ -61,7 +56,8 @@ class WPML_Gutenberg_Config_Option {
 			}
 
 			if ( $xpaths_config ) {
-				$blocks[ $block_name ]['xpath'] = $xpaths_config;
+				$earlier                        = isset( $blocks[ $block_name ]['xpath'] ) ? $blocks[ $block_name ]['xpath'] : [];
+				$blocks[ $block_name ]['xpath'] = array_values( array_unique( array_merge( $earlier, $xpaths_config ), SORT_REGULAR ) );
 			}
 		}
 
@@ -95,7 +91,9 @@ class WPML_Gutenberg_Config_Option {
 			$keys = $this->cleanup_to_include_key( $keys );
 
 			if ( $keys ) {
-				$blocks[ self::get_block_name( $block_config ) ]['key'] = $keys;
+				$block_name                   = self::get_block_name( $block_config );
+				$earlier                      = isset( $blocks[ $block_name ]['key'] ) ? $blocks[ $block_name ]['key'] : [];
+				$blocks[ $block_name ]['key'] = array_replace_recursive( $earlier, $keys );
 			}
 		}
 

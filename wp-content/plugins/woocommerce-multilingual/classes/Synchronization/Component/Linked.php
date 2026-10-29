@@ -6,7 +6,7 @@ class Linked extends SynchronizerForMeta {
 
 	const LINKED_META_KEYS = [
 		'_upsell_ids',
-		'_cross_sell_ids',
+		'_crosssell_ids',
 		'_children',
 	];
 

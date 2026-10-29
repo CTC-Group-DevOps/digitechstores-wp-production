@@ -7,29 +7,29 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "he_IL"
          },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "לפני שתמשיך, אנו ממליצים לקרוא את שני העמודים האלה:"
+         ],
          "How Browser Language Redirect Affects Google Indexing": [
-            "כיצד הפניית שפת הדפדפן משפיעה על אינדוקס גוגל"
+            "כיצד הפנייה לפי שפת דפדפן משפיעה על האינדוקס של Google"
          ],
          "Documentation": [
             "תיעוד"
          ],
          "Browser redirect affects Google indexing and search results": [
-            "הפניית דפדפן משפיעה על אינדוקס גוגל ועל תוצאות החיפוש"
+            "הפנייה לפי שפת דפדפן משפיעה על האינדוקס ותוצאות החיפוש ב-Google"
          ],
          "Got it, activate anyway": [
             "הבנתי, הפעל בכל זאת"
          ],
          "Cancel": [
-            "ביטול"
+            "בטל"
          ],
          "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
-            "כאשר אתה מפנה מבקרים על בסיס השפה שלהם, אתה מפנה גם את גוגל. גוגל רוצה לראות את האתר שלך בדיוק כפי שהמבקרים רואים אותו, כולל כל ההפניות שאתה מיישם."
+            "כאשר אתה מפנה מבקרים על סמך השפה שלהם, אתה מפנה גם את Google. ‏Google רוצה לראות את האתר שלך בדיוק כפי שהמבקרים רואים אותו, כולל כל ההפניות שאתה מחיל."
          ],
          "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
-            "מותר להפנות מבקרים על בסיס השפה שלהם, אך עליך להבין שתכונה זו משפיעה על SEO."
-         ],
-         "Before proceeding, we recommend that you read these two pages:": [
-            "לפני שתמשיך, אנו ממליצים לקרוא את שני העמודים הבאים:"
+            "זה בסדר להפנות מבקרים על סמך השפה שלהם, אך עליך להבין שתכונה זו משפיעה על ה-SEO."
          ]
       }
    }

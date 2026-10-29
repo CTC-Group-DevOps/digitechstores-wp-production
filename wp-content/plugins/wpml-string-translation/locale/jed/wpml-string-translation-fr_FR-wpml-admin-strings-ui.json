@@ -29,7 +29,7 @@
             "Erreur de communication"
          ],
          "The action failed.": [
-            "L’action a échoué."
+            "L'action a échoué."
          ],
          "All (%d)": [
             "Tous (%d)"
@@ -62,13 +62,13 @@
             "Annuler"
          ],
          "Save the following to a wpml-config.xml in the root of your theme or plugin.": [
-            "Enregistrez ce qui suit dans un fichier wpml-config.xml à la racine de votre thème ou extension."
+            "Enregistrez ce qui suit dans un fichier wpml-config.xml à la racine de votre thème ou de votre extension."
          ],
          "No options found.": [
             "Aucune option trouvée."
          ],
          "Make sure you saved your theme options at least once. Some themes only add these to the wp_options table after the user explicitly saves changes to the theme defaults.": [
-            "Assurez-vous d’avoir enregistré les options de votre thème au moins une fois. Certains thèmes ne les ajoutent à la table wp_options qu’après que l’utilisateur a explicitement enregistré les modifications apportées aux valeurs par défaut du thème."
+            "Assurez-vous d'avoir enregistré les options de votre thème au moins une fois. Certains thèmes ne les ajoutent à la table wp_options qu'après que l'utilisateur a explicitement enregistré les modifications apportées aux valeurs par défaut du thème."
          ],
          "Add to String Translation": [
             "Ajouter à la traduction de chaînes"

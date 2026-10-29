@@ -7,14 +7,17 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "de_DE"
          },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "Bevor Du fortfährst, empfehlen wir Dir, diese beiden Seiten zu lesen:"
+         ],
          "How Browser Language Redirect Affects Google Indexing": [
-            "Wie die Browser-Sprachumleitung die Google-Indexierung beeinflusst"
+            "Wie sich die Browser-Sprachumleitung auf die Google-Indizierung auswirkt"
          ],
          "Documentation": [
             "Dokumentation"
          ],
          "Browser redirect affects Google indexing and search results": [
-            "Browser-Umleitung beeinflusst Google-Indexierung und Suchergebnisse"
+            "Die Browser-Umleitung beeinflusst die Google-Indizierung und die Suchergebnisse"
          ],
          "Got it, activate anyway": [
             "Verstanden, trotzdem aktivieren"
@@ -23,13 +26,10 @@
             "Abbrechen"
          ],
          "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
-            "Wenn Sie Besucher basierend auf ihrer Sprache umleiten, leiten Sie auch Google um. Google möchte Ihre Website genau so sehen, wie Besucher sie sehen, einschließlich aller Umleitungen, die Sie anwenden."
+            "Wenn Du Besucher basierend auf ihrer Sprache umleitest, leitest Du auch Google um. Google möchte Deine Website genau so sehen, wie Besucher sie sehen, einschließlich aller von Dir angewendeten Umleitungen."
          ],
          "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
-            "Es ist in Ordnung, Besucher basierend auf ihrer Sprache umzuleiten, aber Sie müssen sich bewusst sein, dass diese Funktion die SEO beeinflusst."
-         ],
-         "Before proceeding, we recommend that you read these two pages:": [
-            "Bevor Sie fortfahren, empfehlen wir Ihnen, diese beiden Seiten zu lesen:"
+            "Es ist in Ordnung, Besucher basierend auf ihrer Sprache umzuleiten, aber Du musst Dir darüber im Klaren sein, dass diese Funktion die SEO beeinflusst."
          ]
       }
    }

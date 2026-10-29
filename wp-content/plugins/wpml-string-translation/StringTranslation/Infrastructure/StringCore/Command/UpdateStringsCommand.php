@@ -14,6 +14,7 @@ class UpdateStringsCommand extends BulkActionBaseCommand implements UpdateString
 	}
 
 	public function run( array $strings, array $fields, array $values ) {
+		$fieldCount = count( $fields );
 		foreach ( array_chunk( $strings, $this->chunk_size ) as $chunk ) {
 			$ids = [];
 			foreach ( $chunk as $string ) {
@@ -24,14 +25,21 @@ class UpdateStringsCommand extends BulkActionBaseCommand implements UpdateString
 			$query .= "UPDATE {$this->wpdb->prefix}icl_strings SET ";
 
 			$fieldsSql = [];
-			for ( $i = 0; $i < count( $fields ); $i++ ) {
-				$fieldsSql[] = sanitize_key( $fields[ $i ] ) . " = " . $this->wpdb->prepare( '%s', $values[ $i ] );
+			for ( $i = 0; $i < $fieldCount; $i++ ) {
+				$preparedValue = $this->wpdb->prepare( '%s', $values[ $i ] );
+				if ( ! is_string( $preparedValue ) ) {
+					throw new \RuntimeException( 'Could not prepare a String Translation strings update.' );
+				}
+				$fieldsSql[] = sanitize_key( $fields[ $i ] ) . ' = ' . $preparedValue;
 			}
 
 			$query .= implode( ', ', $fieldsSql );
-			$query .= " WHERE id IN (" . wpml_prepare_in( $ids, '%d' ) . ")";
+			$query .= ' WHERE id IN (' . wpml_prepare_in( $ids, '%d' ) . ')';
 
-			$this->runBulkQuery( $query );
+			$this->runCheckedBulkQuery(
+				$query,
+				'Could not update String Translation strings.'
+			);
 		}
 	}
 }

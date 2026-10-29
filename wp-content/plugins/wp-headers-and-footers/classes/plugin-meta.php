@@ -63,4 +63,4 @@ if (! class_exists('WPHeaderAndFooter_Plugin_Meta')) :
 	}
 endif;
 
-new WPHeaderAndFooter_Plugin_Meta();
+$wp_header_and_footer_plugin_meta = new WPHeaderAndFooter_Plugin_Meta();

@@ -17,12 +17,16 @@ class Hooks implements Integration {
 
 	public function add_hooks() {
 		if ( $this->config->get_ids_in_blocks() ) {
-			WpHooks::onFilter( 'render_block_data', - PHP_INT_MAX )
+			WpHooks::onFilter( 'render_block_data', - PHP_INT_MAX, 3 )
 				->then( spreadArgs( [ $this, 'filterIdsInBlock' ] ) );
 		}
 	}
 
-	public function filterIdsInBlock( array $block ) {
+	public function filterIdsInBlock( array $block, $sourceBlock = null, $parentBlock = null ) {
+		if ( null === $parentBlock ) {
+			Prefetch::tree( $block, [ $this, 'getConfiguredIds' ] );
+		}
+
 		$blockConfig = $this->getBlockConfig( $block );
 
 		if ( $blockConfig ) {
@@ -37,6 +41,15 @@ class Hooks implements Integration {
 		}
 
 		return $block;
+	}
+
+	public function getConfiguredIds( array $block ) {
+		$ids = [];
+		foreach ( $this->getBlockAttributesConverter( $this->getBlockConfig( $block ) ) as $converter ) {
+			$ids = array_merge_recursive( $ids, $converter->collectIds( $block ) );
+		}
+
+		return $ids;
 	}
 
 	private function getBlockConfig( $block ) {

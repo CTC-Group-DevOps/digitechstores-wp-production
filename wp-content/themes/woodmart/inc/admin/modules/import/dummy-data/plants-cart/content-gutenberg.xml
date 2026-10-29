@@ -19,56 +19,110 @@
 	<wp:base_uploads_url>https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/</wp:base_uploads_url>
 
 								<item>
-					<title><![CDATA[Cart - Plants]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/woodmart_layout/cart-plants/</link>
-					<pubDate>Fri, 09 Aug 2024 13:48:49 +0000</pubDate>
+					<title><![CDATA[Cart]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/cart/</link>
+					<pubDate>Wed, 24 Jul 2024 15:47:53 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/plants-gutenberg/?post_type=woodmart_layout&#038;p=700</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/woo-checkout-steps {"blockId":"d23c0671-5c5c-4432-acc4-33747a2784bd","marginBottom":"60","marginBottomTablet":"50","marginBottomMobile":"40"} /-->
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/plants-gutenberg/cart/</guid>
+											<content:encoded><![CDATA[<!-- wp:wd/container {"blockId":"a05deda7-4793-4e4c-82d6-1d40dc922c85","blockVersion":"2","marginTopMobile":"-30"} -->
+<div class="wp-block-wd-container wd-dir-col wd-a05deda7"><!-- wp:woocommerce/cart -->
+<div class="wp-block-woocommerce-cart alignwide is-loading"><!-- wp:woocommerce/filled-cart-block -->
+<div class="wp-block-woocommerce-filled-cart-block"><!-- wp:woocommerce/cart-items-block -->
+<div class="wp-block-woocommerce-cart-items-block"><!-- wp:woocommerce/cart-line-items-block -->
+<div class="wp-block-woocommerce-cart-line-items-block"></div>
+<!-- /wp:woocommerce/cart-line-items-block -->
 
-<!-- wp:wd/row {"blockId":"7439a43e-ef56-41c0-b312-6a21c9e30a93","marginBottom":"30","marginBottomMobile":"0"} -->
-<div id="wd-7439a43e" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"d88d2731-5818-4eb8-b899-686626379165","adjacentCount":2,"colWidth":66.33,"blocksGap":30,"adjacentCountTablet":1,"colWidthTablet":100} -->
-<div id="wd-d88d2731" class="wp-block-wd-column"><!-- wp:wd/woo-notices {"blockId":"2134add8-94bf-46e7-a36d-3c4457546b90"} /-->
-
-<!-- wp:wd/woo-shipping-progress-bar {"blockId":"0bb14365-7d54-46a6-bb22-60ba7474f132","bgColorCode":"#e6e4d9","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","paddingLock":true} /-->
-
-<!-- wp:wd/woo-hook {"blockId":"bc809649-0886-4faa-837b-27b207a38290","hook":"woocommerce_before_cart","cleanActions":true} /-->
-
-<!-- wp:wd/ct-table {"blockId":"c480ea7e-40aa-4671-95f5-36ac425958f0"} /--></div>
-<!-- /wp:wd/column -->
-
-<!-- wp:wd/column {"blockId":"7a5064e4-0449-4c4a-81ff-a2610d1fc36c","adjacentCount":2,"colWidth":33.33,"adjacentCountTablet":1,"colWidthTablet":100} -->
-<div id="wd-7a5064e4" class="wp-block-wd-column"><!-- wp:wd/container {"blockId":"1bdcdced-b77b-4a50-8a71-cf2b2f728b80","bgColorCode":"#e6e4d9","paddingTop":"25","paddingRight":"25","paddingBottom":"25","paddingLeft":"25","paddingLock":true} -->
-<div id="wd-1bdcdced" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"93f9bca8-7f7a-43e4-bdfb-d489f7e2b2fe","content":"CARTS TOTALS","tpFontSize":"22"} -->
-<h2 id="wd-93f9bca8" class="wp-block-wd-title title">CARTS TOTALS</h2>
+<!-- wp:wd/products {"blockId":"29a68084-a47b-432b-ac9e-b83723ea41f7","blockVersion":"2","show_title":true,"layout":"carousel","items_per_page":"8","marginTop":"40","slides_per_view":"3.5","hide_pagination_control":true,"marginTopMobile":"0","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} -->
+<!-- wp:wd/title {"blockId":"4c601166-965c-41eb-8281-1778d528f8bb","blockVersion":"2","content":"You might also like…","tpFontSize":"19","htmlTag":"h4"} -->
+<h4 class="wp-block-wd-title title wd-4c601166">You might also like…</h4>
 <!-- /wp:wd/title -->
+<!-- /wp:wd/products --></div>
+<!-- /wp:woocommerce/cart-items-block -->
 
-<!-- wp:wd/ct-totals {"blockId":"cf226373-5d5f-42f4-9db2-c5115a93db3b","btnAlign":"stretch"} /-->
+<!-- wp:woocommerce/cart-totals-block -->
+<div class="wp-block-woocommerce-cart-totals-block"><!-- wp:woocommerce/cart-order-summary-block -->
+<div class="wp-block-woocommerce-cart-order-summary-block"><!-- wp:woocommerce/cart-order-summary-heading-block -->
+<div class="wp-block-woocommerce-cart-order-summary-heading-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-heading-block -->
 
-<!-- wp:wd/woo-hook {"blockId":"fc7afef3-3a52-42ce-ba5c-7d80bb51ecc5","hook":"woocommerce_after_cart","cleanActions":true} /--></div>
-<!-- /wp:wd/container --></div>
-<!-- /wp:wd/column --></div>
-<!-- /wp:wd/row -->
+<!-- wp:woocommerce/cart-order-summary-coupon-form-block -->
+<div class="wp-block-woocommerce-cart-order-summary-coupon-form-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-coupon-form-block -->
 
-<!-- wp:wd/woo-hook {"blockId":"9306ab8d-f7fa-42de-a68a-a7015f1c844a","hook":"woocommerce_cart_collaterals","cleanActions":true} /-->]]></content:encoded>
-															<wp:post_id>700</wp:post_id>
-					<wp:post_date><![CDATA[2024-08-09 13:48:49]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-08-09 13:48:49]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2025-01-13 13:07:54]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2025-01-13 13:07:54]]></wp:post_modified_gmt>
+<!-- wp:woocommerce/cart-order-summary-totals-block -->
+<div class="wp-block-woocommerce-cart-order-summary-totals-block"><!-- wp:woocommerce/cart-order-summary-subtotal-block -->
+<div class="wp-block-woocommerce-cart-order-summary-subtotal-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-subtotal-block -->
+
+<!-- wp:woocommerce/cart-order-summary-fee-block -->
+<div class="wp-block-woocommerce-cart-order-summary-fee-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-fee-block -->
+
+<!-- wp:woocommerce/cart-order-summary-discount-block -->
+<div class="wp-block-woocommerce-cart-order-summary-discount-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-discount-block -->
+
+<!-- wp:woocommerce/cart-order-summary-shipping-block -->
+<div class="wp-block-woocommerce-cart-order-summary-shipping-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-shipping-block -->
+
+<!-- wp:woocommerce/cart-order-summary-taxes-block -->
+<div class="wp-block-woocommerce-cart-order-summary-taxes-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-taxes-block --></div>
+<!-- /wp:woocommerce/cart-order-summary-totals-block --></div>
+<!-- /wp:woocommerce/cart-order-summary-block -->
+
+<!-- wp:wd/woo-shipping-progress-bar {"blockId":"95ebeec5-d521-4622-889b-dca0ddb18415","blockVersion":"2"} /-->
+
+<!-- wp:woocommerce/cart-express-payment-block -->
+<div class="wp-block-woocommerce-cart-express-payment-block"></div>
+<!-- /wp:woocommerce/cart-express-payment-block -->
+
+<!-- wp:woocommerce/proceed-to-checkout-block -->
+<div class="wp-block-woocommerce-proceed-to-checkout-block"></div>
+<!-- /wp:woocommerce/proceed-to-checkout-block -->
+
+<!-- wp:woocommerce/cart-accepted-payment-methods-block -->
+<div class="wp-block-woocommerce-cart-accepted-payment-methods-block"></div>
+<!-- /wp:woocommerce/cart-accepted-payment-methods-block --></div>
+<!-- /wp:woocommerce/cart-totals-block --></div>
+<!-- /wp:woocommerce/filled-cart-block -->
+
+<!-- wp:woocommerce/empty-cart-block -->
+<div class="wp-block-woocommerce-empty-cart-block"><!-- wp:heading {"className":"with-empty-cart-icon wc-block-cart__empty-cart__title"} -->
+<h2 class="wp-block-heading with-empty-cart-icon wc-block-cart__empty-cart__title">Your cart is currently empty!</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"typography":{"textAlign":"center"}}} -->
+<p class="has-text-align-center"><a href="https://woodmart.xtemos.com/plants/shop/">Browse store</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator {"className":"is-style-dots"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-dots"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">New in store</h2>
+<!-- /wp:heading -->
+
+<!-- wp:woocommerce/product-new {"columns":4,"rows":1} /--></div>
+<!-- /wp:woocommerce/empty-cart-block --></div>
+<!-- /wp:woocommerce/cart --></div>
+<!-- /wp:wd/container -->]]></content:encoded>
+															<wp:post_id>7</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-24 15:47:53]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-24 15:47:53]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2026-10-05 11:51:04]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-05 11:51:04]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-					<wp:post_name><![CDATA[cart-plants]]></wp:post_name>
+					<wp:post_name><![CDATA[cart]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
 					<wp:post_parent>0</wp:post_parent>
 					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[woodmart_layout]]></wp:post_type>
+					<wp:post_type><![CDATA[page]]></wp:post_type>
 																					<wp:postmeta>
-							<wp:meta_key><![CDATA[wd_layout_type]]></wp:meta_key>
-							<wp:meta_value><![CDATA[cart]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[wd_layout_conditions]]></wp:meta_key>
-							<wp:meta_value><![CDATA[a:1:{i:0;a:3:{s:20:"condition_comparison";s:7:"include";s:14:"condition_type";s:4:"cart";s:15:"condition_query";s:0:"";}}]]></wp:meta_value>
+							<wp:meta_key><![CDATA[_woodmart_main_layout]]></wp:meta_key>
+							<wp:meta_value><![CDATA[full-width]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 				</channel>

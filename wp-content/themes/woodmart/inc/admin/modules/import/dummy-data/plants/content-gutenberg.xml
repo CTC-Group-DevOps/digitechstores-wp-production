@@ -26,8 +26,8 @@
 					<pubDate>Tue, 30 Jul 2024 11:50:46 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/plants-gutenberg/?page_id=215</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/row {"blockId":"919cac1d-0abb-4cd0-9eaa-5cb86f2c8a2e","blockVersion":"2","columnsGap":40,"paddingBottom":"40","marginBottom":"90","borderType":"solid","borderColorVariable":"\u002d\u002dwd-primary-color","borderWidthBottom":"2","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<div class="wp-block-wd-row wd-919cac1d"><!-- wp:wd/column {"blockId":"f443b1d2-e2c0-4f1c-8171-ef3ddc376833","blockVersion":"2","adjacentCount":2,"colWidth":24,"justifyContent":"center","borderType":"solid","borderColorVariable":"\u002d\u002dwd-primary-color","borderWidthRight":"2","borderWidthLock":false,"hideOnTablet":true,"hideOnMobile":true,"adjacentCountTablet":1,"colWidthTablet":24} -->
+											<content:encoded><![CDATA[<!-- wp:wd/row {"blockId":"919cac1d-0abb-4cd0-9eaa-5cb86f2c8a2e","blockVersion":"2","paddingBottom":"40","marginBottom":"90","borderType":"solid","borderColorVariable":"\u002d\u002dwd-primary-color","borderWidthBottom":"2","columnsGap":40,"marginBottomTablet":"60","marginBottomMobile":"40"} -->
+<div class="wp-block-wd-row wd-919cac1d"><!-- wp:wd/column {"blockId":"f443b1d2-e2c0-4f1c-8171-ef3ddc376833","blockVersion":"2","borderType":"solid","borderColorVariable":"\u002d\u002dwd-primary-color","borderWidthRight":"2","borderWidthLock":false,"hideOnTablet":true,"hideOnMobile":true,"adjacentCount":2,"colWidth":24,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":24} -->
 <div class="wp-block-wd-column wd-hide-md-sm wd-hide-sm wd-f443b1d2"><!-- wp:wd/menu {"blockId":"35e5ae9a-cbd8-4996-8edf-635e4de58062","blockVersion":"2","nav_menu":"37","design":"vertical","dropdown_design":"simple","vertical_items_gap":"l","icon_alignment":"right","paddingRight":"15","itemTpFontFamily":"var(\u002d\u002dwd-title-font)","itemTpFontSize":"38","itemTpFontVariant":"500","itemTpFontWeight":"500"} /--></div>
 <!-- /wp:wd/column -->
 
@@ -42,7 +42,7 @@
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_300 wd-9296122c wd-custom-width">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/container {"blockId":"7b118b89-cc02-4234-9ef0-7e329e0904f3","blockVersion":"2","direction":"row","align":"center","wrap":"wrap","animation":"slide-from-bottom","animationDelay":"500","displayWidth":"","directionTablet":"row","directionMobile":"row","colGapMobile":"15"} -->
+<!-- wp:wd/container {"blockId":"7b118b89-cc02-4234-9ef0-7e329e0904f3","blockVersion":"2","animation":"slide-from-bottom","animationDelay":"500","displayWidth":"","direction":"row","align":"center","wrap":"wrap","directionTablet":"row","directionMobile":"row","colGapMobile":"15"} -->
 <div class="wp-block-wd-container wd-dir-row wd-dir-row-md wd-dir-row-sm wd-align-is-lg-center wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_500 wd-7b118b89"><!-- wp:wd/image {"blockId":"f644ed67-3fa3-4f8f-beff-50b08b4b4931","blockVersion":"2","image":{"id":476,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/Avatars-opt-1.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/Avatars-opt-1.png","width":115,"height":40},"animationDelay":""} -->
 <div class="wp-block-wd-image wd-block-image wd-f644ed67"><img class="wp-image-476" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/Avatars-opt-1.png" alt=""/></div>
 <!-- /wp:wd/image -->
@@ -103,7 +103,7 @@
 <!-- wp:wd/carousel {"blockId":"0eddf15f-7210-45d6-be9c-5d4439f70e18","blockVersion":"2","paginationControl":false,"paginationControlTablet":false,"paginationControlMobile":false,"syncParentId":"wd_0eddf15f","marginBottom":"100","slidesPerViewTablet":"2","slidesPerViewMobile":"1","marginBottomTablet":"60","marginBottomMobile":"50"} -->
 <div class="wp-block-wd-carousel wd-carousel-container wd-0eddf15f"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:3;--wd-col-md:2;--wd-col-sm:1;--wd-gap-lg:20px;--wd-gap-sm:10px;" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"5b8505d6-cf77-4326-8832-3cbf3c87eaeb","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-5b8505d6"><!-- wp:wd/cover {"blockId":"4623c6ba-0454-4137-a3f6-40316889554a","blockVersion":"2","contentAlignVertical":"end","colorScheme":"light","height":"600","bgType":"video","bgVideo":{"id":521,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-1-1.mp4"},"bgVideoSource":"local","bgVideoFallback":{"id":817,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/10/plants-banner-fallback-1-opt.jpg"},"overlayColorCode":"#000000","overlay":true,"overlayOpacity":0.3,"heightTablet":"460"} -->
-<div class="wp-block-wd-cover wd-hover-parent color-scheme-light wd-4623c6ba wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"><div class="wd-bg-video"><video class="wd-bg-video-html" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-1-1.mp4" autoplay muted loop playsinline></video></div></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"50dc8aeb-1192-431d-b448-2497e7481400","blockVersion":"2","rowGap":"0","metadata":{"name":"Banner content"}} -->
+<div class="wp-block-wd-cover wd-hover-parent color-scheme-light wd-4623c6ba wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"><div class="wd-bg-video"><video class="wd-bg-video-html" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-1-1.mp4" autoplay muted loop playsinline poster="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/10/plants-banner-fallback-1-opt.jpg"></video></div></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"50dc8aeb-1192-431d-b448-2497e7481400","blockVersion":"2","rowGap":"0","metadata":{"name":"Banner content"}} -->
 <div class="wp-block-wd-container wd-dir-col wd-50dc8aeb"><!-- wp:wd/paragraph {"blockId":"68bd72e9-628f-499f-82b1-e255daa0b20c","blockVersion":"2","marginBottom":"7"} -->
 <p class="wp-block-wd-paragraph wd-68bd72e9">1 - 2ft,</p>
 <!-- /wp:wd/paragraph -->
@@ -121,7 +121,7 @@
 
 <!-- wp:wd/carousel-item {"blockId":"95b8752f-4287-491b-8c12-165c0610b3cb","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-95b8752f"><!-- wp:wd/cover {"blockId":"a8b59e4e-eca3-4e79-8da1-40eba76638d4","blockVersion":"2","contentAlignVertical":"end","colorScheme":"light","height":"600","bgType":"video","bgVideo":{"id":522,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-2-1.mp4"},"bgVideoSource":"local","bgVideoFallback":{"id":818,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/10/plants-banner-fallback-2-opt.jpg"},"overlayColorCode":"#000000","overlay":true,"overlayOpacity":0.3,"heightTablet":"460"} -->
-<div class="wp-block-wd-cover wd-hover-parent color-scheme-light wd-a8b59e4e wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"><div class="wd-bg-video"><video class="wd-bg-video-html" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-2-1.mp4" autoplay muted loop playsinline></video></div></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"4989734f-9345-47dc-9bce-53a2e0d92ee0","blockVersion":"2","rowGap":"0","metadata":{"name":"Banner content"}} -->
+<div class="wp-block-wd-cover wd-hover-parent color-scheme-light wd-a8b59e4e wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"><div class="wd-bg-video"><video class="wd-bg-video-html" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-2-1.mp4" autoplay muted loop playsinline poster="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/10/plants-banner-fallback-2-opt.jpg"></video></div></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"4989734f-9345-47dc-9bce-53a2e0d92ee0","blockVersion":"2","rowGap":"0","metadata":{"name":"Banner content"}} -->
 <div class="wp-block-wd-container wd-dir-col wd-4989734f"><!-- wp:wd/paragraph {"blockId":"9fc7d482-2228-4306-95b6-77c846a2fc9a","blockVersion":"2","marginBottom":"7"} -->
 <p class="wp-block-wd-paragraph wd-9fc7d482">2 - 4ft,</p>
 <!-- /wp:wd/paragraph -->
@@ -139,7 +139,7 @@
 
 <!-- wp:wd/carousel-item {"blockId":"c5c370d0-d4aa-48ad-9bda-f6e765cc4de9","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-c5c370d0"><!-- wp:wd/cover {"blockId":"2854b9be-f2ca-4270-bfbb-7e509aaa3b75","blockVersion":"2","contentAlignVertical":"end","colorScheme":"light","height":"600","bgType":"video","bgVideo":{"id":523,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-3-1.mp4"},"bgVideoSource":"local","bgVideoFallback":{"id":819,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/10/plants-banner-fallback-3-opt.jpg"},"overlayColorCode":"#000000","overlay":true,"overlayOpacity":0.3,"heightTablet":"460"} -->
-<div class="wp-block-wd-cover wd-hover-parent color-scheme-light wd-2854b9be wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"><div class="wd-bg-video"><video class="wd-bg-video-html" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-3-1.mp4" autoplay muted loop playsinline></video></div></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"657d5770-ac8c-4293-bd67-7f8b12945cd1","blockVersion":"2","rowGap":"0","metadata":{"name":"Banner content"}} -->
+<div class="wp-block-wd-cover wd-hover-parent color-scheme-light wd-2854b9be wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"><div class="wd-bg-video"><video class="wd-bg-video-html" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/plants-banners-video-3-1.mp4" autoplay muted loop playsinline poster="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/10/plants-banner-fallback-3-opt.jpg"></video></div></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"657d5770-ac8c-4293-bd67-7f8b12945cd1","blockVersion":"2","rowGap":"0","metadata":{"name":"Banner content"}} -->
 <div class="wp-block-wd-container wd-dir-col wd-657d5770"><!-- wp:wd/paragraph {"blockId":"c46e8472-2dca-4477-89d4-0d3e30df0ab7","blockVersion":"2","marginBottom":"7"} -->
 <p class="wp-block-wd-paragraph wd-c46e8472">5+ ft,</p>
 <!-- /wp:wd/paragraph -->
@@ -164,8 +164,8 @@
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/row {"blockId":"00331849-9fad-444a-ad8a-0d07e2271909","blockVersion":"2","positionType":"relative","marginTop":"-230","marginBottom":"90","columnsGapMobile":0,"marginTopTablet":"-200","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<div class="wp-block-wd-row wd-00331849"><!-- wp:wd/column {"blockId":"a22e6e7f-4023-4984-88c1-17d2e0c3e745","blockVersion":"2","adjacentCount":2,"colWidth":40,"blocksGap":10,"bgColorCode":"#e7e4d8","paddingTop":"40","paddingRight":"40","paddingBottom":"40","paddingLeft":"40","paddingLock":true,"flexOrderMobile":"1"} -->
+<!-- wp:wd/row {"blockId":"00331849-9fad-444a-ad8a-0d07e2271909","blockVersion":"2","positionType":"relative","marginTop":"-230","marginBottom":"90","marginTopTablet":"-200","marginBottomTablet":"60","marginBottomMobile":"40","columnsGapMobile":0} -->
+<div class="wp-block-wd-row wd-00331849"><!-- wp:wd/column {"blockId":"a22e6e7f-4023-4984-88c1-17d2e0c3e745","blockVersion":"2","bgColorCode":"#e7e4d8","paddingTop":"40","paddingRight":"40","paddingBottom":"40","paddingLeft":"40","paddingLock":true,"adjacentCount":2,"colWidth":40,"blocksGap":10,"flexOrderMobile":"1"} -->
 <div class="wp-block-wd-column wd-a22e6e7f"><!-- wp:wd/icon {"blockId":"0ac06111-ef5b-43c1-81e6-a97b77b19f30","blockVersion":"2","image":{"id":560,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/quotes-1.svg"},"width":"32"} -->
 <div class="wp-block-wd-icon wd-0ac06111"><img class="wp-image-560" src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/quotes-1.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
@@ -196,14 +196,14 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"f5318f48-2ad2-4f12-a899-b3d9d17ed0c4","blockVersion":"2","adjacentCount":2,"colWidth":60} -->
-<div class="wp-block-wd-column wd-f5318f48"><!-- wp:wd/video {"blockId":"cd806309-2f32-4ce7-8649-f585f98d3fcb","blockVersion":"3","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=LXb3EKWsInQ","videoActionButton":"overlay","videoOverlayLightbox":true,"videoImageOverlay":{"id":557,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-video-thumbnail-opt-1.jpg"},"videoHeight":"475","videoHeightMobile":"300"} -->
-<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-cd806309"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-video-thumbnail-opt-1.jpg" alt="" class="wp-image-557"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
+<div class="wp-block-wd-column wd-f5318f48"><!-- wp:wd/video {"blockId":"cd806309-2f32-4ce7-8649-f585f98d3fcb","blockVersion":"3","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=kcjwXUfPxAY","videoActionButton":"overlay","videoOverlayLightbox":true,"videoImageOverlay":{"id":557,"url":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-video-thumbnail-opt-1.jpg"},"videoHeight":"475","videoHeightMobile":"300"} -->
+<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-cd806309"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-video-thumbnail-opt-1.jpg" alt="" class="wp-image-557"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=kcjwXUfPxAY" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/container {"blockId":"155d9961-3309-4cf7-9bba-a7258ab1b477","blockVersion":"2","direction":"row","justify":"space-between","align":"end","wrap":"wrap","rowGap":"10","marginBottom":"30"} -->
-<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-end wd-155d9961"><!-- wp:wd/container {"blockId":"7655b27b-5894-4b39-9598-ba30e3e59f4c","blockVersion":"2","rowGap":"10","displayWidth":"fit-content"} -->
+<!-- wp:wd/container {"blockId":"155d9961-3309-4cf7-9bba-a7258ab1b477","blockVersion":"2","marginBottom":"30","direction":"row","justify":"space-between","align":"end","wrap":"wrap","rowGap":"10"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-end wd-155d9961"><!-- wp:wd/container {"blockId":"7655b27b-5894-4b39-9598-ba30e3e59f4c","blockVersion":"2","displayWidth":"fit-content","rowGap":"10"} -->
 <div class="wp-block-wd-container wd-dir-col wd-7655b27b wd-custom-width"><!-- wp:wd/title {"blockId":"0812b1bf-c892-4ef2-96cc-e34e99d23b2d","blockVersion":"2","content":"Exotic flowering plants","tpFontSize":"28","tpFontSizeTablet":"22","tpFontSizeMobile":"20","lock":{"move":false,"remove":false}} -->
 <h2 class="wp-block-wd-title title wd-0812b1bf">Exotic flowering plants</h2>
 <!-- /wp:wd/title -->
@@ -234,8 +234,8 @@
 															<wp:post_id>215</wp:post_id>
 					<wp:post_date><![CDATA[2024-07-30 11:50:46]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-07-30 11:50:46]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-06-22 12:56:46]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-06-22 12:56:46]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-06 14:33:44]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-06 14:33:44]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-plants]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -662,6 +662,52 @@
 						</wp:postmeta>
 									</item>
 								<item>
+					<title><![CDATA[logo-white-1]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/home-plants/logo-white-1/</link>
+					<pubDate>Wed, 31 Jul 2024 11:21:20 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/logo-white-1.svg</guid>
+															<wp:post_id>475</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-31 11:21:20]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-31 11:21:20]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-31 11:21:20]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-31 11:21:20]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[logo-white-1]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>215</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/logo-white-1.svg]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2024/07/logo-white-1.svg]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[Avatars-opt-1]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/home-plants/avatars-opt-1/</link>
+					<pubDate>Wed, 31 Jul 2024 11:23:10 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/Avatars-opt-1.png</guid>
+															<wp:post_id>476</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-31 11:23:10]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-31 11:23:10]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-31 11:23:10]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-31 11:23:10]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[avatars-opt-1]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>215</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/Avatars-opt-1.png]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2024/07/Avatars-opt-1.png]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
 					<title><![CDATA[wd-furniture-dot-list]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/?attachment_id=650</link>
 					<pubDate>Wed, 31 Jul 2024 14:17:34 +0000</pubDate>
@@ -682,6 +728,29 @@
 																					<wp:postmeta>
 							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
 							<wp:meta_value><![CDATA[2024/07/wd-furniture-dot-list.svg]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[w-ps-slide-1-opt-1]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/home-plants/w-ps-slide-1-opt-1/</link>
+					<pubDate>Wed, 31 Jul 2024 11:19:28 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-slide-1-opt-1.jpg</guid>
+															<wp:post_id>472</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-31 11:19:28]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-31 11:19:28]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-31 11:19:28]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-31 11:19:28]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[w-ps-slide-1-opt-1]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>215</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-slide-1-opt-1.jpg]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2024/07/w-ps-slide-1-opt-1.jpg]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>
@@ -1145,29 +1214,6 @@
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[w-ps-slide-1-opt-1]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/home-plants/w-ps-slide-1-opt-1/</link>
-					<pubDate>Wed, 31 Jul 2024 11:19:28 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-slide-1-opt-1.jpg</guid>
-															<wp:post_id>472</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-31 11:19:28]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-31 11:19:28]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-31 11:19:28]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-31 11:19:28]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[w-ps-slide-1-opt-1]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>215</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-slide-1-opt-1.jpg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/w-ps-slide-1-opt-1.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[w-ps-slide-2-opt-1]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/home-plants/w-ps-slide-2-opt-1/</link>
 					<pubDate>Wed, 31 Jul 2024 11:19:30 +0000</pubDate>
@@ -1211,29 +1257,6 @@
 																					<wp:postmeta>
 							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
 							<wp:meta_value><![CDATA[2024/07/w-ps-slide-3-opt-1.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
-					<title><![CDATA[logo-white-1]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/home-plants/logo-white-1/</link>
-					<pubDate>Wed, 31 Jul 2024 11:21:20 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/logo-white-1.svg</guid>
-															<wp:post_id>475</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-31 11:21:20]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-31 11:21:20]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-31 11:21:20]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-31 11:21:20]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[logo-white-1]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>215</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/logo-white-1.svg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/logo-white-1.svg]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>

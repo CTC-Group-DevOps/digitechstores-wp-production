@@ -28,6 +28,9 @@ class BackgroundTaskLoader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 
 
 	public function add_hooks() {
+		if ( wpml_is_ajax() ) {
+			return;
+		}
 		Hooks::onAction( 'wp_loaded' )
 		     ->then( [ $this, 'enqueueTasksRegistry' ] );
 	}
@@ -50,10 +53,6 @@ class BackgroundTaskLoader implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	public function run(
 		Collection $data
 	) {
-		if ( ! User::canManageTranslations() ) {
-			return Either::left( 'Insufficient permissions' );
-		}
-
 		$taskId = isset( $data['taskId'] ) ? $data['taskId'] : null;
 		$cmd    = isset( $data['cmd'] ) ? $data['cmd'] : null;
 

@@ -14,7 +14,8 @@ class WPML_TM_Jobs_List_Translated_By_Filters {
 		$options = array(
 			array(
 				'value' => 'any',
-				'label' => __( 'Anyone', 'wpml-translation-management' ),
+				/* translators: First option in the dropdown that filters by translator: do not filter, whoever translated it. */
+				'label' => __( 'Anyone', 'sitepress' ),
 			),
 		);
 
@@ -22,7 +23,7 @@ class WPML_TM_Jobs_List_Translated_By_Filters {
 		if ( $services ) {
 			$options[] = array(
 				'value' => 'any-service',
-				'label' => __( 'Any Translation Service', 'wpml-translation-management' ),
+				'label' => __( 'Any Translation Service', 'sitepress' ),
 			);
 		}
 
@@ -30,7 +31,7 @@ class WPML_TM_Jobs_List_Translated_By_Filters {
 		if ( $translators ) {
 			$options[] = array(
 				'value' => 'any-local-translator',
-				'label' => __( 'Any WordPress Translator', 'wpml-translation-management' ),
+				'label' => __( 'Any WordPress Translator', 'sitepress' ),
 			);
 		}
 

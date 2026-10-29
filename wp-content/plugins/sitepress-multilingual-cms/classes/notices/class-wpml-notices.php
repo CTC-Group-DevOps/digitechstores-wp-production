@@ -1,7 +1,11 @@
 <?php
 
+use WPML\Core\SharedKernel\Component\Language\Domain\LanguageCode;
 use WPML\Core\WP\App\Resources;
 use WPML\LIB\WP\User;
+use WPML\Notices\NoticeStoreRepair;
+use WPML\Notices\NoticeStores;
+use WPML\WP\OptionManager;
 
 class WPML_Notices {
 
@@ -17,22 +21,35 @@ class WPML_Notices {
 
 	private $notices_to_remove = [];
 
+	private $notice_groups_to_remove = [];
+
 	private $dismissed;
 
 	private $user_dismissed;
 
-	private $original_notices_md5;
+	private $pending_ops = [];
+
+	private $pending_sibling_removals = [];
+
+	private $pending_group_removals = [];
+
+	private $pending_dismiss_ops = [];
+
+	private $user_dismissed_changed = false;
 
 	private $notice_key;
 
 	private $sitepress;
 
+	private $option_manager;
+
 	private $notices_to_add = [];
 
-	public function __construct( WPML_Notice_Render $notice_render, \SitePress $sitepress ) {
-		$this->notice_render = $notice_render;
-		$this->sitepress     = $sitepress;
-		$this->notice_key    = self::NOTICES_OPTION_KEY;
+	public function __construct( WPML_Notice_Render $notice_render, \SitePress $sitepress, ?OptionManager $option_manager = null ) {
+		$this->notice_render  = $notice_render;
+		$this->sitepress      = $sitepress;
+		$this->option_manager = $option_manager ?: new OptionManager();
+		$this->notice_key     = self::NOTICES_OPTION_KEY;
 
 		$this->add_hooks();
 	}
@@ -46,6 +63,14 @@ class WPML_Notices {
 			foreach ( $this->notices_to_add as $key => $args ) {
 				$this->add_notice( ...$args );
 				unset( $this->notices_to_add[ $key ] );
+			}
+		}
+
+		if ( $this->notice_groups_to_remove ) {
+			$groups                        = $this->notice_groups_to_remove;
+			$this->notice_groups_to_remove = [];
+			foreach ( $groups as $group ) {
+				$this->remove_notice_group( $group );
 			}
 		}
 
@@ -64,29 +89,32 @@ class WPML_Notices {
 				$wp_api->error_log( 'Deprecated: WPML_Notices::init_notices() should not be called before the init hook in ' . $this->get_caller_from_backtrace() );
 			}
 
-			$this->notices              = [];
-			$this->original_notices_md5 = '';
+			$this->notices = [];
+		}
+
+		if ( ! is_admin() ) {
+			$this->notices   = [];
+			$this->dismissed = [];
+			return;
 		}
 
 		$current_language = did_action( 'wpml_loaded' )
 			? $this->sitepress->get_user_admin_language( get_current_user_id() )
 			: false;
 
-		if ( is_string( $current_language ) && $current_language && $current_language !== 'en' ) {
+		if ( is_string( $current_language ) && $current_language && ! LanguageCode::isEnglish( $current_language ) ) {
 			$this->notice_key = self::NOTICES_OPTION_KEY . '_' . $current_language;
 		}
 
-		$this->notices              = $this->filter_invalid_notices( $this->get_all_notices() );
-		$this->dismissed            = $this->get_all_dismissed();
-		$this->original_notices_md5 = md5( maybe_serialize( $this->notices ) );
+		$this->notices   = $this->filter_invalid_notices( $this->get_all_notices() );
+		$this->dismissed = $this->get_all_dismissed();
 	}
 
 	public function count() {
 		$this->init_notices();
 
-		$all_notices = $this->get_all_notices();
-		$count       = 0;
-		foreach ( $all_notices as $group => $group_notices ) {
+		$count = 0;
+		foreach ( $this->notices as $group_notices ) {
 			$count += count( $group_notices );
 		}
 
@@ -94,11 +122,7 @@ class WPML_Notices {
 	}
 
 	public function get_all_notices() {
-		$all_notices = get_option( $this->notice_key );
-		if ( ! is_array( $all_notices ) ) {
-			$all_notices = array();
-		}
-		return $all_notices;
+		return NoticeStoreRepair::readSafely( $this->notice_key );
 	}
 
 	private function get_all_dismissed() {
@@ -152,7 +176,8 @@ class WPML_Notices {
 		}
 
 		if ( ! $existing_notice || ( $new_notice_is_different || $force_update ) ) {
-			$this->notices[ $notice->get_group() ][ $notice->get_id() ] = $notice;
+			$this->notices[ $notice->get_group() ][ $notice->get_id() ]     = $notice;
+			$this->pending_ops[ $notice->get_group() ][ $notice->get_id() ] = $notice;
 			$this->save_notices();
 		}
 	}
@@ -187,7 +212,7 @@ class WPML_Notices {
 	}
 
 	public function save_to_option() {
-		if ( null === $this->notices ) {
+		if ( ( ! $this->pending_ops && ! $this->pending_sibling_removals && ! $this->pending_group_removals ) || ! is_admin() ) {
 			return;
 		}
 
@@ -200,19 +225,182 @@ class WPML_Notices {
 			return;
 		}
 
-		if (
-			$this->original_notices_md5
-			&& ( $this->original_notices_md5 !== md5( maybe_serialize( $this->notices ) ) )
-		) {
-			update_option( $this->notice_key, $this->notices, false );
+		$ops                            = $this->pending_ops;
+		$sibling_removals               = $this->pending_sibling_removals;
+		$group_removals                 = $this->pending_group_removals;
+		$this->pending_ops              = [];
+		$this->pending_sibling_removals = [];
+		$this->pending_group_removals   = [];
+
+		if ( $ops ) {
+			$this->option_manager->mutateRaw(
+				$this->notice_key,
+				fn( $current ) => $this->filter_invalid_notices(
+					$this->apply_pending_ops( is_array( $current ) ? $current : [], $ops )
+				),
+				false
+			);
+		}
+
+		$removals = $this->removal_ops( $ops );
+
+		foreach ( $sibling_removals as $group => $ids ) {
+			foreach ( $ids as $id => $unused ) {
+				$removals[ $group ][ $id ] = null;
+			}
+		}
+
+		$groups = array_fill_keys( array_keys( $group_removals ), [] );
+
+		list( $removals, $groups ) = $this->subtract_readditions( $removals, $groups, $ops );
+
+		if ( ! $removals && ! $groups ) {
+			return;
+		}
+
+		$this->replay_removals_on_sibling_stores( $removals, $groups );
+	}
+
+	private function subtract_readditions( array $removals, array $groups, array $ops ): array {
+		foreach ( $ops as $group => $group_ops ) {
+			foreach ( $group_ops as $id => $value ) {
+				if ( ! $value instanceof WPML_Notice ) {
+					continue;
+				}
+
+				unset( $removals[ $group ][ $id ] );
+
+				if ( isset( $groups[ $group ] ) ) {
+					$groups[ $group ][ $id ] = true;
+				}
+			}
+
+			if ( isset( $removals[ $group ] ) && ! $removals[ $group ] ) {
+				unset( $removals[ $group ] );
+			}
+		}
+
+		return [ $removals, $groups ];
+	}
+
+	private function removal_ops( array $ops ): array {
+		$removals = [];
+
+		foreach ( $ops as $group => $group_ops ) {
+			foreach ( $group_ops as $id => $value ) {
+				if ( null === $value ) {
+					$removals[ $group ][ $id ] = null;
+				}
+			}
+		}
+
+		return $removals;
+	}
+
+	private function replay_removals_on_sibling_stores( array $removals, array $groups ) {
+		global $wpdb;
+
+		if ( ! $wpdb instanceof \wpdb ) {
+			return;
+		}
+
+		foreach ( NoticeStores::rows( $wpdb ) as $row ) {
+			if ( $row === $this->notice_key ) {
+				continue;
+			}
+
+			$stored = NoticeStoreRepair::readSafely( $row );
+
+			if ( ! $this->carries_any( $stored, $removals, $groups ) ) {
+				continue;
+			}
+
+			$this->option_manager->mutateRaw(
+				$row,
+				fn( $current ) => $this->apply_removals( is_array( $current ) ? $current : [], $removals, $groups ),
+				false
+			);
 		}
 	}
 
-	private function save_dismissed() {
-		update_user_meta( get_current_user_id(), self::USER_DISMISSED_KEY, $this->user_dismissed );
-		if ( is_array( $this->dismissed ) ) {
-			update_option( self::DISMISSED_OPTION_KEY, $this->dismissed, false );
+	private function carries_any( array $stored, array $removals, array $groups ): bool {
+		foreach ( $removals as $group => $ids ) {
+			if ( ! isset( $stored[ $group ] ) || ! is_array( $stored[ $group ] ) ) {
+				continue;
+			}
+
+			foreach ( $ids as $id => $unused ) {
+				if ( array_key_exists( $id, $stored[ $group ] ) ) {
+					return true;
+				}
+			}
 		}
+
+		foreach ( $groups as $group => $keep ) {
+			if ( isset( $stored[ $group ] ) && is_array( $stored[ $group ] ) && array_diff_key( $stored[ $group ], $keep ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function apply_removals( array $target, array $removals, array $groups ): array {
+		$target = $this->apply_pending_ops( $target, $removals );
+
+		foreach ( $groups as $group => $keep ) {
+			if ( ! isset( $target[ $group ] ) || ! is_array( $target[ $group ] ) ) {
+				unset( $target[ $group ] );
+				continue;
+			}
+
+			$target[ $group ] = array_intersect_key( $target[ $group ], $keep );
+
+			if ( ! $target[ $group ] ) {
+				unset( $target[ $group ] );
+			}
+		}
+
+		return $target;
+	}
+
+	private function save_dismissed() {
+		if ( $this->user_dismissed_changed ) {
+			update_user_meta( get_current_user_id(), self::USER_DISMISSED_KEY, $this->user_dismissed );
+			$this->user_dismissed_changed = false;
+		}
+
+		if ( ! $this->pending_dismiss_ops || ! is_admin() ) {
+			return;
+		}
+
+		$ops                       = $this->pending_dismiss_ops;
+		$this->pending_dismiss_ops = [];
+
+		$merged = $this->option_manager->mutateRaw(
+			self::DISMISSED_OPTION_KEY,
+			fn( $current ) => $this->apply_pending_ops( is_array( $current ) ? $current : [], $ops ),
+			false
+		);
+
+		$this->dismissed = is_array( $merged ) ? $merged : $this->dismissed;
+	}
+
+	private function apply_pending_ops( array $target, array $ops ) {
+		foreach ( $ops as $group => $group_ops ) {
+			foreach ( $group_ops as $id => $value ) {
+				if ( null === $value ) {
+					unset( $target[ $group ][ $id ] );
+				} else {
+					$target[ $group ][ $id ] = $value;
+				}
+			}
+			if ( isset( $target[ $group ] ) && ! $target[ $group ] ) {
+				unset( $target[ $group ] );
+			}
+		}
+
+		return $target;
 	}
 
 	public function remove_notices() {
@@ -222,6 +410,9 @@ class WPML_Notices {
 				foreach ( $group_notices as $index => $id ) {
 					if ( array_key_exists( $group, $this->notices ) && array_key_exists( $id, $this->notices[ $group ] ) ) {
 						unset( $this->notices[ $group ][ $id ] );
+						$this->pending_ops[ $group ][ $id ] = null;
+					} else {
+						$this->pending_sibling_removals[ $group ][ $id ] = null;
 					}
 					unset( $this->notices_to_remove[ $group ][ $index ] );
 				}
@@ -248,7 +439,7 @@ class WPML_Notices {
 			);
 		}
 		if ( $this->must_display_notices() ) {
-			wp_enqueue_style( 'otgs-notices', ICL_PLUGIN_URL . '/res/css/otgs-notices.css', array( 'sitepress-style' ) );
+			wp_enqueue_style( 'otgs-notices', ICL_PLUGIN_URL . '/res/css/otgs-notices.css', array( 'sitepress-style' ), ICL_SITEPRESS_SCRIPT_VERSION );
 			wp_enqueue_script(
 				'otgs-notices',
 				ICL_PLUGIN_URL . '/res/js/otgs-notices.js',
@@ -407,22 +598,34 @@ class WPML_Notices {
 	}
 
 	public function remove_notice_group( $notice_group ) {
+		if ( ! did_action( 'init' ) ) {
+			$this->notice_groups_to_remove[ $notice_group ] = $notice_group;
+
+			return;
+		}
+
 		$this->init_notices();
+
+		$this->pending_group_removals[ $notice_group ] = true;
 
 		$notices     = $this->get_notices_for_group( $notice_group );
 		$notices_ids = array_keys( $notices );
 		foreach ( $notices_ids as $notices_id ) {
 			$this->remove_notice( $notice_group, $notices_id );
 		}
+
+		$this->save_notices();
 	}
 
 	public function dismiss_notice( WPML_Notice $notice, $persist = true ) {
 		if ( method_exists( $notice, 'is_user_restricted' ) && $notice->is_user_restricted() ) {
 			$this->init_all_user_dismissed();
 			$this->user_dismissed[ $notice->get_group() ][ $notice->get_id() ] = md5( $notice->get_text() );
+			$this->user_dismissed_changed                                      = true;
 		} else {
 			$this->init_notices();
-			$this->dismissed[ $notice->get_group() ][ $notice->get_id() ] = md5( $notice->get_text() );
+			$this->dismissed[ $notice->get_group() ][ $notice->get_id() ]           = md5( $notice->get_text() );
+			$this->pending_dismiss_ops[ $notice->get_group() ][ $notice->get_id() ] = md5( $notice->get_text() );
 		}
 
 		if ( $persist ) {
@@ -434,9 +637,11 @@ class WPML_Notices {
 		if ( method_exists( $notice, 'is_user_restricted' ) && $notice->is_user_restricted() ) {
 			$this->init_all_user_dismissed();
 			unset( $this->user_dismissed[ $notice->get_group() ][ $notice->get_id() ] );
+			$this->user_dismissed_changed = true;
 		} else {
 			$this->init_notices();
 			unset( $this->dismissed[ $notice->get_group() ][ $notice->get_id() ] );
+			$this->pending_dismiss_ops[ $notice->get_group() ][ $notice->get_id() ] = null;
 		}
 
 		if ( $persist ) {
@@ -468,9 +673,9 @@ class WPML_Notices {
 	public function init_hooks() {
 		$this->add_admin_notices_action();
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), \WPML_Admin_Scripts_Setup::PRIORITY_ENQUEUE_SCRIPTS + 1 );
-		add_action( 'wp_ajax_otgs-hide-notice', array( $this, 'wp_ajax_hide_notice' ) );
-		add_action( 'wp_ajax_otgs-dismiss-notice', array( $this, 'wp_ajax_dismiss_notice' ) );
-		add_action( 'wp_ajax_otgs-dismiss-group', array( $this, 'wp_ajax_dismiss_group' ) );
+		\WPML\Request\Adapter\Ajax::register( 'otgs-hide-notice', \WPML\Request\Policy\Policy::authenticated( \WPML\Request\Policy\Authenticity::actionNonce( 'wpml-notices', 'nonce' ), 'hides an admin notice shown to the caller; UI state only' ), array( $this, 'wp_ajax_hide_notice' ) );
+		\WPML\Request\Adapter\Ajax::register( 'otgs-dismiss-notice', \WPML\Request\Policy\Policy::authenticated( \WPML\Request\Policy\Authenticity::actionNonce( 'wpml-notices', 'nonce' ), 'dismisses an admin notice shown to the caller; UI state only' ), array( $this, 'wp_ajax_dismiss_notice' ) );
+		\WPML\Request\Adapter\Ajax::register( 'otgs-dismiss-group', \WPML\Request\Policy\Policy::authenticated( \WPML\Request\Policy\Authenticity::actionNonce( 'wpml-notices', 'nonce' ), 'dismisses a notice group shown to the caller; UI state only' ), array( $this, 'wp_ajax_dismiss_group' ) );
 		add_action( 'otgs_add_notice', array( $this, 'add_notice' ), 10, 2 );
 		add_action( 'otgs_remove_notice', array( $this, 'remove_notice' ), 10, 2 );
 		add_action( 'otgs_remove_notice_group', array( $this, 'remove_notice_group' ), 10, 1 );

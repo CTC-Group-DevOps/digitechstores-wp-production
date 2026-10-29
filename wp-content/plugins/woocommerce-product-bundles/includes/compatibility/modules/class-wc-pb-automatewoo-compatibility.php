@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds hooks for AutomateWoo Compatibility.
  *
- * @version  6.18.2
+ * @version  8.5.16
  */
 class WC_PB_AutomateWoo_Compatibility {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

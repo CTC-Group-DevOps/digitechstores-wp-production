@@ -17,7 +17,7 @@ use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
 /**
  * REST API Reports bundles controller class.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller implements ExportableInterface {
 
@@ -102,12 +102,12 @@ class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller i
 	/**
 	 * Prepare a report object for serialization.
 	 *
-	 * @param Array           $report  Report data.
+	 * @param array|stdClass  $report  Report data.
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response
 	 */
 	public function prepare_item_for_response( $report, $request ) {
-		$data = $report;
+		$data = (array) $report;
 
 		$context = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data    = $this->add_additional_fields_to_object( $data, $request );
@@ -115,7 +115,7 @@ class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller i
 
 		// Wrap the data in a response object.
 		$response = rest_ensure_response( $data );
-		$response->add_links( $this->prepare_links( $report ) );
+		$response->add_links( $this->prepare_links( (array) $report ) );
 
 		/**
 		 * Filter a report returned from the API.
@@ -124,7 +124,7 @@ class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller i
 		 *
 		 * @since 6.9.0
 		 * @param WP_REST_Response $response The response object.
-		 * @param array            $report   The original report data.
+		 * @param array|stdClass   $report   The original report data.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
 		return apply_filters( 'woocommerce_rest_prepare_report_bundles', $response, $report, $request );
@@ -300,7 +300,7 @@ class WC_PB_Analytics_Stock_REST_Controller extends WC_REST_Reports_Controller i
 	/**
 	 * Get stock status column export value.
 	 *
-	 * @param array $status Stock status from report row.
+	 * @param string $status Stock status from report row.
 	 * @return string
 	 */
 	protected function _get_stock_status( $status ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore

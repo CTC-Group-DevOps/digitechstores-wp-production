@@ -4,18 +4,11 @@ namespace WPML\MediaTranslation;
 
 use SitePress;
 use WPML_Element_Translation_Package;
-use WPML_TM_Translation_Batch;
 use WPML_Post_Element;
 use WPML\MediaTranslation\MediaField;
+use WPML\Media\AddAttachmentHook;
 
 class MediaTranslationStatus implements \IWPML_Action {
-
-	const NOT_TRANSLATED = 'media-not-translated';
-	const IN_PROGRESS = 'in-progress';
-	const TRANSLATED = 'media-translated';
-	const NEEDS_MEDIA_TRANSLATION = 'needs-media-translation';
-
-	const STATUS_PREFIX = '_translation_status_';
 
 	private $sitepress;
 	
@@ -27,22 +20,7 @@ class MediaTranslationStatus implements \IWPML_Action {
 	}
 
 	public function add_hooks() {
-		add_action( 'wpml_tm_send_post_jobs', array( $this, 'set_translation_status_in_progress' ) );
 		add_action( 'wpml_pro_translation_completed', array( $this, 'save_bundled_media_translation' ), 10, 3 );
-	}
-
-	public function set_translation_status_in_progress( WPML_TM_Translation_Batch $batch ) {
-		foreach ( $batch->get_elements() as $item ) {
-			foreach ( $item->get_media_to_translations() as $attachment_id ) {
-				foreach ( array_keys( $item->get_target_langs() ) as $lang ) {
-					$this->set_status( $attachment_id, $lang, self::IN_PROGRESS );
-				}
-			}
-		}
-	}
-
-	private function set_status( $attachment_id, $language, $status ) {
-		update_post_meta( $attachment_id, self::STATUS_PREFIX . $language, $status );
 	}
 
 	public function save_bundled_media_translation( $new_post_id, $fields, $job ) {
@@ -51,28 +29,14 @@ class MediaTranslationStatus implements \IWPML_Action {
 		$translation_package = new WPML_Element_Translation_Package();
 
 		foreach ( $media_translations as $attachment_id => $translation_data ) {
-			$attachment_translation_id = $this->save_attachment_translation(
+			$this->save_attachment_translation(
 				$attachment_id,
 				$translation_data,
 				$translation_package,
 				$job->language_code
 			);
-
-			if ( $this->should_translate_media_image( $job, $attachment_id ) ) {
-				$this->set_status( $attachment_id, $job->language_code, self::NEEDS_MEDIA_TRANSLATION );
-			}
 		}
 
-	}
-
-	private function should_translate_media_image( $job, $attachment_id ) {
-		foreach ( $job->elements as $element ) {
-			if ( 'should_translate_media_image_' . $attachment_id === $element->field_type && $element->field_data ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	private function get_media_translations( $job ) {
@@ -99,12 +63,28 @@ class MediaTranslationStatus implements \IWPML_Action {
 		$attachment_translation    = $post_element->get_translation( $language );
 		$attachment_translation_id = null !== $attachment_translation ? $attachment_translation->get_id() : false;
 
+		$baselines = [];
+
 		foreach ( $translation_data as $field => $data ) {
 
 			$translated_value = $translation_package->decode_field_data(
 				$data->field_data_translated,
 				$data->field_format
 			);
+
+			if (
+				isset( $data->field_translate ) && ! (int) $data->field_translate
+				&& $this->hasTranslatedValue( $attachment_translation_id, $field )
+			) {
+				continue;
+			}
+
+			if ( ! empty( $data->field_translate ) ) {
+				$baselines[ $field ] = $translation_package->decode_field_data(
+					$data->field_data,
+					$data->field_format
+				);
+			}
 
 			switch ( $field ) {
 				case 'title':
@@ -132,15 +112,21 @@ class MediaTranslationStatus implements \IWPML_Action {
 		}
 
 		if ( $attachment_translation_id ) {
-			$postarr['ID'] = $attachment_translation_id;
-			wp_update_post( $postarr );
+			if ( $postarr ) {
+				$postarr['ID'] = $attachment_translation_id;
+				wp_update_post( $postarr );
+			}
 		} else {
 			$postarr['post_type']      = 'attachment';
 			$postarr['post_status']    = 'inherit';
 			$postarr['guid']           = get_post_field( 'guid', $attachment_id );
 			$postarr['post_mime_type'] = get_post_field( 'post_mime_type', $attachment_id );
 
-			$attachment_translation_id = wp_insert_post( $postarr );
+			$attachment_translation_id = AddAttachmentHook::suspendDuring(
+				function () use ( $postarr ) {
+					return wp_insert_post( $postarr );
+				}
+			);
 
 			$this->sitepress->set_element_language_details( $attachment_translation_id, 'post_attachment', $post_element->get_trid(), $language );
 
@@ -157,7 +143,39 @@ class MediaTranslationStatus implements \IWPML_Action {
 			add_post_meta( $attachment_translation_id, $field, $value );
 		}
 
+		if ( $attachment_translation_id ) {
+			foreach ( $baselines as $baseline_field => $source ) {
+				MediaSourceBaseline::record( $attachment_id, $baseline_field, $language, $source );
+			}
+		}
+
 		return $attachment_translation_id;
+	}
+
+	private function hasTranslatedValue( $attachment_translation_id, $field ) {
+		if ( ! $attachment_translation_id ) {
+			return false;
+		}
+
+		switch ( $field ) {
+			case 'title':
+				$value = get_post_field( 'post_title', $attachment_translation_id );
+				break;
+			case 'caption':
+				$value = get_post_field( 'post_excerpt', $attachment_translation_id );
+				break;
+			case 'description':
+				$value = get_post_field( 'post_content', $attachment_translation_id );
+				break;
+			case 'alt_text':
+				$value = get_post_meta( $attachment_translation_id, '_wp_attachment_image_alt', true );
+				break;
+			default:
+				$value = get_post_meta( $attachment_translation_id, $this->media_field->getFieldId( $field ), true );
+				break;
+		}
+
+		return '' !== trim( (string) $value );
 	}
 
 	private function copy_attached_file_info_from_original( $attachment_id, $original_attachment_id ) {

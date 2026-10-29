@@ -35,6 +35,14 @@ class WPML_TM_Sync_Jobs_Revision {
 					$job->set_status( WPML_TP_Job_States::map_tp_state_to_local( WPML_TP_Job_States::TRANSLATION_READY ) );
 					$job->set_revision( $revised_jobs[ $job->get_tp_id() ] );
 
+					\WPML\TM\Jobs\JobLog::add(
+						'tp_job_revised',
+						array(
+							'tp_id'    => $job->get_tp_id(),
+							'revision' => $revised_jobs[ $job->get_tp_id() ],
+						)
+					);
+
 					$result[] = $job;
 
 					do_action( 'wpml_tm_revised_job_notification', $job->get_id() );

@@ -1,13 +1,15 @@
 <?php
 
-use WPML\FP\Str;
-
 class WPML_Language_Resolution {
 
 	private $active_language_codes = array();
 	private $current_request_lang  = null;
 	private $default_lang          = null;
 	private $hidden_lang_codes = null;
+
+	const MAX_NESTED_RESOLUTIONS = 2;
+
+	private $resolving = array();
 
 	public function __construct( $active_language_codes, $default_lang ) {
 		add_action( 'wpml_cache_clear', array( $this, 'reload' ), 11, 0 );
@@ -33,21 +35,41 @@ class WPML_Language_Resolution {
 	}
 
 	public function current_lang_filter( $lang, WPML_Request $wpml_request_handler ) {
+		$asked = (string) $lang;
+		if ( isset( $this->resolving[ $asked ] ) && count( $this->resolving[ $asked ] ) >= self::MAX_NESTED_RESOLUTIONS ) {
+			return end( $this->resolving[ $asked ] );
+		}
+
 		if ( $this->current_request_lang !== $lang ) {
-			$preview_lang = apply_filters( 'wpml_should_filter_preview_lang', true )
-				? $this->filter_preview_language_code()
-				: null;
+			$this->resolving[ $asked ][] = $lang;
+			$level                       = count( $this->resolving[ $asked ] ) - 1;
 
-			if ( $preview_lang ) {
-				$lang = $preview_lang;
-			} elseif ( $this->use_cookie_language() ) {
-				$lang = $wpml_request_handler->get_cookie_lang();
+			try {
+				$preview_lang = $this->should_filter_preview_lang()
+					? $this->filter_preview_language_code()
+					: null;
+
+				if ( $preview_lang ) {
+					$lang = $preview_lang;
+				} elseif ( $this->use_cookie_language() ) {
+					$lang = $wpml_request_handler->get_cookie_lang();
+				}
+
+				$this->resolving[ $asked ][ $level ] = $lang;
+				$this->current_request_lang          = $this->filter_for_legal_langs( $lang );
+			} finally {
+				array_pop( $this->resolving[ $asked ] );
+				if ( ! $this->resolving[ $asked ] ) {
+					unset( $this->resolving[ $asked ] );
+				}
 			}
-
-			$this->current_request_lang = $this->filter_for_legal_langs( $lang );
 		}
 
 		return $this->current_request_lang;
+	}
+
+	public function is_resolving() {
+		return ! empty( $this->resolving );
 	}
 
 	public function get_active_language_codes() {
@@ -76,7 +98,8 @@ class WPML_Language_Resolution {
 
 		return ( $is_all_active === true && $lang_code === 'all' )
 			   || isset( $this->active_language_codes[ $lang_code ] )
-			   || ( $wpml_request_handler->show_hidden() && $this->is_language_hidden( $lang_code ) );
+			   || ( $wpml_request_handler->show_hidden() && $this->is_language_hidden( $lang_code ) )
+			   || \WPML\Languages\RemovedLanguages::browsableInAdminList( $lang_code );
 	}
 
 	private function maybe_reload() {
@@ -91,17 +114,15 @@ class WPML_Language_Resolution {
 			$query_string = wpml_parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY );
 			$query        = array();
 			parse_str( (string) $query_string, $query );
-			$language_code = isset( $query['lang'] ) ? $query['lang'] : null;
+			$language_code = isset( $query['lang'] )
+				? \WPML\Language\RequestedLanguage::forPrivileged( $query['lang'], true )
+				: null;
 		}
 
 		return isset( $language_code ) ? $language_code : null;
 	}
 
 	private function filter_for_legal_langs( $lang ) {
-		if ( Str::includes( 'wp-login.php', $_SERVER['REQUEST_URI'] ) ) {
-			return $lang;
-		}
-
 		$this->maybe_reload();
 
 		$is_wp_cli_request = defined( 'WP_CLI' ) && WP_CLI;
@@ -113,7 +134,10 @@ class WPML_Language_Resolution {
 			$lang = $this->default_lang ? $this->default_lang : icl_get_setting( 'default_language' );
 		}
 
-		if ( null !== $lang && ! isset( $this->hidden_lang_codes[ $lang ] ) && ! isset( $this->active_language_codes[ $lang ] ) ) {
+		if ( null !== $lang
+			 && ! isset( $this->hidden_lang_codes[ $lang ] )
+			 && ! isset( $this->active_language_codes[ $lang ] )
+			 && ! \WPML\Languages\RemovedLanguages::browsableInAdminList( $lang ) ) {
 			$lang = $this->default_lang ? $this->default_lang : icl_get_setting( 'default_language' );
 		}
 
@@ -128,6 +152,11 @@ class WPML_Language_Resolution {
 				array( 'get-tagcloud', 'wp-link-ajax' ),
 				true
 			) );
+	}
+
+	private function should_filter_preview_lang() {
+		return ! isset( $GLOBALS['icl_language_switched'] )
+			   && apply_filters( 'wpml_should_filter_preview_lang', true );
 	}
 
 	private function filter_preview_language_code() {

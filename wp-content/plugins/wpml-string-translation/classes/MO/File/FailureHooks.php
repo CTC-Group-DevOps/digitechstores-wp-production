@@ -2,7 +2,7 @@
 
 namespace WPML\ST\MO\File;
 
-use WP_Filesystem_Direct;
+use WP_Filesystem_Base;
 use WPML\ST\MO\Generate\Process\Status;
 use WPML\ST\MO\Generate\Process\SingleSiteProcess;
 use WPML\ST\MO\Notice\RegenerationInProgressNotice;
@@ -19,7 +19,7 @@ class FailureHooks implements \IWPML_Backend_Action {
 	private $singleProcess;
 
 	public function __construct(
-		WP_Filesystem_Direct $filesystem,
+		WP_Filesystem_Base $filesystem,
 		Status $status,
 		SingleSiteProcess $singleProcess
 	) {
@@ -74,8 +74,9 @@ class FailureHooks implements \IWPML_Backend_Action {
 
 	public static function missingFolderNoticeContent( $dir ) {
 		$text = '<p>' .
-		        esc_html__( 'WPML String Translation is attempting to write .mo files with translations to folder:',
-			        'wpml-string-translation' ) . '<br/>' .
+		        \wpml_bold_names( __( 'WPML String Translation is attempting to write .mo files with translations to folder:',
+			        'wpml-string-translation' )
+		        ) . '<br/>' .
 		        str_replace( '\\', '/', $dir ) .
 		        '</p>' . '<br/>' ;
 
@@ -84,25 +85,26 @@ class FailureHooks implements \IWPML_Backend_Action {
 
 		$text .= '<ul>' .
 			'<li>' . sprintf(
+				/* translators: Item in the list of things to check when WPML cannot write the translation files. "this" is the site the user is working on. %1$s: opening bold tag, %2$s: closing bold tag. */
 				esc_html__( 'If this is a %1$slocal development site%2$s, make sure that your local server can write to this folder.',
 				'wpml-string-translation' ),
 				'<strong>', '</strong>'
 			) . '</li>' .
 			'<li>' . sprintf(
+				/* translators: Item in the list of things to check when WPML cannot write the translation files. "it" is the site the user is working on. %1$s: opening bold tag, %2$s: closing bold tag. */
 				esc_html__( 'If it\'s an %1$sonline site%2$s, contact your hosting company and request that they make that folder writable.',
 				'wpml-string-translation' ),
 				'<strong>', '</strong>'
 			) . '</li>' .
+			'<li>' . sprintf(
+				/* translators: Item in the list of things to check when WPML cannot write the translation files. %1$s: a line of PHP code, %2$s: the name of the WordPress configuration file, %3$s: the name of the folder WPML writes its files into. */
+				esc_html__( 'If your hosting company cannot make that folder writable, you can point WordPress at a different one. Add %1$s to your %2$s file, then create that folder and a %3$s folder inside it.',
+				'wpml-string-translation' ),
+				'<code>' . esc_html( "define( 'WP_LANG_DIR', '/path/to/a/writable/folder' );" ) . '</code>',
+				'<code>wp-config.php</code>',
+				'<code>' . esc_html( \WPML\ST\TranslationFile\Manager::SUB_DIRECTORY ) . '</code>'
+			) . '</li>' .
 			'</ul>';
-
-		$url = 'https://wpml.org/faq/cannot-write-mo-files/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlst';
-		$link = '<a href="' . $url . '" target="_blank" rel="noreferrer noopener" >' .
-		        esc_html__( "WPML's documentation on troubleshooting .mo files generation.",
-			        'wpml-string-translation' ) .
-		        '</a>';
-
-		$text .= '<p>' . sprintf( esc_html__( 'For more details, see %s.', 'wpml-string-translation' ),
-				$link ) . '</p>';
 
 		return $text;
 	}

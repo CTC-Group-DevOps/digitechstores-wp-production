@@ -116,7 +116,7 @@
 					<pubDate>Thu, 28 Nov 2024 15:58:02 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35459</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-cb2daed8" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -296,7 +296,7 @@
 
 <!-- wp:wd/section {"blockId":"843e1edf-748a-49c5-925d-46aa0da9fbfd","bgColorCode":"#fafafa","paddingTop":"80","paddingBottom":"80","marginBottom":"80","paddingTopTablet":"60","paddingTopMobile":"40","paddingBottomTablet":"60","paddingBottomMobile":"40","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div id="wd-843e1edf" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"1e27501c-adff-484c-931b-7a95f0d9c896","rowGap":"10"} -->
-<div id="wd-1e27501c" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/paragraph {"blockId":"598096d3-5ec2-4326-bfff-40636b3510a0","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-1e27501c" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/paragraph {"blockId":"598096d3-5ec2-4326-bfff-40636b3510a0","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-598096d3" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -410,7 +410,7 @@
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/paragraph {"blockId":"21c00905-f525-40b7-a70d-cf8ff05d80f0","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"21c00905-f525-40b7-a70d-cf8ff05d80f0","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-21c00905" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 

@@ -14,6 +14,7 @@ use WPML\StringTranslation\Infrastructure\TranslateEverything\UntranslatedString
 use WPML\StringTranslation\Infrastructure\WordPress\HookHandler\HookHandlerInterface;
 use WPML\StringTranslation\Application\WordPress\HookHandler\AutoregisterHookInterface;
 use WPML\StringTranslation\Infrastructure\Factory;
+use WPML\ST\Gettext\AutoRegisterSettings;
 use WPML\TM\AutomaticTranslation\Actions\Actions;
 
 class Application {
@@ -33,18 +34,39 @@ class Application {
 
 		global $sitepress;
 		global $wpdb;
-		$filesystem = new \WP_Filesystem_Direct( null );
+		$filesystem = wpml_get_filesystem();
 
 		$this->injector = new Injector();
 		$this->injector->share( QueueRepositoryInterface::class );
+		$this->injector->share( \WPML\StringTranslation\Application\StringCore\Command\SaveStringsGuardedCommandInterface::class );
+		$this->injector->share( \WPML\StringTranslation\Application\StringCore\Command\InsertStringTranslationsGuardedCommandInterface::class );
 		$this->injector->share( LoadedTextdomainRepositoryInterface::class );
 		$this->injector->share( SettingsRepositoryInterface::class );
 		$this->injector->defineParam( 'sitepress', $sitepress );
 		$this->injector->defineParam( 'wpdb', $wpdb );
 		$this->injector->defineParam( 'filesystem', $filesystem );
+
+		$this->injector->delegate(
+			\WP_Filesystem_Base::class,
+			function () use ( $filesystem ) {
+				return $filesystem;
+			}
+		);
+
+		$this->injector->defineParam(
+			'getCompletedTranslationService',
+			function () {
+				return \WPML\Translation\CompletedTranslationServiceFactory::create();
+			}
+		);
+
 		foreach ( $this->implementations as $interfaceClass => $implementationClass ) {
 			$this->injector->alias( $interfaceClass, $implementationClass );
 		}
+
+		$this->injector->delegate( AutoRegisterSettings::class, function () {
+			return \WPML\Container\make( AutoRegisterSettings::class );
+		} );
 
 		$this->injector->delegate( ProcessFrontendGettextStringsQueueInterface::class, function () use ( $sitepress ) {
 			$translateEverythingObserver = new ProcessFrontendStringsObserver(

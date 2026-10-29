@@ -227,6 +227,20 @@
 					woodmartThemeModule.$document.trigger('wdResetVariation');
 				})
 				.on('found_variation', function(event, variation) {
+					var $galleryWrap = $('.woocommerce-product-gallery');
+					if ($galleryWrap.find('link').length) {
+						$galleryWrap.find('link').each(function() {
+							var link = this;
+							var linkClone = link.cloneNode(false);
+
+							linkClone.addEventListener('load', function() {
+								link.remove();
+							}, false);
+
+							document.head.appendChild(linkClone);
+						});
+					}
+
 					if (useAjax) {
 						replaceMainGallery(variation.variation_id, $variation_form, variation);
 					}
@@ -304,19 +318,6 @@
 				.on('reset_image', function() {
 					var $galleryWrap = $('.woocommerce-product-gallery')
 					var $thumb = $galleryWrap.find('.wd-gallery-thumb .wd-carousel-item img').first();
-
-					if ($galleryWrap.find('link').length) {
-						$galleryWrap.find('link').each(function() {
-							var link = this;
-							var linkClone = link.cloneNode(false);
-
-							linkClone.addEventListener('load', function() {
-								link.remove();
-							}, false);
-
-							document.head.appendChild(linkClone);
-						});
-					}
 
 					if (!isQuickView() && !isQuickShop($variation_form)) {
 						$thumb.wc_reset_variation_attr('src');

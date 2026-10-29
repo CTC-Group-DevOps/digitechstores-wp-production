@@ -103,6 +103,8 @@ class WPML_Custom_Field_XML_Settings_Import {
 			foreach( $config['custom-fields-texts']['key'] as $field ) {
 				$setting = $this->setting_factory->post_meta_setting( $field['attr']['name'] );
 				$setting->set_attributes_whitelist( $this->get_custom_field_texts_keys( $field['key'] ) );
+				$paths = $this->get_custom_field_texts_link_target_paths( $field['key'] );
+				$setting->set_translate_link_target_sub_keys( $paths['sub_keys'], $paths['link_keys'] );
 			}
 		}
 	}
@@ -140,5 +142,36 @@ class WPML_Custom_Field_XML_Settings_Import {
 				: $key['attr']['label'] ?? '';
 		}
 		return $sub_fields;
+	}
+	private function get_custom_field_texts_link_target_paths( $data, $prefix = '' ) {
+		if ( isset( $data['attr'] ) ) {
+			$data = array( $data );
+		}
+
+		$paths = array(
+			'sub_keys'  => array(),
+			'link_keys' => array(),
+		);
+
+		foreach ( (array) $data as $key ) {
+			if ( ! isset( $key['attr']['name'] ) || $this->xml_object_ids->hasTranslatableIds( $key ) ) {
+				continue;
+			}
+			$path = '' === $prefix ? (string) $key['attr']['name'] : $prefix . '>' . $key['attr']['name'];
+
+			if ( isset( $key['attr']['translate_link_target'] ) ) {
+				$paths['sub_keys'][ $path ] = (bool) (int) $key['attr']['translate_link_target'];
+			}
+			if ( isset( $key['attr']['type'] ) && 'link' === strtolower( trim( $key['attr']['type'] ) ) ) {
+				$paths['link_keys'][ $path ] = true;
+			}
+			if ( isset( $key['key'] ) ) {
+				$child              = $this->get_custom_field_texts_link_target_paths( $key['key'], $path );
+				$paths['sub_keys']  = $paths['sub_keys'] + $child['sub_keys'];
+				$paths['link_keys'] = $paths['link_keys'] + $child['link_keys'];
+			}
+		}
+
+		return $paths;
 	}
 }

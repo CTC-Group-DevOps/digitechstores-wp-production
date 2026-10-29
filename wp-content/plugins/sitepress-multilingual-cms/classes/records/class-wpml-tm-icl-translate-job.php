@@ -60,7 +60,7 @@ class WPML_TM_ICL_Translate_Job {
 
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE {$wpdb->prefix}{$this->table}
+				"UPDATE {$wpdb->prefix}icl_translate_job
 				SET completed_date = %s,
 					translated = 1
 				WHERE job_id = %d",
@@ -78,8 +78,8 @@ class WPML_TM_ICL_Translate_Job {
 
 		return $this->job_id === (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT MAX(job_id)
-				 FROM {$wpdb->prefix}{$this->table}
+				 "SELECT MAX(job_id)
+				 FROM {$wpdb->prefix}icl_translate_job
 				 WHERE rid = %d",
 				$this->rid()
 			)
@@ -124,7 +124,7 @@ class WPML_TM_ICL_Translate_Job {
 		$fields = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT `rid`, `editor`, `translated`, `completed_date`
-				FROM {$wpdb->prefix}{$this->table}
+				FROM {$wpdb->prefix}icl_translate_job
 				WHERE job_id = %d LIMIT 1",
 				$this->job_id
 			)

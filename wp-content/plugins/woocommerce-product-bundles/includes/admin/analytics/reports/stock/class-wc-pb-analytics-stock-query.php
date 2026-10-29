@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_PB_REST_Reports_Stock_Query class.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Stock_Query extends Automattic\WooCommerce\Admin\API\Reports\GenericQuery {
 
@@ -49,8 +49,8 @@ class WC_PB_Analytics_Stock_Query extends Automattic\WooCommerce\Admin\API\Repor
 		 * Filters the stock report data.
 		 *
 		 * @since 6.9.0
-		 * @param array $results Stock report data.
-		 * @param array $args    Query arguments.
+		 * @param stdClass|WP_Error $results Stock report data.
+		 * @param array             $args    Query arguments.
 		 */
 		return apply_filters( 'woocommerce_analytics_bundles_stock_select_query', $results, $args );
 	}

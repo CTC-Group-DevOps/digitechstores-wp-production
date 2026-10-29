@@ -1,6 +1,7 @@
 <?php
 
 use WCML\COT\Helper as COTHelper;
+use WCML\Reviews\AllLanguagesSetting;
 use function WCML\functions\isStandAlone;
 
 class WCML_Install {
@@ -52,6 +53,10 @@ class WCML_Install {
 				$woocommerce_wpml->settings['display_custom_prices'] = 0;
 			}
 
+			if ( null === $woocommerce_wpml->get_setting( AllLanguagesSetting::SETTING, null ) ) {
+				$woocommerce_wpml->settings[ AllLanguagesSetting::SETTING ] = 1;
+			}
+
 			if ( ! isset( $woocommerce_wpml->settings['sync_taxonomies_checked'] ) ) {
 				$woocommerce_wpml->terms->check_if_sync_terms_needed();
 				$woocommerce_wpml->settings['sync_taxonomies_checked'] = 1;
@@ -77,7 +82,7 @@ class WCML_Install {
 		}
 
 		if ( empty( $woocommerce_wpml->settings['downloaded_translations_for_wc'] ) ) {
-			$woocommerce_wpml->languages_upgrader->download_woocommerce_translations_for_active_languages();
+			$woocommerce_wpml->languages_upgrader->update_woocommerce_localization();
 			$woocommerce_wpml->settings['downloaded_translations_for_wc'] = 1;
 			$woocommerce_wpml->update_settings();
 		}
@@ -242,7 +247,7 @@ class WCML_Install {
 			<p>
 				<?php
 				/* translators: %1$s and %2$s are opening and closing HTML italic tags and %3$s and %4$s are opening and closing HTML link tags */
-				printf( esc_html__( 'We detected a problem in your WPML configuration: the %1$sproduct_type%2$s taxonomy is set as translatable and this would cause problems with translated products. You can fix this in the %3$sMultilingual Content Setup page%4$s.', 'woocommerce-multilingual' ), '<i>', '</i>', '<a href="' . esc_url( admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=mcsetup#ml-content-setup-sec-8' ) ) . '">', '</a>' );
+				printf( esc_html__( 'We detected a problem in your WPML configuration: the %1$sproduct_type%2$s taxonomy is set as translatable and this would cause problems with translated products. You can fix this in the %3$sMultilingual Content Setup page%4$s.', 'woocommerce-multilingual' ), '<i>', '</i>', '<a href="' . esc_url( admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/settings&section=taxonomies' ) ) . '">', '</a>' );
 				?>
 			</p>
 		</div>
@@ -284,6 +289,11 @@ class WCML_Install {
 		$default_language   = $sitepress->get_default_language();
 		$default_categories = $settings['default_categories'] ?? [];
 
+		$default_category_trid = $sitepress->get_element_trid(
+			get_option( 'default_product_cat' ),
+			'tax_product_cat'
+		);
+
 		foreach ( $sitepress->get_active_languages() as $language ) {
 			if ( isset( $default_categories[ $language['code'] ] ) ) {
 				continue;
@@ -291,21 +301,30 @@ class WCML_Install {
 
 			$sitepress->switch_locale( $language['code'] );
 			$translated_cat_name = __( 'Uncategorized', 'sitepress' );
-			$translated_cat_name = 'Uncategorized' === $translated_cat_name && 'en' !== $language['code'] ? 'Uncategorized @' . $language['code'] : $translated_cat_name;
-			$translated_term     = get_term_by( 'name', $translated_cat_name, 'product_cat', ARRAY_A );
+			$translated_cat_name = 'Uncategorized' === $translated_cat_name && ! \WCML\Utilities\LanguageCode::isEnglish( $language['code'] ) ? 'Uncategorized @' . $language['code'] : $translated_cat_name;
 			$sitepress->switch_locale();
+
+			$translated_term = self::default_category_linked_to_language( $default_category_trid, $language['code'] );
+
+			if ( ! $translated_term ) {
+				$translated_term = self::term_owned_by_language( $translated_cat_name, $language['code'] );
+			}
 
 			if ( ! $translated_term ) {
 				$translated_term = wp_insert_term( $translated_cat_name, 'product_cat' );
+
+				if ( is_wp_error( $translated_term ) && 'term_exists' === $translated_term->get_error_code() ) {
+					$translated_term = wp_insert_term(
+						$translated_cat_name,
+						'product_cat',
+						[ 'slug' => sanitize_title( $translated_cat_name . '-' . $language['code'] ) ]
+					);
+				}
 			}
 
-			if ( ! is_wp_error( $translated_term ) && is_array( $translated_term ) ) {
+			if ( is_array( $translated_term ) ) {
 				$settings['default_categories'][ $language['code'] ] = $translated_term['term_taxonomy_id'];
 
-				$default_category_trid = $sitepress->get_element_trid(
-					get_option( 'default_product_cat' ),
-					'tax_product_cat'
-				);
 				$sitepress->set_element_language_details(
 					$translated_term['term_taxonomy_id'],
 					'tax_product_cat',
@@ -317,6 +336,55 @@ class WCML_Install {
 		}
 
 		$woocommerce_wpml->update_settings( $settings );
+	}
+
+	private static function default_category_linked_to_language( $default_category_trid, $language_code ) {
+		global $sitepress;
+
+		if ( ! $default_category_trid ) {
+			return false;
+		}
+
+		$translations = $sitepress->get_element_translations( $default_category_trid, 'tax_product_cat' );
+
+		if ( isset( $translations[ $language_code ]->element_id ) ) {
+			return [ 'term_taxonomy_id' => (int) $translations[ $language_code ]->element_id ];
+		}
+
+		return false;
+	}
+
+	private static function term_owned_by_language( $name, $language_code ) {
+		global $sitepress;
+
+		$read = function () use ( $name ) {
+			return get_term_by( 'name', $name, 'product_cat', ARRAY_A );
+		};
+
+		if ( $sitepress instanceof \SitePress && class_exists( \WPML\Utils\AutoAdjustIds::class ) ) {
+			$term = ( new \WPML\Utils\AutoAdjustIds( $sitepress ) )->runWithout( $read );
+		} else {
+			$term = $read();
+		}
+
+		if ( ! $term ) {
+			return false;
+		}
+
+		$owner = apply_filters(
+			'wpml_element_language_code',
+			null,
+			[
+				'element_id'   => (int) $term['term_taxonomy_id'],
+				'element_type' => 'product_cat',
+			]
+		);
+
+		if ( null !== $owner && $owner !== $language_code ) {
+			return false;
+		}
+
+		return $term;
 	}
 
 	public static function set_language_to_existing_orders( $default_language ) {

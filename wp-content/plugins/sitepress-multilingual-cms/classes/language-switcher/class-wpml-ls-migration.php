@@ -102,6 +102,7 @@ class WPML_LS_Migration {
 					'display_names_in_current_lang' => $this->get_old_setting( 'icl_lso_display_lang' ),
 					'display_link_for_current_lang' => 1,
 					'widget_title'                  => $this->get_old_setting( 'icl_widget_title_show' )
+						/* translators: Name of the Languages screen: in the WPML menu, as the title of that screen, and as a column heading listing the languages of a piece of content. Plural noun. */
 						? esc_html__( 'Languages', 'sitepress' ) : '',
 				);
 
@@ -258,16 +259,19 @@ class WPML_LS_Migration {
 
 				if ( is_string( $slug ) ) {
 
-					$current_lang = $this->sitepress->get_current_language();
 					$this->sitepress->switch_lang( $this->sitepress->get_default_language() );
-					$menu                   = wp_get_nav_menu_object( $slug );
-					$new_id                 = $menu->term_id;
-					$slot_args              = $menu_slot->get_model();
-					$slot_args['slot_slug'] = $new_id;
-					$new_slot               = $this->slot_factory->get_slot( $slot_args );
-					unset( $settings['menus'][ $slug ] );
-					$settings['menus'][ $new_id ] = $new_slot;
-					$this->sitepress->switch_lang( $current_lang );
+
+					try {
+						$menu                   = wp_get_nav_menu_object( $slug );
+						$new_id                 = $menu->term_id;
+						$slot_args              = $menu_slot->get_model();
+						$slot_args['slot_slug'] = $new_id;
+						$new_slot               = $this->slot_factory->get_slot( $slot_args );
+						unset( $settings['menus'][ $slug ] );
+						$settings['menus'][ $new_id ] = $new_slot;
+					} finally {
+						$this->sitepress->switch_lang();
+					}
 				}
 			}
 		}

@@ -8,7 +8,7 @@
             "lang": "pt_BR"
          },
          "Connect this site to your %s account": [
-            "Conecte este site à sua conta %s"
+            "Conecte este site à sua conta do %s"
          ],
          "Error": [
             "Erro"
@@ -20,25 +20,25 @@
             "Autenticar"
          ],
          "Visit <link_to_service /> to request an API Token. This token allows WPML to connect to <service_name /> to send and receive jobs.": [
-            "Visite <link_to_service /> para solicitar um token de API. Este token permite que o WPML se conecte a <service_name /> para enviar e receber trabalhos."
+            "Visite <link_to_service /> para solicitar um token de API. Esse token permite que o WPML se conecte ao <service_name /> para enviar e receber trabalhos."
          ],
          "Search translation services": [
             "Pesquisar serviços de tradução"
          ],
          "Search": [
-            "Pesquisar"
+            "Pesquisa"
          ],
          "Settings": [
-            "Definições"
+            "Configurações"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "Não é possível conectar um serviço de tradução quando o WPML está configurado para traduzir o conteúdo do seu site automaticamente. Para usar um serviço de tradução, altere seu modo de tradução na página <LinkToSettingsPage />."
+            "No momento, não é possível conectar um serviço de tradução quando o WPML está configurado para traduzir o conteúdo do seu site automaticamente. Para usar um serviço de tradução, altere o seu modo de tradução na página <LinkToSettingsPage />."
          ],
          "Sort descending": [
-            "Ordenar decrescente"
+            "Ordenar de forma decrescente"
          ],
          "Sort ascending": [
-            "Ordenar crescente"
+            "Ordenar de forma crescente"
          ],
          "Cancel sorting": [
             "Cancelar ordenação"

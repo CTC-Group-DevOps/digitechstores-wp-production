@@ -39,7 +39,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"7c8b8068-e8dd-4195-87bb-e6ee4240ecc4","adjacentCount":2,"blocksGap":0,"paddingTop":"60","adjacentCountTablet":2,"colWidthTablet":60} -->
-<div id="wd-7c8b8068" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"c2610ea5-40ce-4acc-a410-f0c5367ead9d","content":"We have extensive experience in repair","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"20","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-7c8b8068" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"c2610ea5-40ce-4acc-a410-f0c5367ead9d","content":"We have extensive experience in repair","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"20","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-c2610ea5" class="wp-block-wd-title title">We have extensive experience in repair</p>
 <!-- /wp:wd/title -->
 
@@ -55,11 +55,11 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"98d9c0fb-c5f9-49e1-b944-9dfcfe0387ff","colGap":"","rowGap":"","positionZIndex":"2","paddingTop":"25","paddingRight":"20","paddingBottom":"25","paddingLeft":"20","borderType":"solid","borderColorCode":"rgba(16,16,16,0.05)","borderWidth":"4","borderWidthTop":"4","borderWidthRight":"4","borderWidthBottom":"4","borderWidthLeft":"4","metadata":{"name":"Infobox content"}} -->
-<div id="wd-98d9c0fb" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"39426773-c7bc-4752-8179-e57a8cb3ca7a","content":"Repair u003cbru003eYou Home","tpFontSize":"26","tpFontSizeTablet":"22"} -->
+<div id="wd-98d9c0fb" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"39426773-c7bc-4752-8179-e57a8cb3ca7a","content":"Repair \u003cbr\u003eYou Home","tpFontSize":"26","tpFontSizeTablet":"22"} -->
 <h2 id="wd-39426773" class="wp-block-wd-title title">Repair <br>You Home</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/paragraph {"blockId":"2cbda732-32b4-48fe-820d-71f0075c9027","colorVariable":"u002du002dwd-alternative-color","tpFontSize":"26","tpLineHeight":"1.1","tpFontSizeTablet":"18","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/paragraph {"blockId":"2cbda732-32b4-48fe-820d-71f0075c9027","colorVariable":"\u002d\u002dwd-alternative-color","tpFontSize":"26","tpLineHeight":"1.1","tpFontSizeTablet":"18","tpLineHeightUnits":"em"} -->
 <p id="wd-2cbda732" class="wp-block-wd-paragraph">From 120$ / m</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container --></div>
@@ -73,11 +73,11 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"aadff8ea-262a-40da-b63d-b9c71f25b535","colGap":"","rowGap":"","positionZIndex":"2","paddingTop":"25","paddingRight":"20","paddingBottom":"25","paddingLeft":"20","borderType":"solid","borderColorCode":"rgba(16,16,16,0.05)","borderWidth":"4","borderWidthTop":"4","borderWidthRight":"4","borderWidthBottom":"4","borderWidthLeft":"4","metadata":{"name":"Infobox content"}} -->
-<div id="wd-aadff8ea" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"b85ce3db-37f6-47dd-a40e-7fc558e43cf6","content":"Build u003cbru003eNew Home","tpFontSize":"26","tpFontSizeTablet":"22"} -->
+<div id="wd-aadff8ea" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"b85ce3db-37f6-47dd-a40e-7fc558e43cf6","content":"Build \u003cbr\u003eNew Home","tpFontSize":"26","tpFontSizeTablet":"22"} -->
 <h2 id="wd-b85ce3db" class="wp-block-wd-title title">Build <br>New Home</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/paragraph {"blockId":"8ce7aef7-7331-48ec-9335-d5e57cae24cc","colorVariable":"u002du002dwd-alternative-color","tpFontSize":"26","tpLineHeight":"1.1","tpFontSizeTablet":"18","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/paragraph {"blockId":"8ce7aef7-7331-48ec-9335-d5e57cae24cc","colorVariable":"\u002d\u002dwd-alternative-color","tpFontSize":"26","tpLineHeight":"1.1","tpFontSizeTablet":"18","tpLineHeightUnits":"em"} -->
 <p id="wd-8ce7aef7" class="wp-block-wd-paragraph">From 380$ / m</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container --></div>
@@ -87,7 +87,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/row {"blockId":"39de0e7b-1b28-4458-8e41-77bc510269ad","positionZIndex":"1","bgImage":{"id":20029,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/w-repair-lines-1.svg"},"bgPosition":"bottom center","bgRepeat":"no-repeat","bgDisplaySize":"contain","bgColorVariable":"u002du002dwd-alternative-color","paddingTop":"40","paddingRight":"75","paddingBottom":"40","paddingLeft":"75","marginTop":"-90","paddingRightMobile":"30","paddingLeftMobile":"30","marginTopTablet":"0"} -->
+<!-- wp:wd/row {"blockId":"39de0e7b-1b28-4458-8e41-77bc510269ad","positionZIndex":"1","bgImage":{"id":20029,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/w-repair-lines-1.svg"},"bgPosition":"bottom center","bgRepeat":"no-repeat","bgDisplaySize":"contain","bgColorVariable":"\u002d\u002dwd-alternative-color","paddingTop":"40","paddingRight":"75","paddingBottom":"40","paddingLeft":"75","marginTop":"-90","paddingRightMobile":"30","paddingLeftMobile":"30","marginTopTablet":"0"} -->
 <div id="wd-39de0e7b" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"cd17635f-18c1-4290-8954-a78a24c608fc","adjacentCount":2,"colWidth":60.3,"blocksGap":10,"justifyContent":"center","colorScheme":"light"} -->
 <div id="wd-cd17635f" class="wp-block-wd-column color-scheme-light"><!-- wp:wd/title {"blockId":"4115e091-32d7-47d3-a813-42a12399baa4","content":"Free evaluation of your project","tpFontSize":"36","tpFontSizeTablet":"28"} -->
 <h2 id="wd-4115e091" class="wp-block-wd-title title">Free evaluation of your project</h2>
@@ -122,7 +122,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"52c8c41c-0cf7-483c-b284-9236d004e5b3","adjacentCount":2} -->
-<div id="wd-52c8c41c" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"590b3f05-94f1-4f68-872e-d0e9df27d5d8","content":"What can expect","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"-15","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-52c8c41c" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"590b3f05-94f1-4f68-872e-d0e9df27d5d8","content":"What can expect","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"-15","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-590b3f05" class="wp-block-wd-title title">What can expect</p>
 <!-- /wp:wd/title -->
 
@@ -146,7 +146,7 @@
 
 <!-- wp:wd/row {"blockId":"d14d25b1-29fb-4835-91c7-4ef738e50712","marginBottom":"60"} -->
 <div id="wd-d14d25b1" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"d9222ad7-1f9c-43f9-bdba-02bf333e0bea","adjacentCount":2,"justifyContent":"center"} -->
-<div id="wd-d9222ad7" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"dde4c07e-5a5f-4b23-a225-92ad94acab16","content":"Our services","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"-15","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-d9222ad7" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"dde4c07e-5a5f-4b23-a225-92ad94acab16","content":"Our services","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"-15","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-dde4c07e" class="wp-block-wd-title title">Our services</p>
 <!-- /wp:wd/title -->
 
@@ -206,7 +206,7 @@
 
 <!-- wp:wd/section {"blockId":"8442a3c7-3040-4a20-8014-d5c027351fc5","bgImage":{"id":20030,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/w-repair-lines-2.svg"},"bgPosition":"top center","bgRepeat":"repeat-x","bgColorCode":"#f4f0ed","paddingTop":"80","paddingBottom":"90","marginBottom":"80"} -->
 <div id="wd-8442a3c7" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"18f816b8-5920-4cbc-bfc8-78e68bd383d8","rowGap":"0"} -->
-<div id="wd-18f816b8" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"b3fa9305-7170-472e-9c35-240ba994be1d","textAlign":"center","content":"Our portfolio","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"5","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-18f816b8" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"b3fa9305-7170-472e-9c35-240ba994be1d","textAlign":"center","content":"Our portfolio","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"5","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-b3fa9305" class="wp-block-wd-title title wd-align">Our portfolio</p>
 <!-- /wp:wd/title -->
 
@@ -228,7 +228,7 @@
 
 <!-- wp:wd/row {"blockId":"17240190-6177-4dc5-b76a-9d0b933f4e23","marginBottom":"80"} -->
 <div id="wd-17240190" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"5ca2262d-3d14-4c50-ae07-6a0ea388fa66","adjacentCount":2,"colWidth":42,"marginTop":"50","adjacentCountTablet":1,"colWidthTablet":100,"marginTopMobile":"0"} -->
-<div id="wd-5ca2262d" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"4786928e-cdb7-4aa4-820b-68c91d1271d4","content":"Our advantages","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"-15","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-5ca2262d" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"4786928e-cdb7-4aa4-820b-68c91d1271d4","content":"Our advantages","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"-15","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-4786928e" class="wp-block-wd-title title">Our advantages</p>
 <!-- /wp:wd/title -->
 
@@ -254,7 +254,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"92d7a8db-0149-472e-b08c-015047bdec15","colGap":"","rowGap":"","positionZIndex":"2","paddingTop":"25","paddingRight":"20","paddingBottom":"25","paddingLeft":"20","borderType":"solid","borderColorCode":"rgba(16,16,16,0.05)","borderWidth":"4","borderWidthTop":"4","borderWidthRight":"4","borderWidthBottom":"4","borderWidthLeft":"4","metadata":{"name":"Infobox content"}} -->
-<div id="wd-92d7a8db" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"33054d8c-8519-4fec-b549-a25ef9374869","content":"01.","tpFontSize":"38","colorVariable":"u002du002dwd-alternative-color","tpFontSizeTablet":"22"} -->
+<div id="wd-92d7a8db" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"33054d8c-8519-4fec-b549-a25ef9374869","content":"01.","tpFontSize":"38","colorVariable":"\u002d\u002dwd-alternative-color","tpFontSizeTablet":"22"} -->
 <h2 id="wd-33054d8c" class="wp-block-wd-title title">01.</h2>
 <!-- /wp:wd/title -->
 
@@ -276,7 +276,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"019fcf27-2900-4bed-94f2-798bb35cb090","colGap":"","rowGap":"","positionZIndex":"2","paddingTop":"25","paddingRight":"20","paddingBottom":"25","paddingLeft":"20","borderType":"solid","borderColorCode":"rgba(16,16,16,0.05)","borderWidth":"4","borderWidthTop":"4","borderWidthRight":"4","borderWidthBottom":"4","borderWidthLeft":"4","metadata":{"name":"Infobox content"}} -->
-<div id="wd-019fcf27" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"be60de56-0af0-4e55-87df-a20b11bea6b4","content":"02.","tpFontSize":"38","colorVariable":"u002du002dwd-alternative-color","tpFontSizeTablet":"22"} -->
+<div id="wd-019fcf27" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"be60de56-0af0-4e55-87df-a20b11bea6b4","content":"02.","tpFontSize":"38","colorVariable":"\u002d\u002dwd-alternative-color","tpFontSizeTablet":"22"} -->
 <h2 id="wd-be60de56" class="wp-block-wd-title title">02.</h2>
 <!-- /wp:wd/title -->
 
@@ -300,7 +300,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"cb1da467-3a86-40bf-a682-7ccf75927171","colGap":"","rowGap":"","positionZIndex":"2","paddingTop":"25","paddingRight":"20","paddingBottom":"25","paddingLeft":"20","borderType":"solid","borderColorCode":"rgba(16,16,16,0.05)","borderWidth":"4","borderWidthTop":"4","borderWidthRight":"4","borderWidthBottom":"4","borderWidthLeft":"4","metadata":{"name":"Infobox content"}} -->
-<div id="wd-cb1da467" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"8a7459d2-24ef-478e-9d3b-c5d579db7c6a","content":"03.","tpFontSize":"38","colorVariable":"u002du002dwd-alternative-color","tpFontSizeTablet":"22"} -->
+<div id="wd-cb1da467" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"8a7459d2-24ef-478e-9d3b-c5d579db7c6a","content":"03.","tpFontSize":"38","colorVariable":"\u002d\u002dwd-alternative-color","tpFontSizeTablet":"22"} -->
 <h2 id="wd-8a7459d2" class="wp-block-wd-title title">03.</h2>
 <!-- /wp:wd/title -->
 
@@ -322,7 +322,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"5d1b79ba-a8f7-4e8d-a46a-290dc554c3a8","colGap":"","rowGap":"","positionZIndex":"2","paddingTop":"25","paddingRight":"20","paddingBottom":"25","paddingLeft":"20","borderType":"solid","borderColorCode":"rgba(16,16,16,0.05)","borderWidth":"4","borderWidthTop":"4","borderWidthRight":"4","borderWidthBottom":"4","borderWidthLeft":"4","metadata":{"name":"Infobox content"}} -->
-<div id="wd-5d1b79ba" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"7cb1eed5-5b93-46ff-b72c-fc145a4b454d","content":"04.","tpFontSize":"38","colorVariable":"u002du002dwd-alternative-color","tpFontSizeTablet":"22"} -->
+<div id="wd-5d1b79ba" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"7cb1eed5-5b93-46ff-b72c-fc145a4b454d","content":"04.","tpFontSize":"38","colorVariable":"\u002d\u002dwd-alternative-color","tpFontSizeTablet":"22"} -->
 <h2 id="wd-7cb1eed5" class="wp-block-wd-title title">04.</h2>
 <!-- /wp:wd/title -->
 
@@ -342,7 +342,7 @@
 
 <!-- wp:wd/section {"blockId":"1163e111-5385-4c7c-96b3-d2bd181efb84","bgColorCode":"#ffffff","paddingTop":"80","paddingBottom":"80","marginBottom":"0"} -->
 <div id="wd-1163e111" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"f77cc068-0c6c-49ea-835d-6557a4e314f1","rowGap":"0"} -->
-<div id="wd-f77cc068" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"664b1e3f-2b6f-4202-89a5-347bfe822b11","textAlign":"center","content":"How we work","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"5","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-f77cc068" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"664b1e3f-2b6f-4202-89a5-347bfe822b11","textAlign":"center","content":"How we work","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"5","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-664b1e3f" class="wp-block-wd-title title wd-align">How we work</p>
 <!-- /wp:wd/title -->
 
@@ -353,7 +353,7 @@
 <!-- wp:wd/timeline {"blockId":"7110d115-ff5c-44d1-a95c-cbf8d4ea97f1","lineStyle":"dashed","dotSize":8} -->
 <div id="wd-7110d115" class="wp-block-wd-timeline wd-timeline"><div class="wd-timeline-line wd-fill"><span class="wd-timeline-dot wd-start"></span><span class="wd-timeline-dot wd-end"></span></div><!-- wp:wd/timeline-item {"blockId":"d9335f45-86c1-4acc-adff-1cd98b2fb898","layout":"col-2"} -->
 <div id="wd-d9335f45" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"5cf947f0-b482-4d9b-9c28-fe124446baf8","rowGap":"10","bgColorCode":"#ffffff","displayWidth":"custom","customWidth":""} -->
-<div id="wd-5cf947f0" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"2e160b7c-7d3e-4311-999f-49e608eecb1f","textAlign":"end","content":"01.","tpFontSize":"24","colorVariable":"u002du002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
+<div id="wd-5cf947f0" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"2e160b7c-7d3e-4311-999f-49e608eecb1f","textAlign":"end","content":"01.","tpFontSize":"24","colorVariable":"\u002d\u002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
 <p id="wd-2e160b7c" class="wp-block-wd-title title wd-align">01.</p>
 <!-- /wp:wd/title -->
 
@@ -381,7 +381,7 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"3dd8b949-93c5-40d8-9fcd-60b1749d90ac","rowGap":"10","bgColorCode":"#ffffff"} -->
-<div id="wd-3dd8b949" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"2f0b72e2-8710-438d-8f87-5e238a71a4b9","content":"02.","tpFontSize":"24","colorVariable":"u002du002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
+<div id="wd-3dd8b949" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"2f0b72e2-8710-438d-8f87-5e238a71a4b9","content":"02.","tpFontSize":"24","colorVariable":"\u002d\u002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
 <p id="wd-2f0b72e2" class="wp-block-wd-title title wd-align">02.</p>
 <!-- /wp:wd/title -->
 
@@ -397,7 +397,7 @@
 
 <!-- wp:wd/timeline-item {"blockId":"86ffe18d-a298-462c-9b26-afc59e4f3e0b","layout":"col-2"} -->
 <div id="wd-86ffe18d" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"f5121325-03ee-4ba0-9d02-4afe559c098e","rowGap":"10","bgColorCode":"#ffffff"} -->
-<div id="wd-f5121325" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"eb64cd11-9263-403d-ae60-6d9314ad1293","textAlign":"end","content":"03.","tpFontSize":"24","colorVariable":"u002du002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
+<div id="wd-f5121325" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"eb64cd11-9263-403d-ae60-6d9314ad1293","textAlign":"end","content":"03.","tpFontSize":"24","colorVariable":"\u002d\u002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
 <p id="wd-eb64cd11" class="wp-block-wd-title title wd-align">03.</p>
 <!-- /wp:wd/title -->
 
@@ -425,7 +425,7 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"887812e1-cda6-4b80-a3d3-bd81456e3b3a","rowGap":"10","bgColorCode":"#ffffff"} -->
-<div id="wd-887812e1" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"60a3115d-8b88-47ea-9911-94e2641b1601","content":"04.","tpFontSize":"24","colorVariable":"u002du002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
+<div id="wd-887812e1" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"60a3115d-8b88-47ea-9911-94e2641b1601","content":"04.","tpFontSize":"24","colorVariable":"\u002d\u002dwd-alternative-color","htmlTag":"p","textAlignMobile":"center"} -->
 <p id="wd-60a3115d" class="wp-block-wd-title title wd-align">04.</p>
 <!-- /wp:wd/title -->
 
@@ -447,7 +447,7 @@
 <!-- /wp:wd/menu-anchor -->
 
 <!-- wp:wd/container {"blockId":"9e4ae66b-b9ed-4fd3-aecd-7ca51c456d0f","rowGap":"0","paddingTop":"80","paddingBottom":"80","marginBottom":"-40"} -->
-<div id="wd-9e4ae66b" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"705adcdf-e191-4ced-bae4-92954c2edd6e","textAlign":"center","content":"How we work","tpFontSize":"18","colorVariable":"u002du002dwd-alternative-color","marginBottom":"5","htmlTag":"p","tpFontSizeTablet":"14"} -->
+<div id="wd-9e4ae66b" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"705adcdf-e191-4ced-bae4-92954c2edd6e","textAlign":"center","content":"How we work","tpFontSize":"18","colorVariable":"\u002d\u002dwd-alternative-color","marginBottom":"5","htmlTag":"p","tpFontSizeTablet":"14"} -->
 <p id="wd-705adcdf" class="wp-block-wd-title title wd-align">How we work</p>
 <!-- /wp:wd/title -->
 
@@ -1684,7 +1684,7 @@
 					<pubDate>Fri, 28 Jun 2024 06:35:49 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?post_type=cms_block&#038;p=20622</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"2b3ae7a2-478f-4a3e-a3e2-0570648364ec","bgImage":{"id":20031,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/w-repair-lines-3.svg"},"bgPosition":"bottom center","bgRepeat":"repeat-x","bgColorVariable":"u002du002dwd-primary-color","paddingTop":"40","paddingBottom":"40","marginBottom":"0"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"2b3ae7a2-478f-4a3e-a3e2-0570648364ec","bgImage":{"id":20031,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/w-repair-lines-3.svg"},"bgPosition":"bottom center","bgRepeat":"repeat-x","bgColorVariable":"\u002d\u002dwd-primary-color","paddingTop":"40","paddingBottom":"40","marginBottom":"0"} -->
 <div id="wd-2b3ae7a2" class="wp-block-wd-section"><!-- wp:wd/row {"blockId":"754ae723-bd8e-4c54-a74d-b66546956ea6","marginBottom":"0"} -->
 <div id="wd-754ae723" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"0a7109f5-ab80-49a9-89a5-2e1798cb8c00","adjacentCount":2,"colWidth":60,"blocksGap":10,"justifyContent":"center"} -->
 <div id="wd-0a7109f5" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"02b1dc07-f640-4a59-a1e4-9cf9e478366e","content":"You Still Have a Question?","tpFontSize":"46","tpFontSizeTablet":"28"} -->

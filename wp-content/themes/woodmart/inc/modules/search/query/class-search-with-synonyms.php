@@ -170,7 +170,7 @@ class Search_With_Synonyms extends Singleton {
 			$search_columns_parts = array();
 
 			foreach ( $this->search_columns as $search_column ) {
-				$search_columns_parts[] = $wpdb->prepare( "({$wpdb->posts}.$search_column $like_op %s)", $like );
+				$search_columns_parts[] = $wpdb->prepare( "({$wpdb->posts}.$search_column $like_op %s)", $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			}
 
 			$search_query .= "$search_op(" . implode( " $andor_op ", $search_columns_parts ) . ')';
@@ -231,8 +231,13 @@ class Search_With_Synonyms extends Singleton {
 			return $search;
 		}
 
-		$original_terms                      = $this->get_original_terms( $search_term );
-		$new_terms                           = $this->generate_new_terms( $original_terms );
+		$original_terms = $this->get_original_terms( $search_term );
+		$new_terms      = $this->generate_new_terms( $original_terms );
+
+		if ( array_values( $original_terms ) === $new_terms ) {
+			return $search;
+		}
+
 		list($include_terms, $exclude_terms) = $this->apply_exclusion( $new_terms );
 		$include_search                      = $this->build_search_query( $include_terms, true );
 		$exclude_search                      = $this->build_search_query( $exclude_terms, false );

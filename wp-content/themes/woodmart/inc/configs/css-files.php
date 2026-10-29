@@ -3474,6 +3474,7 @@ return array(
 			'title'    => esc_html__( 'Navigation opener', 'woodmart' ),
 			'name'     => 'nav-opener',
 			'file'     => '/css/parts/mod-nav-opener',
+			'rtl'      => true,
 			'deferred' => true,
 		),
 	),

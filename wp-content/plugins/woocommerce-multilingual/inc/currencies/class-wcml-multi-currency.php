@@ -120,8 +120,7 @@ class WCML_Multi_Currency {
 		add_filter( 'init', [ $this, 'init' ], 5 );
 
 		if ( wp_doing_ajax() ) {
-			add_action( 'wp_ajax_nopriv_wcml_switch_currency', [ $this, 'switch_currency' ] );
-			add_action( 'wp_ajax_wcml_switch_currency', [ $this, 'switch_currency' ] );
+			\WCML\Request\Ajax::register( 'wcml_switch_currency', [ 'public' => 'switches the requester\'s own client currency (WooCommerce session/cookie) and language; session-scoped, no site state', 'no_nonce' => 'front-end currency switcher: the effect is confined to the requesting session' ], [ $this, 'switch_currency' ] );
 		}
 
 	}
@@ -350,7 +349,27 @@ class WCML_Multi_Currency {
 			}
 		}
 
-		return apply_filters( 'wcml_exchange_rates', $this->exchange_rates );
+		$exchange_rates = apply_filters( 'wcml_exchange_rates', $this->exchange_rates );
+		if ( ! is_array( $exchange_rates ) ) {
+			return [];
+		}
+
+		foreach ( $exchange_rates as $code => $rate ) {
+			if ( ! is_numeric( $rate ) ) {
+				unset( $exchange_rates[ $code ] );
+				continue;
+			}
+
+			$rate = (float) $rate;
+			if ( ! is_finite( $rate ) || $rate <= 0 ) {
+				unset( $exchange_rates[ $code ] );
+				continue;
+			}
+
+			$exchange_rates[ $code ] = $rate;
+		}
+
+		return $exchange_rates;
 	}
 
 	public function get_client_currency() {
@@ -359,7 +378,13 @@ class WCML_Multi_Currency {
 		} elseif ( ! wcml_is_multi_currency_on() ) {
 			return apply_filters( 'wcml_client_currency', wcml_get_woocommerce_currency_option() );
 		} elseif ( null === $this->client_currency ) {
-			$this->client_currency = ResolverFactory::create()->getClientCurrency();
+			$resolvedCurrency = ResolverFactory::create()->getClientCurrency();
+
+			if ( wcml_user_store_is_pending( self::CURRENCY_STORAGE_KEY ) ) {
+				return apply_filters( 'wcml_client_currency', $resolvedCurrency );
+			}
+
+			$this->client_currency = $resolvedCurrency;
 
 			if ( $this->client_currency ) {
 				wcml_user_store_set( self::CURRENCY_STORAGE_KEY, $this->client_currency );
@@ -423,7 +448,7 @@ class WCML_Multi_Currency {
 
 		$lang = Obj::prop( 'lang', $params );
 
-		if ( $lang ) {
+		if ( is_string( $lang ) && '' !== $lang && array_key_exists( $lang, $sitepress->get_active_languages() ) ) {
 			$sitepress->switch_lang( $lang );
 		}
 
@@ -457,6 +482,10 @@ class WCML_Multi_Currency {
 
 	public function get_rest_currency() {
 		return $this->rest_currency ?: wcml_get_woocommerce_currency_option();
+	}
+
+	public function set_rest_currency( $currency ) {
+		$this->rest_currency = $currency;
 	}
 
 }

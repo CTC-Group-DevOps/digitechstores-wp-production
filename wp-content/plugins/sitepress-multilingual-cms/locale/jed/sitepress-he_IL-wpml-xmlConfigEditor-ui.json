@@ -8,22 +8,28 @@
             "lang": "he_IL"
          },
          "The wpml-config.xml file in the root folder of your theme and plugins tells WPML which content is translatable. You can override these settings with your own custom settings by adding them below.": [
-            "הקובץ wpml-config.xml בתיקיית הבסיס של התבנית והתוספים שלך אומר ל-WPML איזה תוכן ניתן לתרגום. באפשרותך לעקוף הגדרות אלה באמצעות הגדרות מותאמות אישית משלך על ידי הוספתן למטה."
+            "קובץ ה-wpml-config.xml בתיקיית השורש של ערכת העיצוב והתוספים שלך מציין ל-WPML איזה תוכן ניתן לתרגום. באפשרותך לדרוס הגדרות אלו באמצעות הגדרות מותאמות אישית משלך על ידי הוספתן למטה."
          ],
          "Read more about language configuration files.": [
-            "קרא עוד על קובצי תצורת שפה."
+            "קרא עוד על קובצי הגדרות שפה."
          ],
          "Save": [
-            "שמור"
+            "שמירה"
          ],
          "Error": [
             "שגיאה"
+         ],
+         "Configuration saved.": [
+            "ההגדרות נשמרו."
+         ],
+         "Could not save the configuration — please retry.": [
+            "לא ניתן היה לשמור את ההגדרות — נסה שוב."
          ],
          "Shortcuts": [
             "קיצורי דרך"
          ],
          "Fold/Unfold code": [
-            "קפל/פתח קוד"
+            "קיפול/פריסת קוד"
          ],
          "Auto format": [
             "עיצוב אוטומטי"

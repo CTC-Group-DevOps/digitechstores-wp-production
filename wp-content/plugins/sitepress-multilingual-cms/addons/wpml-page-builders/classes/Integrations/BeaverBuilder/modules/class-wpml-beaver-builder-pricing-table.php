@@ -21,33 +21,43 @@ class WPML_Beaver_Builder_Pricing_Table extends WPML_Beaver_Builder_Module_With_
 	protected function get_title( $field ) {
 		switch ( $field ) {
 			case 'title':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Title', 'sitepress' );
 
 			case 'button_text':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Button text', 'sitepress' );
 
 			case 'button_url':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Button link', 'sitepress' );
 
 			case 'price':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Price', 'sitepress' );
 
 			case 'duration':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Duration', 'sitepress' );
 
 			case 'ribbon_text':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Ribbon Text', 'sitepress' );
 
 			case 'billing_option_1':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Billing Option 1', 'sitepress' );
 
 			case 'billing_option_2':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Billing Option 2', 'sitepress' );
 
 			case 'description':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Feature Description', 'sitepress' );
 
 			case 'tooltip':
+				/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				return esc_html__( 'Pricing table: Feature Tooltip', 'sitepress' );
 
 			default:

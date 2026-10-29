@@ -3,7 +3,7 @@
     "site_width": "custom",
     "site_custom_width": "1400",
     "header_banner": "0",
-    "promo_popup": "1",
+    "promo_popup": "0",
     "sticky_toolbar": "1",
     "sticky_toolbar_label": "1",
     "sticky_toolbar_fields": [
@@ -48,7 +48,7 @@
             "advanced-variants": [
                 ""
             ],
-            "font-size": "15",
+            "font-size": "16",
             "tablet": {
                 "font-size": ""
             },
@@ -89,9 +89,8 @@
             "font-family": "Urbanist",
             "font-weight": "700",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "capitalize",
-            "font-size": "16",
+            "font-size": "18",
             "tablet": {
                 "font-size": ""
             },
@@ -118,8 +117,8 @@
             }
         }
     ],
-    "advanced_typography": {
-        "0": {
+    "advanced_typography": [
+        {
             "custom": "",
             "selector": [
                 "mobile_menu_first_level"
@@ -129,7 +128,6 @@
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "capitalize",
             "font-size": "",
             "tablet": {
@@ -146,7 +144,7 @@
                 "color": ""
             }
         },
-        "1": {
+        {
             "custom": "",
             "selector": [
                 "secondary_navigation_topbar"
@@ -156,7 +154,6 @@
             "font-family": "Work Sans",
             "font-weight": "400",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "inherit",
             "font-size": "13",
             "tablet": {
@@ -173,14 +170,16 @@
                 "color": ""
             }
         },
-        "2": {
+        {
             "custom": "",
+            "selector": [
+                ""
+            ],
             "custom-selector": "",
             "google": "1",
             "font-family": "Urbanist",
             "font-weight": "600",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "",
             "font-size": "",
             "tablet": {
@@ -197,7 +196,7 @@
                 "color": ""
             }
         },
-        "3": {
+        {
             "custom": "",
             "selector": [
                 "blog_title"
@@ -207,7 +206,6 @@
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "",
             "font-size": "18",
             "tablet": {
@@ -224,14 +222,16 @@
                 "color": ""
             }
         },
-        "{{index}}": {
+        {
             "custom": "",
+            "selector": [
+                "checkout_steps"
+            ],
             "custom-selector": "",
             "google": "0",
             "font-family": "",
             "font-weight": "",
             "font-style": "",
-            "font-subset": "",
             "text-transform": "",
             "font-size": "",
             "tablet": {
@@ -248,7 +248,7 @@
                 "color": ""
             }
         }
-    },
+    ],
     "icon_font": {
         "font": "2",
         "weight": "400"
@@ -464,22 +464,6 @@
     "reviews_rating_summary_content": "rating",
     "reviews_rating_summary_filter": "1",
     "custom_css": ".wd-custom-rounding {\r\n\tborder-radius: 200px !important;\r\n}",
-    "promo_popup_content_type": "html_block",
-    "popup_html_block": "363",
-    "popup-background": {
-        "color": "rgb(245,154,87)",
-        "url": "",
-        "id": "",
-        "repeat": "no-repeat",
-        "size": "contain",
-        "attachment": "",
-        "position": "left center"
-    },
-    "popup_color_scheme": "light",
-    "popup_width": "480",
-    "promo_popup_hide_mobile": "1",
-    "popup_event": "time",
-    "promo_timeout": "2000",
     "product-background": {
         "color": "rgb(243,242,240)",
         "url": "http:\/\/dummy.xtemos.com\/woodmart2\/furniture2\/wp-content\/uploads\/sites\/9\/2023\/06\/wd-furniture-background-opt.jpg",
@@ -522,5 +506,9 @@
     "blog_columns_tablet": "3",
     "blog_archive_layout": "full-width",
     "legacy_product_tabs_enabled": "0",
-    "custom_product_tabs_enabled": "1"
+    "custom_product_tabs_enabled": "1",
+    "search_by_sku": "1",
+    "popular_requests": "Sofa\r\nChair\r\nTable\r\nLighting\r\nBed",
+    "full_search_content_type": "content",
+    "full_search_content_html_block": "1018"
 }

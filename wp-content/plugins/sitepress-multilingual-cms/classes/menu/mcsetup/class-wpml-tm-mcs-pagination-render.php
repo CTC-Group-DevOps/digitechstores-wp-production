@@ -35,11 +35,14 @@ class WPML_TM_MCS_Pagination_Render {
 
 		$model = array(
 			'strings'          => array(
-				'displaying'    => __( 'Displaying', 'wpml-translation-management' ),
-				'of'            => __( 'of', 'wpml-translation-management' ),
-				'display_all'   => __( 'Display all results', 'wpml-translation-management' ),
-				'display_less'  => __( 'Display 20 results per page', 'wpml-translation-management' ),
-				'nothing_found' => __( 'Nothing found', 'wpml-translation-management' ),
+				/* translators: Word in front of the numbers above a list, as in "Displaying 1 of 20". */
+				'displaying'    => __( 'Displaying', 'sitepress' ),
+				/* translators: Word between two numbers above a list, as in "Displaying 1 of 20": the first is what is shown, the second is how many there are in all. */
+				'of'            => __( 'of', 'sitepress' ),
+				'display_all'   => __( 'Display all results', 'sitepress' ),
+				'display_less'  => __( 'Display 20 results per page', 'sitepress' ),
+				/* translators: Shown in place of a list when nothing matches what was looked for. */
+				'nothing_found' => __( 'Nothing found', 'sitepress' ),
 			),
 			'pagination'       => $this->pagination,
 			'from'             => number_format_i18n( $from ),

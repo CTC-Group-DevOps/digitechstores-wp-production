@@ -22,7 +22,7 @@ class NoCreditPopup {
 		$sitepress = make( \SitePress::class );
 		$data = [
 			'host'         => make( \WPML_TM_ATE_AMS_Endpoints::class )->get_base_url( \WPML_TM_ATE_AMS_Endpoints::SERVICE_AMS ),
-			'wpml_host'    => get_site_url(),
+			'wpml_host'    => \WPML_Default_Site_Url::get(),
 			'return_url'   => \WPML\TM\API\Jobs::getCurrentUrl(),
 			'secret_key'   => Obj::prop( 'secret', $registration_data ),
 			'shared_key'   => Obj::prop( 'shared', $registration_data ),
@@ -31,13 +31,11 @@ class NoCreditPopup {
 			'ui_language'  => $sitepress->get_user_admin_language( User::getCurrentId() ),
 			'restNonce'    => wp_create_nonce( 'wp_rest' ),
 			'container'    => '#wpml-ate-console-container',
-			'wpml_home'    => esc_js( get_home_url() ),
+			'wpml_home'    => esc_js( \WPML_Default_Site_Url::getHome() ),
 			'languages'    => $this->getLanguagesData(),
-			'dependencies' => [
-				'sitepress-multilingual-cms' => [
-					'version' => ICL_SITEPRESS_VERSION,
-				],
-			],
+			'dependencies'  => \WPML\TM\ATE\AmsHostContract::dependencies(),
+			'host_contract' => \WPML\TM\ATE\AmsHostContract::VERSION,
+			'wpml_links'    => \WPML\TM\ATE\AmsHostContract::seedLinks(),
 		];
 
 		return $data;

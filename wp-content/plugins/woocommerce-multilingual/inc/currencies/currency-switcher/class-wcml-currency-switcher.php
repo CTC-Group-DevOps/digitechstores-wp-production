@@ -111,6 +111,7 @@ class WCML_Currency_Switcher {
 					$preview = $template->get_view();
 				}
 			} elseif ( is_admin() ) {
+				/* translators: Message shown in place of the currency switcher preview, the exchange-rates table and the status list while the shop has only one currency. */
 				$preview = '<i>' . esc_html__( "You haven't added any secondary currencies.", 'woocommerce-multilingual' ) . '</i>';
 			}
 		}

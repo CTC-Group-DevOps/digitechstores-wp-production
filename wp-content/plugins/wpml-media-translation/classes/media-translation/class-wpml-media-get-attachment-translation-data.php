@@ -2,31 +2,22 @@
 
 class WPML_Media_Get_Attachment_Translation_Data implements IWPML_Action {
 
-	/**
-	 * @var SitePress
-	 */
 	private $sitepress;
 
-	/**
-	 * @var wpdb
-	 */
 	private $wpdb;
 
-	/**
-	 * @param SitePress $sitepress
-	 * @param wpdb      $wpdb
-	 */
 	public function __construct( SitePress $sitepress, wpdb $wpdb ) {
 		$this->sitepress = $sitepress;
 		$this->wpdb      = $wpdb;
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_wpml_media_get_attachment_translation_data', array( $this, 'get_attachment_translation_data' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_media_get_attachment_translation_data', \WPML\Request\Policy\Policy::capability( [ 'upload_files', 'edit_posts' ], \WPML\Request\Policy\Authenticity::actionNonce( 'media-translation', 'wpnonce' ) ), array( $this, 'get_attachment_translation_data' ) );
 	}
 
 	public function get_attachment_translation_data() {
 		if ( ! wp_verify_nonce( $_GET['wpnonce'], 'media-translation' ) ) {
+			/* translators: Error message on the Media Translation page when the security check of a request fails. */
 			wp_send_json_error( array( 'error' => __( 'Invalid nonce', 'wpml-media' ) ) );
 		}
 
@@ -43,11 +34,6 @@ class WPML_Media_Get_Attachment_Translation_Data implements IWPML_Action {
 		wp_send_json_success( $response );
 	}
 
-	/**
-	 * @param int $post_id
-	 *
-	 * @return array
-	 */
 	private function get_all_posts_in_which_media_file_was_used_by_copy( $post_id ) {
 		if ( ! class_exists( '\WPML\MediaTranslation\UsageOfMediaFilesInPosts' ) ||
 			! class_exists( '\WPML\MediaTranslation\PostWithMediaFilesFactory' ) ) {
@@ -61,20 +47,15 @@ class WPML_Media_Get_Attachment_Translation_Data implements IWPML_Action {
 		return $data[0];
 	}
 
-	/**
-	 * @param array  $post_ids
-	 * @param string $translated_language
-	 *
-	 * @return bool
-	 */
 	private function wasAnyPostTranslatedAutomatically( $post_ids, $translated_language ) {
+		$wpdb = $this->wpdb;
+
 		if ( count( $post_ids ) === 0 ) {
 			return false;
 		}
 
 		$posts = $this->wpdb->get_results(
-			// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
-			"SELECT ID, post_type FROM {$this->wpdb->posts} WHERE ID IN (" . wpml_prepare_in( $post_ids, '%d' ) . ')',
+			"SELECT ID, post_type FROM {$wpdb->posts} WHERE ID IN (" . wpml_prepare_in( $post_ids, '%d' ) . ')',
 			ARRAY_A
 		);
 
@@ -85,16 +66,18 @@ class WPML_Media_Get_Attachment_Translation_Data implements IWPML_Action {
 		$conditions = array();
 		$params     = array();
 		foreach ( $posts as $post ) {
-			$conditions[] = '(element_id=%d AND element_type=%s AND language_code=%s AND source_language_code IS NOT NULL)';
+			$conditions[] = '(orig.element_id=%d AND orig.element_type=%s AND t.language_code=%s AND t.source_language_code IS NOT NULL)';
 			$params[]     = $post['ID'];
 			$params[]     = 'post_' . $post['post_type'];
 			$params[]     = $translated_language;
 		}
 
 		$where        = implode( ' OR ', $conditions );
-		$query        = "SELECT * FROM {$this->wpdb->prefix}icl_translations WHERE " . $where;
+		$query        = "SELECT t.* FROM {$this->wpdb->prefix}icl_translations t"
+						. " INNER JOIN {$this->wpdb->prefix}icl_translations orig"
+						. ' ON orig.trid = t.trid AND orig.element_type = t.element_type'
+						. ' WHERE ' . $where;
 		$translations = $this->wpdb->get_results(
-		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
 			$this->wpdb->prepare(
 				$query,
 				$params
@@ -123,14 +106,16 @@ class WPML_Media_Get_Attachment_Translation_Data implements IWPML_Action {
 			ON ts.translation_id = latest.translation_id AND ts.rid = latest.max_rid
 		';
 
-		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
 		$results = $this->wpdb->get_results( $query, ARRAY_A );
 		$rids    = [];
 		foreach ( $results as $row ) {
 			$rids[] = $row['rid'];
 		}
 
-		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+		if ( count( $rids ) === 0 ) {
+			return false;
+		}
+
 		$query = "
 			SELECT tj.*
 			FROM {$this->wpdb->prefix}icl_translate_job tj

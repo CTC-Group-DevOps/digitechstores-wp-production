@@ -8,10 +8,10 @@
             "lang": "ko_KR"
          },
          "Choose the image file type for flags": [
-            "깃발에 사용할 이미지 파일 형식 선택"
+            "국기 이미지 파일 형식 선택"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "이 옵션은 내장된 WPML 깃발에만 영향을 미치며, 사용자 지정으로 업로드된 깃발에는 영향을 미치지 않습니다."
+            "이 옵션은 WPML 기본 국기에만 적용되며, 직접 업로드한 사용자 정의 국기에는 적용되지 않습니다."
          ],
          "%s format": [
             "%s 형식"
@@ -23,7 +23,7 @@
             "새 형식이 저장되었습니다."
          ],
          "Failed to save the new format": [
-            "새 형식 저장 실패"
+            "새 형식을 저장하지 못했습니다"
          ]
       }
    }

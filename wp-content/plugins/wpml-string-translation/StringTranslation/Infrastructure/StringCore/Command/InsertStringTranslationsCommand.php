@@ -3,9 +3,10 @@
 namespace WPML\StringTranslation\Infrastructure\StringCore\Command;
 
 use WPML\StringTranslation\Application\StringCore\Domain\StringTranslation;
+use WPML\StringTranslation\Application\StringCore\Command\InsertStringTranslationsCheckedCommandInterface;
 use WPML\StringTranslation\Application\StringCore\Command\InsertStringTranslationsCommandInterface;
 
-class InsertStringTranslationsCommand extends BulkActionBaseCommand implements InsertStringTranslationsCommandInterface {
+class InsertStringTranslationsCommand extends BulkActionBaseCommand implements InsertStringTranslationsCommandInterface, InsertStringTranslationsCheckedCommandInterface {
 
 	public function __construct(
 		$wpdb
@@ -23,6 +24,23 @@ class InsertStringTranslationsCommand extends BulkActionBaseCommand implements I
 
 			$this->runBulkQuery( $query );
 		}
+	}
+
+	public function runChecked( array $translations ) : int {
+		$insertedRows = 0;
+		foreach ( array_chunk( $translations, $this->chunk_size ) as $chunk ) {
+			$query = "INSERT IGNORE INTO {$this->wpdb->prefix}icl_string_translations "
+				. '(`string_id`, `language`, `status`, `value`, `mo_string`, `translator_id`, '
+				. '`translation_service`, `batch_id`, `translation_date`) VALUES ';
+
+			$query        .= implode( ',', array_map( array( $this, 'buildStringTranslationRow' ), $chunk ) );
+			$insertedRows += $this->runCheckedBulkQuery(
+				$query,
+				'Could not persist String Translation translations.'
+			);
+		}
+
+		return $insertedRows;
 	}
 
 	private function buildStringTranslationRow( StringTranslation $translation ) {

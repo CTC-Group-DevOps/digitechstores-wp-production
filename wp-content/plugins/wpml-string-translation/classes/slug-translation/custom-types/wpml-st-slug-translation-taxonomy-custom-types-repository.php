@@ -39,7 +39,16 @@ class WPML_ST_Slug_Translation_Taxonomy_Custom_Types_Repository implements WPML_
 	}
 
 	private function build_object( $type ) {
-		return $this->custom_type_factory->create( $type, $this->is_display_as_translated( $type ) );
+		return $this->custom_type_factory->create( $type, $this->is_display_as_translated( $type ), $this->get_registered_slug( $type ) );
+	}
+
+	private function get_registered_slug( $type ) {
+		$taxonomy = get_taxonomy( $type );
+		if ( ! $taxonomy || ! is_array( $taxonomy->rewrite ) || empty( $taxonomy->rewrite['slug'] ) ) {
+			return '';
+		}
+
+		return (string) $taxonomy->rewrite['slug'];
 	}
 
 	private function get_taxonomy_slug_translation_settings() {

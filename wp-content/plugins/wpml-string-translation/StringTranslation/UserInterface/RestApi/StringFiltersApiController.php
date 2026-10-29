@@ -31,7 +31,7 @@ class StringFiltersApiController extends AbstractStringItemApiController {
 	}
 
 	protected function getValidParametersForItems( array $extend = [] ) {
-		return $extend;
+		return parent::getValidParametersForItems( $extend );
 	}
 
 	public function get( \WP_REST_Request $request ) {
@@ -41,7 +41,6 @@ class StringFiltersApiController extends AbstractStringItemApiController {
 			$request->get_param( 'source' ),
 			$request->get_param( 'domain' ),
 			$request->get_param( 'title' ),
-			$request->get_param( 'translationPriority' ),
 			$request->get_param( 'sourceLanguageCode' ),
 			$request->get_param( 'translationStatuses' ) ?? []
 		);
@@ -49,8 +48,7 @@ class StringFiltersApiController extends AbstractStringItemApiController {
 		$stringFilterData = $this->findFilterDataQuery->execute( $criteria );
 
 		return [
-			'domains'               => $stringFilterData->getDomains(),
-			'translationPriorities' => $stringFilterData->getTranslationPriorities(),
+			'domains' => $stringFilterData->getDomains(),
 		];
 	}
 }

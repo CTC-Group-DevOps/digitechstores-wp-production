@@ -19,6 +19,25 @@
 	<wp:base_uploads_url>https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/</wp:base_uploads_url>
 
 								<item>
+					<title><![CDATA[overpass;italic;400;100%;U+0-10FFFF]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/2024/07/24/overpassitalic400100u0-10ffff/</link>
+					<pubDate>Wed, 24 Jul 2024 15:49:03 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/plants-gutenberg/2024/07/24/overpassitalic400100u0-10ffff/</guid>
+											<content:encoded><![CDATA[{"fontFamily":"Overpass","fontStyle":"italic","fontWeight":"400","src":"http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/fonts/qFdU35WCmI96Ajtm81GgSdXCNs-VMF0vNLADepqKl8Kuosgz.woff2","preview":"https://s.w.org/images/fonts/17.7/previews/overpass/overpass-400-italic.svg"}]]></content:encoded>
+															<wp:post_id>32</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-24 15:49:03]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-24 15:49:03]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-24 15:49:03]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-24 15:49:03]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[overpassitalic400100u0-10ffff]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>14</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[wp_font_face]]></wp:post_type>
+																			</item>
+								<item>
 					<title><![CDATA[w-indoor-plants-small-1-3.jpg]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/?attachment_id=90</link>
 					<pubDate>Wed, 24 Jul 2024 15:56:04 +0000</pubDate>
@@ -181,60 +200,6 @@
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[w-indoor-plants-small-8-3.jpg]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/?attachment_id=152</link>
-					<pubDate>Wed, 24 Jul 2024 15:56:11 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-indoor-plants-small-8-3.jpg</guid>
-															<wp:post_id>152</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-24 15:56:11]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-24 15:56:11]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-24 15:56:11]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-24 15:56:11]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[w-indoor-plants-small-8-3-jpg]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>122</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-indoor-plants-small-8-3.jpg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/w-indoor-plants-small-8-3.jpg]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_wc_attachment_source]]></wp:meta_key>
-							<wp:meta_value><![CDATA[http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-8-3.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
-					<title><![CDATA[w-planters-4-0.jpg]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/?attachment_id=153</link>
-					<pubDate>Wed, 24 Jul 2024 15:56:11 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-planters-4-0.jpg</guid>
-															<wp:post_id>153</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-24 15:56:11]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-24 15:56:11]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-24 15:56:11]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-24 15:56:11]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[w-planters-4-0-jpg]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>122</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-planters-4-0.jpg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/w-planters-4-0.jpg]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_wc_attachment_source]]></wp:meta_key>
-							<wp:meta_value><![CDATA[http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-planters-4-0.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[w-indoor-plants-small-9-0.jpg]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/?attachment_id=154</link>
 					<pubDate>Wed, 24 Jul 2024 15:56:12 +0000</pubDate>
@@ -259,33 +224,6 @@
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_wc_attachment_source]]></wp:meta_key>
 							<wp:meta_value><![CDATA[http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-0.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
-					<title><![CDATA[w-indoor-plants-small-9-3.jpg]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/?attachment_id=156</link>
-					<pubDate>Wed, 24 Jul 2024 15:56:12 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-indoor-plants-small-9-3.jpg</guid>
-															<wp:post_id>156</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-24 15:56:12]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-24 15:56:12]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-24 15:56:12]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-24 15:56:12]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[w-indoor-plants-small-9-3-jpg]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>126</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-indoor-plants-small-9-3.jpg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/w-indoor-plants-small-9-3.jpg]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_wc_attachment_source]]></wp:meta_key>
-							<wp:meta_value><![CDATA[http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-3.jpg]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>
@@ -528,29 +466,6 @@
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[w-ps-categorie-plants-opt]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/w-ps-categorie-plants-opt/</link>
-					<pubDate>Tue, 30 Jul 2024 13:31:56 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plants-opt.jpg</guid>
-															<wp:post_id>274</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-30 13:31:56]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-30 13:31:56]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-30 13:31:56]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-30 13:31:56]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[w-ps-categorie-plants-opt]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>0</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plants-opt.jpg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/w-ps-categorie-plants-opt.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[w-ps-categorie-pet-friendly-opt]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/w-ps-categorie-pet-friendly-opt/</link>
 					<pubDate>Tue, 30 Jul 2024 13:31:54 +0000</pubDate>
@@ -574,29 +489,6 @@
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[w-ps-categorie-plant-care-opt]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/w-ps-categorie-plant-care-opt/</link>
-					<pubDate>Tue, 30 Jul 2024 13:31:55 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plant-care-opt.jpg</guid>
-															<wp:post_id>272</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-30 13:31:55]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-30 13:31:55]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-30 13:31:55]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-30 13:31:55]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[w-ps-categorie-plant-care-opt]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>0</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plant-care-opt.jpg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2024/07/w-ps-categorie-plant-care-opt.jpg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[w-ps-categorie-planters-opt]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/w-ps-categorie-planters-opt/</link>
 					<pubDate>Tue, 30 Jul 2024 13:31:55 +0000</pubDate>
@@ -617,6 +509,52 @@
 																					<wp:postmeta>
 							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
 							<wp:meta_value><![CDATA[2024/07/w-ps-categorie-planters-opt.jpg]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[w-ps-categorie-plants-opt]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/w-ps-categorie-plants-opt/</link>
+					<pubDate>Tue, 30 Jul 2024 13:31:56 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plants-opt.jpg</guid>
+															<wp:post_id>274</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-30 13:31:56]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-30 13:31:56]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-30 13:31:56]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-30 13:31:56]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[w-ps-categorie-plants-opt]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plants-opt.jpg]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2024/07/w-ps-categorie-plants-opt.jpg]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[w-ps-categorie-plant-care-opt]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-gutenberg/w-ps-categorie-plant-care-opt/</link>
+					<pubDate>Tue, 30 Jul 2024 13:31:55 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plant-care-opt.jpg</guid>
+															<wp:post_id>272</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-30 13:31:55]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-30 13:31:55]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-30 13:31:55]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-30 13:31:55]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[w-ps-categorie-plant-care-opt]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-gutenberg/wp-content/uploads/sites/29/2024/07/w-ps-categorie-plant-care-opt.jpg]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2024/07/w-ps-categorie-plant-care-opt.jpg]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 				</channel>

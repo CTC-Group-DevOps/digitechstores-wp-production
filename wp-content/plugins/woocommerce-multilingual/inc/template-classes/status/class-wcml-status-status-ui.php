@@ -18,6 +18,7 @@ class WCML_Status_Status_UI extends WCML_Templates_Factory {
 			'wc'          => class_exists( 'WooCommerce' ),
 			'icl_setup'   => $this->sitepress->setup(),
 			'strings'     => [
+				/* translators: Heading of the block on the Status screen that lists the plugins this one needs. */
 				'status'      => __( 'Plugins Status', 'woocommerce-multilingual' ),
 				/* translators: %s is a plugin name */
 				'inst_active' => __( '%s is installed and active.', 'woocommerce-multilingual' ),
@@ -28,6 +29,7 @@ class WCML_Status_Status_UI extends WCML_Templates_Factory {
 				'wpml'        => '<strong>WPML</strong>',
 				'st'          => '<strong>WPML String Translation</strong>',
 				'wc'          => '<strong>WooCommerce</strong>',
+				/* translators: Explanation under the "Plugins Status" heading on the Status screen. */
 				'depends'     => __( 'WPML Multilingual & Multicurrency for WooCommerce depends on several plugins to work. If any required plugin is missing, you should install and activate it.', 'woocommerce-multilingual' ),
 			],
 		];

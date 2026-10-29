@@ -28,6 +28,9 @@ class WPML_TM_Rest_Jobs_Element_Info {
 			case WPML_TM_Job_Entity::PACKAGE_TYPE:
 				$result = $this->get_for_package( $id );
 				break;
+			case WPML_TM_Job_Entity::TAXONOMY_TYPE:
+				$result = $this->get_for_term( $id, $job->get_element_type() );
+				break;
 		}
 
 		if ( empty( $result ) ) {
@@ -70,7 +73,7 @@ class WPML_TM_Rest_Jobs_Element_Info {
 		$helper = $this->package_helper_factory->create();
 		if ( ! $helper ) {
 			return array(
-				'name' => __( 'String package job', 'wpml-translation-management' ),
+				'name' => __( 'String package job', 'sitepress' ),
 				'url'  => null,
 			);
 		}
@@ -84,6 +87,22 @@ class WPML_TM_Rest_Jobs_Element_Info {
 		}
 
 		return $result;
+	}
+
+	private function get_for_term( $termTaxonomyId, $elementType ) {
+		$taxonomy = (string) substr( (string) $elementType, strlen( WPML_TM_Job_Entity::TAXONOMY_TYPE ) + 1 );
+		$term     = $taxonomy ? get_term_by( 'term_taxonomy_id', (int) $termTaxonomyId, $taxonomy ) : null;
+
+		if ( ! $term || ! isset( $term->term_id ) ) {
+			return array();
+		}
+
+		$editLink = get_edit_term_link( (int) $term->term_id, $taxonomy );
+
+		return [
+			'name' => (string) $term->name,
+			'url'  => is_string( $editLink ) ? $editLink : null,
+		];
 	}
 
 	private function get_for_title( $title ) {
@@ -111,7 +130,15 @@ class WPML_TM_Rest_Jobs_Element_Info {
 				);
 				break;
 			case 'st-batch':
-				$label = __( 'Strings', 'wpml-translation-management' );
+				/* translators: Name of a kind of content in the translation screens: the single texts of the site, as opposed to posts and pages. Plural noun. */
+				$label = __( 'Strings', 'sitepress' );
+				break;
+			case WPML_TM_Job_Entity::TAXONOMY_TYPE:
+				$specificType = substr( $job->get_element_type(), strlen( $generalType ) + 1 );
+				$taxonomy     = get_taxonomy( $specificType );
+				$label        = $taxonomy && isset( $taxonomy->labels->singular_name )
+					? (string) $taxonomy->labels->singular_name
+					: $job->get_element_type();
 				break;
 			default:
 				$label = $job->get_element_type();

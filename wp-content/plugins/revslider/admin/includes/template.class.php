@@ -119,7 +119,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 			$request = $rslb->call_url($this->templates_list, $data, 'templates');
 
 			if(!is_wp_error($request)){
-				if($response = maybe_unserialize($request['body'])){
+				if($response = $this->maybe_unserialize_safe($request['body'])){
 					$templates = json_decode($response, true);
 					if(is_array($templates)){
 						if(isset($templates['hash'])) update_option('revslider-templates-hash', $templates['hash']);
@@ -247,7 +247,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 
 		$chk	= $this->check_curl_connection();
 		$curl	= ($chk) ? new WP_Http_Curl() : false;
-		$url	= $rslb->get_url('templates', 0, true);
+		$url	= $rslb->get_url('templates');
 		$reload	= array();
 		
 		$loaded = false;
@@ -280,7 +280,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 									}else{
 										$image_data = false;
 										$rslb->move_server_list();
-										$url = $rslb->get_url('templates', 0, true);
+										$url = $rslb->get_url('templates');
 									}
 									$count++;
 								}while($done == false && $count < 3);
@@ -294,7 +294,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 									}else{
 										$image_data = false;
 										$rslb->move_server_list();
-										$url = $rslb->get_url('templates', 0, true);
+										$url = $rslb->get_url('templates');
 									}
 									$count++;
 								}while($done == false && $count < 3);
@@ -344,7 +344,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 											}else{
 												$image_data = false;
 												$rslb->move_server_list();
-												$url = $rslb->get_url('templates', 0, true);
+												$url = $rslb->get_url('templates');
 											}
 											$count++;
 										}while($done == false && $count < 5);
@@ -354,7 +354,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 											$image_data = @file_get_contents($url.'/'.$this->templates_server_path.$tvalues['img']); // Get image data
 											if($image_data == false){
 												$rslb->move_server_list();
-												$url = $rslb->get_url('templates', 0, true);
+												$url = $rslb->get_url('templates');
 											}
 											$count++;
 										}while($image_data == false && $count < 5);
@@ -569,6 +569,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * @since: 5.0.5
 	 */
 	public function _check_file_path($image, $url = false, $download = true){
+		if(strpos((string)$image, '..') !== false) return $image; //a template image name never leaves its folder
 		$upload_dir	 = wp_upload_dir(); // Set upload folder
 		$file		 = $upload_dir['basedir'] . $this->templates_path . '/' . $image;
 		

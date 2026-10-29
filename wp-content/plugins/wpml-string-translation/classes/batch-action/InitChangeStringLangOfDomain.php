@@ -38,6 +38,11 @@ class InitChangeStringLangOfDomain implements IHandler {
 			return Either::left( __( 'Error: please try again', 'wpml-string-translation' ) );
 		}
 
+		$targetLanguage = \WPML\Language\RequestedLanguage::validate( $targetLanguage, \WPML\Language\RequestedLanguage::SCOPE_CONFIGURED );
+		if ( null === $targetLanguage ) {
+			return Either::left( 'invalid language' );
+		}
+
 		$langs = $this->stringsRepository->getLanguagesUsedInDomains( [ $domain ], [ $targetLanguage ] );
 		$count = $this->stringsRepository->getCountInDomainsByLangs( [ $domain ], $langs );
 

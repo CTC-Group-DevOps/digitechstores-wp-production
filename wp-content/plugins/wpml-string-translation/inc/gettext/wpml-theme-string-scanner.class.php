@@ -15,10 +15,6 @@ class WPML_Theme_String_Scanner extends WPML_String_Scanner implements IWPML_ST_
 		$this->scan_theme_files();
 		$stats = $this->set_stats( 'theme_localization_domains', $current_theme_name );
 
-		if ( $theme_info && $theme_info->exists() ) {
-			$this->remove_notice( $theme_info->get( 'Name' ) );
-		}
-
 		$this->scan_response( $stats );
 	}
 
@@ -40,10 +36,7 @@ class WPML_Theme_String_Scanner extends WPML_String_Scanner implements IWPML_ST_
 	}
 
 	private function is_valid_theme_identifier( $theme_name ) {
-		return is_string( $theme_name )
-			&& '' !== $theme_name
-			&& false === strpos( $theme_name, '/' )
-			&& false === strpos( $theme_name, '\\' );
+		return WPML_ST_Path_Confinement::is_theme_identifier( $theme_name );
 	}
 
 	private function scan_theme_files() {
@@ -59,10 +52,10 @@ class WPML_Theme_String_Scanner extends WPML_String_Scanner implements IWPML_ST_
 				}
 
 				if ( $this->is_js_file( $file ) ) {
-					$jsScanner = new \WPML\ST\StringsScanning\JS\Scanner();
-					$jsScanner->scan( $file, $this->text_domain, [ $this, 'store_results' ] );
+					$this->scan_js_file( $file );
 					$this->add_scanned_file( $file );
 				} else {
+					/* translators: Line in the progress log on the Theme and plugins localization page. %s: the path of the file being scanned. */
 					$this->add_stat( sprintf( __( 'Scanning file: %s', 'wpml-string-translation' ), $file ) );
 					_potx_process_file( $file, 0, array( $this, 'store_results' ), '_potx_save_version', $this->get_default_domain() );
 					$this->add_scanned_file( $file );

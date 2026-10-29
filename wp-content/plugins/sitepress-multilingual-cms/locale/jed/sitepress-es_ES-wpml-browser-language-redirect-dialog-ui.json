@@ -7,8 +7,11 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "es_ES"
          },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "Antes de continuar, le recomendamos que lea estas dos páginas:"
+         ],
          "How Browser Language Redirect Affects Google Indexing": [
-            "Cómo afecta la redirección de idioma del navegador a la indexación de Google"
+            "Cómo afecta la redirección por idioma del navegador a la indexación de Google"
          ],
          "Documentation": [
             "Documentación"
@@ -23,13 +26,10 @@
             "Cancelar"
          ],
          "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
-            "Cuando redirige a los visitantes en función de su idioma, también redirige a Google. Google quiere ver su sitio exactamente como lo ven los visitantes, incluidas las redirecciones que aplique."
+            "Cuando usted redirecciona a los visitantes en función de su idioma, también redirecciona a Google. Google quiere ver su sitio exactamente igual que lo ven los visitantes, incluyendo cualquier redirección que usted aplique."
          ],
          "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
-            "Está bien redirigir a los visitantes en función de su idioma, pero debe darse cuenta de que esta característica afecta al SEO."
-         ],
-         "Before proceeding, we recommend that you read these two pages:": [
-            "Antes de continuar, le recomendamos que lea estas dos páginas:"
+            "No hay problema en redireccionar a los visitantes en función de su idioma, pero debe tener en cuenta que esta función afecta al SEO."
          ]
       }
    }

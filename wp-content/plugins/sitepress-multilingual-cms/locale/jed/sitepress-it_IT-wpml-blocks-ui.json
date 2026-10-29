@@ -8,16 +8,16 @@
             "lang": "it_IT"
          },
          "Advanced": [
-            "Avanzate"
+            "Avanzato"
          ],
          "HTML anchor": [
-            "Ancora HTML"
+            "Ancoraggio HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Aggiungi un collegamento a questo blocco durante il caricamento della pagina utilizzando l'URL “#anchor”."
+            "Aggiungi una scorciatoia a questo blocco quando carichi la pagina utilizzando l’URL “#anchor”."
          ],
          "Additional CSS class(es)": [
-            "Classe/i CSS aggiuntiva/e"
+            "Classi CSS aggiuntive"
          ],
          "Separate multiple classes with spaces.": [
             "Separa più classi con spazi."
@@ -41,7 +41,7 @@
             "Margine del blocco"
          ],
          "Block padding": [
-            "Spaziatura interna del blocco"
+            "Padding del blocco"
          ],
          "LANGUAGE": [
             "LINGUA"
@@ -50,7 +50,7 @@
             "Spaziatura lingua"
          ],
          "Language padding": [
-            "Spaziatura interna lingua"
+            "Padding lingua"
          ],
          "Display": [
             "Visualizzazione"
@@ -59,10 +59,10 @@
             "Mostra bandiera"
          ],
          "Show language name": [
-            "Mostra nome lingua"
+            "Mostra nome della lingua"
          ],
          "Display language name in": [
-            "Visualizza il nome della lingua in"
+            "Visualizza nome della lingua in"
          ],
          "Style": [
             "Stile"
@@ -86,7 +86,7 @@
             "Lingue disponibili"
          ],
          "Allow wrapping to multiple lines": [
-            "Consenti il ritorno a capo su più righe"
+            "Consenti l'andata a capo su più righe"
          ],
          "Open on click": [
             "Apri al clic"
@@ -104,10 +104,10 @@
             "Orientamento"
          ],
          "Language Switcher": [
-            "Switcher di lingua"
+            "Selettore di lingua"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Switcher di lingua, premi tab per navigare ad altre lingue"
+            "Selettore di lingua, premi tab per navigare tra le altre lingue"
          ],
          "Typography": [
             "Tipografia"
@@ -143,7 +143,7 @@
             "Giustifica elementi a destra"
          ],
          "Justify items space between": [
-            "Giustifica elementi con spazio tra"
+            "Giustifica elementi con spazio tra loro"
          ],
          "Horizontal": [
             "Orizzontale"
@@ -161,7 +161,7 @@
             "Grande"
          ],
          "X-Large": [
-            "Molto grande"
+            "Extra grande"
          ],
          "Ab": [
             "Ab"
@@ -176,19 +176,16 @@
             "Piccolo"
          ],
          "Displays the WPML Language Switcher.": [
-            "Visualizza lo switcher di lingua WPML."
+            "Visualizza il selettore di lingua WPML."
          ],
          "displays the WPML Language Switcher": [
-            "visualizza lo switcher di lingua WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Visualizza lo switcher di lingua WPML. <br/> Scopri <a>come tradurre questo blocco</a>."
+            "visualizza il selettore di lingua WPML"
          ],
          "Navigation Language Switcher": [
-            "Switcher di lingua di navigazione"
+            "Selettore di lingua di navigazione"
          ],
          "Reset all": [
-            "Reimposta tutto"
+            "Ripristina tutto"
          ]
       }
    }

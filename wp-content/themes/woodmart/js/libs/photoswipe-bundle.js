@@ -2747,6 +2747,16 @@
                         var vRatio = _tempPanAreaSize.y / item.h;
 
                         item.fitRatio = hRatio < vRatio ? hRatio : vRatio;
+
+                        // WOODMART: prevent upscaling of images that already fit the viewport.
+                        // When an image is smaller than the viewport, fitRatio becomes > 1, so
+                        // PhotoSwipe renders the <img> larger than its natural size and then
+                        // applies a fractional scale() transform (e.g. scale(0.949)) to shrink it
+                        // back. That double resampling softens micro-textures on large desktops.
+                        // Clamping fitRatio to 1 keeps crisp 1:1 pixel rendering.
+                        if (item.fitRatio > 1) {
+                            item.fitRatio = 1;
+                        }
                         //item.fillRatio = hRatio > vRatio ? hRatio : vRatio;
 
                         var scaleMode = _options.scaleMode;

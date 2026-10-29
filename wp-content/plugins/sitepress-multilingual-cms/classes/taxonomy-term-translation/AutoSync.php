@@ -44,11 +44,15 @@ class AutoSync implements \IWPML_Backend_Action, \IWPML_REST_Action, \IWPML_AJAX
 				wpml_get_hierarchy_sync_helper( 'term' )->sync_element_hierarchy( $taxonomies, Languages::getDefaultCode() );
 			};
 
-			Maybe::of( $job )
+			$getTaxonomies = function( $postType ) {
+				return array_map( 'strval', get_object_taxonomies( $postType ) );
+			};
+
+			Maybe::fromNullable( $job )
 				->filter( $isPostJob )
 				->map( $getPostType )
 				->filter( $isAutomaticPostType )
-				->map( 'get_object_taxonomies' )
+				->map( $getTaxonomies )
 				->map( Fns::filter( $isTranslatableTax ) )
 				->map( $syncTaxonomyHierarchies );
 		};

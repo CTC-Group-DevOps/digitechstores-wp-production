@@ -6,6 +6,7 @@ $debug_data = $debug_info->run();
 
 ?>
 <div class="wrap">
+	<?php /* translators: Title of the screen that lists facts about the site for finding problems, and the item in the WPML menu that opens it. */ ?>
 	<h1><?php echo __( 'Debug information', 'sitepress' ); ?></h1>
 	<?php
 

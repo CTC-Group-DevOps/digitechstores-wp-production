@@ -5,6 +5,7 @@ namespace WPML\TM\Jobs\Query;
 use wpdb;
 use WPML_TM_Editors;
 use WPML_TM_Jobs_Search_Params;
+use WPML\Core\Component\Translation\Domain\Query\LatestTranslateJobSql;
 use WPML\TM\ATE\Jobs;
 
 abstract class AbstractQuery implements Query {
@@ -15,6 +16,8 @@ abstract class AbstractQuery implements Query {
 	protected $title_column = 'posts.post_title';
 
 	protected $batch_name_column = 'batches.batch_name';
+
+	protected $batch_join = 'INNER JOIN';
 
 	public function __construct( wpdb $wpdb, QueryBuilder $query_builder ) {
 		$this->wpdb          = $wpdb;
@@ -62,6 +65,7 @@ abstract class AbstractQuery implements Query {
 				"({$has_completed_translation_subquery}) > 0 AS has_completed_translation",
 				'translate_job.editor_job_id AS editor_job_id',
 				'translate_job.automatic AS automatic',
+				'translate_job.created_by_translate_everything AS created_by_translate_everything',
 				'translate_job.title AS job_title',
 				'translation_status.review_status AS review_status',
 			];
@@ -74,6 +78,14 @@ abstract class AbstractQuery implements Query {
 		$columns = array( 'COUNT(translation_status.rid)' );
 
 		return $this->build_query( $params, $columns );
+	}
+
+	public function get_exists_query( WPML_TM_Jobs_Search_Params $params ) {
+		$params = clone $params;
+		$params->set_limit( 1 )->set_offset( 0 );
+		$params->set_sorting( array() );
+
+		return $this->build_query( $params, array( '1' ) );
 	}
 
 
@@ -112,15 +124,7 @@ abstract class AbstractQuery implements Query {
 				ON original_translations.trid = translations.trid AND original_translations.language_code = translations.source_language_code"
 		);
 
-		$subquery = "
-			SELECT *
-            FROM {$this->wpdb->prefix}icl_translate_job as translate_job
-            WHERE job_id = (
-				SELECT MAX(job_id) AS job_id
-				FROM {$this->wpdb->prefix}icl_translate_job as sub_translate_job
-				WHERE sub_translate_job.rid = translate_job.rid
-			)
-		";
+		$subquery = LatestTranslateJobSql::correlatedDerivedTable( $this->wpdb->prefix );
 		$query_builder->add_join( "INNER JOIN ({$subquery}) AS translate_job ON translate_job.rid = translation_status.rid" );
 
 		$this->add_resource_join( $query_builder );
@@ -136,7 +140,7 @@ abstract class AbstractQuery implements Query {
 		);
 
 		$query_builder->add_join(
-			"INNER JOIN {$this->wpdb->prefix}icl_translation_batches batches
+			"{$this->batch_join} {$this->wpdb->prefix}icl_translation_batches batches
 				ON batches.id = translation_status.batch_id"
 		);
 	}
@@ -172,6 +176,7 @@ abstract class AbstractQuery implements Query {
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_id() );
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_ids() );
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_local_job_ids() );
+		$query_builder->set_numeric_value_filter( 'translate_job.job_id', $params->get_translate_job_ids() );
 		$query_builder->set_numeric_value_filter(
 			'original_translations.element_id',
 			$params->get_original_element_id()

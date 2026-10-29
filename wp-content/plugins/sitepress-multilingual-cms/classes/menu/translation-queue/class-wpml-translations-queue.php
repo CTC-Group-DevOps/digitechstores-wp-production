@@ -6,6 +6,7 @@ use WPML\FP\Fns;
 use WPML\FP\Logic;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
+use function WPML\Container\make;
 use WPML\FP\Relation;
 use WPML\Setup\Option;
 use WPML\TM\API\Translators;
@@ -30,6 +31,10 @@ class WPML_Translations_Queue {
 
 	private $editor;
 
+	private $requestedJobId = 0;
+
+	private $noEditorMessage = '';
+
 	public function __construct( SitePress $sitepress, Editor $editor ) {
 		$this->sitepress = $sitepress;
 		$this->editor    = $editor;
@@ -41,6 +46,20 @@ class WPML_Translations_Queue {
 
 	public function load() {
 		if ( $this->must_open_the_editor() ) {
+			if ( \WPML\TM\Jobs\TakeOver\AdminEditorModal::maybeForRequest( $_GET ) ) {
+				return;
+			}
+
+			$jobId = $this->requestedJobId;
+			if ( $jobId && \WPML\TM\ATE\Receive\JobKind::isTaxonomyTerm( $jobId ) ) {
+				$url = make( \WPML\TM\ATE\Review\TermReviewOpener::class )->openUrl( $jobId, $this->termReviewReturnUrl( $jobId ) );
+				if ( $url ) {
+					wp_safe_redirect( $url, 302, 'WPML' );
+				}
+
+				return;
+			}
+
 			$response = $this->editor->open( $_GET );
 
 			\WPML\PostHog\Event\CaptureEvent::capture(
@@ -57,8 +76,19 @@ class WPML_Translations_Queue {
 				return;
 			} elseif (Relation::propEq( 'editor', WPML_TM_Editors::WPML, $response )) {
 				$this->openClassicTranslationEditor( Obj::prop('jobObject', $response) );
-            }
+            } else {
+				$this->noEditorMessage = Editor::noEditorMessage( Obj::prop( 'reason', $response ) );
+				add_action( 'admin_notices', [ $this, 'render_no_editor_notice' ] );
+			}
 		}
+	}
+
+	public function render_no_editor_notice() {
+		if ( '' === $this->noEditorMessage ) {
+			return;
+		}
+
+		echo '<div class="notice notice-warning is-dismissible wpml-no-editor-notice"><p>' . esc_html( $this->noEditorMessage ) . '</p></div>';
 	}
 
 	private function openClassicTranslationEditor( $job_object ) {
@@ -87,12 +117,15 @@ class WPML_Translations_Queue {
 		$jobs_url = admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=jobs' );
 		?>
 		<div class="wrap">
+			<?php /* translators: Heading of the screen that lists the translations waiting to be worked on. */ ?>
 			<h2><?php echo __( 'Translations queue', 'sitepress' ); ?></h2>
-			<p class="wpml-jobs-page-description translations-queue-description"><?php echo esc_html__( 'Content waiting for your review or translation. Use it to start or continue your work.', 'wpml-translation-management' ); ?></p>
+			<p class="wpml-jobs-page-description translations-queue-description"><?php echo esc_html__( 'Content waiting for your review or translation. Use it to start or continue your work.', 'sitepress' ); ?></p>
 			<p class="wpml-jobs-page-description">
 				<?php
 				printf(
+					/* translators: Line under that heading. %s: a link, already wrapped in its tags, whose text is "Translation Jobs". */
 					esc_html__( 'Need the full list for monitoring or troubleshooting? Go to %s.', 'sitepress' ),
+					/* translators: Link text that opens the screen listing every translation job. It is the name of that screen. */
 					'<a href="' . esc_url( $jobs_url ) . '">' . esc_html__( 'Translation Jobs', 'sitepress' ) . '</a>'
 				);
 				?>
@@ -103,8 +136,25 @@ class WPML_Translations_Queue {
 		<?php
 	}
 
+	public function is_editor_prepared(): bool {
+		return $this->must_render_the_editor;
+	}
+
+	private function termReviewReturnUrl( $jobId ) {
+		return add_query_arg(
+			array(
+				'page'           => WPML_TM_FOLDER . '/menu/main.php',
+				'tab'            => 'tasks',
+				'ate-return-job' => (int) $jobId,
+			),
+			admin_url( '/admin.php' )
+		);
+	}
+
 	private function must_open_the_editor() {
-		return Obj::prop( 'job_id', $_GET ) > 0 || Obj::prop( 'trid', $_GET ) > 0;
+		$this->requestedJobId = (int) Obj::prop( 'job_id', $_GET );
+
+		return $this->requestedJobId > 0 || Obj::prop( 'trid', $_GET ) > 0;
 	}
 
 	public static function get_cookie_filters() {

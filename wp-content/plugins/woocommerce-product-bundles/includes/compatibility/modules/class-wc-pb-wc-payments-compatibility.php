@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooPayments Integration.
  *
- * @version  7.1.2
+ * @version  8.5.16
  */
 class WC_PB_WC_Payments_Compatibility {
 
 	/**
 	 * Hide quick-pay buttons in Bundle product pages.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		add_filter( 'wcpay_payment_request_is_product_supported', array( __CLASS__, 'handle_express_checkout_buttons' ), 10, 2 );

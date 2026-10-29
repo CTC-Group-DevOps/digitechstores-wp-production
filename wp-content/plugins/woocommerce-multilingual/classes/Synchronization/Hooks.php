@@ -41,12 +41,13 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 	public function add_hooks() {
 		if ( is_admin() || isCli() ) {
 			add_action( 'save_post', [ $this, 'synchronizeProductTranslationsOnSave' ], PHP_INT_MAX, 2 );
+			add_action( 'set_object_terms', [ $this, 'synchronizeClearedBrand' ], 10, 6 );
 			add_action( 'icl_make_duplicate', [ $this, 'synchronizeProductDuplication' ], 110, 4 );
 
 			add_action( 'woocommerce_product_quick_edit_save', [ $this, 'synchronizeOnEditSave' ] );
 			add_action( 'woocommerce_product_bulk_edit_save', [ $this, 'synchronizeOnEditSave' ] );
 
-			add_action( 'wpml_translation_update', [ $this, 'synchronizeConnectedTranslations' ] );
+			add_action( 'wpml_translations_connected', [ $this, 'synchronizeConnectedTranslations' ] );
 		}
 
 		if ( is_admin() || wpml_is_rest_request() ) {
@@ -65,7 +66,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 	}
 
 	private function canRunProductSynchronization( $post ) {
-		if ( 'product' !== $post->post_type ) {
+		if ( ! in_array( $post->post_type, [ 'product', 'product_variation' ], true ) ) {
 			return false;
 		}
 
@@ -86,7 +87,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 
 	private function isProductSynchronizationValidContext() {
 		global $pagenow, $wp;
-		$isDuplicating  = ( ! empty( $_POST['icl_ajx_action'] ) && 'make_duplicates' === $_POST['icl_ajx_action'] );
+		$isDuplicating  = (bool) apply_filters( 'wpml_is_operation', false, 'make_duplicates' );
 		$isApiRequest   = ! empty( $wp->query_vars['wc-api-version'] );
 		$isValidContext = isCli()
 			|| $isDuplicating
@@ -94,6 +95,31 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 			|| in_array( $pagenow, [ 'post.php', 'post-new.php', 'admin.php' ], true );
 
 		return apply_filters( 'wcml_product_synchronization_on_save_is_valid_context', $isValidContext );
+	}
+
+	public function synchronizeClearedBrand( $objectId, $terms, $ttIds, $taxonomy, $append, $oldTtIds ) {
+		if ( \WCML_Terms::PRODUCT_BRAND !== $taxonomy || $append || $ttIds || ! $oldTtIds ) {
+			return;
+		}
+
+		if ( ! $this->sitepress->get_setting( 'sync_post_taxonomies' ) ) {
+			return;
+		}
+
+		if ( apply_filters( 'wpml_is_translated_taxonomy', false, $taxonomy ) ) {
+			return;
+		}
+
+		$product = get_post( $objectId );
+		if ( ! $product || 'product' !== $product->post_type || ! $this->manager->isOriginalProduct( $product ) ) {
+			return;
+		}
+
+		foreach ( $this->manager->getElementTranslations( $objectId ) as $translationId ) {
+			if ( (int) $translationId !== (int) $objectId ) {
+				wp_set_post_terms( (int) $translationId, [], $taxonomy );
+			}
+		}
 	}
 
 	public function synchronizeProductTranslationsOnSave( $postId, $post ) {
@@ -215,47 +241,46 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_Frontend_Action, \IWPML_DIC
 		}
 	}
 
-	public function synchronizeConnectedTranslations() {
-		if ( 'connect_translations' !== Obj::prop( 'icl_ajx_action', $_POST ) ) {
-			return;
-		}
-
-		$postType = Obj::prop( 'post_type', $_POST );
+	public function synchronizeConnectedTranslations( $data = [] ) {
+		$postType = Obj::prop( 'post_type', $data );
 		if ( 'product' !== $postType ) {
 			return;
 		}
 
-		$newTrid      = Obj::prop( 'new_trid', $_POST );
+		$newTrid      = Obj::prop( 'new_trid', $data );
 		$translations = $this->sitepress->get_element_translations( $newTrid, 'post_' . $postType );
 		if ( ! $translations ) {
 			return;
 		}
 
-		$postId      = Obj::prop( 'post_id', $_POST );
-		$setAsSource = Obj::prop( 'set_as_source', $_POST );
+		$postId      = Obj::prop( 'post_id', $data );
+		$setAsSource = Obj::prop( 'set_as_source', $data );
 
-		remove_action( 'wpml_translation_update', [ $this, 'synchronizeConnectedTranslations' ] );
-		foreach ( $translations as $translation ) {
-			if ( $setAsSource && ! $translation->original ) {
-				$productId           = $postId;
-				$translatedProductId = $translation->element_id;
-				$language            = $translation->language_code;
-				break;
-			} elseif ( ! $setAsSource && $translation->original ) {
-				$productId           = $translation->element_id;
-				$translatedProductId = $postId;
-				$language            = $this->sitepress->get_current_language();
-				break;
+		remove_action( 'wpml_translations_connected', [ $this, 'synchronizeConnectedTranslations' ] );
+		try {
+			foreach ( $translations as $translation ) {
+				if ( $setAsSource && ! $translation->original ) {
+					$productId           = $postId;
+					$translatedProductId = $translation->element_id;
+					$language            = $translation->language_code;
+					break;
+				} elseif ( ! $setAsSource && $translation->original ) {
+					$productId           = $translation->element_id;
+					$translatedProductId = $postId;
+					$language            = $this->sitepress->get_current_language();
+					break;
+				}
 			}
-		}
 
-		if ( isset( $productId, $translatedProductId, $language ) ) {
-			$product = get_post( $productId );
-			$this->manager->runProductComponents( $product, [ $translatedProductId ], [ $translatedProductId => $language ] );
-			$this->sitepress->copy_custom_fields( $productId, $translatedProductId );
-			$this->woocommerceWpml->translation_editor->create_product_translation_package( $productId, $newTrid, $language, ICL_TM_COMPLETE );
+			if ( isset( $productId, $translatedProductId, $language ) ) {
+				$product = get_post( $productId );
+				$this->manager->runProductComponents( $product, [ $translatedProductId ], [ $translatedProductId => $language ] );
+				$this->sitepress->copy_custom_fields( $productId, $translatedProductId );
+				$this->woocommerceWpml->translation_editor->create_product_translation_package( $productId, $newTrid, $language, ICL_TM_COMPLETE );
+			}
+		} finally {
+			add_action( 'wpml_translations_connected', [ $this, 'synchronizeConnectedTranslations' ] );
 		}
-		add_action( 'wpml_translation_update', [ $this, 'synchronizeConnectedTranslations' ] );
 	}
 
 	public function synchronizeOnEditSave( $productObject ) {

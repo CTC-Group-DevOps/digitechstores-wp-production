@@ -5,6 +5,8 @@ namespace WPML\Core\REST;
 class RewriteRules implements \IWPML_REST_Action, \IWPML_DIC_Action {
 	private $sitepress;
 
+	private $memo;
+
 	public function __construct( \SitePress $sitepress ) {
 		$this->sitepress = $sitepress;
 	}
@@ -24,13 +26,31 @@ class RewriteRules implements \IWPML_REST_Action, \IWPML_DIC_Action {
 			return $rewriteRules;
 		}
 
-		$subdirectory = $this->getSubdirectory();
+		if ( ! $this->memo ) {
+			$this->memo = \WPML\Utilities\RequestMemo::forRewriteRules( [ 'registered_post_type', 'registered_taxonomy' ] );
+		}
 
-		$mapKeys = function ( $value, $key ) use ( $subdirectory ) {
-			if ( $key === '^wp-json/?$' ) {
-				$key = "^($subdirectory/)?wp-json/?$";
-			} elseif ( $key === '^wp-json/(.*)?' ) {
-				$key   = "^($subdirectory/)?wp-json/(.*)?";
+		return $this->memo->rewriteRules(
+			$rewriteRules,
+			function ( $rewriteRules ) {
+				return $this->buildRules( $rewriteRules );
+			},
+			$this->getRestUrlPrefix(),
+			true
+		);
+	}
+
+	private function buildRules( $rewriteRules ) {
+		$subdirectory = $this->getSubdirectory();
+		$restPrefix   = $this->getRestUrlPrefix();
+
+		$quotedPrefix = preg_quote( $restPrefix, '#' );
+
+		$mapKeys = function ( $value, $key ) use ( $subdirectory, $restPrefix, $quotedPrefix ) {
+			if ( $key === '^' . $restPrefix . '/?$' ) {
+				$key = "^($subdirectory/)?$quotedPrefix/?$";
+			} elseif ( $key === '^' . $restPrefix . '/(.*)?' ) {
+				$key   = "^($subdirectory/)?$quotedPrefix/(.*)?";
 				$value = str_replace( 'matches[1]', 'matches[2]', $value );
 			}
 
@@ -38,6 +58,13 @@ class RewriteRules implements \IWPML_REST_Action, \IWPML_DIC_Action {
 		};
 
 		return \wpml_collect( $rewriteRules )->mapWithKeys( $mapKeys )->toArray();
+	}
+
+	private function getRestUrlPrefix() {
+		$prefix = function_exists( 'rest_get_url_prefix' ) ? (string) rest_get_url_prefix() : '';
+		$prefix = trim( $prefix, '/' );
+
+		return '' === $prefix ? 'wp-json' : $prefix;
 	}
 
 	private function isLangInDirectory() {

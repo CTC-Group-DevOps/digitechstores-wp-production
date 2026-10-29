@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Tracks support.
  *
  * @class    WC_PB_Tracks
- * @version  6.18.6
+ * @version  8.5.16
  */
 class WC_PB_Tracks {
 
@@ -26,6 +26,8 @@ class WC_PB_Tracks {
 
 	/**
 	 * Hook in.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

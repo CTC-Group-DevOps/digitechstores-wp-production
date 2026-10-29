@@ -8,10 +8,10 @@
             "lang": "zh_CN"
          },
          "But...": [
-            "但是..."
+            "但是……"
          ],
          "Wait to translate any content that contains media until we're finished configuring it. It will be just a moment.": [
-            "请等待我们完成配置后再翻译任何包含媒体的内容。这只需要片刻时间。"
+            "请等待我们完成媒体翻译配置后再翻译包含媒体的内容。只需片刻即可完成。"
          ]
       }
    }

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Price functions and hooks.
  *
  * @class    WC_PB_Product_Prices
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Product_Prices {
 
@@ -36,19 +36,21 @@ class WC_PB_Product_Prices {
 	/**
 	 * Bundled items whose prices are currently being filtered -- all states.
 	 *
-	 * @var WC_Bundled_Item
+	 * @var WC_Bundled_Item[]|null
 	 */
 	private static $bundled_item_pre;
 
 	/**
 	 * Bundled item whose prices are currently being filtered.
 	 *
-	 * @var WC_Bundled_Item
+	 * @var mixed A WC_Bundled_Item or null from this plugin; third parties can assign anything.
 	 */
 	public static $bundled_item;
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -102,7 +104,7 @@ class WC_PB_Product_Prices {
 	 *
 	 * @param  WC_Product $product The product to check.
 	 * @param  string     $context The context in which to check. Values: 'any' | 'catalog' | 'cart'.
-	 * @return WC_Bundled_Item|boolean
+	 * @return WC_Bundled_Item|false
 	 */
 	public static function get_filtered_bundled_item( $product, $context = 'any' ) {
 
@@ -110,13 +112,21 @@ class WC_PB_Product_Prices {
 
 		if ( in_array( $context, array( 'any', 'catalog' ), true ) ) {
 			if ( self::$bundled_item && in_array( self::$bundled_item->get_product_id(), array( $product->get_id(), $product->get_parent_id() ), true ) ) {
+				// A third party can store any object in this public property. Callers skip a match that is not a bundled item, without checking the cart.
+				if ( ! ( self::$bundled_item instanceof WC_Bundled_Item ) ) {
+					return false;
+				}
+
 				$bundled_item = self::$bundled_item;
 			}
 		}
 
 		if ( 'cart' === $context || ( ! $bundled_item && 'any' === $context ) ) {
-			if ( ! is_null( WC_PB()->product_data->get( $product, 'bundled_cart_item' ) ) ) {
-				$bundled_item = WC_PB()->product_data->get( $product, 'bundled_cart_item' );
+			$bundled_cart_item = WC_PB()->product_data->get( $product, 'bundled_cart_item' );
+
+			// The runtime prop can hold anything a third party stored in it.
+			if ( $bundled_cart_item instanceof WC_Bundled_Item ) {
+				$bundled_item = $bundled_cart_item;
 			}
 		}
 
@@ -148,7 +158,7 @@ class WC_PB_Product_Prices {
 	 * @since  5.7.6
 	 *
 	 * @param  WC_Product $product The product.
-	 * @return array
+	 * @return array{incl: float, excl: float}
 	 */
 	public static function get_tax_ratios( $product ) {
 
@@ -180,6 +190,8 @@ class WC_PB_Product_Prices {
 
 	/**
 	 * Filters the 'woocommerce_price_num_decimals' option to use the internal WC rounding precision.
+	 *
+	 * @return void
 	 */
 	public static function extend_price_display_precision() {
 		add_filter( 'wc_get_price_decimals', array( __CLASS__, 'get_extended_price_precision' ) );
@@ -187,6 +199,8 @@ class WC_PB_Product_Prices {
 
 	/**
 	 * Reset applied filters to the 'woocommerce_price_num_decimals' option.
+	 *
+	 * @return void
 	 */
 	public static function reset_price_display_precision() {
 		remove_filter( 'wc_get_price_decimals', array( __CLASS__, 'get_extended_price_precision' ) );
@@ -327,6 +341,7 @@ class WC_PB_Product_Prices {
 	 * Add price filters to modify child product prices depending on the bundled item pricing setup.
 	 *
 	 * @param  WC_Bundled_Item $bundled_item The bundled item.
+	 * @return void
 	 */
 	public static function add_price_filters( $bundled_item ) {
 
@@ -370,6 +385,8 @@ class WC_PB_Product_Prices {
 
 	/**
 	 * Remove price filters after modifying child product prices depending on the bundled item pricing setup.
+	 *
+	 * @return void
 	 */
 	public static function remove_price_filters() {
 
@@ -581,13 +598,13 @@ class WC_PB_Product_Prices {
 	 * @param  double|string $price The price.
 	 * @param  WC_Product    $product The product.
 	 * @param  string        $context The context.
-	 * @return double
+	 * @return float|int|string
 	 */
 	public static function filter_get_price( $price, $product, $context = 'any' ) {
 
 		$bundled_item = self::get_filtered_bundled_item( $product, $context );
 
-		if ( $bundled_item && ( $bundled_item instanceof WC_Bundled_Item ) ) {
+		if ( $bundled_item ) {
 
 			if ( '' === $price ) {
 				return $price;
@@ -662,7 +679,7 @@ class WC_PB_Product_Prices {
 
 		$bundled_item = self::get_filtered_bundled_item( $product, $context );
 
-		if ( $bundled_item && ( $bundled_item instanceof WC_Bundled_Item ) ) {
+		if ( $bundled_item ) {
 
 			if ( ! $bundled_item->is_priced_individually() ) {
 				return 0;
@@ -675,16 +692,16 @@ class WC_PB_Product_Prices {
 	/**
 	 * Filter get_sale_price() calls for bundled products to include discounts.
 	 *
-	 * @param  double     $sale_price The price.
-	 * @param  WC_Product $product The product.
-	 * @param  string     $context The context.
+	 * @param  string|float $sale_price The price.
+	 * @param  WC_Product   $product The product.
+	 * @param  string       $context The context.
 	 * @return double
 	 */
 	public static function filter_get_sale_price( $sale_price, $product, $context = 'any' ) {
 
 		$bundled_item = self::get_filtered_bundled_item( $product, $context );
 
-		if ( $bundled_item && ( $bundled_item instanceof WC_Bundled_Item ) ) {
+		if ( $bundled_item ) {
 
 			if ( ! $bundled_item->is_priced_individually() ) {
 				return 0;
@@ -736,7 +753,7 @@ class WC_PB_Product_Prices {
 	 *
 	 * @param  double|string $price The price.
 	 * @param  WC_Product    $product The product.
-	 * @return double
+	 * @return float|int|string
 	 */
 	public static function filter_get_price_cart( $price, $product ) {
 		return self::is_bundled_pricing_context( $product, 'cart' ) ? self::filter_get_price( $price, $product, 'cart' ) : $price;

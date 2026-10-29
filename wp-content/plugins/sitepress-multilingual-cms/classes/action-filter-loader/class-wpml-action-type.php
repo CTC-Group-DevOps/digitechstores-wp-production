@@ -15,7 +15,16 @@ class Type {
 	private $implementations;
 
 	public function __construct( $class_name ) {
-		$this->implementations = class_implements( $class_name );
+		$implementations = class_exists( $class_name ) || interface_exists( $class_name )
+			? class_implements( $class_name )
+			: false;
+
+		if ( ! is_array( $implementations ) ) {
+			error_log( sprintf( 'WPML: action class "%s" could not be loaded and was skipped.', $class_name ) );
+			$implementations = array();
+		}
+
+		$this->implementations = $implementations;
 	}
 
 	public function is( $type ) {

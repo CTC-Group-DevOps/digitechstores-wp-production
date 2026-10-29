@@ -12,8 +12,6 @@ class WPML_Media_Set_Posts_Media_Flag_Factory implements IWPML_Backend_Action_Lo
 				public function add_hooks() {
 				}
 				public function clear_flags() {
-					// Required if media translation was updated before sitepress and sitepress still calls
-					// the class from Media Translation that was moved to the sitepress core plugin.
 				}
 				public function clear_flags_action() {
 				}

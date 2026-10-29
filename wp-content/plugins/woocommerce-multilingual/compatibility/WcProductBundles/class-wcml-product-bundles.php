@@ -277,6 +277,7 @@ class WCML_Product_Bundles implements \IWPML_Action {
 			return;
 		}
 
+		/* translators: Heading of the group of bundle fields in WPML's translation editor. "Product Bundles" is the name of the WooCommerce extension. */
 		$bundles_section = new WPML_Editor_UI_Field_Section( __( 'Product Bundles', 'woocommerce-multilingual' ) );
 
 		end( $bundle_items );
@@ -301,6 +302,7 @@ class WCML_Product_Bundles implements \IWPML_Action {
 				if ( $bundle_item_data['override_title'] == 'yes' ) {
 					$bundle_field = new WPML_Editor_UI_Single_Line_Field(
 						'bundle_' . $bundle_item->product_id . '_title',
+						/* translators: Label of a name field in WPML's translation editor for a product. Noun. */
 						__( 'Name', 'woocommerce-multilingual' ),
 						$data,
 						false
@@ -312,6 +314,7 @@ class WCML_Product_Bundles implements \IWPML_Action {
 				if ( $bundle_item_data['override_description'] == 'yes' ) {
 					$bundle_field = new WPML_Editor_UI_Single_Line_Field(
 						'bundle_' . $bundle_item->product_id . '_desc',
+						/* translators: Label of a description field in WPML's translation editor for a product. Noun. */
 						__( 'Description', 'woocommerce-multilingual' ),
 						$data,
 						false

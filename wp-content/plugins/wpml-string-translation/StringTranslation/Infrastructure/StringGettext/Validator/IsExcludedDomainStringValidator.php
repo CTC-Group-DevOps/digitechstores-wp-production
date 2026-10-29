@@ -5,6 +5,7 @@ namespace WPML\StringTranslation\Infrastructure\StringGettext\Validator;
 use WPML\StringTranslation\Application\StringGettext\Validator\IsExcludedDomainStringValidatorInterface;
 use WPML\StringTranslation\Infrastructure\StringGettext\Validator\IsExcludedDomainString\FromAuthorsDomainValidator;
 use WPML\StringTranslation\Infrastructure\StringGettext\Validator\IsExcludedDomainString\FromQueryMonitorDomainValidator;
+use WPML\StringTranslation\Infrastructure\StringGettext\Validator\IsExcludedDomainString\FromUserExcludedDomainValidator;
 use WPML\StringTranslation\Infrastructure\StringGettext\Validator\IsExcludedDomainString\FromWoocommerceDomainValidator;
 
 class IsExcludedDomainStringValidator implements IsExcludedDomainStringValidatorInterface {
@@ -12,14 +13,16 @@ class IsExcludedDomainStringValidator implements IsExcludedDomainStringValidator
 	private $validators;
 
 	public function __construct(
-		FromAuthorsDomainValidator      $fromAuthorsDomainValidator,
-		FromQueryMonitorDomainValidator $fromQueryMonitorDomainValidator,
-		FromWoocommerceDomainValidator  $fromWoocommerceDomainValidator
+		FromAuthorsDomainValidator       $fromAuthorsDomainValidator,
+		FromQueryMonitorDomainValidator  $fromQueryMonitorDomainValidator,
+		FromWoocommerceDomainValidator   $fromWoocommerceDomainValidator,
+		FromUserExcludedDomainValidator  $fromUserExcludedDomainValidator
 	) {
 		$this->validators = [
 			$fromAuthorsDomainValidator,
 			$fromQueryMonitorDomainValidator,
 			$fromWoocommerceDomainValidator,
+			$fromUserExcludedDomainValidator,
 		];
 	}
 

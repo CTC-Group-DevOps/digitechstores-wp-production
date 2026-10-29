@@ -20,7 +20,7 @@ class WCML_Admin_Currency_Selector {
 
 			if ( $this->user_can_manage_woocommerce() ) {
 				add_action( 'init', [ $this, 'set_dashboard_currency' ] );
-				add_action( 'wp_ajax_wcml_dashboard_set_currency', [ $this, 'set_dashboard_currency_ajax' ] );
+				\WCML\Request\Ajax::register( 'wcml_dashboard_set_currency', [ 'capability' => [ 'view_woocommerce_reports', 'manage_woocommerce', 'publish_shop_orders' ], 'nonce' => [ self::NONCE_KEY, 'wcml_nonce' ] ], [ $this, 'set_dashboard_currency_ajax' ] );
 				add_filter( 'woocommerce_currency_symbol', [ $this, 'filter_dashboard_currency_symbol' ] );
 			}
 
@@ -69,7 +69,7 @@ class WCML_Admin_Currency_Selector {
 		?>
 		<select id="dropdown_dashboard_currency" style="display: none; margin : 10px; ">
 			<?php if ( empty( $currency_codes ) ) : ?>
-				<option value=""><?php _e( 'Currency - no orders found', 'woocommerce-multilingual' ); ?></option>
+				<option value=""><?php /* translators: Only entry of the currency dropdown on the WooCommerce reports, shown when the shop has no orders yet. */ esc_html_e( 'Currency - no orders found', 'woocommerce-multilingual' ); ?></option>
 			<?php else : ?>
 				<?php foreach ( $currency_codes as $currency ) : ?>
 
@@ -87,6 +87,7 @@ class WCML_Admin_Currency_Selector {
 		$nonce = sanitize_text_field( $_POST['wcml_nonce'] );
 
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, self::NONCE_KEY ) ) {
+			/* translators: Error returned when a request carries an expired or missing security token. */
 			wp_send_json_error( __( 'Invalid nonce', 'woocommerce-multilingual' ), 403 );
 		} else {
 			$this->set_dashboard_currency( sanitize_text_field( $_POST['currency'] ) );

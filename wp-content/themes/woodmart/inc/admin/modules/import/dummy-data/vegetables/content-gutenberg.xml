@@ -86,14 +86,14 @@
 
 <!-- wp:wd/row {"blockId":"7ee77f25-e0c0-4d55-b33b-83862bf10a8d","blockVersion":"2","columnsGap":20} -->
 <div class="wp-block-wd-row wd-7ee77f25"><!-- wp:wd/column {"blockId":"78c5e11e-9c9b-4803-99b7-9d33806730f3","blockVersion":"2","adjacentCount":3,"colWidth":58,"adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-78c5e11e"><!-- wp:wd/slider {"blockId":"5cb3a331-3084-4957-a389-619caba694b2","blockVersion":"2","arrowsStyle":"2","paginationAlign":"center","paginationStyle":"3","autoplay":true,"autoplaySpeed":"25000","height":"380","arrowsCustomSettings":true,"arrowsHoverStyle":"1","arrowsSize":"40","arrowsIconSize":"16","arrowsOffsetH":"-60","arrowsBorderRadius":"10","arrowsBorderRadiusTop":"10","arrowsBorderRadiusRight":"10","arrowsBorderRadiusBottom":"10","arrowsBorderRadiusLeft":"10","arrowsOffsetHTablet":"100"} -->
+<div class="wp-block-wd-column wd-78c5e11e"><!-- wp:wd/slider {"blockId":"5cb3a331-3084-4957-a389-619caba694b2","blockVersion":"2","arrowsStyle":"2","paginationAlign":"center","paginationStyle":"3","autoplay":true,"autoplaySpeed":"25000","height":"380","arrowsCustomSettings":true,"arrowsHoverStyle":"1","arrowsSize":"40","arrowsIconSize":"16","arrowsOffsetH":"-20","arrowsBorderRadius":"10","arrowsBorderRadiusTop":"10","arrowsBorderRadiusRight":"10","arrowsBorderRadiusBottom":"10","arrowsBorderRadiusLeft":"10","arrowsOffsetHTablet":"100"} -->
 <div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-autoplay-on wd-5cb3a331"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"f2f65823-5161-47ee-b0f8-f37f93a15a5b","blockVersion":"2","blockGap":15,"align":"flex-start","aspectRatio":"","image":{"id":257,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-1-opt.jpg","width":855,"height":380},"bgImage":{"id":"","url":""},"bgColorCode":"#c9dcb3","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-f2f65823"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"b7269839-401b-43e3-ada4-10fcec25f5c3","blockVersion":"2","content":"Get Discounts on Fresh Vegetables \u0026amp; Fruits","tpFontSize":"30","tpLineHeight":"1.2","colorCode":"#4c5a3c","displayWidth":"custom","customWidth":"380","tpFontSizeMobile":"20","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-b7269839 wd-custom-width">Get Discounts on Fresh Vegetables &amp; Fruits</h2>
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/container {"blockId":"48cd1ac4-5d57-4183-8db0-8a0c8290ba48","blockVersion":"2","direction":"row","align":"center","wrap":"wrap","colGap":"15","rowGap":"20","wrapMobile":"nowrap"} -->
-<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-48cd1ac4"><!-- wp:wd/title {"blockId":"0cb76c42-bb99-4df5-994b-01339823d84d","blockVersion":"2","content":"Up to - 10%","tpFontSize":"32","tpFontVariant":"700","tpFontWeight":"700","colorCode":"#4c5a3c","displayWidth":"fit-content","customWidth":"","tpFontSizeMobile":"26"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-48cd1ac4"><!-- wp:wd/title {"blockId":"0cb76c42-bb99-4df5-994b-01339823d84d","blockVersion":"2","content":"Up to - 10%","tpFontSize":"30","colorCode":"#4c5a3c","displayWidth":"fit-content","customWidth":"","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-0cb76c42 wd-custom-width">Up to - 10%</h2>
 <!-- /wp:wd/title -->
 
@@ -102,7 +102,7 @@
 <!-- /wp:wd/icon --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/container {"blockId":"45d9bf7d-b12a-4a36-8565-fedfb7a63ee5","blockVersion":"2","direction":"row","align":"center","displayWidth":"","directionTablet":"row","directionMobile":"row"} -->
+<!-- wp:wd/container {"blockId":"45d9bf7d-b12a-4a36-8565-fedfb7a63ee5","blockVersion":"2","displayWidth":"","direction":"row","align":"center","directionTablet":"row","directionMobile":"row"} -->
 <div class="wp-block-wd-container wd-dir-row wd-dir-row-md wd-dir-row-sm wd-align-is-lg-center wd-45d9bf7d"><!-- wp:wd/button {"blockId":"46d3b53e-6dab-4a92-86d7-95830fc03ca4","blockVersion":"2","predefinedColor":"white","shape":"semi-round"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-white btn-size-default btn-shape-semi-round wd-46d3b53e" href="#"><span>Shop Now</span></a>
 <!-- /wp:wd/button -->
@@ -113,7 +113,7 @@
 <!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-1-opt.jpg" class="wp-image-257" alt=""/></div></div>
 <!-- /wp:wd/slider-item -->
 
-<!-- wp:wd/slider-item {"blockId":"0b2497ac-cb43-42b2-803d-f2853a5241fe","blockVersion":"2","blockGap":15,"align":"flex-start","aspectRatio":"","image":{"id":269,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-2-opt.jpg","width":855,"height":380},"bgImage":{"id":"","url":""},"bgColorCode":"#ecd4ae","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
+<!-- wp:wd/slider-item {"blockId":"0b2497ac-cb43-42b2-803d-f2853a5241fe","blockVersion":"2","blockGap":15,"align":"flex-start","aspectRatio":"","image":{"id":269,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-2-opt.jpg","width":855,"height":380},"bgImage":{"id":"","url":""},"bgColorCode":"#ecd4ae","imagePositionMobile":"custom","imageCustomPositionXMobile":"-230","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-0b2497ac"><div class="wd-slide-container"><!-- wp:wd/image {"blockId":"077b722d-0605-49e3-9bbc-37fe8421353c","blockVersion":"2","image":{"id":270,"url":"https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-2-label.svg"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-2-label.svg","width":181,"height":32},"displayWidth":"","customWidth":""} -->
 <div class="wp-block-wd-image wd-block-image wd-077b722d"><img class="wp-image-270" src="https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-2-label.svg" alt=""/></div>
 <!-- /wp:wd/image -->
@@ -124,7 +124,7 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"bdf11031-5485-4075-8854-c3d7781379fd","blockVersion":"2","blockGap":15,"align":"flex-start","aspectRatio":"","image":{"id":275,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-3-opt.jpg","width":855,"height":380},"bgImage":{"id":"","url":""},"bgColorCode":"#afd8f6","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-bdf11031"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"3469ecab-e85d-4052-bd5a-9b67828cb6de","blockVersion":"2","content":"Get pack of fish at a discount","tpFontSize":"22","tpFontVariant":"700","tpFontWeight":"700","colorCode":"#1e5b87","tpFontSizeMobile":"18"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-bdf11031"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"3469ecab-e85d-4052-bd5a-9b67828cb6de","blockVersion":"2","content":"Get pack of fish at a discount","tpFontSize":"22","tpFontVariant":"700","tpFontWeight":"700","colorCode":"#1e5b87","tpFontSizeMobile":"14"} -->
 <h2 class="wp-block-wd-title title wd-3469ecab">Get pack of fish at a discount</h2>
 <!-- /wp:wd/title -->
 
@@ -138,7 +138,7 @@
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/divider {"blockId":"96113b68-9914-4138-95d8-a3e3f4b236b5","blockVersion":"2","style":"curved","svgSize":24,"image":{"id":282,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-3-wave.svg"},"weight":6,"height":10,"width":"388","colorCode":"#196c9b"} -->
+<!-- wp:wd/divider {"blockId":"96113b68-9914-4138-95d8-a3e3f4b236b5","blockVersion":"2","style":"curved","svgSize":20,"image":{"id":282,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-slider-3-wave.svg"},"weight":6,"height":14,"width":"370","colorCode":"#196c9b","widthMobile":"275"} -->
 <div class="wp-block-wd-divider wd-style-line wd-type-svg wd-96113b68"></div>
 <!-- /wp:wd/divider -->
 
@@ -207,53 +207,53 @@
 <!-- /wp:wd/row -->
 
 <!-- wp:wd/marquee {"blockId":"621c2848-c82f-4c10-9795-cf6f03b0ec62","blockVersion":"2","speed":"50","blockGap":88,"bgColorCode":"#ffffff","paddingTop":"20","paddingBottom":"20","marginBottom":"80","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","marginBottomTablet":"60","marginBottomMobile":"40"} -->
-<!-- wp:wd/marquee-item {"blockId":"269d3499-c2be-4549-955d-c013f97a9647"} -->
-<div class="wp-block-wd-marquee-item wd-marquee-item wd-269d3499"><!-- wp:wd/icon {"blockId":"f960fafc-8b9f-4d42-b9e1-1d4f6cb63325","blockVersion":"2","image":{"id":303,"url":"https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-low-price.svg"},"width":"24"} -->
-<div class="wp-block-wd-icon wd-f960fafc"><img class="wp-image-303" src="https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-low-price.svg" alt=""/></div>
+<!-- wp:wd/marquee-item {"blockId":"d103dc7b-24c5-4253-9067-76040ab90f37","blockVersion":"2"} -->
+<div class="wp-block-wd-marquee-item wd-marquee-item wd-d103dc7b"><!-- wp:wd/icon {"blockId":"594e8379-3ea9-47ea-af7a-563d053973f8","blockVersion":"2","image":{"id":303,"url":"https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-low-price.svg"},"width":"24"} -->
+<div class="wp-block-wd-icon wd-594e8379"><img class="wp-image-303" src="https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-low-price.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/paragraph {"blockId":"4e09b109-2a48-400f-aa37-1bb4d404c0be","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
-<p class="wp-block-wd-paragraph wd-4e09b109">Low Prices Than in Other Stores</p>
+<!-- wp:wd/paragraph {"blockId":"3dd15aa6-479a-40cf-ac5e-c612dfb0e059","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
+<p class="wp-block-wd-paragraph wd-3dd15aa6">Low Prices Than in Other Stores</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/marquee-item -->
 
-<!-- wp:wd/marquee-item {"blockId":"e6e78ade-b74f-4c93-9489-c33e19df7ee6"} -->
-<div class="wp-block-wd-marquee-item wd-marquee-item wd-e6e78ade"><!-- wp:wd/icon {"blockId":"be02fca5-a6ae-4047-bc4a-6d6a1b7dd28e","blockVersion":"2","image":{"id":304,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-delivery.svg"},"width":"24"} -->
-<div class="wp-block-wd-icon wd-be02fca5"><img class="wp-image-304" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-delivery.svg" alt=""/></div>
+<!-- wp:wd/marquee-item {"blockId":"c68fe25a-18d7-41de-9ce0-85164360d042","blockVersion":"2"} -->
+<div class="wp-block-wd-marquee-item wd-marquee-item wd-c68fe25a"><!-- wp:wd/icon {"blockId":"8f09c1c8-4b43-49ac-ac3a-09fe3b865106","blockVersion":"2","image":{"id":304,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-delivery.svg"},"width":"24"} -->
+<div class="wp-block-wd-icon wd-8f09c1c8"><img class="wp-image-304" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-delivery.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/paragraph {"blockId":"88b0c439-bc01-468f-9e08-69993f8a0221","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
-<p class="wp-block-wd-paragraph wd-88b0c439">Free Delivery From £30</p>
+<!-- wp:wd/paragraph {"blockId":"1bc7d646-90fe-4835-ba15-7f46d13dfc58","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
+<p class="wp-block-wd-paragraph wd-1bc7d646">Free Delivery From £30</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/marquee-item -->
 
-<!-- wp:wd/marquee-item {"blockId":"145da90d-49bd-4f3c-b8dc-812953177eeb"} -->
-<div class="wp-block-wd-marquee-item wd-marquee-item wd-145da90d"><!-- wp:wd/icon {"blockId":"3df66eb1-48c1-4926-ba2d-8c19e724001e","blockVersion":"2","image":{"id":305,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-products.svg"},"width":"24"} -->
-<div class="wp-block-wd-icon wd-3df66eb1"><img class="wp-image-305" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-products.svg" alt=""/></div>
+<!-- wp:wd/marquee-item {"blockId":"e1ee14d5-feab-4c5e-9609-e18c9575355d","blockVersion":"2"} -->
+<div class="wp-block-wd-marquee-item wd-marquee-item wd-e1ee14d5"><!-- wp:wd/icon {"blockId":"dc6e43af-87e4-41cf-b3d5-c7db5dae6cc3","blockVersion":"2","image":{"id":305,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-products.svg"},"width":"24"} -->
+<div class="wp-block-wd-icon wd-dc6e43af"><img class="wp-image-305" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-products.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/paragraph {"blockId":"9b6b1a32-b2a9-474e-b645-f5e02f634910","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
-<p class="wp-block-wd-paragraph wd-9b6b1a32">Fresh Products Every Day</p>
+<!-- wp:wd/paragraph {"blockId":"0293147c-1711-4793-8052-78b6db443911","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
+<p class="wp-block-wd-paragraph wd-0293147c">Fresh Products Every Day</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/marquee-item -->
 
-<!-- wp:wd/marquee-item {"blockId":"0a63f991-95db-410b-a2ee-2f0d55bbd41e"} -->
-<div class="wp-block-wd-marquee-item wd-marquee-item wd-0a63f991"><!-- wp:wd/icon {"blockId":"a486e5fe-24e9-403a-9f28-c3c690a6fca6","blockVersion":"2","image":{"id":306,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-payment.svg"},"width":"24"} -->
-<div class="wp-block-wd-icon wd-a486e5fe"><img class="wp-image-306" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-payment.svg" alt=""/></div>
+<!-- wp:wd/marquee-item {"blockId":"348446e6-284a-494a-a6c7-0c8751bf69c6","blockVersion":"2"} -->
+<div class="wp-block-wd-marquee-item wd-marquee-item wd-348446e6"><!-- wp:wd/icon {"blockId":"07ec2407-72bb-4904-8255-7bfad32ae202","blockVersion":"2","image":{"id":306,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-payment.svg"},"width":"24"} -->
+<div class="wp-block-wd-icon wd-07ec2407"><img class="wp-image-306" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-payment.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/paragraph {"blockId":"d978f957-862e-4bd4-bd14-eccc5e4da521","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
-<p class="wp-block-wd-paragraph wd-d978f957">Safe Payment With Any Bank Card</p>
+<!-- wp:wd/paragraph {"blockId":"08059915-3297-4812-baed-284095f6abcd","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
+<p class="wp-block-wd-paragraph wd-08059915">Safe Payment With Any Bank Card</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/marquee-item -->
 
-<!-- wp:wd/marquee-item {"blockId":"487fe346-a9db-4314-ba9b-5a78a33ab38c"} -->
-<div class="wp-block-wd-marquee-item wd-marquee-item wd-487fe346"><!-- wp:wd/icon {"blockId":"27d71b46-5153-4db3-ad8d-af675c03f687","blockVersion":"2","image":{"id":307,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-support.svg"},"width":"24"} -->
-<div class="wp-block-wd-icon wd-27d71b46"><img class="wp-image-307" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-support.svg" alt=""/></div>
+<!-- wp:wd/marquee-item {"blockId":"87b4434c-e195-40de-b313-66d6045d9430","blockVersion":"2"} -->
+<div class="wp-block-wd-marquee-item wd-marquee-item wd-87b4434c"><!-- wp:wd/icon {"blockId":"07f94dda-da44-4bbd-aabd-d614be9c458d","blockVersion":"2","image":{"id":307,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-support.svg"},"width":"24"} -->
+<div class="wp-block-wd-icon wd-07f94dda"><img class="wp-image-307" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-support.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/paragraph {"blockId":"c915bb39-2a36-4586-8d80-ffccdbe0fc7b","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
-<p class="wp-block-wd-paragraph wd-c915bb39">24/7 Support Always Be There for You</p>
+<!-- wp:wd/paragraph {"blockId":"1cbfa6ac-d4eb-4ead-9f0d-171a47d82fda","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600"} -->
+<p class="wp-block-wd-paragraph wd-1cbfa6ac">24/7 Support Always Be There for You</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/marquee-item -->
 <!-- /wp:wd/marquee -->
@@ -264,7 +264,7 @@
 
 <!-- wp:wd/product-categories {"blockId":"03f44902-ef5a-4ded-af49-92ae50b9e4d6","blockVersion":"2","orderby":"id","order":"ASC","ids":"16,20,26,30,15,56","hide_empty":false,"categories_design":"side","image_container_width":"136","style":"carousel","img_size":"full","categories_with_background":true,"marginBottom":"80","slides_per_view":"4","hide_pagination_control":true,"hide_scrollbar":false,"hide_scrollbarTablet":false,"hide_scrollbarMobile":false,"sync_parent_id":"wd_fe467018","categoriesBackgroundCode":"#ffffff","titleFontSize":"14","titleTextTransform":"capitalize","marginBottomTablet":"60","marginBottomMobile":"40","slides_per_viewTablet":"2","slides_per_viewMobile":"1","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
-<!-- wp:wd/container {"blockId":"d3432583-1edc-4e16-8887-3291d5c2cef6","blockVersion":"2","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottom":"30","marginBottomMobile":"20"} -->
+<!-- wp:wd/container {"blockId":"d3432583-1edc-4e16-8887-3291d5c2cef6","blockVersion":"2","marginBottom":"30","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottomMobile":"20"} -->
 <div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-d3432583"><!-- wp:wd/title {"blockId":"b28762a3-8c30-44df-96e8-ee2860d33879","blockVersion":"2","design":"with-image","content":"Weekly Discounts","iconPositionHorizontal":"start","tpFontSize":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-design-with-image wd-icon-start wd-b28762a3"><span>Weekly Discounts</span><!-- wp:wd/icon {"blockId":"50227a63-b267-4b85-9d43-040a27847667","blockVersion":"2","svg":"\u003csvg width=\u00221092\u0022 height=\u0022129\u0022 viewBox=\u00220 0 1092 129\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022\u003e\u003cpath fill-rule=\u0022evenodd\u0022 d=\u0022M546.913 101.325C546.494 101.744 545.925 101.979 545.332 101.979C544.74 101.979 544.171 101.744 543.752 101.325L508.545 66.1065C508.126 65.6873 507.89 65.1187 507.89 64.5259C507.89 63.933 508.126 63.3645 508.545 62.9453L543.752 27.7271C544.171 27.3079 544.74 27.0724 545.332 27.0725C545.925 27.0725 546.494 27.308 546.913 27.7272L582.115 62.9454C582.988 63.8183 582.988 65.2335 582.115 66.1064L546.913 101.325ZM545.332 32.469L513.285 64.5259L545.332 96.5828L577.375 64.5259L545.332 32.469Z\u0022 /\u003e\u003cpath fill-rule=\u0022evenodd\u0022 d=\u0022M543.752 127.871C544.625 128.744 546.04 128.744 546.912 127.871L608.004 66.7612H996.236L1030.61 101.145C1031.48 102.017 1032.9 102.017 1033.77 101.145L1056.34 78.5704L1065.64 87.8731C1066.06 88.2923 1066.63 88.5277 1067.22 88.5277C1067.81 88.5276 1068.38 88.2921 1068.8 87.8729L1090.55 66.1063C1091.43 65.2334 1091.43 63.8183 1090.55 62.9454L1068.8 41.1789C1068.38 40.7597 1067.81 40.5241 1067.22 40.5241C1066.63 40.524 1066.06 40.7595 1065.64 41.1787L1056.34 50.4809L1033.77 27.9049C1032.9 27.0319 1031.48 27.0319 1030.61 27.9049L996.236 62.2906H608.004L546.912 1.18056C546.04 0.307639 544.625 0.307658 543.752 1.18058L482.663 62.2906H95.1794L60.809 27.905C60.3899 27.4857 59.8215 27.2502 59.2289 27.2502C58.6362 27.2502 58.0678 27.4857 57.6488 27.9049L35.0806 50.4815L25.7816 41.1788C25.3625 40.7596 24.7941 40.5241 24.2015 40.5241C23.6088 40.5241 23.0404 40.7596 22.6214 41.1788L0.863422 62.9453C-0.00916143 63.8183 -0.00916143 65.2335 0.863422 66.1064L22.6214 87.8729C23.0404 88.2922 23.6088 88.5277 24.2015 88.5277C24.7941 88.5277 25.3625 88.2922 25.7816 87.8729L35.081 78.5698L57.6488 101.144C58.0679 101.564 58.6362 101.799 59.2289 101.799C59.8215 101.799 60.3899 101.564 60.8089 101.144L95.1794 66.7612H482.663L543.752 127.871ZM1067.22 83.1312L1059.5 75.4093L1068.8 66.1065C1069.22 65.6873 1069.45 65.1188 1069.45 64.5259C1069.45 63.9331 1069.22 63.3645 1068.8 62.9453L1059.5 53.6421L1067.22 45.9206L1085.81 64.5259L1067.22 83.1312ZM1064.06 64.5258L1056.34 56.8031L1048.62 64.5259L1056.34 72.2483L1064.06 64.5258ZM1043.88 62.9452L1053.18 53.6419L1032.19 32.6467L1000.32 64.5258L1032.19 96.4028L1053.18 75.4094L1043.88 66.1066C1043.46 65.6874 1043.22 65.1188 1043.22 64.5259C1043.22 63.933 1043.46 63.3644 1043.88 62.9452ZM38.241 75.4086L59.2288 96.4027L91.0938 64.5258L59.2288 32.6468L38.2406 53.6427L47.5395 62.9453C48.4121 63.8183 48.4121 65.2335 47.5395 66.1064L38.241 75.4086ZM35.0805 56.804L42.7994 64.5259L35.0809 72.2474L27.3616 64.5258L35.0805 56.804ZM31.9205 53.6427L22.6214 62.9453C22.2023 63.3645 21.9669 63.9331 21.9669 64.5259C21.9669 65.1188 22.2024 65.6873 22.6214 66.1065L31.9208 75.4087L24.2015 83.1311L5.60355 64.5259L24.2015 45.9206L31.9205 53.6427ZM545.332 123.129L486.749 64.5259L545.332 5.92232L603.919 64.5259L545.332 123.129Z\u0022 /\u003e\u003c/svg\u003e","image":{"id":206,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-primary-discount.svg"},"width":"34"} -->
 <div class="wp-block-wd-icon wd-50227a63"><img class="wp-image-206" src="http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-primary-discount.svg" alt=""/></div>
@@ -278,7 +278,7 @@
 
 <!-- wp:wd/products {"blockId":"d0a4b413-18e1-4574-8cde-cdb3e5c83a76","blockVersion":"2","layout":"carousel","img_size":"medium","products_with_background":true,"marginBottom":"80","slides_per_view":"5.5","hide_pagination_control":true,"hide_scrollbar":false,"hide_scrollbarTablet":false,"hide_scrollbarMobile":false,"sync_parent_id":"wd_2a1692be","productsBackgroundCode":"#ffffff","marginBottomTablet":"60","marginBottomMobile":"40","slides_per_viewTablet":"3.5","slides_per_viewMobile":"1.5","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
-<!-- wp:wd/container {"blockId":"fb760021-8c30-4764-a5a4-8a4b8a6d4c97","blockVersion":"2","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottom":"30","marginBottomMobile":"20"} -->
+<!-- wp:wd/container {"blockId":"fb760021-8c30-4764-a5a4-8a4b8a6d4c97","blockVersion":"2","marginBottom":"30","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottomMobile":"20"} -->
 <div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-fb760021"><!-- wp:wd/title {"blockId":"d53593d1-ad40-48d1-81d0-68abe2302090","blockVersion":"2","content":"Vegetables \u0026amp; Fruits","tpFontSize":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-d53593d1">Vegetables &amp; Fruits</h2>
 <!-- /wp:wd/title -->
@@ -290,7 +290,7 @@
 
 <!-- wp:wd/products {"blockId":"74508fc1-9d49-4a3f-8cb8-edc0a52b7536","blockVersion":"2","layout":"carousel","img_size":"medium","products_with_background":true,"marginBottom":"80","slides_per_view":"5.5","hide_pagination_control":true,"hide_scrollbar":false,"hide_scrollbarTablet":false,"hide_scrollbarMobile":false,"sync_parent_id":"wd_74508fc1","productsBackgroundCode":"#ffffff","marginBottomTablet":"60","marginBottomMobile":"40","slides_per_viewTablet":"3.5","slides_per_viewMobile":"1.5","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
-<!-- wp:wd/container {"blockId":"edf71bb5-9a62-4007-97b6-68eee0669c65","blockVersion":"2","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottom":"30","marginBottomMobile":"20"} -->
+<!-- wp:wd/container {"blockId":"edf71bb5-9a62-4007-97b6-68eee0669c65","blockVersion":"2","marginBottom":"30","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottomMobile":"20"} -->
 <div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-edf71bb5"><!-- wp:wd/title {"blockId":"116d7a30-3e2a-4274-a37c-7777636eec91","blockVersion":"2","content":"Seafood","tpFontSize":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-116d7a30">Seafood</h2>
 <!-- /wp:wd/title -->
@@ -306,7 +306,7 @@
 <div class="wp-block-wd-section wd-c48c68cf"><!-- wp:wd/row {"blockId":"5acb9c2d-6f91-46e8-9b62-b9814a6f5f68","blockVersion":"2","columnsGap":20} -->
 <div class="wp-block-wd-row wd-5acb9c2d"><!-- wp:wd/column {"blockId":"3e6d1d4b-81a9-41f3-9dd0-f098169dff43","blockVersion":"2","adjacentCount":2} -->
 <div class="wp-block-wd-column wd-3e6d1d4b"><!-- wp:wd/cover {"blockId":"a962e383-d5de-43a6-bb0c-d79fb5b3c944","blockVersion":"2","hover":"zoom-in","contentAlignVertical":"center","colorScheme":"light","height":"250","bgImage":{"id":331,"url":"https://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-banner-promo-code-opt.jpg"},"heightTablet":"220"} -->
-<div class="wp-block-wd-cover wd-hover-parent wd-hover-zoom-in color-scheme-light wd-a962e383"><div class="wd-block-cover-img"></div><!-- wp:wd/container {"blockId":"3488fa7e-d9ff-4be9-9e0e-0b68d3ebfd4b","blockVersion":"2","colGap":"","rowGap":"","displayWidth":"custom","customWidth":"320","metadata":{"name":"Banner content"}} -->
+<div class="wp-block-wd-cover wd-hover-parent wd-hover-zoom-in color-scheme-light wd-a962e383"><div class="wd-block-cover-img"></div><!-- wp:wd/container {"blockId":"3488fa7e-d9ff-4be9-9e0e-0b68d3ebfd4b","blockVersion":"2","displayWidth":"custom","customWidth":"320","colGap":"","rowGap":"","metadata":{"name":"Banner content"}} -->
 <div class="wp-block-wd-container wd-dir-col wd-3488fa7e wd-custom-width"><!-- wp:wd/title {"blockId":"a5121b1a-5dbe-4625-85af-fe5bb07a9685","blockVersion":"2","content":"Save Up to 25% With Promo Code","tpFontSize":"36","tpFontSizeTablet":"22","tpFontSizeMobile":"20","displayWidthTablet":"custom","customWidthTablet":"200"} -->
 <h2 class="wp-block-wd-title title wd-a5121b1a wd-custom-width">Save Up to 25% With Promo Code</h2>
 <!-- /wp:wd/title -->
@@ -330,7 +330,7 @@
 
 <!-- wp:wd/column {"blockId":"2edf72a5-e346-4e39-868f-8b69f6864dad","blockVersion":"2","adjacentCount":2} -->
 <div class="wp-block-wd-column wd-2edf72a5"><!-- wp:wd/cover {"blockId":"8fc2fb36-9e7e-442b-8656-1351ba0df7ae","blockVersion":"2","hover":"zoom-in","contentAlignVertical":"center","colorScheme":"light","height":"250","bgImage":{"id":337,"url":"http://dummy.xtemos.com/woodmart2/vegetables-gutenberg/wp-content/uploads/sites/37/2024/08/vg-banner-free-delivery-opt.jpg"},"heightTablet":"220"} -->
-<div class="wp-block-wd-cover wd-hover-parent wd-hover-zoom-in color-scheme-light wd-8fc2fb36"><div class="wd-block-cover-img"></div><!-- wp:wd/container {"blockId":"7dee73eb-6f38-402d-bf1c-11d8b3ca968e","blockVersion":"2","colGap":"","rowGap":"","displayWidth":"custom","customWidth":"328","metadata":{"name":"Banner content"}} -->
+<div class="wp-block-wd-cover wd-hover-parent wd-hover-zoom-in color-scheme-light wd-8fc2fb36"><div class="wd-block-cover-img"></div><!-- wp:wd/container {"blockId":"7dee73eb-6f38-402d-bf1c-11d8b3ca968e","blockVersion":"2","displayWidth":"custom","customWidth":"328","colGap":"","rowGap":"","metadata":{"name":"Banner content"}} -->
 <div class="wp-block-wd-container wd-dir-col wd-7dee73eb wd-custom-width"><!-- wp:wd/title {"blockId":"780b2e4d-9e5b-487e-8a2d-5a5ec26ea1c7","blockVersion":"2","content":"Free Delivery To Your Door","tpFontSize":"36","displayWidth":"custom","customWidth":"270","tpFontSizeTablet":"22","tpFontSizeMobile":"20","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"155","customWidthMobile":"148"} -->
 <h2 class="wp-block-wd-title title wd-780b2e4d wd-custom-width">Free Delivery To Your Door</h2>
 <!-- /wp:wd/title -->
@@ -344,9 +344,9 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/container {"blockId":"c7cca0a2-3715-480b-92b3-ea0f80f1b2f0","blockVersion":"2","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottom":"30","marginBottomMobile":"20"} -->
-<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-c7cca0a2"><!-- wp:wd/title {"blockId":"9a7f9ca2-4114-4d49-9299-6dcdd85c4fb9","blockVersion":"2","content":"\u003cstrong\u003eBakery\u003c/strong\u003e","tpFontSize":"22","tpFontSizeMobile":"20"} -->
-<h2 class="wp-block-wd-title title wd-9a7f9ca2"><strong>Bakery</strong></h2>
+<!-- wp:wd/container {"blockId":"c7cca0a2-3715-480b-92b3-ea0f80f1b2f0","blockVersion":"2","marginBottom":"30","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottomMobile":"20"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-c7cca0a2"><!-- wp:wd/title {"blockId":"9a7f9ca2-4114-4d49-9299-6dcdd85c4fb9","blockVersion":"2","content":"Bakery","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<h2 class="wp-block-wd-title title wd-9a7f9ca2">Bakery</h2>
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/button {"blockId":"08eb9ca5-3b51-4970-ae84-a3bd592e9a4f","blockVersion":"2","design":"link","predefinedColor":"primary","size":"large"} -->
@@ -356,9 +356,9 @@
 
 <!-- wp:wd/products {"blockId":"3718fccb-ab3e-4200-afc0-78cd58aa7049","blockVersion":"2","layout":"carousel","img_size":"medium","products_with_background":true,"marginBottom":"80","slides_per_view":"5.5","hide_pagination_control":true,"hide_scrollbar":false,"hide_scrollbarTablet":false,"hide_scrollbarMobile":false,"sync_parent_id":"wd_857b2804","productsBackgroundCode":"#ffffff","marginBottomTablet":"60","marginBottomMobile":"40","slides_per_viewTablet":"3.5","slides_per_viewMobile":"1.5","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
-<!-- wp:wd/container {"blockId":"91fdbf7c-c2bf-47d9-b539-de6d3966a546","blockVersion":"2","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottom":"30","marginBottomMobile":"20"} -->
-<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-91fdbf7c"><!-- wp:wd/title {"blockId":"26d965ce-56ff-4230-92d5-a239742cd579","blockVersion":"2","content":"\u003cstrong\u003eVegan Meat\u003c/strong\u003e","tpFontSize":"22","tpFontSizeMobile":"20"} -->
-<h2 class="wp-block-wd-title title wd-26d965ce"><strong>Vegan Meat</strong></h2>
+<!-- wp:wd/container {"blockId":"91fdbf7c-c2bf-47d9-b539-de6d3966a546","blockVersion":"2","marginBottom":"30","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginBottomMobile":"20"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-91fdbf7c"><!-- wp:wd/title {"blockId":"26d965ce-56ff-4230-92d5-a239742cd579","blockVersion":"2","content":"Vegan Meat","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<h2 class="wp-block-wd-title title wd-26d965ce">Vegan Meat</h2>
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/button {"blockId":"a5e25e83-663e-4bfb-9125-13433a6bb8f5","blockVersion":"2","design":"link","predefinedColor":"primary","size":"large"} -->
@@ -434,8 +434,8 @@
 															<wp:post_id>62</wp:post_id>
 					<wp:post_date><![CDATA[2024-08-05 09:40:36]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-08-05 09:40:36]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-07-17 14:21:05]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-07-17 14:21:05]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-05 14:09:28]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-05 14:09:28]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-vegetables]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

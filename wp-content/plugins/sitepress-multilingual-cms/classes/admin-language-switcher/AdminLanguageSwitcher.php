@@ -49,7 +49,9 @@ class AdminLanguageSwitcher implements \IWPML_Frontend_Action {
 
 		wp_register_style(
 			'wpml-login-language-switcher',
-			ICL_PLUGIN_URL . '/res/css/login-language-switcher.css'
+			ICL_PLUGIN_URL . '/res/css/login-language-switcher.css',
+			[],
+			ICL_SITEPRESS_SCRIPT_VERSION
 		);
 		wp_enqueue_style( 'wpml-login-language-switcher' );
 

@@ -13,7 +13,7 @@ class ForceUpdateEndpoint implements \IWPML_Backend_Action {
 	const PRIORITY_OVERRIDE_SYNC_GATE = 100;
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_' . self::ACTION, [ __CLASS__, 'handle' ] );
+		\WCML\Request\Ajax::register( self::ACTION, [ 'capability' => 'edit_products', 'nonce' => [ self::NONCE, '_wpnonce' ] ], [ __CLASS__, 'handle' ] );
 	}
 
 	public static function handle() {
@@ -32,6 +32,10 @@ class ForceUpdateEndpoint implements \IWPML_Backend_Action {
 			wp_send_json_error( [ 'message' => 'invalid product' ], 404 );
 		}
 
+		if ( ! current_user_can( 'edit_post', $productId ) ) {
+			wp_send_json_error( [ 'message' => 'forbidden' ], 403 );
+		}
+
 		add_filter( 'wcml_editor_scoped_variation_ids', '__return_null', self::PRIORITY_OVERRIDE_SYNC_GATE );
 
 		try {
@@ -40,7 +44,10 @@ class ForceUpdateEndpoint implements \IWPML_Backend_Action {
 			$message = 'sync completed';
 			$success = true;
 		} catch ( \Throwable $e ) {
-			$message = 'error: ' . $e->getMessage();
+			if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+				error_log( sprintf( 'WCML force variation sync failed for product %d: %s', $productId, $e->getMessage() ) );
+			}
+			$message = 'error: sync failed';
 			$success = false;
 		}
 

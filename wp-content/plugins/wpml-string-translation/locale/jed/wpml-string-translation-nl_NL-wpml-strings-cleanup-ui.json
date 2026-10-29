@@ -7,8 +7,8 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "nl_NL"
          },
-         "Clean up the String Translation table by removing untranslated strings by domain.": [
-            "Ruim de String Translation-tabel op door niet-vertaalde strings per domein te verwijderen."
+         "Clean up the <b>String Translation</b> table by removing <strong>untranslated</strong> strings by domain.": [
+            "Schoon de tabel <b>String Translation</b> op door <strong>onvertaalde</strong> strings per domein te verwijderen."
          ],
          "Remove strings by domain": [
             "Strings per domein verwijderen"
@@ -22,23 +22,26 @@
          "Remove": [
             "Verwijderen"
          ],
-         "The String Translation table currently contains strings from the domains listed below. If you do not plan to translate strings from a particular domain, select it below to remove its untranslated strings from the String Translation table. Any strings that already have translations will still be available.": [
-            "De String Translation-tabel bevat momenteel strings van de hieronder vermelde domeinen. Als u niet van plan bent strings van een bepaald domein te vertalen, selecteer het dan hieronder om de niet-vertaalde strings uit de String Translation-tabel te verwijderen. Alle strings die al vertalingen hebben, blijven beschikbaar."
+         "The <b>String Translation</b> table currently contains strings from the domains listed below. If you do not plan to translate strings from a particular domain, select it below to remove its <strong>untranslated</strong> strings from the <b>String Translation</b> table. Any strings that already have translations will still be available.": [
+            "De tabel <b>String Translation</b> bevat momenteel strings uit de hieronder vermelde domeinen. Als u niet van plan bent om strings uit een bepaald domein te vertalen, selecteer dit dan hieronder om de <strong>onvertaalde</strong> strings uit de tabel <b>String Translation</b> te verwijderen. Strings die al vertalingen hebben, blijven beschikbaar."
          ],
          "Search": [
             "Zoeken"
          ],
-         "Removing strings from String Translation table": [
-            "Strings verwijderen uit de String Translation-tabel"
+         "Strings that are queued for translation, in progress, or waiting for a retry.": [
+            "Strings die in de wachtrij staan voor vertaling, in behandeling zijn of wachten op een nieuwe poging."
          ],
-         "To add strings back to the String Translation table, you may need to rescan translation files or register strings as translatable.": [
-            "Om strings weer toe te voegen aan de String Translation-tabel, moet u mogelijk vertaalbestanden opnieuw scannen of strings als vertaalbaar registreren."
+         "Also remove strings waiting for translation": [
+            "Verwijder ook strings die wachten op vertaling"
          ],
-         "Read more about ": [
-            "Lees meer over "
+         "Removing strings from <b>String Translation</b> table": [
+            "Strings worden verwijderd uit de tabel <b>Stringvertaling</b>"
          ],
-         "scanning your site for strings and registering them as translatable.": [
-            "het scannen van uw site op strings en het registreren ervan als vertaalbaar."
+         "To add strings back to the <b>String Translation</b> table, you may need to rescan translation files or register strings as translatable.": [
+            "Om strings opnieuw aan de tabel <b>Stringvertaling</b> toe te voegen, moet u mogelijk vertaalbestanden opnieuw scannen of strings als vertaalbaar registreren."
+         ],
+         "Read more about <a>scanning your site for strings and registering them as translatable</a>.": [
+            "Lees meer over <a>het scannen van uw site op strings en het registreren ervan als vertaalbaar</a>."
          ],
          "Successfully removed strings": [
             "Strings succesvol verwijderd"
@@ -50,10 +53,13 @@
             "Domein"
          ],
          "Strings count": [
-            "Aantal strings"
+            "Woordenaantal"
          ],
          "Translated strings": [
             "Vertaalde strings"
+         ],
+         "Removing strings stopped before it finished. The strings that were not removed are still in the table. Try again to remove them.": [
+            "Het verwijderen van strings is gestopt voordat het was voltooid. De strings die niet zijn verwijderd, staan nog in de tabel. Probeer ze opnieuw te verwijderen."
          ]
       }
    }

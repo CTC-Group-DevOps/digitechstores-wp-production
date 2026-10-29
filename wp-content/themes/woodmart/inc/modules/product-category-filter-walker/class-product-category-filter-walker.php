@@ -62,11 +62,14 @@ class Product_Category_Filter_Walker extends WC_Product_Cat_List_Walker {
 	 * @return string The hierarchical item output.
 	 */
 	public function walk( $elements, $max_depth, ...$args ) {
-		$term_ids = wp_list_pluck( $elements, 'term_id' );
+		// Reuse counts already calculated in the widget (e.g. to filter out empty
+		// categories) to avoid a second identical DB query and cache entry per render.
+		if ( empty( $this->filtered_counts ) ) {
+			$term_ids = wp_list_pluck( $elements, 'term_id' );
 
-		if ( ! empty( $term_ids ) ) {
-			$all_counts            = $this->get_filtered_product_cat_counts( $term_ids, $args[0]['query_type'] );
-			$this->filtered_counts = $all_counts;
+			if ( ! empty( $term_ids ) ) {
+				$this->filtered_counts = $this->get_filtered_product_cat_counts( $term_ids, $args[0]['query_type'] );
+			}
 		}
 
 		return parent::walk( $elements, $max_depth, ...$args );
@@ -328,11 +331,43 @@ class Product_Category_Filter_Walker extends WC_Product_Cat_List_Walker {
 			$counts                       = array_map( 'absint', wp_list_pluck( $results, 'term_count', 'term_count_id' ) );
 			$cached_counts[ $query_hash ] = $counts;
 			if ( true === $cache ) {
+				$cached_counts = $this->limit_cached_counts( $cached_counts, $query_hash );
 				set_transient( 'wc_layered_nav_counts_' . sanitize_title( $taxonomy ), $cached_counts, DAY_IN_SECONDS );
 			}
 		}
 
 		return array_map( 'absint', (array) $cached_counts[ $query_hash ] );
+	}
+
+	/**
+	 * Limit the number of query result entries stored in the layered nav count transient.
+	 *
+	 * The transient stores many query hashes inside a single option per taxonomy. Without a cap,
+	 * bot or faceted-search enumeration can grow that option without bound (WooCommerce fixed this
+	 * in 10.9 via Filterer::limit_layered_nav_count_cache_entries(), but this custom walker bypasses it).
+	 *
+	 * @param array  $cached_counts Cached count entries keyed by query hash.
+	 * @param string $current_hash  Hash for the query that was just added.
+	 * @return array Bounded cached count entries.
+	 */
+	private function limit_cached_counts( $cached_counts, $current_hash ) {
+		if ( method_exists( Filterer::class, 'limit_layered_nav_count_cache_entries' ) ) {
+			return Filterer::limit_layered_nav_count_cache_entries( $cached_counts, $current_hash );
+		}
+
+		$max_entries = (int) apply_filters( 'woocommerce_layered_nav_count_cache_max_entries', 1000 );
+
+		if ( $max_entries < 1 || count( $cached_counts ) <= $max_entries ) {
+			return $cached_counts;
+		}
+
+		if ( isset( $cached_counts[ $current_hash ] ) ) {
+			$current_counts = $cached_counts[ $current_hash ];
+			unset( $cached_counts[ $current_hash ] );
+			$cached_counts[ $current_hash ] = $current_counts;
+		}
+
+		return array_slice( $cached_counts, -$max_entries, null, true );
 	}
 
 	/**
@@ -383,6 +418,11 @@ class Product_Category_Filter_Walker extends WC_Product_Cat_List_Walker {
 	 * @return string The formatted list.
 	 */
 	private function get_term_ids_sql( $term_ids ) {
-		return '(' . implode( ',', array_map( 'absint', $term_ids ) ) . ')';
+		$term_ids = array_map( 'absint', $term_ids );
+
+		// Normalize ordering so the same set of IDs always yields the same SQL and cache hash.
+		sort( $term_ids, SORT_NUMERIC );
+
+		return '(' . implode( ',', $term_ids ) . ')';
 	}
 }

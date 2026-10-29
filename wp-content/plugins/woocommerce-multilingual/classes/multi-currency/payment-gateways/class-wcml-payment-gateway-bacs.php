@@ -9,11 +9,16 @@ class WCML_Payment_Gateway_Bacs extends WCML_Payment_Gateway {
 			'isSupported' => true,
 			'settings'    => $this->get_settings(),
 			'accounts'    => wp_list_pluck( $this->get_gateway()->account_details, 'account_name' ),
+			/* translators: Tooltip of the currency settings of the direct bank transfer payment method. */
 			'tooltip'     => __( 'Set the currency in which your customer will see the final price when they checkout. Choose which accounts they will see in their payment message.', 'woocommerce-multilingual' ),
 			'strings'     => [
+				/* translators: Column heading and field label for the currency of an order, in the WooCommerce analytics reports, the payment-gateway settings and the plugin's multicurrency screen. Noun, singular. */
 				'labelCurrency'    => __( 'Currency', 'woocommerce-multilingual' ),
+				/* translators: Label of the dropdown that picks which bank account a currency uses, in the direct bank transfer settings. */
 				'labelBankAccount' => __( 'Bank Account', 'woocommerce-multilingual' ),
+				/* translators: Option of the bank-account dropdown: every account is offered to the shopper. */
 				'optionAll'        => __( 'All Accounts', 'woocommerce-multilingual' ),
+				/* translators: Option of the bank-account dropdown: every account held in the currency chosen above. */
 				'optionAllIn'      => __( 'All in selected currency', 'woocommerce-multilingual' ),
 			],
 		];

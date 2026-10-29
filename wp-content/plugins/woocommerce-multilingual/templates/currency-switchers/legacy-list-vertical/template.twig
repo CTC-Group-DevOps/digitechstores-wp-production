@@ -2,7 +2,7 @@
 	<ul>
 		{% for currency in currencies %}
 			<li {% if( currency == selected_currency) %} class="wcml-cs-active-currency" {% endif %} >
-				<a rel="{{ currency }}">{{ get_formatted_price( currency, format )|raw }}</a>
+				<button type="button" data-currency="{{ currency }}"{% if currency == selected_currency %} aria-current="true"{% endif %}>{{ get_formatted_price( currency, format )|raw }}</button>
 			</li>
 		{% endfor %}
 	</ul>

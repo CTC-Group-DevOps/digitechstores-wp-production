@@ -2,7 +2,6 @@
 
 namespace WPML\StringTranslation\Infrastructure\StringGettext\Command;
 
-use WPML\ICLToATEMigration\Endpoints\Translators\Save;
 use WPML\StringTranslation\Application\StringGettext\Command\CreateFileCommandInterface;
 use WPML\StringTranslation\Infrastructure\Core\Command\SaveFileCommand;
 
@@ -16,15 +15,20 @@ class CreatePhpFileCommand implements CreateFileCommandInterface {
 		$this->saveFileCommand = $saveFileCommand;
 	}
 
-	public function run( array $queue, string $filepath ) {
+	public function run( array $queue, string $filepath ) : bool {
 		$contents = $this->export( $queue );
-		$this->saveFileCommand->run( $filepath, $contents );
+		if ( ! $this->saveFileCommand->run( $filepath, $contents ) ) {
+			return false;
+		}
+
 		$restrict_api = (string) ini_get( 'opcache.restrict_api' );
 		if ( function_exists( 'opcache_invalidate' )
 			&& ( ! $restrict_api || stripos( __FILE__, $restrict_api ) === 0 )
 		) {
 			opcache_invalidate( $filepath, true );
 		}
+
+		return true;
 	}
 
 	private function export( array $items ): string {

@@ -59,6 +59,7 @@ class TranslationControls extends TranslationControlsBase {
 	public function translationInstructions() {
 		$this->pointerFactory
 			->create( [
+				/* translators: Link text that opens the help bubble about translating product-category and product-tag URL slugs, on the WooCommerce permalinks settings. */
 				'anchor'     => esc_html__( 'How to translate permalinks for product taxonomies', 'woocommerce-multilingual' ),
 				'content'    => $this->getInstructionsVariation( self::INSTRUCTIONS_FOR_PRODUCT_TAXONOMIES ),
 				'selectorId' => 'wpbody-content h2:nth-of-type(2) + p',
@@ -66,6 +67,7 @@ class TranslationControls extends TranslationControlsBase {
 
 			$this->pointerFactory
 			->create( [
+				/* translators: Link text that opens the help bubble about translating product URL slugs, on the WooCommerce permalinks settings. */
 				'anchor'     => esc_html__( 'How to translate product permalinks', 'woocommerce-multilingual' ),
 				'content'    => $this->getInstructionsVariation( self::INSTRUCTIONS_FOR_PRODUCTS ),
 				'selectorId' => 'wpbody-content table.form-table.wc-permalink-structure',

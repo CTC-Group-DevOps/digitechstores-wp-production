@@ -9,6 +9,7 @@ class Factory {
 
 	public static function create( $args ) {
 		$defaultArgs = [
+			/* translators: Default link text of the help bubble shown next to a setting that WPML translates; "this" is the setting the bubble sits on. */
 			'anchor'     => __( 'How to translate this?', 'woocommerce-multilingual' ),
 			'content'    => '',
 			'docLink'    => null,

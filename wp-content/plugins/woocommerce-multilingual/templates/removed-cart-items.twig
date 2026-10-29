@@ -3,8 +3,8 @@
     <ul class="wcml_removed_cart_items">
         {% for product in products %}
             <li rel="{{ product.id }}" >
-                <a href="{{ product.url|raw }}">
-                    {{ product.title|raw }}
+                <a href="{{ product.url }}">
+                    {{ product.title }}
                 </a>
             </li>
         {% endfor %}

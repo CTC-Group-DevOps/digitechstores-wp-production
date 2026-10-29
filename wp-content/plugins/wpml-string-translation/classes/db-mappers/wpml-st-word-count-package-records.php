@@ -9,25 +9,31 @@ class WPML_ST_Word_Count_Package_Records {
 	}
 
 	public function get_all_package_ids() {
+		$wpdb = $this->wpdb;
+
 		return array_map(
 			'intval',
-			$this->wpdb->get_col( "SELECT ID FROM {$this->wpdb->prefix}icl_string_packages" )
+			$wpdb->get_col( "SELECT ID FROM {$wpdb->prefix}icl_string_packages" )
 		);
 	}
 
 	public function get_packages_ids_without_word_count() {
+		$wpdb = $this->wpdb;
+
 		return array_map(
 			'intval',
-			$this->wpdb->get_col(
-				"SELECT ID FROM {$this->wpdb->prefix}icl_string_packages WHERE word_count IS NULL"
+			$wpdb->get_col(
+				"SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE word_count IS NULL"
 			)
 		);
 	}
 
 	public function get_word_counts( $post_id ) {
-		return $this->wpdb->get_col(
-			$this->wpdb->prepare(
-				"SELECT word_count FROM {$this->wpdb->prefix}icl_string_packages WHERE post_id = %d",
+		$wpdb = $this->wpdb;
+
+		return $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT word_count FROM {$wpdb->prefix}icl_string_packages WHERE post_id = %d",
 				$post_id
 			)
 		);
@@ -42,9 +48,11 @@ class WPML_ST_Word_Count_Package_Records {
 	}
 
 	public function get_word_count( $package_id ) {
-		return $this->wpdb->get_var(
-			$this->wpdb->prepare(
-				"SELECT word_count FROM {$this->wpdb->prefix}icl_string_packages WHERE ID = %d",
+		$wpdb = $this->wpdb;
+
+		return $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT word_count FROM {$wpdb->prefix}icl_string_packages WHERE ID = %d",
 				$package_id
 			)
 		);
@@ -55,10 +63,14 @@ class WPML_ST_Word_Count_Package_Records {
 			return;
 		}
 
-		$query = "UPDATE {$this->wpdb->prefix}icl_string_packages SET word_count = NULL
-				  WHERE kind_slug IN(" . wpml_prepare_in( $package_kinds ) . ')';
-
-		$this->wpdb->query( $query );
+		$wpdb = $this->wpdb;
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->prefix}icl_string_packages SET word_count = NULL
+				WHERE kind_slug IN(" . implode( ', ', array_fill( 0, count( $package_kinds ), '%s' ) ) . ')',
+				$package_kinds
+			)
+		);
 	}
 
 	public function get_ids_from_kind_slugs( array $kinds ) {
@@ -66,10 +78,18 @@ class WPML_ST_Word_Count_Package_Records {
 			return array();
 		}
 
-		$query = "SELECT ID FROM {$this->wpdb->prefix}icl_string_packages
-				  WHERE kind_slug IN(" . wpml_prepare_in( $kinds ) . ')';
+		$wpdb = $this->wpdb;
 
-		return array_map( 'intval', $this->wpdb->get_col( $query ) );
+		return array_map(
+			'intval',
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->prefix}icl_string_packages
+					WHERE kind_slug IN(" . implode( ', ', array_fill( 0, count( $kinds ), '%s' ) ) . ')',
+					$kinds
+				)
+			)
+		);
 	}
 
 	public function get_ids_from_post_types( array $post_types ) {
@@ -77,33 +97,55 @@ class WPML_ST_Word_Count_Package_Records {
 			return array();
 		}
 
-		$query = "SELECT sp.ID FROM {$this->wpdb->prefix}icl_string_packages AS sp
-				  LEFT JOIN {$this->wpdb->posts} AS p
-				  	ON p.ID = sp.post_id
-				  WHERE p.post_type IN(" . wpml_prepare_in( $post_types ) . ')';
+		$wpdb = $this->wpdb;
 
-		return array_map( 'intval', $this->wpdb->get_col( $query ) );
+		return array_map(
+			'intval',
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT sp.ID FROM {$wpdb->prefix}icl_string_packages AS sp
+					LEFT JOIN {$wpdb->posts} AS p ON p.ID = sp.post_id
+					WHERE p.post_type IN(" . implode( ', ', array_fill( 0, count( $post_types ), '%s' ) ) . ')',
+					$post_types
+				)
+			)
+		);
 	}
 
 	public function count_items_by_kind_not_part_of_posts( $kind_slug ) {
-		$query = "SELECT COUNT(*) FROM {$this->wpdb->prefix}icl_string_packages
-				  WHERE kind_slug = %s AND post_id IS NULL";
+		$wpdb = $this->wpdb;
 
-		return (int) $this->wpdb->get_var( $this->wpdb->prepare( $query, $kind_slug ) );
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->prefix}icl_string_packages
+				 WHERE kind_slug = %s AND post_id IS NULL",
+				$kind_slug
+			)
+		);
 	}
 
 	public function count_word_counts_by_kind( $kind_slug ) {
-		$query = "SELECT COUNT(*) FROM {$this->wpdb->prefix}icl_string_packages
-				  WHERE kind_slug = %s AND word_count IS NOT NULL
-				  	AND post_id IS NULL";
+		$wpdb = $this->wpdb;
 
-		return (int) $this->wpdb->get_var( $this->wpdb->prepare( $query, $kind_slug ) );
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->prefix}icl_string_packages
+				 WHERE kind_slug = %s AND word_count IS NOT NULL
+				 AND post_id IS NULL",
+				$kind_slug
+			)
+		);
 	}
 
 	public function get_word_counts_by_kind( $kind_slug ) {
-		$query = "SELECT word_count FROM {$this->wpdb->prefix}icl_string_packages
-				  WHERE kind_slug = %s";
+		$wpdb = $this->wpdb;
 
-		return $this->wpdb->get_col( $this->wpdb->prepare( $query, $kind_slug ) );
+		return $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT word_count FROM {$wpdb->prefix}icl_string_packages
+				 WHERE kind_slug = %s",
+				$kind_slug
+			)
+		);
 	}
 }

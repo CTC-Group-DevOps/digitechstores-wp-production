@@ -50,6 +50,12 @@
 			$(this).addClass('wd-loaded');
 		});
 
+		setContentPosition();
+
+		woodmartThemeModule.$window
+			.off('resize.wdImageHotspot')
+			.on('resize.wdImageHotspot', woodmartThemeModule.debounce(setContentPosition, 150));
+
 		function setContentPosition() {
 			$('.wd-image-hotspot .hotspot-content, .wd-spot .wd-spot-dropdown').each(function() {
 				var content = $(this);
@@ -58,8 +64,9 @@
 				content.removeClass('hotspot-overflow-right hotspot-overflow-left');
 				content.attr('style', '');
 
-				var offsetLeft = content.offset().left;
-				var offsetRight = woodmartThemeModule.$window.width() - (offsetLeft + content.outerWidth());
+				var rect = content[0].getBoundingClientRect();
+				var offsetLeft = rect.left;
+				var offsetRight = woodmartThemeModule.$window.width() - rect.right;
 
 				if (woodmartThemeModule.windowWidth > 768 && !isBlock) {
 					if (offsetLeft <= 0) {
@@ -70,12 +77,17 @@
 					}
 				}
 
-				if (woodmartThemeModule.windowWidth <= 768 || isBlock && woodmartThemeModule.windowWidth <= 1024) {
-					if (offsetLeft <= 0) {
-						content.css('marginLeft', Math.abs(offsetLeft - 15) + 'px');
-					}
-					if (offsetRight <= 0) {
-						content.css('marginLeft', offsetRight - 15 + 'px');
+				if ((woodmartThemeModule.windowWidth <= 768 || isBlock) && (offsetLeft <= 0 || offsetRight <= 0)) {
+					var pushRight = offsetLeft <= 0 ? Math.abs(offsetLeft) + 15 : offsetRight - 15;
+
+					content.css('marginLeft', '10px');
+					var honorsMarginLeft = Math.abs(content[0].getBoundingClientRect().left - rect.left) > 0.5;
+					content.css('marginLeft', '');
+
+					if (honorsMarginLeft) {
+						content.css('marginLeft', pushRight + 'px');
+					} else {
+						content.css('marginRight', -pushRight + 'px');
 					}
 				}
 			});

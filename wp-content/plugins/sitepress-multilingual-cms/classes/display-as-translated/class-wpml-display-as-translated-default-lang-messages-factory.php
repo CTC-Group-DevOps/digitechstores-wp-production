@@ -16,6 +16,19 @@ class WPML_Display_As_Translated_Default_Lang_Messages_Factory extends WPML_Curr
 	}
 
 	public function get_screen_regex() {
-		return '/^sitepress-multilingual-cms\/menu\/languages$/';
+		// license (no TM) case, where Settings is not the TM page.
+		return defined( 'WPML_TM_FOLDER' )
+			? '/(^sitepress-multilingual-cms\/menu\/languages$|wpml_page_' . WPML_TM_FOLDER . '\/menu\/settings)/'
+			: '/^sitepress-multilingual-cms\/menu\/languages$/';
+	}
+
+	public function create() {
+		if ( defined( 'WPML_TM_FOLDER' )
+			 && WPML_TM_Subview_Detection::is_on_settings_page()
+			 && 'languages' !== WPML_TM_Subview_Detection::current_subview() ) {
+			return null;
+		}
+
+		return parent::create();
 	}
 }

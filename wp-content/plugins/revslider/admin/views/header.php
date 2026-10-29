@@ -157,6 +157,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 		bottom:			<?php echo (!empty($rs_tutorial_bottom)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_tutorial_bottom) .')' : '[]'; ?>
 	};
 	RVS.ENV.SR7				= <?php echo ($rs_v7_selling) ? 'true' : 'false'; ?>;
+	RVS.ENV.accounts		= '<?php echo $rsaf->account_url(); ?>';
 	RVS.ENV.LIC				= '<?php echo (in_array($rs_license_type, array('none', 'lifetime', 'subscription','extended','cc'), true)) ? $rs_license_type : 'none'; ?>';
 	<?php
 	if($rs_slider_update_needed == true){

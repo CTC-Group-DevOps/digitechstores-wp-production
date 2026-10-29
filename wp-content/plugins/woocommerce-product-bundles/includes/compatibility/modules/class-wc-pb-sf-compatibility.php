@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Storefront 2.3+ integration.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_SF_Compatibility {
 
 	/**
 	 * Initialization.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		// Add hooks if the active parent theme is Storefront.
@@ -28,6 +30,8 @@ class WC_PB_SF_Compatibility {
 
 	/**
 	 * Add hooks if the active parent theme is Storefront.
+	 *
+	 * @return void
 	 */
 	public static function maybe_add_hooks() {
 		if ( class_exists( 'Storefront_WooCommerce' ) ) {

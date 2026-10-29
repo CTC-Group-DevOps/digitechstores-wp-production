@@ -1,7 +1,9 @@
 <div class="wrap">
     <h1>{{ strings.title }}</h1>
 
-    {% if is_standalone %}
+    {% if is_bonded %}
+        {# M11 — bonded mode renders the directory body only; no tab strip. #}
+    {% elseif is_standalone %}
         {% include 'nav-menus-standalone.twig' %}
     {% elseif set_up_wizard_run %}
         {% include 'nav-menus-full.twig' %}

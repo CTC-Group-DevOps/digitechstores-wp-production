@@ -303,9 +303,9 @@ class Main {
 			}
 
 			if ( $settings['autoplay'] || ( 'native' === $settings['video_control'] && $settings['hide_gallery_img'] ) ) {
-				$attributes[] = 'src="' . $settings['upload_video_url'] . '"';
+				$attributes[] = 'src="' . esc_url( $settings['upload_video_url'] ) . '"';
 			} else {
-				$attributes[] = 'data-lazy-load="' . $settings['upload_video_url'] . '"';
+				$attributes[] = 'data-lazy-load="' . esc_url( $settings['upload_video_url'] ) . '"';
 			}
 
 			if ( 'native' === $settings['video_control'] ) {
@@ -315,7 +315,7 @@ class Main {
 					$image_src = wp_get_attachment_image_src( $settings['attachment_id'], 'woocommerce_single' );
 
 					if ( $image_src ) {
-						$attributes[] = 'poster="' . reset( $image_src ) . '"';
+						$attributes[] = 'poster="' . esc_url( reset( $image_src ) ) . '"';
 						$attributes[] = 'preload="none"';
 					}
 				}
@@ -350,6 +350,12 @@ class Main {
 				$video_id = strstr( $video_id, '&', true );
 			}
 
+			// A YouTube video ID only ever contains these characters; anything else
+			// is a crafted URL trying to break out of the src attribute.
+			if ( ! preg_match( '/^[A-Za-z0-9_-]+$/', $video_id ) ) {
+				return;
+			}
+
 			$player_url = 'https://www.youtube.com/embed/' . $video_id;
 			$attrs      = 'rel=0&showinfo=0&enablejsapi=1&loop=1&autohide=0&playsinline=1';
 			$classes   .= ' wd-product-video-youtube';
@@ -370,9 +376,9 @@ class Main {
 			}
 
 			if ( $settings['autoplay'] || ( 'native' === $settings['video_control'] && $settings['hide_gallery_img'] ) ) {
-				$attributes[] = 'src="' . $player_url . '?' . $attrs . '"';
+				$attributes[] = 'src="' . esc_url( $player_url . '?' . $attrs ) . '"';
 			} else {
-				$attributes[] = 'data-lazy-load="' . $player_url . '?' . $attrs . '"';
+				$attributes[] = 'data-lazy-load="' . esc_url( $player_url . '?' . $attrs ) . '"';
 			}
 
 			$attributes[] = 'loading="lazy"';
@@ -385,9 +391,20 @@ class Main {
 				return;
 			}
 
-			$player_url = 'https://player.vimeo.com/video/' . $video_id[1];
+			// A Vimeo ID is numeric, optionally followed by a /<privacy-hash>.
+			// Reject anything else so a crafted URL can't break out of src.
+			if ( ! preg_match( '~^(\d+)(?:/([A-Za-z0-9]+))?~', $video_id[1], $vimeo_matches ) ) {
+				return;
+			}
+
+			$player_url = 'https://player.vimeo.com/video/' . $vimeo_matches[1];
 			$attrs      = 'loop=1&transparent=0';
 			$classes   .= ' wd-product-video-vimeo';
+
+			// The player expects the privacy hash as the "h" query arg, a /<hash> path returns 404.
+			if ( ! empty( $vimeo_matches[2] ) ) {
+				$attrs .= '&h=' . $vimeo_matches[2];
+			}
 
 			if ( 'theme' === $settings['video_control'] ) {
 				$attrs .= '&background=1';
@@ -398,9 +415,9 @@ class Main {
 			}
 
 			if ( $settings['autoplay'] || ( 'native' === $settings['video_control'] && $settings['hide_gallery_img'] ) ) {
-				$attributes[] = 'src="' . $player_url . '?' . $attrs . '"';
+				$attributes[] = 'src="' . esc_url( $player_url . '?' . $attrs ) . '"';
 			} else {
-				$attributes[] = 'data-lazy-load="' . $player_url . '?' . $attrs . '"';
+				$attributes[] = 'data-lazy-load="' . esc_url( $player_url . '?' . $attrs ) . '"';
 			}
 
 			if ( 'theme' === $settings['video_control'] && $settings['autoplay'] ) {

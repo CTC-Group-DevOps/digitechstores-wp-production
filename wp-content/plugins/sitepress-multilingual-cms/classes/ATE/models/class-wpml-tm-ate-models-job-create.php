@@ -19,6 +19,8 @@ class WPML_TM_ATE_Models_Job_Create {
 	public $wpml_automatic_translation_costs;
 	public $ate_previous_job_ids;
 
+	public $wpml_evidence_manifest;
+
 	public $apply_memory;
 
 	public $job_sender;

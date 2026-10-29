@@ -46,9 +46,11 @@ class AdminHooks implements IWPML_Action, IStandAloneAction {
 
 	private function addTitleField( $field ) {
 		$field[ 'wcml_shipping_costs_title' ] = [
+			/* translators: Heading of the section added to a WooCommerce shipping method's settings. */
 			'title'       => __( 'Costs and values in custom currencies', 'woocommerce-multilingual' ),
 			'type'        => 'title',
 			'default'     => '',
+			/* translators: Explanation under the shipping-costs heading in a WooCommerce shipping method's settings; "above" and "here" are the fields before and after this text. */
 			'description' => __( 'WPML Multilingual & Multicurrency for WooCommerce by default will multiply all your costs and values defined above by currency exchange rates. If you don\'t want this and you prefer static values instead, you can define them here.', 'woocommerce-multilingual' ),
 		];
 		return $field;
@@ -56,12 +58,15 @@ class AdminHooks implements IWPML_Action, IStandAloneAction {
 
 	private function addEnableField( array $field ) {
 		$enable_field                                 = [
+			/* translators: Label of the dropdown that turns per-currency shipping costs on, in a WooCommerce shipping method's settings. */
 			'title' => esc_html__( 'Enable costs in custom currencies', 'woocommerce-multilingual' ),
 			'type' => 'select',
 			'class' => 'wcml-enable-shipping-custom-currency',
 			'default' => 'auto',
 			'options' => [
+				/* translators: First option in the dropdown that controls per-currency shipping costs. */
 				'auto' => esc_html__( 'Calculate shipping costs in other currencies automatically', 'woocommerce-multilingual' ),
+				/* translators: Second option in the dropdown that controls per-currency shipping costs. */
 				'manual' => esc_html__( 'Set shipping costs in other currencies manually', 'woocommerce-multilingual' )
 			]
 		];

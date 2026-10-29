@@ -22,7 +22,7 @@ class WPML_ST_Slug_New_Match_Finder {
 			$slug             = $this->filter_slug_using_tag( $custom_type->get_slug() );
 			$slug_translation = $this->filter_slug_using_tag( $custom_type->get_slug_translation() );
 
-			$new_match = $this->adjust_match( $match, $slug, $slug_translation );
+			$new_match = $this->adjust_match( $match, $slug, $slug_translation, true );
 
 			$result = new WPML_ST_Slug_New_Match( $new_match, $custom_type->is_display_as_translated() );
 		} else {
@@ -62,19 +62,25 @@ class WPML_ST_Slug_New_Match_Finder {
 		return $slug;
 	}
 
-	private function adjust_match( $match, $slug, $slug_translation ) {
+	private function adjust_match( $match, $slug, $slug_translation, $translation_is_pattern = false ) {
 		if (
 			! empty( $slug_translation )
 			&& preg_match( '#^[^/]*/?\(?' . preg_quote( $slug ) . '\)?/#', $match )
 			&& $slug !== $slug_translation
 		) {
-			$replace = function( $match ) use ( $slug, $slug_translation ) {
-				return str_replace( $slug, $slug_translation, $match[0] );
+			$replacement = $translation_is_pattern ? $slug_translation : self::quote_metacharacters( $slug_translation );
+
+			$replace = function( $match ) use ( $slug, $replacement ) {
+				return str_replace( $slug, $replacement, $match[0] );
 			};
 			$match   = preg_replace_callback( '#^\(?' . preg_quote( addslashes( $slug ) ) . '\)?/#', $replace, $match );
 		}
 
 		return $match;
+	}
+
+	private static function quote_metacharacters( $value ) {
+		return preg_replace( '#([.\\\\+*?\[\]^$(){}|])#', '\\\\$1', $value );
 	}
 
 	private function find_the_best_match( $match, $new_matches ) {

@@ -23,7 +23,7 @@ class Type {
 		return $this->has_implementation( $this->$action_type );
 	}
 
-	private function has_implementation( $interfaces ) {
+	private function has_implementation( $interfaces ): bool {
 		return count( array_intersect( $this->implementations, $interfaces ) ) > 0;
 	}
 

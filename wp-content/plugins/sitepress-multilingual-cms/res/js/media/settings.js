@@ -61,7 +61,23 @@
       });
 
       setTimeout(function() {
-        var isShouldHandleMediaAutoChecked = parseInt(window.WPML_TM_SETTINGS.shouldHandleMediaAuto, 10) === 1;
+        var hasMediaShouldHandleMediaAutoSetting = (
+          window.wpml_media_settings_data &&
+          Object.prototype.hasOwnProperty.call(window.wpml_media_settings_data, 'should_handle_media_auto')
+        );
+        var hasTMShouldHandleMediaAutoSetting = (
+          window.WPML_TM_SETTINGS &&
+          Object.prototype.hasOwnProperty.call(window.WPML_TM_SETTINGS, 'shouldHandleMediaAuto')
+        );
+
+        var isShouldHandleMediaAutoChecked = shouldHandleMediaAutoCheckbox.is(':checked');
+
+        if (hasMediaShouldHandleMediaAutoSetting) {
+          isShouldHandleMediaAutoChecked = parseInt(window.wpml_media_settings_data.should_handle_media_auto, 10) === 1;
+        } else if (hasTMShouldHandleMediaAutoSetting) {
+          isShouldHandleMediaAutoChecked = parseInt(window.WPML_TM_SETTINGS.shouldHandleMediaAuto, 10) === 1;
+        }
+
         if (!isShouldHandleMediaAutoChecked) {
           shouldHandleMediaAutoCheckbox.prop('checked', false);
           update_should_handle_media_auto_box_style(false);
@@ -207,7 +223,8 @@
       }
 
 			function wpml_update_status(message) {
-				jQuery(form).find('.content-status').html(message);
+				// wpmldev-5105: server-supplied status markup.
+				jQuery(form).find('.content-status').html(WPML_core.purify(message));
 				if (message.length > 0) {
 					jQuery(form).find('.content-status').show();
 				} else {
@@ -432,7 +449,8 @@
 
 			function wpml_media_set_content_defaults(onSuccess, onError) {
         var onSuccess = onSuccess || function(ret) {
-          jQuery(form).find('.content-status').html(ret.data.message);
+          // wpmldev-5105: server-supplied status markup.
+          jQuery(form).find('.content-status').html(WPML_core.purify(ret.data.message));
           wpml_media_set_content_defaults_finished();
         };
         var onError = onError || function(jqXHR, textStatus) {

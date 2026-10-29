@@ -8,7 +8,7 @@
             "lang": "sv_SE"
          },
          "Get a key for this site": [
-            "Skaffa en nyckel för den här webbplatsen"
+            "Hämta en nyckel för den här webbplatsen"
          ],
          "Site key:": [
             "Webbplatsnyckel:"
@@ -26,10 +26,10 @@
             "En ny webbplatsnyckel krävs"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "För att fortsätta använda WPML-funktioner som automatisk översättning och plugin-uppdateringar, vänligen registrera din webbplats igen. Oroa dig inte, ditt befintliga innehåll och dina översättningar är säkra."
+            "För att fortsätta använda WPML-funktioner som automatisk översättning och uppdateringar av tillägg behöver du registrera din webbplats igen. Oroa dig inte, ditt befintliga innehåll och dina översättningar är säkra."
          ],
          "Site key registered successfully!": [
-            "Webbplatsnyckel registrerad!"
+            "Webbplatsnyckeln har registrerats!"
          ],
          "Page will reload in %d seconds...": [
             "Sidan laddas om om %d sekunder..."

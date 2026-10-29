@@ -29,20 +29,21 @@ class TranslationUpdates {
 
 	private function loadData() {
 		if ( ! $this->data ) {
-			$collation = $this->getCollateForContextColumn( $this->wpdb );
-			$sql = "
-				SELECT
-					CONCAT(st.language,'#',s.context $collation) AS lang_domain,
-					UNIX_TIMESTAMP(MAX(st.translation_date)) as last_update
-				FROM {$this->wpdb->prefix}icl_string_translations AS st
-				INNER JOIN {$this->wpdb->prefix}icl_strings AS s
-					ON st.string_id = s.id
-				WHERE st.value IS NOT NULL AND st.status = %d
-				GROUP BY lang_domain;
-			";
+			$wpdb = $this->wpdb;
 
 			$this->data = wpml_collect(
-				$this->wpdb->get_results( $this->wpdb->prepare( $sql, self::ICL_STRING_TRANSLATION_COMPLETE ) )
+				$wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT
+							CONCAT(st.language,'#',s.context " . esc_sql( $this->getCollateForContextColumn( $wpdb ) ) . ") AS lang_domain,
+							UNIX_TIMESTAMP(MAX(st.translation_date)) as last_update
+						FROM {$wpdb->prefix}icl_string_translations AS st
+						INNER JOIN {$wpdb->prefix}icl_strings AS s ON st.string_id = s.id
+						WHERE st.value IS NOT NULL AND st.status = %d
+						GROUP BY lang_domain",
+						self::ICL_STRING_TRANSLATION_COMPLETE
+					)
+				)
 			)->pluck( 'last_update', 'lang_domain' );
 		}
 	}

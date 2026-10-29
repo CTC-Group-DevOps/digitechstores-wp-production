@@ -8,7 +8,11 @@ class WPML_Elementor_Adjust_Global_Widget_ID implements IWPML_Action {
 
 	private $sitepress;
 
-	private $current_language;
+	private $has_open_language_scope = false;
+
+	private $scope_language;
+
+	private $latch_before_scope;
 
 	public function __construct(
 		IWPML_Page_Builders_Data_Settings $elementor_settings,
@@ -23,6 +27,9 @@ class WPML_Elementor_Adjust_Global_Widget_ID implements IWPML_Action {
 	public function add_hooks() {
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'adjust_ids' ) );
 		add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'restore_current_language' ) );
+		add_action( 'shutdown', array( $this, 'restore_current_language' ), 0 );
+		add_action( 'wpml_language_has_switched', array( $this, 'keep_admin_language_through_switch' ), PHP_INT_MIN, 0 );
+		add_filter( 'elementor/editor/localize_settings', array( $this, 'localize_content_locale' ) );
 		add_filter( 'elementor/frontend/the_content', array( $this, 'duplicate_css_class_with_original_id' ) );
 
 		if ( is_admin() ) {
@@ -36,13 +43,23 @@ class WPML_Elementor_Adjust_Global_Widget_ID implements IWPML_Action {
 	}
 
 	public function adjust_ids() {
-		$this->current_language = $this->sitepress->get_current_language();
-
 		$post_id = absint( $_REQUEST['post'] );
+
+		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
 
 		$post     = $this->translation_element_factory->create_post( $post_id );
 		$language = $post->get_language_code();
-		$this->sitepress->switch_lang( $language );
+
+		$this->latch_before_scope = $this->sitepress->is_wpml_switch_language_triggered();
+		try {
+			$this->sitepress->switch_lang( $language );
+		} finally {
+			$this->latch_before_scope = null;
+		}
+		$this->has_open_language_scope = true;
+		$this->scope_language          = $language;
 
 		$custom_field_data = get_post_meta(
 			$post_id,
@@ -94,7 +111,34 @@ class WPML_Elementor_Adjust_Global_Widget_ID implements IWPML_Action {
 	}
 
 	public function restore_current_language() {
-		$this->sitepress->switch_lang( $this->current_language );
+		if ( ! $this->has_open_language_scope ) {
+			return;
+		}
+
+		$this->has_open_language_scope = false;
+		$this->scope_language          = null;
+		$this->sitepress->switch_lang();
+	}
+
+	public function keep_admin_language_through_switch() {
+		if ( null === $this->latch_before_scope ) {
+			return;
+		}
+
+		$this->sitepress->restore_wpml_switch_language_triggered( $this->latch_before_scope );
+	}
+
+	public function localize_content_locale( $settings ) {
+		if ( ! $this->has_open_language_scope || ! is_array( $settings ) ) {
+			return $settings;
+		}
+
+		$locale = $this->sitepress->get_locale( $this->scope_language );
+		if ( $locale ) {
+			$settings['locale'] = $locale;
+		}
+
+		return $settings;
 	}
 
 	public function should_use_display_as_translated_snippet( $display_as_translated, $post_types ) {

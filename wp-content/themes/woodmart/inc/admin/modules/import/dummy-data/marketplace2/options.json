@@ -490,5 +490,12 @@
     "custom_categories_rounding_size": "eyJkZXZpY2VzIjp7ImRlc2t0b3AiOnsidW5pdCI6IiUiLCJ2YWx1ZSI6IjUwIn19fQ==",
     "grid_gallery_control": "hover",
     "blog_columns_tablet": "3",
-    "blog_archive_layout": "full-width"
+    "blog_archive_layout": "full-width",
+    "sold_counter_enabled": "1",
+    "sold_counter_sales_type": "fake_data",
+    "sold_counter_min_count": "3",
+    "sold_counter_max_count": "7",
+    "sold_counter_timeframe": "",
+    "sold_counter_timeframe_period": "",
+    "sold_counter_time": ""
 }

@@ -2,7 +2,12 @@
 
 namespace WPML\Language\Detection;
 
+use WPML\Cookie\CookieHost;
+
 class CookieLanguage {
+
+	const CONTENT_EXTENSIONS = [ 'php', 'html', 'htm', 'xhtml', 'shtml', 'xml', 'rss', 'atom', 'json' ];
+
 	private $cookie;
 
 	private $defaultLanguage;
@@ -27,11 +32,15 @@ class CookieLanguage {
 	public function get( $cookieName ) {
 		global $wpml_language_resolution;
 
-		$cookie_value = esc_attr( $this->cookie->get_cookie( $cookieName ) );
-		$lang         = $cookie_value ? substr( $cookie_value, 0, 10 ) : null;
-		$lang         = $wpml_language_resolution->is_language_active( $lang ) ? $lang : $this->defaultLanguage;
+		$lang = $this->getRaw( $cookieName );
 
-		return $lang;
+		return $wpml_language_resolution->is_language_active( $lang ) ? $lang : $this->defaultLanguage;
+	}
+
+	public function getRaw( $cookieName ) {
+		$cookie_value = esc_attr( $this->cookie->get_cookie( $cookieName ) );
+
+		return $cookie_value ? substr( $cookie_value, 0, 10 ) : null;
 	}
 
 
@@ -40,12 +49,8 @@ class CookieLanguage {
 
 		if ( is_user_logged_in() ) {
 			if ( ! $this->cookie->headers_sent() ) {
-				if ( preg_match(
-					'@\.(css|js|png|jpg|gif|jpeg|bmp|ico)@i',
-					basename( preg_replace( '@\?.*$@', '', $_SERVER['REQUEST_URI'] ) )
-				)
-					 || isset( $_POST['icl_ajx_action'] ) || isset( $_POST['_ajax_nonce'] ) || defined( 'DOING_AJAX' )
-				) {
+				$is_ajax_request = isset( $_POST['_ajax_nonce'] ) || defined( 'DOING_AJAX' );
+				if ( ! $this->is_content_request() || $is_ajax_request ) {
 					return;
 				}
 
@@ -72,26 +77,21 @@ class CookieLanguage {
 		do_action( 'wpml_language_cookie_added', $lang_code );
 	}
 
-	public function get_cookie_domain() {
+	private function is_content_request() {
+		$request_uri = isset( $_SERVER['REQUEST_URI'] )
+			? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) )
+			: '';
+		$path        = basename( (string) preg_replace( '@[?#].*$@', '', $request_uri ) );
 
-		return defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : self::get_server_host_name();
-	}
-
-	private static function get_server_host_name() {
-		$host = '';
-		if ( isset( $_SERVER['HTTP_HOST'] ) ) {
-			$host = $_SERVER['HTTP_HOST'];
-		} elseif ( isset( $_SERVER['SERVER_NAME'] ) ) {
-			$host = $_SERVER['SERVER_NAME'] . self::get_port();
-			$host = preg_replace( '@:[443]+([/]?)@', '$1', $host );
+		if ( ! preg_match( '@\.([A-Za-z][A-Za-z0-9]{0,4})$@', $path, $extension ) ) {
+			return true;
 		}
 
-		return $host;
+		return in_array( strtolower( $extension[1] ), self::CONTENT_EXTENSIONS, true );
 	}
 
-	private static function get_port() {
-		return isset( $_SERVER['SERVER_PORT'] ) && ! in_array( $_SERVER['SERVER_PORT'], [ 80, 443 ] )
-			? ':' . $_SERVER['SERVER_PORT']
-			: '';
+	public function get_cookie_domain() {
+
+		return defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : CookieHost::get();
 	}
 }

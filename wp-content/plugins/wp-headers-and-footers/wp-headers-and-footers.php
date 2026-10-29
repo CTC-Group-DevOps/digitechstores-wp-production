@@ -2,12 +2,14 @@
 
 /**
  * Plugin Name: WP Headers And Footers
- * Plugin URI: https://www.WPBrigade.com/wordpress/plugins/wp-headers-and-footers/?utm_source=?utm_source=wp-headers-and-footers&utm_medium=author-uri-link
+ * Plugin URI: https://www.WPBrigade.com/wordpress/plugins/wp-headers-and-footers/?utm_source=wp-headers-and-footers&utm_medium=author-uri-link
  * Description: Allows you to insert code or text in the header or footer of your WordPress site.
- * Version: 3.1.5
+ * Version: 3.2.0
  * Author: WPBrigade
  * Author URI: https://wpbrigade.com/?utm_source=wp-headers-and-footers&utm_medium=author-uri-link
  * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * Requires PHP: 7.0.0
  * Text Domain: wp-headers-and-footers
  * Domain Path: /languages
  * GitHub Plugin URI: https://github.com/WPBrigade/wp-headers-and-footers
@@ -42,7 +44,7 @@ if ( ! function_exists( 'whaf_wpb56690683' ) ) {
 					'plugin_file'     => __FILE__,
 					'sdk_views_dir'   => __DIR__ . '/lib/wpb-sdk/views',
 					'public_key'      => '1|4aOA8EuyIN4pi2miMvC23LLpnHbBZFNki9R9pVmwd673d3c8',
-					'secret_key'      => 'sk_b36c525848fee035',
+					'secret_key'      => 'sk_b36c525848fee035', // NOSONAR
 					'is_premium'      => false,
 					'has_addons'      => false,
 					'has_paid_plans'  => false,
@@ -102,7 +104,7 @@ if ( ! class_exists( 'WPHeaderAndFooter' ) ) :
 		 *
 		 * @var string $version
 		 */
-		public $version = '3.1.5';
+		public $version = '3.2.0';
 
 		/**
 		 * The single instance of the class.
@@ -118,7 +120,44 @@ if ( ! class_exists( 'WPHeaderAndFooter' ) ) :
 
 			$this->define_constants();
 			$this->includes();
+			$this->maybe_migrate_slashed_scripts();
 			$this->hooks();
+		}
+
+		/**
+		 * One-time migration for scripts saved before 3.2.0.
+		 *
+		 * Older versions ran wp_unslash() on output, so the frontend printed
+		 * a different string than the one stored. Unslash the stored scripts
+		 * once so the frontend keeps printing exactly what it printed before
+		 * and the settings screen shows what is actually printed.
+		 *
+		 * @since 3.2.0
+		 * @return void
+		 */
+		private function maybe_migrate_slashed_scripts() {
+
+			if ( false !== get_option( 'wpheaderandfooter_unslash_migrated' ) ) {
+				return;
+			}
+
+			// add_option() only succeeds for the first request, so concurrent requests can't migrate twice.
+			if ( ! add_option( 'wpheaderandfooter_unslash_migrated', '1' ) ) {
+				return;
+			}
+
+			$basics = get_option( 'wpheaderandfooter_basics' );
+			if ( ! is_array( $basics ) ) {
+				return;
+			}
+
+			foreach ( array( 'wp_header_textarea', 'wp_body_textarea', 'wp_footer_textarea' ) as $key ) {
+				if ( isset( $basics[ $key ] ) && is_string( $basics[ $key ] ) ) {
+					$basics[ $key ] = wp_unslash( $basics[ $key ] );
+				}
+			}
+
+			update_option( 'wpheaderandfooter_basics', $basics );
 		}
 
 		/**
@@ -335,7 +374,7 @@ if ( ! class_exists( 'WPHeaderAndFooter' ) ) :
 
 				$editor_args = array( 'type' => 'text/html' );
 
-				if ( ! current_user_can( 'manage_options' ) ) {
+				if ( ! current_user_can( 'manage_options' ) || ! current_user_can( 'unfiltered_html' ) ) {
 					$editor_args['codemirror']['readOnly'] = true;
 				}
 
@@ -476,7 +515,7 @@ if ( ! class_exists( 'WPHeaderAndFooter' ) ) :
 			endif;
 
 			// Output.
-			echo wp_unslash($meta) . PHP_EOL;  // @codingStandardsIgnoreLine.
+			echo $meta . PHP_EOL;  // @codingStandardsIgnoreLine.
 		}
 
 		/**
@@ -486,7 +525,7 @@ if ( ! class_exists( 'WPHeaderAndFooter' ) ) :
 		 * @version 3.1.3
 		 * @return void
 		 */
-		function wp_headers_and_footers_log_download() {
+		public function wp_headers_and_footers_log_download() {
 
 			check_ajax_referer( 'wp-headers-and-footers-log-nonce', 'security' );
 
@@ -515,4 +554,4 @@ function wpheaderandfooter_loader() {
 
 // Call the function.
 wpheaderandfooter_loader();
-new WPHeaderAndFooter_Setting();
+$wp_header_and_footer_setting = new WPHeaderAndFooter_Setting();

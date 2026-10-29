@@ -554,7 +554,7 @@
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=10889</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"7f2046ff-a8a0-49cc-8e5b-8a7d63ae4e86","blockVersion":"2","effect":"fade","arrowsMobile":false,"arrowsColorScheme":"light","pagination":false,"paginationTablet":false,"paginationMobile":false,"autoplay":true,"autoplaySpeed":"25000","stretch":true,"height":"650","marginBottom":"80","heightMobile":"550","marginBottomTablet":"60"} -->
-<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-fade wd-stretched wd-autoplay-on wd-7f2046ff"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="fade" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"22190e05-ef48-4f2a-a5b7-6533e9a7ca89","blockVersion":"2","justify":"center","align":"flex-end","effect":"fade","colorScheme":"light","aspectRatio":"","image":{"id":11121,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-slide-bg-2-1.jpg","width":2000,"height":680},"bgImage":{"id":"","url":""},"bgColorCode":"#9e7072","overlayColorCode":"#000000","overlay":true,"overlayOpacity":0,"displayWidth":"","customWidth":"","imagePositionMobile":"custom","imageCustomPositionXMobile":"-700","imageCustomPositionYMobile":"0","bgPositionMobile":"center left","bgCustomPositionXMobile":"-700","bgCustomPositionYMobile":"0","paddingRightMobile":"15","paddingLeftMobile":"15","overlayOpacityMobile":0.15} -->
+<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-fade wd-stretched wd-autoplay-on wd-7f2046ff"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="fade" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"22190e05-ef48-4f2a-a5b7-6533e9a7ca89","blockVersion":"2","justify":"center","align":"flex-end","effect":"fade","colorScheme":"light","aspectRatio":"","image":{"id":11121,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-slide-bg-2-1.jpg","width":2000,"height":680},"bgImage":{"id":"","url":""},"bgColorCode":"#9e7072","overlayColorCode":"#000000","overlay":true,"overlayOpacity":0,"displayWidth":"","customWidth":"","imagePositionMobile":"custom","imageCustomPositionXMobile":"-700","imageCustomPositionYMobile":"0","bgPositionMobile":"center left","bgCustomPositionXMobile":"-700","bgCustomPositionYMobile":"0","paddingRightMobile":"15","paddingLeftMobile":"15","overlayOpacityMobile":0.15} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-22190e05 wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"9aa86a2c-af09-4d85-b1ff-d13eff0e41a4","blockVersion":"2","rowGap":"10","displayWidth":"custom","customWidth":"600","displayWidthTablet":"custom","displayWidthMobile":"full-width","customWidthTablet":"410"} -->
 <div class="wp-block-wd-container wd-dir-col wd-9aa86a2c wd-custom-width"><!-- wp:wd/paragraph {"blockId":"970f89d3-ae07-475f-a2bb-a1a88532ff9e","blockVersion":"2","tpFontSize":"22","animation":"slide-from-bottom","animationDelay":"150","animationDuration":"600","tpFontSizeMobile":"18"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-970f89d3"><em>Fine jewelry</em></p>
@@ -577,7 +577,7 @@
 <a class="wp-block-wd-button btn btn-style-bordered btn-color-white btn-size-default btn-shape-rectangle wd-1b0c5eb3" href="#"><span>View more</span></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-slide-bg-2-1.jpg" class="wp-image-11121" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-slide-bg-2-1.jpg" class="wp-image-11121" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"5c278ac3-881f-4c46-8a9d-8289ae81beb4","blockVersion":"2","justify":"center","align":"flex-start","effect":"fade","colorScheme":"light","aspectRatio":"","image":{"id":11126,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-bg-slider-2-2.jpg","width":1920,"height":660},"bgImage":{"id":"","url":""},"bgColorCode":"#5c6761","overlayColorCode":"#010101","overlay":true,"overlayOpacity":0,"displayWidth":"","customWidth":"","imagePositionMobile":"custom","imageCustomPositionXMobile":"-625","imageCustomPositionYMobile":"0","bgPositionMobile":"custom","bgCustomPositionXMobile":"-625","bgCustomPositionYMobile":"0","paddingRightMobile":"15","paddingLeftMobile":"15","overlayOpacityMobile":0.2} -->
@@ -586,7 +586,7 @@
 <p class="wp-block-wd-paragraph wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-b9f6a450"><em>Find the ideal gift</em></p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"773fe191-a309-4f81-850b-9a358bd98e31","blockVersion":"2","textAlign":"center","content":"JEWELRY WITH u003cbru003eA MODERN TWIST","tpFontSize":"54","animation":"slide-from-bottom","animationDelay":"300","animationDuration":"600","displayWidth":"","customWidth":"","tpFontSizeTablet":"42","tpFontSizeMobile":"36","marginBottomMobile":"25"} -->
+<!-- wp:wd/title {"blockId":"773fe191-a309-4f81-850b-9a358bd98e31","blockVersion":"2","textAlign":"center","content":"JEWELRY WITH \u003cbr\u003eA MODERN TWIST","tpFontSize":"54","animation":"slide-from-bottom","animationDelay":"300","animationDuration":"600","displayWidth":"","customWidth":"","tpFontSizeTablet":"42","tpFontSizeMobile":"36","marginBottomMobile":"25"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_300 wd-773fe191">JEWELRY WITH <br>A MODERN TWIST</h2>
 <!-- /wp:wd/title -->
 
@@ -603,19 +603,19 @@
 <a class="wp-block-wd-button btn btn-style-bordered btn-color-white btn-size-default btn-shape-rectangle wd-573e42ca" href="#"><span>View more</span></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-bg-slider-2-2.jpg" class="wp-image-11126" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewelry-bg-slider-2-2.jpg" class="wp-image-11126" alt="" /></div></div>
 <!-- /wp:wd/slider-item --></div></div><div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-pos-sep wd-hide-sm wd-style-1 color-scheme-light"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div></div>
 <!-- /wp:wd/slider -->
 
 <!-- wp:wd/row {"blockId":"e43f27e8-4de2-4ec7-9dcb-2b79e5bd9a2d","blockVersion":"2","marginBottom":"80","columnsGapMobile":40,"marginBottomTablet":"60","marginBottomMobile":"50"} -->
 <div class="wp-block-wd-row wd-e43f27e8"><!-- wp:wd/column {"blockId":"32bb8a52-082b-42aa-9f9a-5c79dc3b5f34","blockVersion":"2","adjacentCount":2} -->
 <div class="wp-block-wd-column wd-32bb8a52"><!-- wp:wd/image {"blockId":"d59ee360-dcea-4281-b847-1fc179fde29a","blockVersion":"2","image":{"id":10912,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-girl-welcome-row-1.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-girl-welcome-row-1.png","width":624,"height":500}} -->
-<div class="wp-block-wd-image wd-block-image wd-d59ee360"><img class="wp-image-10912" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-girl-welcome-row-1.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-d59ee360"><img class="wp-image-10912" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-girl-welcome-row-1.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"59f67c7a-74d9-4424-b223-b27a366bcc26","blockVersion":"2","adjacentCount":2,"blocksGap":0,"justifyContent":"center","textAlign":"center"} -->
-<div class="wp-block-wd-column wd-align wd-59f67c7a"><!-- wp:wd/paragraph {"blockId":"fd5b2df5-4a7b-4513-8840-dfd570b0cbd5","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","tpFontSizeTablet":"18"} -->
+<div class="wp-block-wd-column wd-align wd-59f67c7a"><!-- wp:wd/paragraph {"blockId":"fd5b2df5-4a7b-4513-8840-dfd570b0cbd5","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-fd5b2df5"><em>Donec sollicitudin</em></p>
 <!-- /wp:wd/paragraph -->
 
@@ -643,7 +643,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"9207f2c5-21b2-4bf3-aa9c-900a2bbc8d2c","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
+<!-- wp:wd/paragraph {"blockId":"9207f2c5-21b2-4bf3-aa9c-900a2bbc8d2c","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-align wd-9207f2c5"><em>Adipisicing elit</em></p>
 <!-- /wp:wd/paragraph -->
 
@@ -722,18 +722,18 @@
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/image {"blockId":"ae8f510b-4bd8-49bd-90b9-a3acfe5b8668","blockVersion":"2","image":{"id":10956,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-sign-min.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-sign-min.png","width":110,"height":65}} -->
-<div class="wp-block-wd-image wd-block-image wd-ae8f510b"><img class="wp-image-10956" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-sign-min.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-ae8f510b"><img class="wp-image-10956" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-sign-min.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"6c7314fa-9236-4456-a8b0-57916bd18863","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
+<!-- wp:wd/paragraph {"blockId":"6c7314fa-9236-4456-a8b0-57916bd18863","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-align wd-6c7314fa"><em>Adipisicing elit</em></p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"3f5e2cc0-eb0f-4793-8ba5-74758f964332","blockVersion":"2","textAlign":"center","content":"ENGAGEMENT u0026amp; WEDDING","tpFontSize":"30","marginBottom":"10","tpFontSizeTablet":"28","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"3f5e2cc0-eb0f-4793-8ba5-74758f964332","blockVersion":"2","textAlign":"center","content":"ENGAGEMENT \u0026amp; WEDDING","tpFontSize":"30","marginBottom":"10","tpFontSizeTablet":"28","tpFontSizeMobile":"22"} -->
 <h2 class="wp-block-wd-title title wd-align wd-3f5e2cc0">ENGAGEMENT &amp; WEDDING</h2>
 <!-- /wp:wd/title -->
 
@@ -746,12 +746,12 @@
 <!-- wp:wd/row {"blockId":"82be42fe-804c-40c9-b03e-6d5aeb894e10","blockVersion":"2","columnsGap":50,"marginBottom":"0","columnsGapMobile":40} -->
 <div class="wp-block-wd-row wd-82be42fe"><!-- wp:wd/column {"blockId":"a3821fe4-eeee-4ee0-9584-3cfb93445461","blockVersion":"2","adjacentCount":2,"flexOrderMobile":"2"} -->
 <div class="wp-block-wd-column wd-a3821fe4"><!-- wp:wd/video {"blockId":"08bd9330-089f-4662-b1f0-ff36d3c6b256","blockVersion":"2","videoType":"external","externalUrl":"https://youtu.be/LXb3EKWsInQ","videoActionButton":"overlay","videoOverlayLightbox":true,"videoImageOverlay":{"id":10982,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-video-img.jpg"},"videoSize":"aspect_ratio"} -->
-<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-with-aspect-ratio wd-08bd9330"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-video-img.jpg" alt="" class="wp-image-10982"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://youtu.be/LXb3EKWsInQ" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
+<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-with-aspect-ratio wd-08bd9330"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-video-img.jpg" alt="" class="wp-image-10982" /></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://youtu.be/LXb3EKWsInQ" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"488dc1ef-720b-4954-8a90-3e3acd92b155","blockVersion":"2","adjacentCount":2,"blocksGap":0,"justifyContent":"center","flexOrderMobile":"1"} -->
-<div class="wp-block-wd-column wd-488dc1ef"><!-- wp:wd/paragraph {"blockId":"978ca8bc-ec7f-4f3e-b618-69c796e8d283","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","tpFontSizeTablet":"18"} -->
+<div class="wp-block-wd-column wd-488dc1ef"><!-- wp:wd/paragraph {"blockId":"978ca8bc-ec7f-4f3e-b618-69c796e8d283","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-978ca8bc"><em>Special offer</em></p>
 <!-- /wp:wd/paragraph -->
 
@@ -772,7 +772,7 @@
 <!-- wp:wd/section {"blockId":"a378592c-a11c-4422-a04f-9a5b2d0d9250","blockVersion":"2","bgType":"gradient","bgGradient":"linear-gradient(90deg,rgba(255,255,255,0) 64%,rgb(239,239,239) 64%)","paddingTop":"70","paddingBottom":"70","marginBottom":"70","paddingTopTablet":"60","paddingBottomTablet":"60","marginBottomTablet":"60","marginBottomMobile":"0"} -->
 <div class="wp-block-wd-section wd-a378592c"><!-- wp:wd/row {"blockId":"30100982-1937-40e1-a167-7d032e92abb2","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-30100982"><!-- wp:wd/column {"blockId":"6126654c-ba86-4e32-aa1c-ee1e80277cd1","blockVersion":"2","adjacentCount":2,"blocksGap":0,"adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-6126654c"><!-- wp:wd/title {"blockId":"0f7ef5a0-da44-4f5e-a8bc-03c8c8a94415","blockVersion":"2","content":"DISCOUNT OF u003cspan class=u0022wd-highlightu0022u003e20%u003c/spanu003e","tpFontSize":"64","markColorVariable":"u002du002dwd-primary-color","marginBottom":"5","tpFontSizeTablet":"38","tpFontSizeMobile":"35"} -->
+<div class="wp-block-wd-column wd-6126654c"><!-- wp:wd/title {"blockId":"0f7ef5a0-da44-4f5e-a8bc-03c8c8a94415","blockVersion":"2","content":"DISCOUNT OF \u003cspan class=\u0022wd-highlight\u0022\u003e20%\u003c/span\u003e","tpFontSize":"64","markColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"5","tpFontSizeTablet":"38","tpFontSizeMobile":"35"} -->
 <h2 class="wp-block-wd-title title wd-0f7ef5a0">DISCOUNT OF <span class="wd-highlight">20%</span></h2>
 <!-- /wp:wd/title -->
 
@@ -786,19 +786,19 @@
 
 <!-- wp:wd/list {"blockId":"6c8e8bb1-206d-443a-b88d-ee25e317664d","blockVersion":"2","iconType":"image","image":{"id":10992,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg"},"marginBottom":"30","marginLeft":"25"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-6c8e8bb1"><!-- wp:wd/list-item {"blockId":"3041074f-83cc-405d-bdf0-c92e4a94867d","blockVersion":"2","iconType":"image","svg":"","image":{"id":10992,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg"}} -->
-<li class="wp-block-wd-list-item wd-3041074f"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992"/></div><span class="wd-list-content">His six are entreaties instrument acceptance unsatiable.</span></li>
+<li class="wp-block-wd-list-item wd-3041074f"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992" /></div><span class="wd-list-content">His six are entreaties instrument acceptance unsatiable.</span></li>
 <!-- /wp:wd/list-item -->
 
 <!-- wp:wd/list-item {"blockId":"3fca112d-dac1-4a07-bfec-decd561391ff","blockVersion":"2","iconType":"image","svg":"","image":{"id":10992,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg"}} -->
-<li class="wp-block-wd-list-item wd-3fca112d"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992"/></div><span class="wd-list-content">Iscovery commanded fat mrs remaining son she principle.</span></li>
+<li class="wp-block-wd-list-item wd-3fca112d"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992" /></div><span class="wd-list-content">Iscovery commanded fat mrs remaining son she principle.</span></li>
 <!-- /wp:wd/list-item -->
 
 <!-- wp:wd/list-item {"blockId":"c5587a8d-41be-4524-b387-d05bc1428ef2","blockVersion":"2","iconType":"image","svg":"","image":{"id":10992,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg"}} -->
-<li class="wp-block-wd-list-item wd-c5587a8d"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992"/></div><span class="wd-list-content">Settling you has separate supplied bed concluded resembled.</span></li>
+<li class="wp-block-wd-list-item wd-c5587a8d"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992" /></div><span class="wd-list-content">Settling you has separate supplied bed concluded resembled.</span></li>
 <!-- /wp:wd/list-item -->
 
 <!-- wp:wd/list-item {"blockId":"d0fbc5a0-cd20-4bba-91de-bdd3b5e70e18","blockVersion":"2","iconType":"image","svg":"","image":{"id":10992,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg"}} -->
-<li class="wp-block-wd-list-item wd-d0fbc5a0"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992"/></div><span class="wd-list-content">Cause dried no solid no an small so still widen ten weather.</span></li>
+<li class="wp-block-wd-list-item wd-d0fbc5a0"><div class="wd-icon"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/diamond-1.svg" alt="" class="wp-image-10992" /></div><span class="wd-list-content">Cause dried no solid no an small so still widen ten weather.</span></li>
 <!-- /wp:wd/list-item --></ul>
 <!-- /wp:wd/list -->
 
@@ -815,7 +815,7 @@
 
 <!-- wp:wd/column {"blockId":"5c4e65ba-bc89-4d3b-8429-f05db217c8d9","blockVersion":"2","adjacentCount":2,"alignItems":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
 <div class="wp-block-wd-column wd-align-is-lg-center wd-5c4e65ba"><!-- wp:wd/image {"blockId":"e82ba776-c0d9-4f63-942e-cda8c8b873b5","blockVersion":"2","image":{"id":10989,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-collage-girl-img.png"}} -->
-<div class="wp-block-wd-image wd-block-image wd-e82ba776"><img class="wp-image-10989" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-collage-girl-img.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-e82ba776"><img class="wp-image-10989" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-collage-girl-img.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row --></div>
@@ -861,7 +861,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"fc7962b2-4526-45e5-8a4a-f6f9a0da55fd","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
+<!-- wp:wd/paragraph {"blockId":"fc7962b2-4526-45e5-8a4a-f6f9a0da55fd","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-align wd-fc7962b2"><em>Adipisicing elit</em></p>
 <!-- /wp:wd/paragraph -->
 
@@ -893,7 +893,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"fa46840f-b974-4992-97aa-10056c64a0b9","blockVersion":"2","adjacentCount":2,"blocksGap":0,"adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-fa46840f"><!-- wp:wd/paragraph {"blockId":"25eaa628-99ce-440f-82dd-dad9d9d3d653","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
+<div class="wp-block-wd-column wd-fa46840f"><!-- wp:wd/paragraph {"blockId":"25eaa628-99ce-440f-82dd-dad9d9d3d653","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-align wd-25eaa628"><em>Adipisicing elit</em></p>
 <!-- /wp:wd/paragraph -->
 
@@ -902,11 +902,11 @@
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/carousel {"blockId":"ac1eb299-ab8c-43d5-acff-0cf7191e2f4a","blockVersion":"2","slidesPerView":"1","paginationControl":false,"paginationControlTablet":false,"paginationControlMobile":false,"syncParentId":"wd_ac1eb299","paddingRight":"15","paddingLeft":"15","slidesPerViewTablet":"1","slidesPerViewMobile":"1"} -->
-<div class="wp-block-wd-carousel wd-carousel-container wd-ac1eb299"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;--wd-gap-lg:20px;--wd-gap-sm:10px;" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"e8d6a96e-1adc-489a-baaa-c71543275e37","blockVersion":"2"} -->
+<div class="wp-block-wd-carousel wd-carousel-container wd-ac1eb299"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;--wd-gap-lg:20px;--wd-gap-sm:10px" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"e8d6a96e-1adc-489a-baaa-c71543275e37","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-e8d6a96e"><!-- wp:wd/testimonial {"blockId":"580eec83-697a-40a8-ba48-3a71012f2afe","blockVersion":"2","design":"2"} -->
 <div class="wp-block-wd-testimonial wd-design-2 wd-580eec83"><!-- wp:wd/container {"blockId":"49a47838-6b08-4e87-b2f7-17ee21a394bf","blockVersion":"2","align":"center","rowGap":"15","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-testimonial-heading wd-49a47838"><!-- wp:wd/image {"blockId":"5c8d2cae-4cbf-4890-a0d8-1c745cecea51","blockVersion":"2","image":{"id":11057,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-1.jpg"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-1.jpg","width":100,"height":100}} -->
-<div class="wp-block-wd-image wd-block-image wd-5c8d2cae"><img class="wp-image-11057" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-1.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-5c8d2cae"><img class="wp-image-11057" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-1.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/star-rating {"blockId":"bb5a862f-0f9f-4803-b3b7-13b39c14d283","blockVersion":"2"} -->
@@ -917,7 +917,7 @@
 <p class="wp-block-wd-paragraph wd-align wd-c82342bc">Breakfast agreeable incommode departure it an. By ignorant at on wondered relation. Enough at tastes really so cousin am of. Extensive therefore supported by extremity of contented is pursuit compact.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"0046a245-e386-42b0-9b6e-ba817363aa3f","blockVersion":"2","content":"u003cstrongu003eHelen Signy u003c/strongu003eu003cspan class=u0022wd-highlightu0022u003e- Happy Customeru003c/spanu003e ","markFontFamily":"var(u002du002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#777777"} -->
+<!-- wp:wd/title {"blockId":"0046a245-e386-42b0-9b6e-ba817363aa3f","blockVersion":"2","content":"\u003cstrong\u003eHelen Signy \u003c/strong\u003e\u003cspan class=\u0022wd-highlight\u0022\u003e- Happy Customer\u003c/span\u003e ","markFontFamily":"var(\u002d\u002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#777777"} -->
 <h2 class="wp-block-wd-title title wd-0046a245"><strong>Helen Signy </strong><span class="wd-highlight">- Happy Customer</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -928,7 +928,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-6a894762"><!-- wp:wd/testimonial {"blockId":"fa4d8539-f33a-4145-9a42-aff398706d1b","blockVersion":"2","design":"2"} -->
 <div class="wp-block-wd-testimonial wd-design-2 wd-fa4d8539"><!-- wp:wd/container {"blockId":"78cfcee0-d6a8-43ce-aa69-0a4fe994c214","blockVersion":"2","align":"center","rowGap":"15","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-testimonial-heading wd-78cfcee0"><!-- wp:wd/image {"blockId":"8791c1b2-c430-4d16-a188-f42b14600b8b","blockVersion":"2","image":{"id":11065,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg"}} -->
-<div class="wp-block-wd-image wd-block-image wd-8791c1b2"><img class="wp-image-11065" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-8791c1b2"><img class="wp-image-11065" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/star-rating {"blockId":"4623a613-17a3-4a7d-9c0f-617841170bff","blockVersion":"2"} -->
@@ -939,7 +939,7 @@
 <p class="wp-block-wd-paragraph wd-align wd-fa6a52d6">Breakfast agreeable incommode departure it an. By ignorant at on wondered relation. Enough at tastes really so cousin am of. Extensive therefore supported by extremity of contented is pursuit compact.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"4029dbe1-b079-416e-aeb2-fab439078e9f","blockVersion":"2","content":"u003cstrongu003eKatell Oanezu003c/strongu003e u003cspan class=u0022wd-highlightu0022u003e- Happy Customeru003c/spanu003e ","markFontWeight":"400","markColorCode":"#777777"} -->
+<!-- wp:wd/title {"blockId":"4029dbe1-b079-416e-aeb2-fab439078e9f","blockVersion":"2","content":"\u003cstrong\u003eKatell Oanez\u003c/strong\u003e \u003cspan class=\u0022wd-highlight\u0022\u003e- Happy Customer\u003c/span\u003e ","markFontWeight":"400","markColorCode":"#777777"} -->
 <h2 class="wp-block-wd-title title wd-4029dbe1"><strong>Katell Oanez</strong> <span class="wd-highlight">- Happy Customer</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -950,7 +950,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-31ada896"><!-- wp:wd/testimonial {"blockId":"a4d804f3-65a6-4ae5-a624-d631430d43f2","blockVersion":"2","design":"2"} -->
 <div class="wp-block-wd-testimonial wd-design-2 wd-a4d804f3"><!-- wp:wd/container {"blockId":"4a6de742-0353-4d23-b898-2f6c132d2b05","blockVersion":"2","align":"center","rowGap":"15","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-testimonial-heading wd-4a6de742"><!-- wp:wd/image {"blockId":"f498023c-9c91-4a7a-ac9f-65f1bf9bc544","blockVersion":"2","image":{"id":11067,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-3.jpg"}} -->
-<div class="wp-block-wd-image wd-block-image wd-f498023c"><img class="wp-image-11067" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-3.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-f498023c"><img class="wp-image-11067" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-3.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/star-rating {"blockId":"0f6e2739-6cab-4292-8ea0-74bc57086477","blockVersion":"2"} -->
@@ -961,7 +961,7 @@
 <p class="wp-block-wd-paragraph wd-align wd-5da6b938">Breakfast agreeable incommode departure it an. By ignorant at on wondered relation. Enough at tastes really so cousin am of. Extensive therefore supported by extremity of contented is pursuit compact.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"b2be7e26-bc2a-475d-b2c6-0bf09c9be84c","blockVersion":"2","content":"u003cstrongu003eMaëlle Rozennu003c/strongu003e u003cspan class=u0022wd-highlightu0022u003e- Happy Customeru003c/spanu003e ","markFontFamily":"var(u002du002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#777777"} -->
+<!-- wp:wd/title {"blockId":"b2be7e26-bc2a-475d-b2c6-0bf09c9be84c","blockVersion":"2","content":"\u003cstrong\u003eMaëlle Rozenn\u003c/strong\u003e \u003cspan class=\u0022wd-highlight\u0022\u003e- Happy Customer\u003c/span\u003e ","markFontFamily":"var(\u002d\u002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#777777"} -->
 <h2 class="wp-block-wd-title title wd-b2be7e26"><strong>Maëlle Rozenn</strong> <span class="wd-highlight">- Happy Customer</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -971,7 +971,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"a7c9ce51-455d-43a3-8852-44765d3e2c60","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
+<!-- wp:wd/paragraph {"blockId":"a7c9ce51-455d-43a3-8852-44765d3e2c60","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"22","marginBottom":"10","tpFontSizeTablet":"18"} -->
 <p class="wp-block-wd-paragraph wd-align wd-a7c9ce51"><em>Adipisicing elit</em></p>
 <!-- /wp:wd/paragraph -->
 
@@ -989,8 +989,8 @@
 															<wp:post_id>10889</wp:post_id>
 					<wp:post_date><![CDATA[2024-05-10 13:49:05]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-05-10 13:49:05]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 12:10:32]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 12:10:32]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 12:55:47]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 12:55:47]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-jewellery]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

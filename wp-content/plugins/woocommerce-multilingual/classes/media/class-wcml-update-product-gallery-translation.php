@@ -15,6 +15,12 @@ class WCML_Update_Product_Gallery_Translation implements IWPML_Action {
 
 	public function add_hooks() {
 		add_action( 'wpml_added_media_file_translation', [ $this, 'update_meta' ], PHP_INT_MAX, 3 );
+		add_action( 'wcml_after_sync_product_data', [ $this, 'delete_gallery_cache' ], 10, 2 );
+	}
+
+	public function delete_gallery_cache( $product_id, $tr_product_id ) {
+		WCML_Product_Gallery_Filter::delete_cache( $product_id );
+		WCML_Product_Gallery_Filter::delete_cache( $tr_product_id );
 	}
 
 	public function update_meta( $original_attachment_id, $file, $language ) {

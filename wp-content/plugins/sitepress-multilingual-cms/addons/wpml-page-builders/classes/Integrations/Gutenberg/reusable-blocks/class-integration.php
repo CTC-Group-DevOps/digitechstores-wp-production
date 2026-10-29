@@ -13,11 +13,15 @@ class Integration implements \WPML\PB\Gutenberg\Integration {
 	}
 
 	public function add_hooks() {
-		add_filter( 'render_block_data', [ $this, 'convertReusableBlock' ] );
+		add_filter( 'render_block_data', [ $this, 'convertReusableBlock' ], 10, 3 );
 		add_filter( 'render_block', Fns::withoutRecursion( Fns::identity(), [ $this, 'reRenderInnerReusableBlock' ] ), 10, 2 );
 	}
 
-	public function convertReusableBlock( array $block ) {
+	public function convertReusableBlock( array $block, $sourceBlock = null, $parentBlock = null ) {
+		if ( null === $parentBlock ) {
+			\WPML\PB\Gutenberg\ConvertIdsInBlock\Prefetch::tree( $block );
+		}
+
 		return $this->translation->convertBlock( $block );
 	}
 

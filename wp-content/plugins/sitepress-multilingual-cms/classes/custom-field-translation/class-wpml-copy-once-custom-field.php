@@ -16,15 +16,34 @@ class WPML_Copy_Once_Custom_Field implements IWPML_Backend_Action, IWPML_Fronten
 	}
 
 	public function copy( $post_id ) {
+		$source_element_id = $this->wpml_post_translation->get_original_element( $post_id );
+
+		if ( $source_element_id ) {
+			$this->copy_from( $source_element_id, $post_id );
+		}
+	}
+
+	public function copy_from( $source_element_id, $post_id ) {
 		$custom_fields_to_copy = $this->sitepress->get_custom_fields_translation_settings( WPML_COPY_ONCE_CUSTOM_FIELD );
+
+		$source_meta           = get_post_meta( $source_element_id );
+		$source_meta           = is_array( $source_meta ) ? $source_meta : [];
+		$resolved              = wpml_resolve_custom_field_preferences( array_keys( $source_meta ) );
+		$custom_fields_to_copy = array_merge( $custom_fields_to_copy, array_keys( $resolved, WPML_COPY_ONCE_CUSTOM_FIELD, true ) );
+
+		$custom_fields_to_copy = \WPML\TM\Settings\MenuItemMetaBoundary::withoutSyncOwnedKeys( $custom_fields_to_copy );
+
 		if ( empty( $custom_fields_to_copy ) ) {
 			return;
 		}
 
-		$source_element_id = $this->wpml_post_translation->get_original_element( $post_id );
-		$custom_fields     = get_post_meta( $post_id );
+		$custom_fields = get_post_meta( $post_id );
 
 		foreach ( $custom_fields_to_copy as $meta_key ) {
+			if ( ! isset( $source_meta[ $meta_key ] ) ) {
+				continue;
+			}
+
 			$values = isset( $custom_fields[ $meta_key ] )
 					&& ! empty( $custom_fields[ $meta_key ] )
 				? [ $custom_fields[ $meta_key ] ]
@@ -40,11 +59,9 @@ class WPML_Copy_Once_Custom_Field implements IWPML_Backend_Action, IWPML_Fronten
 				]
 			);
 
-			if ( empty( $values ) && $source_element_id ) {
+			if ( empty( $values ) ) {
 				$this->sitepress->sync_custom_field( $source_element_id, $post_id, $meta_key );
 			}
 		}
 	}
-
 }
-

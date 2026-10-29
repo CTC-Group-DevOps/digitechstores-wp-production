@@ -8,7 +8,7 @@
             "lang": "ar"
          },
          "Connect this site to your %s account": [
-            "ربط هذا الموقع بحسابك %s"
+            "ربط هذا الموقع بحسابك في %s"
          ],
          "Error": [
             "خطأ"
@@ -17,10 +17,10 @@
             "« استخدام خدمة ترجمة مختلفة"
          ],
          "Authenticate": [
-            "المصادقة"
+            "مصادقة"
          ],
          "Visit <link_to_service /> to request an API Token. This token allows WPML to connect to <service_name /> to send and receive jobs.": [
-            "تفضل بزيارة <link_to_service /> لطلب رمز API. يسمح هذا الرمز لـ WPML بالاتصال بـ <service_name /> لإرسال واستقبال المهام."
+            "تفضل بزيارة <link_to_service /> لطلب رمز API. يسمح هذا الرمز لـ WPML بالاتصال بـ <service_name /> لإرسال الوظائف واستلامها."
          ],
          "Search translation services": [
             "البحث عن خدمات الترجمة"
@@ -29,10 +29,10 @@
             "بحث"
          ],
          "Settings": [
-            "الإعدادات"
+            "إعدادات"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "لا يمكن حاليًا ربط خدمة ترجمة عندما يكون WPML مُعدًا لترجمة محتوى موقعك تلقائيًا. لاستخدام خدمة ترجمة، يُرجى تغيير وضع الترجمة الخاص بك في صفحة <LinkToSettingsPage />."
+            "لا يمكن حاليًا ربط خدمة ترجمة عندما يكون WPML مضبوطًا على ترجمة محتوى موقعك تلقائيًا. لاستخدام خدمة ترجمة، يرجى تغيير وضع الترجمة في صفحة <LinkToSettingsPage />."
          ],
          "Sort descending": [
             "فرز تنازلي"
@@ -56,7 +56,7 @@
             "الوصف"
          ],
          "Ranking": [
-            "الترتيب"
+            "التصنيف"
          ]
       }
    }

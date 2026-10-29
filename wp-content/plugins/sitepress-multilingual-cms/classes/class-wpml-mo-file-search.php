@@ -9,11 +9,11 @@ class WPML_MO_File_Search {
 
 	private $locales;
 
-	public function __construct( SitePress $sitepress, ?WP_Filesystem_Direct $filesystem = null ) {
+	public function __construct( SitePress $sitepress, ?WP_Filesystem_Base $filesystem = null ) {
 		$this->sitepress = $sitepress;
 
 		if ( ! $filesystem ) {
-			$filesystem = $sitepress->get_wp_api()->get_wp_filesystem_direct();
+			$filesystem = $sitepress->get_wp_api()->get_wp_filesystem();
 		}
 		$this->filesystem = $filesystem;
 

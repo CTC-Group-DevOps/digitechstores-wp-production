@@ -1,6 +1,9 @@
 <?php
 
 class WPML_Package_Translation extends WPML_Package_Helper {
+
+	const REFRESH_REQUIRED_OPTION = 'wpml-package-translation-refresh-required';
+
 	var $load_priority = 100;
 	var $package_translation_active;
 	var $admin_lang_switcher = null;
@@ -10,7 +13,7 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		add_action( 'wpml_loaded', array( $this, 'loaded' ), $this->load_priority, 1 );
 	}
 
-	function loaded( ?SitePress $sitepress = null ) {
+	public function loaded( ?SitePress $sitepress = null ) {
 		parent::loaded();
 
 		if ( null === $sitepress ) {
@@ -19,19 +22,14 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 
 		$is_setup_complete = (bool) $sitepress->get_setting( 'setup_complete', false );
 
-		if ( $is_setup_complete ) {
-			$this->run_db_update();
-		}
-
 		if ( $this->passed_dependencies() && $is_setup_complete ) {
 			$this->add_admin_hooks();
 			$this->add_global_hooks();
 
 			if ( is_admin() ) {
 
-				if ( $this->is_refresh_required() ) {
+				if ( $this->is_refresh_required() && $this->claim_refresh() ) {
 					add_action( 'init', array( $this, 'refresh_packages' ), 999, 0 );
-					$this->set_refresh_not_required();
 				}
 			}
 		}
@@ -39,8 +37,8 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 
 	private function add_admin_hooks() {
 		if ( is_admin() || $this->is_doing_xmlrpc() || wpml_is_rest_request() || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
-			add_action( 'wp_ajax_wpml_delete_packages', array( $this, 'delete_packages_ajax' ) );
-			add_action( 'wp_ajax_wpml_change_package_lang', array( $this, 'change_package_lang_ajax' ) );
+			\WPML\Request\Adapter\Ajax::register( 'wpml_delete_packages', \WPML\Request\Policy\Policy::capability( [ 'wpml_manage_string_translation', 'manage_translations' ], \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_package_nonce', 'wpnonce' ) ), array( $this, 'delete_packages_ajax' ) );
+			\WPML\Request\Adapter\Ajax::register( 'wpml_change_package_lang', \WPML\Request\Policy\Policy::capability( [ 'wpml_manage_string_translation', 'manage_translations' ], \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_package_nonce', 'wpnonce' ) ), array( $this, 'change_package_lang_ajax' ) );
 
 			add_filter( 'wpml_pt_all_packages', array( $this, 'get_all_packages' ) );
 
@@ -71,7 +69,6 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 			add_filter( 'wpml_get_package_type', array( $this, 'get_package_type' ), 10, 2 );
 			add_filter( 'wpml_get_package_type_prefix', array( $this, 'get_package_type_prefix' ), 10, 2 );
 			add_filter( 'wpml_language_for_element', array( $this, 'get_language_for_element' ), 10, 2 );
-			add_filter( 'wpml_st_get_string_package', array( $this, 'get_string_package' ), 10, 2 );
 			add_action( 'wpml_save_external', [ $this, 'save_package_translations' ], 10, 3 );
 
 			add_filter( 'wpml_tm_external_translation_job_title', array( $this, 'get_post_title' ), 10, 2 );
@@ -101,16 +98,10 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		add_action( 'wpml_delete_unused_package_strings', array( $this, 'delete_unused_package_strings_action' ), 10, 1 );
 		add_action( 'wpml_delete_package', array( $this, 'delete_package_action' ), 10, 2 );
 		add_filter( 'wpml_st_get_post_string_packages', array( $this, 'get_post_string_packages' ), 10, 2 );
-
+		add_filter( 'wpml_st_get_string_package', array( $this, 'get_string_package' ), 10, 2 );
 		add_filter( 'wpml_string_id_from_package', array( $this, 'string_id_from_package_filter' ), 10, 4 );
 
 		add_filter( 'wpml_is_external', array( $this, 'is_external' ), 10, 2 );
-	}
-
-	private function run_db_update() {
-		if ( is_admin() ) {
-			WPML_Package_Translation_Schema::run_update();
-		}
 	}
 
 	private function passed_dependencies() {
@@ -188,6 +179,8 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 	function show_language_selector( $package, $args = array() ) {
 		global $wpdb, $sitepress;
 
+		wp_enqueue_script( 'wpml-purify' );
+
 		$wpml_pt_meta = new WPML_Package_Translation_Metabox( $package, $wpdb, $sitepress, $args );
 		echo $wpml_pt_meta->get_metabox();
 	}
@@ -264,7 +257,6 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 	}
 
 	function new_external_item( $type, $package_item, $get_string_data = false ) {
-
 		$package_id = $package_item['ID'];
 
 		$item                 = new stdClass();
@@ -274,6 +266,7 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		$item->post_type      = $type;
 		$item->post_id        = 'external_' . $item->post_type . '_' . $package_item['ID'];
 		$item->post_date      = '';
+		/* translators: Option in the filter on the Theme and plugins localization page: show only themes or plugins that are switched on. On the Packages page it is also the state of a package that is in use. Adjective. */
 		$item->post_status    = __( 'Active', 'wpml-string-translation' );
 		$item->post_title     = $package_item['title'];
 		$item->is_translation = false;
@@ -283,25 +276,6 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		}
 
 		return $item;
-	}
-
-	function get_package_from_external_id( $post_id ) {
-
-		global $wpdb;
-
-		$packages = $wpdb->get_col( "SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE ID>0" );
-
-		foreach ( $packages as $package_id ) {
-
-			$package = new WPML_Package( $package_id );
-
-			$test = $this->get_external_id_from_package( $package );
-			if ( is_string( $post_id ) && $post_id == $test ) {
-				return $package;
-			}
-		}
-
-		return false;
 	}
 
 	function _get_package_strings( $package_item ) {
@@ -329,32 +303,6 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		return $strings;
 	}
 
-	function get_link( $item, $package_item, $anchor, $hide_empty ) {
-		if ( $item == '' ) {
-			$package_item = $this->get_package_from_external_id( $package_item );
-			if ( ! $package_item ) {
-				return '';
-			}
-
-			$has_link = isset( $package_item->edit_link ) && $package_item->edit_link;
-			if ( false === $anchor ) {
-				if ( $has_link ) {
-					$anchor = '<a href="' . $package_item->edit_link . '">' . $package_item['title'] . '</a>';
-				} elseif ( ! $hide_empty ) {
-					$anchor = $package_item['title'];
-				}
-			} else {
-				if ( $has_link ) {
-					$anchor = '<a href="' . $package_item['edit_link'] . '">' . $anchor . '</a>';
-				}
-			}
-
-			$item = $anchor;
-		}
-
-		return $item;
-	}
-
 	private function get_package_details( $package_id ) {
 		global $wpdb;
 		static $cache = array();
@@ -365,28 +313,6 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		}
 
 		return $cache[ $package_id ];
-	}
-
-	function get_string_context_title( $context, $string_details ) {
-		global $wpdb;
-
-		static $cache = array();
-
-		if ( ! isset( $cache[ $context ] ) ) {
-			$package_id = $wpdb->get_var( $wpdb->prepare( "SELECT string_package_id FROM {$wpdb->prefix}icl_strings WHERE id=%d", $string_details['string_id'] ) );
-			if ( $package_id ) {
-				$package_details = $this->get_package_details( $package_id );
-				if ( $package_details ) {
-					$cache[ $context ] = $package_details->kind . ' - ' . $package_details->title;
-				} else {
-					$cache[ $context ] = $context;
-				}
-			} else {
-				$cache[ $context ] = $context;
-			}
-		}
-
-		return $cache[ $context ];
 	}
 
 	function get_string_title( $title, $string_details ) {
@@ -447,17 +373,6 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 		}
 	}
 
-
-	function _no_wpml_warning() {
-		?>
-		<div class="message error">
-			<p>
-				<?php printf( __( 'WPML Package Translation is active but requires both the <a href="%s">WPML core</a> and WPML String Translation plugins to function properly.', 'wpml-string-translation' ), 'http://wpml.org/' ); ?>
-			</p>
-		</div>
-		<?php
-	}
-
 	public function tm_dashboard_sql_filter( $sql ) {
 		global $wpdb;
 
@@ -466,12 +381,44 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 	}
 
 	private function is_refresh_required() {
-		$refresh_required = get_option( 'wpml-package-translation-refresh-required', 'yes' );
+		$refresh_required = get_option( self::REFRESH_REQUIRED_OPTION, 'yes' );
 		return 'yes' === $refresh_required || '1' === $refresh_required;
 	}
 
 	private function set_refresh_not_required() {
-		update_option( 'wpml-package-translation-refresh-required', 'no', false );
+		update_option( self::REFRESH_REQUIRED_OPTION, 'no', false );
+	}
+
+	private function claim_refresh() {
+		$lock = \WPML\ST\PackageTranslation\PackageLock::create( 'string-package-refresh' );
+
+		if ( ! $lock->acquire( 0 ) ) {
+			return false;
+		}
+
+		try {
+			$is_claimed = $this->is_refresh_required_in_database();
+			if ( $is_claimed ) {
+				$this->set_refresh_not_required();
+			}
+		} finally {
+			$lock->release();
+		}
+
+		return $is_claimed;
+	}
+
+	private function is_refresh_required_in_database() {
+		global $wpdb;
+
+		$value = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT option_value FROM {$wpdb->options} WHERE option_name = %s LIMIT 1",
+				self::REFRESH_REQUIRED_OPTION
+			)
+		);
+
+		return null === $value || 'yes' === $value || '1' === $value;
 	}
 
 	public function save_package_translations( $element_type_prefix, $job, $decoder ) {

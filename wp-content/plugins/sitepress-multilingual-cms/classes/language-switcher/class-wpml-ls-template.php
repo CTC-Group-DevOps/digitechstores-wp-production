@@ -1,8 +1,14 @@
 <?php
 
+use WPML\LanguageSwitcher\UploadsFolder;
+
 class WPML_LS_Template extends WPML_Templates_Factory {
 
-	const FILENAME = 'template.twig';
+	const FILENAME     = 'template.twig';
+	const PHP_FILENAME = 'template.php';
+
+	const ENGINE_TWIG = 'twig';
+	const ENGINE_PHP  = 'php';
 
 	private $template;
 
@@ -36,7 +42,21 @@ class WPML_LS_Template extends WPML_Templates_Factory {
 		$this->model = is_array( $model ) ? $model : array( $model );
 	}
 
+	public function get_engine() {
+		return isset( $this->template['engine'] ) && self::ENGINE_PHP === $this->template['engine']
+			? self::ENGINE_PHP
+			: self::ENGINE_TWIG;
+	}
+
+	public function is_missing() {
+		return empty( $this->template['path'] ) && ! $this->is_string_template();
+	}
+
 	public function get_html( $sandbox = false ) {
+		if ( self::ENGINE_PHP === $this->get_engine() && ! $this->is_string_template() ) {
+			return $this->get_php_html();
+		}
+
 		$ret = '';
 		if ( $this->template_paths || $this->template_string ) {
 			if ( $sandbox ) {
@@ -46,6 +66,70 @@ class WPML_LS_Template extends WPML_Templates_Factory {
 			}
 		}
 		return $ret;
+	}
+
+	private function get_php_html() {
+		$file = $this->get_php_template_file();
+
+		if ( ! $file ) {
+			throw new \RuntimeException( 'The language switcher template has no template.php file.' );
+		}
+
+		return self::include_php_template( $file, is_array( $this->model ) ? $this->model : array() );
+	}
+
+	private function get_php_template_file() {
+		foreach ( array_reverse( (array) $this->template_paths ) as $path ) {
+			$file = rtrim( $path, '/\\' ) . DIRECTORY_SEPARATOR . self::PHP_FILENAME;
+
+			if ( ! is_file( $file ) ) {
+				continue;
+			}
+
+			$real = realpath( $file );
+
+			if ( false === $real || UploadsFolder::contains( $file ) || UploadsFolder::contains( $real ) ) {
+				$this->log_refused_php_file( $file );
+
+				return null;
+			}
+
+			return $real;
+		}
+
+		return null;
+	}
+
+	private function log_refused_php_file( $file ) {
+		static $logged = array();
+
+		if ( isset( $logged[ $file ] ) ) {
+			return;
+		}
+
+		$logged[ $file ] = true;
+
+		( new WPML_WP_API() )->error_log(
+			sprintf( 'WPML: the language switcher template file %s is not used: PHP templates are not loaded from the uploads folder. Move the template into your theme.', $file )
+		);
+	}
+
+	private static function include_php_template( $wpml_ls_template_file, array $model ) {
+		$wpml_ls_ob_level = ob_get_level();
+
+		ob_start();
+
+		try {
+			extract( $model, EXTR_SKIP );
+			include $wpml_ls_template_file;
+		} catch ( \Throwable $e ) {
+			while ( ob_get_level() > $wpml_ls_ob_level ) {
+				ob_end_clean();
+			}
+			throw $e;
+		}
+
+		return (string) ob_get_clean();
 	}
 
 	public function get_styles( $with_version = false ) {
@@ -138,7 +222,24 @@ class WPML_LS_Template extends WPML_Templates_Factory {
 				break;
 			}
 		}
-		return $valid;
+
+		return $valid && $this->is_engine_still_right();
+	}
+
+	private function is_engine_still_right() {
+		$paths = (array) $this->template_paths;
+
+		if ( $this->is_core() || empty( $paths ) ) {
+			return true;
+		}
+
+		$has_php_file = is_file( rtrim( (string) end( $paths ), '/\\' ) . DIRECTORY_SEPARATOR . self::PHP_FILENAME );
+
+		if ( self::ENGINE_PHP === $this->get_engine() ) {
+			return $has_php_file;
+		}
+
+		return ! ( $has_php_file && ! empty( $this->template['php_allowed'] ) );
 	}
 
 	public function set_template_string( $template_string ) {

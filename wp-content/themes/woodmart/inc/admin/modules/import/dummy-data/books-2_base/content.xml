@@ -1425,7 +1425,7 @@ In her 13-year career, Moehl has run more than 100 races. She has 46 female wins
 								<item>
 					<title><![CDATA[Newsletter Books 2]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/books-2/mc4wp-form/newsletter-books-2/</link>
-					<pubDate>Thu, 09 Jul 2026 12:12:08 +0000</pubDate>
+					<pubDate>Tue, 15 Sep 2026 06:20:15 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/books-2/mc4wp-form/newsletter-books-2/</guid>
 											<content:encoded><![CDATA[<div class="wd-grid-f-stretch" style="--wd-gap: 10px;margin-bottom:10px">
@@ -1433,13 +1433,17 @@ In her 13-year career, Moehl has run more than 100 races. She has 46 female wins
   <div class="wd-col-auto"><input type="submit" value="Subscribe" /></div>
 </div>
 
-<input type="checkbox" id="AGREE_TO_TERMS" name="AGREE_TO_TERMS" value="1" required>
-<span>I have read the <a href="#">privacy policy</a></span>]]></content:encoded>
+<label>
+    <input type="checkbox" id="AGREE_TO_TERMS" name="AGREE_TO_TERMS" value="1" required>
+    <span>I have read the <a href="#">privacy policy</a></span>
+</label>
+
+]]></content:encoded>
 															<wp:post_id>226</wp:post_id>
-					<wp:post_date><![CDATA[2026-07-09 12:12:08]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2026-07-09 12:12:08]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-07-09 12:12:08]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-07-09 12:12:08]]></wp:post_modified_gmt>
+					<wp:post_date><![CDATA[2026-09-15 06:20:15]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2026-09-15 06:20:15]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 06:20:15]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 06:20:15]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[newsletter-books-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -1489,6 +1493,10 @@ In her 13-year career, Moehl has run more than 100 races. She has 46 female wins
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[text_spam]]></wp:meta_key>
 							<wp:meta_value><![CDATA[Your submission was marked as spam.]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2026-07-09]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>

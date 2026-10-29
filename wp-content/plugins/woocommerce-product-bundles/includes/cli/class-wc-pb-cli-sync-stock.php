@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Allows Bundle stock updates via WP-CLI.
  *
  * @class    WC_PB_CLI_Sync_Stock
- * @version  7.1.0
+ * @version  8.5.16
  */
 class WC_PB_CLI_Sync_Stock {
 
 	/**
 	 * Registers the update command.
+	 *
+	 * @return void
 	 */
 	public static function register_command() {
 		WP_CLI::add_command( 'wc pb sync-stock', array( 'WC_PB_CLI_Sync_Stock', 'sync' ) );
@@ -27,6 +29,8 @@ class WC_PB_CLI_Sync_Stock {
 
 	/**
 	 * Sync stock for all product bundles.
+	 *
+	 * @return void
 	 */
 	public static function sync() {
 		WP_CLI::log( 'Starting Product Bundles stock sync...' );

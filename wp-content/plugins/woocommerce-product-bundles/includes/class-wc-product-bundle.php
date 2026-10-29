@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -23,7 +23,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Group mode options data.
 	 *
 	 * @see 'WC_Product_Bundle::get_group_mode_options'.
-	 * @var array
+	 * @var array|null
 	 */
 	private static $group_mode_options_data = null;
 
@@ -31,7 +31,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Layout options data.
 	 *
 	 * @see 'WC_Product_Bundle::get_layout_options'.
-	 * @var array
+	 * @var array|null
 	 */
 	private static $layout_options_data = null;
 
@@ -62,7 +62,7 @@ class WC_Product_Bundle extends WC_Product {
 	/**
 	 * Array of bundled item data objects.
 	 *
-	 * @var array
+	 * @var array|null
 	 */
 	private $bundled_data_items = null;
 
@@ -76,7 +76,7 @@ class WC_Product_Bundle extends WC_Product {
 	/**
 	 * Indicates whether bundled data items have temporary IDs (saving needed).
 	 *
-	 * @var array
+	 * @var bool
 	 */
 	private $bundled_data_items_save_pending = false;
 
@@ -132,7 +132,7 @@ class WC_Product_Bundle extends WC_Product {
 	/**
 	 * Bundle is a NYP product.
 	 *
-	 * @var boolean
+	 * @var boolean|null
 	 */
 	private $is_nyp;
 
@@ -192,6 +192,7 @@ class WC_Product_Bundle extends WC_Product {
 	 *
 	 * @since 5.2.0
 	 * @param bool $reset_objects Reset bundled item objects.
+	 * @return void
 	 */
 	public function load_defaults( $reset_objects = false ) {
 
@@ -233,6 +234,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Define type-specific data.
 	 *
 	 * @since  5.2.0
+	 * @return void
 	 */
 	private function load_extended_data() {
 
@@ -379,10 +381,6 @@ class WC_Product_Bundle extends WC_Product {
 			if ( ! $this->contains['options'] && WC_PB()->compatibility->has_addons( $this, true ) ) {
 				$this->contains['options'] = true;
 			}
-		}
-
-		if ( ! $this->contains['options'] ) {
-			$this->supports[] = 'ajax_add_to_cart';
 		}
 
 		// Set this now to avoid infinite loops.
@@ -660,7 +658,7 @@ class WC_Product_Bundle extends WC_Product {
 		 *
 		 * @since  6.5.0
 		 *
-		 * @param  int                $bundle_stock_quantity
+		 * @param  int|string         $bundle_stock_quantity
 		 * @param  WC_Product_Bundle  $bundle
 		 */
 		$bundle_stock_quantity = apply_filters( 'woocommerce_synced_bundle_stock_quantity', $bundle_stock_quantity, $this );
@@ -1635,6 +1633,25 @@ class WC_Product_Bundle extends WC_Product {
 	}
 
 	/**
+	 * Resolve AJAX support from the same input requirements as the button text.
+	 *
+	 * @since 8.5.14
+	 * @param string $feature Product feature.
+	 * @return bool
+	 */
+	public function supports( $feature ) {
+		if ( 'ajax_add_to_cart' === $feature && ! $this->is_syncing() ) {
+			$requires_input = $this->has_options();
+			$this->supports = array_diff( $this->supports, array( $feature ) );
+			if ( ! $requires_input ) {
+				$this->supports[] = $feature;
+			}
+		}
+
+		return parent::supports( $feature );
+	}
+
+	/**
 	 * Get the add to url used mainly in loops.
 	 *
 	 * @return  string
@@ -1711,7 +1728,7 @@ class WC_Product_Bundle extends WC_Product {
 
 			if ( is_array( $cart_item ) && isset( $cart_item['stamp'] ) && is_array( $cart_item['stamp'] ) ) {
 
-				$config_data = isset( $cart_item['stamp'] ) ? $cart_item['stamp'] : array();
+				$config_data = $cart_item['stamp'];
 				/**
 				 * 'woocommerce_bundle_cart_permalink_args' filter.
 				 *
@@ -1851,7 +1868,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  6.5.0
 	 *
 	 * @param  string $context 'view' or 'edit'.
-	 * @return int
+	 * @return int|string
 	 */
 	public function get_bundle_stock_quantity( $context = 'view' ) {
 
@@ -1991,7 +2008,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $context 'view' or 'sync'.
-	 * @return string
+	 * @return string|float
 	 */
 	public function get_min_raw_price( $context = 'view' ) {
 		if ( 'sync' !== $context ) {
@@ -2007,7 +2024,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $context 'view' or 'sync'.
-	 * @return string
+	 * @return string|float
 	 */
 	public function get_min_raw_regular_price( $context = 'view' ) {
 		if ( 'sync' !== $context ) {
@@ -2026,7 +2043,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $context 'view' or 'sync'.
-	 * @return string
+	 * @return string|float
 	 */
 	public function get_max_raw_price( $context = 'view' ) {
 		if ( 'sync' !== $context ) {
@@ -2048,7 +2065,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $context 'view' or 'sync'.
-	 * @return string
+	 * @return string|float
 	 */
 	public function get_max_raw_regular_price( $context = 'view' ) {
 		if ( 'sync' !== $context ) {
@@ -2233,7 +2250,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @param  WC_Bundled_Item_Data|int $bundled_data_item The bundled item data object or ID.
 	 * @param  string                   $context            'view' or 'edit'.
 	 * @param array                    $hash               Optional hash to differentiate between different bundled items.
-	 * @return WC_Bundled_Item
+	 * @return WC_Bundled_Item|false
 	 */
 	public function get_bundled_item( $bundled_data_item, $context = 'view', $hash = array() ) {
 
@@ -2257,6 +2274,8 @@ class WC_Product_Bundle extends WC_Product {
 			 * @param WC_Product_Bundle $bundle
 			 */
 			$cache_key = md5( wp_json_encode( apply_filters( 'woocommerce_bundled_item_hash', $hash, $this ) ) );
+			// Cached items retain their owning product instance, including unsaved cart/admin state.
+			$cache_key = spl_object_hash( $this ) . '_' . $cache_key;
 
 			$bundled_item = WC_PB_Helpers::cache_get( $cache_key, $cache_group );
 
@@ -2314,6 +2333,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  6.6.0
 	 *
 	 * @param int|string $max_bundle_size The maximum bundle size.
+	 * @return void
 	 */
 	public function set_max_bundle_size( $max_bundle_size ) {
 		$this->set_prop( 'max_bundle_size', $max_bundle_size );
@@ -2323,6 +2343,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Set cart/order items group mode.
 	 *
 	 * @param string $mode 'parent' or 'child'.
+	 * @return void
 	 */
 	public function set_group_mode( $mode = '' ) {
 		$this->set_prop( 'group_mode', array_key_exists( $mode, self::get_group_mode_options() ) ? $mode : 'parent' );
@@ -2332,6 +2353,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Set stock sync status.
 	 *
 	 * @param string $status 'synced' or 'unsynced'.
+	 * @return void
 	 */
 	public function set_bundled_items_stock_sync_status( $status = '' ) {
 		$this->set_prop( 'bundled_items_stock_sync_status', in_array( $status, array( 'synced', 'unsynced' ), true ) ? $status : 'unsynced' );
@@ -2342,6 +2364,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Quantity available for purchase, taking bundled item stock limitations into account.
 	 *
 	 * @param int|string $quantity The quantity available for purchase.
+	 * @return void
 	 */
 	public function set_bundle_stock_quantity( $quantity ) {
 		$this->set_prop( 'bundle_stock_quantity', $quantity );
@@ -2351,6 +2374,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * Set stock status.
 	 *
 	 * @param string $status 'instock', 'outofstock', 'onbackorder', 'insufficientstock'.
+	 * @return void
 	 */
 	public function set_bundled_items_stock_status( $status = '' ) {
 		$this->set_prop( 'bundled_items_stock_status', in_array( $status, array( 'instock', 'outofstock' ), true ) ? $status : 'instock' );
@@ -2362,6 +2386,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.7.0
 	 *
 	 * @param  string $value 'default', 'above', 'below', 'above_below', 'above_below_single', 'above_single', 'below_single', 'above_below_single', 'above_single', 'below_single'.
+	 * @return void
 	 */
 	public function set_add_to_cart_form_location( $value ) {
 		$value = array_key_exists( $value, self::get_add_to_cart_form_location_options() ) ? $value : 'default';
@@ -2374,6 +2399,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $layout 'default', 'horizontal', 'vertical', 'grid', 'list'.
+	 * @return void
 	 */
 	public function set_layout( $layout ) {
 		$layout = array_key_exists( $layout, self::get_layout_options() ) ? $layout : 'default';
@@ -2386,6 +2412,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $editable_in_cart 'yes' or 'no'.
+	 * @return void
 	 */
 	public function set_editable_in_cart( $editable_in_cart ) {
 
@@ -2411,6 +2438,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  6.0.0
 	 *
 	 * @param  string $aggregate_weight 'yes' or 'no'.
+	 * @return void
 	 */
 	public function set_aggregate_weight( $aggregate_weight ) {
 		$aggregate_weight = wc_string_to_bool( $aggregate_weight );
@@ -2423,6 +2451,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  string $context 'product' or 'configuration'.
+	 * @return void
 	 */
 	public function set_sold_individually_context( $context ) {
 		$context = in_array( $context, array( 'product', 'configuration' ), true ) ? $context : 'product';
@@ -2435,6 +2464,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  mixed $value The minimum raw bundle price.
+	 * @return void
 	 */
 	public function set_min_raw_price( $value ) {
 		$value = wc_format_decimal( $value );
@@ -2447,6 +2477,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  mixed $value The minimum raw regular bundle price.
+	 * @return void
 	 */
 	public function set_min_raw_regular_price( $value ) {
 		$value = wc_format_decimal( $value );
@@ -2462,6 +2493,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  mixed $value The maximum raw bundle price.
+	 * @return void
 	 */
 	public function set_max_raw_price( $value ) {
 		$value = INF === $value ? 'INF' : wc_format_decimal( $value );
@@ -2478,6 +2510,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  mixed $value The maximum raw regular bundle price.
+	 * @return void
 	 */
 	public function set_max_raw_regular_price( $value ) {
 		$value = INF === $value ? 'INF' : wc_format_decimal( $value );
@@ -2493,6 +2526,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since  5.2.0
 	 *
 	 * @param  array $data Array of bundled item data.
+	 * @return void
 	 */
 	public function set_bundled_data_items( $data ) {
 
@@ -2846,6 +2880,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @since 5.13.0
 	 *
 	 * @param string $context 'view' or 'edit'.
+	 * @return void
 	 */
 	public function set_object_context( $context ) {
 		$this->object_context = $context;
@@ -2943,7 +2978,7 @@ class WC_Product_Bundle extends WC_Product {
 		 * @since 5.0.0
 		 * @param  boolean            $is
 		 * @param  WC_Product_Bundle  $bundle
-		 * @param  array              $cart_item
+		 * @param  array|false        $cart_item
 		 */
 		return apply_filters( 'woocommerce_bundle_is_editable_in_cart', method_exists( $this, 'supports' ) && $this->supports( 'edit_in_cart' ) && $this->is_in_stock(), $this, $cart_item );
 	}
@@ -3000,7 +3035,7 @@ class WC_Product_Bundle extends WC_Product {
 
 		$requires_input = false;
 
-		if ( $this->is_nyp || $this->contains( 'options' ) ) {
+		if ( $this->is_nyp() || $this->contains( 'options' ) ) {
 			$requires_input = true;
 		}
 
@@ -3079,7 +3114,7 @@ class WC_Product_Bundle extends WC_Product {
 	 *
 	 * @since 5.2.0
 	 * @param array $properties The properties to set.
-	 * @return boolean
+	 * @return bool|WP_Error
 	 */
 	public function set( $properties ) {
 		return $this->set_props( $properties );
@@ -3109,6 +3144,7 @@ class WC_Product_Bundle extends WC_Product {
 	 *
 	 * @since 5.2.0
 	 * @throws WC_Data_Exception When a bundled item belongs to another bundle.
+	 * @return void
 	 */
 	public function save_items() {
 
@@ -3229,7 +3265,7 @@ class WC_Product_Bundle extends WC_Product {
 			),
 			'after_summary' => array(
 				'title'       => __( 'Before Tabs', 'woocommerce-product-bundles' ),
-				'description' => __( 'The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option.', 'woocommerce-product-bundles' ),
+				'description' => __( 'The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option.', 'woocommerce-product-bundles' ) . ' ' . __( 'Elementor product templates may not support Before Tabs. Use Default if the form is not displayed correctly.', 'woocommerce-product-bundles' ),
 			),
 		);
 

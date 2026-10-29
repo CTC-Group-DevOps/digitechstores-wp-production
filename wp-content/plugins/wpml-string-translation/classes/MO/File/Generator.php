@@ -15,8 +15,11 @@ class Generator {
 		$this->moFactory = $moFactory;
 	}
 
-	public function getContent( array $entries ) {
+	public function getContent( array $entries, $pluralForms = null ) {
 		$mo = $this->moFactory->createNewInstance();
+		if ( $pluralForms ) {
+			$mo->set_header( 'Plural-Forms', $pluralForms );
+		}
 		wpml_collect( $entries )
 			->reduce( [ $this, 'createMOFormatEntities' ], wpml_collect( [] ) )
 			->filter( function( array $entry ) { return ! empty($entry['singular']); } )

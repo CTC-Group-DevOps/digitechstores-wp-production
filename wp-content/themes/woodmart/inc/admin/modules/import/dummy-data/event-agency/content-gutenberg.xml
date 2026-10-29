@@ -1677,7 +1677,7 @@
 <!-- /wp:wd/row -->
 
 <!-- wp:wd/container {"blockId":"24a56a5f-4a39-4d6f-a0f0-156ac6b0ebba","direction":"row","justify":"space-between","align":"center","paddingTop":"20","paddingBottom":"20","directionMobile":"column","textAlignMobile":"center","rowGapMobile":"15"} -->
-<div id="wd-24a56a5f" class="wp-block-wd-container wd-dir-row wd-dir-col-sm wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"98d253fe-59ac-4405-bf24-34e58a63959c","tpFontFamily":"var(u002du002dwd-title-font)","markColorCode":"#cd3e3e"} -->
+<div id="wd-24a56a5f" class="wp-block-wd-container wd-dir-row wd-dir-col-sm wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"98d253fe-59ac-4405-bf24-34e58a63959c","tpFontFamily":"var(\u002d\u002dwd-title-font)","markColorCode":"#cd3e3e"} -->
 <p id="wd-98d253fe" class="wp-block-wd-paragraph"><a href="#">WOODMART</a> 2024 Created By <a href="#"><span class="wd-highlight">X</span>temos studio</a></p>
 <!-- /wp:wd/paragraph -->
 

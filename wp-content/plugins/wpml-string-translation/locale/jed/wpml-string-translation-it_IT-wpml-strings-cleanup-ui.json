@@ -7,14 +7,14 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "it_IT"
          },
-         "Clean up the String Translation table by removing untranslated strings by domain.": [
-            "Pulisci la tabella di String Translation rimuovendo le stringhe non tradotte per dominio."
+         "Clean up the <b>String Translation</b> table by removing <strong>untranslated</strong> strings by domain.": [
+            "Pulisci la tabella <b>Traduzione stringhe</b> rimuovendo le stringhe <strong>non tradotte</strong> per dominio."
          ],
          "Remove strings by domain": [
-            "Rimuovi le stringhe per dominio"
+            "Rimuovi stringhe per dominio"
          ],
          "Remove strings": [
-            "Rimuovi le stringhe"
+            "Rimuovi stringhe"
          ],
          "Cancel": [
             "Annulla"
@@ -22,23 +22,26 @@
          "Remove": [
             "Rimuovi"
          ],
-         "The String Translation table currently contains strings from the domains listed below. If you do not plan to translate strings from a particular domain, select it below to remove its untranslated strings from the String Translation table. Any strings that already have translations will still be available.": [
-            "La tabella di String Translation contiene attualmente stringhe dai domini elencati di seguito. Se non intendi tradurre le stringhe di un particolare dominio, selezionalo di seguito per rimuovere le sue stringhe non tradotte dalla tabella di String Translation. Tutte le stringhe che hanno già traduzioni saranno comunque disponibili."
+         "The <b>String Translation</b> table currently contains strings from the domains listed below. If you do not plan to translate strings from a particular domain, select it below to remove its <strong>untranslated</strong> strings from the <b>String Translation</b> table. Any strings that already have translations will still be available.": [
+            "La tabella <b>Traduzione stringhe</b> contiene attualmente stringhe dei domini elencati di seguito. Se non hai intenzione di tradurre le stringhe di un particolare dominio, selezionalo qui sotto per rimuovere le sue stringhe <strong>non tradotte</strong> dalla tabella <b>Traduzione stringhe</b>. Tutte le stringhe che hanno già delle traduzioni rimarranno disponibili."
          ],
          "Search": [
             "Cerca"
          ],
-         "Removing strings from String Translation table": [
-            "Rimozione delle stringhe dalla tabella di String Translation"
+         "Strings that are queued for translation, in progress, or waiting for a retry.": [
+            "Stringhe in coda per la traduzione, in corso o in attesa di un nuovo tentativo."
          ],
-         "To add strings back to the String Translation table, you may need to rescan translation files or register strings as translatable.": [
-            "Per aggiungere nuovamente le stringhe alla tabella di String Translation, potrebbe essere necessario eseguire nuovamente la scansione dei file di traduzione o registrare le stringhe come traducibili."
+         "Also remove strings waiting for translation": [
+            "Rimuovi anche le stringhe in attesa di traduzione"
          ],
-         "Read more about ": [
-            "Maggiori informazioni su "
+         "Removing strings from <b>String Translation</b> table": [
+            "Rimozione delle stringhe dalla tabella <b>Traduzione stringhe</b> in corso"
          ],
-         "scanning your site for strings and registering them as translatable.": [
-            "come scansionare il tuo sito per le stringhe e registrarle come traducibili."
+         "To add strings back to the <b>String Translation</b> table, you may need to rescan translation files or register strings as translatable.": [
+            "Per aggiungere nuovamente le stringhe alla tabella <b>Traduzione stringhe</b>, potrebbe essere necessario scansionare di nuovo i file di traduzione o registrare le stringhe come traducibili."
+         ],
+         "Read more about <a>scanning your site for strings and registering them as translatable</a>.": [
+            "Scopri di più su come <a>scansionare il tuo sito alla ricerca di stringhe e registrarle come traducibili</a>."
          ],
          "Successfully removed strings": [
             "Stringhe rimosse con successo"
@@ -54,6 +57,9 @@
          ],
          "Translated strings": [
             "Stringhe tradotte"
+         ],
+         "Removing strings stopped before it finished. The strings that were not removed are still in the table. Try again to remove them.": [
+            "La rimozione delle stringhe si è interrotta prima di terminare. Le stringhe che non sono state rimosse sono ancora nella tabella. Riprova a rimuoverle."
          ]
       }
    }

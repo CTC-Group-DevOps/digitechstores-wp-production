@@ -64,10 +64,30 @@ class WPML_Admin_Menu_Root {
 
 		do_action( 'wpml_admin_menu_root_configured', $this->get_menu_id(), $root_slug );
 
+		$items = array();
+
 		foreach ( $this->items as $menu_item ) {
-			$menu_item = apply_filters( 'wpml_menu_item_before_build', $menu_item, $root_slug );
+			$items[] = apply_filters( 'wpml_menu_item_before_build', $menu_item, $root_slug );
+		}
+
+		foreach ( self::root_children_first( $items ) as $menu_item ) {
 			$menu_item->build( $root_slug );
 		}
+	}
+
+	private static function root_children_first( array $items ) {
+		$own     = array();
+		$foreign = array();
+
+		foreach ( $items as $menu_item ) {
+			if ( $menu_item->get_parent_slug() ) {
+				$foreign[] = $menu_item;
+			} else {
+				$own[] = $menu_item;
+			}
+		}
+
+		return array_merge( $own, $foreign );
 	}
 
 	private function adjust_items() {

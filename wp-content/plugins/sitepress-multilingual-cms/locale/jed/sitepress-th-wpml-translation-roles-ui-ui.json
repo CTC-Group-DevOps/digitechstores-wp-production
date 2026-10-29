@@ -7,6 +7,9 @@
             "plural_forms": "nplurals=1; plural=0;",
             "lang": "th"
          },
+         "Select %s": [
+            "เลือก %s"
+         ],
          "From:": [
             "จาก:"
          ],
@@ -16,17 +19,14 @@
          "to:": [
             "ถึง:"
          ],
-         "Select %s": [
-            "เลือก %s"
-         ],
          "Set language pair(s) for Translator %s:": [
             "ตั้งค่าคู่ภาษาสำหรับนักแปล %s:"
          ],
          "+ Add more language pairs for this translator": [
-            "+ เพิ่มคู่ภาษาเพิ่มเติมสำหรับนักแปลนี้"
+            "+ เพิ่มคู่ภาษาเพิ่มเติมสำหรับนักแปลคนนี้"
          ],
          "First Name": [
-            "ชื่อจริง"
+            "ชื่อ"
          ],
          "Last Name": [
             "นามสกุล"
@@ -41,13 +41,13 @@
             "เลือกบทบาทสำหรับผู้ใช้"
          ],
          "Make sure that you have provided a correct email address e.g. name@domain.com": [
-            "ตรวจสอบให้แน่ใจว่าคุณได้ระบุที่อยู่อีเมลที่ถูกต้อง เช่น name@domain.com"
+            "โปรดตรวจสอบให้แน่ใจว่าคุณได้ระบุที่อยู่อีเมลที่ถูกต้อง เช่น name@domain.com"
          ],
          "This field is required": [
-            "ช่องนี้จำเป็นต้องกรอก"
+            "จำเป็นต้องกรอกฟิลด์นี้"
          ],
          "A translator can be any WordPress role.": [
-            "นักแปลสามารถเป็นบทบาทใดก็ได้ของ WordPress"
+            "นักแปลสามารถเป็นบทบาทใดก็ได้ใน WordPress"
          ],
          "Username": [
             "ชื่อผู้ใช้"
@@ -55,11 +55,11 @@
          "Email": [
             "อีเมล"
          ],
-         "Search": [
-            "ค้นหา"
+         "Search by name, username or email": [
+            "ค้นหาตามชื่อ ชื่อผู้ใช้ หรืออีเมล"
          ],
-         "Your site has a large number of users, please enter the exact username.": [
-            "เว็บไซต์ของคุณมีผู้ใช้จำนวนมาก โปรดระบุชื่อผู้ใช้ที่ถูกต้อง"
+         "Your site has a large number of users, please enter the exact username or email address.": [
+            "ไซต์ของคุณมีผู้ใช้จำนวนมาก โปรดป้อนชื่อผู้ใช้หรือที่อยู่อีเมลที่ถูกต้อง"
          ],
          "Cancel": [
             "ยกเลิก"
@@ -71,28 +71,28 @@
             "ผู้ใช้"
          ],
          "Editor": [
-            "บรรณาธิการ"
+            "ผู้แก้ไข"
          ],
-         "Select an existing %s and set as Translation Manager": [
-            "เลือก %s ที่มีอยู่และตั้งเป็นผู้จัดการการแปล"
+         "Select an existing user and set them as Translation Manager": [
+            "เลือกผู้ใช้ที่มีอยู่และตั้งค่าเป็นผู้จัดการการแปล"
          ],
-         "Create a new %s and set as Translation Manager": [
-            "สร้าง %s ใหม่และตั้งเป็นผู้จัดการการแปล"
+         "Create a new user and set them as Translation Manager": [
+            "สร้างผู้ใช้ใหม่และตั้งค่าเป็นผู้จัดการการแปล"
          ],
          "Add a Translation Manager": [
             "เพิ่มผู้จัดการการแปล"
          ],
          "Select an existing user and set as Translator": [
-            "เลือกผู้ใช้ที่มีอยู่และตั้งเป็นนักแปล"
+            "เลือกผู้ใช้ที่มีอยู่และตั้งค่าเป็นนักแปล"
          ],
          "Create a new user and set as Translator": [
-            "สร้างผู้ใช้ใหม่และตั้งเป็นนักแปล"
+            "สร้างผู้ใช้ใหม่และตั้งค่าเป็นนักแปล"
          ],
          "Set language pair(s)": [
             "ตั้งค่าคู่ภาษา"
          ],
          "Previous": [
-            "ก่อนหน้า"
+            "ย้อนกลับ"
          ],
          "Save": [
             "บันทึก"
@@ -110,7 +110,7 @@
             "คู่ภาษา"
          ],
          "You can translate to and from all languages": [
-            "คุณสามารถแปลได้ทั้งจากและเป็นทุกภาษา"
+            "คุณสามารถแปลไปและกลับจากทุกภาษาได้"
          ],
          "Edit language pair(s)": [
             "แก้ไขคู่ภาษา"
@@ -127,8 +127,8 @@
          "Flag file": [
             "ไฟล์ธง"
          ],
-         "You just added  language. Next, select it as the site's default language or a translation language.": [
-            "คุณเพิ่งเพิ่มภาษา ถัดไป ให้เลือกเป็นภาษาเริ่มต้นของไซต์หรือภาษาสำหรับการแปล"
+         "You just added %s language. Next, select it as the site's default language or a translation language.": [
+            "คุณเพิ่งเพิ่มภาษา %s ขั้นตอนถัดไป ให้เลือกภาษานี้เป็นภาษาเริ่มต้นของไซต์หรือภาษาที่แปล"
          ],
          "Language added": [
             "เพิ่มภาษาแล้ว"
@@ -140,19 +140,19 @@
             "เพิ่มภาษาใหม่"
          ],
          "Create a country-specific language by choosing the general language from the list below. Then, choose the country it should be localized for.": [
-            "สร้างภาษาเฉพาะประเทศโดยเลือกภาษาทั่วไปจากรายการด้านล่าง จากนั้นเลือกประเทศที่ควรแปลเป็นภาษาท้องถิ่น"
+            "สร้างภาษาเฉพาะประเทศโดยเลือกภาษาทั่วไปจากรายการด้านล่าง จากนั้นเลือกประเทศที่ควรปรับให้เข้ากับท้องถิ่น"
          ],
          "By choosing a combination that already exists in the database, WPML can help fill out the necessary fields. Read more about <AddingACustomLanguageLink />.": [
-            "การเลือกชุดค่าผสมที่มีอยู่ในฐานข้อมูล WPML สามารถช่วยกรอกข้อมูลในช่องที่จำเป็นได้ อ่านเพิ่มเติมเกี่ยวกับ <AddingACustomLanguageLink />"
+            "การเลือกชุดค่าผสมที่มีอยู่แล้วในฐานข้อมูล WPML สามารถช่วยกรอกฟิลด์ที่จำเป็นได้ อ่านเพิ่มเติมเกี่ยวกับ <AddingACustomLanguageLink />"
          ],
          "Cannot find?": [
-            "หาไม่เจอ?"
+            "ไม่พบใช่หรือไม่?"
          ],
          "Click here": [
             "คลิกที่นี่"
          ],
          "The wrong format. It may contain only small letters and \"-\". E.g: \"fr\" , \"pt-br\", \"zh-hans\"": [
-            "รูปแบบไม่ถูกต้อง อาจมีเฉพาะตัวอักษรขนาดเล็กและ “-” เท่านั้น เช่น: “fr”, “pt-br”, “zh-hans”"
+            "รูปแบบไม่ถูกต้อง อาจประกอบด้วยตัวพิมพ์เล็กและ “-” เท่านั้น เช่น: “fr”, “pt-br”, “zh-hans”"
          ],
          "Language": [
             "ภาษา"
@@ -163,29 +163,35 @@
          "Code": [
             "รหัส"
          ],
-         "The language will not be supported by automatic translations": [
-            "ภาษาจะไม่ได้รับการสนับสนุนโดยการแปลอัตโนมัติ"
+         "Flags must be:": [
+            "ธงต้องเป็น:"
+         ],
+         "Automatic Translation will use the default behavior for this language": [
+            "การแปลอัตโนมัติจะใช้พฤติกรรมเริ่มต้นสำหรับภาษานี้"
          ],
          "Language mapping": [
-            "การแมปภาษา"
+            "การจับคู่ภาษา"
          ],
-         "Don't map this language": [
-            "ไม่ต้องแมปภาษานี้"
+         "Use Automatic Translation default behavior": [
+            "ใช้พฤติกรรมเริ่มต้นของการแปลอัตโนมัติ"
+         ],
+         "PNG, SVG, or JPG files": [
+            "ไฟล์ PNG, SVG หรือ JPG"
          ],
          "Default locale": [
-            "ภาษาเริ่มต้น"
+            "โลเคลเริ่มต้น"
          ],
          "The wrong format. It may contain only small letters and \"_\". E.g: \"de\" , \"de_DE\", \"zh_Hant_TW\"": [
-            "รูปแบบไม่ถูกต้อง อาจมีเฉพาะตัวอักษรขนาดเล็กและ “_” เท่านั้น เช่น: “de”, “de_DE”, “zh_Hant_TW”"
+            "รูปแบบไม่ถูกต้อง อาจประกอบด้วยตัวพิมพ์เล็กและ “_” เท่านั้น เช่น: “de”, “de_DE”, “zh_Hant_TW”"
          ],
          "hreflang": [
             "hreflang"
          ],
+         "18 x 12 pixels": [
+            "18 x 12 พิกเซล"
+         ],
          "Encode url?": [
             "เข้ารหัส URL หรือไม่?"
-         ],
-         "Flags must be:": [
-            "ธงต้องเป็น:"
          ],
          "NO": [
             "ไม่"
@@ -196,35 +202,26 @@
          " (required)": [
             " (จำเป็น)"
          ],
-         "Please fill in the field": [
-            "โปรดกรอกข้อมูลในช่อง"
+         "The name of your language as it will appear on your site's language switcher.": [
+            "ชื่อภาษาของคุณตามที่จะปรากฏในตัวสลับภาษาของไซต์"
          ],
-         "PNG, SVG, or JPG files": [
-            "ไฟล์ PNG, SVG หรือ JPG"
+         "Please fill in the field": [
+            "โปรดกรอกข้อมูลในฟิลด์นี้"
+         ],
+         "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
+            "ค่าที่ไม่ซ้ำกันซึ่งระบุภาษาในฐานข้อมูลและ URL เมื่อบันทึกแล้ว จะไม่สามารถเปลี่ยนรหัสภาษาได้"
          ],
          "Save language": [
             "บันทึกภาษา"
          ],
-         "18 x 12 pixels": [
-            "18 x 12 พิกเซล"
-         ],
-         "Read more about ": [
-            "อ่านเพิ่มเติมเกี่ยวกับ "
-         ],
-         "The name of your language as it will appear on your site's language switcher.": [
-            "ชื่อภาษาของคุณตามที่จะปรากฏในตัวสลับภาษาของไซต์ของคุณ"
-         ],
-         "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
-            "ค่าที่ไม่ซ้ำกันที่ระบุภาษาในฐานข้อมูลและ URL เมื่อบันทึกแล้ว รหัสภาษาจะไม่สามารถเปลี่ยนแปลงได้"
-         ],
          "If your custom language is similar to an existing language, you can use the existing language's spellcheck and automatic translation. For example, if your custom language is Swiss-German, you can map to German as the language to use for spellcheck and automatic translation. If you don't map your custom language to an existing language, spellcheck and automatic translation features will be unavailable in that language.": [
-            "หากภาษาที่คุณกำหนดเองคล้ายกับภาษาที่มีอยู่ คุณสามารถใช้การตรวจสอบการสะกดและการแปลอัตโนมัติของภาษาที่มีอยู่ได้ ตัวอย่างเช่น หากภาษาที่คุณกำหนดเองคือภาษาเยอรมัน-สวิส คุณสามารถแมปกับภาษาเยอรมันเพื่อใช้สำหรับการตรวจสอบการสะกดและการแปลอัตโนมัติ หากคุณไม่แมปภาษาที่คุณกำหนดเองกับภาษาที่มีอยู่ คุณสมบัติการตรวจสอบการสะกดและการแปลอัตโนมัติจะไม่สามารถใช้งานได้ในภาษานั้น"
+            "หากภาษาที่กำหนดเองของคุณคล้ายกับภาษาที่มีอยู่ คุณสามารถใช้การตรวจสอบการสะกดและการแปลอัตโนมัติของภาษาที่มีอยู่ได้ ตัวอย่างเช่น หากภาษาที่กำหนดเองของคุณคือภาษาเยอรมันแบบสวิส คุณสามารถจับคู่กับภาษาเยอรมันเพื่อใช้สำหรับการตรวจสอบการสะกดและการแปลอัตโนมัติได้ หากคุณไม่จับคู่ภาษาที่กำหนดเองกับภาษาที่มีอยู่ ฟีเจอร์การตรวจสอบการสะกดและการแปลอัตโนมัติจะไม่สามารถใช้งานได้ในภาษานั้น"
          ],
          "The value WPML checks when loading translations from MO and PO files. The default locale is included in the filenames in your /wp-content/languages/ folder in your WordPress setup.": [
-            "ค่าที่ WPML ตรวจสอบเมื่อโหลดการแปลจากไฟล์ MO และ PO ภาษาเริ่มต้นจะรวมอยู่ในชื่อไฟล์ในโฟลเดอร์ /wp-content/languages/ ในการตั้งค่า WordPress ของคุณ"
+            "ค่าที่ WPML ตรวจสอบเมื่อโหลดคำแปลจากไฟล์ MO และ PO โลเคลเริ่มต้นจะรวมอยู่ในชื่อไฟล์ในโฟลเดอร์ /wp-content/languages/ ในการติดตั้ง WordPress ของคุณ"
          ],
          "Google uses the hreflang attribute to direct users to sites in their relevant language and location. Examples:": [
-            "Google ใช้แอตทริบิวต์ hreflang เพื่อนำผู้ใช้ไปยังไซต์ในภาษาและตำแหน่งที่เกี่ยวข้อง ตัวอย่าง:"
+            "Google ใช้แอตทริบิวต์ hreflang เพื่อนำทางผู้ใช้ไปยังไซต์ในภาษาและตำแหน่งที่เกี่ยวข้อง ตัวอย่าง:"
          ],
          "All English-speaking users: en": [
             "ผู้ใช้ที่พูดภาษาอังกฤษทั้งหมด: en"
@@ -236,7 +233,7 @@
             "ภาษาอังกฤษสำหรับผู้ใช้ในสหรัฐอเมริกา: en-us"
          ],
          "Determines if URLs in this language are encoded or use ASCII characters (if unsure, leave it as \"No\").": [
-            "กำหนดว่า URL ในภาษานี้จะถูกเข้ารหัสหรือใช้ตัวอักษร ASCII (หากไม่แน่ใจ ให้ปล่อยไว้เป็น “ไม่”)"
+            "กำหนดว่า URL ในภาษานี้จะถูกเข้ารหัสหรือใช้อักขระ ASCII (หากไม่แน่ใจ ให้ปล่อยไว้เป็น “ไม่”)"
          ],
          "adding a custom language": [
             "การเพิ่มภาษาที่กำหนดเอง"
@@ -251,34 +248,43 @@
             "ภาษาปัจจุบันของเว็บไซต์ของคุณคืออะไร?"
          ],
          "Translation languages": [
-            "ภาษาสำหรับการแปล"
+            "ภาษาที่แปล"
          ],
          "Which languages do you want to translate your site into?": [
             "คุณต้องการแปลไซต์ของคุณเป็นภาษาใดบ้าง?"
          ],
          "If you cannot find languages that you need in the list,": [
-            "หากคุณไม่พบภาษาที่คุณต้องการในรายการ,"
+            "หากคุณไม่พบภาษาที่ต้องการในรายการ"
          ],
          "create a custom language": [
             "สร้างภาษาที่กำหนดเอง"
          ],
-         "You can add a dedicated person to oversee everything translation-related on your site. %sTranslation Managers%s can add new local translators or professional translation services, create and assign translation jobs, review completed translations, and change translation-related settings.": [
-            "คุณสามารถเพิ่มบุคคลที่รับผิดชอบโดยเฉพาะเพื่อดูแลทุกอย่างที่เกี่ยวข้องกับการแปลบนไซต์ของคุณได้ %sผู้จัดการการแปล%s สามารถเพิ่มนักแปลท้องถิ่นใหม่หรือบริการแปลมืออาชีพ สร้างและมอบหมายงานแปล ตรวจสอบการแปลที่เสร็จสมบูรณ์ และเปลี่ยนการตั้งค่าที่เกี่ยวข้องกับการแปล"
+         "You can add a dedicated person to oversee everything translation-related on your site. Translation Managers can add new local translators or professional translation services, create and assign translation jobs, review completed translations, and change translation-related settings.": [
+            "คุณสามารถเพิ่มบุคคลที่ได้รับมอบหมายเพื่อดูแลทุกอย่างที่เกี่ยวข้องกับการแปลบนไซต์ของคุณได้ ผู้จัดการการแปลสามารถเพิ่มนักแปลท้องถิ่นคนใหม่หรือบริการการแปลระดับมืออาชีพ สร้างและมอบหมายงานแปล รีวิวการแปลที่เสร็จสมบูรณ์ และเปลี่ยนการตั้งค่าที่เกี่ยวข้องกับการแปลได้"
          ],
          "Translation Managers": [
             "ผู้จัดการการแปล"
          ],
          "Note: All Administrators are automatically given Translation Manager privileges.": [
-            "หมายเหตุ: ผู้ดูแลระบบทั้งหมดจะได้รับสิทธิ์ผู้จัดการการแปลโดยอัตโนมัติ"
+            "หมายเหตุ: ผู้ดูแลระบบทุกคนจะได้รับสิทธิ์ผู้จัดการการแปลโดยอัตโนมัติ"
          ],
-         "%sLocal translators%s are users of your site that can log in and add, edit, and review your site's translations. Add a translator and their associated translation pairs to assign them translation jobs.": [
-            "%sนักแปลท้องถิ่น%s คือผู้ใช้ไซต์ของคุณที่สามารถเข้าสู่ระบบและเพิ่ม แก้ไข และตรวจสอบการแปลไซต์ของคุณได้ เพิ่มนักแปลและคู่ภาษาที่เกี่ยวข้องเพื่อมอบหมายงานแปลให้พวกเขา"
+         "%1$sLocal translators%2$s are users of your site that can log in and add, edit, and review your site's translations. Add a translator and their associated translation pairs to assign them translation jobs.": [
+            "%1$sนักแปลท้องถิ่น%2$s คือผู้ใช้ในไซต์ของคุณที่สามารถเข้าสู่ระบบและเพิ่ม แก้ไข และรีวิวการแปลของไซต์ได้ เพิ่มนักแปลและคู่ภาษาที่เกี่ยวข้องเพื่อมอบหมายงานแปลให้พวกเขา"
          ],
-         "You can %shire an experienced translator%s to review your automatic translations for perfect quality.": [
-            "คุณสามารถ %sจ้างนักแปลที่มีประสบการณ์%s เพื่อตรวจสอบการแปลอัตโนมัติของคุณเพื่อให้ได้คุณภาพที่สมบูรณ์แบบ"
+         "You can %1$shire an experienced translator%2$s to review your automatic translations for perfect quality.": [
+            "คุณสามารถ %1$sจ้างนักแปลที่มีประสบการณ์%2$s เพื่อรีวิวการแปลอัตโนมัติของคุณเพื่อให้ได้คุณภาพที่สมบูรณ์แบบ"
          ],
          "Translators": [
             "นักแปล"
+         ],
+         "Can't find a specific translator?": [
+            "ไม่พบนักแปลที่ต้องการใช่หรือไม่?"
+         ],
+         "Refreshing…": [
+            "กำลังรีเฟรช…"
+         ],
+         "Refresh list now.": [
+            "รีเฟรชรายการตอนนี้"
          ]
       }
    }

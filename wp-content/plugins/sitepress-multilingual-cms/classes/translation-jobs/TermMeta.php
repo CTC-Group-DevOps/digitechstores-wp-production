@@ -12,11 +12,15 @@ class TermMeta {
 	public static function getTermDescription( $iclTranslateJobId, $termTaxonomyId ) {
 		global $wpdb;
 
-		$sql = "SELECT field_data_translated
+		$description = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT field_data_translated
 				FROM {$wpdb->prefix}icl_translate
-				WHERE job_id = %d AND field_type = 'tdesc_%d'";
-
-		$description = $wpdb->get_var( $wpdb->prepare( $sql, $iclTranslateJobId, $termTaxonomyId ) );
+				WHERE job_id = %d AND field_type = 'tdesc_%d'",
+				$iclTranslateJobId,
+				$termTaxonomyId
+			)
+		);
 
 		return $description ? FieldCompression::decompress( $description ) : '';
 	}
@@ -31,11 +35,15 @@ class TermMeta {
 	private static function geRegularTermMeta( $iclTranslateJobId, $termTaxonomyId ) {
 		global $wpdb;
 
-		$sql = "SELECT field_data_translated, field_type
+		$rowset = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT field_data_translated, field_type
 				FROM {$wpdb->prefix}icl_translate
-				WHERE job_id = %d AND field_type LIKE 'tfield-%-%d'";
-
-		$rowset = $wpdb->get_results( $wpdb->prepare( $sql, $iclTranslateJobId, $termTaxonomyId ) );
+				WHERE job_id = %d AND field_type LIKE %s",
+				$iclTranslateJobId,
+				$wpdb->esc_like( 'tfield-' ) . '%-' . absint( $termTaxonomyId )
+			)
+		);
 
 		foreach ( $rowset as $row ) {
 			$row->field_data_translated = FieldCompression::decompress( $row->field_data_translated );
@@ -47,11 +55,15 @@ class TermMeta {
 	private static function getTermMetaWithArrayValue( $iclTranslateJobId, $termTaxonomyId ) {
 		global $wpdb;
 
-		$sql = "SELECT field_data_translated, field_type
+		$rowset = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT field_data_translated, field_type
 				FROM {$wpdb->prefix}icl_translate
-				WHERE job_id = %d AND field_type LIKE 'tfield-%-%d_%'";
-
-		$rowset = $wpdb->get_results( $wpdb->prepare( $sql, $iclTranslateJobId, $termTaxonomyId ) );
+				WHERE job_id = %d AND field_type LIKE %s",
+				$iclTranslateJobId,
+				$wpdb->esc_like( 'tfield-' ) . '%-' . absint( $termTaxonomyId ) . $wpdb->esc_like( '_' ) . '%'
+			)
+		);
 
 		$extractFieldName = pipe( Obj::prop( 'field_type' ), Str::match( '/tfield-(.*)-\d/U' ), Obj::prop( 1 ) );
 

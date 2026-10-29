@@ -37,10 +37,13 @@ class MultiCurrencyMissing implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	}
 
 	private function addNotice() {
+		/* translators: Heading of an admin notice shown when multicurrency is on but only one currency exists. */
 		$text  = '<h2>' . esc_html__( "You haven't added any secondary currencies", 'woocommerce-multilingual' ) . '</h2>';
+		/* translators: Body of the admin notice shown when multicurrency is on but only one currency exists; "this setting" is multicurrency mode. */
 		$text .= '<p>' . esc_html__( "Please add another currency to fully utilize multicurrency mode. If you do not need multiple currencies, you can disable this setting to improve your site's performance.", 'woocommerce-multilingual' ) . '</p>';
 		$text .= sprintf('<a href="%s">%s</a>',
 			\WCML\Utilities\AdminUrl::getMultiCurrencyTab(),
+			/* translators: Link text at the end of the admin notice about having only one currency; it opens the multicurrency settings tab. */
 			esc_html__( 'Configure multicurrency mode', 'woocommerce-multilingual' )
 		);
 

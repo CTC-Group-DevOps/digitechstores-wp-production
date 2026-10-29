@@ -27,7 +27,7 @@ class WPML_Compatibility_Disqus implements IWPML_Action {
 	            	* /disqus-comment-system/public/js/comment_embed.js by variable `disqus_config_custom`
 					*/
 	                var disqus_config = function () {
-	                	this.language = "' . $current_language . '";
+	                	this.language = "' . esc_js( $current_language ) . '";
 	                };
 	            </script>';
 			}

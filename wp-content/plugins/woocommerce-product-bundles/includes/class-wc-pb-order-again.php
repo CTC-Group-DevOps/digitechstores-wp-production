@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order-again functions and filters.
  *
  * @class    WC_PB_Order_Again
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Order_Again {
 
@@ -28,6 +28,8 @@ class WC_PB_Order_Again {
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -229,6 +231,8 @@ class WC_PB_Order_Again {
 
 	/**
 	 * Clears request-local refreshed configurations.
+	 *
+	 * @return void
 	 */
 	public static function clear_refreshed_bundle_configurations() {
 		self::$refreshed_bundle_configurations = array();

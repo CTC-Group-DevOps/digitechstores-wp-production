@@ -19,6 +19,7 @@ class WPML_TP_Batch_Sync_API extends WPML_TP_API {
 
 	public function check_progress() {
 		$request = new WPML_TP_API_Request( self::CHECK_STATUS );
+		$request->set_timeout( \WPML\TM\TranslationProxy\SendTuning::receiveCallTimeoutSeconds() );
 		$request->set_params( array( 'accesskey' => $this->project->get_access_key() ) );
 
 		return $this->handle_response( $request );

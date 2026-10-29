@@ -3,8 +3,8 @@
 namespace WPML\TM\Upgrade\Commands;
 
 use WPML\Media\Option;
+use WPML\Media\ActivateHandleMediaAuto;
 use function WPML\Container\make;
-use WPML\Core\BackgroundTask\Service\BackgroundTaskService;
 
 class EnableHandleMediaAutoOptionForNewInstalls implements \IWPML_Upgrade_Command {
 
@@ -12,17 +12,18 @@ class EnableHandleMediaAutoOptionForNewInstalls implements \IWPML_Upgrade_Comman
 		$startWpmlVersion  = get_option( \WPML_Installation::WPML_START_VERSION_KEY );
 		$isNewInstallation = ICL_SITEPRESS_VERSION === $startWpmlVersion;
 		$is_st_disabled    = ! defined( 'WPML_ST_VERSION' );
-		if ( ! $isNewInstallation || $is_st_disabled ) {
-			Option::setShouldShowHandleMediaAutoBannerAfterUpgrade();
+		if ( ! $isNewInstallation ) {
 			Option::setShouldShowHandleMediaAutoNotice30DaysAfterUpgrade();
 			return true;
 		}
 
-		$backgroundTaskService = make( BackgroundTaskService::class );
-		$endpoint              = make( \WPML\TM\Settings\ProcessExistingMediaInPosts::class );
+		if ( $is_st_disabled ) {
+			Option::setShouldEnableHandleMediaAutoOnStActivation();
+			Option::removeShouldShowHandleMediaAutoNotice30DaysAfterUpgrade();
+			return true;
+		}
 
-		Option::setShouldHandleMediaAuto( true );
-		$backgroundTaskService->add( $endpoint, wpml_collect( [] ) );
+		make( ActivateHandleMediaAuto::class )->activate();
 
 		return true;
 	}

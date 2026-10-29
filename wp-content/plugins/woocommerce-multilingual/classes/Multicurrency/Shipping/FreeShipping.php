@@ -53,10 +53,7 @@ class FreeShipping implements ShippingMode {
 	}
 
 	public function getShippingCostValue( $rate, $currency ) {
-		if ( ! isset( $rate->cost ) ) {
-			$rate->cost = 0;
-		}
-		return $rate->cost;
+		return $rate->cost ?? 0;
 	}
 
 	public function isManualPricingEnabled( $instance ) {

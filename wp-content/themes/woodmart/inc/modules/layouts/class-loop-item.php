@@ -79,8 +79,12 @@ class Loop_Item extends Layout_Type {
 			$post_id = get_post_meta( get_the_ID(), 'wd_preview_post', true );
 		}
 
-		if ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['wd_preview_post'] ) ) { // phpcs:ignore
-			$post_id = intval( $_REQUEST['wd_preview_post'] ); // phpcs:ignore
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['wd_preview_post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$preview_post_id = absint( wp_unslash( $_REQUEST['wd_preview_post'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			if ( $preview_post_id && current_user_can( 'edit_post', $preview_post_id ) ) {
+				$post_id = $preview_post_id;
+			}
 		}
 
 		if ( ! $post_id ) {
@@ -127,6 +131,18 @@ class Loop_Item extends Layout_Type {
 
 			self::$is_setup_preview = true;
 			setup_postdata( $post );
+		}
+
+		// Make sure the global product is available for loop builder elements.
+		// The global $product can be missing (preview render) or reset to null by
+		// a nested query/postdata reset while the loop item blocks are rendered.
+		if (
+			function_exists( 'wc_get_product' )
+			&& ! $product instanceof \WC_Product
+			&& $post
+			&& in_array( $post->post_type, array( 'product', 'product_variation' ), true )
+		) {
+			$product = wc_get_product( $post->ID ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 	}
 

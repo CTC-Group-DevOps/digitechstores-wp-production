@@ -10,6 +10,7 @@ use WPML\FP\Maybe;
 use WPML\FP\Obj;
 use WPML\FP\Relation;
 use WPML\FP\Wrapper;
+use WPML\LanguageEditor\ActiveLanguages;
 use WPML\LIB\WP\Option as WPOption;
 use WPML\LIB\WP\User;
 use WPML\Setup\Endpoint\TranslationServices;
@@ -70,7 +71,12 @@ class Initializer {
 		global $wpdb;
 		$currentUser = User::getCurrent();
 		$service     = Option::isTMAllowed() ? \TranslationProxy::get_current_service() : null;
-		$highUserCount = $wpdb->get_var("SELECT 1 FROM {$wpdb->prefix}users LIMIT 3000,1");
+		$highUserCount = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT 1 FROM {$wpdb->users} LIMIT %d,1",
+				\WPML_Translation_Roles_Records::HIGH_USER_COUNT_THRESHOLD
+			)
+		);
 
 		return [
 			'canManageOptions' => $currentUser->has_cap( 'manage_options' ),
@@ -81,7 +87,7 @@ class Initializer {
 				make( \WPML_Translator_Records::class )->get_users_with_capability()
 			) : null,
 			'managers'         => $preload ? self::getManagers( $userExtra ) : null,
-			'wpRoles'          => \WPML_WP_Roles::get_roles_up_to_user_level( $currentUser ),
+			'wpRoles'          => \WPML_WP_Roles::get_roles_up_to_user_level( $currentUser, \WPML_WP_Roles::ROLES_CONTRIBUTOR ),
 			'managerRoles'     => self::getTranslationManagerRoles( $currentUser ),
 			'service'          => ! is_wp_error( $service ) ? $service : null,
 		];
@@ -94,7 +100,9 @@ class Initializer {
 		$secondaryCodes = pipe( Obj::without( $originalLang ), Obj::keys() );
 
 		return [
-			'list'        => Obj::values( Languages::withFlags( Languages::getAll( $userLang ) ) ),
+			'list'        => ActiveLanguages::withLanguageField(
+				(array) Obj::values( Languages::withFlags( Languages::getAll( $userLang ) ) )
+			),
 			'secondaries' => $secondaryCodes( Languages::getActive() ),
 			'original'    => $originalLang,
 		];
@@ -107,7 +115,7 @@ class Initializer {
 			->all();
 		$filterManagerRoles = pipe( Obj::prop( 'id' ), Lst::includes( Fns::__, $editorRoles ) );
 
-		return Fns::filter( $filterManagerRoles, \WPML_WP_Roles::get_roles_up_to_user_level( $currentUser ) );
+		return Fns::filter( $filterManagerRoles, \WPML_WP_Roles::get_roles_up_to_user_level( $currentUser, \WPML_WP_Roles::ROLES_EDITOR ) );
 	}
 
 	private static function getManagers( ?callable $userExtra = null ) {

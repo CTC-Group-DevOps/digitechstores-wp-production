@@ -151,7 +151,18 @@ class TemplateLocalizer {
 		if ( ! $translatedId ) {
 			return null;
 		}
-		$slug = get_term_field( 'slug', (int) $translatedId, $taxonomy );
+
+		$read = function () use ( $translatedId, $taxonomy ) {
+			return get_term_field( 'slug', (int) $translatedId, $taxonomy );
+		};
+
+		global $sitepress;
+		if ( $sitepress instanceof \SitePress && class_exists( \WPML\Utils\AutoAdjustIds::class ) ) {
+			$slug = ( new \WPML\Utils\AutoAdjustIds( $sitepress ) )->runWithout( $read );
+		} else {
+			$slug = $read();
+		}
+
 		return ( $slug && ! is_wp_error( $slug ) ) ? $slug : null;
 	}
 

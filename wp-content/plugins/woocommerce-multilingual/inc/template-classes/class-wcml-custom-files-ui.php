@@ -20,8 +20,11 @@ class WCML_Custom_Files_UI extends WCML_Templates_Factory {
 			'nonce'        => wp_nonce_field( 'wcml_save_files_option', 'wcml_save_files_option_nonce', true, false ),
 			'sync_custom'  => get_post_meta( $this->product_id, 'wcml_sync_files', true ),
 			'strings'      => [
+				/* translators: Label of the checkbox on a downloadable product that overrides the shop-wide setting for translated download files. */
 				'use_custom' => __( 'Use custom settings for translations download files', 'woocommerce-multilingual' ),
+				/* translators: Label of the option that gives every translation of a product the same download files. */
 				'use_same'   => __( 'Use the same files for translations', 'woocommerce-multilingual' ),
+				/* translators: Label of the option that gives each translation of this product its own download files. */
 				'separate'   => __( 'Add separate download files for translations when you translate this product', 'woocommerce-multilingual' ),
 			],
 		];

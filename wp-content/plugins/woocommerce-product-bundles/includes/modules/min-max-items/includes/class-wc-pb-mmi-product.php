@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_MMI_Product
- * @version  7.0.0
+ * @version  8.5.16
  */
 class WC_PB_MMI_Product {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -353,6 +355,7 @@ class WC_PB_MMI_Product {
 	 *
 	 * @param  bool              $requires_input Whether the bundle requires input.
 	 * @param  WC_Product_Bundle $bundle The bundle product.
+	 * @return bool
 	 */
 	public static function min_max_bundle_requires_input( $requires_input, $bundle ) {
 
@@ -415,9 +418,9 @@ class WC_PB_MMI_Product {
 	 *
 	 * @since  6.5.0
 	 *
-	 * @param  string            $bundle_stock_quantity The stock quantity.
+	 * @param  int|string        $bundle_stock_quantity The stock quantity.
 	 * @param  WC_Product_Bundle $bundle The bundle product.
-	 * @return string
+	 * @return int|string
 	 */
 	public static function synced_bundle_stock_quantity( $bundle_stock_quantity, $bundle ) {
 
@@ -464,7 +467,7 @@ class WC_PB_MMI_Product {
 	 *
 	 * @param  array             $data The data.
 	 * @param  WC_Product_Bundle $bundle The bundle product.
-	 * @return string
+	 * @return array
 	 */
 	public static function synced_contents_data( $data, $bundle ) {
 

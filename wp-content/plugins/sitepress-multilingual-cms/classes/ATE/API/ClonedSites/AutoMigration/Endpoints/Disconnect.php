@@ -5,16 +5,20 @@ namespace WPML\TM\ATE\ClonedSites\AutoMigration\Endpoints;
 use WPML\Ajax\IHandler;
 use WPML\Collect\Support\Collection;
 use WPML\FP\Either;
-use WPML\LIB\WP\User;
 use WPML\TM\ATE\ClonedSites\AutoMigration\Handler;
+use WPML\TM\ATE\ClonedSites\AutoMigration\RequestHost;
 use WPML\TM\ATE\ClonedSites\MigrationLogger;
 use function WPML\Container\make;
 
 class Disconnect implements IHandler {
 
 	public function run( Collection $data ) {
-		if ( ! User::canManageOptions() ) {
-			return Either::left( 'Insufficient permissions' );
+		if ( ! RequestHost::servesRecordedCopy() ) {
+			return Either::left( 'Disconnect is only available on the site the migration was recorded for' );
+		}
+
+		if ( Handler::isSameRecord() ) {
+			return Either::left( 'Disconnect is not available: this site kept its own record when it moved' );
 		}
 
 		MigrationLogger::beginClonedSiteAction( 'disconnect' );

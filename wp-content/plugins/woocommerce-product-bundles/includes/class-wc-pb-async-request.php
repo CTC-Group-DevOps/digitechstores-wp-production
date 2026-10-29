@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Abstract WC_PB_Async_Request class.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 abstract class WC_PB_Async_Request {
 
@@ -139,6 +139,8 @@ abstract class WC_PB_Async_Request {
 	 * Maybe handle
 	 *
 	 * Check for correct nonce and pass to handler.
+	 *
+	 * @return void
 	 */
 	public function maybe_handle() {
 		// Don't lock up other requests while processing.

@@ -14,7 +14,7 @@
             "Chave do site:"
          ],
          "Enter your site key here": [
-            "Insira a chave do seu site aqui"
+            "Insira sua chave de site aqui"
          ],
          "Registering...": [
             "Registrando..."
@@ -23,10 +23,10 @@
             "Registrar"
          ],
          "A New Site Key Is Required": [
-            "É necessária uma nova chave do site"
+            "Uma nova chave do site é necessária"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "Para continuar usando os recursos do WPML, como tradução automática e atualizações de plugins, registre seu site novamente. Não se preocupe, seu conteúdo e traduções existentes estão seguros."
+            "Para continuar usando os recursos do WPML, como tradução automática e atualizações de plugins, registre seu site novamente. Não se preocupe, seu conteúdo e suas traduções atuais estão seguros."
          ],
          "Site key registered successfully!": [
             "Chave do site registrada com sucesso!"
@@ -35,7 +35,7 @@
             "A página será recarregada em %d segundos..."
          ],
          "Registration failed. Please try again.": [
-            "O registro falhou. Tente novamente."
+            "Falha no registro. Tente novamente."
          ]
       }
    }

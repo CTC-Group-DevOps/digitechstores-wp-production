@@ -29,8 +29,14 @@ class EntryQueries {
 		};
 	}
 	private static function getPluginName( \WPML_ST_Translations_File_Entry $entry ) {
-		$data = get_plugin_data( WPML_PLUGINS_DIR . '/' . $entry->get_component_id(), false, false );
-		return $data['Name'];
+		$plugin_file = \WPML_ST_Path_Confinement::resolve_registered_plugin_file( $entry->get_component_id() );
+		if ( false === $plugin_file ) {
+			return '';
+		}
+
+		$data = get_plugin_data( $plugin_file, false, false );
+
+		return isset( $data['Name'] ) ? (string) $data['Name'] : '';
 	}
 
 	private static function getThemeName( \WPML_ST_Translations_File_Entry $entry ) {

@@ -8,13 +8,13 @@
             "lang": "sv_SE"
          },
          "Please wait, applying translation..": [
-            "Vänta, översättningen tillämpas.."
+            "Vänligen vänta, tillämpar översättning..."
          ],
          "There was an error in applying translation.": [
-            "Ett fel uppstod vid tillämpning av översättningen."
+            "Ett fel uppstod när översättningen skulle tillämpas."
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "Någon granskar redan denna översättning. Försök igen senare."
+            "Någon granskar redan den här översättningen. Försök igen senare."
          ]
       }
    }

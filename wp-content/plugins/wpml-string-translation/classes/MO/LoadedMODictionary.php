@@ -45,13 +45,13 @@ class LoadedMODictionary {
 				$locale = array_keys($loaded_file_data)[0];
 				$locale_data = $loaded_file_data[$locale];
 				foreach ( $locale_data as $domain => $translationFile ) {
-					$this->addFile( $domain, $moFileName );
+					$this->addFile( $domain, $moFileName, (string) $locale );
 				}
 			}
 		}
 	}
 
-	public function addFile( $domain, $mofile ) {
+	public function addFile( $domain, $mofile, $locale = null ) {
 		if ( WordPress::versionCompare( '>', '6.6.999' ) ) {
 			$mofile = $this->maybeAdjustPathToStandardLanguageFolders( $mofile, $domain );
 		}
@@ -69,6 +69,7 @@ class LoadedMODictionary {
 			'domain'         => $domain,
 			'mofile_pattern' => $mofile_pattern,
 			'mofile'         => $mofile,
+			'locale'         => $locale ?: null,
 		];
 
 		$this->mo_files->put( $hash, $entity );

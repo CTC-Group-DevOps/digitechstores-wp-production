@@ -21,40 +21,58 @@ class WCML_Currency_Switcher_Options_Dialog extends WCML_Templates_Factory {
 			'args'          => $this->args,
 			'color_schemes' => [
 				'clear_all' => [
+					/* translators: Button in the currency-switcher design dialog that empties every colour field. Verb phrase, imperative. */
 					'label' => __( 'Clear all colors', 'woocommerce-multilingual' ),
 				],
 				'gray'      => [
+					/* translators: Name of a ready-made colour scheme for the currency switcher. */
 					'label' => __( 'Gray', 'woocommerce-multilingual' ),
 				],
 				'white'     => [
+					/* translators: Name of a ready-made colour scheme for the currency switcher. */
 					'label' => __( 'White', 'woocommerce-multilingual' ),
 				],
 				'blue'      => [
+					/* translators: Name of a ready-made colour scheme for the currency switcher. */
 					'label' => __( 'Blue', 'woocommerce-multilingual' ),
 				],
 			],
 			'options'       => [
+				/* translators: Label of the colour field for the currency switcher's border. Noun. */
 				'border'             => __( 'Border', 'woocommerce-multilingual' ),
+				/* translators: Label of the colour field for the text of the currency the shopper is using. */
 				'font_current'       => __( 'Current currency font color', 'woocommerce-multilingual' ),
+				/* translators: Label of the colour field for the text of the currencies the shopper is not using. */
 				'font_other'         => __( 'Other currency font color', 'woocommerce-multilingual' ),
+				/* translators: Label of the colour field for the background of the currency the shopper is using. */
 				'background_current' => __( 'Current currency background color', 'woocommerce-multilingual' ),
+				/* translators: Label of the colour field for the background of the currencies the shopper is not using. */
 				'background_other'   => __( 'Other currency background color', 'woocommerce-multilingual' ),
 			],
 			'form'          => [
 				'switcher_style'      => [
+					/* translators: Label of the setting that picks whether the currency switcher uses the built-in look or a custom one. */
 					'label'        => __( 'Currency switcher style', 'woocommerce-multilingual' ),
+					/* translators: Option of the currency-switcher style setting: the look that ships with the plugin. */
 					'core'         => __( 'Core', 'woocommerce-multilingual' ),
+					/* translators: Option of the currency-switcher style setting: a look the shop owner defines. Adjective. */
 					'custom'       => __( 'Custom', 'woocommerce-multilingual' ),
+					/* translators: Hint under the custom currency-switcher template field. Keep the tag names in English: they are HTML. */
 					'allowed_tags' => __( 'Allowed HTML tags: <img> <span> <u> <strong> <em>', 'woocommerce-multilingual' ),
 				],
 				'template'            => [
+					/* translators: Label of the field holding the layout each currency is printed with in the switcher. */
 					'label'                  => __( 'Template for currency switcher', 'woocommerce-multilingual' ),
+					/* translators: Heading above the list of placeholders that may be used in the currency-switcher template. */
 					'parameters'             => __( 'Available parameters', 'woocommerce-multilingual' ),
-					/* translators: unidentified placeholders... */
+					/* translators: Example shown under the currency-switcher template field. Only the word "Default" is translated: the rest is the template itself and every per cent sign and word inside one must be left exactly as it is. */
 					'template_tip'           => __( 'Default: %name% (%1$symbol%) - %2$code%', 'woocommerce-multilingual' ),
 					'parameters_list'        => '%code%, %symbol%, %name%',
+					/* translators: Link text that opens the WPML documentation. Verb phrase, imperative. */
 					'learn_more'             => __( 'Learn more', 'woocommerce-multilingual' ),
+					/* translators: Link that collapses the currency-switcher template help again. Verb phrase, imperative; it is the counterpart of "Learn more". */
 					'hide_more'              => __( 'Hide more', 'woocommerce-multilingual' ),
+					/* translators: Line introducing the list of placeholders usable in the currency-switcher template. */
 					'parameters_description' => __( 'You can customize the currency switcher template using these parameters:', 'woocommerce-multilingual' ),
 					'parameter_name'         => sprintf(
 						/* translators: %1$s is the bolded placeholder for the currency name, %name% */
@@ -84,22 +102,33 @@ class WCML_Currency_Switcher_Options_Dialog extends WCML_Templates_Factory {
 					),
 				],
 				'colors'              => [
+					/* translators: Heading of the colour settings of the currency switcher. */
 					'label'                => __( 'Currency switcher colors', 'woocommerce-multilingual' ),
+					/* translators: Label of the dropdown that picks a ready-made colour scheme for the currency switcher. */
 					'theme'                => __( 'Color theme', 'woocommerce-multilingual' ),
+					/* translators: Heading of the colour fields used when the shopper's pointer is not over the currency switcher. */
 					'normal'               => __( 'Normal', 'woocommerce-multilingual' ),
+					/* translators: Heading of the colour fields used while the shopper's pointer is over the currency switcher. */
 					'hover'                => __( 'Hover', 'woocommerce-multilingual' ),
+					/* translators: First entry of the colour-theme dropdown, shown before a scheme is chosen. Verb phrase, imperative. */
 					'select_option_choose' => __( 'Select a preset', 'woocommerce-multilingual' ),
 				],
 				'widgets'             => [
+					/* translators: Label of the dropdown that picks where in the theme the currency switcher is shown. */
 					'widget_area'        => __( 'Widget area', 'woocommerce-multilingual' ),
+					/* translators: Label of the field holding the heading shown above the currency switcher in the theme. */
 					'widget_title'       => __( 'Widget title', 'woocommerce-multilingual' ),
+					/* translators: First entry of the widget-area dropdown, shown before an area is picked. Keep the dashes: they mark it as an instruction, not an area name. */
 					'choose_label'       => __( '-- Choose a widget area --', 'woocommerce-multilingual' ),
 					'available_sidebars' => $this->woocommerce_wpml->multi_currency->currency_switcher->get_available_sidebars(),
 				],
+				/* translators: Column heading and label above the sample currency switcher, showing how it will look. Noun. */
 				'preview'             => __( 'Preview', 'woocommerce-multilingual' ),
 				'preview_nonce'       => wp_create_nonce( 'wcml_currencies_switcher_preview' ),
 				'save_settings_nonce' => wp_create_nonce( 'wcml_currencies_switcher_save_settings' ),
+				/* translators: Button label that closes a dialog and discards the changes. Verb, imperative: the action, not the state "cancelled". */
 				'cancel'              => __( 'Cancel', 'woocommerce-multilingual' ),
+				/* translators: Button label that stores the settings of a dialog. Verb, imperative. */
 				'save'                => __( 'Save', 'woocommerce-multilingual' ),
 			],
 		];

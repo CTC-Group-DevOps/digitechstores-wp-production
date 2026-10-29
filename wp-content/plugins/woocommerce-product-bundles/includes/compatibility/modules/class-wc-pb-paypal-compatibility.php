@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PayPal Compatibility.
  *
- * @version 7.1.2
+ * @version 8.5.16
  */
 class WC_PB_PayPal_Compatibility {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		add_filter( 'woocommerce_paypal_payments_product_supports_payment_request_button', array( __CLASS__, 'handle_smart_buttons' ), 10, 2 );

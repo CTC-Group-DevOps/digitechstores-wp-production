@@ -6,12 +6,60 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AAL_Log_Presenter {
 
 	/**
-	 * Present a single DB row for JSON output.
+	 * Meta keys allowed in ability JSON output.
 	 *
-	 * @param object $item       Raw DB row.
-	 * @param bool   $collect_ip Whether to show IP addresses.
+	 * @var string[]
+	 */
+	private static $ability_meta_allowlist = array(
+		'ability',
+		'changes',
+		'changes_omitted',
+	);
+
+	/**
+	 * Present a single DB row for Abilities API / agent consumers.
+	 *
+	 * IP addresses are intentionally omitted from ability output.
+	 *
+	 * @param object $item Raw DB row.
 	 * @return array
 	 */
+	public static function to_ability_json( $item ) {
+		$parsed = AAL_API::parse_request_source( isset( $item->request_source ) ? $item->request_source : '' );
+
+		$data = array(
+			'id'             => (int) $item->histid,
+			'time'           => AAL_Log_Query::hist_time_to_iso8601( (int) $item->hist_time ),
+			'timestamp'      => (int) $item->hist_time,
+			'user_id'        => (int) $item->user_id,
+			'user_caps'      => (string) $item->user_caps,
+			'action'         => (string) $item->action,
+			'object_type'    => (string) $item->object_type,
+			'object_subtype' => (string) $item->object_subtype,
+			'object_name'    => (string) $item->object_name,
+			'object_id'      => (int) $item->object_id,
+			'channel'        => $parsed['channel'],
+			'app_name'       => $parsed['app_name'],
+		);
+
+		if ( ! empty( $item->meta ) ) {
+			$decoded = json_decode( $item->meta, true );
+			if ( is_array( $decoded ) ) {
+				$filtered = array();
+				foreach ( self::$ability_meta_allowlist as $meta_key ) {
+					if ( array_key_exists( $meta_key, $decoded ) ) {
+						$filtered[ $meta_key ] = $decoded[ $meta_key ];
+					}
+				}
+				if ( ! empty( $filtered ) ) {
+					$data['meta'] = $filtered;
+				}
+			}
+		}
+
+		return $data;
+	}
+
 	public static function to_json( $item, $collect_ip = true ) {
 		$data = array(
 			'id'             => (int) $item->histid,
@@ -24,7 +72,36 @@ class AAL_Log_Presenter {
 			'action'         => self::format_action( $item ),
 		);
 
+		$changes_meta = self::get_changes( $item );
+		if ( ! empty( $changes_meta['changes'] ) ) {
+			$data['changes'] = $changes_meta['changes'];
+		}
+		if ( ! empty( $changes_meta['changes_omitted'] ) ) {
+			$data['changes_omitted'] = (int) $changes_meta['changes_omitted'];
+		}
+
 		return $data;
+	}
+
+	public static function get_changes( $item ) {
+		if ( empty( $item->meta ) ) {
+			return array();
+		}
+
+		$decoded = json_decode( $item->meta, true );
+		if ( ! is_array( $decoded ) || empty( $decoded['changes'] ) || ! is_array( $decoded['changes'] ) ) {
+			return array();
+		}
+
+		$result = array(
+			'changes' => $decoded['changes'],
+		);
+
+		if ( ! empty( $decoded['changes_omitted'] ) ) {
+			$result['changes_omitted'] = (int) $decoded['changes_omitted'];
+		}
+
+		return $result;
 	}
 
 	/**
@@ -86,10 +163,35 @@ class AAL_Log_Presenter {
 				case 'description':
 					$row[ $column ] = $item->object_name;
 					break;
+
+				case 'changes':
+					$row[ $column ] = self::format_changes_export( $item );
+					break;
 			}
 		}
 
 		return $row;
+	}
+
+	private static function format_changes_export( $item ) {
+		$meta = self::get_changes( $item );
+		if ( empty( $meta['changes'] ) ) {
+			return '';
+		}
+
+		$parts = array();
+		foreach ( $meta['changes'] as $field => $pair ) {
+			$old = array_key_exists( 0, $pair ) && null !== $pair[0] ? $pair[0] : '';
+			$new = array_key_exists( 1, $pair ) && null !== $pair[1] ? $pair[1] : '';
+			$parts[] = $field . ': ' . $old . ' → ' . $new;
+		}
+
+		$text = implode( '; ', $parts );
+		if ( ! empty( $meta['changes_omitted'] ) ) {
+			$text .= '; +' . (int) $meta['changes_omitted'] . ' omitted';
+		}
+
+		return $text;
 	}
 
 	public static function get_action_label( $action ) {
@@ -108,6 +210,7 @@ class AAL_Log_Presenter {
 			'date'      => date_i18n( get_option( 'date_format' ), $item->hist_time ),
 			'time'      => date_i18n( get_option( 'time_format' ), $item->hist_time ),
 			'timestamp' => (int) $item->hist_time,
+			'iso8601'   => AAL_Log_Query::hist_time_to_iso8601( (int) $item->hist_time ),
 			'dateshow'  => date( 'd/m/Y', $item->hist_time ),
 		);
 	}
@@ -118,8 +221,12 @@ class AAL_Log_Presenter {
 		if ( ! empty( $item->user_id ) && 0 !== (int) $item->user_id ) {
 			$user = get_user_by( 'id', $item->user_id );
 			if ( $user instanceof WP_User && 0 !== $user->ID ) {
-				$role_name = __( 'Unknown', 'aryo-activity-log' );
-				if ( isset( $user->roles[0] ) && isset( $wp_roles->role_names[ $user->roles[0] ] ) ) {
+				$stored_slug = isset( $item->user_caps ) ? $item->user_caps : '';
+				$role_name   = __( 'Unknown', 'aryo-activity-log' );
+
+				if ( ! empty( $stored_slug ) && isset( $wp_roles->role_names[ $stored_slug ] ) ) {
+					$role_name = $wp_roles->role_names[ $stored_slug ];
+				} elseif ( isset( $user->roles[0] ) && isset( $wp_roles->role_names[ $user->roles[0] ] ) ) {
 					$role_name = $wp_roles->role_names[ $user->roles[0] ];
 				}
 

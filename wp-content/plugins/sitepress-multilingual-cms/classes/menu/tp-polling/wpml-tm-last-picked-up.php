@@ -16,7 +16,8 @@ class WPML_TM_Last_Picked_Up {
 		$last_picked_up      = $this->get();
 		$last_time_picked_up = ! empty( $last_picked_up ) ?
 			date_i18n( $format, $last_picked_up ) :
-			__( 'never', 'wpml-translation-management' );
+			/* translators: Value shown in place of a date when the thing has not happened yet. Written in lower case as the code shows it. */
+			__( 'never', 'sitepress' );
 
 		return $last_time_picked_up;
 	}

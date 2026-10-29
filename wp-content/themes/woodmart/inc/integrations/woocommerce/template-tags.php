@@ -2624,9 +2624,11 @@ if ( ! function_exists( 'woodmart_get_header_links' ) ) {
 								<span class="title">
 									<?php echo esc_html__( 'Sign in', 'woodmart' ); ?>
 								</span>
-								<a class="create-account-link" href="<?php echo esc_url( add_query_arg( 'action', 'register', $account_link ) ); ?>">
-									<?php echo esc_html__( 'Create an Account', 'woodmart' ); ?>
-								</a>
+								<?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
+									<a class="create-account-link" href="<?php echo esc_url( add_query_arg( 'action', 'register', $account_link ) ); ?>">
+										<?php echo esc_html__( 'Create an Account', 'woodmart' ); ?>
+									</a>
+								<?php endif; ?>
 							</span>
 							<?php echo woodmart_login_form( false, $account_link ); // phpcs:ignore. ?>
 						</div>
@@ -3103,10 +3105,12 @@ if ( ! function_exists( 'woodmart_sidebar_login_form' ) ) {
 
 				<?php woodmart_login_form( true, $action_url, false, false, $redirect_url ); ?>
 
-				<div class="create-account-question">
-					<p><?php esc_html_e( 'No account yet?', 'woodmart' ); ?></p>
-					<a href="<?php echo esc_url( add_query_arg( 'action', 'register', $account_link ) ); ?>" class="btn create-account-button"><?php esc_html_e( 'Create an Account', 'woodmart' ); ?></a>
-				</div>
+				<?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
+					<div class="create-account-question">
+						<p><?php esc_html_e( 'No account yet?', 'woodmart' ); ?></p>
+						<a href="<?php echo esc_url( add_query_arg( 'action', 'register', $account_link ) ); ?>" class="btn create-account-button"><?php esc_html_e( 'Create an Account', 'woodmart' ); ?></a>
+					</div>
+				<?php endif; ?>
 			</div>
 		<?php
 	}

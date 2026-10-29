@@ -2,6 +2,7 @@
 
 use WPML\FP\Fns;
 use WPML\FP\Str;
+use WPML\PB\Helper\TranslationContent;
 
 class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 
@@ -48,7 +49,11 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 
 	public function register_strings( WP_Post $post, $package_data ) {
 
-		if ( $this->is_gutenberg_post( $post ) && self::PACKAGE_ID === $package_data['kind'] ) {
+		if ( self::PACKAGE_ID !== $package_data['kind'] ) {
+			return;
+		}
+
+		if ( $this->is_gutenberg_post( $post ) || $this->strings_registration->has_registered_strings( $package_data ) ) {
 			$this->strings_registration->register_strings( $post, $package_data );
 		}
 	}
@@ -80,7 +85,37 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 
 		if ( self::PACKAGE_ID === $package_kind ) {
 			$content = $this->replace_strings_in_blocks( $original_post->post_content, $string_translations, $lang );
-			wpml_update_escaped_post( [ 'ID' => $translated_post_id, 'post_content' => $content ], $lang );
+
+			$content = apply_filters( 'wpml_pb_gutenberg_translated_content_before_save', $content, $translated_post_id, $lang, $original_post );
+
+			TranslationContent::update(
+				[
+					'ID'           => $translated_post_id,
+					'post_content' => $content,
+				],
+				$lang
+			);
+
+			$this->fix_links_after_rebuild( (int) $translated_post_id, (string) $lang );
+		}
+	}
+
+	private function fix_links_after_rebuild( $translated_post_id, $lang ) {
+		static $running = false;
+
+		/** @var WPML_Pro_Translation|null $pro_translation Set by tm.php only; a Blog licence never defines it (wpmldev-8194). */
+		$pro_translation = isset( $GLOBALS['ICL_Pro_Translation'] ) ? $GLOBALS['ICL_Pro_Translation'] : null;
+
+		if ( $running || ! is_object( $pro_translation ) || ! method_exists( $pro_translation, 'fix_links_to_translated_content' ) ) {
+			return;
+		}
+
+		$running = true;
+
+		try {
+			$pro_translation->fix_links_to_translated_content( $translated_post_id, $lang, 'post' );
+		} finally {
+			$running = false;
 		}
 	}
 
@@ -94,8 +129,10 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 	private function update_block_translations( $blocks, $string_translations, $lang ) {
 		foreach ( $blocks as &$block ) {
 
-			$block = self::sanitize_block( $block );
-			$block = $this->strings_in_blocks->update( $block, $string_translations, $lang );
+			$block               = self::sanitize_block( $block );
+			$original_inner_html = $block->innerHTML;
+			$block               = $this->strings_in_blocks->update( $block, $string_translations, $lang );
+			$block               = self::move_link_copies_in_attributes( $block, $original_inner_html );
 
 			if ( isset( $block->innerBlocks ) ) {
 				$block->innerBlocks = $this->update_block_translations(
@@ -109,6 +146,77 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 		return $blocks;
 	}
 
+	private static function move_link_copies_in_attributes( WP_Block_Parser_Block $block, $original_inner_html ) {
+		if (
+			! is_array( $block->attrs )
+			|| ! $block->attrs
+			|| ! is_string( $original_inner_html )
+			|| ! is_string( $block->innerHTML )
+			|| $block->innerHTML === $original_inner_html
+		) {
+			return $block;
+		}
+
+		$moves = self::get_moved_links( $original_inner_html, $block->innerHTML );
+
+		if ( $moves ) {
+			$block->attrs = self::move_links_in_value( $block->attrs, $moves );
+		}
+
+		return $block;
+	}
+
+	private static function get_moved_links( $original_html, $translated_html ) {
+		$from = self::get_anchor_hrefs( $original_html );
+		$to   = self::get_anchor_hrefs( $translated_html );
+
+		if ( ! $from || count( $from ) !== count( $to ) ) {
+			return [];
+		}
+
+		$moves     = [];
+		$ambiguous = [];
+		foreach ( $from as $index => $url ) {
+			if ( isset( $moves[ $url ] ) && $moves[ $url ] !== $to[ $index ] ) {
+				$ambiguous[ $url ] = true;
+			}
+			$moves[ $url ] = $to[ $index ];
+		}
+
+		foreach ( $moves as $url => $target ) {
+			if ( '' === (string) $url || (string) $url === $target || isset( $ambiguous[ $url ] ) ) {
+				unset( $moves[ $url ] );
+			}
+		}
+
+		return $moves;
+	}
+
+	private static function get_anchor_hrefs( $html ) {
+		if ( ! preg_match_all( '/<a\b[^>]*?\shref\s*=\s*(["\'])(.*?)\1/is', $html, $matches ) ) {
+			return [];
+		}
+
+		return array_map(
+			function ( $href ) {
+				return html_entity_decode( $href, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+			},
+			$matches[2]
+		);
+	}
+
+	private static function move_links_in_value( $value, array $moves ) {
+		if ( is_array( $value ) ) {
+			foreach ( $value as $key => $item ) {
+				$value[ $key ] = self::move_links_in_value( $item, $moves );
+			}
+
+			return $value;
+		}
+
+		return is_string( $value ) && array_key_exists( $value, $moves ) ? $moves[ $value ] : $value;
+	}
+
 	public static function render_block( $block ) {
 		$content = '';
 
@@ -120,7 +228,7 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 
 			$block_attributes = '';
 			if ( self::has_non_empty_attributes( $block ) ) {
-				$block_attributes = ' ' . json_encode( $block->attrs, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+				$block_attributes = ' ' . wp_json_encode( $block->attrs, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 			}
 			$content .= self::GUTENBERG_OPENING_START . $block_type . $block_attributes . ' ';
 
@@ -228,6 +336,8 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 	public function should_body_be_translated_filter( $translate, WP_Post $post, $context = '' ) {
 		if ( 'translate_images_in_post_content' === $context && $this->is_gutenberg_post( $post ) ) {
 			$translate = true;
+		} elseif ( '' === $context && $this->is_gutenberg_post( $post ) ) {
+			$translate = 0;
 		}
 
 		return $translate;
@@ -238,12 +348,15 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 	}
 
 	public static function parse_blocks( $content ) {
-		global $wp_version;
-		if ( version_compare( $wp_version, '5.0-beta1', '>=' ) ) {
-			return parse_blocks( $content );
-		} else {
-			return gutenberg_parse_blocks( $content );
+		if ( class_exists( \WP_Block_Parser::class ) ) {
+			return ( new \WP_Block_Parser() )->parse( $content );
 		}
+
+		if ( function_exists( 'parse_blocks' ) ) {
+			return parse_blocks( $content );
+		}
+
+		return gutenberg_parse_blocks( $content );
 	}
 
 	public function remove_package_strings_type_filter( $types ) {
@@ -260,7 +373,7 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 	}
 
 	public function clear_translations_cache_on_post_save( $post_id, $post ) {
-		if ( ! $this->is_gutenberg_post( $post ) ) {
+		if ( ! $post instanceof WP_Post || ! $this->is_gutenberg_post( $post ) ) {
 			return;
 		}
 

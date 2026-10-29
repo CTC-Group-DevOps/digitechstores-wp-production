@@ -29,7 +29,7 @@ class WPML_Page_Builders_Media_Gutenberg_Update implements IWPML_PB_Media_Update
 			return;
 		}
 
-		$blocks = parse_blocks( $post->post_content );
+		$blocks = \WPML_Gutenberg_Integration::parse_blocks( $post->post_content );
 
 		$this->media_gutenberg
 			->set_target_lang( $element->get_language_code() )
@@ -37,8 +37,10 @@ class WPML_Page_Builders_Media_Gutenberg_Update implements IWPML_PB_Media_Update
 
 		$blocks = $this->translate_blocks_recursive( $blocks );
 
-		if ( $this->media_usage ) {
-			$this->media_usage->update( $element->get_source_element()->get_id() );
+		$source_element = $element->get_source_element();
+
+		if ( $this->media_usage && $source_element ) {
+			$this->media_usage->update( $source_element->get_id() );
 		}
 
 		$post_content = serialize_blocks( $blocks );
@@ -54,6 +56,8 @@ class WPML_Page_Builders_Media_Gutenberg_Update implements IWPML_PB_Media_Update
 			kses_remove_filters();
 			wpml_update_escaped_post( $postarr, $element->get_language_code() );
 			kses_init();
+
+			clean_post_cache( $post->ID );
 		}
 	}
 
@@ -76,7 +80,7 @@ class WPML_Page_Builders_Media_Gutenberg_Update implements IWPML_PB_Media_Update
 
 		$element = $this->element_factory->create_post( $post->ID );
 
-		$blocks = parse_blocks( $post->post_content );
+		$blocks = \WPML_Gutenberg_Integration::parse_blocks( $post->post_content );
 
 		$this->media_gutenberg
 			->set_target_lang( $element->get_language_code() )

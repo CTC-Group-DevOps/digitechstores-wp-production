@@ -7,6 +7,7 @@ class WPML_Endpoints_Support {
 	private $post_translations;
 	private $current_language;
 	private $default_language;
+	private $rewrite_rules_memo;
 
 	public function __construct( WPML_Post_Translation $post_translations, $current_language, $default_language ) {
 		$this->post_translations = $post_translations;
@@ -91,6 +92,20 @@ class WPML_Endpoints_Support {
 	}
 
 	public function translate_endpoints_in_rewrite_rules( $value ) {
+		if ( ! $this->rewrite_rules_memo ) {
+			$this->rewrite_rules_memo = \WPML\Utilities\RequestMemo::forRewriteRules();
+		}
+
+		return $this->rewrite_rules_memo->rewriteRules(
+			$value,
+			function ( $value ) {
+				return $this->build_translated_endpoints_in_rewrite_rules( $value );
+			},
+			md5( serialize( $this->get_registered_endpoints() ) )
+		);
+	}
+
+	private function build_translated_endpoints_in_rewrite_rules( $value ) {
 
 		if ( ! empty( $value ) ) {
 

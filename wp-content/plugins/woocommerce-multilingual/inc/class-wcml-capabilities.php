@@ -45,6 +45,12 @@ class WCML_Capabilities {
 		return (bool) array_intersect( $allowedRoles, wp_get_current_user()->roles );
 	}
 
+	public static function requireCanManageWcmlForAjax() {
+		if ( ! self::canManageWcml() ) {
+			wp_send_json_error( 'You do not have permission to perform this action.' );
+		}
+	}
+
 	public static function canAccessAllWcmlTabs() {
 		return current_user_can( 'wpml_manage_woocommerce_multilingual' )
 			|| current_user_can( 'wpml_operate_woocommerce_multilingual' );

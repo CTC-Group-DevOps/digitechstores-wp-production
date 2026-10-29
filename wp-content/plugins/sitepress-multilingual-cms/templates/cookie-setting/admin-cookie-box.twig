@@ -9,7 +9,9 @@
                 <label>
                     <input class="wpml-checkbox-native" type="checkbox" name="{{ strings.field_name }}" {{ checked }} value="1" />
                     {{ strings.field_label }}
-                    <a href="#" class="js-wpml-cookie-tooltip-open wpml-ls-tooltip-open otgs-ico-help" data-content="{{ strings.tooltip|e('html_attr') }}"></a>
+                    <a class="otgs-ico-help js-otgs-popover-tooltip"
+                       data-tippy-zindex="999999"
+                       title="{{ strings.tooltip|e('html_attr') }}"></a>
                 </label>
             </p>
             <p class="buttons-wrap">

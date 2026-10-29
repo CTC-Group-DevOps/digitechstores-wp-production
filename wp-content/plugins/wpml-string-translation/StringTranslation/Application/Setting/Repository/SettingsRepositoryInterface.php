@@ -37,15 +37,21 @@ interface SettingsRepositoryInterface {
 	public function getActiveLanguageCodes(): array;
 	public function getDefaultLanguageCode(): string;
 	public function getDefaultLanguageLocaleCode(): string;
+
+	public function getEnglishSourceLanguageCode(): string;
 	public function getActiveSecondaryLanguageCodes(): array;
 	public function getActiveSecondaryLanguageLocales(): array;
+	public function getActiveSecondaryLanguageLocalePairs(): array;
+	public function getStringHarvestLanguageLocalePairs(): array;
 	public function getLanguageDetails( string $languageCode ): array;
 	public function isCronRequest(): bool;
 	public function shouldNotAutoregisterStringsFromCurrentUrl(): bool;
 	public function deleteCache();
 	public function updateIfIsCurrentUserAdminCache();
-	public function switchToLocale( string $locale, array $domainsToAllowReloadTranslations = [] );
+	public function switchToLocale( string $locale, array $domainsToAllowReloadTranslations = [], $languageCode = null );
 	public function restorePreviousLocale();
+
+	public function resolveLanguageCodeFromLocale( string $locale ): string;
 
 	public function getAllTargetLanguagesBySource( $sourceLanguageCode ): array;
 	public function getLanguageForDomain( string $domain ): string;

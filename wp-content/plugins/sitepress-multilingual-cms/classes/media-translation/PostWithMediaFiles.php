@@ -49,6 +49,64 @@ class PostWithMediaFiles {
 		return is_array( $ids ) ? $ids : [];
 	}
 
+	public function has_media_ids_extracted() {
+		return is_array( get_post_meta( $this->post_id, self::REFERENCED_MEDIA_IDS_SETTING, true ) );
+	}
+
+	public function ensure_media_ids_extracted() {
+		if ( $this->has_media_ids_extracted() ) {
+			return false;
+		}
+
+		$post = get_post( $this->post_id );
+		if ( ! $post || 'attachment' === $post->post_type || 'revision' === $post->post_type ) {
+			return false;
+		}
+
+		if ( ! array_key_exists( $post->post_type, (array) $this->sitepress->get_translatable_documents() ) ) {
+			return false;
+		}
+
+		$details = $this->sitepress->get_element_language_details( $post->ID, 'post_' . $post->post_type );
+		if ( ! $details || ! empty( $details->source_language_code ) ) {
+			return false;
+		}
+
+		$this->extract_and_save_media_ids();
+
+		return true;
+	}
+
+	public function get_referenced_media_ids_for_translation() {
+		$this->ensure_media_ids_extracted();
+
+		return $this->media_ids_for_translation( $this->get_referenced_media_ids() );
+	}
+
+	public function get_referenced_media_ids_uncached() {
+		list( , $referenced_media_file_ids ) = self::extract_media_ids(
+			$this->get_media_data_from_post_content_and_meta()
+		);
+
+		return $this->media_ids_for_translation( $referenced_media_file_ids );
+	}
+
+	private function media_ids_for_translation( $media_ids ) {
+		$media_ids = apply_filters( 'wpml_ids_of_media_used_in_post', $media_ids, $this->post_id );
+		if ( ! is_array( $media_ids ) ) {
+			return [];
+		}
+
+		$media_ids = array_unique( array_map( 'intval', $media_ids ) );
+
+		return Fns::filter(
+			function ( $media_id ) {
+				return $media_id > 0 && get_post( $media_id );
+			},
+			$media_ids
+		);
+	}
+
 	public function get_copied_and_referenced__media_ids() {
 		return array_merge(
 			$this->get_copied_media_ids(),
@@ -178,7 +236,7 @@ class PostWithMediaFiles {
 		delete_post_meta( $post_id, '_wp_trash_meta_time' );
 
 		wp_delete_object_term_relationships( $post_id, array( 'category', 'post_tag' ) );
-		wp_delete_object_term_relationships( $post_id, get_object_taxonomies( $post->post_type ) );
+		wp_delete_object_term_relationships( $post_id, array_map( 'strval', get_object_taxonomies( $post->post_type ) ) );
 
 		delete_metadata( 'post', 0, '_thumbnail_id', $post_id, true );
 
@@ -276,6 +334,7 @@ class PostWithMediaFiles {
 		if ( ! $post ) {
 			return [ [], [] ];
 		}
+		$post_language = $this->get_post_language( $post );
 
 		list( $copied_media_ids, $referenced_media_ids ) = $this->copied_and_referenced_media_extractor->extract( $post, $get_attachment_ids_from_urls );
 
@@ -283,7 +342,7 @@ class PostWithMediaFiles {
 		if ( $media_localization_settings['custom_fields'] ) {
 			$custom_fields_content = $this->get_content_in_translatable_custom_fields();
 			$custom_fields_media   = $this->media_parser->get_imgs( $custom_fields_content );
-			$custom_media_ids      = $this->_get_ids_from_media_array( $custom_fields_media );
+			$custom_media_ids      = $this->_get_ids_from_media_array( $custom_fields_media, $post_language );
 			foreach ( $custom_media_ids as $custom_media_id ) {
 				$referenced_media_ids[] = [
 					'attributes'    => [
@@ -316,10 +375,11 @@ class PostWithMediaFiles {
 		$media_ids = [];
 
 		if ( $post = get_post( $this->post_id ) ) {
+			$post_language = $this->get_post_language( $post );
 
 			$content_to_parse   = apply_filters( 'wpml_media_content_for_media_usage', $post->post_content, $post );
 			$post_content_media = $this->media_parser->get_imgs( $content_to_parse );
-			$media_ids          = $this->_get_ids_from_media_array( $post_content_media );
+			$media_ids          = $this->_get_ids_from_media_array( $post_content_media, $post_language );
 
 			if ( $featured_image = get_post_meta( $this->post_id, '_thumbnail_id', true ) ) {
 				$media_ids[] = $featured_image;
@@ -329,7 +389,7 @@ class PostWithMediaFiles {
 			if ( $media_localization_settings['custom_fields'] ) {
 				$custom_fields_content = $this->get_content_in_translatable_custom_fields();
 				$custom_fields_media   = $this->media_parser->get_imgs( $custom_fields_content );
-				$media_ids             = array_merge( $media_ids, $this->_get_ids_from_media_array( $custom_fields_media ) );
+				$media_ids             = array_merge( $media_ids, $this->_get_ids_from_media_array( $custom_fields_media, $post_language ) );
 			}
 
 			if ( $gallery_media_ids = $this->get_gallery_media_ids( $content_to_parse ) ) {
@@ -354,13 +414,13 @@ class PostWithMediaFiles {
 		return Fns::filter( Post::get(), apply_filters( 'wpml_ids_of_media_used_in_post', $media_ids, $this->post_id ) );
 	}
 
-	private function _get_ids_from_media_array( $media_array ) {
+	private function _get_ids_from_media_array( $media_array, $language ) {
 		$media_ids = [];
 		foreach ( $media_array as $media ) {
 			if ( isset( $media['attachment_id'] ) ) {
-				$media_ids[] = $media['attachment_id'];
+				$media_ids[] = $this->sitepress->get_object_id( $media['attachment_id'], 'attachment', true, $language ) ?: $media['attachment_id'];
 			} else {
-				$attachment_by_url = $this->attachment_by_url_factory->create( $media['attributes']['src'], wpml_get_current_language() );
+				$attachment_by_url = $this->attachment_by_url_factory->create( $media['attributes']['src'], $language );
 				if ( $attachment_id = $attachment_by_url->get_id() ) {
 					$media_ids[] = $attachment_id;
 				}
@@ -369,6 +429,12 @@ class PostWithMediaFiles {
 		}
 
 		return $media_ids;
+	}
+
+	private function get_post_language( $post ) {
+		$language = $this->sitepress->get_language_for_element( $post->ID, 'post_' . $post->post_type );
+
+		return $language ?: wpml_get_current_language();
 	}
 
 	private function get_gallery_media_ids( $post_content ) {
@@ -426,6 +492,7 @@ class PostWithMediaFiles {
 		$post_meta = get_metadata( 'post', $this->post_id );
 
 		if ( is_array( $post_meta ) ) {
+			wpml_resolve_custom_field_preferences( array_keys( $post_meta ) );
 			foreach ( $post_meta as $meta_key => $meta_value ) {
 				$setting         = $this->cf_settings_factory->post_meta_setting( $meta_key );
 				$is_translatable = $this->sitepress->get_wp_api()

@@ -88,11 +88,17 @@ trait WC_Order_Export_Admin_Tab_Abstract_Ajax_Export {
 		$settings['max_coupons'] = isset($_POST['max_coupons']) ? sanitize_text_field(wp_unslash($_POST['max_coupons'])) : 10; //phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		$start = isset($_POST['start']) ? intval(sanitize_text_field(wp_unslash($_POST['start']))) : 0; //phpcs:ignore WordPress.Security.NonceVerification.Missing
-		WC_Order_Export_Engine::build_file( $settings, 'partial', 'file', $start,
-			$main_settings['ajax_orders_per_step'],
-			$this->get_temp_file_name() );
+        try {
+            WC_Order_Export_Engine::build_file( $settings, 'partial', 'file', $start,
+                $main_settings['ajax_orders_per_step'],
+                $this->get_temp_file_name() );
+        } catch ( \Throwable $e ) {
+            $this->delete_temp_file();
+            throw $e;
+        }
 
-		echo json_encode( array( 'start' => $start + $main_settings['ajax_orders_per_step'] ) );
+
+        echo json_encode( array( 'start' => $start + $main_settings['ajax_orders_per_step'] ) );
 	}
 
 	public function ajax_plain_export() {
@@ -156,9 +162,15 @@ trait WC_Order_Export_Admin_Tab_Abstract_Ajax_Export {
 	public function ajax_export_finish() {
         $this->check_nonce();
 		$settings = WC_Order_Export_Manage::use_ready_or_prepare_settings( $_POST ); //phpcs:ignore WordPress.Security.NonceVerification.Missing
-		WC_Order_Export_Engine::build_file( $settings, 'finish', 'file', 0, 0, $this->get_temp_file_name() );
+        try {
+            WC_Order_Export_Engine::build_file( $settings, 'finish', 'file', 0, 0, $this->get_temp_file_name() );
+        } catch ( \Throwable $e ) {
+            $this->delete_temp_file();
+            throw $e;
+        }
 
-		$filename = WC_Order_Export_Engine::make_filename( $settings['export_filename'] );
+
+        $filename = WC_Order_Export_Engine::make_filename( $settings['export_filename'] );
 		$this->start_prevent_object_cache();
 		set_transient( $this->tempfile_prefix . 'download_filename', $filename, 5 * MINUTE_IN_SECONDS );
 		$this->stop_prevent_object_cache();

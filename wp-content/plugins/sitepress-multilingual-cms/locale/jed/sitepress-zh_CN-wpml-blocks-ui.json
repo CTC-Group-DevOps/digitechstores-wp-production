@@ -14,19 +14,19 @@
             "HTML 锚点"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "使用 “#anchor” URL 加载页面时，为此块添加快捷方式。"
+            "使用 “#anchor” URL 加载页面时，为此区块添加快捷方式。"
          ],
          "Additional CSS class(es)": [
-            "附加 CSS 类"
+            "额外的 CSS 类"
          ],
          "Separate multiple classes with spaces.": [
-            "用空格分隔多个类。"
+            "使用空格分隔多个类。"
          ],
          "Color": [
             "颜色"
          ],
          "px": [
-            "像素"
+            "px"
          ],
          "%": [
             "%"
@@ -35,13 +35,13 @@
             "尺寸"
          ],
          "BLOCK": [
-            "块"
+            "区块"
          ],
          "Block margin": [
-            "块边距"
+            "区块外边距"
          ],
          "Block padding": [
-            "块填充"
+            "区块内边距"
          ],
          "LANGUAGE": [
             "语言"
@@ -50,7 +50,7 @@
             "语言间距"
          ],
          "Language padding": [
-            "语言填充"
+            "语言内边距"
          ],
          "Display": [
             "显示"
@@ -62,7 +62,7 @@
             "显示语言名称"
          ],
          "Display language name in": [
-            "显示语言名称"
+            "语言名称显示为"
          ],
          "Style": [
             "样式"
@@ -86,10 +86,10 @@
             "可用语言"
          ],
          "Allow wrapping to multiple lines": [
-            "允许换行"
+            "允许折行到多行"
          ],
          "Open on click": [
-            "点击打开"
+            "点击时打开"
          ],
          "Show arrow": [
             "显示箭头"
@@ -98,7 +98,7 @@
             "布局"
          ],
          "Justification": [
-            "对齐"
+            "对齐方式"
          ],
          "Orientation": [
             "方向"
@@ -107,7 +107,7 @@
             "语言切换器"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "语言切换器，按 Tab 键可导航到其他语言"
+            "语言切换器，按 Tab 键导航到其他语言"
          ],
          "Typography": [
             "排版"
@@ -128,7 +128,7 @@
             "当前语言背景"
          ],
          "Full name": [
-            "全名"
+            "全称"
          ],
          "Code": [
             "代码"
@@ -152,10 +152,10 @@
             "垂直"
          ],
          "Normal": [
-            "正常"
+            "常规"
          ],
          "Medium": [
-            "中"
+            "中等"
          ],
          "Large": [
             "大"
@@ -164,13 +164,13 @@
             "特大"
          ],
          "Ab": [
-            "Ab"
+            "文"
          ],
          "AB": [
-            "AB"
+            "文"
          ],
          "ab": [
-            "ab"
+            "文"
          ],
          "Small": [
             "小"
@@ -180,9 +180,6 @@
          ],
          "displays the WPML Language Switcher": [
             "显示 WPML 语言切换器"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "显示 WPML 语言切换器。<br/>了解<a>如何翻译此块</a>。"
          ],
          "Navigation Language Switcher": [
             "导航语言切换器"

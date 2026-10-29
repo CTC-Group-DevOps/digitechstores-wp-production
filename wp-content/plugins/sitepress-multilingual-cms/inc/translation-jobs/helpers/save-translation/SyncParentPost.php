@@ -36,6 +36,8 @@ class SyncParentPost {
 	}
 
 	public function linkUnlinkedChildPosts( $original_post_id, $language_code, $translated_post_id ) {
+		$wpdb = $this->wpdb;
+
 		if ( ! $this->isSyncPageParentEnabled ) {
 			return;
 		}
@@ -45,8 +47,9 @@ class SyncParentPost {
 			return;
 		}
 
-		$query = $this->wpdb->prepare( "SELECT ID FROM {$this->wpdb->posts} WHERE post_parent = %d", $original_post_id );
-		$original_child_post_ids = $this->wpdb->get_col($query);
+		$original_child_post_ids = $wpdb->get_col(
+			$wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d", $original_post_id )
+		);
 
 		if ( empty( $original_child_post_ids ) ) {
 			delete_post_meta( $original_post_id, $this->getMetaChildKey( $language_code ) );

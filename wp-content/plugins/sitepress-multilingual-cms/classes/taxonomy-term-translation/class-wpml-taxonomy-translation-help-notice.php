@@ -27,6 +27,31 @@ class WPML_Taxonomy_Translation_Help_Notice {
 		}
 	}
 
+	public static function repair_stored_notices( $wpml_admin_notices = null ) {
+		if ( ! $wpml_admin_notices instanceof WPML_Notices ) {
+			$wpml_admin_notices = function_exists( 'wpml_get_admin_notices' ) ? wpml_get_admin_notices() : null;
+		}
+
+		if ( ! $wpml_admin_notices instanceof WPML_Notices ) {
+			return;
+		}
+
+		$all_notices = $wpml_admin_notices->get_all_notices();
+
+		if ( ! is_array( $all_notices ) || ! isset( $all_notices[ self::NOTICE_GROUP ] ) || ! is_array( $all_notices[ self::NOTICE_GROUP ] ) ) {
+			return;
+		}
+
+		foreach ( $all_notices[ self::NOTICE_GROUP ] as $stored_notice ) {
+			if ( ! $stored_notice instanceof WPML_Notice || $stored_notice->get_restrict_to_screen_ids() ) {
+				continue;
+			}
+
+			self::restrict_to_term_screens_of_taxonomy( $stored_notice );
+			$wpml_admin_notices->add_notice( $stored_notice, true );
+		}
+	}
+
 	private function get_current_translatable_taxonomy() {
 		return self::get_current_translatable_taxonomy_static();
 	}
@@ -35,7 +60,8 @@ class WPML_Taxonomy_Translation_Help_Notice {
 		$taxonomy = $this->get_current_translatable_taxonomy();
 		if ( false !== $taxonomy ) {
 			$link_to_taxonomy_translation_screen = $this->build_tag_to_taxonomy_translation( $taxonomy );
-			$text                                = sprintf( esc_html__( 'Translating %1$s? Use the %2$s table for easier translation.', 'sitepress' ), $taxonomy->labels->name, $link_to_taxonomy_translation_screen );
+			/* translators: Notice on the screen where terms are edited. %1$s: the name of the taxonomy, for example Categories, %2$s: a link, already wrapped in its tags, whose text is the name of the taxonomy translation screen. */
+			$text = sprintf( esc_html__( 'Translating %1$s? Use the %2$s table for easier translation.', 'sitepress' ), esc_html( $taxonomy->labels->name ), $link_to_taxonomy_translation_screen );
 			$this->set_notice( new WPML_Notice( $taxonomy->name, $text, self::NOTICE_GROUP ) );
 		}
 
@@ -45,9 +71,8 @@ class WPML_Taxonomy_Translation_Help_Notice {
 	private function add_term_help_notice_to_admin_notices() {
 		$notice = $this->get_notice();
 		$notice->set_css_class_types( 'info' );
-		$taxonomy_id = (string) $notice->get_id();
-		$validator   = new WPML_Taxonomy_Notice_Display_Validator( $taxonomy_id );
-		$notice->add_display_callback( $validator );
+		self::restrict_to_term_screens_of_taxonomy( $notice );
+		/* translators: Button label that closes a notice and keeps it from coming back. Verb, imperative. */
 		$action = $this->wpml_admin_notices->get_new_notice_action( esc_html__( 'Dismiss', 'sitepress' ), '#', false, false, false );
 		$action->set_js_callback( 'wpml_dismiss_taxonomy_translation_notice' );
 		$action->set_group_to_dismiss( $notice->get_group() );
@@ -66,6 +91,32 @@ class WPML_Taxonomy_Translation_Help_Notice {
 		}
 
 		return false;
+	}
+
+	private static function restrict_to_term_screens_of_taxonomy( WPML_Notice $notice ) {
+		$taxonomy_id = (string) $notice->get_id();
+
+		$notice->set_restrict_to_screen_ids( array( 'edit-' . $taxonomy_id, 'term' ) );
+		$notice->add_display_callback( array( __CLASS__, 'validate_display_for_stored_notice' ) );
+	}
+
+	public static function validate_display_for_stored_notice( $notice = null ) {
+		if ( ! self::is_taxonomy_term_screen_static() ) {
+			return false;
+		}
+
+		$screen   = get_current_screen();
+		$taxonomy = $screen && ! empty( $screen->taxonomy ) ? $screen->taxonomy : '';
+
+		if ( '' === $taxonomy ) {
+			return false;
+		}
+
+		if ( $notice instanceof WPML_Notice ) {
+			return (string) $notice->get_id() === $taxonomy;
+		}
+
+		return self::is_translatable_taxonomy_static( $taxonomy );
 	}
 
 	private static function is_taxonomy_term_screen_static() {
@@ -121,8 +172,10 @@ class WPML_Taxonomy_Translation_Help_Notice {
 		);
 		$url = apply_filters( 'wpml_taxonomy_term_translation_url', $url, $taxonomy->name );
 
-		return '<a href="' . esc_url( $url ) . '">' .
-			   sprintf( esc_html__( ' %s translation', 'sitepress' ), $taxonomy->labels->singular_name ) . '</a>';
+		/* translators: Text of the link in that notice, following the word "the", as in "the Category translation table". %s: the name of the taxonomy in the singular. Keep the space at the start. */
+		$label = sprintf( esc_html__( ' %s translation', 'sitepress' ), esc_html( $taxonomy->labels->singular_name ) );
+
+		return '<a href="' . esc_url( $url ) . '">' . $label . '</a>';
 	}
 
 	public function set_notice( WPML_Notice $notice ) {

@@ -5,6 +5,7 @@ use WPML\Core\Twig_Environment;
 use WPML\Core\Twig_Loader_Filesystem;
 use WPML\Core\Twig_Loader_String;
 use WPML\Core\Twig_LoaderInterface;
+use WPML\UserInterface\Web\Infrastructure\WordPress\Component\Translations\AdminTextsTranslationController;
 use function WPML\Container\make;
 
 class WPML_WP_API extends WPML_PHP_Functions {
@@ -196,34 +197,63 @@ class WPML_WP_API extends WPML_PHP_Functions {
 
 	public function is_tm_page( $tab = null, $page_type = 'management' ) {
 		if ( 'settings' === $page_type ) {
-			$page_suffix = '/menu/settings';
+			$on_page     = WPML_TM_Subview_Detection::is_on_settings_page();
 			$default_tab = 'mcsetup';
 		} else {
-			$page_suffix = '/menu/main.php';
+			$on_page     = WPML_TM_Subview_Detection::is_on_main_page();
 			$default_tab = 'dashboard';
 		}
 
-		$result = is_admin()
-				  && isset( $_GET['page'] )
-				  && $_GET['page'] == $this->constant( 'WPML_TM_FOLDER' ) . $page_suffix;
-
-		if ( $tab ) {
-			if ( $tab == $default_tab && ! isset( $_GET['sm'] ) ) {
-				$result = $result && true;
-			} else {
-				$result = $result && isset( $_GET['sm'] ) && $_GET['sm'] == $tab;
-			}
+		if ( ! $on_page ) {
+			return false;
 		}
 
-		return $result;
+		if ( ! $tab ) {
+			return true;
+		}
+
+		$subview = WPML_TM_Subview_Detection::current_subview();
+
+		$legacy_sm = isset( $_GET['sm'] ) && is_string( $_GET['sm'] ) ? sanitize_text_field( wp_unslash( $_GET['sm'] ) ) : '';
+
+		if ( $tab === $default_tab ) {
+			return '' === $subview || $subview === $tab || $legacy_sm === $tab;
+		}
+
+		return $subview === $tab || $legacy_sm === $tab;
 	}
 
 	public function is_translation_queue_page() {
-		return is_admin() && isset( $_GET['page'] ) && $this->constant( 'WPML_TM_FOLDER' ) . '/menu/translations-queue.php' == $_GET['page'];
+		return ( WPML_TM_Subview_Detection::is_on_main_page()
+				 && 'tasks' === WPML_TM_Subview_Detection::current_subview() )
+			   || WPML_TM_Subview_Detection::is_on_legacy_queue_page();
 	}
 
 	public function is_string_translation_page() {
-		return is_admin() && isset( $_GET['page'] ) && $this->constant( 'WPML_ST_FOLDER' ) . '/menu/string-translation.php' == $_GET['page'];
+		if ( ! is_admin() || ! isset( $_GET['page'] ) ) {
+			return false;
+		}
+
+		if ( $this->constant( 'WPML_ST_FOLDER' ) . '/menu/string-translation.php' === $_GET['page'] ) {
+			return true;
+		}
+
+		if ( 'wpml-admin-texts-translation' === $_GET['page'] ) {
+			return true;
+		}
+
+		return WPML_TM_Subview_Detection::is_on_main_page()
+			   && 'strings' === WPML_TM_Subview_Detection::current_subview();
+	}
+
+	public function is_theme_plugin_localization_page() {
+		return is_admin()
+			   && AdminTextsTranslationController::PAGE_SLUG === \WPML\SuperGlobals\Request::page();
+	}
+
+	public function is_taxonomy_translation_page() {
+		return WPML_TM_Subview_Detection::is_on_main_page()
+			   && 'taxonomy' === WPML_TM_Subview_Detection::current_subview();
 	}
 
 	public function is_support_page() {
@@ -231,13 +261,13 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function is_troubleshooting_page() {
-		return $this->is_core_page( 'troubleshooting.php' );
+		return WPML_TM_Subview_Detection::is_on_settings_page()
+			   || $this->is_core_page( 'troubleshooting.php' );
 	}
 
 	public function is_core_page( $page = '' ) {
-		$result = is_admin()
-				  && isset( $_GET['page'] )
-				  && stripos( $_GET['page'], $this->constant( 'ICL_PLUGIN_FOLDER' ) . '/menu/' . $page ) !== false;
+		$needle = $this->constant( 'ICL_PLUGIN_FOLDER' ) . '/menu/' . $page;
+		$result = is_admin() && false !== stripos( \WPML\SuperGlobals\Request::page(), $needle );
 		return $result;
 	}
 
@@ -637,7 +667,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 		return is_wp_error( $thing );
 	}
 
-	public function get_backtrace( $limit = 0, $provide_object = false, $ignore_args = true ) {
+	public function get_backtrace( $limit = WPML\Utils\DebugBackTrace::DEFAULT_LIMIT, $provide_object = false, $ignore_args = true ) {
 		$options = false;
 
 		if ( version_compare( $this->phpversion(), '5.3.6' ) < 0 ) {
@@ -665,19 +695,145 @@ class WPML_WP_API extends WPML_PHP_Functions {
 		return $debug_backtrace;
 	}
 
-	public function get_wp_filesystem_direct() {
-		global $wp_filesystem;
-
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-
-		if ( ! $wp_filesystem ) {
-			WP_Filesystem();
+	private function get_filesystem_credentials( $method ) {
+		if ( ! $method || 'direct' === $method ) {
+			return false;
 		}
 
-		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
-		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+		$credentials = array(
+			'hostname'        => defined( 'FTP_HOST' ) ? FTP_HOST : '',
+			'username'        => defined( 'FTP_USER' ) ? FTP_USER : '',
+			'password'        => defined( 'FTP_PASS' ) ? FTP_PASS : '',
+			'public_key'      => defined( 'FTP_PUBKEY' ) ? FTP_PUBKEY : '',
+			'private_key'     => defined( 'FTP_PRIKEY' ) ? FTP_PRIKEY : '',
+			'connection_type' => 'ftp',
+		);
+
+		$credentials['hostname'] = preg_replace( '|\w+://|', '', $credentials['hostname'] );
+
+		if ( strpos( $credentials['hostname'], ':' ) ) {
+			list( $credentials['hostname'], $port ) = explode( ':', $credentials['hostname'], 2 );
+			if ( is_numeric( $port ) ) {
+				$credentials['port'] = (int) $port;
+			}
+		}
+
+		if ( 'ssh2' === $method || ( defined( 'FTP_SSH' ) && FTP_SSH ) ) {
+			$credentials['connection_type'] = 'ssh';
+		} elseif ( 'ftpext' === $method && defined( 'FTP_SSL' ) && FTP_SSL ) {
+			$credentials['connection_type'] = 'ftps';
+		}
+
+		return apply_filters( 'wpml_filesystem_credentials', $credentials, $method );
+	}
+
+	public function get_wp_filesystem() {
+		global $wp_filesystem;
+
+		static $booted          = false;
+		static $failed_instance = null;
+		static $direct_fallback = null;
+
+		if ( $wp_filesystem !== $failed_instance && $this->is_usable_filesystem( $wp_filesystem ) ) {
+			return $wp_filesystem;
+		}
+
+		if ( ! $booted ) {
+			$booted      = true;
+			$before_boot = $wp_filesystem;
+
+			if ( $this->boot_wp_filesystem() && $this->is_usable_filesystem( $wp_filesystem ) ) {
+				return $wp_filesystem;
+			}
+
+			$failed_instance = $wp_filesystem instanceof WP_Filesystem_Base ? $wp_filesystem : null;
+
+			if ( $wp_filesystem !== $before_boot ) {
+				$wp_filesystem = $before_boot;
+			}
+		}
+
+		if ( null === $direct_fallback ) {
+			$direct_fallback = $this->create_direct_filesystem();
+		}
+
+		return $direct_fallback;
+	}
+
+	private function boot_wp_filesystem() {
+		global $wp_filesystem;
+
+		$wp_admin_file = ABSPATH . 'wp-admin/includes/file.php';
+
+		if ( ! file_exists( $wp_admin_file ) ) {
+			return false;
+		}
+
+		require_once $wp_admin_file;
+
+		if ( WP_Filesystem() ) {
+			return true;
+		}
+
+		$method = $wp_filesystem instanceof WP_Filesystem_Base && $wp_filesystem->method
+			? $wp_filesystem->method
+			: get_filesystem_method();
+
+		$credentials = $this->get_filesystem_credentials( $method );
+
+		return $credentials ? (bool) WP_Filesystem( $credentials ) : false;
+	}
+
+	private function create_direct_filesystem() {
+		if ( ! class_exists( 'WP_Filesystem_Base' ) && file_exists( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+		}
+
+		if ( ! class_exists( 'WP_Filesystem_Direct' ) && file_exists( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+		}
+
+		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
+			define( 'FS_CHMOD_DIR', ( fileperms( ABSPATH ) & 0777 | 0755 ) );
+		}
+		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
+			$index = ABSPATH . 'index.php';
+			define( 'FS_CHMOD_FILE', ( ( file_exists( $index ) ? fileperms( $index ) : 0 ) & 0777 | 0644 ) );
+		}
 
 		return new WP_Filesystem_Direct( null );
+	}
+
+	private function is_usable_filesystem( $filesystem ) {
+		if ( ! $filesystem instanceof WP_Filesystem_Base ) {
+			return false;
+		}
+
+		if ( $this->is_broken_ftpsockets( $filesystem ) ) {
+			return false;
+		}
+
+		return ! $this->has_connection_error( $filesystem );
+	}
+
+	private function has_connection_error( $filesystem ) {
+		if ( ! isset( $filesystem->errors ) || ! $filesystem->errors->has_errors() ) {
+			return false;
+		}
+
+		$connection_codes = array( 'no_ftp_ext', 'no_ssh2_ext', 'empty_hostname', 'empty_username', 'empty_password', 'connect', 'auth' );
+
+		return (bool) array_intersect( $connection_codes, $filesystem->errors->get_error_codes() );
+	}
+
+	private function is_broken_ftpsockets( $filesystem ) {
+		return PHP_VERSION_ID >= 80000 && 'ftpsockets' === $filesystem->method;
+	}
+
+	public function get_wp_filesystem_direct() {
+		$this->get_wp_filesystem();
+
+		return $this->create_direct_filesystem();
 	}
 
 	public function get_admin_notices() {

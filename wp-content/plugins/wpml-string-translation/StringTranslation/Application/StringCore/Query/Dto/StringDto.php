@@ -20,8 +20,6 @@ class StringDto {
 
 	protected $status;
 
-	protected $translationPriority;
-
 	protected $wordCount;
 
 	protected $kind;
@@ -38,7 +36,6 @@ class StringDto {
 		string $name,
 		string $value,
 		int $status,
-		string $translationPriority,
 		int $wordCount,
 		int $kind,
 		int $type,
@@ -51,7 +48,6 @@ class StringDto {
 		$this->name                = $name;
 		$this->value               = $value;
 		$this->status              = $status;
-		$this->translationPriority = $translationPriority;
 		$this->wordCount           = $wordCount;
 		$this->kind                = $kind;
 		$this->type                = $type;
@@ -84,10 +80,6 @@ class StringDto {
 
 	public function getStatus(): int {
 		return $this->status;
-	}
-
-	public function getTranslationPriority(): string {
-		return $this->translationPriority;
 	}
 
 	public function getWordCount(): int {

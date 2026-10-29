@@ -1,6 +1,6 @@
 jQuery(function($){
 
-    if( $('form>table').size() > 0 ){
+    if( $('form>table').length > 0 ){
         $('.wcml-is-translatable-attr-block tr').insertAfter('form>table tr:nth-child(3)');
     }else{
         $('.wcml-is-translatable-attr-block div').insertAfter('form div:nth-child(3)');
@@ -11,7 +11,7 @@ jQuery(function($){
 
     $(document).on('click', '#wcml-is-translatable-attr', function(){
 
-        if( !$(this).is(':checked') && $('#wcml-is-translatable-attr-notice').size()>0 ){
+        if( !$(this).is(':checked') && $('#wcml-is-translatable-attr-notice').length>0 ){
 
             if ( confirm( $('#wcml-is-translatable-attr-notice').val() ) == false ) {
                 $(this).prop("checked", true);

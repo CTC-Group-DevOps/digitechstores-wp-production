@@ -2,7 +2,6 @@
 
 use WPML\TranslationRoles\UI\Initializer;
 use WPML\TM\Menu\TranslationServices\Section;
-use WPML\TM\Menu\TranslationMethod\TranslationMethodSettings;
 use WPML\FP\Relation;
 use WPML\LIB\WP\User;
 
@@ -13,8 +12,6 @@ class WPML_TM_Translation_Roles_Section implements IWPML_TM_Admin_Section {
 
 	public function __construct( Section $translation_services_section ) {
 		$this->translation_services_section = $translation_services_section;
-
-		TranslationMethodSettings::addHooks();
 	}
 
 	public function get_order() {

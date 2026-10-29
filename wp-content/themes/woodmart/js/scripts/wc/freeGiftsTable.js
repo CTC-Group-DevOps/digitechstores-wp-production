@@ -32,6 +32,8 @@ function updateGiftsTable() {
 				return;
 			}
 
+			giftsWrapper = document.querySelector('.wd-fg');
+
 			if (giftsWrapper && response.hasOwnProperty('html')) {
 				let tempDiv       = document.createElement('div');
 				tempDiv.innerHTML = response.html;
@@ -59,6 +61,8 @@ function updateGiftsTable() {
 			console.log('ajax update gifts table error');
 		},
 		complete: function() {
+			var loaderOverlay = document.querySelector('.wd-fg .wd-loader-overlay');
+
 			if ( loaderOverlay ) {
 				loaderOverlay.classList.remove('wd-loading');
 			}

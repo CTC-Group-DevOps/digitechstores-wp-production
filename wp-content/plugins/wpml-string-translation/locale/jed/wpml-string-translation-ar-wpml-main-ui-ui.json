@@ -7,14 +7,17 @@
             "plural_forms": "nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);",
             "lang": "ar"
          },
-         "Edit": [
-            "تعديل"
+         "Edit %s": [
+            "تحرير %s"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
+         ],
+         "Original:": [
+            "الأصل:"
          ],
          "Translation to:": [
             "الترجمة إلى:"
@@ -25,29 +28,23 @@
          "Use Shift+Enter to add a new line.": [
             "استخدم Shift+Enter لإضافة سطر جديد."
          ],
-         "Original:": [
-            "الأصل:"
-         ],
          "Add %s translation": [
-            "أضف ترجمة %s"
+            "إضافة ترجمة %s"
          ],
          "Edit %s translation": [
             "تعديل ترجمة %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "أضف ترجمة %s (النص يظهر على الموقع وغير مترجم)"
+            "إضافة ترجمة %s (يظهر النص على الموقع وهو غير مترجم)"
          ],
          "Original language %s": [
             "اللغة الأصلية %s"
          ],
          "Waiting for translator to %s": [
-            "في انتظار المترجم لـ %s"
+            "في انتظار المترجم للغة %s"
          ],
          "Translation in progress to %s": [
-            "الترجمة قيد التقدم إلى %s"
-         ],
-         "In basket for translation to %s": [
-            "في السلة للترجمة إلى %s"
+            "الترجمة جارية إلى %s"
          ],
          "Translation saved.": [
             "تم حفظ الترجمة."

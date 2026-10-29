@@ -5,11 +5,13 @@ use WPML\FP\Fns;
 
 class WPML_ST_Translations_File_Registration {
 
+	const LOCALE_PLACEHOLDER = 'LOCALE_PLACEHOLDER';
+
 	const PATH_PATTERN_SEARCH_MO  = '#(-)?([a-z]+)([_A-Z]*)\.mo$#i';
-	const PATH_PATTERN_REPLACE_MO = '${1}%s.mo';
+	const PATH_PATTERN_REPLACE_MO = '${1}LOCALE_PLACEHOLDER.mo';
 
 	const PATH_PATTERN_SEARCH_JSON  = '#(DOMAIN_PLACEHOLDER)([a-z]+)([_A-Z]*)(-[-_a-z0-9]+)\.json$#i';
-	const PATH_PATTERN_REPLACE_JSON = '${1}%s${4}.json';
+	const PATH_PATTERN_REPLACE_JSON = '${1}LOCALE_PLACEHOLDER${4}.json';
 
 	private $file_dictionary;
 
@@ -83,13 +85,21 @@ class WPML_ST_Translations_File_Registration {
 	private function save_file_info( $original_domain, $registration_domain, $file_path ) {
 		try {
 			$file_path_pattern = $this->get_file_path_pattern( $file_path, $original_domain );
+		} catch ( RuntimeException $e ) {
+			return true;
+		}
 
+		try {
 			foreach ( $this->active_languages as $lang_data ) {
-				$file_path_in_lang = sprintf( (string) $file_path_pattern, $lang_data['default_locale'] );
+				$file_path_in_lang = str_replace(
+					self::LOCALE_PLACEHOLDER,
+					$lang_data['default_locale'],
+					(string) $file_path_pattern
+				);
 				$this->register_single_file( $registration_domain, $file_path_in_lang );
 			}
-		} catch ( Exception $e ) {
-			;
+		} catch ( \Throwable $e ) {
+			error_log( 'WPML String Translation: failed to register the translation file "' . $file_path . '": ' . $e->getMessage() );
 		}
 
 		return true;
@@ -105,7 +115,7 @@ class WPML_ST_Translations_File_Registration {
 
 			case 'json':
 				$domain_replace = 'default' === $original_domain ? '' : $original_domain . '-';
-				$search_pattern = str_replace( 'DOMAIN_PLACEHOLDER', $domain_replace, self::PATH_PATTERN_SEARCH_JSON );
+				$search_pattern = str_replace( 'DOMAIN_PLACEHOLDER', preg_quote( $domain_replace, '#' ), self::PATH_PATTERN_SEARCH_JSON );
 				return preg_replace( $search_pattern, self::PATH_PATTERN_REPLACE_JSON, $file_path );
 		}
 
@@ -120,8 +130,15 @@ class WPML_ST_Translations_File_Registration {
 			return;
 		}
 
-		$relative_path = $this->wpml_file->get_relative_path( $file_path );
 		$last_modified = $this->wpml_file->get_file_modified_timestamp( $file_path );
+
+		$file = $this->file_dictionary->find_file_info_by_path( $this->wpml_file->get_relative_path( $file_path ) );
+		if ( $file && $file->get_last_modified() === $last_modified && ! $this->is_theme_file_recorded_as_other( $file, $file_path ) ) {
+			return;
+		}
+
+		$storage_path  = $this->get_stable_storage_path( $file_path );
+		$relative_path = $this->wpml_file->get_relative_path( $storage_path );
 		$file          = $this->file_dictionary->find_file_info_by_path( $relative_path );
 
 		if ( ! $file ) {
@@ -137,13 +154,40 @@ class WPML_ST_Translations_File_Registration {
 			$file->set_component_id( $component_id );
 
 			$this->file_dictionary->save( $file );
-		} elseif ( $file->get_last_modified() !== $last_modified ) {
-			$file->set_status( WPML_ST_Translations_File_Entry::NOT_IMPORTED );
-			$file->set_last_modified( $last_modified );
-			$file->set_imported_strings_count( 0 );
+		} else {
+			$is_modified = $file->get_last_modified() !== $last_modified;
+			if ( $is_modified ) {
+				$file->set_status( WPML_ST_Translations_File_Entry::NOT_IMPORTED );
+				$file->set_last_modified( $last_modified );
+				$file->set_imported_strings_count( 0 );
+			}
 
-			$this->file_dictionary->save( $file );
+			$is_retyped = $this->is_theme_file_recorded_as_other( $file, $file_path );
+			if ( $is_retyped ) {
+				list( $component_type, $component_id ) = $this->components_find->find_details( $file_path );
+				$file->set_component_type( $component_type );
+				$file->set_component_id( $component_id );
+			}
+
+			if ( $is_modified || $is_retyped ) {
+				$this->file_dictionary->save( $file );
+			}
 		}
+	}
+
+	private function is_theme_file_recorded_as_other( WPML_ST_Translations_File_Entry $file, $file_path ) {
+		return 'other' === $file->get_component_type() && $this->components_find->is_in_theme_root( $file_path );
+	}
+
+	private function get_stable_storage_path( $file_path ) {
+		$component = $this->components_find->find_details( $file_path );
+		if ( ! is_array( $component ) || 'plugin' !== $component[0] || empty( $component[1] ) ) {
+			return $file_path;
+		}
+
+		$logical_path = WPML_ST_Path_Confinement::resolve_registered_plugin_logical_path( $file_path, $component[1] );
+
+		return false !== $logical_path ? $logical_path : $file_path;
 	}
 
 	private function isGeneratedFile( $path ) {
@@ -154,4 +198,3 @@ class WPML_ST_Translations_File_Registration {
 	}
 
 }
-

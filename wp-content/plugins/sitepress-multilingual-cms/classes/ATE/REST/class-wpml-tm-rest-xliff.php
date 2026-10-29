@@ -18,24 +18,47 @@ class WPML_TM_REST_XLIFF extends WPML_TM_ATE_Required_Rest_Base {
 	}
 
 	public function fetch_xliff( WP_REST_Request $request ) {
-		$job_factory = wpml_tm_load_job_factory();
-		$job_id      = (int) $request->get_param( 'jobId' );
-		$job         = $job_factory->get_translation_job( $job_id, false, 1, true );
+		$wpml_translation_job_factory = wpml_tm_load_job_factory();
 
-		if ( $job && ( current_user_can( 'manage_translations' ) || $job->user_can_translate( wp_get_current_user() ) ) ) {
-			$writer = new WPML_TM_Xliff_Writer( $job_factory );
+		$job_id = (int) $request->get_param( 'jobId' );
 
-			return array(
-				'content'    => base64_encode( $writer->generate_job_xliff( $job_id ) ),
-				'sourceLang' => $job->get_source_language_code(),
-				'targetLang' => $job->get_language_code(),
+		$job = $wpml_translation_job_factory->get_translation_job( $job_id, false, 1, true );
+
+		if ( ! $job ) {
+			return new WP_Error(
+				'wpml_job_not_found',
+				sprintf( 'Translation job %d was not found.', $job_id ),
+				array( 'status' => 404 )
 			);
 		}
 
-		return new WP_Error(
-			'wpml_tm_xliff_forbidden',
-			__( 'You are not allowed to access this translation job.', 'sitepress' ),
-			array( 'status' => 403 )
+		$authorized = \WPML\TM\Jobs\Authorization\AuthorizedJobResolver::make()->byLocalId(
+			\WPML\Core\Security\ExecutionContext\ExecutionContextHolder::current(),
+			$job_id
+		);
+		if ( ! $authorized ) {
+			return new WP_Error(
+				'wpml_tm_xliff_forbidden',
+				__( 'You are not allowed to access this translation job.', 'sitepress' ),
+				array( 'status' => 403 )
+			);
+		}
+
+		$writer = ( new WPML_TM_Xliff_Writer( $wpml_translation_job_factory ) )->withDeclaredPlaceholders();
+		$xliff  = $writer->generate_job_xliff_or_null( $job_id );
+
+		if ( null === $xliff ) {
+			return new WP_Error(
+				'wpml_xliff_no_translation_units',
+				sprintf( 'Translation job %d has no translatable content.', $job_id ),
+				array( 'status' => 422 )
+			);
+		}
+
+		return array(
+			'content'    => base64_encode( $xliff ),
+			'sourceLang' => $job->get_source_language_code(),
+			'targetLang' => $job->get_language_code(),
 		);
 	}
 

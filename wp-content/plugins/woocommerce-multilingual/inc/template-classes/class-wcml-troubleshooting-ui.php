@@ -5,12 +5,22 @@ use WCML\Utilities\AdminUrl;
 
 class WCML_Troubleshooting_UI extends WCML_Templates_Factory {
 
+	const MODE_ALL      = 'all';
+	const MODE_SAFE     = 'safe';
+	const MODE_CONFIG   = 'config';
+	const MODE_ADVANCED = 'advanced';
+
 	private $woocommerce_wpml;
 
-	public function __construct( $woocommerce_wpml ) {
+	private $mode;
+
+	public function __construct( $woocommerce_wpml, $mode = self::MODE_ALL ) {
 		parent::__construct();
 
 		$this->woocommerce_wpml = $woocommerce_wpml;
+		$this->mode             = in_array( $mode, [ self::MODE_ALL, self::MODE_SAFE, self::MODE_CONFIG, self::MODE_ADVANCED ], true )
+			? $mode
+			: self::MODE_ALL;
 	}
 
 
@@ -22,40 +32,53 @@ class WCML_Troubleshooting_UI extends WCML_Templates_Factory {
 
 		$model = [
 			'header' => [
+				/* translators: Tab title and heading of the screen with the plugin's repair tools. */
 				'title' => __( 'Troubleshooting', 'woocommerce-multilingual' ),
+				/* translators: Warning at the top of the Troubleshooting screen, above the repair tools. */
 				'warning' => __( 'Please make a backup of your database before using these tools', 'woocommerce-multilingual' ),
 			],
 			'status' => [
+				/* translators: Tab title and heading of the screen with the plugin's diagnostic checks. Noun. */
 				'title' => __( 'Status', 'woocommerce-multilingual' ),
 				'items' => [
-					/* translators: The placeholder is the number of products. */
+					/* translators: Diagnostic line on the Troubleshooting screen. %s: how many products the shop has, arriving in bold. The brackets around "s" cover both one and several. */
 					'total'      => sprintf( __( 'There are <strong>%s product(s)</strong> in total.', 'woocommerce-multilingual' ), $this->woocommerce_wpml->troubleshooting->countProducts() ),
-					/* translators: The placeholder is the number of products. */
+					/* translators: Diagnostic line on the Troubleshooting screen. %s: how many of the shop's products have variations, arriving in bold. The brackets around "s" cover both one and several. */
 					'variable'   => sprintf( __( 'There are <strong>%s product(s)</strong> with variations.', 'woocommerce-multilingual' ), $this->woocommerce_wpml->troubleshooting->countVariableProducts() ),
-					/* translators: The placeholder is the number of products. */
+					/* translators: Diagnostic line on the Troubleshooting screen. %s: how many product variations the shop has in total, arriving in bold. The brackets around "s" cover both one and several. */
 					'variations' => sprintf( __( 'There are <strong>%s variation(s)</strong> in total.', 'woocommerce-multilingual' ), $this->woocommerce_wpml->troubleshooting->countVariations() ),
 				],
 			],
 			'synchronizeData' => [
+				/* translators: Heading of the group of repair tools that copy data from the original products to their translations. */
 				'title'         => __( 'Synchronize data into translations', 'woocommerce-multilingual' ),
 				'items'         => [
+					/* translators: Label of the repair tool that recreates missing variations on translated products. Verb phrase, imperative. */
 					'variations'         => __( 'Synchronize product variations', 'woocommerce-multilingual' ),
+					/* translators: Label of the repair tool that copies product image galleries to the translations. Verb phrase, imperative. */
 					'gallery'            => __( 'Synchronize products image galleries', 'woocommerce-multilingual' ),
+					/* translators: Label of the repair tool that copies a product category's layout and image to its translations. Verb phrase, imperative. */
 					'categoriesMetadata' => __( 'Synchronize metadata for product categories (display type, thumbnail)', 'woocommerce-multilingual' ),
+					/* translators: Label of the repair tool that copies stock levels to the translations. Verb phrase, imperative. */
 					'stock'              => __( 'Synchronize stock for products and product variations', 'woocommerce-multilingual' ),
 				],
 				'galleryEnable' => $wpmlElementSyncSettingsFaxctory->create( 'post' )->is_sync( 'attachment' ),
 			],
 			'connect' => [
+				/* translators: Heading of the group of repair tools that mend the links between an original and its translations. Verb phrase, imperative. */
 				'title' => __( 'Fix multilingual information', 'woocommerce-multilingual' ),
 				'items' => [
+					/* translators: Label of the repair tool that reconnects translated variations to their originals. Verb phrase, imperative. */
 					'variations' => __( 'Fix incorrect or missing translation links for product variations', 'woocommerce-multilingual' ),
 				],
 			],
 			'taxonomies' => [
+				/* translators: Heading of the group of repair tools for product categories, tags and attributes. Verb phrase, imperative. */
 				'title'             => __( 'Fix product taxonomies', 'woocommerce-multilingual' ),
 				'items'             => [
+					/* translators: Label of the repair tool that stops product types being translated and removes the translations already made. Verb phrase, imperative. */
 					'productType' => __( 'Set product types as not translatable and delete unwanted translations', 'woocommerce-multilingual' ),
+					/* translators: Label of the repair tool that creates the missing attribute translations; a dropdown of attributes follows the colon. Verb phrase, imperative. */
 					'attributes'  => __( 'Create missing translations for product attributes:', 'woocommerce-multilingual' ),
 				],
 				'productTypeEnable' => ! empty( $translatedProductTypeTerms ),
@@ -67,12 +90,15 @@ class WCML_Troubleshooting_UI extends WCML_Templates_Factory {
 				),
 				'data' => [
 					'attributes' => $this->get_all_products_taxonomies(),
+					/* translators: First entry of the attribute dropdown of a repair tool: no attribute is picked. Lower case, as it sits in a list of attribute names. */
 					'none'       => __( 'none', 'woocommerce-multilingual' ),
 				]
 			],
 			'reviews' => [
+				/* translators: Heading of the group of repair tools for reviews. Verb phrase, imperative. */
 				'title'         => __( 'Fix missing product reviews', 'woocommerce-multilingual' ),
 				'items'         => [
+					/* translators: Label of the repair tool that makes reviews WPML has not registered available for translation. */
 					'register' => __( 'Allow to translate missing product reviews', 'woocommerce-multilingual' ),
 				],
 				'reviewsEnable' => apply_filters( FrontEndHooks::HOOK_ENABLE, true ),
@@ -84,26 +110,34 @@ class WCML_Troubleshooting_UI extends WCML_Templates_Factory {
 				),
 			],
 			'cleanup' => [
+				/* translators: Heading of the group of repair tools that remove leftover data. */
 				'title' => __( 'Cleanup tools', 'woocommerce-multilingual' ),
 				'items' => [
+					/* translators: Label of the repair tool that deletes leftover custom fields from translations. Verb phrase, imperative. */
 					'orphanedMeta' => __( 'Remove unused custom fields from product and variation translations', 'woocommerce-multilingual' ),
 				],
 			],
 			'run' => [
+				/* translators: Button label that starts the ticked repair tools. Verb phrase, imperative. */
 				'start'   => __( 'Run the selected tools', 'woocommerce-multilingual' ),
+				/* translators: Label the run button changes to while the repair tools are working. A state, not a command. */
 				'running' => __( 'Processing', 'woocommerce-multilingual' ),
 			],
 			'settings' => [
+				/* translators: Heading above the read-only list of the plugin's settings on the Troubleshooting screen. */
 				'title' => __( 'WPML Multilingual & Multicurrency for WooCommerce settings', 'woocommerce-multilingual' ),
 				'data'  => esc_html( $wcmlSettings ),
 			],
 			'counter' => sprintf(
-				/* translators: The placeholder is the number of processed items. */
+				/* translators: Progress line shown while the repair tools run. %s: how many items have been handled so far; the number counts up as the work goes on. */
 				__( '%s items processed', 'woocommerce-multilingual' ),
 				'<span class="count"></span>'
 			),
+			/* translators: Progress line shown while a repair tool is working. A state, not a command; keep the three dots. */
 			'doing'  => __( 'Processing...', 'woocommerce-multilingual' ),
+			/* translators: Progress line shown when a repair tool has finished. A state, not a command. */
 			'done'   => __( 'Completed', 'woocommerce-multilingual' ),
+			/* translators: Error shown when a repair tool failed. */
 			'error'  => __( 'Something went wrong, please reload the page and try again', 'woocommerce-multilingual' ),
 			'nonces' => [
 				'trbl_sync_variations'    => wp_nonce_field( 'trbl_sync_variations', 'trbl_sync_variations_nonce', true, false ),
@@ -116,9 +150,41 @@ class WCML_Troubleshooting_UI extends WCML_Templates_Factory {
 				'sync_deleted_meta'       => wp_nonce_field( 'sync_deleted_meta', 'sync_deleted_meta_nonce', true, false ),
 				'register_reviews_in_st'  => wp_nonce_field( 'register_reviews_in_st', 'register_reviews_in_st_nonce', true, false ),
 			],
+			'visible' => $this->visible_sections(),
 		];
 
 		return $model;
+	}
+
+
+	private function visible_sections() {
+		$sections = [
+			'header',
+			'status',
+			'synchronizeData',
+			'connect',
+			'taxonomies',
+			'reviews',
+			'cleanup',
+			'run',
+			'settings',
+		];
+
+		$visible_per_mode = [
+			self::MODE_ALL      => $sections,
+			self::MODE_SAFE     => [ 'header', 'synchronizeData', 'taxonomies', 'reviews', 'run' ],
+			self::MODE_CONFIG   => [ 'settings' ],
+			self::MODE_ADVANCED => [ 'header', 'connect', 'cleanup', 'run' ],
+		];
+
+		$visible = $visible_per_mode[ $this->mode ];
+
+		return array_combine( $sections, array_map(
+			function( $section ) use ( $visible ) {
+				return in_array( $section, $visible, true );
+			},
+			$sections
+		) );
 	}
 
 	public function get_all_products_taxonomies() {

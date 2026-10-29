@@ -479,7 +479,7 @@ jQuery( function ( $ ) {
 				bundled_product_id =
 					bundled_product_ids && bundled_product_ids.length > 0
 						? // Filter out empty strings to ensure only valid product IDs are considered.
-						  bundled_product_ids
+							bundled_product_ids
 								.filter( function ( id ) {
 									return id.trim() !== '';
 								} )

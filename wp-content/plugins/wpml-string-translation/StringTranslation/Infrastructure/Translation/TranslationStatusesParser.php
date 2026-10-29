@@ -2,9 +2,18 @@
 
 namespace WPML\StringTranslation\Infrastructure\Translation;
 
+use WPML\Core\Component\Translation\Application\Service\CompletedTranslationService;
 use WPML\StringTranslation\Application\Translation\Query\Dto\TranslationStatusDto;
 
 class TranslationStatusesParser {
+
+	private $getCompletedTranslationService;
+
+	private $completedTranslationService;
+
+	public function __construct( callable $getCompletedTranslationService ) {
+		$this->getCompletedTranslationService = $getCompletedTranslationService;
+	}
 
 	public function parse( string $translationStatusesRawString, array $ridIndexedJobsArray = [] ): array {
 		$translationStatuses = [];
@@ -50,9 +59,11 @@ class TranslationStatusesParser {
 
 			}
 
-			$reviewStatus       = isset( $job['reviewStatus'] ) && $values['reviewStatus'] === 'NULL' ? null : $values['reviewStatus'];
+			$reviewStatus       = isset( $values['reviewStatus'] ) && $values['reviewStatus'] !== 'NULL' ? $values['reviewStatus'] : null;
 			$jobId              = isset( $values['jobId'] ) && $values['jobId'] !== 'NULL' ? (int) $values['jobId'] : null;
 			$isTranslated       = isset( $values['translated'] ) && $values['translated'] !== 'NULL' ? (bool) $values['translated'] : false;
+
+			$isTranslated = $isTranslated || $this->isCompleted( $status );
 			$automatic          = isset( $values['automatic'] ) && $values['automatic'] !== 'NULL' && (int) $values['automatic'] > 0;
 			$translationService = $values['translationService'] ?? 'local';
 			$editor             = $values['editor'] ?? null;
@@ -85,6 +96,14 @@ class TranslationStatusesParser {
 		}
 
 		return $translationStatuses;
+	}
+
+	private function isCompleted( int $status ): bool {
+		if ( ! $this->completedTranslationService ) {
+			$this->completedTranslationService = ( $this->getCompletedTranslationService )();
+		}
+
+		return $this->completedTranslationService->isTranslationCompleted( $status, false, 0, null );
 	}
 
 	private function parseEditor( $editor ) {

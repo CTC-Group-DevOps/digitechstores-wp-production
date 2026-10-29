@@ -33,7 +33,13 @@ class WPML_ST_Strings_Stats {
 	}
 
 	private function set_stats() {
-		$count_query = 'SELECT context, COUNT(id) count FROM ' . $this->wpdb->prefix . 'icl_strings GROUP BY context ' . $this->getCollateForContextColumn( $this->wpdb );
-		$this->stats = $this->wpdb->get_results( $count_query, OBJECT_K );
+		$wpdb        = $this->wpdb;
+		$this->stats = $wpdb->get_results(
+			sprintf(
+				"SELECT context, COUNT(id) count FROM {$wpdb->prefix}icl_strings GROUP BY context %s",
+				esc_sql( $this->getCollateForContextColumn( $wpdb ) )
+			),
+			OBJECT_K
+		);
 	}
 }

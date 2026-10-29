@@ -1,5 +1,7 @@
 <?php
 
+use WPML\ST\StringValue;
+
 class WPML_ST_String_Update {
 	private $wpdb;
 
@@ -10,9 +12,15 @@ class WPML_ST_String_Update {
 	public function update_string( $domain, $name, $old_value, $new_value, $force_complete = false ) {
 		if ( $new_value != $old_value ) {
 			$string = $this->get_initial_string( $name, $domain, $old_value, $new_value );
+			$update_data = array( 'value' => $new_value );
+
+			if ( StringValue::isReady() ) {
+				$update_data['has_text'] = StringValue::hasTextFlag( $new_value );
+			}
+
 			$this->wpdb->update(
 				$this->wpdb->prefix . 'icl_strings',
-				array( 'value' => $new_value ),
+				$update_data,
 				array( 'id' => $string->id )
 			);
 			$is_widget = $domain === WPML_ST_WIDGET_STRING_DOMAIN;
@@ -67,18 +75,20 @@ class WPML_ST_String_Update {
 	}
 
 	private function read_string_from_db( $name, $context ) {
-		$sql = $this->wpdb->prepare(
-			" 
+		$wpdb = $this->wpdb;
+
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				"
 				SELECT id, value, status, name
-				FROM {$this->wpdb->prefix}icl_strings
+				FROM {$wpdb->prefix}icl_strings
 				WHERE context = %s
 					AND name = %s
 				LIMIT 1",
-			$context,
-			$name
+				$context,
+				$name
+			)
 		);
-
-		return $this->wpdb->get_row( $sql );
 	}
 
 	private function update_widget_name( $name, $old_value, $new_value ) {

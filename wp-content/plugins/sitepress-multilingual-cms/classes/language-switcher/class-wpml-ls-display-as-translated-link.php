@@ -67,7 +67,14 @@ class WPML_LS_Display_As_Translated_Link {
 		if ( $this->sitepress->is_display_as_translated_taxonomy( $queried_object->taxonomy ) &&
 			 isset( $translations[ $this->default_language ] ) ) {
 
-			$url = get_term_link( (int) $translations[ $this->default_language ]->term_id, $queried_object->taxonomy );
+			$this->sitepress->switch_lang( $lang );
+
+			try {
+				$url = get_term_link( (int) $translations[ $this->default_language ]->term_id, $queried_object->taxonomy );
+			} finally {
+				$this->sitepress->switch_lang();
+			}
+
 			$url = $this->url_converter->convert_url_string( $url, $lang );
 		}
 
@@ -75,7 +82,11 @@ class WPML_LS_Display_As_Translated_Link {
 	}
 
 	public function adjust_category_in_post_permalink( $cat ) {
-		$cat_element = $this->element_factory->create( $cat->term_id, 'term' );
+		if ( empty( $cat->term_taxonomy_id ) ) {
+			return $cat;
+		}
+
+		$cat_element = $this->element_factory->create( (int) $cat->term_taxonomy_id, 'term' );
 		$translation = $cat_element->get_translation( $this->processed_language );
 
 		if ( $translation ) {

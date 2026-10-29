@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Stripe Compatibility.
  *
- * @version  7.1.2
+ * @version  8.5.16
  */
 class WC_PB_Stripe_Compatibility {
 
@@ -33,6 +33,7 @@ class WC_PB_Stripe_Compatibility {
 	 * @since 6.6.1
 	 * @param  bool   $hide_button Whether to hide the Stripe Quick-pay button.
 	 * @param  object $post      The product post object.
+	 * @return bool
 	 */
 	public static function hide_stripe_quickpay( $hide_button, $post ) {
 

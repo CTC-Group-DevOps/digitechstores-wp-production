@@ -16,6 +16,10 @@ class WPML_API_Hook_Permalink implements IWPML_Action {
 	}
 
 	public function wpml_permalink_filter( $url, $lang = null, $absolute_url = false ) {
+		if ( ! is_string( $url ) || '' === $url ) {
+			return $url;
+		}
+
 		if ( $absolute_url ) {
 			$new_url = $this->absolute_resolver->resolve_object_url( $url, $lang );
 

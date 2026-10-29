@@ -47,11 +47,18 @@ class AAL_API {
 			return;
 		}
 
+		$batch_size = absint( apply_filters( 'aal/maintenance/delete_batch_size', 50000 ) );
+		if ( 0 === $batch_size ) {
+			return;
+		}
+
 		$wpdb->query(
 			$wpdb->prepare(
 				'DELETE FROM `' . $wpdb->activity_log . '`
-					WHERE `hist_time` < %d',
-				strtotime( '-' . $logs_lifespan . ' days', current_time( 'timestamp' ) )
+					WHERE `hist_time` < %d
+					LIMIT %d',
+				strtotime( '-' . $logs_lifespan . ' days', current_time( 'timestamp' ) ),
+				$batch_size
 			)
 		);
 	}
@@ -116,6 +123,7 @@ class AAL_API {
 				'object_id'      => '',
 				'hist_ip'        => $this->_get_ip_address(),
 				'hist_time'      => current_time( 'timestamp' ),
+				'meta'           => array(),
 			)
 		);
 
@@ -128,9 +136,15 @@ class AAL_API {
 		}
 
 		// Make sure for non duplicate.
+		// Check only the latest rows by primary key to avoid a full table scan on large tables.
 		$check_duplicate = $wpdb->get_row(
 			$wpdb->prepare(
-				'SELECT `histid` FROM `' . $wpdb->activity_log . '`
+				'SELECT `histid` FROM (
+						SELECT `histid`, `user_caps`, `action`, `object_type`, `object_subtype`, `object_name`, `user_id`, `hist_ip`, `hist_time`
+						FROM `' . $wpdb->activity_log . '`
+						ORDER BY `histid` DESC
+						LIMIT 20
+					) AS `recent`
 					WHERE `user_caps` = %s
 						AND `action` = %s
 						AND `object_type` = %s
@@ -174,9 +188,9 @@ class AAL_API {
 			$formats[] = '%s';
 			$args['request_source'] = $request_source;
 
-			$meta = $this->build_meta();
+			$meta = $this->build_meta( $args );
 			if ( null !== $meta ) {
-				$row['meta'] = wp_json_encode( $meta );
+				$row['meta'] = wp_json_encode( $meta, JSON_UNESCAPED_UNICODE );
 				$formats[] = '%s';
 				$args['meta'] = $meta;
 			}
@@ -195,7 +209,10 @@ class AAL_API {
 		}
 
 		if ( $user ) {
-			$args['user_caps'] = strtolower( key( $user->caps ) );
+			$args['user_caps'] = ! empty( $user->roles[0] )
+				? strtolower( $user->roles[0] )
+				: ( is_super_admin( $user->ID ) ? 'administrator' : 'guest' );
+
 			if ( empty( $args['user_id'] ) ) {
 				$args['user_id'] = $user->ID;
 			}
@@ -204,12 +221,6 @@ class AAL_API {
 			if ( empty( $args['user_id'] ) ) {
 				$args['user_id'] = 0;
 			}
-		}
-
-		// TODO: Find better way to Multisite compatibility.
-		// Fallback for multisite with bbPress
-		if ( empty( $args['user_caps'] ) || 'bbp_participant' === $args['user_caps'] ) {
-			$args['user_caps'] = 'administrator';
 		}
 
 		return $args;
@@ -301,8 +312,12 @@ class AAL_API {
 	/**
 	 * @return array|null Meta array or null if nothing to store.
 	 */
-	private function build_meta() {
+	private function build_meta( $args ) {
 		$meta = array();
+
+		if ( ! empty( $args['meta'] ) && is_array( $args['meta'] ) ) {
+			$meta = $args['meta'];
+		}
 
 		if ( ! empty( $this->ability_stack ) ) {
 			$meta['ability'] = end( $this->ability_stack );

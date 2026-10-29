@@ -77,12 +77,30 @@ class TranslationHandler {
 						ICL_STRING_TRANSLATION_COMPLETE
 					);
 
-					$getStringIdAndTranslations = Lst::drop( 1 );
+					global $wpdb;
+					$stringMapper = new \WPML_ST_DB_Mappers_Strings( $wpdb );
+					$contextScope = [];
+					$stringIdsInContext = function ( $context ) use ( $stringMapper, &$contextScope ) {
+						if ( ! array_key_exists( $context, $contextScope ) ) {
+							$rows                     = (array) $stringMapper->get_all_by_context( $context );
+							$contextScope[ $context ] = array_map( 'intval', wpml_collect( $rows )->pluck( 'id' )->toArray() );
+						}
 
-					$registerTranslationOfSingleString = pipe(
-						$getStringIdAndTranslations,
-						spreadArgs( $registerStringTranslation )
-					);
+						return $contextScope[ $context ];
+					};
+
+					$registerTranslationOfSingleString = function ( $shortcodeData ) use ( $registerStringTranslation, $stringIdsInContext ) {
+						list( $shortcode, $stringId, $translation ) = $shortcodeData;
+
+						$context      = self::extractShortcodeContext( $shortcode );
+						$jobStringIds = $stringIdsInContext( $context );
+
+						if ( ! in_array( (int) $stringId, $jobStringIds, true ) ) {
+							return;
+						}
+
+						$registerStringTranslation( $stringId, $translation );
+					};
 
 					$registerStringsFromFieldData = pipe(
 						self::findShortcodesInJobData(),
@@ -153,6 +171,12 @@ class TranslationHandler {
 
 	private static function extractInnerText() {
 		return self::firstMatchingGroup( '/\](.*)\[/' );
+	}
+
+	private static function extractShortcodeContext( $shortcode ) {
+		$extractContext = self::firstMatchingGroup( '/context="(.*?)"/', 'wpml-shortcode' );
+
+		return $extractContext( (string) $shortcode );
 	}
 }
 

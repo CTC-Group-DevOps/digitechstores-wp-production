@@ -13,6 +13,10 @@ class WCML_Admin_Menus {
 
 	const SLUG = 'wpml-wcml';
 
+	const TRANSLATIONS_HUB_SLUG = 'tm/menu/main.php';
+
+	const PRIORITY_AFTER_WPML_ROOT_MENU = 999;
+
 	private static $woocommerce_wpml;
 
 	private static $sitepress;
@@ -31,6 +35,7 @@ class WCML_Admin_Menus {
 			! current_user_can( 'translate' )
 		) {
 			add_filter( 'wpml_menu_page', [ __CLASS__, 'wpml_menu_page' ] );
+			add_action( 'admin_menu', [ __CLASS__, 'lowerWpmlRootMenuCapability' ], self::PRIORITY_AFTER_WPML_ROOT_MENU );
 		}
 
 		add_action( 'admin_menu', [ __CLASS__, 'register_menus' ], 80 );
@@ -82,11 +87,37 @@ class WCML_Admin_Menus {
 	}
 
 	public static function wpml_menu_page( $menu ) {
-		if ( isset( $menu['menu_slug'] ) && WPML_TM_FOLDER . '/menu/translations-queue.php' === $menu['menu_slug'] ) {
+		$slugs = [ self::TRANSLATIONS_HUB_SLUG ];
+
+		// Translation Management, and with it WPML_TM_FOLDER, is not loaded on a blog license.
+		if ( defined( 'WPML_TM_FOLDER' ) ) {
+			$slugs[] = WPML_TM_FOLDER . '/menu/translations-queue.php';
+		}
+
+		if ( isset( $menu['menu_slug'] ) && in_array( $menu['menu_slug'], $slugs, true ) ) {
 			$menu['capability'] = 'wpml_operate_woocommerce_multilingual';
 		}
 
 		return $menu;
+	}
+
+	public static function lowerWpmlRootMenuCapability() {
+		global $menu, $_wp_submenu_nopriv;
+
+		if ( isset( $_wp_submenu_nopriv[ self::TRANSLATIONS_HUB_SLUG ][ self::TRANSLATIONS_HUB_SLUG ] ) ) {
+			return;
+		}
+
+		if ( ! is_array( $menu ) ) {
+			return;
+		}
+
+		foreach ( $menu as $index => $item ) {
+			if ( isset( $item[2] ) && self::TRANSLATIONS_HUB_SLUG === $item[2] ) {
+				$menu[ $index ][1] = 'wpml_operate_woocommerce_multilingual';
+				return;
+			}
+		}
 	}
 
 	public static function register_menus() {
@@ -146,6 +177,7 @@ class WCML_Admin_Menus {
 
 		if ( 'product' === $get_post_type && 'edit.php' === $pagenow ) {
 			$quick_edit_notice  = '<p>';
+			/* translators: First line of the notice on the products list explaining why WordPress's Quick Edit is hidden; a list of what to do instead follows. "Quick Edit" is the WordPress feature name. */
 			$quick_edit_notice .= esc_html__( 'Quick Edit isn\'t available for product translations:', 'woocommerce-multilingual' );
 			$quick_edit_notice .= '</p>';
 
@@ -159,6 +191,7 @@ class WCML_Admin_Menus {
 			);
 			$quick_edit_notice .= '</li>';
 			$quick_edit_notice .= '<li>';
+			/* translators: Item of the list in the notice about Quick Edit on the products list. Keep the leading dash. */
 			$quick_edit_notice .= esc_html__( '- To edit the original product, switch back to the default language.', 'woocommerce-multilingual' );
 			$quick_edit_notice .= '</li>';
 			$quick_edit_notice .= '</ul>';
@@ -169,7 +202,7 @@ class WCML_Admin_Menus {
 
 				//lock feature for translations
 				jQuery( document ).on( 'click', '.featured a', function() {
-					if ( jQuery( this ).closest( 'tr' ).find( '.quick_hide' ).size() > 0 ) {
+					if ( jQuery( this ).closest( 'tr' ).find( '.quick_hide' ).length > 0 ) {
 						return false;
 					}
 
@@ -236,10 +269,12 @@ class WCML_Admin_Menus {
 		return array_merge(
 			[
 				'settings-ml' => $getLink(
+					/* translators: Link text under the plugin's name on the plugins screen; it opens the plugin's multilingual settings. */
 					esc_html__( 'Multilingual Settings', 'woocommerce-multilingual' ),
 					AdminUrl::getMultilingualTab()
 				),
 				'settings-mc' => $getLink(
+					/* translators: Link text under the plugin's name on the plugins screen; it opens the plugin's currency settings. */
 					esc_html__( 'Multicurrency Settings', 'woocommerce-multilingual' ),
 					AdminUrl::getMultiCurrencyTab()
 				),
@@ -260,7 +295,8 @@ class WCML_Admin_Menus {
 				'<a href="' . esc_url( AdminUrl::getWPMLTMDashboardProducts() ) . '">',
 				'</a>'
 			);
-			$message .= '</p><a class="notice-dismiss" href="' . esc_url( add_query_arg( 'wcml_action', 'dismiss_tm_warning', $url ) ) . '"><span class="screen-reader-text">' . __( 'Dismiss', 'woocommerce-multilingual' ) . '</span></a>';
+			/* translators: Accessible label (screen readers) of the close button that hides an admin notice. Verb, imperative. */
+			$message .= '</p><a class="notice-dismiss" href="' . esc_url( WCML_Requests::dismissUrl( 'dismiss_tm_warning', $url ) ) . '"><span class="screen-reader-text">' . __( 'Dismiss', 'woocommerce-multilingual' ) . '</span></a>';
 			$message .= '</div>';
 
 			echo wp_kses_post( $message );
@@ -312,10 +348,12 @@ class WCML_Admin_Menus {
 	}
 
 	public static function getWcmlLabel() {
+		/* translators: The plugin's own name, used as a link text, as a link tooltip and as the admin menu label. It is a product name and stays in English. */
 		return __( 'WPML Multilingual & Multicurrency for WooCommerce', 'woocommerce-multilingual' );
 	}
 
 	public static function getWcmlShortLabel() {
+		/* translators: Short name of this plugin, used as an admin menu item and as a card title. An abbreviation and stays in English. */
 		return __( 'WCML', 'woocommerce-multilingual' );
 	}
 }

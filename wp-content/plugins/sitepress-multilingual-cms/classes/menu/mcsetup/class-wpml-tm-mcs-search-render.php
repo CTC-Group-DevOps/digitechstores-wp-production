@@ -16,7 +16,8 @@ class WPML_TM_MCS_Search_Render {
 	public function get_model() {
 		$model = array(
 			'strings'       => array(
-				'search_for' => __( 'Search for', 'wpml-translation-management' ),
+				/* translators: Label in front of the field where the words to look for are typed; the field follows the words, so they end without a full stop. */
+				'search_for' => __( 'Search for', 'sitepress' ),
 			),
 			'search_string' => $this->search_string,
 		);

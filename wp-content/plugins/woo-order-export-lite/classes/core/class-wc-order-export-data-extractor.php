@@ -165,23 +165,25 @@ class WC_Order_Export_Data_Extractor {
 			$attrs        = self::get_product_attributes();
 			$names2fields = array_flip( $attrs );
 			$filters      = self::parse_complex_pairs( $settings['product_attributes']);
+			$pos = 1;
 			foreach ( $filters as $operator => $fields ) {
 				foreach ( $fields as $field => $values ) {
 					$field = $names2fields[ $field ];
 					if ( $values ) {
-						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_{$field}` ON `orderitemmeta_{$field}`.order_item_id = order_items.order_item_id";
+						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_attr_{$pos}` ON `orderitemmeta_attr_{$pos}`.order_item_id = order_items.order_item_id";
 						if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 							$values                   = self::sql_subset( $values );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND `orderitemmeta_{$field}`.meta_value $operator  ($values) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_attr_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND `orderitemmeta_attr_{$pos}`.meta_value $operator  ($values) ) ";
 						} elseif ( in_array( $operator, self::$operator_must_check_values ) ) {
 							$pairs = array();
 							foreach ( $values as $v ) {
-								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_{$field}`.meta_value",
+								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_attr_{$pos}`.meta_value",
 									$operator, $v );
 							}
 							$pairs                    = join( "OR", $pairs );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND  ($pairs) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_attr_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND  ($pairs) ) ";
 						}
+						$pos ++;
 					}
 				}// values
 			}// operators
@@ -194,23 +196,25 @@ class WC_Order_Export_Data_Extractor {
 			}
 
 			$filters  = self::parse_complex_pairs( $settings['product_itemmeta'] );
+			$pos = 1;
 			foreach ( $filters as $operator => $fields ) {
 				foreach ( $fields as $field => $values ) {
 					;
 					if ( $values ) {
-						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_{$field}` ON `orderitemmeta_{$field}`.order_item_id = order_items.order_item_id";
+						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_meta_{$pos}` ON `orderitemmeta_meta_{$pos}`.order_item_id = order_items.order_item_id";
 						if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 							$values                   = self::sql_subset( $values );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND `orderitemmeta_{$field}`.meta_value $operator  ($values) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_meta_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND `orderitemmeta_meta_{$pos}`.meta_value $operator  ($values) ) ";
 						} elseif ( in_array( $operator, self::$operator_must_check_values ) ) {
 							$pairs = array();
 							foreach ( $values as $v ) {
-								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_{$field}`.meta_value",
+								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_meta_{$pos}`.meta_value",
 									$operator, $v );
 							}
 							$pairs                    = join( "OR", $pairs );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND  ($pairs) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_meta_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND  ($pairs) ) ";
 						}
+						$pos ++;
 					}// values
 				}
 			}// operators
@@ -269,23 +273,25 @@ class WC_Order_Export_Data_Extractor {
 			$attrs        = self::get_product_attributes();
 			$names2fields = @array_flip( $attrs );
 			$filters      = self::parse_complex_pairs( $settings['product_attributes']);
+			$pos = 1;
 			foreach ( $filters as $operator => $fields ) {
 				foreach ( $fields as $field => $values ) {
 					$field = $names2fields[ $field ];
 					if ( $values ) {
-						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_{$field}` ON `orderitemmeta_{$field}`.order_item_id = order_items.order_item_id";
+						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_attr_{$pos}` ON `orderitemmeta_attr_{$pos}`.order_item_id = order_items.order_item_id";
 						if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 							$values                   = self::sql_subset( $values );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND `orderitemmeta_{$field}`.meta_value $operator  ($values) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_attr_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND `orderitemmeta_attr_{$pos}`.meta_value $operator  ($values) ) ";
 						} elseif ( in_array( $operator, self::$operator_must_check_values ) ) {
 							$pairs = array();
 							foreach ( $values as $v ) {
-								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_{$field}`.meta_value",
+								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_attr_{$pos}`.meta_value",
 									$operator, $v );
 							}
 							$pairs                    = join( "OR", $pairs );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND  ($pairs) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_attr_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND  ($pairs) ) ";
 						}
+						$pos ++;
 					}// values
 				}
 			}// operators
@@ -298,23 +304,25 @@ class WC_Order_Export_Data_Extractor {
 			}
 
 			$filters  = self::parse_complex_pairs( $settings['product_itemmeta']);
+			$pos = 1;
 			foreach ( $filters as $operator => $fields ) {
 				foreach ( $fields as $field => $values ) {
 					;
 					if ( $values ) {
-						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_{$field}` ON `orderitemmeta_{$field}`.order_item_id = order_items.order_item_id";
+						$left_join_order_items_meta[] = "LEFT JOIN $wc_order_items_meta  AS `orderitemmeta_meta_{$pos}` ON `orderitemmeta_meta_{$pos}`.order_item_id = order_items.order_item_id";
 						if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 							$values                   = self::sql_subset( $values );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND `orderitemmeta_{$field}`.meta_value $operator  ($values) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_meta_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND `orderitemmeta_meta_{$pos}`.meta_value $operator  ($values) ) ";
 						} elseif ( in_array( $operator, self::$operator_must_check_values ) ) {
 							$pairs = array();
 							foreach ( $values as $v ) {
-								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_{$field}`.meta_value",
+								$pairs[] = self::operator_compare_field_and_value( "`orderitemmeta_meta_{$pos}`.meta_value",
 									$operator, $v, $field );
 							}
 							$pairs                    = join( "OR", $pairs );
-							$order_items_meta_where[] = " (`orderitemmeta_{$field}`.meta_key='$field'  AND  ($pairs) ) ";
+							$order_items_meta_where[] = " (`orderitemmeta_meta_{$pos}`.meta_key='" . esc_sql( $field ) . "'  AND  ($pairs) ) ";
 						}
+						$pos ++;
 					}// values
 				}
 			}// operators
@@ -450,8 +458,7 @@ class WC_Order_Export_Data_Extractor {
 				foreach ( $fields as $field => $values ) {
 					if ( $values ) {
 						self::extract_item_type_and_key( $field, $type, $key );
-						$order_items_metadata_joins[] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS meta_{$pos} ON meta_{$pos}.order_item_id = items.order_item_id AND items.order_item_type='$type' AND meta_{$pos}.meta_key='$key'";
-						$key = esc_sql( $key );
+						$order_items_metadata_joins[] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS meta_{$pos} ON meta_{$pos}.order_item_id = items.order_item_id AND items.order_item_type='" . esc_sql( $type ) . "' AND meta_{$pos}.meta_key='" . esc_sql( $key ) . "'";
 						if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 
 							$values = self::sql_subset( $values );
@@ -497,14 +504,14 @@ class WC_Order_Export_Data_Extractor {
 			if ( ! in_array( $settings['sort'], WC_Order_Export_Engine::get_wp_posts_fields() ) ) {
 				$pos = "sort";
 				$left_join_order_meta[] = "LEFT JOIN {$wpdb->postmeta} AS ordermeta_cf_{$pos} " .
-				                          "ON ordermeta_cf_{$pos}.post_id = orders.ID AND ordermeta_cf_{$pos}.meta_key='{$sort_field}'";
+				                          "ON ordermeta_cf_{$pos}.post_id = orders.ID AND ordermeta_cf_{$pos}.meta_key='" . esc_sql( $sort_field ) . "'";
 			}
 		}
 
 		if ( $settings['export_unmarked_orders'] ) {
 			$pos                    = "export_unmarked_orders";
 			$field                  = "woe_order_exported" . apply_filters("woe_exported_postfix", WC_Order_Export_Engine::get_default_exported_postfix($settings) );
-			$left_join_order_meta[] = "LEFT JOIN {$wpdb->postmeta} AS ordermeta_cf_{$pos} ON ordermeta_cf_{$pos}.post_id = orders.ID AND ordermeta_cf_{$pos}.meta_key='$field'";
+			$left_join_order_meta[] = "LEFT JOIN {$wpdb->postmeta} AS ordermeta_cf_{$pos} ON ordermeta_cf_{$pos}.post_id = orders.ID AND ordermeta_cf_{$pos}.meta_key='" . esc_sql( $field ) . "'";
 			$order_meta_where []    = " ( ordermeta_cf_{$pos}.meta_value IS NULL ) ";
 		}
 
@@ -515,7 +522,7 @@ class WC_Order_Export_Data_Extractor {
 			foreach ( $filters as $operator => $fields ) {
 				foreach ( $fields as $field => $values ) {
 					if ( $values ) {
-						$left_join_order_meta[] = "LEFT JOIN {$wpdb->postmeta} AS ordermeta_cf_{$pos} ON ordermeta_cf_{$pos}.post_id = orders.ID AND ordermeta_cf_{$pos}.meta_key='$field'";
+						$left_join_order_meta[] = "LEFT JOIN {$wpdb->postmeta} AS ordermeta_cf_{$pos} ON ordermeta_cf_{$pos}.post_id = orders.ID AND ordermeta_cf_{$pos}.meta_key='" . esc_sql( $field ) . "'";
 						if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 							$values              = self::sql_subset( $values );
 							$order_custom_fields_where [] = " ( ordermeta_cf_{$pos}.meta_value $operator ($values) ) ";
@@ -548,7 +555,7 @@ class WC_Order_Export_Data_Extractor {
 			$pos      = 1;
 			foreach ( $filters as $operator => $fields ) {
 				foreach ( $fields as $field => $values ) {
-					$inner_join_user_meta[] = "LEFT JOIN {$wpdb->usermeta} AS usermeta_cf_{$pos} ON usermeta_cf_{$pos}.user_id = {$wpdb->users}.ID AND usermeta_cf_{$pos}.meta_key='$field'";
+					$inner_join_user_meta[] = "LEFT JOIN {$wpdb->usermeta} AS usermeta_cf_{$pos} ON usermeta_cf_{$pos}.user_id = {$wpdb->users}.ID AND usermeta_cf_{$pos}.meta_key='" . esc_sql( $field ) . "'";
 					if ( $values ) {
 						if ( $operator == 'NOT SET' ) {
 							$user_meta_where[] = " ( usermeta_cf_{$pos}.meta_value IS NULL ) ";
@@ -683,7 +690,7 @@ class WC_Order_Export_Data_Extractor {
 
 
 		//setup order types to work with
-		$order_types = array( "'" . self::$object_type . "'" );
+		$order_types = array( "'" . esc_sql( self::$object_type ) . "'" );
 		$order_types = join( ",", apply_filters( "woe_sql_order_types", $order_types ) );
 
 		//top_level

@@ -7,12 +7,7 @@ use WPML_TM_ATE_AMS_Endpoints;
 class ProxyRoutingRules {
 
 	public static function getAllowedDomains() {
-		$ateEndpoints = new WPML_TM_ATE_AMS_Endpoints();
-
-		return [
-			$ateEndpoints->get_ATE_host(),
-			$ateEndpoints->get_AMS_host(),
-		];
+		return \WPML\Remote\TrustedDestinations::forAteAndAms( new WPML_TM_ATE_AMS_Endpoints() )->hosts();
 	}
 
 	public function getBypassedHttpRequests() {

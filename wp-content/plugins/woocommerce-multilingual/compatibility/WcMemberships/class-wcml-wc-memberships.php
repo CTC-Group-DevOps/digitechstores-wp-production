@@ -92,7 +92,7 @@ class WCML_WC_Memberships implements \IWPML_Action {
 	}
 
 	public function orderMemberships( $memberships ) {
-		if ( ! doing_action( 'woocommerce_thankyou' ) ) {
+		if ( ! doing_action( 'woocommerce_thankyou' ) || ! is_array( $memberships ) ) {
 			return $memberships;
 		}
 

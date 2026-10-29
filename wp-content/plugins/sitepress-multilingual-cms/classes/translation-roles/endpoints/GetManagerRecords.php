@@ -16,6 +16,10 @@ class GetManagerRecords implements IHandler {
 
 
 	public function run( Collection $data ) {
+		if ( (bool) $data->get( 'refresh', false ) ) {
+			CacheRefresh::execute();
+		}
+
 		$managers = make( \WPML_Translation_Manager_Records::class )->get_users_with_capability();
 
 		return Either::of(

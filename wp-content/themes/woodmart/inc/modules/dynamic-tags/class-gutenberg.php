@@ -272,9 +272,19 @@ class Gutenberg {
 	 * @return string
 	 */
 	public function render_link( $block_content, $block ) {
+		$allowed_blocks = array(
+			'wd/button',
+			'wd/cover',
+			'wd/gallery-item',
+			'wd/image',
+			'wd/infobox',
+			'wd/menu-list',
+			'wd/menu-list-item',
+		);
+
 		if (
 			empty( $block['blockName'] ) ||
-			! str_contains( $block['blockName'], 'wd/' ) ||
+			! in_array( $block['blockName'], $allowed_blocks, true ) ||
 			! str_contains( $block_content, '{{wd-dynamic/' )
 		) {
 			return $block_content;

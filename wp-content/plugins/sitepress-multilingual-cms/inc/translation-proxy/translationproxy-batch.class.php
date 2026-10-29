@@ -17,7 +17,7 @@ class TranslationProxy_Batch {
 		$batch_name = $batch_name
 			? $batch_name
 			: ( ( (bool) $tp_id === false || $tp_id === 'local' )
-				? self::get_generic_batch_name() : TranslationProxy_Basket::get_basket_name() );
+				? self::get_generic_batch_name() : \WPML\TM\TranslationProxy\TpBatchState::getBatchName() );
 		if ( ! $batch_name ) {
 			JobLog::add('Batch name not found `' . $batch_name . '`' );
 			return null;
@@ -101,9 +101,7 @@ TranslationProxy_Batch::macro(
 		function( $batch_name ) {
 			global $wpdb;
 
-			$batch_id_sql      = "SELECT id FROM {$wpdb->prefix}icl_translation_batches WHERE batch_name=%s";
-			$batch_id_prepared = $wpdb->prepare( $batch_id_sql, $batch_name );
-			return $wpdb->get_var( $batch_id_prepared );
+			return $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}icl_translation_batches WHERE batch_name=%s", $batch_name ) );
 		}
 	)
 );

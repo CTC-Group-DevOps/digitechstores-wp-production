@@ -51,7 +51,6 @@ class WPML_TM_Admin_Sections {
 	private function get_admin_section_factories() {
 		$admin_sections_factories = array(
 			WPML_TM_Translation_Roles_Section_Factory::class,
-			WPML_TM_AMS_ATE_Console_Section_Factory::class,
 		);
 
 		return apply_filters( 'wpml_tm_admin_sections_factories', $admin_sections_factories );
@@ -92,6 +91,6 @@ class WPML_TM_Admin_Sections {
 
 	private static function is_section( $section ) {
 		return Relation::propEq( 'page', 'tm/menu/main.php', $_GET ) &&
-		       Relation::propEq( 'sm', $section, $_GET );
+				Relation::propEq( 'sm', $section, $_GET );
 	}
 }

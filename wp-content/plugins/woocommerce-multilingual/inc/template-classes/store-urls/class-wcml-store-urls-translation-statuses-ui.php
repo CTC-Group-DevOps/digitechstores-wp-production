@@ -39,9 +39,13 @@ class WCML_Store_URLs_Translation_Statuses_UI extends WCML_Templates_Factory {
 			'source_language'  => $source_language,
 			'value'            => $this->value,
 			'strings'          => [
+				/* translators: Status shown for the language a URL part was written in, on the store URLs screen. */
 				'orig_lang' => __( 'Original language', 'woocommerce-multilingual' ),
+				/* translators: Link that reopens an already translated URL part because the original changed. Verb phrase, imperative. */
 				'update'    => __( 'Update translation', 'woocommerce-multilingual' ),
+				/* translators: Link that translates a URL part for the first time, on the store URLs screen. Verb phrase, imperative. */
 				'add'       => __( 'Add translation', 'woocommerce-multilingual' ),
+				/* translators: Link that changes the existing translation of a URL part. Verb phrase, imperative. */
 				'edit'      => __( 'Edit translation', 'woocommerce-multilingual' ),
 			],
 			'nonces'           => [

@@ -13,10 +13,14 @@ class WPML_Cookie_Setting_Ajax {
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_wpml_update_cookie_setting', array( $this, 'update_cookie_setting' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_update_cookie_setting', \WPML\Request\Policy\Policy::capability( 'wpml_manage_languages', \WPML\Request\Policy\Authenticity::actionNonce( 'wpml-frontend-cookie-setting-nonce', 'nonce' ) ), array( $this, 'update_cookie_setting' ) );
 	}
 
 	public function update_cookie_setting() {
+		if ( \WPML\Setup\Initializer::rejectSettingsMutationAjax() ) {
+			return;
+		}
+
 		if ( ! $this->is_valid_request() ) {
 			wp_send_json_error();
 		} else {

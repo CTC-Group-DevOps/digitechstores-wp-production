@@ -3,7 +3,7 @@
 use function WPML\Container\make;
 use WPML\TM\ATE\ReturnedJobs;
 
-class WPML_TM_ATE_Jobs_Actions_Factory implements IWPML_Backend_Action_Loader, \IWPML_REST_Action_Loader {
+class WPML_TM_ATE_Jobs_Actions_Factory implements IWPML_Backend_Action_Loader, IWPML_Frontend_Action_Loader, \IWPML_REST_Action_Loader {
 	private $current_screen;
 
 	public function create() {

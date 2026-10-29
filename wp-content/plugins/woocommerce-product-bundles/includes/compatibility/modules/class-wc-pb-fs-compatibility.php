@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Flatsome integration.
  *
- * @version  6.22.6
+ * @version  8.5.16
  */
 class WC_PB_FS_Compatibility {
 
@@ -30,6 +30,8 @@ class WC_PB_FS_Compatibility {
 
 	/**
 	 * Add hooks if the active parent theme is Flatsome.
+	 *
+	 * @return void
 	 */
 	public static function maybe_add_hooks() {
 

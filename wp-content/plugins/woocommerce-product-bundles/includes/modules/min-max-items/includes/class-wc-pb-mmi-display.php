@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_MMI_Display
- * @version  6.22.6
+ * @version  8.5.16
  */
 class WC_PB_MMI_Display {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -43,6 +45,8 @@ class WC_PB_MMI_Display {
 
 	/**
 	 * Validation script.
+	 *
+	 * @return void
 	 */
 	public static function enqueue_script() {
 

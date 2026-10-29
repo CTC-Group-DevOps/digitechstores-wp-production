@@ -31,6 +31,15 @@ class Utils {
 		'nav-inline',
 	];
 
+	const LAYOUT_POST_TYPES = [
+		'cs_layout_single',
+		'cs_layout_archive',
+		'cs_layout_single_wc',
+		'cs_layout_archive_wc',
+		'cs_header',
+		'cs_footer',
+	];
+
 	public static function getNodeId( $data ) {
 		return md5( serialize( $data ) );
 	}
@@ -39,6 +48,14 @@ class Utils {
 		$type = preg_replace( '/^' . self::MODULE_TYPE_PREFIX . '/', '', $type );
 
 		return in_array( $type, self::getLayoutTypes(), true );
+	}
+
+	public static function isLayoutPostType( $postType ) {
+		return in_array( $postType, self::getLayoutPostTypes(), true );
+	}
+
+	public static function getLayoutPostTypes() {
+		return (array) apply_filters( 'wpml_cornerstone_layout_post_types', self::LAYOUT_POST_TYPES );
 	}
 
 	public static function getLayoutTypes() {
@@ -50,9 +67,8 @@ class Utils {
 	}
 
 	public static function shouldCheckForSubmodules( $type ) {
-		$shouldCheckForSubmodules = in_array( $type, self::getNodesWithModules() );
+		$shouldCheckForSubmodules = in_array( $type, self::getNodesWithModules(), true );
 
 		return apply_filters( 'wpml_cornerstone_should_check_for_submodules', $shouldCheckForSubmodules, $type );
 	}
-
 }

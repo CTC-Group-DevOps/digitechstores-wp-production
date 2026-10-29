@@ -72,7 +72,7 @@
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=24805</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"5e6ee921-c3c4-473f-8924-59fd2153896e","blockVersion":"2","effect":"parallax","autoplay":true,"autoplaySpeed":"25000","height":"600","bgImage":{"id":"","url":""},"bgPosition":"center center","marginTop":"-40","marginBottom":"50","heightTablet":"540","heightMobile":"720"} -->
 <div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-parallax wd-autoplay-on wd-5e6ee921"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="parallax" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"c8afa8ac-fb42-4238-af13-d1f2a158e216","blockVersion":"2","align":"flex-start","effect":"parallax","aspectRatio":"","image":{"id":24821,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/boxed-slide-1.jpg","width":1200,"height":600},"bgImage":{"id":"","url":""},"bgColorCode":"#f8f8f8","justifyMobile":"flex-start","paddingTopMobile":"80","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-c8afa8ac"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"1a4fb497-fe5b-4137-8e0c-eeaae5bd4f6e","blockVersion":"2","content":"Standard - Soft Triangle","tpFontFamily":"var(u002du002dwd-text-font)","tpFontSize":"64","tpLineHeight":"1.2","tpFontVariant":"400","tpFontWeight":"400","animation":"slide-from-left","animationDelay":"200","animationDuration":"600","displayWidth":"custom","customWidth":"400","tpFontSizeTablet":"44","tpFontSizeMobile":"38","tpLineHeightUnits":"em","displayWidthMobile":"custom","customWidthMobile":"260"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-c8afa8ac"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"1a4fb497-fe5b-4137-8e0c-eeaae5bd4f6e","blockVersion":"2","content":"Standard - Soft Triangle","tpFontFamily":"var(\u002d\u002dwd-text-font)","tpFontSize":"64","tpLineHeight":"1.2","tpFontVariant":"400","tpFontWeight":"400","animation":"slide-from-left","animationDelay":"200","animationDuration":"600","displayWidth":"custom","customWidth":"400","tpFontSizeTablet":"44","tpFontSizeMobile":"38","tpLineHeightUnits":"em","displayWidthMobile":"custom","customWidthMobile":"260"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-left wd_delay_200 wd-1a4fb497 wd-custom-width">Standard - Soft Triangle</h2>
 <!-- /wp:wd/title -->
 
@@ -86,7 +86,7 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"a02cbccb-5323-4d32-8af2-caa8c8e4bb47","blockVersion":"2","align":"flex-start","effect":"parallax","aspectRatio":"","image":{"id":24822,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/boxed-slide-2.jpg","width":1200,"height":600},"bgImage":{"id":"","url":""},"bgColorCode":"#f8f8f8","justifyMobile":"flex-start","paddingTopMobile":"80","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-a02cbccb"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"20a19595-d906-4b66-bed4-f4418e87f6ca","blockVersion":"2","content":"Minisophie -Table Lamp","tpFontFamily":"var(u002du002dwd-text-font)","tpFontSize":"64","tpLineHeight":"1.2","tpFontVariant":"400","tpFontWeight":"400","animation":"slide-from-left","animationDelay":"200","animationDuration":"600","displayWidth":"custom","customWidth":"420","tpFontSizeTablet":"44","tpFontSizeMobile":"38","tpLineHeightUnits":"em","displayWidthMobile":"custom"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-a02cbccb"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"20a19595-d906-4b66-bed4-f4418e87f6ca","blockVersion":"2","content":"Minisophie -Table Lamp","tpFontFamily":"var(\u002d\u002dwd-text-font)","tpFontSize":"64","tpLineHeight":"1.2","tpFontVariant":"400","tpFontWeight":"400","animation":"slide-from-left","animationDelay":"200","animationDuration":"600","displayWidth":"custom","customWidth":"420","tpFontSizeTablet":"44","tpFontSizeMobile":"38","tpLineHeightUnits":"em","displayWidthMobile":"custom"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-left wd_delay_200 wd-20a19595 wd-custom-width">Minisophie -Table Lamp</h2>
 <!-- /wp:wd/title -->
 
@@ -100,7 +100,7 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"b3f6fc49-d101-423b-9ab8-2e089c0678f5","blockVersion":"2","align":"flex-start","effect":"parallax","aspectRatio":"","image":{"id":24823,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/boxed-slide-3.jpg","width":1200,"height":600},"bgImage":{"id":"","url":""},"bgColorCode":"#f8f8f8","justifyMobile":"flex-start","paddingTopMobile":"80","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-b3f6fc49"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"b67683cb-e0ee-4c23-9abf-5eb8daf10f2f","blockVersion":"2","content":"Iittala - Lantern Candleholder","tpFontFamily":"var(u002du002dwd-text-font)","tpFontSize":"64","tpLineHeight":"1.2","tpFontVariant":"400","tpFontWeight":"400","animation":"slide-from-left","animationDelay":"200","animationDuration":"600","displayWidth":"custom","customWidth":"500","tpFontSizeTablet":"44","tpFontSizeMobile":"38","tpLineHeightUnits":"em","displayWidthMobile":"custom"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-b3f6fc49"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"b67683cb-e0ee-4c23-9abf-5eb8daf10f2f","blockVersion":"2","content":"Iittala - Lantern Candleholder","tpFontFamily":"var(\u002d\u002dwd-text-font)","tpFontSize":"64","tpLineHeight":"1.2","tpFontVariant":"400","tpFontWeight":"400","animation":"slide-from-left","animationDelay":"200","animationDuration":"600","displayWidth":"custom","customWidth":"500","tpFontSizeTablet":"44","tpFontSizeMobile":"38","tpLineHeightUnits":"em","displayWidthMobile":"custom"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-left wd_delay_200 wd-b67683cb wd-custom-width">Iittala - Lantern Candleholder</h2>
 <!-- /wp:wd/title -->
 
@@ -117,7 +117,7 @@
 <!-- wp:wd/row {"blockId":"a83ee6b2-e5e2-40e0-a7ce-8a229863f4d1","blockVersion":"2","paddingBottom":"50","marginBottom":"50","borderType":"solid","borderColorCode":"#e6e6e6","borderWidthBottom":"1","borderWidthLock":false,"columnsGapTablet":40} -->
 <div class="wp-block-wd-row wd-a83ee6b2"><!-- wp:wd/column {"blockId":"4f11aeed-b7cb-44a5-ba5f-5f821c272004","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":1,"colWidthTablet":100} -->
 <div class="wp-block-wd-column wd-4f11aeed"><!-- wp:wd/infobox {"blockId":"d955c263-929a-4748-b28e-e9e1c9ab7cff","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-d955c263"><!-- wp:wd/icon {"blockId":"e98a72d0-5ab6-4087-91b6-4c0e3e07dfe1","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"52"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-d955c263"><!-- wp:wd/icon {"blockId":"e98a72d0-5ab6-4087-91b6-4c0e3e07dfe1","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"52"} -->
 <div class="wp-block-wd-icon wd-with-text wd-e98a72d0"><span class="wd-text-icon">01.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -135,12 +135,12 @@
 
 <!-- wp:wd/column {"blockId":"da68e506-20f0-447d-84f3-83ff4da589c4","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":1,"colWidthTablet":100} -->
 <div class="wp-block-wd-column wd-da68e506"><!-- wp:wd/infobox {"blockId":"0c8d63f0-54cc-4567-aa14-e32e7f313fc7","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-0c8d63f0"><!-- wp:wd/icon {"blockId":"dbe89ade-7d6f-4afd-8742-4cab6a79ab34","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"52"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-0c8d63f0"><!-- wp:wd/icon {"blockId":"dbe89ade-7d6f-4afd-8742-4cab6a79ab34","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"52"} -->
 <div class="wp-block-wd-icon wd-with-text wd-dbe89ade"><span class="wd-text-icon">02.</span></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"a09427c1-59f4-4a57-a7c3-5f00196e8184","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-a09427c1"><!-- wp:wd/title {"blockId":"18087b9c-8a13-4e8d-81df-daf39b95cbfa","blockVersion":"2","content":"PAYMENT u0026amp; DELIVERY","tpFontSize":"16"} -->
+<div class="wp-block-wd-container wd-dir-col wd-a09427c1"><!-- wp:wd/title {"blockId":"18087b9c-8a13-4e8d-81df-daf39b95cbfa","blockVersion":"2","content":"PAYMENT \u0026amp; DELIVERY","tpFontSize":"16"} -->
 <h2 class="wp-block-wd-title title wd-18087b9c">PAYMENT &amp; DELIVERY</h2>
 <!-- /wp:wd/title -->
 
@@ -153,7 +153,7 @@
 
 <!-- wp:wd/column {"blockId":"f857ee19-61f6-484e-8293-f1a596bf26c8","blockVersion":"2","adjacentCount":3,"adjacentCountTablet":1,"colWidthTablet":100} -->
 <div class="wp-block-wd-column wd-f857ee19"><!-- wp:wd/infobox {"blockId":"da6368bd-4e21-415b-8f8a-3e00d0b9b6fd","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-da6368bd"><!-- wp:wd/icon {"blockId":"ba3c4f9d-a957-47a1-b7ec-af3d7ce67b17","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"52"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-da6368bd"><!-- wp:wd/icon {"blockId":"ba3c4f9d-a957-47a1-b7ec-af3d7ce67b17","blockVersion":"2","type":"text","tpFontSize":"74","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"52"} -->
 <div class="wp-block-wd-icon wd-with-text wd-ba3c4f9d"><span class="wd-text-icon">03.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -171,7 +171,7 @@
 <!-- /wp:wd/row -->
 
 <!-- wp:wd/container {"blockId":"02244786-5b9a-4104-99c4-5e1e345b2612","blockVersion":"2","direction":"row","justify":"space-between","align":"end","wrap":"wrap"} -->
-<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-end wd-02244786"><!-- wp:wd/title {"blockId":"375d4865-3c6a-469c-a7e2-00f5cc52b34e","blockVersion":"2","design":"simple","content":"TRENDING PRODUCTS​","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-end wd-02244786"><!-- wp:wd/title {"blockId":"375d4865-3c6a-469c-a7e2-00f5cc52b34e","blockVersion":"2","design":"simple","content":"TRENDING PRODUCTS​","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-design-simple wd-375d4865"><span>TRENDING PRODUCTS​</span></h2>
 <!-- /wp:wd/title -->
 

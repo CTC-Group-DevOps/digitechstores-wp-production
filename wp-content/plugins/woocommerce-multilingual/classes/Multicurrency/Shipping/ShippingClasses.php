@@ -49,6 +49,7 @@ class ShippingClasses {
 			/* translators: %1$s is a shipping class name and %2$s is a currency code */
 			'title'             => sprintf( __( '"%1$s" shipping class cost in %2$s', 'woocommerce-multilingual' ), esc_html( $shippingClass->name ), esc_html( $currencyCode ) ),
 			'type'              => 'text',
+			/* translators: Placeholder text shown in an empty shipping-cost field, short for "not applicable". */
 			'placeholder'       => __( 'N/A', 'woocommerce-multilingual' ),
 			'class' => 'wcml-shipping-cost-currency'
 		];
@@ -60,6 +61,7 @@ class ShippingClasses {
 			/* translators: %s is a currency code */
 			'title'             => sprintf( __( 'No shipping class cost in %s', 'woocommerce-multilingual' ), esc_html( $currencyCode ) ),
 			'type'              => 'text',
+			/* translators: Placeholder text shown in an empty shipping-cost field, short for "not applicable". */
 			'placeholder'       => __( 'N/A', 'woocommerce-multilingual' ),
 			'default'           => '',
 			'class' => 'wcml-shipping-cost-currency'

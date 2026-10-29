@@ -178,6 +178,12 @@ if ( ! function_exists( 'woodmart_get_portfolio_shortcode_ajax' ) ) {
 			$paged             = ( empty( $_POST['paged'] ) ) ? 2 : sanitize_text_field( (int) $_POST['paged'] ) + 1; // phpcs:ignore.
 			$atts['ajax_page'] = $paged;
 
+			// Shortcode content is echoed via do_shortcode() in the portfolio template;
+			// never accept it from the request (matches the blog handler).
+			if ( isset( $atts['inner_content'] ) ) {
+				unset( $atts['inner_content'] );
+			}
+
 			if ( isset( $atts['elementor'] ) && $atts['elementor'] ) {
 				$data = woodmart_elementor_portfolio_template( $atts );
 			} else {
@@ -289,7 +295,12 @@ if ( ! function_exists( 'woodmart_load_html_dropdowns_action' ) ) {
 		if ( isset( $_POST['ids'] ) && is_array( $_POST['ids'] ) ) { // phpcs:ignore.
 			$ids = woodmart_clean( $_POST['ids'] ); // phpcs:ignore.
 			foreach ( $ids as $id ) {
-				$id      = (int) $id;
+				$id = (int) $id;
+
+				if ( get_post_status( $id ) !== 'publish' ) {
+					continue;
+				}
+
 				$content = woodmart_get_html_block( $id );
 				if ( ! $content ) {
 					continue;

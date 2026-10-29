@@ -2,9 +2,11 @@
 
 namespace WPML\TM\Upgrade\Commands;
 
+use WPML\Upgrade\TranslationStatusSchema;
+
 class AddReviewStatusColumnToTranslationStatus extends \WPML_Upgrade_Add_Column_To_Table {
 	protected function get_table() {
-		return 'icl_translation_status';
+		return TranslationStatusSchema::TABLE;
 	}
 
 	protected function get_column() {
@@ -12,6 +14,6 @@ class AddReviewStatusColumnToTranslationStatus extends \WPML_Upgrade_Add_Column_
 	}
 
 	protected function get_column_definition() {
-		return "ENUM('NEEDS_REVIEW', 'EDITING', 'ACCEPTED')";
+		return TranslationStatusSchema::COLUMNS['review_status'];
 	}
 }

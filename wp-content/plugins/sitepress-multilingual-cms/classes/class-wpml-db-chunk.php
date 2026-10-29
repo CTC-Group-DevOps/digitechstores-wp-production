@@ -1,6 +1,7 @@
 <?php
 
 use PhpMyAdmin\SqlParser\Parser;
+use PhpMyAdmin\SqlParser\Statements\SelectStatement;
 
 class WPML_DB_Chunk {
 	private $wpdb;
@@ -9,7 +10,7 @@ class WPML_DB_Chunk {
 
 	public function __construct( wpdb $wpdb, $chunk_size = 1000 ) {
 		$this->wpdb       = $wpdb;
-		$this->chunk_size = $chunk_size;
+		$this->chunk_size = max( 1, (int) $chunk_size );
 	}
 
 	public function retrieve( $query, $args, $elements_num ) {
@@ -35,14 +36,21 @@ class WPML_DB_Chunk {
 	private function validate_query( $query ) {
 		$parser = new Parser( $query );
 
-		if ( isset( $parser->statements ) ) {
-			wpml_collect( $parser->statements )->each(
-				function( $statement ) {
-					if ( ! empty( $statement->limit ) ) {
-						throw new InvalidArgumentException( "Query can't contain OFFSET or LIMIT keyword" );
-					}
-				}
-			);
+		if (
+			! empty( $parser->errors )
+			|| 1 !== count( $parser->statements )
+			|| ! $parser->statements[0] instanceof SelectStatement
+		) {
+			throw new InvalidArgumentException( 'Chunked database reads require exactly one valid SELECT statement.' );
+		}
+
+		$statement = $parser->statements[0];
+		if ( ! empty( $statement->limit ) ) {
+			throw new InvalidArgumentException( "Query can't contain OFFSET or LIMIT keyword" );
+		}
+
+		if ( ! empty( $statement->into ) || ! empty( $statement->procedure ) ) {
+			throw new InvalidArgumentException( 'Chunked SELECT statements cannot write files or invoke procedures.' );
 		}
 	}
 }

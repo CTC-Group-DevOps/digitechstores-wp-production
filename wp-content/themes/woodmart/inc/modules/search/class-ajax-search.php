@@ -152,7 +152,7 @@ class Ajax_Search extends Singleton {
 		);
 
 		foreach ( $categories as $category ) {
-			$category_name = $category->name;
+			$category_name = $this->get_plain_title( $category->name );
 			$icon_data     = get_term_meta( $category->term_taxonomy_id, 'category_icon_alt', true );
 			$icon_html     = $this->get_category_icon( $category_name, $icon_data );
 
@@ -251,6 +251,18 @@ class Ajax_Search extends Singleton {
 	}
 
 	/**
+	 * Get a title as plain text for the suggestions list.
+	 * The front-end escapes it before rendering, so no markup or entities are passed through.
+	 *
+	 * @param string $title The title.
+	 *
+	 * @return string The plain text title.
+	 */
+	public function get_plain_title( $title ) {
+		return html_entity_decode( wp_strip_all_tags( $title ), ENT_QUOTES, get_bloginfo( 'charset' ) );
+	}
+
+	/**
 	 * Get the query suggestions.
 	 *
 	 * @param WP_Query $query     The WP_Query object.
@@ -268,7 +280,7 @@ class Ajax_Search extends Singleton {
 				$product = wc_get_product( get_the_ID() );
 
 				$suggestions[] = array(
-					'value'     => html_entity_decode( get_the_title() ),
+					'value'     => $this->get_plain_title( get_the_title() ),
 					'permalink' => get_the_permalink(),
 					'price'     => $product->get_price_html(),
 					'thumbnail' => $product->get_image(),
@@ -277,7 +289,7 @@ class Ajax_Search extends Singleton {
 				);
 			} else {
 				$suggestions[] = array(
-					'value'     => html_entity_decode( get_the_title() ),
+					'value'     => $this->get_plain_title( get_the_title() ),
 					'permalink' => get_the_permalink(),
 					'thumbnail' => get_the_post_thumbnail( null, 'medium', '' ),
 					'group'     => $post_type,

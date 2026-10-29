@@ -5,6 +5,7 @@ namespace WPML\TM\ATE\API;
 use WPML\FP\Lst;
 use WPML\FP\Maybe;
 use WPML\TM\ATE\API\CacheStorage\Storage;
+use WPML\TM\ATE\ClonedSites\ReconnectState;
 use function WPML\FP\curryN;
 
 class CachedAMSAPI {
@@ -15,8 +16,8 @@ class CachedAMSAPI {
 
 	private $storage;
 
-	private $cachedFns = [ 'getGlossaryCount', 'get_translation_engines' ];
-	private $clearCacheFns = [ 'update_translation_engine' ];
+	private $cachedFns = [ 'getGlossaryCount', 'getNormalizedSuggestionsCount', 'get_translation_engines' ];
+	private $clearCacheFns = [ 'update_translation_engines' ];
 
 	private $noCollectionAsReturnType = [ 'get_translation_engines' ];
 
@@ -39,9 +40,13 @@ class CachedAMSAPI {
 		if ( ! array_key_exists( $fnName, $data ) || ! array_key_exists( $key, $data[ $fnName ] ) ) {
 			$data = call_user_func_array( [ $this->amsApi, $fnName ], $args );
 
-			return Lst::includes( $fnName, $this->noCollectionAsReturnType )
-				? $this->cacheValue( $fnName, $args, $data )
-				: $data->map( $this->cacheValue( $fnName, $args ) );
+			if ( Lst::includes( $fnName, $this->noCollectionAsReturnType ) ) {
+				return ReconnectState::isReconnecting()
+					? $data
+					: $this->cacheValue( $fnName, $args, $data );
+			}
+
+			return $data->map( $this->cacheValue( $fnName, $args ) );
 		}
 
 		return Lst::includes( $fnName, $this->noCollectionAsReturnType )

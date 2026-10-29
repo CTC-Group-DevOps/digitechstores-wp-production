@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Wishlists Compatibility.
  *
- * @version  7.0.0
+ * @version  8.5.16
  */
 class WC_PB_Wishlists_Compatibility {
 
 	/**
 	 * Initialize compatibility class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -183,7 +185,7 @@ class WC_PB_Wishlists_Compatibility {
 	 * @param  double $price Price.
 	 * @param  array  $item Item data.
 	 * @param  array  $wishlist Wishlist data.
-	 * @return string
+	 * @return float|string
 	 */
 	public static function wishlist_list_item_price( $price, $item, $wishlist ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 

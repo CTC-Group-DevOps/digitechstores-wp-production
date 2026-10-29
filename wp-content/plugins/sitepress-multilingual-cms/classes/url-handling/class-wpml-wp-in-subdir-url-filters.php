@@ -42,9 +42,18 @@ class WPML_WP_In_Subdir_URL_Filters implements IWPML_Action {
 	}
 
 	private function request_uri_begins_with_lang() {
-		$active_lang_codes = array_keys( $this->sitepress->get_active_languages() );
-		$uri_parts         = explode( '/', trim( wpml_parse_url( $this->uri_without_subdir, PHP_URL_PATH ), '/' ) );
+		$uri_parts = explode( '/', trim( wpml_parse_url( $this->uri_without_subdir, PHP_URL_PATH ), '/' ) );
 
-		return isset( $uri_parts[0] ) && in_array( $uri_parts[0], $active_lang_codes, true );
+		return isset( $uri_parts[0] ) && in_array( $uri_parts[0], $this->get_url_language_codes(), true );
+	}
+
+	private function get_url_language_codes() {
+		$active_lang_codes = array_keys( $this->sitepress->get_active_languages() );
+		$map               = apply_filters(
+			'wpml_language_codes_map',
+			array_combine( $active_lang_codes, $active_lang_codes )
+		);
+
+		return is_array( $map ) ? array_values( $map ) : $active_lang_codes;
 	}
 }

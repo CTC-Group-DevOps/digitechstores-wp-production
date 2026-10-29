@@ -19,10 +19,11 @@ class WPML_User_Jobs_Notification_Settings_Template {
 	private function get_model( $notification_input ) {
 		$model = array(
 			'strings' => array(
-				'section_title' => __( 'WPML Translator Settings', 'wpml-translation-management' ),
-				'field_title'   => __( 'Notification emails:', 'wpml-translation-management' ),
+				'section_title' => __( 'WPML Translator Settings', 'sitepress' ),
+				/* translators: Label in front of the setting that says which emails the user is sent; the choices follow the colon. */
+				'field_title'   => __( 'Notification emails:', 'sitepress' ),
 				'field_name'    => WPML_User_Jobs_Notification_Settings::BLOCK_NEW_NOTIFICATION_FIELD,
-				'field_text'    => __( 'Send me a notification email when there is something new to translate', 'wpml-translation-management' ),
+				'field_text'    => __( 'Send me a notification email when there is something new to translate', 'sitepress' ),
 				'checked'       => $notification_input,
 			),
 		);

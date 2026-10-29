@@ -8,18 +8,18 @@ use WPML\StringTranslation\Application\StringCore\Query\FetchFiltersQueryInterfa
 
 class FetchFiltersQuery implements FetchFiltersQueryInterface {
 
-	private $findDomainsAndPrioritiesQueryBuilder;
+	private $findDomainsQueryBuilder;
 
 	public function __construct(
-		FindDomainsAndPrioritiesQueryBuilder $findDomainsAndPrioritiesQueryBuilder
+		FindDomainsQueryBuilder $findDomainsQueryBuilder
 	) {
-		$this->findDomainsAndPrioritiesQueryBuilder = $findDomainsAndPrioritiesQueryBuilder;
+		$this->findDomainsQueryBuilder = $findDomainsQueryBuilder;
 	}
 
 	public function execute( FetchFiltersCriteria $criteria ): FiltersDto {
 		global $wpdb;
 
-		$query = $this->findDomainsAndPrioritiesQueryBuilder->build( $criteria );
+		$query = $this->findDomainsQueryBuilder->build( $criteria );
 		$res = $wpdb->get_results( $query, ARRAY_A );
 		$getCol = function( $data, $prop ) {
 			return array_unique(
@@ -32,15 +32,12 @@ class FetchFiltersQuery implements FetchFiltersQueryInterface {
 			);
 		};
 
-		$filterData = $this->mapFiltersData(
-			$getCol( $res, 'domain' ),
-			$getCol( $res, 'translation_priority' )
-		);
+		$filterData = $this->mapFiltersData( $getCol( $res, 'domain' ) );
 
 		return $filterData;
 	}
 
-	private function mapFiltersData( array $domains, array $translationPriorities ): FiltersDto {
+	private function mapFiltersData( array $domains ): FiltersDto {
 		$rmEmptyVals = function( $items ) {
 			return array_values(
 				array_filter(
@@ -61,14 +58,8 @@ class FetchFiltersQuery implements FetchFiltersQueryInterface {
 			},
 			$rmEmptyVals( $domains )
 		);
-		$translationPriorities = $rmEmptyVals( $translationPriorities );
-
 		usort( $domains, $sort );
-		usort( $translationPriorities, $sort );
 
-		return new FiltersDto(
-			$domains,
-			$translationPriorities
-		);
+		return new FiltersDto( $domains );
 	}
 }

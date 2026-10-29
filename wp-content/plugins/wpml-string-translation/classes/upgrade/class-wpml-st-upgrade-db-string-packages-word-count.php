@@ -13,7 +13,7 @@ class WPML_ST_Upgrade_DB_String_Packages_Word_Count implements IWPML_St_Upgrade_
 		$column = 'word_count';
 
 		if ( ! $this->upgrade_schema->does_table_exist( $table ) ) {
-			return false;
+			return true;
 		}
 
 		if ( ! $this->upgrade_schema->does_column_exist( $table, $column ) ) {

@@ -45,6 +45,7 @@ function wc_pb_has_legacy_product_template( $product ) {
  * Add-to-cart template for Product Bundles. Handles the 'Form location > After summary' case.
  *
  * @since  6.14.1
+ * @return void
  */
 function wc_pb_template_add_to_cart_after_summary() {
 
@@ -89,6 +90,8 @@ function wc_pb_template_add_to_cart_after_summary() {
 
 /**
  * Add-to-cart template for Product Bundles.
+ *
+ * @return void
  */
 function wc_pb_template_add_to_cart() {
 
@@ -137,7 +140,7 @@ function wc_pb_template_add_to_cart() {
 				'availability_html' => wc_get_stock_html( $product ),
 				'bundle_price_data' => $product->get_bundle_form_data(),
 			),
-			false,
+			'',
 			WC_PB()->plugin_path() . '/templates/'
 		);
 	}
@@ -149,6 +152,7 @@ function wc_pb_template_add_to_cart() {
  * @param WC_Product_Bundle $product Product bundle instance.
  *
  * @since 5.5.0
+ * @return void
  */
 function wc_pb_template_add_to_cart_wrap( $product ) {
 
@@ -192,7 +196,7 @@ function wc_pb_template_add_to_cart_wrap( $product ) {
 			// Back-compat.
 			'bundle_price_data'       => $form_data,
 		),
-		false,
+		'',
 		WC_PB()->plugin_path() . '/templates/'
 	);
 }
@@ -230,8 +234,8 @@ function wc_pb_template_add_to_cart_button( $bundle = false ) {
 		)
 	);
 
-	wc_get_template( 'single-product/add-to-cart/bundle-quantity-input.php', array(), false, WC_PB()->plugin_path() . '/templates/' );
-	wc_get_template( 'single-product/add-to-cart/bundle-button.php', array( 'button_class' => $button_class ), false, WC_PB()->plugin_path() . '/templates/' );
+	wc_get_template( 'single-product/add-to-cart/bundle-quantity-input.php', array(), '', WC_PB()->plugin_path() . '/templates/' );
+	wc_get_template( 'single-product/add-to-cart/bundle-button.php', array( 'button_class' => $button_class ), '', WC_PB()->plugin_path() . '/templates/' );
 }
 
 /**
@@ -239,6 +243,7 @@ function wc_pb_template_add_to_cart_button( $bundle = false ) {
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_title( $bundled_item, $bundle ) {
 
@@ -258,7 +263,7 @@ function wc_pb_template_bundled_item_title( $bundled_item, $bundle ) {
 			'bundled_item' => $bundled_item,
 			'bundle'       => $bundle,
 		),
-		false,
+		'',
 		WC_PB()->plugin_path() . '/templates/'
 	);
 }
@@ -268,6 +273,7 @@ function wc_pb_template_bundled_item_title( $bundled_item, $bundle ) {
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_thumbnail( $bundled_item, $bundle ) {
 
@@ -319,7 +325,7 @@ function wc_pb_template_bundled_item_thumbnail( $bundled_item, $bundle ) {
 				$bundled_item
 			);
 
-			wc_get_template( 'single-product/bundled-item-image.php', $bundled_item_image_tmpl_params, false, WC_PB()->plugin_path() . '/templates/' );
+			wc_get_template( 'single-product/bundled-item-image.php', $bundled_item_image_tmpl_params, '', WC_PB()->plugin_path() . '/templates/' );
 		}
 	}
 
@@ -333,6 +339,7 @@ function wc_pb_template_bundled_item_thumbnail( $bundled_item, $bundle ) {
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_description( $bundled_item, $bundle ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -345,7 +352,7 @@ function wc_pb_template_bundled_item_description( $bundled_item, $bundle ) { // 
 		array(
 			'description' => $bundled_item->get_description(),
 		),
-		false,
+		'',
 		WC_PB()->plugin_path() . '/templates/'
 	);
 }
@@ -355,6 +362,7 @@ function wc_pb_template_bundled_item_description( $bundled_item, $bundle ) { // 
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_details_wrapper_open( $bundled_item, $bundle ) {
 
@@ -391,6 +399,7 @@ function wc_pb_template_bundled_item_details_wrapper_open( $bundled_item, $bundl
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_tabular_bundled_item_qty( $bundled_item, $bundle ) {
 
@@ -421,7 +430,7 @@ function wc_pb_template_tabular_bundled_item_qty( $bundled_item, $bundle ) {
 				'hide_input'           => $hide_input,
 				'bundle_fields_prefix' => $bundle_fields_prefix,
 			),
-			false,
+			'',
 			WC_PB()->plugin_path() . '/templates/'
 		);
 
@@ -433,6 +442,7 @@ function wc_pb_template_tabular_bundled_item_qty( $bundled_item, $bundle ) {
  * Adds a qty input column when using the default template.
  *
  * @param WC_Bundled_Item $bundled_item The bundled item instance.
+ * @return void
  */
 function wc_pb_template_default_bundled_item_qty( $bundled_item ) {
 
@@ -461,7 +471,7 @@ function wc_pb_template_default_bundled_item_qty( $bundled_item ) {
 				'hide_input'           => $hide_input,
 				'bundle_fields_prefix' => $bundle_fields_prefix,
 			),
-			false,
+			'',
 			WC_PB()->plugin_path() . '/templates/'
 		);
 	}
@@ -473,6 +483,7 @@ function wc_pb_template_default_bundled_item_qty( $bundled_item ) {
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_details_wrapper_close( $bundled_item, $bundle ) {
 
@@ -498,6 +509,7 @@ function wc_pb_template_bundled_item_details_wrapper_close( $bundled_item, $bund
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_details_open( $bundled_item, $bundle ) {
 
@@ -515,6 +527,7 @@ function wc_pb_template_bundled_item_details_open( $bundled_item, $bundle ) {
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_details_close( $bundled_item, $bundle ) {
 
@@ -532,6 +545,7 @@ function wc_pb_template_bundled_item_details_close( $bundled_item, $bundle ) {
  *
  * @param WC_Bundled_Item   $bundled_item The bundled item instance.
  * @param WC_Product_Bundle $bundle       The bundle instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 
@@ -590,7 +604,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 					// Back-compat.
 					'quantity'             => $bundled_item->get_quantity( 'min' ),
 				),
-				false,
+				'',
 				WC_PB()->plugin_path() . '/templates/'
 			);
 		}
@@ -618,7 +632,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 					 */
 					'custom_product_data'  => apply_filters( 'woocommerce_bundled_product_custom_data', array(), $bundled_item ),
 				),
-				false,
+				'',
 				WC_PB()->plugin_path() . '/templates/'
 			);
 
@@ -657,7 +671,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 							$bundled_item
 						),
 					),
-					false,
+					'',
 					WC_PB()->plugin_path() . '/templates/'
 				);
 
@@ -694,7 +708,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 							$bundled_item
 						),
 					),
-					false,
+					'',
 					WC_PB()->plugin_path() . '/templates/'
 				);
 			}
@@ -726,7 +740,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 					$bundled_item
 				),
 			),
-			false,
+			'',
 			WC_PB()->plugin_path() . '/templates/'
 		);
 	}
@@ -737,6 +751,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
  *
  * @param int             $product_id   Product ID.
  * @param WC_Bundled_Item $bundled_item The bundled item instance.
+ * @return void
  */
 function wc_pb_template_single_variation( $product_id, $bundled_item ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	?>
@@ -751,6 +766,7 @@ function wc_pb_template_single_variation( $product_id, $bundled_item ) { // phpc
  * @param WC_Bundled_Item $bundled_item The bundled item instance.
  *
  * @since  5.6.0
+ * @return void
  */
 function wc_pb_template_single_variation_template( $product_id, $bundled_item ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -762,7 +778,7 @@ function wc_pb_template_single_variation_template( $product_id, $bundled_item ) 
 			'bundle_fields_prefix' => apply_filters( 'woocommerce_product_bundle_field_prefix', '', $bundled_item->get_bundle_id() ),
 			// Filter documented in 'WC_PB_Cart::get_posted_bundle_configuration'.
 		),
-		false,
+		'',
 		WC_PB()->plugin_path() . '/templates/'
 	);
 }
@@ -771,6 +787,7 @@ function wc_pb_template_single_variation_template( $product_id, $bundled_item ) 
  * Echo opening tabular markup if necessary.
  *
  * @param WC_Product_Bundle $bundle The bundle instance.
+ * @return void
  */
 function wc_pb_template_before_bundled_items( $bundle ) {
 
@@ -809,7 +826,7 @@ function wc_pb_template_before_bundled_items( $bundle ) {
 		// Reset grid counter.
 		WC_PB()->display->reset_grid_layout_pos();
 
-		echo '<ul class="products bundled_products columns-' . esc_attr( WC_PB()->display->get_grid_layout_columns( $bundle ) ) . '">';
+		echo '<ul class="products bundled_products columns-' . esc_attr( (string) WC_PB()->display->get_grid_layout_columns( $bundle ) ) . '">';
 	}
 }
 
@@ -817,6 +834,7 @@ function wc_pb_template_before_bundled_items( $bundle ) {
  * Echo closing tabular markup if necessary.
  *
  * @param WC_Product_Bundle $bundle The bundle instance.
+ * @return void
  */
 function wc_pb_template_after_bundled_items( $bundle ) {
 
@@ -833,6 +851,7 @@ function wc_pb_template_after_bundled_items( $bundle ) {
  * Display bundled product attributes.
  *
  * @param WC_Product $product The product instance.
+ * @return void
  */
 function wc_pb_template_bundled_item_attributes( $product ) {
 
@@ -850,7 +869,7 @@ function wc_pb_template_bundled_item_attributes( $product ) {
 					continue;
 				}
 
-				wc_get_template( 'single-product/bundled-item-attributes.php', $args, false, WC_PB()->plugin_path() . '/templates/' );
+				wc_get_template( 'single-product/bundled-item-attributes.php', $args, '', WC_PB()->plugin_path() . '/templates/' );
 			}
 		}
 	}

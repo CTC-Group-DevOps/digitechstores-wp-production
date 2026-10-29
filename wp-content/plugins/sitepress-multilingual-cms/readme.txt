@@ -1,2 +1,2 @@
-=== SitePress Multilingual CMS ===
-Stable tag: 4.9.7
+=== WPML Multilingual CMS ===
+Stable tag: 5.2.0

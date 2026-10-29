@@ -17,7 +17,7 @@
             "Lägg till en genväg till det här blocket när sidan laddas med URL:en “#anchor”."
          ],
          "Additional CSS class(es)": [
-            "Ytterligare CSS-klass(er)"
+            "Extra CSS-klasser"
          ],
          "Separate multiple classes with spaces.": [
             "Separera flera klasser med mellanslag."
@@ -32,7 +32,7 @@
             "%"
          ],
          "Dimensions": [
-            "Mått"
+            "Dimensioner"
          ],
          "BLOCK": [
             "BLOCK"
@@ -47,28 +47,28 @@
             "SPRÅK"
          ],
          "Language spacing": [
-            "Språkmellanrum"
+            "Språkavstånd"
          ],
          "Language padding": [
             "Språkutfyllnad"
          ],
          "Display": [
-            "Visa"
+            "Visning"
          ],
          "Show flag": [
             "Visa flagga"
          ],
          "Show language name": [
-            "Visa språkets namn"
+            "Visa språknamn"
          ],
          "Display language name in": [
-            "Visa språkets namn i"
+            "Visa språknamn på"
          ],
          "Style": [
             "Stil"
          ],
          "Flag settings": [
-            "Flagga inställningar"
+            "Flagginställningar"
          ],
          "Width": [
             "Bredd"
@@ -77,7 +77,7 @@
             "Höjd"
          ],
          "Spacing": [
-            "Mellanrum"
+            "Avstånd"
          ],
          "Switch to %s": [
             "Byt till %s"
@@ -86,7 +86,7 @@
             "Tillgängliga språk"
          ],
          "Allow wrapping to multiple lines": [
-            "Tillåt radbrytning"
+            "Tillåt radbrytning till flera rader"
          ],
          "Open on click": [
             "Öppna vid klick"
@@ -122,10 +122,10 @@
             "Språkbakgrund"
          ],
          "Current language text": [
-            "Aktuell språktext"
+            "Nuvarande språks text"
          ],
          "Current language background": [
-            "Aktuell språkbakgrund"
+            "Nuvarande språks bakgrund"
          ],
          "Full name": [
             "Fullständigt namn"
@@ -134,13 +134,13 @@
             "Kod"
          ],
          "Justify items left": [
-            "Justera objekt vänster"
+            "Vänsterjustera objekt"
          ],
          "Justify items center": [
-            "Justera objekt center"
+            "Centrera objekt"
          ],
          "Justify items right": [
-            "Justera objekt höger"
+            "Högerjustera objekt"
          ],
          "Justify items space between": [
             "Justera objekt med jämnt mellanrum"
@@ -161,7 +161,7 @@
             "Stor"
          ],
          "X-Large": [
-            "X-stor"
+            "Extra stor"
          ],
          "Ab": [
             "Ab"
@@ -176,13 +176,10 @@
             "Liten"
          ],
          "Displays the WPML Language Switcher.": [
-            "Visar WPML-språkväljaren."
+            "Visar WPML:s språkväljare."
          ],
          "displays the WPML Language Switcher": [
-            "visar WPML-språkväljaren"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Visar WPML-språkväljaren. <br/> Lär dig <a>hur du översätter det här blocket</a>."
+            "visar WPML:s språkväljare"
          ],
          "Navigation Language Switcher": [
             "Navigeringsspråkväljare"

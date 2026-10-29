@@ -22,21 +22,22 @@ class ActivateLanguage {
 
 	public function run( Collection $data ) {
 		$translateExistingContent = $data->get( 'translate-existing-content', false );
-		$newLanguages             = $data->get( 'languages' );
+
+		$newLanguages = array_filter( (array) $data->get( 'languages' ), 'is_string' );
 
 		if ( $translateExistingContent ) {
-			$doesSupportAutomaticTranslations = function ( $code ) {
+			$isRefusedByATE = function ( $code ) {
 				$languageDetails = [ $code => [ 'code' => $code ] ];
 				$languageDetails = LanguageMappings::withCanBeTranslatedAutomatically( $languageDetails );
 
-				return Obj::pathOr( false, [ $code, 'can_be_translated_automatically' ], $languageDetails );
+				return false === Obj::pathOr( null, [ $code, 'can_be_translated_automatically' ], $languageDetails );
 			};
-			list( $newLanguagesWhichCanBeAutoTranslated, $newLanguagesWhichCannotBeAutoTranslated ) = Lst::partition(
-				$doesSupportAutomaticTranslations,
+			list( $newLanguagesWhichCannotBeAutoTranslated, $newLanguagesLeftOpen ) = Lst::partition(
+				$isRefusedByATE,
 				$newLanguages
 			);
 
-			$this->translateEverything->markLanguagesAsUncompleted( $newLanguagesWhichCanBeAutoTranslated );
+			$this->translateEverything->markLanguagesAsUncompleted( $newLanguagesLeftOpen );
 
 			$this->translateEverything->markLanguagesAsCompleted( $newLanguagesWhichCannotBeAutoTranslated );
 		} else {

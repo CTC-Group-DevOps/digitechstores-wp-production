@@ -11,9 +11,28 @@ class WPML_Taxonomy_Translation_Screen_Data extends WPML_WPDB_And_SP_User {
 	}
 
 	public function terms( $id_term = null ) {
-		$terms_data                  = array(
-			'terms'     => array(),
+		$terms_data = array(
+			'terms' => array(),
 		);
+
+		$term_rows = $this->wpdb->get_results( $this->build_terms_query( $id_term ) );
+
+		if ( ! is_array( $term_rows ) ) {
+			return $terms_data;
+		}
+
+		$terms_with_meta = function_exists( 'get_term_meta' )
+			? $this->add_metadata( $term_rows )
+			: $term_rows;
+
+		if ( $terms_with_meta ) {
+			$terms_data['terms'] = $this->order_terms_list( $this->index_terms_array( $terms_with_meta ) );
+		}
+
+		return $terms_data;
+	}
+
+	private function build_terms_query( $id_term ) {
 		$attributes_to_select        = array();
 		$icl_translations_table_name = $this->wpdb->prefix . 'icl_translations';
 
@@ -45,24 +64,8 @@ class WPML_Taxonomy_Translation_Screen_Data extends WPML_WPDB_And_SP_User {
 		$from_clause       = $this->build_from_clause( join( ' JOIN ', $join_statements ), $attributes_to_select, $id_term );
 		$select_clause     = $this->build_select_vars( $attributes_to_select );
 		$where_clause      = $this->build_where_clause( $attributes_to_select );
-		$full_statement    = "SELECT {$select_clause} FROM {$from_clause} WHERE {$where_clause}";
 
-		$all_terms = $this->wpdb->get_results( $full_statement );
-		$count_statement = "SELECT COUNT( DISTINCT t.term_id ) FROM {$from_clause} WHERE {$where_clause}";
-		$real_terms_count = (int) $this->wpdb->get_var( $count_statement );
-
-		if ( ! is_array( $all_terms ) ) {
-			return $terms_data;
-		}
-
-		if ( function_exists( 'get_term_meta' ) ) {
-			$all_terms = $this->add_metadata( $all_terms );
-		}
-		if ( $all_terms ) {
-			$terms_data['terms'] = $this->order_terms_list( $this->index_terms_array( $all_terms ) );
-		}
-
-		return $terms_data;
+		return "SELECT {$select_clause} FROM {$from_clause} WHERE {$where_clause}";
 	}
 
 	private function index_terms_array( $terms ) {
@@ -160,29 +163,36 @@ class WPML_Taxonomy_Translation_Screen_Data extends WPML_WPDB_And_SP_User {
 	}
 
 	private function build_from_clause( $from, $selects, $id_term ) {
+		$id_term_clause = $id_term
+			? (string) $this->wpdb->prepare( 'element_id = %d AND ', $id_term )
+			: '';
+
 		return $from . sprintf(
-			" INNER JOIN (
-					SELECT trid FROM %s WHERE " . ( $id_term ? "element_id = $id_term AND " : '' ) . '%s AND source_language_code IS NULL
+			' INNER JOIN (
+					SELECT trid FROM %s WHERE %s%s AND source_language_code IS NULL
 				  ) lm on lm.trid = %s.trid',
 			$this->wpdb->prefix . 'icl_translations',
+			$id_term_clause,
 			(string) $this->wpdb->prepare( 'element_type = %s', 'tax_' . $this->taxonomy ),
 			$selects[ $this->wpdb->prefix . 'icl_translations' ]['alias']
 		);
 	}
 
-	private function add_metadata( $all_terms ) {
+	private function add_metadata( $term_rows ) {
 
 		$setting_factory = $this->sitepress->core_tm()->settings_factory();
 
-		foreach ( $all_terms as $term ) {
-			$meta_data = get_term_meta( $term->term_id );
-			foreach ( $meta_data as $meta_key => $meta_data ) {
+		update_termmeta_cache( wp_list_pluck( $term_rows, 'term_id' ) );
+
+		foreach ( $term_rows as $term ) {
+			$term_meta = get_term_meta( $term->term_id );
+			foreach ( $term_meta as $meta_key => $meta_values ) {
 				if ( in_array( $setting_factory->term_meta_setting( $meta_key )->status(), array( WPML_TRANSLATE_CUSTOM_FIELD, WPML_COPY_ONCE_CUSTOM_FIELD ), true ) ) {
-					$term->meta_data[ $meta_key ] = $meta_data;
+					$term->meta_data[ $meta_key ] = $meta_values;
 				}
 			}
 		}
 
-		return $all_terms;
+		return $term_rows;
 	}
 }

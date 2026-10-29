@@ -7,20 +7,11 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "nl_NL"
          },
-         "hide the translations instead.": [
-            "de vertalingen verbergen."
-         ],
-         "Error happened! Please try again.": [
-            "Er is een fout opgetreden! Probeer het opnieuw."
-         ],
-         "Cancel": [
-            "Annuleren"
-         ],
          "Choose Content to Automatically Translate into": [
             "Kies inhoud om automatisch te vertalen naar"
          ],
          "Save Changes and Enable Automatic Translation": [
-            "Wijzigingen opslaan en automatische vertaling inschakelen"
+            "Wijzigingen opslaan en automatisch vertalen inschakelen"
          ],
          "Cancel Language Changes": [
             "Taalwijzigingen annuleren"
@@ -35,28 +26,28 @@
             "Nieuwe taal toevoegen"
          ],
          "Never mind - don't add new languages": [
-            "Laat maar – geen nieuwe talen toevoegen"
+            "Laat maar - voeg geen nieuwe talen toe"
          ],
          "Never mind - don't add new language": [
-            "Laat maar – geen nieuwe taal toevoegen"
+            "Laat maar - voeg geen nieuwe taal toe"
          ],
          "Choose which content to translate into the new language": [
-            "Kies welke inhoud u wilt vertalen naar de nieuwe taal"
+            "Kies welke inhoud u naar de nieuwe taal wilt vertalen"
          ],
          "Automatically translate all my posts and pages, plus new content as I create it.": [
-            "Al mijn berichten en pagina's automatisch vertalen, plus nieuwe inhoud zodra ik deze aanmaak."
+            "Vertaal al mijn berichten en pagina's automatisch, plus nieuwe inhoud zodra ik deze maak."
          ],
          "Only automatically translate new content.": [
-            "Alleen nieuwe inhoud automatisch vertalen."
+            "Vertaal alleen nieuwe inhoud automatisch."
          ],
          "Which content do you want to translate into the new language?": [
-            "Welke inhoud wilt u vertalen naar de nieuwe taal?"
+            "Welke inhoud wilt u naar de nieuwe taal vertalen?"
          ],
          "When you unpause automatic translation, this content will be <a>translated automatically</a>.": [
-            "Wanneer u de automatische vertaling hervat, wordt deze inhoud <a>automatisch vertaald</a>."
+            "Wanneer u automatisch vertalen hervat, zal deze inhoud <a>automatisch worden vertaald</a>."
          ],
          "You can still translate existing content any time from the Translation Management Dashboard.": [
-            "U kunt bestaande inhoud nog steeds op elk moment vertalen via het Dashboard voor vertaalbeheer."
+            "U kunt bestaande inhoud nog steeds op elk gewenst moment vertalen via het Vertaalbeheer-dashboard."
          ]
       }
    }

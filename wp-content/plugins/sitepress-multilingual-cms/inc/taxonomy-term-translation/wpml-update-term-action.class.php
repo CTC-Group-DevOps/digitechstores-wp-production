@@ -85,6 +85,11 @@ class WPML_Update_Term_Action extends WPML_WPDB_And_SP_User {
 		}
 
 		unset( $switch_lang );
+
+		if ( $new_term && ! $this->is_update && ! empty( $new_term['term_taxonomy_id'] ) && $this->lang_code ) {
+			do_action( 'wpml_term_translation_created', (int) $new_term['term_taxonomy_id'], $this->lang_code, $this->taxonomy );
+		}
+
 		return $new_term;
 	}
 
@@ -113,6 +118,12 @@ class WPML_Update_Term_Action extends WPML_WPDB_And_SP_User {
 			$this->trid                  = $trid;
 			$this->existing_translations = $this->sitepress->get_element_translations( $trid, 'tax_' . $this->taxonomy );
 
+			if ( is_string( $source_language ) && '' !== $source_language && $source_language !== $lang_code ) {
+				$this->source_lang_code = $source_language;
+
+				return true;
+			}
+
 			foreach ( $this->existing_translations as $lang => $translation ) {
 				if ( $original_tax_id && isset( $translation->element_id ) && $translation->element_id == $original_tax_id && isset( $translation->language_code ) && $translation->language_code ) {
 					$this->source_lang_code = $translation->language_code;
@@ -127,32 +138,60 @@ class WPML_Update_Term_Action extends WPML_WPDB_And_SP_User {
 	}
 
 	private function set_action_type() {
+		$wpdb = $this->wpdb;
+
 		if ( ! $this->trid ) {
 			$this->is_update = false;
 		} elseif ( isset( $this->existing_translations[ $this->lang_code ] ) ) {
 			$existing_db_entry = $this->existing_translations[ $this->lang_code ];
 			if ( isset( $existing_db_entry->element_id ) && $existing_db_entry->element_id ) {
-				$term = $this->wpdb->get_row(
-					$this->wpdb->prepare(
-						"SELECT t.term_id, t.slug FROM {$this->wpdb->terms} AS t
-						 JOIN {$this->wpdb->term_taxonomy} AS tt ON t.term_id=tt.term_id
+				$term = $wpdb->get_row(
+					$wpdb->prepare(
+						"SELECT t.term_id, t.slug FROM {$wpdb->terms} AS t
+						 JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id=tt.term_id
 						 WHERE term_taxonomy_id=%d",
 						$existing_db_entry->element_id
 					)
 				);
-				if ( $term->term_id && $term->slug ) {
+				if ( $term && $term->term_id && $term->slug ) {
 					$this->is_update = true;
 					$this->term_id   = $term->term_id;
 					$this->old_slug  = $term->slug;
 				} else {
+					$this->free_translation_entry_for_the_new_term( $existing_db_entry );
 					$this->is_update = false;
 				}
 			} else {
-				$this->sitepress->delete_element_translation( $this->trid, 'tax_' . $this->taxonomy, $this->lang_code );
+				$this->free_translation_entry_for_the_new_term( $existing_db_entry );
 				$this->is_update = false;
 			}
 		} else {
 			$this->is_update = false;
 		}
+	}
+
+	private function free_translation_entry_for_the_new_term( $existing_db_entry ) {
+		$where   = array(
+			'trid'          => $this->trid,
+			'element_type'  => 'tax_' . $this->taxonomy,
+			'language_code' => $this->lang_code,
+		);
+		$formats = array( '%d', '%s', '%s' );
+
+		if ( isset( $existing_db_entry->translation_id ) && $existing_db_entry->translation_id ) {
+			$where   = array( 'translation_id' => (int) $existing_db_entry->translation_id );
+			$formats = array( '%d' );
+		}
+
+		$this->wpdb->update(
+			$this->wpdb->prefix . 'icl_translations',
+			array( 'element_id' => null ),
+			$where,
+			array( '%d' ),
+			$formats
+		);
+
+		$this->sitepress->get_translations_cache()
+			->clear();
 	}
 }

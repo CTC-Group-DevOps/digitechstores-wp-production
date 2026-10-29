@@ -1,5 +1,13 @@
 # Flexible Checkout Fields PRO for WooCommerce Changelog
 
+## [4.0.32] - 2026-10-22
+### Fixed
+- Conditional logic for FPF option values with prices
+
+## [4.0.31] - 2026-10-07
+### Added
+- Support for WooCommerce 11.2
+
 ## [4.0.30] - 2026-08-20
 ### Added
 - Support for WordPress 7.1

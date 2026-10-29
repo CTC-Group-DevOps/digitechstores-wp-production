@@ -1,5 +1,7 @@
 <?php
 
+use WPML\PHP\Exception\ClientMessageException;
+
 class WPML_TP_Apply_Translation_Strategies {
 	private $post_strategy;
 
@@ -16,7 +18,7 @@ class WPML_TP_Apply_Translation_Strategies {
 			case WPML_TM_Job_Entity::STRING_BATCH:
 				return $this->get_post_strategy();
 			default:
-				throw new InvalidArgumentException( 'Job type: ' . $job->get_type() . ' is not supported' );
+				throw new ClientMessageException( 'Job type: ' . esc_html( $job->get_type() ) . ' is not supported' );
 		}
 	}
 

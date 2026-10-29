@@ -27,14 +27,17 @@ class WPML_XML_Config_Validate {
 
 		$this->errors = array();
 
-		libxml_use_internal_errors( true );
+		$previous_use_internal_errors = libxml_use_internal_errors( true );
 
-		$xml_object = $this->get_xml( $xml );
-		if ( $this->path_to_xsd && ! $xml_object->schemaValidate( $this->path_to_xsd ) ) {
-			$this->errors = libxml_get_errors();
+		try {
+			$xml_object = $this->get_xml( $xml );
+			if ( $this->path_to_xsd && ! $xml_object->schemaValidate( $this->path_to_xsd ) ) {
+				$this->errors = libxml_get_errors();
+			}
+		} finally {
+			libxml_clear_errors();
+			libxml_use_internal_errors( $previous_use_internal_errors );
 		}
-
-		libxml_clear_errors();
 
 		return count($this->errors) === 0;
 	}

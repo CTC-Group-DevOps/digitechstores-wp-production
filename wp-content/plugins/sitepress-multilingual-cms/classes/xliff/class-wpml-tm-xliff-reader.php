@@ -15,7 +15,7 @@ abstract class WPML_TM_Xliff_Reader extends WPML_TM_Xliff_Shared {
 			: new WP_Error(
 				'not_xml_file',
 				sprintf(
-					__( 'The xliff file could not be read.', 'wpml-translation-management' )
+					__( 'The xliff file could not be read.', 'sitepress' )
 				)
 			);
 	}

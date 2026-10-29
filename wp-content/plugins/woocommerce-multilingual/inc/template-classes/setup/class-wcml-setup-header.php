@@ -24,6 +24,7 @@ class WCML_Setup_Header_UI extends WCML_Templates_Factory {
 	public function get_model() {
 
 		$model = [
+			/* translators: Title at the top of the setup wizard; the arrow separates the plugin name from the screen. Both are names and stay in English. */
 			'title'           => __( 'WPML Multilingual & Multicurrency for WooCommerce › Setup Wizard', 'woocommerce-multilingual' ),
 			'WCML_PLUGIN_URL' => WCML_PLUGIN_URL,
 			'step'            => $this->step,

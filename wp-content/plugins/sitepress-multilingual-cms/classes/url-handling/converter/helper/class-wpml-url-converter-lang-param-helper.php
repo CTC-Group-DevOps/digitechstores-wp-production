@@ -3,22 +3,40 @@
 use WPML\FP\Str;
 
 class WPML_URL_Converter_Lang_Param_Helper {
-	private static $cache = array();
+	private $cache = array();
 
 	private $active_languages;
+	private $language_codes_reverse_map;
 
 	public function __construct( array $active_languages ) {
 		$this->active_languages = $active_languages;
+		$code_map = (array) array_combine( $active_languages, $active_languages );
+		$code_map = apply_filters( 'wpml_language_codes_map', $code_map );
+		$this->language_codes_reverse_map = array_flip( $code_map );
+	}
+
+	private function resolve_active_language_from_locale( $locale ) {
+		$variant = strtolower( str_replace( '_', '-', $locale ) );
+		if ( in_array( $variant, $this->active_languages, true ) ) {
+			return $variant;
+		}
+
+		$parts = explode( '_', $locale );
+		$base  = strtolower( $parts[0] );
+
+		return in_array( $base, $this->active_languages, true ) ? $base : null;
 	}
 
 	public function lang_by_param( $url, $only_admin = true ) {
-		if ( isset( self::$cache[ $url ] ) ) {
-			return self::$cache[ $url ];
+		$cache_key = ( $only_admin ? 'admin:' : 'all:' ) . $url;
+
+		if ( array_key_exists( $cache_key, $this->cache ) ) {
+			return $this->cache[ $cache_key ];
 		}
 
 		$lang = $this->extract_lang_param_from_url( $url, $only_admin );
 
-		self::$cache[ $url ] = $lang;
+		$this->cache[ $cache_key ] = $lang;
 
 		return $lang;
 	}
@@ -32,18 +50,18 @@ class WPML_URL_Converter_Lang_Param_Helper {
 			return $isLoginPageUrl && isset( $vars['wp_lang'] ) && is_string( $vars['wp_lang'] );
 		};
 		$getWpLang       = function( $vars ) {
-			$wp_lang = explode( '_', $vars['wp_lang'] );
-			$wp_lang = ( count( $wp_lang ) > 0 ) ? strtolower( $wp_lang[0] ) : null;
-
-			return in_array( $wp_lang, $this->active_languages, true ) ? $wp_lang : null;
+			return $this->resolve_active_language_from_locale( (string) $vars['wp_lang'] );
 		};
 
 		if ( null !== $url_query ) {
 			parse_str( $url_query, $vars );
 			if ( $this->can_retrieve_lang_from_query( $only_admin, $vars ) ) {
-				return $vars['lang'];
+				return $this->get_canonical_language_code( $vars['lang'] );
 			} else if ( $isLoginPage( $vars ) ) {
-				return $getWpLang( $vars );
+				$wp_lang_code = $getWpLang( $vars );
+				if ( null !== $wp_lang_code ) {
+					return $wp_lang_code;
+				}
 			}
 		}
 
@@ -86,10 +104,19 @@ class WPML_URL_Converter_Lang_Param_Helper {
 			return true;
 		}
 
-		if ( in_array( $vars['lang'], $this->active_languages, true ) ) {
+		if (
+			in_array( $vars['lang'], $this->active_languages, true )
+			|| isset( $this->language_codes_reverse_map[ $vars['lang'] ] )
+		) {
 			return true;
 		}
 
 		return false;
+	}
+
+	private function get_canonical_language_code( $language ) {
+		return isset( $this->language_codes_reverse_map[ $language ] )
+			? $this->language_codes_reverse_map[ $language ]
+			: $language;
 	}
 }

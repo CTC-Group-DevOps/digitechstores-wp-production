@@ -35,6 +35,7 @@ class WidgetPackageRepository implements WidgetPackageRepositoryInterface {
 		foreach ( $this->getSidebarWidgets() as $sidebarId => $sidebar ) {
 			if ( $sidebar && is_array( $sidebar ) && array_intersect( $blockIds, $sidebar ) ) {
 				if ( $sidebarId === 'wp_inactive_widgets' ) {
+					/* translators: Name shown on the String Translation page for the WordPress area that holds widgets which are not in any sidebar. */
 					$sidebarNames[] = __( 'Inactive Widgets', 'wpml-string-translation' );
 					continue;
 				}
@@ -43,7 +44,8 @@ class WidgetPackageRepository implements WidgetPackageRepositoryInterface {
 		}
 
 		return $sidebarNames
-			? __( 'Widgets', 'wpml-string-translation' ) . ' - ' . implode( ', ', $sidebarNames )
+			/* translators: Name of a group of widget texts on the Packages page. %s: the names of the sidebars the widgets sit in, separated by commas. */
+			? sprintf( __( 'Widgets - %s', 'wpml-string-translation' ), implode( ', ', $sidebarNames ) )
 			: $title;
 	}
 

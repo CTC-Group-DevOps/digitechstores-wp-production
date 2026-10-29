@@ -3,14 +3,11 @@
 namespace WCML\API\VendorAddon;
 
 use WPML\Element\API\Languages;
-use WPML\FP\Cast;
 use WPML\FP\Fns;
 use WPML\FP\Obj;
-use WPML\FP\Relation;
 use WPML\LIB\WP\Hooks as WpHooks;
 use function WPML\Container\make;
 use function WPML\FP\invoke;
-use function WPML\FP\pipe;
 use function WPML\FP\spreadArgs;
 
 class Hooks implements \IWPML_Backend_Action {
@@ -40,17 +37,20 @@ class Hooks implements \IWPML_Backend_Action {
 			$user = self::getUser( $userId );
 
 			if ( $isVendor( $user ) ) {
+				$postId = Obj::prop( 'post_id', $args );
+				if ( ! $postId ) {
+					return false;
+				}
+
+				$post = get_post( $postId );
+
+				if ( ! $post || (int) $post->post_author !== (int) $userId ) {
+					return false;
+				}
+
 				self::maybeSetTranslatorRequirements( $user );
 
-				$isProductOfVendor = pipe(
-					Obj::prop( 'post_id' ),
-					'get_post',
-					Obj::prop( 'post_author' ),
-					Cast::toInt(),
-					Relation::equals( $userId )
-				);
-
-				return $isProductOfVendor( $args );
+				return true;
 			}
 
 			return $isTranslator;

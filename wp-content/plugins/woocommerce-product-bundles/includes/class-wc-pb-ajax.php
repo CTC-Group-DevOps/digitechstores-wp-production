@@ -15,13 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Front-end AJAX filters for 'get_variation'.
  *
  * @class    WC_PB_Ajax
- * @version  8.5.12
+ * @version  8.5.16
  * @since    5.0.0
  */
 class WC_PB_Ajax {
 
 	/**
 	 * Hook in.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -31,6 +33,8 @@ class WC_PB_Ajax {
 
 	/**
 	 * Filters core 'get_variation' AJAX requests in order to account for bundled item variation filters and discounts.
+	 *
+	 * @return void
 	 */
 	public static function ajax_get_bundled_variation() {
 

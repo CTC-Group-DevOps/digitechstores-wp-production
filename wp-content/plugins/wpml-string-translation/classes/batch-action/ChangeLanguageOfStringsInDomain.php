@@ -41,6 +41,11 @@ class ChangeLanguageOfStringsInDomain implements IHandler {
 			return Either::left( __( 'Error: please try again', 'wpml-string-translation' ) );
 		}
 
+		$targetLanguage = \WPML\Language\RequestedLanguage::validate( $targetLanguage, \WPML\Language\RequestedLanguage::SCOPE_CONFIGURED );
+		if ( null === $targetLanguage ) {
+			return Either::left( 'invalid language' );
+		}
+
 		$langs     = $this->stringsRepository->getLanguagesUsedInDomains( [ $domain ], [ $targetLanguage ] );
 		$stringIds = $this->stringsRepository->getStringIdFromDomainsByLangs( [ $domain ], $langs, $batchSize );
 
@@ -50,7 +55,7 @@ class ChangeLanguageOfStringsInDomain implements IHandler {
 
 		return Either::of(
 			[
-				'completedCount' => count( $stringIds ),
+				'completedCount' => count( $stringIds ) - $this->stringsRepository->countIdsNotInLanguage( $stringIds, $targetLanguage ),
 			]
 		);
 	}

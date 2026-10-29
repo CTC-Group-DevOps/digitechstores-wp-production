@@ -14,8 +14,6 @@ class SearchCriteria {
 
 	private $title;
 
-	private $translationPriority;
-
 	private $sourceLanguageCode;
 
 	private $targetLanguageCode;
@@ -36,7 +34,6 @@ class SearchCriteria {
 		?int $source = null,
 		?string $domain = null,
 		?string $title = null,
-		?string $translationPriority = null,
 		?string $sourceLanguageCode = null,
 		?string $targetLanguageCode = null,
 		array $translationStatuses = [],
@@ -49,7 +46,6 @@ class SearchCriteria {
 		$this->source              = $source;
 		$this->domain              = $domain;
 		$this->title               = $title;
-		$this->translationPriority = $translationPriority;
 		$this->sourceLanguageCode  = $sourceLanguageCode;
 		$this->targetLanguageCode  = $targetLanguageCode;
 		$this->translationStatuses = $translationStatuses;
@@ -76,10 +72,6 @@ class SearchCriteria {
 
 	public function getTitle() {
 		return $this->title;
-	}
-
-	public function getTranslationPriority() {
-		return $this->translationPriority;
 	}
 
 	public function getSourceLanguageCode() {

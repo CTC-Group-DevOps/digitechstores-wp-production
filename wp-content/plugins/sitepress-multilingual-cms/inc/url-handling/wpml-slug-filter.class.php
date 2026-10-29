@@ -61,21 +61,37 @@ class WPML_Slug_Filter extends WPML_Full_PT_API {
 		return isset( $slug_suggested_wpml ) ? $slug_suggested_wpml : $slug_suggested;
 	}
 
-	private function post_slug_exists( $post_id, $post_language, $slug, $post_type, $parent = false ) {
-		$parent_snippet           = $parent === false ? '' : $this->wpdb->prepare( ' AND p.post_parent = %d ', $parent );
-		$post_name_check_sql      = "	SELECT p.post_name
-										FROM {$this->wpdb->posts} p
-										JOIN {$this->wpdb->prefix}icl_translations t
-											ON p.ID = t.element_id
-												AND t.element_type = CONCAT('post_', p.post_type)
-										WHERE p.post_name = %s
-											AND p.ID != %d
-											AND t.language_code = %s
-											AND p.post_type = %s
-											{$parent_snippet}
-										LIMIT 1";
-		$post_name_check_prepared = $this->wpdb->prepare( $post_name_check_sql, $slug, $post_id, $post_language, $post_type );
-		$post_name_check          = $this->wpdb->get_var( $post_name_check_prepared );
+	private function post_slug_exists( $post_id, $post_language, $slug, $post_type, $post_parent = false, $across_all_types = false ) {
+		$parent_snippet = false === $post_parent ? '' : $this->wpdb->prepare( ' AND p.post_parent = %d ', $post_parent );
+
+		if ( $across_all_types ) {
+			$post_name_check_sql = "	SELECT p.post_name
+											FROM {$this->wpdb->posts} p
+											JOIN {$this->wpdb->prefix}icl_translations t
+												ON p.ID = t.element_id
+													AND t.element_type LIKE 'post_%%'
+											WHERE p.post_name = %s
+												AND p.ID != %d
+												AND t.language_code = %s
+												{$parent_snippet}
+											LIMIT 1";
+			$post_name_check_prepared = $this->wpdb->prepare( $post_name_check_sql, $slug, $post_id, $post_language );
+		} else {
+			$post_name_check_sql = "	SELECT p.post_name
+											FROM {$this->wpdb->posts} p
+											JOIN {$this->wpdb->prefix}icl_translations t
+												ON p.ID = t.element_id
+													AND t.element_type = %s
+											WHERE p.post_name = %s
+												AND p.ID != %d
+												AND t.language_code = %s
+												AND p.post_type = %s
+												{$parent_snippet}
+											LIMIT 1";
+			$post_name_check_prepared = $this->wpdb->prepare( $post_name_check_sql, 'post_' . $post_type, $slug, $post_id, $post_language, $post_type );
+		}
+
+		$post_name_check = $this->wpdb->get_var( $post_name_check_prepared );
 
 		return (bool) $post_name_check;
 	}
@@ -83,17 +99,19 @@ class WPML_Slug_Filter extends WPML_Full_PT_API {
 	private function find_unique_slug_post( $post_id, $post_type, $post_language, $post_parent, $slug ) {
 		global $wp_rewrite;
 
+		$across_all_types = 'attachment' === $post_type;
+
 		$feeds = is_array( $wp_rewrite->feeds ) ? $wp_rewrite->feeds : array();
-		if ( $this->post_slug_exists( $post_id, $post_language, $slug, $post_type, $post_parent )
+		if ( $this->post_slug_exists( $post_id, $post_language, $slug, $post_type, $post_parent, $across_all_types )
 			 || in_array( $slug, $feeds, true )
-			 || ( $post_parent !== false && preg_match( "@^($wp_rewrite->pagination_base)?\d+$@", $slug ) )
+			 || ( $post_parent !== false && preg_match( '@^(' . preg_quote( $wp_rewrite->pagination_base, '@' ) . ')?\d+$@', $slug ) )
 			 || apply_filters( 'wp_unique_post_slug_is_bad_flat_slug', false, $slug, $post_type )
 		) {
 			$suffix = 2;
 			do {
 				$alt_post_name   = _truncate_post_slug( $slug, 200 - ( strlen( (string) $suffix ) + 1 ) ) . "-$suffix";
 				$suffix ++;
-			} while ( $this->post_slug_exists( $post_id, $post_language, $alt_post_name, $post_type, $post_parent ) );
+			} while ( $this->post_slug_exists( $post_id, $post_language, $alt_post_name, $post_type, $post_parent, $across_all_types ) );
 			$slug = $alt_post_name;
 		}
 

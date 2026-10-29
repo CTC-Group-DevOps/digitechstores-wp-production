@@ -17,36 +17,44 @@ class WPML_Display_As_Translated_Taxonomy_Query extends WPML_Display_As_Translat
 	}
 
 	private function update_count_in_fields( $fields, $default_lang ) {
-		$sql = "
-			tt.*,
+		$wpdb = $this->wpdb;
+		$sql  = $wpdb->prepare(
+			"tt.*,
 			GREATEST(
 				tt.count,
 				(
 			        SELECT term_taxonomy.count
-		            FROM {$this->wpdb->term_taxonomy} term_taxonomy
-		            INNER JOIN {$this->wpdb->prefix}icl_translations translations ON translations.element_id = term_taxonomy.term_taxonomy_id
-		            WHERE translations.trid = icl_t.trid AND translations.language_code = %s
+			        FROM {$wpdb->term_taxonomy} term_taxonomy
+			        INNER JOIN {$wpdb->prefix}icl_translations translations ON translations.element_id = term_taxonomy.term_taxonomy_id
+			        WHERE translations.trid = icl_t.trid AND translations.language_code = %s
 				)
-			) as `count`
-		";
-		$sql = $this->wpdb->prepare( $sql, $default_lang );
+			) as `count`",
+			$default_lang
+		);
+		if ( ! is_string( $sql ) ) {
+			return $fields;
+		}
 
 		return str_replace( 'tt.*', $sql, $fields );
 	}
 
 	private function update_count_in_where( $where, $default_lang ) {
-		$sql = "
-		(
-	        tt.count > 0
+		$wpdb = $this->wpdb;
+		$sql  = $wpdb->prepare(
+			"(
+		        tt.count > 0
 	        OR (
 		        SELECT term_taxonomy.count
-		        FROM {$this->wpdb->term_taxonomy} term_taxonomy
-		        INNER JOIN {$this->wpdb->prefix}icl_translations translations ON translations.element_id = term_taxonomy.term_taxonomy_id
+			        FROM {$wpdb->term_taxonomy} term_taxonomy
+			        INNER JOIN {$wpdb->prefix}icl_translations translations ON translations.element_id = term_taxonomy.term_taxonomy_id
 		        WHERE translations.trid = icl_t.trid AND translations.language_code = %s
 	        ) > 0
-	    )
-		";
-		$sql = $this->wpdb->prepare( $sql, $default_lang );
+		    )",
+			$default_lang
+		);
+		if ( ! is_string( $sql ) ) {
+			return $where;
+		}
 
 		return str_replace( 'tt.count > 0', $sql, $where );
 	}

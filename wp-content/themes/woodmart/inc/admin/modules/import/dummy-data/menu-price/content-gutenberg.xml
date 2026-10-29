@@ -47,7 +47,7 @@
 					<pubDate>Fri, 29 Nov 2024 13:19:23 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35619</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-cb2daed8" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -133,7 +133,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"bd583ad6-9408-4a93-902f-546233b7da3d","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"bd583ad6-9408-4a93-902f-546233b7da3d","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-bd583ad6" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 

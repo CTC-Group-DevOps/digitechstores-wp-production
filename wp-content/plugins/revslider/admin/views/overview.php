@@ -63,31 +63,58 @@ $rs_languages	= $rsaf->get_available_languages();
 		<a href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" target="_blank" rel="noopener" id="rs_memarea_registered" class="basic_action_button longbutton basic_action_lilabutton"><i class="material-icons">person_outline</i><?php _e('Members Area', 'revslider');?></a>
 	</div>
 	
-	<?php if ($rs_v7_selling) { ?>
+	<?php if ($rs_v7_selling) {
+		// paid = annual licence; lifetime = one-time or CodeCanyon key; lapsed = a key that no longer validates; free = no key
+		$rs_sr7_state = ($rs_valid === true) ? (in_array($rs_license_type, array('lifetime', 'cc'), true) ? 'lifetime' : 'paid') : (empty($code) ? 'free' : 'lapsed');
+		// the update check opens the lift in waves: sr7_licensed for every key (wave 1), sr7_free per site for the rest (wave 2)
+		$rs_sr7_open = ($rs_sr7_state === 'paid') || $rsaf->_truefalse($rsaf->get_addition(($rs_sr7_state === 'free') ? 'sr7_free' : 'sr7_licensed'));
+		$rs_connected = ($rs_sr7_state === 'free' && get_option('revslider-connect-code', '') !== '');
+		$rs_admin_mail = wp_get_current_user()->user_email;
+		$rs_sr7_titles = array(
+			'paid'		=> __('Slider Revolution 7 is included in your licence', 'revslider'),
+			'lifetime'	=> __('Slider Revolution 7 is now free for you', 'revslider'),
+			'lapsed'	=> __('Slider Revolution 7 is free', 'revslider'),
+			'free'		=> __('Slider Revolution 7 is free', 'revslider')
+		);
+		$rs_sr7_texts = array(
+			'paid'		=> __('Update for free. Your modules, add-ons and templates come along.', 'revslider'),
+			'lifetime'	=> __('Update for free and keep every module. Your licence stays valid for SR6 but does not unlock premium in SR7: premium add-ons pause, and modules from premium templates keep showing but need an SR7 licence for changes. You get 50 % off the first year.', 'revslider'),
+			'lapsed'	=> __('Update for free and keep every module. Premium features need an active licence in SR7.', 'revslider'),
+			'free'		=> __('Create a free account once, then update. You get every SR7 update and a mail when your site needs a security update.', 'revslider')
+		);
+	?>
 		<!-- SR7 IS AVAILABLE -->
-		<div id="sr67-versionbadge" class="v_velocity">
-		<i class="sr67-badgeicon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg></i>
-		<div class="sr67-badge-left">
-			<div class="simpletext"><?php _e('Now Available', 'revslider');?></div>
-			<div id="sr67-engine">Slider Revolution 7</div>
-			<?php if ($rs_license_type=="subscription" || $rs_license_type=="extended") {?> <div class="sr7-engine-animspacer" style="opacity:0">.</div><?php } ?>
-		</div><!--
-		--><div class="sr67-badge-right">
-			<?php if ($rs_license_type=="subscription" || $rs_license_type=="extended") {?>
-				<div class="lilasmallbutton upgradetosr7"><?php _e('Upgrade to SR7', 'revslider');?></div>
-			 	<a class="lilasimplelink sr7-engine-animspacer" href="https://www.sliderrevolution.com/help/how-to-upgrade-to-slider-revolution-7/" target="_blank" rel="noopener"><?php _e('SR7 Upgrade Guide', 'revslider');?></a>	
-			<?php } else { if ($rs_valid===true) {?>
-				<a class="lilasmallbutton" href="https://www.sliderrevolution.com/help/how-to-upgrade-to-slider-revolution-7/" target="_blank" rel="noopener"><?php _e('Unlock SR7', 'revslider');?></a>
-			 <?php } else {?>
-				<a class="lilasmallbutton" href="https://account.sliderrevolution.com/portal/premium-slider-revolution/" target="_blank" rel="noopener"><?php _e('Unlock SR7', 'revslider');?></a>
-			 <?php }} ?>		
+		<div id="sr68_sr7path" class="sr68_state_<?php echo $rs_sr7_state; ?>" data-state="<?php echo $rs_sr7_state; ?>">
+			<div class="sr68_head">
+				<div class="sr68_eyebrow"><?php _e('Free update', 'revslider');?></div>
+				<div class="sr68_title"><?php echo $rs_sr7_titles[$rs_sr7_state]; ?></div>
+				<div class="sr68_text"><?php echo $rs_sr7_texts[$rs_sr7_state]; ?></div>
+			</div>
+			<ol class="sr68_steps">
+				<li id="sr68_step_migrate" class="sr68_step"><span class="sr68_steptitle"><?php _e('Prepare your modules for SR7', 'revslider');?></span><span class="sr68_stepinfo"><span id="sr68_migcount">0</span>/<span id="sr68_migall">0</span></span></li>
+				<?php if ($rs_sr7_state === 'free') { ?><li id="sr68_step_register" class="sr68_step<?php echo $rs_connected ? ' sr68_done' : ''; ?>"><span class="sr68_steptitle"><?php _e('Create your free account', 'revslider');?></span><span class="sr68_stepinfo"><?php _e('one click, no password', 'revslider');?></span></li><?php } ?>
+				<li id="sr68_step_update" class="sr68_step"><span class="sr68_steptitle"><?php _e('Update to Slider Revolution 7', 'revslider');?></span><span class="sr68_stepinfo"><?php _e('your SR6 data stays as a backup', 'revslider');?></span></li>
+			</ol>
+			<div id="sr68_premium" class="sr68_premium" style="display:none">
+				<span class="sr68_premium_text"><?php _e('Your site uses premium features that work in SR7 only with an SR7 licence:', 'revslider');?> <b id="sr68_premium_list"></b></span>
+				<?php if ($rs_sr7_state === 'lapsed') { ?>
+					<a class="lilasimplelink" href="<?php echo $rsaf->account_url(); ?>/portal/?utm_source=admin&utm_medium=sr6&utm_campaign=sr7path&utm_content=renew" target="_blank" rel="noopener"><?php _e('Renew your licence', 'revslider');?></a>
+				<?php } else { ?>
+					<a class="lilasimplelink" href="<?php echo $rsaf->account_url(); ?>/portal/?offer=sr7&utm_source=sr6&utm_medium=sr6panel&utm_campaign=srusers&utm_content=lifetime50" target="_blank" rel="noopener"><?php _e('Register and get 50 % off', 'revslider');?></a>
+				<?php } ?>
+			</div>
+			<div class="sr68_actions">
+				<?php if (!$rs_sr7_open) { ?>
+					<div class="sr68_soon"><?php _e('The free update opens for your site soon. We open it step by step.', 'revslider');?></div>
+				<?php } elseif ($rs_sr7_state === 'free' && !$rs_connected) { ?>
+					<div class="lilabuybutton sr68_register" data-email="<?php echo esc_attr($rs_admin_mail); ?>"><?php _e('Register for free and update', 'revslider');?></div>
+					<div class="lilabuybutton upgradetosr7" style="display:none"><?php _e('Update to SR7', 'revslider');?></div>
+				<?php } else { ?>
+					<div class="lilabuybutton upgradetosr7"><?php _e('Update to SR7', 'revslider');?></div>
+				<?php } ?>
+				<a class="lilasimplelink" href="https://www.sliderrevolution.com/help/how-to-upgrade-to-slider-revolution-7/" target="_blank" rel="noopener"><?php _e('What changes with SR7', 'revslider');?></a>
+			</div>
 		</div>
-		<div class="sr67-tooltip sr7-tooltip">
-			<div class="is_velocity sr67-tooptip-title"><?php _e("Slider Revolution 7 Has Launched",'revslider');?></div>			
-			<div class="div20"></div>
-			<div class="is_velocity simpletext"><?php _e('A completely rebuilt experience with intelligent workflows, generative AI tools, and faster creation.<br>SR6 continues to receive maintenance updates<br><br><b>Feature development continues exclusively in SR7.</b>','revslider');?></div>			
-		</div>
-	</div>
 	<?php }  else { ?>
 		<!-- SR7 Is NOT AVAILABLE YET -->
 	<div id="sr67-versionbadge" class="<?php echo ($rs_front_version == 7) ? 'v_velocity' : 'v_genesis'; ?>">
@@ -167,16 +194,10 @@ $rs_languages	= $rsaf->get_available_languages();
 			<darkiconbox class="check_for_updates rfloated"><i class="material-icons">refresh</i></darkiconbox>			
 			<div class="div50"></div>
 			<?php if ($rs_v7_selling) { ?>			
-			<bluebutton id="updateplugin" style="width:calc(50% - 5px);display:inline-block;margin-right:5px;vertical-align:top;"><?php _e('Update SR6', 'revslider');?></bluebutton>
-			<div style="width:calc(50% - 5px);display:inline-block;vertical-align:top;">				
-				<?php if ($rs_license_type=="subscription" || $rs_license_type=="extended") {?>
-					<purplebutton class="upgradetosr7" ><?php _e('Upgrade to SR7', 'revslider');?></purplebutton>
-					<a class="whitesimplelink" style="display:block; margin-top:10px; font-size:14px; text-align:center" href="https://www.sliderrevolution.com/help/how-to-upgrade-to-slider-revolution-7/" target="_blank" rel="noopener"><?php _e('SR7 Upgrade Guide', 'revslider');?></a>
-				<?php } else { if ($rs_valid===true) {?>				
-					<a class="purplebutton" id="unlockupgrade" href="https://www.sliderrevolution.com/help/how-to-upgrade-to-slider-revolution-7/" target="_blank" rel="noopener"><?php _e('Unlock SR7', 'revslider');?></a>
-				<?php } else {?>
-					<a class="purplebutton" id="unlockupgrade" href="https://account.sliderrevolution.com/portal/premium-slider-revolution/"  target="_blank" rel="noopener"><?php _e('Unlock SR7 Upgrade', 'revslider');?></a>					
-			 <?php }} ?>		
+			<bluebutton id="updateplugin" class="sr68_update_sr6"><?php _e('Update SR6', 'revslider');?></bluebutton>
+			<div class="sr68_update_sr7">				
+				<a class="purplebutton" id="sr68_topanel" href="#sr68_sr7path"><?php _e('Free update to SR7', 'revslider');?></a>
+				<a class="whitesimplelink" style="display:block; margin-top:10px; font-size:14px; text-align:center" href="https://www.sliderrevolution.com/help/how-to-upgrade-to-slider-revolution-7/" target="_blank" rel="noopener"><?php _e('SR7 Upgrade Guide', 'revslider');?></a>
 			</div>
 			<?php } else { ?>
 				<bluebutton id="updateplugin"><?php _e('Update Now', 'revslider');?></bluebutton>
@@ -255,7 +276,7 @@ $rs_languages	= $rsaf->get_available_languages();
 					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/object_library.php'); ?>
 				</div><!--							
 				--><div class="featurebox">
-					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>
+					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Annual Licence', 'revslider');?></div>
 					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/support.php'); ?>
 				</div>	
 			</div>

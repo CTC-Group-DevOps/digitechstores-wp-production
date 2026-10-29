@@ -241,8 +241,11 @@ class MulticurrencyHooks implements \IWPML_Action {
 	private function getCustomPricesSettingsModel() {
 		return [
 			'strings'          => [
+				/* translators: Heading of the per-currency price settings of a product add-on, and the title of the dialog that opens them. */
 				'label'    => __( 'Multi-currency settings', 'woocommerce-multilingual' ),
+				/* translators: Label of the first radio button of the per-currency price settings: WPML converts the price using the exchange rate. */
 				'auto'     => __( 'Calculate prices in other currencies automatically', 'woocommerce-multilingual' ),
+				/* translators: Label of the second radio button of the per-currency price settings: the shop owner types each currency's price. */
 				'manually' => __( 'Set prices in other currencies manually', 'woocommerce-multilingual' ),
 			],
 			'custom_prices_on' => $this->getGlobalAddonPricesStatus(),
@@ -256,10 +259,13 @@ class MulticurrencyHooks implements \IWPML_Action {
 
 		return [
 			'strings'           => [
+				/* translators: Heading of the per-currency price settings of a product add-on, and the title of the dialog that opens them. */
 				'dialog_title' => __( 'Multi-currency settings', 'woocommerce-multilingual' ),
 				/* translators: %s is an option label */
 				'description'  => sprintf( __( 'Here you can set different prices for the %s in multiple currencies:', 'woocommerce-multilingual' ), '<strong>' . $label . '</strong>' ),
+				/* translators: Button label that puts the entered values into effect. Verb, imperative. */
 				'apply'        => __( 'Apply', 'woocommerce-multilingual' ),
+				/* translators: Button label that closes a dialog and discards the changes. Verb, imperative: the action, not the state "cancelled". */
 				'cancel'       => __( 'Cancel', 'woocommerce-multilingual' ),
 			],
 			'custom_prices_on'  => $customPricesOn,

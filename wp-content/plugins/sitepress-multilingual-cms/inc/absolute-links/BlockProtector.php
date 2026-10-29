@@ -28,7 +28,7 @@ class BlockProtector {
 
 			if ( preg_match( '#^<!-- wp:(\S+)\s#', $block, $m ) ) {
 				$isSelfClosing = mb_substr( rtrim( $block ), -4 ) === '/-->';
-				$originalBlock = $this->findBlockInText( $text, $m[1], $isSelfClosing );
+				$originalBlock = $this->findBlockInText( $text, $m[1], $isSelfClosing, $this->readDelimiterAttributes( $block ) );
 
 				if ( null !== $originalBlock ) {
 					$key                           = md5( $originalBlock );
@@ -41,21 +41,61 @@ class BlockProtector {
 			return $text;
 		};
 
+		$hasAttributesBesidesUid = function ( $block ) {
+			$attrs = (array) $block->attrs;
+			unset( $attrs[ 'wpmlUid' ] );
+
+			return (bool) $attrs;
+		};
+
 		return wpml_collect( \WPML_Gutenberg_Integration::parse_blocks( $text ) )
 			->map( [ $integrationClass, 'sanitize_block' ] )
-			->filter( [ $integrationClass, 'has_non_empty_attributes' ] )
+			->filter( $hasAttributesBesidesUid )
 			->map( [ $integrationClass, 'render_block' ] )
 			->map( $decodeForwardSlashes )
 			->reduce( $replaceBlockWithPlaceholder, $text );
 	}
 
-	protected function findBlockInText( $text, $blockName, $isSelfClosing = false ) {
-		$openTag = '<!-- wp:' . $blockName . ' ';
+	protected function findBlockInText( $text, $blockName, $isSelfClosing = false, ?array $attrs = null ) {
+		$openTag    = '<!-- wp:' . $blockName . ' ';
+		$openTagLen = mb_strlen( $openTag );
+		$searchFrom = 0;
 
-		$openPos = mb_strpos( $text, $openTag );
-		if ( false === $openPos ) {
+		while ( true ) {
+			$openPos = mb_strpos( $text, $openTag, $searchFrom );
+			if ( false === $openPos ) {
+				return null;
+			}
+
+			if ( null === $attrs || $attrs == $this->readDelimiterAttributes( $text, $openPos ) ) {
+				$block = $this->readBlockSpan( $text, $openPos, $blockName, $isSelfClosing );
+
+				if ( null !== $block ) {
+					return $block;
+				}
+			}
+
+			$searchFrom = $openPos + $openTagLen;
+		}
+	}
+
+	protected function readDelimiterAttributes( $text, $offset = 0 ) {
+		$end = mb_strpos( $text, '-->', $offset );
+		if ( false === $end ) {
 			return null;
 		}
+
+		if ( ! preg_match( '#^<!-- wp:\S+\s+(\{.*\})\s*/?$#s', mb_substr( $text, $offset, $end - $offset ), $m ) ) {
+			return null;
+		}
+
+		$attrs = json_decode( $m[1], true );
+
+		return is_array( $attrs ) ? $attrs : null;
+	}
+
+	protected function readBlockSpan( $text, $openPos, $blockName, $isSelfClosing = false ) {
+		$openTag = '<!-- wp:' . $blockName . ' ';
 
 		if ( $isSelfClosing ) {
 			$endPos = mb_strpos( $text, '/-->', $openPos );

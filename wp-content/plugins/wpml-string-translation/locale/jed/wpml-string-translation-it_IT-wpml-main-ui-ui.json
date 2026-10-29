@@ -7,14 +7,17 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "it_IT"
          },
-         "Edit": [
-            "Modifica"
+         "Edit %s": [
+            "Modifica %s"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
+         ],
+         "Original:": [
+            "Originale:"
          ],
          "Translation to:": [
             "Traduzione in:"
@@ -23,37 +26,31 @@
             "Copia dall'originale"
          ],
          "Use Shift+Enter to add a new line.": [
-            "Usa Shift+Invio per aggiungere una nuova riga."
-         ],
-         "Original:": [
-            "Originale:"
+            "Usa Shift+Enter per aggiungere una nuova riga."
          ],
          "Add %s translation": [
-            "Aggiungi traduzione %s"
+            "Aggiungi traduzione in %s"
          ],
          "Edit %s translation": [
-            "Modifica traduzione %s"
+            "Modifica traduzione in %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "Aggiungi traduzione %s (la stringa appare sul sito e non è tradotta)"
+            "Aggiungi traduzione in %s (la stringa appare sul sito e non è tradotta)"
          ],
          "Original language %s": [
             "Lingua originale %s"
          ],
          "Waiting for translator to %s": [
-            "In attesa che il traduttore %s"
+            "In attesa del traduttore per %s"
          ],
          "Translation in progress to %s": [
             "Traduzione in corso in %s"
-         ],
-         "In basket for translation to %s": [
-            "Nel carrello per la traduzione in %s"
          ],
          "Translation saved.": [
             "Traduzione salvata."
          ],
          "Translation update failed.": [
-            "Aggiornamento traduzione non riuscito."
+            "Aggiornamento della traduzione non riuscito."
          ]
       }
    }

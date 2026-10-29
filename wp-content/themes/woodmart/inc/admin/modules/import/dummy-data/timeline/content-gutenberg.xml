@@ -24,12 +24,12 @@
 					<pubDate>Wed, 04 Dec 2024 13:51:14 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35971</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-c4b0820c" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
 <!-- wp:wd/divider {"blockId":"f6fb99a1-3cc9-4eb8-89d8-d55eedda53bd","innerBlock":"title","marginBottom":"30"} -->
-<div id="wd-f6fb99a1" class="wp-block-wd-divider wd-style-line wd-added-title"><div class="wd-divider-inner"><!-- wp:wd/title {"blockId":"861051ac-8acf-4359-99a0-10d5c8c736bb","textAlign":"center","content":"u003cstrongu003eTIMELINEu003c/strongu003e"} -->
+<div id="wd-f6fb99a1" class="wp-block-wd-divider wd-style-line wd-added-title"><div class="wd-divider-inner"><!-- wp:wd/title {"blockId":"861051ac-8acf-4359-99a0-10d5c8c736bb","textAlign":"center","content":"\u003cstrong\u003eTIMELINE\u003c/strong\u003e"} -->
 <h2 id="wd-861051ac" class="wp-block-wd-title title wd-align"><strong>TIMELINE</strong></h2>
 <!-- /wp:wd/title --></div></div>
 <!-- /wp:wd/divider -->
@@ -43,11 +43,11 @@
 
 <!-- wp:wd/timeline-item {"blockId":"6eddf8dd-12bf-41c2-a23f-23b5e3a57f51","layout":"col-2"} -->
 <div id="wd-6eddf8dd" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"4f899af3-fb2f-4812-983a-7632511c2116","textAlign":"end","rowGap":"10","bgColorCode":"#fefefe","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-4f899af3" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"cb7a6315-9968-42b4-beda-0e51fddf8b19","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-4f899af3" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"cb7a6315-9968-42b4-beda-0e51fddf8b19","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-cb7a6315" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"b4ecfc32-c6ad-410c-9c90-d6fbee254c8b","content":"Lementum musat dignissimu003cbru003eMi vestibulum iaculis consectetur","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"b4ecfc32-c6ad-410c-9c90-d6fbee254c8b","content":"Lementum musat dignissim\u003cbr\u003eMi vestibulum iaculis consectetur","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-b4ecfc32" class="wp-block-wd-title title">Lementum musat dignissim<br>Mi vestibulum iaculis consectetur</h2>
 <!-- /wp:wd/title -->
 
@@ -81,11 +81,11 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"7aa3d168-8610-42dd-9e0b-134e633aa835","rowGap":"10","bgColorCode":"#ffffff","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-7aa3d168" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"f16d4ed4-a906-44c3-bc2e-2240feb5d0da","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-7aa3d168" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"f16d4ed4-a906-44c3-bc2e-2240feb5d0da","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-f16d4ed4" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"4fa829f7-a1dd-4d9a-9632-67970d8523f8","content":"Sed mollis lectus condimentu003cbru003eFacilisis dictumst laoreet adiping","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"4fa829f7-a1dd-4d9a-9632-67970d8523f8","content":"Sed mollis lectus condiment\u003cbr\u003eFacilisis dictumst laoreet adiping","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-4fa829f7" class="wp-block-wd-title title">Sed mollis lectus condiment<br>Facilisis dictumst laoreet adiping</h2>
 <!-- /wp:wd/title -->
 
@@ -107,11 +107,11 @@
 
 <!-- wp:wd/timeline-item {"blockId":"27ced6c8-7882-4b0a-a291-aeea5725d113","layout":"col-2"} -->
 <div id="wd-27ced6c8" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"dc9bb5c4-d833-4c12-9742-b81e4afebd28","textAlign":"end","rowGap":"10","bgColorCode":"#fefefe","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-dc9bb5c4" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"4442b639-fa95-434e-b169-af73729b9f6f","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-dc9bb5c4" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"4442b639-fa95-434e-b169-af73729b9f6f","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-4442b639" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"7d369522-33c0-4eb8-8dbb-0c5774bfad99","content":"Nec gravida conubia morbiu003cbru003eEleifend ullamcorper aenean quam","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"7d369522-33c0-4eb8-8dbb-0c5774bfad99","content":"Nec gravida conubia morbi\u003cbr\u003eEleifend ullamcorper aenean quam","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-7d369522" class="wp-block-wd-title title">Nec gravida conubia morbi<br>Eleifend ullamcorper aenean quam</h2>
 <!-- /wp:wd/title -->
 
@@ -145,11 +145,11 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"06748b95-2de5-4ef6-9ad7-ff88db1ffe10","rowGap":"10","bgColorCode":"#ffffff","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-06748b95" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"96b701f3-92b3-490c-b125-674fffee06c6","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-06748b95" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"96b701f3-92b3-490c-b125-674fffee06c6","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-96b701f3" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"62693d6b-4107-45d0-885b-ce11b9945834","content":"Lementum musat dignissimu003cbru003eMi vestibulum iaculis consectetur","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"62693d6b-4107-45d0-885b-ce11b9945834","content":"Lementum musat dignissim\u003cbr\u003eMi vestibulum iaculis consectetur","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-62693d6b" class="wp-block-wd-title title">Lementum musat dignissim<br>Mi vestibulum iaculis consectetur</h2>
 <!-- /wp:wd/title -->
 
@@ -171,11 +171,11 @@
 
 <!-- wp:wd/timeline-item {"blockId":"3fe31391-1cf1-4ae8-98f3-c55abab21cb2","layout":"col-2"} -->
 <div id="wd-3fe31391" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"f612eb7b-b7c2-4efb-a8f9-84127875aeae","textAlign":"end","rowGap":"10","bgColorCode":"#fefefe","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-f612eb7b" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"61768c0d-33a1-4852-a0bb-30d6fddb1b5b","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-f612eb7b" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"61768c0d-33a1-4852-a0bb-30d6fddb1b5b","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-61768c0d" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"5b356522-db1c-4ea3-94a9-988dd0d033e1","content":"Sed mollis lectus condimentu003cbru003eFacilisis dictumst laoreet adiping","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"5b356522-db1c-4ea3-94a9-988dd0d033e1","content":"Sed mollis lectus condiment\u003cbr\u003eFacilisis dictumst laoreet adiping","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-5b356522" class="wp-block-wd-title title">Sed mollis lectus condiment<br>Facilisis dictumst laoreet adiping</h2>
 <!-- /wp:wd/title -->
 
@@ -209,11 +209,11 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"33d7778f-55de-47b7-89cd-00e0b7189923","rowGap":"10","bgColorCode":"#ffffff","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-33d7778f" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"5a884469-dfab-4851-9765-8f369e616752","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-33d7778f" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"5a884469-dfab-4851-9765-8f369e616752","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-5a884469" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"c9fe07f6-88f7-43cf-a2e1-6d8399f37e36","content":"Nec gravida conubia morbiu003cbru003eEleifend ullamcorper aenean quam","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"c9fe07f6-88f7-43cf-a2e1-6d8399f37e36","content":"Nec gravida conubia morbi\u003cbr\u003eEleifend ullamcorper aenean quam","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-c9fe07f6" class="wp-block-wd-title title">Nec gravida conubia morbi<br>Eleifend ullamcorper aenean quam</h2>
 <!-- /wp:wd/title -->
 
@@ -235,11 +235,11 @@
 
 <!-- wp:wd/timeline-item {"blockId":"b31cd85d-91dd-4898-93bd-773fdda0b938","layout":"col-2"} -->
 <div id="wd-b31cd85d" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"aa09dc76-4350-470b-aa47-127aea2d7a0b","textAlign":"end","rowGap":"10","bgColorCode":"#fefefe","textAlignMobile":"center","paddingTopMobile":"30","paddingBottomMobile":"30","metadata":{"name":"Timeline content"}} -->
-<div id="wd-aa09dc76" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"6077d740-b986-4631-8ed5-e11bb750185f","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
+<div id="wd-aa09dc76" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/paragraph {"blockId":"6077d740-b986-4631-8ed5-e11bb750185f","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontSizeTablet":"16"} -->
 <p id="wd-6077d740" class="wp-block-wd-paragraph">Condimentum fames egestas ad potenti</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"0800a91a-ab21-4f79-9e33-85ac3ad7fab4","content":"Lementum musat dignissimu003cbru003eMi vestibulum iaculis consectetur","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<!-- wp:wd/title {"blockId":"0800a91a-ab21-4f79-9e33-85ac3ad7fab4","content":"Lementum musat dignissim\u003cbr\u003eMi vestibulum iaculis consectetur","tpFontSize":"28","displayWidth":"","customWidth":"","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-0800a91a" class="wp-block-wd-title title">Lementum musat dignissim<br>Mi vestibulum iaculis consectetur</h2>
 <!-- /wp:wd/title -->
 
@@ -260,12 +260,12 @@
 <!-- /wp:wd/timeline-item --></div>
 <!-- /wp:wd/timeline -->
 
-<!-- wp:wd/paragraph {"blockId":"090ef1fc-c389-4d17-b05d-f6bec1a63c43","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"090ef1fc-c389-4d17-b05d-f6bec1a63c43","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-090ef1fc" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
 <!-- wp:wd/divider {"blockId":"7640c5b4-a873-48ee-b538-75d31d0570c5","innerBlock":"title","marginBottom":"30"} -->
-<div id="wd-7640c5b4" class="wp-block-wd-divider wd-style-line wd-added-title"><div class="wd-divider-inner"><!-- wp:wd/title {"blockId":"cca71a2c-8fb5-4e92-af94-dc0854115262","textAlign":"center","content":"u003cstrongu003eTIMELINEu003c/strongu003e"} -->
+<div id="wd-7640c5b4" class="wp-block-wd-divider wd-style-line wd-added-title"><div class="wd-divider-inner"><!-- wp:wd/title {"blockId":"cca71a2c-8fb5-4e92-af94-dc0854115262","textAlign":"center","content":"\u003cstrong\u003eTIMELINE\u003c/strong\u003e"} -->
 <h2 id="wd-cca71a2c" class="wp-block-wd-title title wd-align"><strong>TIMELINE</strong></h2>
 <!-- /wp:wd/title --></div></div>
 <!-- /wp:wd/divider -->
@@ -279,7 +279,7 @@
 
 <!-- wp:wd/timeline-item {"blockId":"b5d5f929-3709-4a6a-92f8-39c4dab6118a","layout":"col-2"} -->
 <div id="wd-b5d5f929" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"9d944b85-6228-4d4b-8e85-738f75ef077b","textAlign":"end","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.13)","boxShadowBlur":4,"textAlignMobile":"center","metadata":{"name":"Timeline content"}} -->
-<div id="wd-9d944b85" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/title {"blockId":"1169c1c8-5875-43cd-89b6-0d9fd731ff9a","content":"u003cstrongu003eLementum musat dignissimu003c/strongu003eu003cbru003eMi vestibulum iaculis u003cspan class=u0022wd-highlightu0022u003eConsecteturu003c/spanu003e.","tpFontSize":"28","tpFontVariant":"400","tpFontWeight":"400","markColorCode":"#bc6d51","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<div id="wd-9d944b85" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/title {"blockId":"1169c1c8-5875-43cd-89b6-0d9fd731ff9a","content":"\u003cstrong\u003eLementum musat dignissim\u003c/strong\u003e\u003cbr\u003eMi vestibulum iaculis \u003cspan class=\u0022wd-highlight\u0022\u003eConsectetur\u003c/span\u003e.","tpFontSize":"28","tpFontVariant":"400","tpFontWeight":"400","markColorCode":"#bc6d51","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-1169c1c8" class="wp-block-wd-title title"><strong>Lementum musat dignissim</strong><br>Mi vestibulum iaculis <span class="wd-highlight">Consectetur</span>.</h2>
 <!-- /wp:wd/title -->
 
@@ -309,7 +309,7 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"ade6c2cb-dbd4-4ebb-91a6-89693e014373","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.13)","boxShadowBlur":4,"textAlignMobile":"center","metadata":{"name":"Timeline content"}} -->
-<div id="wd-ade6c2cb" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/title {"blockId":"2fd84c64-693f-4330-8eaa-33ed232a0d19","content":"u003cstrongu003eSed mollis lectus condimentu003c/strongu003e Facilisis dictumst u003cspan class=u0022wd-highlightu0022u003eLaoreet adipingu003c/spanu003e.","tpFontSize":"28","tpFontVariant":"400","tpFontWeight":"400","markColorCode":"#bc6d51","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<div id="wd-ade6c2cb" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/title {"blockId":"2fd84c64-693f-4330-8eaa-33ed232a0d19","content":"\u003cstrong\u003eSed mollis lectus condiment\u003c/strong\u003e Facilisis dictumst \u003cspan class=\u0022wd-highlight\u0022\u003eLaoreet adiping\u003c/span\u003e.","tpFontSize":"28","tpFontVariant":"400","tpFontWeight":"400","markColorCode":"#bc6d51","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-2fd84c64" class="wp-block-wd-title title"><strong>Sed mollis lectus condiment</strong> Facilisis dictumst <span class="wd-highlight">Laoreet adiping</span>.</h2>
 <!-- /wp:wd/title -->
 
@@ -327,7 +327,7 @@
 
 <!-- wp:wd/timeline-item {"blockId":"16184911-9262-402d-b6b5-d40c997a8074","layout":"col-2"} -->
 <div id="wd-16184911" class="wp-block-wd-timeline-item wd-timeline-item wd-layout-col-2"><div class="wd-timeline-dot"></div><!-- wp:wd/container {"blockId":"0de4cecd-1583-4497-8bd0-b13cf9a65123","textAlign":"end","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.13)","boxShadowBlur":4,"textAlignMobile":"center","metadata":{"name":"Timeline content"}} -->
-<div id="wd-0de4cecd" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/title {"blockId":"62f903a0-736b-421b-bbc3-d5695f071ed9","content":"u003cstrongu003eNec gravida conubia morbiu003c/strongu003e Eleifend ullamcorper u003cspan class=u0022wd-highlightu0022u003eAenean quamu003c/spanu003e.","tpFontSize":"28","tpFontVariant":"400","tpFontWeight":"400","markColorCode":"#bc6d51","displayWidth":"custom","customWidth":"502","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
+<div id="wd-0de4cecd" class="wp-block-wd-container wd-dir-col wd-align"><!-- wp:wd/title {"blockId":"62f903a0-736b-421b-bbc3-d5695f071ed9","content":"\u003cstrong\u003eNec gravida conubia morbi\u003c/strong\u003e Eleifend ullamcorper \u003cspan class=\u0022wd-highlight\u0022\u003eAenean quam\u003c/span\u003e.","tpFontSize":"28","tpFontVariant":"400","tpFontWeight":"400","markColorCode":"#bc6d51","displayWidth":"custom","customWidth":"502","tpFontSizeTablet":"24","tpFontSizeMobile":"22"} -->
 <h2 id="wd-62f903a0" class="wp-block-wd-title title wd-custom-width"><strong>Nec gravida conubia morbi</strong> Eleifend ullamcorper <span class="wd-highlight">Aenean quam</span>.</h2>
 <!-- /wp:wd/title -->
 

@@ -71,9 +71,9 @@
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=17608</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"f5923d4d-3cfc-48e7-9c9f-c10057eeb540","blockVersion":"2","arrows":false,"arrowsTablet":false,"arrowsMobile":false,"paginationStyle":"3","stretch":true,"height":"700","marginTop":"-40","marginBottom":"20","heightTablet":"660","heightMobile":"580"} -->
-<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-stretched wd-f5923d4d"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"73de1be7-6d81-40e4-9ddc-c102b0a0222f","blockVersion":"2","align":"flex-start","aspectRatio":"","image":{"id":20817,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/basic-slide-bg-1.jpg","width":1920,"height":705},"bgImage":{"id":"","url":""},"bgPosition":"center center","bgRepeat":"no-repeat","bgColorCode":"#F3F3F3","bgHoverImage":{"id":"","url":""},"paddingRightMobile":"15","paddingLeftMobile":"15"} -->
+<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-stretched wd-f5923d4d"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"73de1be7-6d81-40e4-9ddc-c102b0a0222f","blockVersion":"2","align":"flex-start","aspectRatio":"","image":{"id":20817,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/basic-slide-bg-1.jpg","width":1920,"height":705},"bgImage":{"id":"","url":""},"bgPosition":"center center","bgRepeat":"no-repeat","bgColorCode":"#F3F3F3","bgHoverImage":{"id":"","url":""},"paddingRightMobile":"15","paddingLeftMobile":"15"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-73de1be7"><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"d2184a11-6e00-408b-9451-8ae9e2e14f66","blockVersion":"2","textAlign":"center","rowGap":"","displayWidth":"custom","customWidth":"580","displayWidthTablet":"custom","displayWidthMobile":"full-width","customWidthTablet":"390"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-d2184a11 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"4eecd4ad-c59b-44fe-9ce6-c87ede3a5e9c","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontVariant":"700","tpFontWeight":"700","animation":"slide-from-top","animationDelay":"400","tpFontSizeTablet":"16","tpFontSizeMobile":"14"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-d2184a11 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"4eecd4ad-c59b-44fe-9ce6-c87ede3a5e9c","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontVariant":"700","tpFontWeight":"700","animation":"slide-from-top","animationDelay":"400","tpFontSizeTablet":"16","tpFontSizeMobile":"14"} -->
 <p class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-top wd_delay_400 wd-4eecd4ad">THIS IS CUSTOM SUBTITLE</p>
 <!-- /wp:wd/paragraph -->
 
@@ -94,7 +94,7 @@
 <a class="wp-block-wd-button btn btn-style-bordered btn-size-default btn-shape-rectangle wd-383a8684" href="#"><span>add to cart</span></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/basic-slide-bg-1.jpg" class="wp-image-20817" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/basic-slide-bg-1.jpg" class="wp-image-20817" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"fdf2b8a7-48c2-406e-b876-3f47cd825ef3","blockVersion":"2","align":"flex-start","colorScheme":"light","aspectRatio":"","image":{"id":20818,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/sliders-basic-slide-2.jpg","width":1920,"height":800},"bgImage":{"id":"","url":""},"bgPosition":"center center","bgRepeat":"no-repeat","bgColorCode":"#F3F3F3","bgHoverImage":{"id":"","url":""},"paddingRightMobile":"15","paddingLeftMobile":"15"} -->
@@ -118,7 +118,7 @@
 <!-- wp:wd/button {"blockId":"bf5fe338-4a0e-4f1b-8245-80f51d755b39","blockVersion":"2","design":"bordered","predefinedColor":"white","animationDelay":""} -->
 <a class="wp-block-wd-button btn btn-style-bordered btn-color-white btn-size-default btn-shape-rectangle wd-bf5fe338" href="#"><span>add to cart</span></a>
 <!-- /wp:wd/button --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/sliders-basic-slide-2.jpg" class="wp-image-20818" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/sliders-basic-slide-2.jpg" class="wp-image-20818" alt="" /></div></div>
 <!-- /wp:wd/slider-item --></div></div></div><div class="wd-nav-pagin-wrap wd-slider-pagin wd-custom-style wd-style-shape-3 color-scheme-dark"><ul class="wd-nav-pagin"></ul></div></div>
 <!-- /wp:wd/slider -->
 
@@ -178,11 +178,11 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"6f815243-5061-4e2e-a0dd-1f405b0f29de","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"14"} -->
+<!-- wp:wd/paragraph {"blockId":"6f815243-5061-4e2e-a0dd-1f405b0f29de","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"14"} -->
 <p class="wp-block-wd-paragraph wd-align wd-6f815243">WOODMART COLLECTIONS​</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"b39180d7-b0f4-4e69-99a8-ee19e8bf3d43","blockVersion":"2","textAlign":"center","design":"underlined","content":"BROWSE OUR CATEGORIES​","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"b39180d7-b0f4-4e69-99a8-ee19e8bf3d43","blockVersion":"2","textAlign":"center","design":"underlined","content":"BROWSE OUR CATEGORIES​","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-underlined wd-b39180d7"><span>BROWSE OUR CATEGORIES​</span></h2>
 <!-- /wp:wd/title -->
 
@@ -192,11 +192,11 @@
 
 <!-- wp:wd/product-categories {"blockId":"a449c3b9-2e37-4b28-a83f-6a84d0854aed","blockVersion":"2","number":"5","categories_design":"alt","style":"carousel","marginBottom":"90","slides_per_view":"4","sync_parent_id":"wd_8eef3224","marginBottomTablet":"60"} /-->
 
-<!-- wp:wd/paragraph {"blockId":"cf722f23-cd56-4017-b618-32d2b607eeb5","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"14"} -->
+<!-- wp:wd/paragraph {"blockId":"cf722f23-cd56-4017-b618-32d2b607eeb5","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"14"} -->
 <p class="wp-block-wd-paragraph wd-align wd-cf722f23">WOODMART COLLECTIONS​</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"9a0fcb5d-f050-43bf-8781-27c3e05ed69a","blockVersion":"2","textAlign":"center","design":"underlined","content":"BEST SELLING PRODUCTS​","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"9a0fcb5d-f050-43bf-8781-27c3e05ed69a","blockVersion":"2","textAlign":"center","design":"underlined","content":"BEST SELLING PRODUCTS​","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-underlined wd-9a0fcb5d"><span>BEST SELLING PRODUCTS​</span></h2>
 <!-- /wp:wd/title -->
 
@@ -208,7 +208,7 @@
 
 <!-- wp:wd/section {"blockId":"b8f6c5d9-6696-422b-8240-40bf440a07e5","blockVersion":"2","bgType":"video","bgExternalVideo":"https://www.youtube.com/watch?v=lR3spOdggNc","bgVideo":{"id":27070,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wd-basic-video-bg.mp4"},"bgVideoSource":"local","bgColorCode":"#dddddd","paddingTop":"130","paddingRight":"30","paddingBottom":"130","paddingLeft":"30","marginBottom":"80","overlayColorCode":"#000000","overlay":true,"overlayOpacity":0.5,"paddingTopMobile":"70","paddingRightMobile":"20","paddingBottomMobile":"70","paddingLeftMobile":"20","marginBottomTablet":"60","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-section wd-b8f6c5d9 wd-bg-parent"><div class="wd-bg-video"><video class="wd-bg-video-html" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wd-basic-video-bg.mp4" autoplay muted loop playsinline></video></div><div class="wd-bg-overlay"></div><!-- wp:wd/container {"blockId":"63a3479b-186b-4a5f-a52c-09ddb96b99fa","blockVersion":"2","textAlign":"center","rowGap":"10","colorScheme":"light","paddingTop":"90","paddingRight":"15","paddingBottom":"90","paddingLeft":"15","borderType":"solid","borderColorCode":"rgba(255,255,255,0.15)","borderWidth":"5","borderWidthTop":"5","borderWidthRight":"5","borderWidthBottom":"5","borderWidthLeft":"5","displayWidth":"custom","customWidth":"815","paddingTopMobile":"70","paddingBottomMobile":"70","alignSelfTablet":"center","displayWidthTablet":"custom","customWidthTablet":"650"} -->
-<div class="wp-block-wd-container wd-dir-col color-scheme-light wd-align wd-63a3479b wd-custom-width wd-align-s-center-md"><!-- wp:wd/paragraph {"blockId":"6c94779d-ed68-4cfe-b75f-2cd5a772ceeb","blockVersion":"2","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"18","tpFontVariant":"600","tpFontWeight":"600"} -->
+<div class="wp-block-wd-container wd-dir-col color-scheme-light wd-align wd-63a3479b wd-custom-width wd-align-s-center-md"><!-- wp:wd/paragraph {"blockId":"6c94779d-ed68-4cfe-b75f-2cd5a772ceeb","blockVersion":"2","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"18","tpFontVariant":"600","tpFontWeight":"600"} -->
 <p class="wp-block-wd-paragraph wd-6c94779d">LAOREET IN VITAE AMET​</p>
 <!-- /wp:wd/paragraph -->
 
@@ -230,11 +230,11 @@
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/paragraph {"blockId":"7508209d-4aa4-43c0-9a18-d7ef7f0bb12d","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"14"} -->
+<!-- wp:wd/paragraph {"blockId":"7508209d-4aa4-43c0-9a18-d7ef7f0bb12d","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"14"} -->
 <p class="wp-block-wd-paragraph wd-align wd-7508209d">WOODMART COLLECTIONS​</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"c3352ae6-1d22-49e2-aaac-ae716fe0ad97","blockVersion":"2","textAlign":"center","design":"underlined","content":"OUT BLOG POSTS​","tpFontSize":"26","activeBorderColorVariable":"u002du002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"c3352ae6-1d22-49e2-aaac-ae716fe0ad97","blockVersion":"2","textAlign":"center","design":"underlined","content":"OUT BLOG POSTS​","tpFontSize":"26","activeBorderColorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-underlined wd-c3352ae6"><span>OUT BLOG POSTS​</span></h2>
 <!-- /wp:wd/title -->
 
@@ -264,8 +264,8 @@
 															<wp:post_id>17608</wp:post_id>
 					<wp:post_date><![CDATA[2024-06-19 07:43:59]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-06-19 07:43:59]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 12:23:09]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 12:23:09]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 13:05:40]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 13:05:40]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-basic]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

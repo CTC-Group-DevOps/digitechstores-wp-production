@@ -10,10 +10,6 @@ class WPML_TP_Client {
 
 	private $batches;
 
-	private $ratings;
-
-	private $feedback;
-
 	public function __construct(
 		WPML_TP_Project $project,
 		WPML_TP_TM_Jobs $tm_jobs
@@ -36,22 +32,6 @@ class WPML_TP_Client {
 		}
 
 		return $this->batches;
-	}
-
-	public function ratings() {
-		if ( ! $this->ratings ) {
-			$this->ratings = new WPML_TP_API_TF_Ratings( $this );
-		}
-
-		return $this->ratings;
-	}
-
-	public function feedback() {
-		if ( ! $this->feedback ) {
-			$this->feedback = new WPML_TP_API_TF_Feedback( $this );
-		}
-
-		return $this->feedback;
 	}
 
 	public function get_project() {

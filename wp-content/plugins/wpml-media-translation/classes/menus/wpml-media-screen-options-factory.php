@@ -1,13 +1,7 @@
 <?php
 
-/**
- * Class WPML_Media_Screen_Options_Factory
- */
 class WPML_Media_Screen_Options_Factory implements IWPML_Backend_Action_Loader {
 
-	/**
-	 * @return IWPML_Action|WPML_Media_Screen_Options
-	 */
 	public function create() {
 
 		$options = array();
@@ -18,8 +12,6 @@ class WPML_Media_Screen_Options_Factory implements IWPML_Backend_Action_Loader {
 			$options[]   = array(
 				'key'  => 'per_page',
 				'args' => array(
-					// Labels should be untranslated at this point.
-					// The plugin translations will be loaded later.
 					'label'   => 'Number of items per page:',
 					'default' => get_option( $option_name, 20 ),
 					'option'  => $option_name,
@@ -36,9 +28,6 @@ class WPML_Media_Screen_Options_Factory implements IWPML_Backend_Action_Loader {
 
 	}
 
-	/**
-	 * @return bool
-	 */
 	private function is_translation_dashboard() {
 		return ! isset( $_GET['sm'] ) || 'media-translation' === $_GET['sm'];
 	}

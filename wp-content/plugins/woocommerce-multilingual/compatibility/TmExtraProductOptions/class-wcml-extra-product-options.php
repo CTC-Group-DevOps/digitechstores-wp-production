@@ -23,8 +23,8 @@ class WCML_Extra_Product_Options implements \IWPML_Action {
 		$dashboardUrl  = \WCML\Utilities\AdminUrl::getWPMLTMDashboardStringDomain( self::TRANSLATION_DOMAIN );
 		$message       = '<div><p class="icl_cyan_box">';
 		$message      .= sprintf(
-			/* translators: %1$s and %2$s are opening and closing HTML link tags */
-			esc_html__( 'To translate custom product fields, save your changes here first, then go to the %2$sTranslation Dashboard%3$s.', 'woocommerce-multilingual' ),
+			/* translators: Help text on the extra product options panel. %1$s: opening link tag, %2$s: closing link tag. "Translation Dashboard" is a WPML screen name. */
+			esc_html__( 'To translate custom product fields, save your changes here first, then go to the %1$sTranslation Dashboard%2$s.', 'woocommerce-multilingual' ),
 			'<a href="' . esc_url( $dashboardUrl ) . '">',
 			'</a>'
 		);

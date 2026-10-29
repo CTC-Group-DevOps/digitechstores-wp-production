@@ -294,7 +294,7 @@ class Main extends Singleton {
 		$is_active                = false;
 
 		foreach ( $current_conditions_data as $post_id => $conditions ) {
-			$post_id = apply_filters( 'wpml_object_id', $post_id, 'woodmart_layout' );
+			$post_id = apply_filters( 'wpml_object_id', $post_id, 'woodmart_layout', true );
 
 			if ( ! $post_id ) {
 				continue;

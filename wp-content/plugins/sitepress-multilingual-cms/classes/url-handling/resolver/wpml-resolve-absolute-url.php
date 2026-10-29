@@ -18,8 +18,7 @@ class WPML_Resolve_Absolute_Url implements IWPML_Resolve_Object_Url {
 			return false;
 		}
 
-		$this->lock   = true;
-		$current_lang = $this->sitepress->get_current_language();
+		$this->lock = true;
 		$this->sitepress->switch_lang( $lang );
 
 		try {
@@ -30,9 +29,10 @@ class WPML_Resolve_Absolute_Url implements IWPML_Resolve_Object_Url {
 			}
 		} catch ( Exception $e ) {
 			$new_url = false;
+		} finally {
+			$this->sitepress->switch_lang();
 		}
 
-		$this->sitepress->switch_lang( $current_lang );
 		$this->lock = false;
 
 		return $new_url;

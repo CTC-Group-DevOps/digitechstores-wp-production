@@ -11,7 +11,7 @@
             "Elija el tipo de archivo de imagen para las banderas"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "Esta opción solo afecta a las banderas de WPML integradas, no a las personalizadas subidas."
+            "Esta opción solo afecta a las banderas integradas de WPML, no a las personalizadas que haya subido."
          ],
          "%s format": [
             "Formato %s"
@@ -20,10 +20,10 @@
             "Guardar"
          ],
          "The new format has been saved.": [
-            "El nuevo formato se ha guardado."
+            "Se ha guardado el nuevo formato."
          ],
          "Failed to save the new format": [
-            "No se pudo guardar el nuevo formato"
+            "Error al guardar el nuevo formato"
          ]
       }
    }

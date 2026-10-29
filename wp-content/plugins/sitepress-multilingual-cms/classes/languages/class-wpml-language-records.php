@@ -8,6 +8,8 @@ class WPML_Language_Records {
 
 	private $locale_lang_map;
 
+	private $lang_locale_map;
+
 	public function __construct( wpdb $wpdb ) {
 		$this->wpdb = $wpdb;
 	}
@@ -21,13 +23,13 @@ class WPML_Language_Records {
 	}
 
 	private function load() {
-		$this->languages = $this->wpdb->get_col( "SELECT code FROM {$this->get_table()}" );
+		$wpdb            = $this->wpdb;
+		$this->languages = $this->wpdb->get_col( "SELECT code FROM {$wpdb->prefix}icl_languages" );
 	}
 
 	public function get_locale( $lang_code ) {
 		$this->init_locale_lang_map();
-		$locale = array_search( $lang_code, $this->locale_lang_map, true );
-		return $locale ? $locale : null;
+		return isset( $this->lang_locale_map[ $lang_code ] ) ? $this->lang_locale_map[ $lang_code ] : null;
 	}
 
 	public function get_language_code( $locale ) {
@@ -38,12 +40,22 @@ class WPML_Language_Records {
 	private function init_locale_lang_map() {
 		if ( null === $this->locale_lang_map ) {
 			$this->locale_lang_map = array();
+			$this->lang_locale_map = array();
+			$active_owner          = array();
 
-			$sql    = "SELECT default_locale, code FROM {$this->get_table()}";
-			$rowset = $this->wpdb->get_results( $sql );
+			$wpdb   = $this->wpdb;
+			$rowset = $this->wpdb->get_results( "SELECT default_locale, code, active FROM {$wpdb->prefix}icl_languages" );
 
-			foreach ( $rowset as $row ) {
-				$this->locale_lang_map[ $row->default_locale ?: $row->code ] = $row->code;
+			foreach ( (array) $rowset as $row ) {
+				$locale    = $row->default_locale ?: $row->code;
+				$is_active = ! empty( $row->active );
+
+				$this->lang_locale_map[ $row->code ] = $locale;
+
+				if ( ! isset( $this->locale_lang_map[ $locale ] ) || ( $is_active && ! $active_owner[ $locale ] ) ) {
+					$this->locale_lang_map[ $locale ] = $row->code;
+					$active_owner[ $locale ]          = $is_active;
+				}
 			}
 		}
 	}
@@ -51,9 +63,5 @@ class WPML_Language_Records {
 	public function get_locale_lang_map() {
 		$this->init_locale_lang_map();
 		return $this->locale_lang_map;
-	}
-
-	private function get_table() {
-		return $this->wpdb->prefix . 'icl_languages';
 	}
 }

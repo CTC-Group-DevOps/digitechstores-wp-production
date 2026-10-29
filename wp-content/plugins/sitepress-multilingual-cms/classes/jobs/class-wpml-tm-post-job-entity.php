@@ -13,6 +13,8 @@ class WPML_TM_Post_Job_Entity extends WPML_TM_Job_Entity {
 
 	private $automatic;
 
+	private $created_by_translate_everything = false;
+
 	private $review_status = null;
 
 	private $trid;
@@ -24,6 +26,10 @@ class WPML_TM_Post_Job_Entity extends WPML_TM_Job_Entity {
 	private $element_type_prefix;
 
 	private $job_title;
+
+	private $words_to_translate_count = null;
+
+	private $automatic_translation_costs = null;
 
 	public function __construct( $id, $type, $tp_id, $batch, $status, $elements ) {
 		parent::__construct( $id, $type, $tp_id, $batch, $status );
@@ -97,6 +103,14 @@ class WPML_TM_Post_Job_Entity extends WPML_TM_Job_Entity {
 		$this->automatic = (bool) $automatic;
 	}
 
+	public function is_created_by_translate_everything() {
+		return $this->created_by_translate_everything;
+	}
+
+	public function set_created_by_translate_everything( $created_by_translate_everything ) {
+		$this->created_by_translate_everything = (bool) $created_by_translate_everything;
+	}
+
 	public function get_review_status() {
 		return $this->review_status;
 	}
@@ -143,5 +157,25 @@ class WPML_TM_Post_Job_Entity extends WPML_TM_Job_Entity {
 
 	public function set_job_title( $job_title ) {
 		$this->job_title = $job_title;
+	}
+
+	public function get_words_to_translate_count() {
+		return $this->words_to_translate_count;
+	}
+
+	public function set_words_to_translate_count( $words_to_translate_count ) {
+		$this->words_to_translate_count = null === $words_to_translate_count
+			? null
+			: (int) $words_to_translate_count;
+	}
+
+	public function get_automatic_translation_costs() {
+		return $this->automatic_translation_costs;
+	}
+
+	public function set_automatic_translation_costs( $automatic_translation_costs ) {
+		$this->automatic_translation_costs = null === $automatic_translation_costs
+			? null
+			: (int) $automatic_translation_costs;
 	}
 }

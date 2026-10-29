@@ -1,5 +1,8 @@
 <?php
 
+use WPML\Core\Component\CustomFieldPreferences\Domain\ElementType;
+use WPML\Infrastructure\WordPress\Component\SettingsStorage\VirtualSettingsOption;
+use WPML\TM\Settings\RequestSettings;
 use function WPML\Container\make;
 
 function wpml_site_uses_icl() {
@@ -22,15 +25,15 @@ function wpml_site_uses_icl() {
 		$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}icl_translation_status'" );
 
 		if ( $table_exists ) {
-			$icl_job_count_query = $wpdb->prepare(
-				"SELECT rid
+			$site_uses_icl = (bool) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT rid
 							FROM {$wpdb->prefix}icl_translation_status
 							WHERE translation_service = %s
 							LIMIT 1;",
-				'icanlocalize'
+					'icanlocalize'
+				)
 			);
-
-			$site_uses_icl = (bool) $wpdb->get_var( $icl_job_count_query );
 		}
 		$cache->set( 'site_uses_icl', $site_uses_icl );
 	}
@@ -47,10 +50,7 @@ function icl_get_setting( $key, $default = false ) {
 }
 
 function wpml_get_setting( $key, $default = null ) {
-	global $sitepress_settings;
-	$sitepress_settings = isset( $sitepress_settings ) ? $sitepress_settings : get_option( 'icl_sitepress_settings' );
-
-	return isset( $sitepress_settings[ $key ] ) ? $sitepress_settings[ $key ] : $default;
+	return RequestSettings::get( $key, $default );
 }
 
 function wpml_get_setting_filter( $default, $key ) {
@@ -62,6 +62,10 @@ function wpml_get_setting_filter( $default, $key ) {
 	return wpml_get_setting( $key, $default );
 }
 
+function wpml_get_tm_sub_setting( $key, $fallback = array() ) {
+	return RequestSettings::tmSubSetting( $key, $fallback );
+}
+
 function icl_get_sub_setting( $key, $sub_key, $default = false ) {
 	$parent = icl_get_setting( $key, array() );
 
@@ -70,6 +74,10 @@ function icl_get_sub_setting( $key, $sub_key, $default = false ) {
 
 function wpml_get_sub_setting_filter( $default, $key, $sub_key, $deprecated = null ) {
 	$default = null !== $deprecated && ! $default ? $deprecated : $default;
+
+	if ( ElementType::SETTINGS_KEY === $key && ! in_array( $sub_key, ElementType::BLOB_KEYS, true ) ) {
+		return wpml_get_tm_sub_setting( $sub_key, $default );
+	}
 
 	$parent = wpml_get_setting_filter( array(), $key );
 
@@ -82,6 +90,7 @@ function icl_set_setting( $key, $value, $save_now = false ) {
 	$result = true;
 
 	$sitepress_settings[ $key ] = $value;
+	VirtualSettingsOption::recordSetterValue( (string) $key, $value );
 
 	if ( true === $save_now ) {
 		$result = update_option( 'icl_sitepress_settings', $sitepress_settings );
@@ -104,8 +113,11 @@ function icl_get_settings() {
 
 function icl_plugin_action_links( SitePress $sitepress, $links, $file ) {
 	if ( $file == WPML_PLUGIN_BASENAME ) {
-		$endpoint = $sitepress->is_setup_complete() ? 'languages.php' : 'setup.php';
-		$links[]  = '<a href="admin.php?page=' . WPML_PLUGIN_FOLDER . '/menu/' . $endpoint . '">' . __( 'Configure', 'sitepress' ) . '</a>';
+		$url     = $sitepress->is_setup_complete()
+			? 'admin.php?page=tm/menu/settings&section=languages'
+			: 'admin.php?page=' . WPML_PLUGIN_FOLDER . '/menu/setup.php';
+		/* translators: Link next to a plugin that opens its settings. Verb, imperative. */
+		$links[] = '<a href="' . esc_url( $url ) . '">' . __( 'Configure', 'sitepress' ) . '</a>';
 	}
 
 	return $links;
@@ -184,9 +196,12 @@ function _icl_trash_restore_prompt() {
 			$delete_post_url  = get_delete_post_link( $post->ID, '', true );
 
 			if ( is_string( $delete_post_url ) ) {
+				/* translators: Link text inside a sentence about a post in the Trash; "it" is that post. It starts in lower case because it sits inside the sentence. Verb phrase, imperative. */
 				$delete_post_link  = '<a href="' . esc_url( $delete_post_url ) . '">' . esc_html__( 'delete it permanently', 'sitepress' ) . '</a>';
+				/* translators: Link text inside a sentence about a post in the Trash: bring it back. It starts in lower case because it sits inside the sentence. Verb, imperative. */
 				$restore_post_link = '<a href="' . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $post->ID ) ), 'untrash-post_' . $post->ID ) . '">' . esc_html__( 'restore', 'sitepress' ) . '</a>';
-				$ret               = '<p>' . sprintf( esc_html__( 'This translation is currently in the trash. You need to either %1$s or %2$s it in order to continue.' ), $delete_post_link, $restore_post_link );
+				/* translators: %1$s is the link text 'delete it permanently' and %2$s the link text 'restore'; both sit inside the sentence. */
+				$ret               = '<p>' . sprintf( esc_html__( 'This translation is currently in the trash. You need to either %1$s or %2$s it in order to continue.', 'sitepress' ), $delete_post_link, $restore_post_link );
 
 				wp_die( $ret );
 			}
@@ -291,32 +306,60 @@ function wpml_strip_subdir_from_url( $url ) {
 	global $wpml_url_converter;
 
 	$subdir       = wpml_parse_url( $wpml_url_converter->get_abs_home(), PHP_URL_PATH );
-	$subdir_slugs = ! empty( $subdir ) ? array_values( array_filter( explode( '/', $subdir ) ) ) : [''];
+	$subdir_slugs = ! empty( $subdir ) ? array_values( array_filter( explode( '/', $subdir ) ) ) : [];
 
-	$url_path_expl = explode( '/', preg_replace( '#^(http|https)://#', '', $url ) );
-	array_shift( $url_path_expl );
-	$url_slugs        = array_values( array_filter( $url_path_expl ) );
-	$url_slugs_before = $url_slugs;
-	$url_slugs        = array_diff_assoc( $url_slugs, $subdir_slugs );
-	$url              = str_replace( '/' . join( '/', $url_slugs_before ), '/' . join( '/', $url_slugs ), $url );
+	if ( ! $subdir_slugs ) {
+		return untrailingslashit( $url );
+	}
 
-	return untrailingslashit( $url );
+	$scheme = '';
+	if ( preg_match( '#^(https?://)#', $url, $matches ) ) {
+		$scheme = $matches[1];
+		$url    = substr( $url, strlen( $scheme ) );
+	}
+
+	$segments = explode( '/', $url );
+	$host     = array_shift( $segments );
+
+	foreach ( $subdir_slugs as $subdir_slug ) {
+		if ( isset( $segments[0] ) && $segments[0] === $subdir_slug ) {
+			array_shift( $segments );
+		} else {
+			break;
+		}
+	}
+
+	$path = $segments ? '/' . implode( '/', $segments ) : '';
+
+	return untrailingslashit( $scheme . $host . $path );
 }
 
 function wpml_prepare_in( $items, $format = '%s' ) {
 	global $wpdb;
 
-	$items    = (array) $items;
-	$how_many = count( $items );
-	if ( $how_many > 0 ) {
-		$placeholders    = array_fill( 0, $how_many, $format );
-		$prepared_format = implode( ',', $placeholders );
-		$prepared_in     = $wpdb->prepare( $prepared_format, $items );
-	} else {
-		$prepared_in = '';
+	$items = (array) $items;
+	if ( ! $items ) {
+		return '';
 	}
 
-	return $prepared_in;
+	$prepare_item = '%d' === $format
+		? static function( $item ) use ( $wpdb ) {
+			return $wpdb->prepare( '%d', $item );
+		}
+		: static function( $item ) use ( $wpdb ) {
+			return $wpdb->prepare( '%s', $item );
+		};
+
+	return implode( ',', array_map( $prepare_item, $items ) );
+}
+
+function wpml_post_element_types( $post_types ) {
+	$element_types = array();
+	foreach ( (array) $post_types as $post_type ) {
+		$element_types[] = 'post_' . $post_type;
+	}
+
+	return $element_types;
 }
 
 function is_not_installing_plugins() {
@@ -396,14 +439,26 @@ function activate_installer( ?SitePress $sitepress = null ) {
 		);
 	}
 	WP_Installer_Setup( $wp_installer_instance, $args );
+
+	if ( defined( 'WP_CLI' ) && WP_CLI ) {
+		require_once dirname( __DIR__ ) . '/classes/Installer/CliDeferredLoader.php';
+		\WPML\Installer\CliDeferredLoader::register();
+	}
 }
 
 function wpml_missing_filter_input_notice() {
+	$uses_filter_extension = sprintf(
+		/* translators: %s: link to the PHP documentation of the extension, with the text "PHP Data Filtering". */
+		esc_html__( 'To ensure and improve the security of your website, WPML makes use of the %s extension.', 'sitepress' ),
+		'<a href="http://php.net/manual/en/book.filter.php">' .
+		/* translators: Name of a PHP extension, used as a link in "WPML makes use of the PHP Data Filtering extension." */
+		esc_html__( 'PHP Data Filtering', 'sitepress' ) . '</a>'
+	);
 	?>
 	<div class="message error">
 		<h3><?php esc_html_e( "WPML can't be functional because it requires a disabled PHP extension!", 'sitepress' ); ?></h3>
 
-		<p><?php esc_html_e( 'To ensure and improve the security of your website, WPML makes use of the ', 'sitepress' ); ?><a href="http://php.net/manual/en/book.filter.php">PHP Data Filtering</a> extension.<br><br>
+		<p><?php echo wp_kses( $uses_filter_extension, array( 'a' => array( 'href' => array() ) ) ); ?><br><br>
 			<?php
 			esc_html_e(
 				'The filter extension is enabled by default as of PHP 5.2.0. Before this time an experimental PECL extension was
@@ -416,7 +471,7 @@ function wpml_missing_filter_input_notice() {
 				Installing/Configuring</a>)<br>
 			<br>
 			<?php esc_html_e( 'The filter extension is enabled by default as of PHP 5.2, therefore it must have been disabled by either you or your host.', 'sitepress' ); ?>
-			<br><?php esc_html_e( "To enable it, either you or your host will need to open your website's php.ini file and either:", 'sitepress' ); ?><br>
+			<br><?php /* translators: Line under that sentence; "it" is the extension named just above. */ esc_html_e( "To enable it, either you or your host will need to open your website's php.ini file and either:", 'sitepress' ); ?><br>
 		<ol>
 			<li><?php esc_html_e( "Remove the 'filter_var' string from the 'disable_functions' directive or...", 'sitepress' ); ?>
 			</li>
@@ -441,7 +496,7 @@ function repair_el_type_collate() {
 		$wpdb->prepare(
 			"SELECT collation_name
 	          FROM information_schema.COLUMNS
-	          WHERE TABLE_NAME = '%s'
+	          WHERE TABLE_NAME = %s
 	                AND COLUMN_NAME = 'post_type'
 	                    AND table_schema = (SELECT DATABASE())
 	          LIMIT 1",
@@ -449,13 +504,11 @@ function repair_el_type_collate() {
 		)
 	);
 
-	$table_name = $wpdb->prefix . 'icl_translations';
-	$sql        = $wpdb->prepare(
-		"ALTER TABLE `$table_name` CHANGE `element_type` `element_type` VARCHAR( 36 ) NOT NULL DEFAULT 'post_post' COLLATE %s",
-		$correct_collate
-	);
+	if ( ! is_string( $correct_collate ) || ! preg_match( '/^[A-Za-z0-9_]+$/', $correct_collate ) ) {
+		throw new Exception( 'Could not determine a safe collation.' );
+	}
 
-	if ( $wpdb->query( $sql ) === false ) {
+	if ( false === $wpdb->query( "ALTER TABLE `{$wpdb->prefix}icl_translations` CHANGE `element_type` `element_type` VARCHAR( 60 ) NOT NULL DEFAULT 'post_post' COLLATE " . esc_sql( $correct_collate ) ) ) {
 		throw new Exception( $wpdb->last_error );
 	}
 }
@@ -533,6 +586,18 @@ function wpml_is_cli() {
 	return defined( 'WP_CLI' ) && WP_CLI;
 }
 
+function wpml_is_trusted_no_user_context() {
+	return \WPML\Core\Security\ExecutionContext\ExecutionContextHolder::isTrusted();
+}
+
+function wpml_validate_requested_language( $raw, $scope = \WPML\Language\RequestedLanguage::SCOPE_VIEWER, $allow_all = false ) {
+	return \WPML\Language\RequestedLanguage::validate( $raw, $scope, $allow_all );
+}
+
+function wpml_requested_language_filter( $default, $raw, $scope = \WPML\Language\RequestedLanguage::SCOPE_VIEWER, $allow_all = false ) {
+	return wpml_validate_requested_language( $raw, $scope, $allow_all );
+}
+
 function wpml_sticky_post_sync( ?SitePress $sitepress = null ) {
 	static $instance;
 
@@ -554,6 +619,31 @@ function wpml_sticky_post_sync( ?SitePress $sitepress = null ) {
 	}
 
 	return $instance;
+}
+
+function wpml_autoload_wp_filesystem_class( $class ) {
+	$files = [
+		'wp_filesystem_base'   => 'class-wp-filesystem-base.php',
+		'wp_filesystem_direct' => 'class-wp-filesystem-direct.php',
+	];
+
+	$key = strtolower( $class );
+	if ( ! isset( $files[ $key ] ) ) {
+		return;
+	}
+
+	$file = ABSPATH . 'wp-admin/includes/' . $files[ $key ];
+	if ( file_exists( $file ) ) {
+		require_once $file;
+	}
+}
+
+spl_autoload_register( 'wpml_autoload_wp_filesystem_class' );
+
+function wpml_get_filesystem() {
+	$wp_api = new WPML_WP_API();
+
+	return $wp_api->get_wp_filesystem();
 }
 
 function wpml_get_filesystem_direct() {

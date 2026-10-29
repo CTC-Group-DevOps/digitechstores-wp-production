@@ -29,15 +29,15 @@ class WCML_Exchange_Rates {
 		if ( is_admin() ) {
 			add_action( 'wcml_saved_mc_options', [ $this, 'update_exchange_rate_options' ] );
 		}
+		add_filter( 'cron_schedules', [ $this, 'cron_schedules' ] );
 		add_action( 'init', [ $this, 'init' ] );
 	}
 
 	public function init() {
 		if ( $this->woocommerce_wpml->multi_currency->get_currencies() ) {
 			if ( is_admin() ) {
-				add_action( 'wp_ajax_wcml_update_exchange_rates', [ $this, 'update_exchange_rates_ajax' ] );
+				\WCML\Request\Ajax::register( 'wcml_update_exchange_rates', [ 'authorize' => [ 'WCML_Capabilities', 'canManageWcml' ], 'description' => 'WCML manager (shop manager or administrator role, WCML_Capabilities::canManageWcml)', 'nonce' => [ 'update-exchange-rates', 'wcml_nonce' ] ], [ $this, 'update_exchange_rates_ajax' ] );
 			}
-			add_filter( 'cron_schedules', [ $this, 'cron_schedules' ] );
 			add_action( self::CRONJOB_EVENT, [ $this, 'action_update_exchange_rates' ] );
 		}
 	}
@@ -86,7 +86,8 @@ class WCML_Exchange_Rates {
 
 	public function update_exchange_rates_ajax() {
 		$response = [];
-		if ( wp_create_nonce( 'update-exchange-rates' ) === $_POST['wcml_nonce'] ) {
+		$nonce    = filter_input( INPUT_POST, 'wcml_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		if ( $nonce && wp_verify_nonce( $nonce, 'update-exchange-rates' ) && WCML_Capabilities::canManageWcml() ) {
 			try {
 				$rates                    = $this->update_exchange_rates();
 				$response['success']      = 1;
@@ -105,23 +106,39 @@ class WCML_Exchange_Rates {
 	}
 
 	public function update_exchange_rates() {
-		$currencies = $this->woocommerce_wpml->multi_currency->get_currency_codes();
-		$rates      = $this->fetch_exchange_rates_from_active_service( $currencies );
+		$currencies  = $this->woocommerce_wpml->multi_currency->get_currency_codes();
+		$rates       = $this->fetch_exchange_rates_from_active_service( $currencies );
+		$saved_rates = [];
 
 		foreach ( $rates as $to => $rate ) {
-			if ( $rate && is_numeric( $rate ) ) {
-				$this->save_exchage_rate( $to, $rate );
+			if ( is_numeric( $rate ) ) {
+				$rate = (float) $rate;
+				if ( is_finite( $rate ) && $rate > 0 ) {
+					$this->save_exchage_rate( $to, $rate );
+					$saved_rates[ $to ] = $rate;
+				}
 			}
+		}
+
+		if ( ! $saved_rates ) {
+			throw new Exception( 'No valid exchange rates were received.' );
 		}
 
 		$this->settings['last_updated'] = current_time( 'timestamp' );
 		$this->save_settings();
 
-		return $rates;
+		return $saved_rates;
 	}
 
 	public function action_update_exchange_rates() {
-		$this->update_exchange_rates();
+		try {
+			$this->update_exchange_rates();
+		} catch ( Exception $e ) {
+			wc_get_logger()->error(
+				'Exchange rates cron update failed: ' . $e->getMessage(),
+				[ 'source' => 'wcml-exchange-rates' ]
+			);
+		}
 	}
 
 	public function fetch_exchange_rates_from_active_service( $currencies ) {
@@ -252,33 +269,33 @@ class WCML_Exchange_Rates {
 	}
 
 	public function enable_update_cronjob() {
-		$schedule = wp_get_schedule( self::CRONJOB_EVENT );
+		if ( 'monthly' === $this->settings['schedule'] ) {
+			$time_offset = $this->get_monthly_schedule_time_offset();
+			$recurrence  = 'wcml_' . $this->settings['schedule'] . '_on_' . $this->settings['month_day'];
+		} elseif ( 'weekly' === $this->settings['schedule'] ) {
+			$time_offset = $this->get_weekly_schedule_time_offset();
+			$recurrence  = 'wcml_' . $this->settings['schedule'] . '_on_' . $this->settings['week_day'];
+		} else {
+			$time_offset = time();
+			$recurrence  = $this->settings['schedule'];
+		}
 
-		if ( $schedule !== $this->settings['schedule'] ) {
+		if ( wp_get_schedule( self::CRONJOB_EVENT ) !== $recurrence ) {
 			$this->delete_update_cronjob();
 		}
 
-		if ( 'monthly' === $this->settings['schedule'] ) {
-			$time_offset = $this->get_monthly_schedule_time_offset();
-			$schedule    = 'wcml_' . $this->settings['schedule'] . '_on_' . $this->settings['month_day'];
-		} elseif ( 'weekly' === $this->settings['schedule'] ) {
-			$time_offset = $this->get_weekly_schedule_time_offset();
-			$schedule    = 'wcml_' . $this->settings['schedule'] . '_on_' . $this->settings['week_day'];
-
-		} else {
-			$time_offset = time();
-			$schedule    = $this->settings['schedule'];
-		}
-
 		if ( ! wp_next_scheduled( self::CRONJOB_EVENT ) ) {
-			wp_schedule_event( $time_offset, $schedule, self::CRONJOB_EVENT );
+			wp_schedule_event( $time_offset, $recurrence, self::CRONJOB_EVENT );
 		}
+	}
 
+	private function getDaysInMonth( int $month, int $year ): int {
+		return (int) gmdate( 't', gmmktime( 0, 0, 0, $month, 1, $year ) );
 	}
 
 	private function get_monthly_schedule_time_offset() {
 		$current_day           = date( 'j' );
-		$days_in_current_month = cal_days_in_month( CAL_GREGORIAN, (int) date( 'n' ), (int) date( 'Y' ) );
+		$days_in_current_month = $this->getDaysInMonth( (int) date( 'n' ), (int) date( 'Y' ) );
 
 		if ( $this->settings['month_day'] >= $current_day && $this->settings['month_day'] <= $days_in_current_month ) {
 			$days = $this->settings['month_day'] - $current_day;
@@ -314,13 +331,13 @@ class WCML_Exchange_Rates {
 
 			$month_day             = $this->get_month_day_formatted();
 			$current_month         = date( 'n' );
-			$days_in_current_month = cal_days_in_month( CAL_GREGORIAN, $current_month, date( 'Y' ) );
+			$days_in_current_month = $this->getDaysInMonth( (int) $current_month, (int) date( 'Y' ) );
 			if ( $this->settings['month_day'] <= $days_in_current_month && $this->settings['month_day'] >= date( 'j' ) ) {
 				$interval = DAY_IN_SECONDS * $days_in_current_month;
 			} else {
 				$month_number = 12 === (int) $current_month ? 1 : $current_month + 1;
 				$year_number  = 12 === (int) $current_month ? date( 'Y' ) + 1 : date( 'Y' );
-				$interval     = DAY_IN_SECONDS * cal_days_in_month( CAL_GREGORIAN, $month_number, $year_number );
+				$interval     = DAY_IN_SECONDS * $this->getDaysInMonth( (int) $month_number, (int) $year_number );
 			}
 
 			$schedules[ 'wcml_monthly_on_' . $this->settings['month_day'] ] = [

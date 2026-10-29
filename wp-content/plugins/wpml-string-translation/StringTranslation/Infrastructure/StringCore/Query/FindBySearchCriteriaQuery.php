@@ -44,7 +44,6 @@ class FindBySearchCriteriaQuery implements FindBySearchCriteriaQueryInterface {
 			'name',
 			'value',
 			'status',
-			'translation_priority',
 			'string_type',
 			'component_id',
 			'component_type',
@@ -185,16 +184,18 @@ class FindBySearchCriteriaQuery implements FindBySearchCriteriaQueryInterface {
 				$translation = $translationsByStringId[ $key ];
 			}
 
-			$indexedJobs[ $translationDetails->getRid() ] = [
-				'job_id' => $translationDetails->getJobId(),
-				'automatic' => $translationDetails->getAutomatic(),
-				'translation_service' => $translationDetails->getTranslationService(),
-				'editor' => $translationDetails->getEditor(),
-				'review_status' => $translationDetails->getReviewStatus(),
-				'translated' => is_array( $translation ) ? $translation['value'] : '',
-				'translator_id' => $translationDetails->getTranslatorId(),
-				'editor_job_id' => $translationDetails->getEditorJobId(),
-			];
+			if ( is_int( $rid ) && $rid > 0 ) {
+				$indexedJobs[ $rid ] = [
+					'job_id'              => $translationDetails->getJobId(),
+					'automatic'           => $translationDetails->getAutomatic(),
+					'translation_service' => $translationDetails->getTranslationService(),
+					'editor'              => $translationDetails->getEditor(),
+					'review_status'       => $translationDetails->getReviewStatus(),
+					'translated'          => is_array( $translation ) ? $translation['value'] : '',
+					'translator_id'       => $translationDetails->getTranslatorId(),
+					'editor_job_id'       => $translationDetails->getEditorJobId(),
+				];
+			}
 		}
 
 		foreach ( $string['translations'] as $translation ) {
@@ -236,7 +237,6 @@ class FindBySearchCriteriaQuery implements FindBySearchCriteriaQueryInterface {
 			$string['name'],
 			html_entity_decode( $string['value'], ENT_QUOTES ),
 			(int) $string['status'],
-			$string['translation_priority'],
 			is_numeric( $string['word_count'] ) ? (int) $string['word_count'] : 0,
 			(int) $string['string_type'],
 			(int) $string['component_type'],

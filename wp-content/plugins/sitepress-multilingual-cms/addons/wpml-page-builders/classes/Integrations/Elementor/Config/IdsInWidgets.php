@@ -3,8 +3,10 @@
 namespace WPML\PB\Elementor\Config;
 
 use WPML\FP\Fns;
+use WPML\FP\Obj;
 use WPML\LIB\WP\Hooks;
 use WPML\PB\ConvertIds\Helper;
+use WPML\PB\Config\Parser;
 
 use function WPML\FP\spreadArgs;
 
@@ -20,15 +22,17 @@ class IdsInWidgets implements \IWPML_Backend_Action, \IWPML_Frontend_Action {
 	}
 
 	public function updateFromConfig( $config ) {
-		$ids = [];
+		$ids     = [];
+		$widgets = Parser::normalize( Obj::pathOr( [], [ 'wpml-config', 'elementor-widgets', 'widget' ], $config ) );
 
-		if ( isset( $config['wpml-config']['elementor-widgets']['widget'] ) ) {
-			foreach ( $config['wpml-config']['elementor-widgets']['widget'] as $widget ) {
-				if ( isset( $widget['fields'] ) ) {
-					$ids = $this->extractIdsFromFields( $ids, $widget['attr']['name'], $widget['fields'] );
-				}
-				if ( isset( $widget['fields-in-item'], $widget['fields-in-item']['attr']['items_of'] ) ) {
-					$ids = $this->extractIdsFromFields( $ids, $widget['attr']['name'], $widget['fields-in-item'], $widget['fields-in-item']['attr']['items_of'] );
+		foreach ( $widgets as $widget ) {
+			if ( isset( $widget['fields'] ) ) {
+				$ids = $this->extractIdsFromFields( $ids, $widget['attr']['name'], $widget['fields'] );
+			}
+
+			foreach ( Parser::normalize( Obj::propOr( [], 'fields-in-item', $widget ) ) as $fieldsInItem ) {
+				if ( isset( $fieldsInItem['attr']['items_of'] ) ) {
+					$ids = $this->extractIdsFromFields( $ids, $widget['attr']['name'], $fieldsInItem, $fieldsInItem['attr']['items_of'] );
 				}
 			}
 		}

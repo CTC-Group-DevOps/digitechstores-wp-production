@@ -4,6 +4,7 @@ use WCML\MultiCurrency\Settings as McSettings;
 use Automattic\WooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
 use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
 use WCML\Attributes\LookupTableFactory;
+use WCML\Utilities\AdminNotices;
 use WCML\Utilities\DB;
 use WCML\Utilities\WCTaxonomies;
 use function WCML\functions\getSitePress;
@@ -32,7 +33,6 @@ class WCML_Upgrade {
 		'4.2.7',
 		'4.2.10',
 		'4.2.11',
-		'4.3.0',
 		'4.3.4',
 		'4.3.5',
 		'4.4.1',
@@ -49,65 +49,11 @@ class WCML_Upgrade {
 		'5.4.1',
 		'5.4.4',
 		'5.5.2',
+		'5.6.0',
 	];
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'run' ] );
-		add_action( 'init', [ $this, 'setup_upgrade_notices' ] );
-		add_action( 'admin_notices', [ $this, 'show_upgrade_notices' ] );
-
-		add_action( 'wp_ajax_wcml_hide_notice', [ $this, 'hide_upgrade_notice' ] );
-	}
-
-	public function setup_upgrade_notices() {
-		$wcml_settings = get_option( '_wcml_settings' );
-		$version_in_db = get_option( '_wcml_version' );
-
-		if ( ! empty( $version_in_db ) && version_compare( $version_in_db, '2.9.9.1', '<' ) ) {
-			$n                                    = 'varimages';
-			$wcml_settings['notifications'][ $n ] =
-				[
-					'show' => 1,
-					'text' => __( 'Looks like you are upgrading from a previous version of WPML Multilingual & Multicurrency for WooCommerce. Would you like to automatically create translated variations and images?', 'woocommerce-multilingual' ) .
-								'<br /><strong>' .
-								' <a href="' . \WCML\Utilities\AdminUrl::getTroubleshootingTab() . '">' . __( 'Yes, go to the troubleshooting page', 'woocommerce-multilingual' ) . '</a> |' .
-								' <a href="#" onclick="jQuery.ajax({type:\'POST\',url: ajaxurl,data:\'action=wcml_hide_notice&notice=' . $n . '\',success:function(){jQuery(\'#' . $n . '\').fadeOut()}});return false;">' . __( 'No - dismiss', 'woocommerce-multilingual' ) . '</a>' .
-								'</strong>',
-				];
-			update_option( '_wcml_settings', $wcml_settings );
-		}
-	}
-
-	public function show_upgrade_notices() {
-		$wcml_settings = get_option( '_wcml_settings' );
-		if ( ! empty( $wcml_settings['notifications'] ) ) {
-			foreach ( $wcml_settings['notifications'] as $k => $notification ) {
-
-				if ( isset( $_GET['tab'] ) && \WCML\Utilities\AdminUrl::TAB_TROUBLESHOOTING === $_GET['tab'] && 'varimages' === $k ) {
-					continue;
-				}
-
-				if ( $notification['show'] ) {
-					?>
-					<div id="<?php echo esc_attr( $k ); ?>" class="updated">
-						<p><?php echo $notification['text']; ?></p>
-					</div>
-					<?php
-				}
-			}
-		}
-	}
-
-	public function hide_upgrade_notice( $k ) {
-		if ( empty( $k ) ) {
-			$k = $_POST['notice'];
-		}
-
-		$wcml_settings = get_option( '_wcml_settings' );
-		if ( isset( $wcml_settings['notifications'][ $k ] ) ) {
-			$wcml_settings['notifications'][ $k ]['show'] = 0;
-			update_option( '_wcml_settings', $wcml_settings );
-		}
 	}
 
 	public function run() {
@@ -116,6 +62,10 @@ class WCML_Upgrade {
 		if ( empty( $version_in_db ) && get_option( 'icl_is_wcml_installed' ) ) {
 			$version_in_db = '2.3.2';
 		}
+
+		$normalized_version = $this->normalizeVersionInDb( $version_in_db, WCML_VERSION );
+		$retired_stamp      = $normalized_version !== $version_in_db;
+		$version_in_db      = $normalized_version;
 
 		$migration_ran = false;
 
@@ -132,7 +82,7 @@ class WCML_Upgrade {
 			}
 		}
 
-		if ( $migration_ran || empty( $version_in_db ) ) {
+		if ( $migration_ran || $retired_stamp || empty( $version_in_db ) ) {
 			update_option( '_wcml_version', WCML_VERSION );
 		}
 
@@ -140,6 +90,14 @@ class WCML_Upgrade {
 			$this->upgrade_4_1_0();
 			delete_option( '_wcml_4_1_0_migration_required' );
 		}
+	}
+
+	private function normalizeVersionInDb( $versionInDb, $currentVersion ) {
+		if ( '6.0' === $versionInDb && version_compare( $versionInDb, $currentVersion, '>' ) ) {
+			return '5.5.7';
+		}
+
+		return $versionInDb;
 	}
 
 	public function upgrade_2_9_9_1() {
@@ -423,33 +381,34 @@ class WCML_Upgrade {
 		global $sitepress;
 
 		$active_languages = $sitepress->get_active_languages();
-		$current_language = $sitepress->get_current_language();
 
 		foreach ( $active_languages as $lang ) {
 			$sitepress->switch_lang( $lang['code'] );
 
-			$product_cats = get_terms(
-				'product_cat',
-				[
-					'hide_empty' => false,
-					'fields'     => 'id=>parent',
-				]
-			);
+			try {
+				$product_cats = get_terms(
+					'product_cat',
+					[
+						'hide_empty' => false,
+						'fields'     => 'id=>parent',
+					]
+				);
 
-			_wc_term_recount( $product_cats, get_taxonomy( 'product_cat' ), true, false );
+				_wc_term_recount( $product_cats, get_taxonomy( 'product_cat' ), true, false );
 
-			$product_tags = get_terms(
-				'product_tag',
-				[
-					'hide_empty' => false,
-					'fields'     => 'id=>parent',
-				]
-			);
+				$product_tags = get_terms(
+					'product_tag',
+					[
+						'hide_empty' => false,
+						'fields'     => 'id=>parent',
+					]
+				);
 
-			_wc_term_recount( $product_tags, get_taxonomy( 'product_tag' ), true, false );
+				_wc_term_recount( $product_tags, get_taxonomy( 'product_tag' ), true, false );
+			} finally {
+				$sitepress->switch_lang();
+			}
 		}
-
-		$sitepress->switch_lang( $current_language );
 	}
 
 	public function upgrade_3_7_11() {
@@ -658,38 +617,6 @@ class WCML_Upgrade {
 		WCML_Install::insert_default_categories();
 	}
 
-	private function upgrade_4_3_0() {
-		$wcml_settings = get_option( '_wcml_settings' );
-		if (
-			WCML_MULTI_CURRENCIES_INDEPENDENT === $wcml_settings['enable_multi_currency'] &&
-			isset( $wcml_settings['multi_currency']['exchange_rates']['service'] ) &&
-			'fixierio' === $wcml_settings['multi_currency']['exchange_rates']['service']
-		) {
-			$wcml_settings['multi_currency']['exchange_rates']['service'] = 'fixerio';
-			update_option( '_wcml_settings', $wcml_settings );
-
-			$announcement_url   = 'https://github.com/fixerAPI/fixer#readme';
-			$api_key_url        = 'https://fixer.io/dashboard';
-			$announcement_link  = '<a href="' . $announcement_url . '" target="_blank">' . __( 'important change about this service', 'woocommerce-multilingual' ) . '</a>';
-			$fixer_api_key_link = '<a href="' . $api_key_url . '" target="_blank">' . __( 'Fixer.io API key', 'woocommerce-multilingual' ) . '</a>';
-			$fixerio_name       = '<strong>Fixer.io</strong>';
-			$mc_settings_link   = '<a href="' . \WCML\Utilities\AdminUrl::getMultiCurrencyTab() . '">' . __( 'multicurrency settings page', 'woocommerce-multilingual' ) . '</a>';
-
-			// translators: 1: Fixer.io, 2: Announcement link.
-			$message = sprintf( __( 'Your site uses %1$s to automatically calculate prices in the secondary currency. There is an %2$s effective June 1st, 2018.', 'woocommerce-multilingual' ), $fixerio_name, $announcement_link );
-
-			$message .= '<br />';
-			// translators: 1: Mulicurrency tab link, 2: Fixer.io API key.
-			$message .= sprintf( __( 'Please go to the %1$s and fill in your %2$s.', 'woocommerce-multilingual' ), $mc_settings_link, $fixer_api_key_link );
-
-			$notice = new WPML_Notice( 'wcml-fixerio-api-key-required', $message, 'wcml-save-multi-currency-options' );
-			$notice->set_css_class_types( 'warning' );
-			$notice->set_dismissible( true );
-			$wpml_admin_notices = wpml_get_admin_notices();
-			$wpml_admin_notices->add_notice( $notice );
-		}
-	}
-
 	private function upgrade_4_3_4() {
 		global $wpdb;
 
@@ -738,18 +665,18 @@ class WCML_Upgrade {
                         WHERE element_type = 'post_product' AND source_language_code IS NULL"
 			);
 
-			$current_language = $sitepress->get_current_language();
-
 			foreach ( $original_products as $product ) {
 				$sitepress->switch_lang( $wpml_post_translations->get_element_lang_code( $product->element_id ) );
 
-				$translations = $wpml_post_translations->get_element_translations( $product->element_id, false, true );
-				foreach ( $translations as $translation ) {
-					$variation_sp->sync_variation_swatches_and_photos( $product->element_id, $translation, false );
+				try {
+					$translations = $wpml_post_translations->get_element_translations( $product->element_id, false, true );
+					foreach ( $translations as $translation ) {
+						$variation_sp->sync_variation_swatches_and_photos( $product->element_id, $translation, false );
+					}
+				} finally {
+					$sitepress->switch_lang();
 				}
 			}
-
-			$sitepress->switch_lang( $current_language );
 		}
 	}
 
@@ -849,21 +776,7 @@ class WCML_Upgrade {
 			wc_get_container()->get( DataRegenerator::class )->initiate_regeneration();
 		}
 
-		$adminNotices = $this->get_wpml_admin_notices();
-
-		if ( $adminNotices ) {
-			$adminNotices->remove_notice( 'wcml-admin-notices', 'hpos-sync-disabled' );
-		}
-	}
-
-	private function get_wpml_admin_notices() {
-		if ( function_exists( 'wpml_get_admin_notices' ) ) {
-			return wpml_get_admin_notices();
-		} elseif ( function_exists( 'wcml_wpml_get_admin_notices' ) ) {
-			return wcml_wpml_get_admin_notices();
-		}
-
-		return null;
+		AdminNotices::get()->remove_notice( 'wcml-admin-notices', 'hpos-sync-disabled' );
 	}
 
 	private function upgrade_5_4_1() {
@@ -908,5 +821,148 @@ class WCML_Upgrade {
 
 	private function upgrade_5_5_2() {
 		delete_option( 'wcml_currency_switcher_template_objects' );
+	}
+
+	private function upgrade_5_6_0() {
+		AdminNotices::get()->remove_notice( 'wcml-admin-notices', 'wcml-translation-control-moved' );
+
+		$this->fixture_5_6_0_delete_language_pack_options();
+		$this->fixture_5_6_0_clear_editor_on_store_page_jobs();
+		$this->fixture_5_6_0_repair_attribute_general_name_source_language();
+	}
+
+	private function fixture_5_6_0_delete_language_pack_options(): void {
+		delete_option( 'wcml_translations_upgrade_notice' );
+		delete_option( 'hide_wcml_translations_message' );
+
+		$sitepress = getSitePress();
+
+		foreach ( $sitepress->get_active_languages() as $language ) {
+			$locale = method_exists( $sitepress, 'get_locale' ) ? $sitepress->get_locale( $language['code'] ) : $language['default_locale'];
+			delete_option( 'woocommerce_language_pack_version_' . $locale );
+		}
+	}
+
+	private function fixture_5_6_0_repair_attribute_general_name_source_language() {
+		global $wpdb;
+
+		if ( isStandAlone() || ! function_exists( 'wc_get_attribute_taxonomies' ) ) {
+			return;
+		}
+
+		$defaultLanguage = getSitePress()->get_default_language();
+		$pattern         = $this->getGeneralNamePattern( $defaultLanguage );
+
+		if ( null === $pattern || WCML_WC_Strings::TAXONOMY_GENERAL_NAME_MSGID === $pattern ) {
+			return;
+		}
+
+		foreach ( wc_get_attribute_taxonomies() as $taxonomy ) {
+			$name = WCML_WC_Strings::TAXONOMY_GENERAL_NAME_PREFIX . sprintf( $pattern, $taxonomy->attribute_label );
+
+			$string = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT id, language FROM {$wpdb->prefix}icl_strings WHERE context = %s AND name = %s",
+					WCML_WC_Strings::DOMAIN_WORDPRESS,
+					$name
+				)
+			);
+
+			if ( ! $string || $defaultLanguage === $string->language ) {
+				continue;
+			}
+
+			$hasTranslationInDefaultLanguage = (bool) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT COUNT(*) FROM {$wpdb->prefix}icl_string_translations WHERE string_id = %d AND language = %s",
+					$string->id,
+					$defaultLanguage
+				)
+			);
+
+			if ( $hasTranslationInDefaultLanguage ) {
+				continue;
+			}
+
+			$wpdb->update( $wpdb->prefix . 'icl_strings', [ 'language' => $defaultLanguage ], [ 'id' => $string->id ] );
+		}
+	}
+
+	private function getGeneralNamePattern( $language ) {
+		global $woocommerce_wpml;
+
+		$strings = $woocommerce_wpml->strings ?? null;
+
+		return $strings instanceof WCML_WC_Strings ? $strings->get_general_name_pattern( $language ) : null;
+	}
+
+	private function fixture_5_6_0_clear_editor_on_store_page_jobs() {
+		global $wpdb;
+
+		if ( isStandAlone() ) {
+			return;
+		}
+
+		$storePageIds = $this->getStorePageIds( $wpdb );
+
+		if ( ! $storePageIds ) {
+			return;
+		}
+
+		$jobIds = $wpdb->get_col(
+			$wpdb->prepare(
+				"
+				SELECT job.job_id
+				FROM {$wpdb->prefix}icl_translate_job job
+				INNER JOIN {$wpdb->prefix}icl_translation_status status
+					ON status.rid = job.rid
+				INNER JOIN {$wpdb->prefix}icl_translations translation
+					ON translation.translation_id = status.translation_id
+				INNER JOIN {$wpdb->prefix}icl_translations original
+					ON original.trid = translation.trid
+					AND original.source_language_code IS NULL
+				WHERE original.element_id IN ( " . implode( ', ', array_fill( 0, count( $storePageIds ), '%d' ) ) . " )
+					AND original.element_type = 'post_page'
+					AND translation.source_language_code IS NOT NULL
+					AND job.editor = %s
+					AND job.translated = 1
+					AND status.status = %d
+					AND status.needs_update = 0
+					AND status.review_status IS NULL
+					AND ( SELECT COUNT(*) FROM {$wpdb->prefix}icl_translate_job WHERE rid = job.rid ) = 1
+					AND NOT EXISTS (
+						SELECT 1
+						FROM {$wpdb->postmeta} meta
+						WHERE meta.post_id = translation.element_id
+							AND meta.meta_key = %s
+					)
+				",
+				array_merge(
+					$storePageIds,
+					[
+						WPML_TM_Editors::WP,
+						ICL_TM_COMPLETE,
+						'_last_translation_edit_mode',
+					]
+				)
+			)
+		);
+
+		foreach ( $jobIds as $jobId ) {
+			wpml_tm_load_old_jobs_editor()->set( (int) $jobId, WPML_TM_Editors::NONE );
+		}
+	}
+
+	private function getStorePageIds( wpdb $wpdb ): array {
+		$optionNames = WCML_Store_Pages::getWcPagesOptionNames();
+
+		$ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT option_value FROM {$wpdb->options} WHERE option_name IN ( " . implode( ', ', array_fill( 0, count( $optionNames ), '%s' ) ) . ' )',
+				$optionNames
+			)
+		);
+
+		return array_values( array_filter( array_map( 'intval', $ids ) ) );
 	}
 }

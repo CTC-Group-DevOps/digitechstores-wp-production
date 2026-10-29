@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle order-related functions and filters.
  *
  * @class    WC_PB_Order
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Order {
 
@@ -36,7 +36,7 @@ class WC_PB_Order {
 	/**
 	 * Singleton instance
 	 *
-	 * @var WC_PB_Order - the single instance of the class.
+	 * @var WC_PB_Order|null - the single instance of the class.
 	 *
 	 * @since 5.0.0
 	 */
@@ -119,7 +119,7 @@ class WC_PB_Order {
 	 *
 	 * @param  WC_Order_Item $order_item The container order item.
 	 * @param  WC_Order      $order     The order.
-	 * @return array
+	 * @return array|false
 	 */
 	public static function get_current_bundle_configuration( $order_item, $order ) {
 
@@ -225,7 +225,7 @@ class WC_PB_Order {
 				$added_to_order          = $container_order_item_id;
 
 				// Unique hash to use in place of the cart item ID.
-				$container_item_hash = md5( $container_order_item_id );
+				$container_item_hash = md5( (string) $container_order_item_id );
 
 				// Add bundled items.
 				$bundled_items = $bundle->get_bundled_items();
@@ -333,7 +333,7 @@ class WC_PB_Order {
 						$bundled_order_item->add_meta_data( '_bundled_item_priced_individually', $bundled_item->is_priced_individually() ? 'yes' : 'no', true );
 
 						// Unique hash to use in place of the cart item ID.
-						$bundled_item_hash           = md5( $bundled_order_item_id );
+						$bundled_item_hash           = md5( (string) $bundled_order_item_id );
 						$bundled_order_item_hashes[] = $bundled_item_hash;
 
 						$bundled_order_item->add_meta_data( '_bundle_cart_key', $bundled_item_hash, true );
@@ -797,7 +797,7 @@ class WC_PB_Order {
 				 * @param  WC_Product_Bundle  $bundle
 				 * @param  WC_Order_Item      $item
 				 * @param  array              $assembled_items
-				 * @param  WC_Order           $order
+				 * @param  WC_Order|false     $order
 				 */
 				$new_sku = apply_filters( 'woocommerce_bundle_container_order_item_sku', $sku, $product, $item, $assembled_items, $order );
 
@@ -837,8 +837,8 @@ class WC_PB_Order {
 	 *
 	 * @since  5.8.0
 	 *
-	 * @param  WC_Order_Item_Product $item The order item.
-	 * @param  WC_Order              $order The order.
+	 * @param  WC_Order_Item_Product    $item The order item.
+	 * @param  WC_Order|WC_Order_Item[] $order The order, or its order items.
 	 * @return array
 	 */
 	public function get_assembled_items( $item, $order ) {

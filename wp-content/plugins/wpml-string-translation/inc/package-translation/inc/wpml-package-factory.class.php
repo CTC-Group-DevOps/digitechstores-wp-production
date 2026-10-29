@@ -16,7 +16,21 @@ class WPML_ST_Package_Factory {
 			$cache_item->set( new WPML_Package( $package_data ) );
 		}
 
-		return $cache_item->get();
+		$package = $cache_item->get();
+
+		return $package instanceof WPML_Package ? $package : new WPML_Package( $package_data );
+	}
+
+	public function create_from_row( $row ) {
+		$cache_item = $this->get_cache_item( (string) $row->ID );
+
+		if ( ! $cache_item->exists() ) {
+			$cache_item->set( WPML_Package::from_row( $row ) );
+		}
+
+		$package = $cache_item->get();
+
+		return $package instanceof WPML_Package ? $package : WPML_Package::from_row( $row );
 	}
 
 	private function get_cache_item( $package_data ) {

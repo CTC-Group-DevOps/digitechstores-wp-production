@@ -1,12 +1,16 @@
 <?php
 
+use WCML\Synchronization\Component\VariationSource;
 use WCML\Terms\SuspendWpmlFiltersFactory;
+use WCML\Utilities\CustomFieldPreferences;
 use WCML\Utilities\DB;
 use WCML\Utilities\SyncHash;
 use WPML\FP\Fns;
 use WPML\FP\Obj;
 
 class WCML_Synchronize_Variations_Data {
+
+	use VariationSource;
 
 	private $woocommerce_wpml;
 	private $sitepress;
@@ -20,11 +24,7 @@ class WCML_Synchronize_Variations_Data {
 
 	public function add_hooks() {
 
-		add_action( 'wp_ajax_woocommerce_remove_variations', [ $this, 'remove_translations_for_variations' ], 9 );
-
-		add_action( 'wp_ajax_wpml_tt_save_term_translation', [ $this, 'update_taxonomy_in_variations' ], 7 );
-
-		add_action( 'wp_ajax_woocommerce_remove_variation', [ $this, 'remove_variation_ajax' ], 9 );
+		\WCML\Request\Ajax::listen( 'woocommerce_remove_variations', [ $this, 'remove_translations_for_variations' ], 'WooCommerce variation removal: removes the translated variations; verifies the WooCommerce nonce, edit_products and per-object edit/delete_post itself', 9 );
 
 	}
 
@@ -126,9 +126,10 @@ class WCML_Synchronize_Variations_Data {
 			'insert' => [],
 			'update' => [],
 		];
-		$delayedFields      = [];
-		$current_variations = $this->get_product_variations( $tr_product_id );
-		$wcml_data_store    = wcml_product_data_store_cpt();
+		$delayedFields          = [];
+		$unreadableVariations   = [];
+		$current_variations     = $this->get_product_variations( $tr_product_id );
+		$wcml_data_store        = wcml_product_data_store_cpt();
 
 		foreach ( $all_variations as $post_data ) {
 			$original_variation_id    = $post_data->ID;
@@ -136,6 +137,14 @@ class WCML_Synchronize_Variations_Data {
 			$this->woocommerce_wpml->downloadable->save_files_option( $original_variation_id );
 
 			$variation_id = $this->get_variation_id_by_lang( $lang, $original_variation_id );
+
+			if ( ! $this->isVariationSourceReadable( $original_variation_id, $product_id ) ) {
+				$unreadableVariations[] = $original_variation_id;
+				if ( ! empty( $variation_id ) ) {
+					$translation_variations['update'][] = (int) $variation_id;
+				}
+				continue;
+			}
 
 			if ( ! empty( $variation_id ) ) {
 				$this->wpdb->update(
@@ -221,6 +230,8 @@ class WCML_Synchronize_Variations_Data {
 			$wcml_data_store->update_lookup_table_data( $variation_id );
 
 		}
+
+		$this->reportUnreadableVariationSources( $product_id, $unreadableVariations );
 
 		$this->processDelayedFields( $delayedFields, $translation_variations['update'] );
 
@@ -329,14 +340,14 @@ class WCML_Synchronize_Variations_Data {
 	}
 
 	public function duplicate_variation_data( $original_variation_id, $variation_id, $data, $lang, $trbl, $deprecatedBool = false ) {
-		global $iclTranslationManagement;
-		$settings      = $iclTranslationManagement->settings['custom_fields_translation'];
 		$all_meta      = get_post_custom( $original_variation_id );
 		$post_fields   = null;
 		$excludedKeys  = WPML_Post_Custom_Field_Setting_Keys::get_excluded_keys();
 		$delayedFields = [];
 
 		unset( $all_meta[ SyncHash::META_KEY ] );
+
+		$modes = CustomFieldPreferences::modes( array_keys( $all_meta ) );
 
 		foreach ( $all_meta as $meta_key => $meta ) {
 			if ( in_array( $meta_key, $excludedKeys, true ) ) {
@@ -359,12 +370,12 @@ class WCML_Synchronize_Variations_Data {
 				$delayedFields[] = [
 					'post_id'    => $variation_id,
 					'meta_key'   => $meta_key,
-					'meta_value' => maybe_unserialize( $meta_value ),
+					'meta_value' => maybe_serialize( $meta_value ),
 				];
 				continue;
 			}
 
-			if ( ! isset( $settings[ $meta_key ] ) || WPML_IGNORE_CUSTOM_FIELD === (int) $settings[ $meta_key ] ) {
+			if ( WPML_IGNORE_CUSTOM_FIELD === $modes[ $meta_key ] ) {
 				continue;
 			}
 
@@ -380,7 +391,7 @@ class WCML_Synchronize_Variations_Data {
 				continue;
 			}
 
-			if ( (int) Obj::prop( $meta_key, $settings ) === WPML_COPY_CUSTOM_FIELD ) {
+			if ( WPML_COPY_CUSTOM_FIELD === $modes[ $meta_key ] ) {
 				$delayedFields[] = [
 					'post_id'    => $variation_id,
 					'meta_key'   => $meta_key,
@@ -389,7 +400,7 @@ class WCML_Synchronize_Variations_Data {
 				continue;
 			}
 
-			if ( (int) Obj::prop( $meta_key, $settings ) === WPML_TRANSLATE_CUSTOM_FIELD ) {
+			if ( WPML_TRANSLATE_CUSTOM_FIELD === $modes[ $meta_key ] ) {
 				$post_fields = $this->woocommerce_wpml->sync_product_data->sync_custom_field_value( $meta_key, $data, $variation_id, $post_fields, $original_variation_id, true );
 				continue;
 			}
@@ -450,48 +461,55 @@ class WCML_Synchronize_Variations_Data {
 		if ( ! current_user_can( 'edit_products' ) ) {
 			die( -1 );
 		}
-		$variation_ids = (array) $_POST['variation_ids'];
+		$variation_ids = array_map( 'absint', (array) $_POST['variation_ids'] );
 
 		foreach ( $variation_ids as $variation_id ) {
+			if ( ! $variation_id || ! $this->current_user_can_on_variation( 'edit_post', $variation_id ) ) {
+				continue;
+			}
+
 			$trid         = $this->sitepress->get_element_trid( $variation_id, 'post_product_variation' );
 			$translations = $this->sitepress->get_element_translations( $trid, 'post_product_variation' );
 
+			$original_id         = 0;
+			$deletion_target_ids = [];
 			foreach ( $translations as $translation ) {
-				if ( ! $translation->original ) {
-					wp_delete_post( $translation->element_id );
+				if ( $translation->original ) {
+					$original_id = (int) $translation->element_id;
+				} else {
+					$deletion_target_ids[] = (int) $translation->element_id;
 				}
+			}
+
+			if ( ! $deletion_target_ids ) {
+				continue;
+			}
+
+			if ( ! $original_id || ! $this->current_user_can_on_variation( 'edit_post', $original_id ) ) {
+				continue;
+			}
+
+			$all_targets_authorized = true;
+			foreach ( $deletion_target_ids as $deletion_target_id ) {
+				if ( ! $this->current_user_can_on_variation( 'delete_post', $deletion_target_id ) ) {
+					$all_targets_authorized = false;
+					break;
+				}
+			}
+			if ( ! $all_targets_authorized ) {
+				continue;
+			}
+
+			foreach ( $deletion_target_ids as $deletion_target_id ) {
+				wp_delete_post( $deletion_target_id );
 			}
 		}
 	}
 
-	public function update_taxonomy_in_variations() {
-		_doing_it_wrong(
-			'WCML_Synchronize_Variations_Data::update_taxonomy_in_variations',
-			__( 'This method is no longer executed by WPML.' ),
-			'5.3.5'
-		);
-	}
+	private function current_user_can_on_variation( $capability, $variation_id ) {
+		$product_id = (int) wp_get_post_parent_id( $variation_id );
 
-	public function remove_variation_ajax() {
-		check_ajax_referer( 'delete-variation', 'security' );
-
-		if ( ! current_user_can( 'edit_products' ) ) {
-			die( -1 );
-		}
-
-		if ( isset( $_POST['variation_id'] ) ) {
-			$trid = $this->sitepress->get_element_trid( (int) filter_input( INPUT_POST, 'variation_id', FILTER_SANITIZE_NUMBER_INT ), 'post_product_variation' );
-			if ( $trid ) {
-				$translations = $this->sitepress->get_element_translations( $trid, 'post_product_variation' );
-				if ( $translations ) {
-					foreach ( $translations as $translation ) {
-						if ( ! $translation->original ) {
-							wp_delete_post( $translation->element_id, true );
-						}
-					}
-				}
-			}
-		}
+		return $product_id && current_user_can( $capability, $product_id );
 	}
 
 	public function sync_prices_variation_ids( $product_id, $tr_product_id, $language ) {

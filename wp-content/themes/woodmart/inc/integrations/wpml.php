@@ -24,8 +24,9 @@ if ( ! function_exists( 'woodmart_wpml_output_js_data' ) ) {
 			'languages' => apply_filters( 'wpml_active_languages', null ),
 		);
 
+		echo '<script type="application/json" id="woodmart-wpml-ls-data">' . wp_json_encode( $data ) . '</script>';
 		echo '<script>';
-		echo 'var woodmart_wpml_js_data = ' . wp_json_encode( $data );
+		echo 'var woodmart_wpml_js_data = ' . wp_json_encode( $data ) . ';';
 		echo '</script>';
 	}
 
@@ -336,6 +337,7 @@ if ( ! function_exists( 'woodmart_wpml_add_language_switcher_to_mobile_menu' ) )
 		}
 
 		ob_start();
+		woodmart_enqueue_inline_style( 'nav-opener' );
 		?>
 		<li class="menu-item menu-item-languages <?php echo esc_attr( $languages || ! $flag_url ? ' menu-item-has-children' : '' ); ?> item-level-0 wpml-ls-item-<?php echo esc_attr( $current_code ); ?>">
 			<a href="<?php echo esc_url( $current_url ); ?>" class="woodmart-nav-link wpml-ls-link">

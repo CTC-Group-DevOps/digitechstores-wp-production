@@ -74,7 +74,8 @@ jQuery( function($){
 
             ajaxLoader.show();
             $(this).parent().append(ajaxLoader);
-            dialog.find(':submit,:button').prop('disabled', true);
+            // The preview renders the switcher itself, whose currency items are buttons too.
+            dialog.find(':submit,:button').not('.wcml-currency-preview :button').prop('disabled', true);
 
             var template = dialog.find('input[name="wcml_curr_template"]').val();
             if(!template){
@@ -140,7 +141,7 @@ jQuery( function($){
                     }
                     $('#wcml_currency_switcher_options_' + widget_id).remove();
                     dialog.find('.wcml-dialog-container').attr('id','wcml-dialog-wcml_currency_switcher_options_'+ widget_id );
-                    dialog.find(':submit,:button').prop('disabled', false);
+                    dialog.find(':submit,:button').not('.wcml-currency-preview :button').prop('disabled', false);
                     dialog.find('#wcml_currencies_switcher_id').val( widget_id );
                     ajaxLoader.remove();
 

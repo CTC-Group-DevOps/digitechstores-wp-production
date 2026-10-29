@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Registers Product Bundles abilities.
  *
  * @class    WC_PB_Abilities
- * @version  8.5.9
+ * @version  8.5.16
  */
 class WC_PB_Abilities {
 
@@ -23,6 +23,7 @@ class WC_PB_Abilities {
 	 * Setup ability registration hooks.
 	 *
 	 * @version 8.5.9
+	 * @return void
 	 */
 	public static function init() {
 		if ( interface_exists( '\\Automattic\\WooCommerce\\Abilities\\AbilityDefinition' ) ) {

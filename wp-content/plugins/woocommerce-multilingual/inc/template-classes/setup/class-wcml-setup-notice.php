@@ -6,6 +6,7 @@ class WCML_Setup_Notice_UI extends WCML_Templates_Factory {
 
 		$model = [
 			'text'      => [
+				/* translators: Heading of the admin notice that invites the shop owner to run the setup wizard. Verb phrase, imperative. */
 				'prepare' => __( 'Make your store multilingual', 'woocommerce-multilingual' ),
 				'help'    => sprintf(
 					/* translators: %1$s and %2$s are opening and closing HTML strong tags */
@@ -13,6 +14,7 @@ class WCML_Setup_Notice_UI extends WCML_Templates_Factory {
 					'<strong>',
 					'</strong>'
 				),
+				/* translators: Button in the admin notice that opens the setup wizard. Verb phrase, imperative; "Setup Wizard" is the screen's name. */
 				'start'   => __( 'Start the Setup Wizard', 'woocommerce-multilingual' ),
 			],
 			'setup_url' => esc_url( \WCML\Utilities\AdminUrl::getSetup() ),

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Admin_Ajax {
 
@@ -28,6 +28,8 @@ class WC_PB_Admin_Ajax {
 
 	/**
 	 * Hook in.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		/*
@@ -164,6 +166,8 @@ class WC_PB_Admin_Ajax {
 
 	/**
 	 * Ajax search for bundled variations.
+	 *
+	 * @return void
 	 */
 	public static function ajax_search_bundled_variations() {
 
@@ -213,6 +217,8 @@ class WC_PB_Admin_Ajax {
 
 	/**
 	 * Handles adding bundled products via ajax.
+	 *
+	 * @return void
 	 */
 	public static function ajax_add_bundled_product() {
 
@@ -650,17 +656,17 @@ class WC_PB_Admin_Ajax {
 
 				if ( ! empty( $change_strings['remove'] ) ) {
 					/* translators: List of items */
-					$order->add_order_note( sprintf( __( 'Deleted bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $change_strings['remove'] ) ), false, true );
+					$order->add_order_note( sprintf( __( 'Deleted bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $change_strings['remove'] ) ), 0, true );
 				}
 
 				if ( ! empty( $change_strings['add'] ) ) {
 					/* translators: List of items */
-					$order->add_order_note( sprintf( __( 'Added bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $change_strings['add'] ) ), false, true );
+					$order->add_order_note( sprintf( __( 'Added bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $change_strings['add'] ) ), 0, true );
 				}
 
 				if ( ! empty( $change_strings['adjust'] ) ) {
 					/* translators: List of items */
-					$order->add_order_note( sprintf( __( 'Adjusted bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $change_strings['adjust'] ) ), false, true );
+					$order->add_order_note( sprintf( __( 'Adjusted bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $change_strings['adjust'] ) ), 0, true );
 				}
 
 				/*

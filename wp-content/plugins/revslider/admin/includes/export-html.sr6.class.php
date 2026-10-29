@@ -194,7 +194,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 						
 						$remove	 = false;
 						
-						if(is_file($upload_dir.$_file)){
+						if($this->is_export_media_file($upload_dir, $_file)){
 							$mf = str_replace('//', '/', $upload_dir.$_file);
 							if(!$this->usepcl){
 								$this->zip->addFile($mf, $use_path_raw.'/'.$repl_to);
@@ -202,7 +202,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 								$v_list = $this->pclzip->add($mf, PCLZIP_OPT_REMOVE_PATH, str_replace(basename($mf), '', $mf), PCLZIP_OPT_ADD_PATH, $use_path_raw.'/');
 							}
 							$remove = true;
-						}elseif(is_file($upload_dir_multi.$_file)){
+						}elseif($this->is_export_media_file($upload_dir_multi, $_file)){
 							$mf = str_replace('//', '/', $upload_dir_multi.$_file);
 							if(!$this->usepcl){
 								$this->zip->addFile($mf, $use_path_raw.'/'.$repl_to);
@@ -210,7 +210,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 								$v_list = $this->pclzip->add($mf, PCLZIP_OPT_REMOVE_PATH, str_replace(basename($mf), '', $mf), PCLZIP_OPT_ADD_PATH, $use_path_raw.'/');
 							}
 							$remove = true;
-						}elseif(is_file(RS_PLUGIN_PATH.$_file)){
+						}elseif($this->is_export_media_file(RS_PLUGIN_PATH, $_file)){
 							$mf = str_replace('//', '/', RS_PLUGIN_PATH.$_file);
 							
 							//we need to be special with svg files
@@ -229,7 +229,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 							$add = '/';
 						}else{
 							if(defined('WHITEBOARD_PLUGIN_PATH')){
-								if(is_file(WHITEBOARD_PLUGIN_PATH.$_file)){
+								if($this->is_export_media_file(WHITEBOARD_PLUGIN_PATH, $_file)){
 									$mf = str_replace('//', '/', WHITEBOARD_PLUGIN_PATH.$_file);
 							
 									//we need to be special with svg files
@@ -246,7 +246,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 							}
 							if(!empty($replace)){
 								foreach($replace as $_path){
-									if(is_file($_path.$_file)){
+									if($this->is_export_media_file($_path, $_file)){
 										$mf = str_replace('//', '/', $_path.$_file);
 
 										//we need to be special with svg files

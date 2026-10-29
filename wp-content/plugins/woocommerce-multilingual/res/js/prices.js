@@ -135,8 +135,11 @@ jQuery(function($){
 
     $(document).on('keyup','.wcml_sale_price', function(){
         if( parseInt($(this).val()) > parseInt($(this).closest('div').find('.wcml_regular_price').val()) ){
-            if( $(this).closest('p').find('.wcml_price_error').size() == 0 )
-                $(this).after($('.wcml_price_error').clone().show());
+            if( $(this).closest('p').find('.wcml_price_error').length == 0 ){
+                var priceError = $('.wcml_price_error').first().clone();
+                $(this).after(priceError);
+                priceError.show();
+            }
         }else{
             $(this).closest('p').find('.wcml_price_error').remove();
         }

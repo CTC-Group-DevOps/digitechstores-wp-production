@@ -520,5 +520,7 @@
     "quick_view": "0",
     "blog_columns": "3",
     "legacy_product_tabs_enabled": "0",
-    "custom_product_tabs_enabled": "1"
+    "custom_product_tabs_enabled": "1",
+    "products_hover_type": "custom",
+    "product_custom_hover": "529"
 }

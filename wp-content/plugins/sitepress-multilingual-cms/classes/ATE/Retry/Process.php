@@ -3,15 +3,21 @@
 namespace WPML\TM\ATE\Retry;
 
 use WPML\Collect\Support\Collection;
-use WPML\FP\Fns;
-use WPML\FP\Relation;
+use WPML\Core\Component\Translation\Application\Service\AutomaticJobsCancellation\BatchResult;
 use WPML\TM\API\Jobs;
+use WPML\TM\ATE\AutomaticTranslationCapabilities;
+use WPML\TM\Jobs\JobLog;
+use WPML\Utilities\Lock;
 use WPML_TM_ATE_Job_Repository;
-use function WPML\FP\pipe;
+use function WPML\Container\make;
 
 class Process {
 
 	const JOBS_PROCESSED_PER_REQUEST = 10;
+
+	const LOCK_NAME = 'ate_retry';
+
+	const LOCK_RELEASE_TIMEOUT = MINUTE_IN_SECONDS;
 
 	private $ateRepository;
 
@@ -28,14 +34,28 @@ class Process {
 	public function run( $jobsToProcess ) {
 		$result = new Result();
 
-		if ( $jobsToProcess ) {
-			$result = $this->retry( $result, wpml_collect( $jobsToProcess ) );
-		} else {
-			$result = $this->runRetryInit( $result );
+		$lock = make( Lock::class, [ ':name' => self::LOCK_NAME ] );
+
+		if ( ! $lock->create( self::LOCK_RELEASE_TIMEOUT ) ) {
+			JobLog::add( 'ate_retry_skipped_lock_busy', [] );
+
+			return $result;
 		}
 
-		if ( $result->jobsToProcess->isEmpty() && $this->trigger->isRetryRequired() ) {
-			$this->trigger->setLastRetry( time() );
+		try {
+			if ( $jobsToProcess ) {
+				$result = $this->retry( $result, wpml_collect( $jobsToProcess ) );
+			} else {
+				$result = $this->runRetryInit( $result );
+			}
+
+			if ( $result->jobsToProcess->isEmpty() && $this->trigger->isRetryRequired() ) {
+				$this->trigger->setLastRetry( time() );
+
+				do_action( 'wpml_tm_ate_retry_cadence' );
+			}
+		} finally {
+			$lock->release();
 		}
 
 		return $result;
@@ -52,11 +72,58 @@ class Process {
 	}
 
 	private function retry( Result $result, Collection $jobs ) {
-		$jobsChunks            = $jobs->chunk( self::JOBS_PROCESSED_PER_REQUEST );
-		$result->processed     = $this->handleJobs( $jobsChunks->shift() );
+		$featureOn = AutomaticTranslationCapabilities::shouldTranslateEverythingFresh();
+
+		$jobsChunks = $this->withoutHeldBack( $jobs, $featureOn )->chunk( self::JOBS_PROCESSED_PER_REQUEST );
+		$chunk      = $jobsChunks->isEmpty() ? wpml_collect( [] ) : $jobsChunks->shift();
+
+		$result->processed     = $this->handleJobs( $this->stillParked( $chunk ) );
 		$result->jobsToProcess = $jobsChunks->flatten( 1 );
 
+		if ( $result->processed && $featureOn && ! AutomaticTranslationCapabilities::shouldTranslateEverythingFresh() ) {
+			JobLog::add( 'ate_retry_tea_off_after_binding', [ 'job_ids' => $result->processed ] );
+			do_action( 'wpml_cancel_all_automatic_jobs', make( BatchResult::class ) );
+		}
+
 		return $result;
+	}
+
+	private function withoutHeldBack( Collection $jobs, $featureOn ) {
+		if ( $featureOn || $jobs->isEmpty() ) {
+			return $jobs;
+		}
+
+		$heldBack = [];
+
+		$retryable = $jobs
+			->filter(
+				function ( $jobId ) use ( &$heldBack ) {
+					if ( Jobs::isAutomatic( (int) $jobId ) ) {
+						$heldBack[] = (int) $jobId;
+
+						return false;
+					}
+
+					return true;
+				}
+			)
+			->values();
+
+		if ( $heldBack ) {
+			JobLog::add( 'ate_retry_tea_off_holding_parked', [ 'job_ids' => $heldBack ] );
+		}
+
+		return $retryable;
+	}
+
+	private function stillParked( Collection $chunk ) {
+		return $chunk
+			->filter(
+				function ( $jobId ) {
+					return ICL_TM_ATE_NEEDS_RETRY === Jobs::getStatus( (int) $jobId );
+				}
+			)
+			->values();
 	}
 
 	private function getWpmlJobIdsToRetry() {
@@ -64,6 +131,10 @@ class Process {
 	}
 
 	private function handleJobs( Collection $items ) {
+		if ( $items->isEmpty() ) {
+			return [];
+		}
+
 		do_action( 'wpml_added_translation_jobs', [ 'local' => $items->toArray() ], Jobs::SENT_RETRY );
 
 		return $items->toArray();

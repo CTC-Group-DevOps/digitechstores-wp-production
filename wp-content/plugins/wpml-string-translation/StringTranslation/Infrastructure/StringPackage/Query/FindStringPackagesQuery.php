@@ -15,7 +15,7 @@ class FindStringPackagesQuery implements FindStringPackagesQueryInterface {
 
 	private $translationStatusesParser;
 
-	private $queryBuilderResolver;
+	private $queryBuilder;
 
 	private $translationsQuery;
 
@@ -23,7 +23,7 @@ class FindStringPackagesQuery implements FindStringPackagesQueryInterface {
 
 	public function __construct(
 		TranslationStatusesParser $translationStatusesParser,
-		QueryBuilderResolver $queryBuilderResolver,
+		FindStringPackagesQueryBuilder $queryBuilder,
 		TranslationsQuery $translationsQuery,
 		JobsQuery $jobsQuery
 	) {
@@ -31,13 +31,13 @@ class FindStringPackagesQuery implements FindStringPackagesQueryInterface {
 		$this->wpdb = $wpdb;
 		$this->sitepress = $sitepress;
 		$this->translationStatusesParser = $translationStatusesParser;
-		$this->queryBuilderResolver = $queryBuilderResolver;
+		$this->queryBuilder = $queryBuilder;
 		$this->translationsQuery = $translationsQuery;
 		$this->jobsQuery = $jobsQuery;
 	}
 
 	public function execute( StringPackageCriteria $criteria ) {
-		$query = $this->queryBuilderResolver->resolveFindStringPackagesQueryBuilder()->build( $criteria );
+		$query = $this->queryBuilder->build( $criteria );
 
 		$packages = $this->wpdb->get_results( $query, ARRAY_A );
 		$packages = $this->translationsQuery->get( $packages, $criteria );

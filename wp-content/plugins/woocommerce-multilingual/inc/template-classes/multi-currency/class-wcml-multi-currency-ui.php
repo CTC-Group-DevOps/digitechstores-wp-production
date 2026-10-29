@@ -39,9 +39,12 @@ class WCML_Multi_Currency_UI extends WCML_Templates_Factory {
 		$model = [
 			'strings'                => [
 				'headers'  => [
+					/* translators: Column heading above the switches that turn each currency on or off. Two verbs, imperative, joined by a slash. */
 					'enable_disable' => __( 'Enable/disable', 'woocommerce-multilingual' ),
+					/* translators: Heading of the currencies table on the plugin's multicurrency screen. Noun, plural. */
 					'currencies'     => __( 'Currencies', 'woocommerce-multilingual' ),
 				],
+				/* translators: Tab title and link text opening the settings of the plugin or of one currency. Noun, plural. */
 				'settings' => __( 'Settings', 'woocommerce-multilingual' ),
 			],
 			'currencies'             => $this->currencies,
@@ -67,39 +70,60 @@ class WCML_Multi_Currency_UI extends WCML_Templates_Factory {
 				'nonce'                 => wp_nonce_field( 'wcml_mc_options', 'wcml_nonce', true, false ),
 				'multi_currency_option' => WCML_MULTI_CURRENCIES_INDEPENDENT,
 				'mco_disabled'          => empty( $this->wc_currency ),
+				/* translators: Label of the checkbox that lets the shop sell in more than one currency. */
 				'label_mco'             => __( 'Enable the multicurrency mode', 'woocommerce-multilingual' ),
 				'label_mco_learn_url'   => $this->tracking_link->getWcmlMultiCurrencyDoc(),
+				/* translators: Link next to the multicurrency checkbox; it opens the WPML documentation. */
 				'label_mco_learn_txt'   => __( 'Multicurrency documentation', 'woocommerce-multilingual' ),
 				'custom_prices_select'  => [
 					'checked' => 1 === (int) $this->woocommerce_wpml->settings['display_custom_prices'],
+					/* translators: Heading of the setting about products whose price is typed per currency rather than converted. */
+					'heading' => __( 'Custom prices', 'woocommerce-multilingual' ),
 					'label'   => sprintf(
 						/* translators: %1$s and %2$s are opening and closing HTML link tags */
 						__( 'Show only products with %1$scustom prices%2$s in secondary currencies', 'woocommerce-multilingual' ),
 						'<a href="' . WCML_Tracking_Link::getWcmlMultiCurrencyDoc( '#configure-distinct-prices-for-different-currencies' ) . '" target="_blank" class="wpml-external-link">',
 						'</a>'
 					),
+					/* translators: Tooltip of the custom-prices setting. */
 					'tip'     => __( 'When enabled, products with prices based on the exchange rate are hidden', 'woocommerce-multilingual' ),
 				],
+				/* translators: Button label that stores the settings of the screen. Verb phrase, imperative. */
 				'submit'                => __( 'Save changes', 'woocommerce-multilingual' ),
+				/* translators: Warning shown when the shop owner leaves the multicurrency screen with unsaved changes. */
 				'navigate_warn'         => __( 'The changes you made will be lost if you navigate away from this page.', 'woocommerce-multilingual' ),
+				/* translators: Error shown when every currency was switched off for a language. */
 				'cur_lang_warn'         => __( 'At least one currency must be enabled for this language!', 'woocommerce-multilingual' ),
 
 			],
 
 			'currency_switcher'      => [
 				'headers'                   => [
+					/* translators: Heading of the section holding the settings shared by every currency switcher. */
 					'main'           => __( 'Currency switcher options', 'woocommerce-multilingual' ),
+					/* translators: Explanation under the "Currency switcher options" heading. */
 					'main_desc'      => __( 'All currency switchers in your site are affected by the settings in this section.', 'woocommerce-multilingual' ),
+					/* translators: Heading of the list the shop owner drags to set the sequence currencies appear in; "order" here is the sequence, not a purchase. */
 					'order'          => __( 'Order of currencies', 'woocommerce-multilingual' ),
+					/* translators: Label of the field holding extra style rules for the currency switchers. "CSS" stays in English. */
 					'additional_css' => __( 'Additional CSS', 'woocommerce-multilingual' ),
+					/* translators: Row heading for a currency switcher placed in a theme widget area. */
 					'widget'         => __( 'Widget Currency Switcher', 'woocommerce-multilingual' ),
+					/* translators: Row heading for the currency switcher shown on a product page. */
 					'product_page'   => __( 'Product page Currency Switcher', 'woocommerce-multilingual' ),
+					/* translators: Column heading and label above the sample currency switcher, showing how it will look. Noun. */
 					'preview'        => __( 'Preview', 'woocommerce-multilingual' ),
+					/* translators: Column heading for where a currency switcher sits on the page. Noun. */
 					'position'       => __( 'Position', 'woocommerce-multilingual' ),
+					/* translators: Column heading above the edit and delete links of each currency switcher. Noun, plural. */
 					'actions'        => __( 'Actions', 'woocommerce-multilingual' ),
+					/* translators: Column heading above the single link of a currency switcher row. Noun, singular. */
 					'action'         => __( 'Action', 'woocommerce-multilingual' ),
+					/* translators: Button and link text that removes a currency or a currency switcher. Verb, imperative. */
 					'delete'         => __( 'Delete', 'woocommerce-multilingual' ),
+					/* translators: Link that opens a currency switcher's design settings. Verb phrase, imperative. */
 					'edit'           => __( 'Edit currency switcher', 'woocommerce-multilingual' ),
+					/* translators: Link that places another currency switcher in a theme widget area. Verb phrase, imperative. */
 					'add_widget'     => __( 'Add a new currency switcher to a widget area', 'woocommerce-multilingual' ),
 					'no_sidebar'     => sprintf(
 						/* translators: %1$s and %2$s are opening and closing HTML link tags */
@@ -111,13 +135,16 @@ class WCML_Multi_Currency_UI extends WCML_Templates_Factory {
 				'preview'                   => $this->get_currency_switchers_preview(),
 				'widget_currency_switchers' => $this->widget_currency_switchers(),
 				'available_sidebars'        => $this->woocommerce_wpml->multi_currency->currency_switcher->get_available_sidebars(),
+				/* translators: Label above the sample currency switcher, showing how it will look on the site. */
 				'preview_text'              => __( 'Currency switcher preview', 'woocommerce-multilingual' ),
 				'order'                     => ! isset( $this->woocommerce_wpml->settings['currencies_order'] ) ?
 										$this->woocommerce_wpml->multi_currency->get_currency_codes() :
 										$this->woocommerce_wpml->settings['currencies_order'],
 				'order_nonce'               => wp_create_nonce( 'set_currencies_order_nonce' ),
 				'delete_nonce'              => wp_create_nonce( 'delete_currency_switcher' ),
+				/* translators: Hint above the draggable list of currencies; "order" here is the sequence they appear in. */
 				'order_tip'                 => __( 'Drag and drop the currencies to change their order', 'woocommerce-multilingual' ),
+				/* translators: Label of the checkbox that adds a currency switcher to every product page. */
 				'visibility_label'          => __( 'Show a currency switcher on the product page template', 'woocommerce-multilingual' ),
 				'visibility_on'             => $this->woocommerce_wpml->settings['currency_switcher_product_visibility'] ?? 1,
 				'additional_css'            => $this->woocommerce_wpml->settings['currency_switcher_additional_css'] ?? '',
@@ -183,8 +210,10 @@ class WCML_Multi_Currency_UI extends WCML_Templates_Factory {
 			}
 
 			if ( 'product' === $switcher_id ) {
+				/* translators: Title of the dialog that changes the design of the product-page currency switcher. Verb phrase, imperative. */
 				$dialog_title = __( 'Edit Product Currency Switcher', 'woocommerce-multilingual' );
 			} elseif ( 'new_widget' === $switcher_id ) {
+				/* translators: Title of the dialog that designs a currency switcher being added to a theme widget area. */
 				$dialog_title = __( 'New Widget Area Currency Switcher', 'woocommerce-multilingual' );
 			} else {
 				/* translators: %s is sidebar name */

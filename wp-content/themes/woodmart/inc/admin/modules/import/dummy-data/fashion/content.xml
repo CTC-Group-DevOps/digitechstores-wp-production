@@ -1406,6 +1406,10 @@
 							<wp:meta_key><![CDATA[woodmart_shortcodes_custom_css]]></wp:meta_key>
 							<wp:meta_value><![CDATA[.wd-rs-6179455dd6706{--wd-max-width: 420px;}#wd-610140358df3b .woodmart-title-container{line-height:24px;font-size:14px;}]]></wp:meta_value>
 						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_wpb_shortcodes_custom_css_updated]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
 									</item>
 				</channel>
 </rss>

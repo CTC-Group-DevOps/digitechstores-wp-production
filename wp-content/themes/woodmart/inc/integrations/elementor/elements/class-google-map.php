@@ -732,9 +732,6 @@ class Google_Map extends Widget_Base {
 					$markers[ $marker_key ]['marker_icon_size'] = $this->get_settings_icon_size( $marker['image'], $marker['image_size'], $marker['image_custom_dimension'] );
 				}
 
-				$markers[ $marker_key ]['marker_title']       = esc_html( $markers[ $marker_key ]['marker_title'] );
-				$markers[ $marker_key ]['marker_description'] = esc_html( $markers[ $marker_key ]['marker_description'] );
-
 				unset(
 					$markers[ $marker_key ]['image'],
 					$markers[ $marker_key ]['image_size'],
@@ -762,7 +759,8 @@ class Google_Map extends Widget_Base {
 			'marker_icon_size'   => '',
 			'elementor'          => true,
 			'marker_text_needed' => $settings['marker_text'] || $settings['title'] ? 'yes' : 'no',
-			'marker_text'        => '<h3 style="min-width:300px; text-align:center; margin:15px;">' . $settings['title'] . '</h3>' . esc_html( $settings['marker_text'] ),
+			'marker_title'       => $settings['title'],
+			'marker_text'        => $settings['marker_text'],
 			'selector'           => 'wd-map-id-' . $uniqid,
 			'markers'            => $markers,
 			'center'             => ! empty( $coords ) ? implode( ',', woodmart_get_center_coords( $coords ) ) : '',

@@ -6,7 +6,11 @@ class WCML_Currencies_Payment_Gateways {
 
 	const OPTION_KEY = 'wcml_custom_payment_gateways_for_currencies';
 
+	const NOTICE_CLASS = 'wcml-settlement-notice';
+
 	private $payment_gateways;
+
+	private $refund_gateways = [];
 
 	private $available_gateways;
 
@@ -65,6 +69,7 @@ class WCML_Currencies_Payment_Gateways {
 		$this->payment_gateways   = [];
 		$this->available_gateways = [];
 		$this->supported_gateways = [];
+		$this->refund_gateways    = [];
 
 		do_action( 'wcml_before_init_currency_payment_gateways' );
 
@@ -79,7 +84,29 @@ class WCML_Currencies_Payment_Gateways {
 		$this->supported_gateways = apply_filters( 'wcml_supported_currency_payment_gateways', $this->supported_gateways );
 
 		$this->store_supported_gateways();
+		$this->add_order_hooks();
 		$this->store_non_supported_gateways();
+	}
+
+	public function get_refund_gateways() {
+		$this->init_gateways();
+
+		return $this->refund_gateways;
+	}
+
+	private function add_order_hooks() {
+		$registered_gateways = $this->get_registered_payment_gateways();
+
+		foreach ( $this->supported_gateways as $id => $supported_gateway ) {
+			if ( ! isset( $registered_gateways[ $id ] ) || ! is_subclass_of( $supported_gateway, 'WCML_Payment_Gateway' ) ) {
+				continue;
+			}
+
+			$this->refund_gateways[ $id ] = $this->payment_gateways[ $id ]
+				?? new $supported_gateway( $registered_gateways[ $id ], $this->woocommerce_wpml );
+
+			$this->refund_gateways[ $id ]->add_order_hooks();
+		}
 	}
 
 	public function get_gateways() {
@@ -103,7 +130,23 @@ class WCML_Currencies_Payment_Gateways {
 		return $this->filter_gateway_description( $description, $id );
 	}
 
+	private function has_cart() {
+		return function_exists( 'WC' ) && WC()->cart instanceof \WC_Cart;
+	}
+
+	private function remove_settlement_notice( $description ) {
+		return (string) preg_replace(
+			'#<p class="' . self::NOTICE_CLASS . '">.*?</p>#s',
+			'',
+			$description
+		);
+	}
+
 	public function filter_gateway_description( $description, $id ) {
+		if ( ! $this->has_cart() ) {
+			return $description;
+		}
+
 		$this->init_gateways();
 
 		if (
@@ -129,7 +172,8 @@ class WCML_Currencies_Payment_Gateways {
 			) {
 				$cart_total = $this->woocommerce_wpml->cart->format_converted_cart_total_in_currency( $gateway_setting['currency'] );
 
-				$description .= '<p>';
+				$description  = $this->remove_settlement_notice( $description );
+				$description .= '<p class="' . self::NOTICE_CLASS . '">';
 				$description .= sprintf(
 					// translators: 1: Currency, 2: Cart total.
 					__( 'Please note that the payment will be made in %1$s. Your total will be approximately %2$s, depending on the current exchange rate.', 'woocommerce-multilingual' ),
@@ -174,5 +218,9 @@ class WCML_Currencies_Payment_Gateways {
 
 	private function get_available_payment_gateways() {
 		return WC()->payment_gateways()->get_available_payment_gateways();
+	}
+
+	private function get_registered_payment_gateways() {
+		return WC()->payment_gateways()->payment_gateways();
 	}
 }

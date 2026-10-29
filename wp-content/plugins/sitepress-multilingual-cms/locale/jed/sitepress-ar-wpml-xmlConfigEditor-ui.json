@@ -8,10 +8,10 @@
             "lang": "ar"
          },
          "The wpml-config.xml file in the root folder of your theme and plugins tells WPML which content is translatable. You can override these settings with your own custom settings by adding them below.": [
-            "يخبر ملف wpml-config.xml الموجود في المجلد الجذر لسمتك وإضافاتك WPML بالمحتوى القابل للترجمة. يمكنك تجاوز هذه الإعدادات بإعداداتك المخصصة عن طريق إضافتها أدناه."
+            "يخبر ملف wpml-config.xml الموجود في المجلد الجذري للقالب والإضافات WPML بالمحتوى القابل للترجمة. يمكنك تجاوز هذه الإعدادات بإعداداتك المخصصة عن طريق إضافتها أدناه."
          ],
          "Read more about language configuration files.": [
-            "اقرأ المزيد عن ملفات تهيئة اللغة."
+            "اقرأ المزيد عن ملفات تكوين اللغة."
          ],
          "Save": [
             "حفظ"
@@ -19,11 +19,17 @@
          "Error": [
             "خطأ"
          ],
+         "Configuration saved.": [
+            "تم حفظ التكوين."
+         ],
+         "Could not save the configuration — please retry.": [
+            "تعذر حفظ التكوين — يرجى المحاولة مرة أخرى."
+         ],
          "Shortcuts": [
             "اختصارات"
          ],
          "Fold/Unfold code": [
-            "طي/فرد الكود"
+            "طي/بسط الكود"
          ],
          "Auto format": [
             "تنسيق تلقائي"

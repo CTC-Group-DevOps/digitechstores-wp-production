@@ -12,6 +12,12 @@ if ( ! function_exists( 'wcml_is_multi_currency_on' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wcml_is_importing' ) ) {
+	function wcml_is_importing() {
+		return (bool) apply_filters( 'wcml_is_importing', false );
+	}
+}
+
 if ( ! function_exists( 'wcml_price_custom_fields' ) ) {
 	function wcml_price_custom_fields( $object_id ) {
 		$default_keys = [
@@ -75,6 +81,10 @@ function wcml_user_store_set( $key, $value ) {
 	\WPML\Container\make( WCML\User\Store\Store::class )->set( $key, $value );
 }
 
+function wcml_user_store_is_pending( $key ) {
+	return \WPML\Container\make( WCML\User\Store\Store::class )->isPending( $key );
+}
+
 function wcml_register_script( $handle, $src, $deps = [], $args = [] ) {
 	global $wp_version;
 
@@ -83,4 +93,17 @@ function wcml_register_script( $handle, $src, $deps = [], $args = [] ) {
 	}
 
 	return wp_register_script( $handle, WCML_PLUGIN_URL . '/' . $src, $deps, WCML_VERSION, $args );
+}
+
+if ( ! function_exists( 'wcml_bold_names' ) ) {
+	function wcml_bold_names( $text, array $allowed = [] ) {
+		if ( function_exists( 'wpml_bold_names' ) ) {
+			return wpml_bold_names( $text, $allowed );
+		}
+
+		return wp_kses(
+			(string) $text,
+			array_merge( [ 'b' => [ 'class' => [] ] ], $allowed )
+		);
+	}
 }

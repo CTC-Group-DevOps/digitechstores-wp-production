@@ -508,10 +508,10 @@
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=18059</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"7405161e-f277-419b-8f63-21a57e457d05","blockVersion":"2","effect":"distortion","arrowsMobile":false,"arrowsColorScheme":"light","pagination":false,"paginationTablet":false,"paginationColorScheme":"light","stretch":true,"height":"100","marginBottom":"0","heightTablet":"760","heightMobile":"720","heightUnits":"vh"} -->
-<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-distortion wd-stretched wd-7405161e"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="distortion" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"be625f3e-8268-4e92-b466-1d89785f946f","blockVersion":"2","align":"flex-start","effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":18230,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-1.jpg","width":1920,"height":1020},"bgImage":{"id":"","url":""},"bgColorCode":"#4e662f","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
+<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-distortion wd-stretched wd-7405161e"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="distortion" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"be625f3e-8268-4e92-b466-1d89785f946f","blockVersion":"2","align":"flex-start","effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":18230,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-1.jpg","width":1920,"height":1020},"bgImage":{"id":"","url":""},"bgColorCode":"#4e662f","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-be625f3e" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-1.jpg"><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"52535f8b-aacc-4dcc-a21e-932a2160dc48","blockVersion":"2","direction":"row","align":"center","colGap":"30","rowGap":"20","displayWidth":"","directionTablet":"row","directionMobile":"row","colGapTablet":"15"} -->
 <div class="wp-block-wd-container wd-dir-row wd-dir-row-md wd-dir-row-sm wd-align-is-lg-center wd-52535f8b"><!-- wp:wd/icon {"blockId":"7342708a-a8ed-48d5-9f3e-c2d8e259e142","blockVersion":"2","image":{"id":18233,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg"},"width":"60","animation":"slide-from-right","animationDelay":"150","widthMobile":"30","heightMobile":"30"} -->
-<div class="wp-block-wd-icon wd-animation wd-transform wd-animation-slide-from-right wd_delay_150 wd-7342708a"><img class="wp-image-18233" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-animation wd-transform wd-animation-slide-from-right wd_delay_150 wd-7342708a"><img class="wp-image-18233" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/paragraph {"blockId":"0282070a-ce12-43a6-bdd2-ee0811ab379c","blockVersion":"2","textAlign":"center","colorCode":"#ffffff","tpFontSize":"20","animation":"slide-from-right","animationDelay":"225","tpFontSizeTablet":"16"} -->
@@ -519,7 +519,7 @@
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/title {"blockId":"236abcec-51e2-4a35-b8a7-1abd687d1383","blockVersion":"2","content":"Anatomy of the u003cspan class=u0022wd-highlightu0022u003eCannabisu003c/spanu003e Plant​","tpFontSize":"84","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","markColorVariable":"u002du002dwd-primary-color","animation":"slide-from-bottom","animationDelay":"350","displayWidth":"custom","customWidth":"660","tpFontSizeTablet":"52","tpFontSizeMobile":"30","tpLineHeightUnits":"em","displayWidthTablet":"custom","customWidthTablet":"490"} -->
+<!-- wp:wd/title {"blockId":"236abcec-51e2-4a35-b8a7-1abd687d1383","blockVersion":"2","content":"Anatomy of the \u003cspan class=\u0022wd-highlight\u0022\u003eCannabis\u003c/span\u003e Plant​","tpFontSize":"84","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","markColorVariable":"\u002d\u002dwd-primary-color","animation":"slide-from-bottom","animationDelay":"350","displayWidth":"custom","customWidth":"660","tpFontSizeTablet":"52","tpFontSizeMobile":"30","tpLineHeightUnits":"em","displayWidthTablet":"custom","customWidthTablet":"490"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_350 wd-236abcec wd-custom-width">Anatomy of the <span class="wd-highlight">Cannabis</span> Plant​</h2>
 <!-- /wp:wd/title -->
 
@@ -535,19 +535,19 @@
 <!-- wp:wd/button {"blockId":"54ba4527-2924-4bb2-8fc8-cb5e98586d3b","blockVersion":"2","design":"bordered","predefinedColor":"white","colorHoverCode":"#ffffff","bgHoverColorCode":"rgba(0,0,0,0)","animationDelay":"675"} -->
 <a class="wp-block-wd-button btn btn-style-bordered btn-color-white btn-size-default btn-shape-rectangle wd-54ba4527" href="#"><span>view more</span></a>
 <!-- /wp:wd/button --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-1.jpg" class="wp-image-18230" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-1.jpg" class="wp-image-18230" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"8e7e68ea-adb2-4469-af90-ebce41534ba0","blockVersion":"2","effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":18231,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-2.jpg","width":1920,"height":1020},"bgImage":{"id":"","url":""},"bgColorCode":"#4e662f","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-8e7e68ea" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-2.jpg"><div class="wd-slide-container"><!-- wp:wd/icon {"blockId":"661b6b45-10b6-4f6b-b1ea-d193da2ec2e4","blockVersion":"2","image":{"id":18233,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg"},"width":"60","animation":"slide-from-bottom","animationDelay":"150","widthMobile":"30","heightMobile":"30"} -->
-<div class="wp-block-wd-icon wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-661b6b45"><img class="wp-image-18233" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_150 wd-661b6b45"><img class="wp-image-18233" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/paragraph {"blockId":"e48b0f19-b08c-44cc-80b0-75af9b884465","blockVersion":"2","colorCode":"#ffffff","tpFontSize":"20","animation":"slide-from-bottom","animationDelay":"225","textAlignMobile":"center","tpFontSizeTablet":"16"} -->
 <p class="wp-block-wd-paragraph wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_225 wd-e48b0f19">What You Need to Know About</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"04f5b22c-57da-496f-9180-66db298e7f5d","blockVersion":"2","textAlign":"center","content":"Full Assortmentu003cbru003eHemp Oils in Our Stores​","tpFontSize":"84","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","markColorVariable":"u002du002dwd-primary-color","animation":"slide-from-bottom","animationDelay":"350","displayWidth":"custom","customWidth":"1010","tpFontSizeTablet":"52","tpFontSizeMobile":"30","tpLineHeightUnits":"em","displayWidthTablet":"custom","customWidthTablet":"640"} -->
+<!-- wp:wd/title {"blockId":"04f5b22c-57da-496f-9180-66db298e7f5d","blockVersion":"2","textAlign":"center","content":"Full Assortment\u003cbr\u003eHemp Oils in Our Stores​","tpFontSize":"84","tpLineHeight":"1.2","tpFontVariant":"700","tpFontWeight":"700","markColorVariable":"\u002d\u002dwd-primary-color","animation":"slide-from-bottom","animationDelay":"350","displayWidth":"custom","customWidth":"1010","tpFontSizeTablet":"52","tpFontSizeMobile":"30","tpLineHeightUnits":"em","displayWidthTablet":"custom","customWidthTablet":"640"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_350 wd-04f5b22c wd-custom-width">Full Assortment<br>Hemp Oils in Our Stores​</h2>
 <!-- /wp:wd/title -->
 
@@ -563,13 +563,13 @@
 <!-- wp:wd/button {"blockId":"4355811f-7842-4974-b5f5-0f60cb306e1d","blockVersion":"2","design":"bordered","predefinedColor":"white","colorHoverCode":"#ffffff","bgHoverColorCode":"rgba(0,0,0,0)","animationDelay":""} -->
 <a class="wp-block-wd-button btn btn-style-bordered btn-color-white btn-size-default btn-shape-rectangle wd-4355811f" href="#"><span>view more</span></a>
 <!-- /wp:wd/button --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-2.jpg" class="wp-image-18231" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-2.jpg" class="wp-image-18231" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"9e6a0519-fcf4-447a-8c23-378d095ff4f0","blockVersion":"2","align":"flex-start","effect":"distortion","colorScheme":"light","aspectRatio":"","image":{"id":18232,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-3.jpg","width":1920,"height":1020},"bgImage":{"id":"","url":""},"bgColorCode":"#4e662f","paddingRightMobile":"15","paddingLeftMobile":"15"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-9e6a0519" data-image-url="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-3.jpg"><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"cd5d3cea-586c-4f5a-96e8-60aad8a07dfd","blockVersion":"2","direction":"row","align":"center","colGap":"30","rowGap":"20","displayWidth":"","directionTablet":"row","directionMobile":"row","colGapTablet":"15"} -->
 <div class="wp-block-wd-container wd-dir-row wd-dir-row-md wd-dir-row-sm wd-align-is-lg-center wd-cd5d3cea"><!-- wp:wd/icon {"blockId":"ba27dc6d-76ee-4b29-a927-fc49e5dc3740","blockVersion":"2","image":{"id":18233,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg"},"width":"60","animation":"slide-from-right","animationDelay":"150","widthMobile":"30","heightMobile":"30"} -->
-<div class="wp-block-wd-icon wd-animation wd-transform wd-animation-slide-from-right wd_delay_150 wd-ba27dc6d"><img class="wp-image-18233" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-animation wd-transform wd-animation-slide-from-right wd_delay_150 wd-ba27dc6d"><img class="wp-image-18233" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slider-icon.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/paragraph {"blockId":"8259c33c-2a6f-4191-bf20-fbb4510a3fef","blockVersion":"2","colorCode":"#ffffff","tpFontSize":"20","animation":"slide-from-right","animationDelay":"225","tpFontSizeTablet":"16"} -->
@@ -577,7 +577,7 @@
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/title {"blockId":"84ce8f29-03fb-4454-a078-9059d0bd7fb9","blockVersion":"2","content":"Choose Product High u003cspan class=u0022wd-highlightu0022u003eCannabisu003c/spanu003e​","tpFontSize":"84","tpLineHeight":"1.2","tpFontVariant":"800","tpFontWeight":"800","markColorVariable":"u002du002dwd-primary-color","animation":"slide-from-bottom","animationDelay":"350","displayWidth":"custom","customWidth":"660","tpFontSizeTablet":"52","tpFontSizeMobile":"30","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"490","customWidthMobile":"280"} -->
+<!-- wp:wd/title {"blockId":"84ce8f29-03fb-4454-a078-9059d0bd7fb9","blockVersion":"2","content":"Choose Product High \u003cspan class=\u0022wd-highlight\u0022\u003eCannabis\u003c/span\u003e​","tpFontSize":"84","tpLineHeight":"1.2","tpFontVariant":"800","tpFontWeight":"800","markColorVariable":"\u002d\u002dwd-primary-color","animation":"slide-from-bottom","animationDelay":"350","displayWidth":"custom","customWidth":"660","tpFontSizeTablet":"52","tpFontSizeMobile":"30","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"490","customWidthMobile":"280"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_350 wd-84ce8f29 wd-custom-width">Choose Product High <span class="wd-highlight">Cannabis</span>​</h2>
 <!-- /wp:wd/title -->
 
@@ -593,7 +593,7 @@
 <!-- wp:wd/button {"blockId":"f4f0bb57-a715-4162-bc4c-425561d4a207","blockVersion":"2","design":"bordered","predefinedColor":"white","colorHoverCode":"#ffffff","bgHoverColorCode":"rgba(0,0,0,0)","animationDelay":""} -->
 <a class="wp-block-wd-button btn btn-style-bordered btn-color-white btn-size-default btn-shape-rectangle wd-f4f0bb57" href="#"><span>view more</span></a>
 <!-- /wp:wd/button --></div>
-<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-3.jpg" class="wp-image-18232" alt=""/></div></div>
+<!-- /wp:wd/container --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-slide-3.jpg" class="wp-image-18232" alt="" /></div></div>
 <!-- /wp:wd/slider-item --></div></div><div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-pos-sep wd-hide-sm wd-style-1 color-scheme-light"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div><div class="wd-nav-pagin-wrap wd-slider-pagin wd-custom-style wd-hide-lg wd-hide-md-sm wd-style-shape-1 color-scheme-light"><ul class="wd-nav-pagin"></ul></div></div>
 <!-- /wp:wd/slider -->
 
@@ -611,7 +611,7 @@
 <div class="wp-block-wd-row wd-df917a16"><!-- wp:wd/column {"blockId":"f2bce54e-119e-442e-b024-2bd1cc764d30","blockVersion":"2","adjacentCount":2,"adjacentCountTablet":2,"colWidthTablet":50,"blocksGapMobile":30} -->
 <div class="wp-block-wd-column wd-f2bce54e"><!-- wp:wd/infobox {"blockId":"9565d785-39a7-4656-8cb7-086b245b7f37","blockVersion":"2","iconPositionHorizontal":"start"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-9565d785"><!-- wp:wd/icon {"blockId":"26cc1afb-0362-4adf-9f53-56aa4cee13cb","blockVersion":"2","image":{"id":18229,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-shipped.svg"},"width":"38","height":"32"} -->
-<div class="wp-block-wd-icon wd-26cc1afb"><img class="wp-image-18229" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-shipped.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-26cc1afb"><img class="wp-image-18229" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-shipped.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"bc8734ab-1141-4ae5-b765-15f5537c109f","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -629,7 +629,7 @@
 <!-- wp:wd/column {"blockId":"7f87f568-bb6c-448c-afd3-eda94f3884d3","blockVersion":"2","adjacentCount":2,"adjacentCountTablet":2,"colWidthTablet":50,"blocksGapMobile":30} -->
 <div class="wp-block-wd-column wd-7f87f568"><!-- wp:wd/infobox {"blockId":"4024881d-7ebc-46e2-8c56-4c291cfd6389","blockVersion":"2","iconPositionHorizontal":"start"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-4024881d"><!-- wp:wd/icon {"blockId":"30f245c4-a2c8-4f5a-aed9-5db6ae0dd8d5","blockVersion":"2","image":{"id":18224,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-payment-security.svg"},"width":"38","height":"30"} -->
-<div class="wp-block-wd-icon wd-30f245c4"><img class="wp-image-18224" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-payment-security.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-30f245c4"><img class="wp-image-18224" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-payment-security.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"538fc04d-079e-4b0b-bd3d-b4b2385fec7d","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -649,7 +649,7 @@
 <div class="wp-block-wd-row wd-d6465aba"><!-- wp:wd/column {"blockId":"8adecc01-f6c5-469b-8d32-139084307f35","blockVersion":"2","adjacentCount":2,"adjacentCountTablet":2,"colWidthTablet":50,"blocksGapMobile":30} -->
 <div class="wp-block-wd-column wd-8adecc01"><!-- wp:wd/infobox {"blockId":"58b3f610-49d9-4baa-a52c-ff2eb6cc3b51","blockVersion":"2","iconPositionHorizontal":"start"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-58b3f610"><!-- wp:wd/icon {"blockId":"b01c965f-38dc-4991-a457-547cbdb5f289","blockVersion":"2","image":{"id":18226,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-refund.svg"},"width":"38","height":"38"} -->
-<div class="wp-block-wd-icon wd-b01c965f"><img class="wp-image-18226" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-refund.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-b01c965f"><img class="wp-image-18226" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-refund.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"7db8f891-e441-4482-9907-7ecb1dcd89ab","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -667,7 +667,7 @@
 <!-- wp:wd/column {"blockId":"6d8f63a9-dd55-487f-9973-04fdcaec4d25","blockVersion":"2","adjacentCount":2,"adjacentCountTablet":2,"colWidthTablet":50,"blocksGapMobile":30} -->
 <div class="wp-block-wd-column wd-6d8f63a9"><!-- wp:wd/infobox {"blockId":"76d53f75-16b9-4aaa-9f8b-3b39e6b966e4","blockVersion":"2","iconPositionHorizontal":"start"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-76d53f75"><!-- wp:wd/icon {"blockId":"2ee18b7b-588d-442c-b3b7-d15e67dc96d7","blockVersion":"2","image":{"id":18218,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-customer-service.svg"},"width":"40","height":"40"} -->
-<div class="wp-block-wd-icon wd-2ee18b7b"><img class="wp-image-18218" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-customer-service.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-2ee18b7b"><img class="wp-image-18218" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-customer-service.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"b43b4638-8ee6-4351-aae5-e4439afb346f","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -685,13 +685,13 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/image {"blockId":"01ba81c0-9f66-4619-af5a-32e6f1fb0263","blockVersion":"2","image":{"id":18219,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-1.jpg"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-1.jpg","width":580,"height":360},"alignSelfTablet":"center","customWidthTablet":"80","customWidthUnitsTablet":"%"} -->
-<div class="wp-block-wd-image wd-block-image wd-01ba81c0 wd-align-s-center-md"><img class="wp-image-18219" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-1.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-01ba81c0 wd-align-s-center-md"><img class="wp-image-18219" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-1.jpg" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"57bec27c-f9df-46a1-84c7-f8cf9379269f","blockVersion":"2","adjacentCount":2,"alignItems":"flex-end","hideOnTablet":true,"hideOnMobile":true,"adjacentCountTablet":1,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-align-is-lg-flex-end wd-hide-md-sm wd-hide-sm wd-57bec27c"><!-- wp:wd/image {"blockId":"6e42a17f-2405-45e4-bd12-7cf1ecac0f60","blockVersion":"2","image":{"id":18220,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-2.jpg"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-2.jpg","width":480,"height":660}} -->
-<div class="wp-block-wd-image wd-block-image wd-6e42a17f"><img class="wp-image-18220" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-2.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-6e42a17f"><img class="wp-image-18220" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-hemp-2.jpg" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row --></div>
@@ -712,12 +712,12 @@
 <!-- wp:wd/row {"blockId":"0f6ba3d0-5893-4241-8712-208faf30cb1b","blockVersion":"2","columnsGap":20,"marginBottom":"80","columnsGapTablet":20,"marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-row wd-0f6ba3d0"><!-- wp:wd/column {"blockId":"6d5a3edc-b292-40be-9aef-2843e2450854","blockVersion":"2","adjacentCount":2,"colWidth":25,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":24.659999999999997} -->
 <div class="wp-block-wd-column wd-6d5a3edc"><!-- wp:wd/video {"blockId":"559fd354-b93a-43e1-8ab3-014d4fe813c1","blockVersion":"2","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=LXb3EKWsInQ","videoActionButton":"overlay","videoOverlayLightbox":true,"videoImageOverlay":{"id":18237,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-video.jpg"},"videoHeight":"159","hideOnTablet":true,"videoHeightMobile":"255"} -->
-<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-hide-md-sm wd-559fd354"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-video.jpg" alt="" class="wp-image-18237"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
+<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-hide-md-sm wd-559fd354"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-video.jpg" alt="" class="wp-image-18237" /></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"0ec38ca7-5888-4991-95b5-4ec5139b7cea","blockVersion":"2","adjacentCount":2,"colWidth":75,"bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"40","paddingBottom":"30","paddingLeft":"40","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-0ec38ca7"><!-- wp:wd/title {"blockId":"d51a6cbf-cbb2-4c02-9274-b68b26214d3e","blockVersion":"2","content":"Contact Us and We u003cspan class=u0022wd-highlightu0022u003eHelpu003c/spanu003e you!​","tpFontSize":"22","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"28"} -->
+<div class="wp-block-wd-column wd-0ec38ca7"><!-- wp:wd/title {"blockId":"d51a6cbf-cbb2-4c02-9274-b68b26214d3e","blockVersion":"2","content":"Contact Us and We \u003cspan class=\u0022wd-highlight\u0022\u003eHelp\u003c/span\u003e you!​","tpFontSize":"22","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"28"} -->
 <h2 class="wp-block-wd-title title wd-d51a6cbf">Contact Us and We <span class="wd-highlight">Help</span> you!​</h2>
 <!-- /wp:wd/title -->
 
@@ -728,13 +728,13 @@
 <!-- wp:wd/row {"blockId":"604fbeeb-170c-4589-a7eb-78d1b76e8040","blockVersion":"2","columnsGap":0,"marginBottom":"0"} -->
 <div class="wp-block-wd-row wd-604fbeeb"><!-- wp:wd/column {"blockId":"28e1caab-1f9f-46c7-8ed5-3e8f0399d4ff","blockVersion":"2","adjacentCount":2,"alignItems":"center","flexOrderMobile":"1"} -->
 <div class="wp-block-wd-column wd-align-is-lg-center wd-28e1caab"><!-- wp:wd/image {"blockId":"10c7a561-6e10-454e-b28b-f5af221ad364","blockVersion":"2","image":{"id":18222,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo.png","width":380,"height":500},"marginLeftTablet":"0"} -->
-<div class="wp-block-wd-image wd-block-image wd-10c7a561"><img class="wp-image-18222" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-10c7a561"><img class="wp-image-18222" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"8d4eb960-24ae-491d-8e69-251c01d3a7f1","blockVersion":"2","adjacentCount":2,"blocksGap":0,"textAlign":"center"} -->
 <div class="wp-block-wd-column wd-align wd-8d4eb960"><!-- wp:wd/image {"blockId":"e8dad52d-11ee-4b09-b3e6-f739b7379824","blockVersion":"2","image":{"id":18221,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo-product.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo-product.png","width":231,"height":120},"marginBottom":"20"} -->
-<div class="wp-block-wd-image wd-block-image wd-e8dad52d"><img class="wp-image-18221" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo-product.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-e8dad52d"><img class="wp-image-18221" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-img-ricardo-product.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/title {"blockId":"75f64652-f643-4d84-be5f-e8c621d1a482","blockVersion":"2","content":"Ricardo Cooper​","tpFontSize":"50","tpFontSizeTablet":"34","tpFontSizeMobile":"28"} -->
@@ -746,7 +746,7 @@
 <!-- /wp:wd/paragraph -->
 
 <!-- wp:wd/icon {"blockId":"184539bd-42b3-4026-93fb-9511575b0a42","blockVersion":"2","image":{"id":18227,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-ricardo-autograph.svg"},"width":"200","hideOnMobile":true,"widthTablet":"120"} -->
-<div class="wp-block-wd-icon wd-hide-sm wd-184539bd"><img class="wp-image-18227" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-ricardo-autograph.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-hide-sm wd-184539bd"><img class="wp-image-18227" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-ricardo-autograph.svg" alt="" /></div>
 <!-- /wp:wd/icon --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
@@ -820,11 +820,11 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/carousel {"blockId":"a36fbbcb-ef49-41e4-97f2-1fffdaab1555","blockVersion":"2","paginationControl":false,"paginationControlTablet":false,"paginationControlMobile":false,"syncParentId":"wd_a36fbbcb","marginBottom":"80","slidesPerViewMobile":"1","marginBottomMobile":"60"} -->
-<div class="wp-block-wd-carousel wd-carousel-container wd-a36fbbcb"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:3;--wd-col-md:3;--wd-col-sm:1;--wd-gap-lg:20px;--wd-gap-sm:10px;" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"6271c2a8-24ee-4d58-964f-dfc3da0f524f","blockVersion":"2"} -->
+<div class="wp-block-wd-carousel wd-carousel-container wd-a36fbbcb"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:3;--wd-col-md:3;--wd-col-sm:1;--wd-gap-lg:20px;--wd-gap-sm:10px" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"6271c2a8-24ee-4d58-964f-dfc3da0f524f","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-6271c2a8"><!-- wp:wd/testimonial {"blockId":"6d71e266-ae4d-4f46-8fe5-919f3551bc14","blockVersion":"2","design":"2","alignment":"center","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.1)","boxShadowBlur":5} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-6d71e266"><!-- wp:wd/container {"blockId":"033fb3e3-9d8b-4f18-b0e4-e0e02c22e63c","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-033fb3e3"><!-- wp:wd/image {"blockId":"06ae4a99-5464-4d22-81e5-a1f62175681d","blockVersion":"2","image":{"id":18234,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-1.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-1.png","width":100,"height":100}} -->
-<div class="wp-block-wd-image wd-block-image wd-06ae4a99"><img class="wp-image-18234" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-1.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-06ae4a99"><img class="wp-image-18234" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-1.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"3af15129-bd6e-48c8-a71e-28518fcc698f","blockVersion":"2"} -->
@@ -844,7 +844,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-666b394f"><!-- wp:wd/testimonial {"blockId":"2c349762-c8a2-4b22-9fb0-bd9b669c8f8c","blockVersion":"2","design":"2","alignment":"center","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.1)","boxShadowBlur":5} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-2c349762"><!-- wp:wd/container {"blockId":"63cf2a69-b5f6-4213-b521-305d97391b04","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-63cf2a69"><!-- wp:wd/image {"blockId":"dec06483-1f88-4010-9e1a-af1916925555","blockVersion":"2","image":{"id":18235,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-2.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-2.png","width":100,"height":100}} -->
-<div class="wp-block-wd-image wd-block-image wd-dec06483"><img class="wp-image-18235" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-2.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-dec06483"><img class="wp-image-18235" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-2.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"d8f2ddc4-2a67-477f-a107-895e41e5b700","blockVersion":"2"} -->
@@ -864,7 +864,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-f4b2aa6f"><!-- wp:wd/testimonial {"blockId":"e6e4667f-4351-48cc-a558-3a42914a42c7","blockVersion":"2","design":"2","alignment":"center","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.1)","boxShadowBlur":5} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-e6e4667f"><!-- wp:wd/container {"blockId":"160222d4-5a06-4316-8a2c-059ef74d3691","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-160222d4"><!-- wp:wd/image {"blockId":"db699b24-1fa1-49f4-87ff-980a892339c1","blockVersion":"2","image":{"id":18236,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-3.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-3.png","width":100,"height":100}} -->
-<div class="wp-block-wd-image wd-block-image wd-db699b24"><img class="wp-image-18236" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-3.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-db699b24"><img class="wp-image-18236" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/medical-marijuana-testimonials-3.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"4c358c92-fb7b-47a0-871f-359a371d232a","blockVersion":"2"} -->
@@ -884,7 +884,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-2b525486"><!-- wp:wd/testimonial {"blockId":"e6e940d0-474e-4c7a-a106-1171de001156","blockVersion":"2","design":"2","alignment":"center","bgColorCode":"#ffffff","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"boxShadowColorCode":"rgba(0,0,0,0.1)","boxShadowBlur":5} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-e6e940d0"><!-- wp:wd/container {"blockId":"6c17efe9-ec21-4d08-99ef-3647a631e21e","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-6c17efe9"><!-- wp:wd/image {"blockId":"ae108a98-1382-4d52-be0f-eb926f9708a8","blockVersion":"2","image":{"id":11065,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg","width":100,"height":100}} -->
-<div class="wp-block-wd-image wd-block-image wd-ae108a98"><img class="wp-image-11065" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-ae108a98"><img class="wp-image-11065" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/05/jewellery-testimonial-2.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"cd53bb3d-419f-4b10-8162-af94afc4b45d","blockVersion":"2"} -->
@@ -915,8 +915,8 @@
 															<wp:post_id>18059</wp:post_id>
 					<wp:post_date><![CDATA[2024-06-20 09:11:35]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-06-20 09:11:35]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 12:31:59]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 12:31:59]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 13:05:41]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 13:05:41]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-medical-marijuana]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

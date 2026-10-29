@@ -32,13 +32,13 @@
             "Impostazioni"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "Al momento non è possibile connettere un servizio di traduzione quando WPML è impostato per tradurre automaticamente il contenuto del tuo sito. Per utilizzare un servizio di traduzione, cambia la modalità di traduzione nella pagina <LinkToSettingsPage />."
+            "Al momento non è possibile connettere un servizio di traduzione quando WPML è impostato per tradurre automaticamente i contenuti del sito. Per utilizzare un servizio di traduzione, cambia la modalità di traduzione nella pagina <LinkToSettingsPage />."
          ],
          "Sort descending": [
-            "Ordina decrescente"
+            "Ordina in modo decrescente"
          ],
          "Sort ascending": [
-            "Ordina crescente"
+            "Ordina in modo crescente"
          ],
          "Cancel sorting": [
             "Annulla ordinamento"
@@ -56,7 +56,7 @@
             "Descrizione"
          ],
          "Ranking": [
-            "Classifica"
+            "Valutazione"
          ]
       }
    }

@@ -148,8 +148,13 @@ class StringTranslations {
 						$statuses = \wpml_collect( $getJobStatus( $post->post_id ) );
 
 						$addTranslationWithStatus = function ( $stringId, $targetLanguage ) use ( $statuses ) {
-							$status = $statuses->get( $targetLanguage, ICL_STRING_TRANSLATION_NOT_TRANSLATED );
-							ST_API::updateStatus( $stringId, $targetLanguage, $status );
+							$status = $statuses->get( $targetLanguage );
+
+							if ( null === $status || '' === $status ) {
+								return;
+							}
+
+							ST_API::updateStatus( $stringId, $targetLanguage, (int) $status );
 						};
 
 						\wpml_collect( $post->string_data )

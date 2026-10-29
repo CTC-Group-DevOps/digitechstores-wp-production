@@ -11,6 +11,8 @@ class WCML_Synchronize_Product_Data {
 
 	const PRIORITY_BEFORE_STOCK_EMAIL_TRIGGER = 9;
 
+	const PRIORITY_AFTER_WPML_DELETES_TERM_RELATIONS = 20;
+
 	private $woocommerce_wpml;
 	private $sitepress;
 	private $post_translations;
@@ -25,7 +27,7 @@ class WCML_Synchronize_Product_Data {
 
 	public function add_hooks() {
 		if ( is_admin() || isCli() ) {
-			add_action( 'deleted_term_relationships', [ $this, 'delete_term_relationships_update_term_count' ], 10, 2 );
+			add_action( 'deleted_term_relationships', [ $this, 'delete_term_relationships_update_term_count' ], self::PRIORITY_AFTER_WPML_DELETES_TERM_RELATIONS, 3 );
 		}
 
 		add_action( 'woocommerce_product_set_visibility', [ $this, 'sync_product_translations_visibility' ] );
@@ -46,47 +48,76 @@ class WCML_Synchronize_Product_Data {
 		do_action( \WCML\Synchronization\Hooks::HOOK_SYNCHRONIZE_PRODUCT_TRANSLATIONS, get_post( $original_product_id ), [ $tr_product_id ], [ $tr_product_id => $lang ] );
 	}
 
-	public function sync_product_taxonomies( $original_product_id, $tr_product_id, $lang ) {
+	public function sync_product_taxonomies( $original_product_id, $tr_product_id, $lang, $taxonomy = null ) {
+		if ( $taxonomy && $this->woocommerce_wpml->terms->is_translatable_wc_taxonomy( $taxonomy ) ) {
+			$terms = wp_get_object_terms( $original_product_id, $taxonomy );
+			$ttIds = is_wp_error( $terms ) ? [] : wp_list_pluck( $terms, 'term_taxonomy_id' );
+
+			$filtersSuspend = SuspendWpmlFiltersFactory::create();
+			$this->wcml_update_term_count_by_ids( $ttIds, $lang, $taxonomy, $tr_product_id );
+			$filtersSuspend->resume();
+
+			return;
+		}
+
 		do_action( \WCML\Synchronization\Hooks::HOOK_SYNCHRONIZE_PRODUCT_COMPONENT, get_post( $original_product_id ), [ $tr_product_id ], [ $tr_product_id => $lang ], \WCML\Synchronization\Store::COMPONENT_TAXONOMIES );
 	}
 
-	public function delete_term_relationships_update_term_count( $object_id, $tt_ids ) {
+	public function delete_term_relationships_update_term_count( $object_id, $tt_ids, $taxonomy = '' ) {
 
-		if ( get_post_type( $object_id ) === 'product' ) {
+		if ( ! in_array( get_post_type( $object_id ), [ 'product', 'product_variation' ], true ) ) {
+			return;
+		}
 
-			$original_product_id = $this->post_translations->get_original_element( $object_id );
-			$translations        = $this->post_translations->get_element_translations( $original_product_id, false, true );
+		$originalId   = $this->post_translations->get_original_element( $object_id ) ?? $object_id;
+		$translations = $this->post_translations->get_element_translations( $originalId, false, true );
 
-			$filtersSuspend = SuspendWpmlFiltersFactory::create();
-			foreach ( $translations as $translation ) {
-				$this->wcml_update_term_count_by_ids( $tt_ids, $this->post_translations->get_element_lang_code( $translation ) );
+		$filtersSuspend = SuspendWpmlFiltersFactory::create();
+		foreach ( $translations as $translation ) {
+			$language        = $this->post_translations->get_element_lang_code( $translation );
+			$translatedTtIds = $this->getTranslatedTermTaxonomyIds( $tt_ids, $language );
+
+			if ( $translatedTtIds ) {
+				$this->updateTermCountInLanguage( $translatedTtIds, $language, $taxonomy );
 			}
-			$filtersSuspend->resume();
+		}
+		$filtersSuspend->resume();
+	}
+
+	private function getTranslatedTermTaxonomyIds( $ttIds, $language ) {
+		global $wpml_term_translations;
+		$translatedTtIds = [];
+
+		foreach ( $ttIds as $ttId ) {
+			$translatedTtId = $wpml_term_translations->element_id_in( $ttId, $language );
+			if ( $translatedTtId ) {
+				$translatedTtIds[] = $translatedTtId;
+			}
+		}
+
+		return array_values( array_unique( array_map( 'intval', $translatedTtIds ) ) );
+	}
+
+	private function updateTermCountInLanguage( $translatedTtIds, $language, $taxonomy ) {
+		$this->sitepress->switch_lang( $language );
+
+		try {
+			wp_update_term_count( $translatedTtIds, $taxonomy );
+		} finally {
+			$this->sitepress->switch_lang();
 		}
 	}
 
 
 	public function wcml_update_term_count_by_ids( $tt_ids, $language, $taxonomy = '', $tr_product_id = false ) {
-		global $wpml_term_translations;
-		$tt_ids_trans = [];
+		$tt_ids_trans = $this->getTranslatedTermTaxonomyIds( $tt_ids, $language );
 
-		foreach ( $tt_ids as $tt_id ) {
-			$tt_id_trans = $wpml_term_translations->element_id_in( $tt_id, $language );
-			if ( $tt_id_trans ) {
-				$tt_ids_trans[] = $tt_id_trans;
-			}
-		}
-
-		$tt_ids_trans = array_values( array_unique( array_map( 'intval', $tt_ids_trans ) ) );
-		
 		if ( empty( $tt_ids_trans ) ) {
 			return;
 		}
 
-		if ( in_array( $taxonomy, [ 'product_cat', 'product_tag' ] ) ) {
-			$this->sitepress->switch_lang( $language );
-			wp_update_term_count( $tt_ids_trans, $taxonomy );
-			$this->sitepress->switch_lang();
+		if ( in_array( $taxonomy, [ 'product_cat', 'product_tag' ], true ) ) {
+			$this->updateTermCountInLanguage( $tt_ids_trans, $language, $taxonomy );
 		}
 
 		if ( $tr_product_id ) {
@@ -362,7 +393,7 @@ class WCML_Synchronize_Product_Data {
 		} else {
 			foreach ( $post_fields as $post_field_key => $post_field ) {
 
-				if ( 1 === preg_match( '/field-' . $custom_field . '-.*?/', $post_field_key ) ) {
+				if ( 1 === preg_match( '/field-' . preg_quote( $custom_field, '/' ) . '-.*?/', $post_field_key ) ) {
 					delete_post_meta( $trnsl_product_id, $custom_field );
 
 					$custom_fields = get_post_meta( $original_product_id, $custom_field );
@@ -403,7 +434,12 @@ class WCML_Synchronize_Product_Data {
 						if ( 'new' === substr( $field_key[1], 0, 3 ) ) {
 							add_post_meta( $trnsl_product_id, $custom_field, $meta_value );
 						} else {
-							update_meta( $field_key[1], $custom_field, $meta_value );
+							$current_object_id = (int) $trnsl_product_id;
+							$field_key_meta    = get_metadata_by_mid( 'post', $field_key[1] );
+							$field_key_owner   = $field_key_meta ? (int) $field_key_meta->post_id : 0;
+							if ( $current_object_id === $field_key_owner ) {
+								update_meta( $field_key[1], $custom_field, $meta_value );
+							}
 						}
 						unset( $post_fields[ $post_field_key ] );
 					}

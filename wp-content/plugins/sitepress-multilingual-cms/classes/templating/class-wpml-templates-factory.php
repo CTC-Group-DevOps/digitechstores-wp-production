@@ -7,6 +7,7 @@ use WPML\Core\Twig_Error_Syntax;
 abstract class WPML_Templates_Factory {
 	const NOTICE_GROUP                 = 'template_factory';
 	const OTGS_TWIG_CACHE_DISABLED_KEY = '_otgs_twig_cache_disabled';
+	const TWIG_CACHE_UNWRITABLE_TRANSIENT = 'wpml_twig_cache_unwritable';
 
 	const SANDBOX_FUNCTIONS = [
 		'attribute', 'block', 'constant', 'country_names', 'country_timezones', 'currency_names', 'cycle', 'date',
@@ -159,11 +160,15 @@ abstract class WPML_Templates_Factory {
 	}
 
 	protected function disable_twig_cache() {
-		update_option( self::OTGS_TWIG_CACHE_DISABLED_KEY, true, 'no' );
+		set_transient( self::TWIG_CACHE_UNWRITABLE_TRANSIENT, true, DAY_IN_SECONDS );
 	}
 
 	protected function is_caching_enabled() {
-		return ! (bool) get_option( self::OTGS_TWIG_CACHE_DISABLED_KEY, false );
+		if ( (bool) get_option( self::OTGS_TWIG_CACHE_DISABLED_KEY, false ) ) {
+			return false;
+		}
+
+		return false === get_transient( self::TWIG_CACHE_UNWRITABLE_TRANSIENT );
 	}
 
 	protected function is_string_template() {

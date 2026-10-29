@@ -34,7 +34,7 @@ class WCML_Products {
 		if ( is_admin() ) {
 			if ( ! isStandAlone() ) {
 				add_filter( 'woocommerce_json_search_found_products', [ $this, 'filter_wc_searched_products_on_admin' ] );
-				add_action( 'wp_ajax_wpml_switch_post_language', [ $this, 'switch_product_variations_language' ], 9 );
+				\WCML\Request\Ajax::listen( 'wpml_switch_post_language', [ $this, 'switch_product_variations_language' ], 'WPML core post-language switch: follows with the product variations; the WPML policy (edit_posts + nonce) governs the action and the listener re-checks edit_products / edit_post', 9 );
 				add_filter( 'post_row_actions', [ $this, 'filter_product_actions' ], 10, 2 );
 				add_filter( 'woocommerce_product_type_query', [ $this, 'override_product_type_query' ], 10, 2 );
 			}
@@ -147,81 +147,6 @@ class WCML_Products {
 		return $available_languages;
 	}
 
-	public function get_translation_statuses( $original_product_id, $product_translations, $active_languages, $slang = false, $trid = false, $job_language = false ) {
-		$status_display_factory = new WPML_Post_Status_Display_Factory( $this->sitepress );
-		$status_display = $status_display_factory->create();
-		foreach ( $active_languages as $language ) {
-			if ( $job_language && $language['code'] != $job_language ) {
-				continue;
-			} elseif ( isset( $product_translations[ $language['code'] ] ) && $product_translations[ $language['code'] ]->original ) { ?>
-				<span title="<?php echo esc_attr( $language['english_name'] ) . ': ' . __( 'Original language', 'woocommerce-multilingual' ); ?>">
-					<i class="otgs-ico-original"></i>
-				</span>
-				<?php
-			} elseif (
-					$slang != $language['code'] &&
-					( ! isset( $_POST['translation_status_lang'] ) ||
-						( isset( $_POST['translation_status_lang'] ) &&
-							$_POST['translation_status_lang'] == $language['code'] ||
-							$_POST['translation_status_lang'] == ''
-						)
-					)
-				) {
-				if ( isset( $product_translations[ $language['code'] ] ) ) {
-					$job_id = $this->wpdb->get_var(
-						$this->wpdb->prepare(
-							"SELECT MAX(tj.job_id) FROM {$this->wpdb->prefix}icl_translate_job AS tj
-                                         LEFT JOIN {$this->wpdb->prefix}icl_translation_status AS ts
-                                         ON tj.rid = ts.rid WHERE ts.translation_id=%d",
-							$product_translations[ $language['code'] ]->translation_id
-						)
-					);
-				} else {
-					$job_id = false;
-				}
-
-				if ( ! current_user_can( 'wpml_manage_woocommerce_multilingual' ) && isset( $product_translations[ $language['code'] ] ) ) {
-					$tr_status = $this->wpdb->get_row(
-						$this->wpdb->prepare(
-							"SELECT status,translator_id FROM {$this->wpdb->prefix}icl_translation_status
-                                            WHERE translation_id = %d",
-							$product_translations[ $language['code'] ]->translation_id
-						)
-					);
-
-					if ( is_object( $tr_status ) && get_current_user_id() != $tr_status->translator_id ) {
-						if ( $tr_status->status == ICL_TM_IN_PROGRESS ) {
-							?>
-								<a title="<?php _e( 'Translation in progress', 'woocommerce-multilingual' ); ?>"><i
-										class="otgs-ico-in-progress"></i></a>
-							<?php
-							continue;
-						} elseif ( $tr_status->status == ICL_TM_WAITING_FOR_TRANSLATOR && ! $job_id ) {
-							$tr_job_id              = $this->wpdb->get_var(
-								$this->wpdb->prepare(
-									"SELECT j.job_id FROM {$this->wpdb->prefix}icl_translate_job j
-                                                    JOIN {$this->wpdb->prefix}icl_translation_status s ON j.rid = s.rid
-                                                    WHERE s.translation_id = %d",
-									$product_translations[ $language['code'] ]->translation_id
-								)
-							);
-							$translation_queue_page = admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&job_id=' . $tr_job_id );
-							$edit_url               = apply_filters( 'icl_job_edit_url', $translation_queue_page, $tr_job_id );
-							?>
-								<a href="<?php echo esc_url( $edit_url ); ?>" title="<?php echo esc_attr( $language['english_name'] ) . ': ' . __( 'Take this and edit', 'woocommerce-multilingual' ); ?>">
-									<i class="otgs-ico-add"></i>
-								</a>
-												<?php
-												continue;
-						}
-					}
-					wpml_tm_load_status_display_filter();
-				}
-				echo $status_display->get_status_html( $original_product_id, $language['code'] );
-			}
-		}
-	}
-
 	public function wcml_override_is_translator( $is_translator, $user_id, $args ) {
 		if ( current_user_can( 'wpml_operate_woocommerce_multilingual' ) ) {
 			if ( ! ( isset( $args['post_id'] ) && $args['post_id'] ) ) {
@@ -261,6 +186,7 @@ class WCML_Products {
 															$post->post_title
 														)
 													) . '">' .
+													/* translators: Link text in the products list that opens WordPress's inline editor. "Quick Edit" is the WordPress feature name; translate it the same way WordPress does. */
 													esc_html__( 'Quick Edit', 'woocommerce-multilingual' ) . '</a>';
 				} else {
 					$new_actions[ $key ] = $action;
@@ -516,6 +442,10 @@ class WCML_Products {
 			$post_id = $_POST['wpml_post_id'];
 		}
 
+		if ( $post_id && ! current_user_can( 'edit_post', (int) $post_id ) ) {
+			return;
+		}
+
 		if ( $post_id && $lang_to && get_post_type( $post_id ) == 'product' ) {
 			$product_variations = $this->woocommerce_wpml->sync_variations_data->get_product_variations( $post_id );
 			foreach ( $product_variations as $product_variation ) {
@@ -644,7 +574,8 @@ class WCML_Products {
 				$is_mc_enabled       = (int) $this->woocommerce_wpml->settings['enable_multi_currency'] === (int) $this->sitepress->get_wp_api()->constant( 'WCML_MULTI_CURRENCIES_INDEPENDENT' );
 
 				if ( $is_mc_enabled ) {
-					$meta_keys_to_filter = wcml_price_custom_fields( $product_id );
+					$schedule_keys       = [ '_sale_price_dates_from', '_sale_price_dates_to' ];
+					$meta_keys_to_filter = array_merge( wcml_price_custom_fields( $product_id ), $schedule_keys );
 				}
 
 				if ( ! is_admin() && ! isStandAlone() ) {

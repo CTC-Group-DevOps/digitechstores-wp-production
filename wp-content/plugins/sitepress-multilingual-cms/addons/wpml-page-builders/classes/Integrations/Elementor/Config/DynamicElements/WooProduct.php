@@ -3,6 +3,7 @@
 namespace WPML\PB\Elementor\Config\DynamicElements;
 
 use WPML\FP\Obj;
+use WPML\PB\Elementor\Helper\Path;
 
 class WooProduct {
 
@@ -18,46 +19,55 @@ class WooProduct {
 		'url',
 	];
 
-	private static function get( $tagName ) {
-		$converters = [];
+	const TAG_NAMES = [
+		'woocommerce-product-title-tag',
+		'woocommerce-product-image-tag',
+		'woocommerce-product-price-tag',
+		'woocommerce-product-short-description-tag',
+		'woocommerce-product-content-tag',
+		'woocommerce-product-gallery-tag',
+		'woocommerce-product-stock-tag',
+		'woocommerce-product-rating-tag',
+		'woocommerce-product-sale-tag',
+		'woocommerce-product-terms-tag',
+		'woocommerce-product-add-to-cart-tag',
+		'woocommerce-product-sku-tag',
+	];
 
-		foreach ( self::DYNAMIC_KEYS as $dynamicKey ) {
-			$converters[] = self::getConverter( $tagName, $dynamicKey );
-		}
-
-		return $converters;
-	}
-
-	private static function getConverter( $tagName, $dynamicKey ) {
+	private static function getConverter( $dynamicKey ) {
 		$dynamicPath = [ 'settings', '__dynamic__', $dynamicKey ];
 
-		$hasDynamicTag = function ( $item ) use ( $dynamicPath, $tagName ) {
-			$value = Obj::path( $dynamicPath, $item );
+		$hasDynamicTag = function ( $item ) use ( $dynamicPath ) {
+			$value = Path::get( $dynamicPath, $item );
 
 			return is_string( $value )
 				&& strpos( $value, '[elementor-tag' ) !== false
-				&& strpos( $value, 'name="' . $tagName . '"' ) !== false;
+				&& strpos( $value, 'name="woocommerce-product-' ) !== false
+				&& self::hasTagName( $value );
 		};
 
 		$dynamicLens = Obj::lensPath( $dynamicPath );
 
-		return [ $hasDynamicTag, $dynamicLens, $tagName, 'product_id' ];
+		return [ $hasDynamicTag, $dynamicLens, self::TAG_NAMES, 'product_id' ];
+	}
+
+	private static function hasTagName( $value ) {
+		foreach ( self::TAG_NAMES as $tagName ) {
+			if ( strpos( $value, 'name="' . $tagName . '"' ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public static function getAll() {
-		return array_merge(
-			self::get( 'woocommerce-product-title-tag' ),
-			self::get( 'woocommerce-product-image-tag' ),
-			self::get( 'woocommerce-product-price-tag' ),
-			self::get( 'woocommerce-product-short-description-tag' ),
-			self::get( 'woocommerce-product-content-tag' ),
-			self::get( 'woocommerce-product-gallery-tag' ),
-			self::get( 'woocommerce-product-stock-tag' ),
-			self::get( 'woocommerce-product-rating-tag' ),
-			self::get( 'woocommerce-product-sale-tag' ),
-			self::get( 'woocommerce-product-terms-tag' ),
-			self::get( 'woocommerce-product-add-to-cart-tag' ),
-			self::get( 'woocommerce-product-sku-tag' )
-		);
+		$converters = [];
+
+		foreach ( self::DYNAMIC_KEYS as $dynamicKey ) {
+			$converters[] = self::getConverter( $dynamicKey );
+		}
+
+		return $converters;
 	}
 }

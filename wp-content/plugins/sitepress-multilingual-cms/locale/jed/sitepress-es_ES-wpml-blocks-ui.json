@@ -14,13 +14,13 @@
             "Anclaje HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Añada un acceso directo a este bloque al cargar la página utilizando la URL “#anchor”."
+            "Añada un acceso directo a este bloque al cargar la página utilizando la URL «#anchor»."
          ],
          "Additional CSS class(es)": [
             "Clase(s) CSS adicional(es)"
          ],
          "Separate multiple classes with spaces.": [
-            "Separe varias clases con espacios."
+            "Separe las distintas clases con espacios."
          ],
          "Color": [
             "Color"
@@ -47,10 +47,10 @@
             "IDIOMA"
          ],
          "Language spacing": [
-            "Espaciado del idioma"
+            "Espaciado de idiomas"
          ],
          "Language padding": [
-            "Relleno del idioma"
+            "Relleno de idiomas"
          ],
          "Display": [
             "Visualización"
@@ -62,13 +62,13 @@
             "Mostrar nombre del idioma"
          ],
          "Display language name in": [
-            "Mostrar nombre del idioma en"
+            "Mostrar el nombre del idioma en"
          ],
          "Style": [
             "Estilo"
          ],
          "Flag settings": [
-            "Configuración de la bandera"
+            "Configuración de banderas"
          ],
          "Width": [
             "Ancho"
@@ -86,7 +86,7 @@
             "Idiomas disponibles"
          ],
          "Allow wrapping to multiple lines": [
-            "Permitir ajuste a varias líneas"
+            "Permitir el salto a varias líneas"
          ],
          "Open on click": [
             "Abrir al hacer clic"
@@ -104,10 +104,10 @@
             "Orientación"
          ],
          "Language Switcher": [
-            "Selector de idioma"
+            "Selector de idiomas"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Selector de idioma, pulse tabulador para navegar a otros idiomas"
+            "Selector de idiomas, pulse el tabulador para navegar a otros idiomas"
          ],
          "Typography": [
             "Tipografía"
@@ -155,13 +155,13 @@
             "Normal"
          ],
          "Medium": [
-            "Mediano"
+            "Medio"
          ],
          "Large": [
             "Grande"
          ],
          "X-Large": [
-            "Extragrande"
+            "Extra grande"
          ],
          "Ab": [
             "Ab"
@@ -176,16 +176,13 @@
             "Pequeño"
          ],
          "Displays the WPML Language Switcher.": [
-            "Muestra el selector de idioma de WPML."
+            "Muestra el selector de idiomas de WPML."
          ],
          "displays the WPML Language Switcher": [
-            "muestra el selector de idioma de WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Muestra el selector de idioma de WPML. <br/> Aprenda <a>cómo traducir este bloque</a>."
+            "muestra el selector de idiomas de WPML"
          ],
          "Navigation Language Switcher": [
-            "Selector de idioma de navegación"
+            "Selector de idiomas de navegación"
          ],
          "Reset all": [
             "Restablecer todo"

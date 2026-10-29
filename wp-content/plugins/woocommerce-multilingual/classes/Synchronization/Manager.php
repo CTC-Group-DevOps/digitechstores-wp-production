@@ -109,10 +109,14 @@ class Manager {
 			$this->runComponent( $variation, $translationsIds, $translationsLanguages, $componentName );
 		}
 
-		$wcmlDataStore = wcml_product_data_store_cpt();
+		$wcmlDataStore   = wcml_product_data_store_cpt();
+		$syncHashManager = $this->syncStore->getSyncHashManager();
 
 		foreach ( $translationsIds as $translationId ) {
-			$wcmlDataStore->update_lookup_table_data( $translationId );
+			if ( $syncHashManager->hasChanges( $translationId ) ) {
+				wp_cache_delete( $translationId, 'post_meta' );
+				$wcmlDataStore->update_lookup_table_data( $translationId );
+			}
 		}
 	}
 

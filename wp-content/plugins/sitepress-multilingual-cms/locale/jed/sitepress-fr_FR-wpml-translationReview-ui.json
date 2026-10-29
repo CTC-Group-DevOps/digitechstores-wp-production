@@ -8,22 +8,22 @@
             "lang": "fr_FR"
          },
          "Accepted": [
-            "Accepté"
+            "Acceptée"
          ],
          "Approved!": [
-            "Approuvé!"
+            "Approuvée !"
          ],
          "Loading the next translation for review...": [
-            "Chargement de la prochaine traduction pour révision..."
+            "Chargement de la traduction suivante pour révision..."
          ],
          "Back": [
             "Retour"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Désactiver pour ne pas charger automatiquement la prochaine traduction après avoir terminé cette révision."
+            "Désactivez cette option pour ne pas charger automatiquement la traduction suivante après avoir terminé cette révision."
          ],
          "Turn on to automatically load the next translation after finishing this  .": [
-            "Activer pour charger automatiquement la prochaine traduction après avoir terminé cette révision."
+            "Activez cette option pour charger automatiquement la traduction suivante après avoir terminé celle-ci."
          ],
          "Edit": [
             "Modifier"
@@ -32,7 +32,7 @@
             "Modifier la traduction"
          ],
          "Next review": [
-            "Prochaine révision"
+            "Révision suivante"
          ],
          "Publish this translation": [
             "Publier cette traduction"
@@ -41,16 +41,16 @@
             "Accepter cette traduction"
          ],
          "Published!": [
-            "Publié!"
+            "Publiée !"
          ],
          "Please wait, applying translation..": [
             "Veuillez patienter, application de la traduction..."
          ],
          "There was an error in applying translation.": [
-            "Une erreur est survenue lors de l’application de la traduction."
+            "Une erreur est survenue lors de l'application de la traduction."
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "Quelqu’un est déjà en train de réviser cette traduction. Veuillez réessayer plus tard."
+            "Quelqu'un révise déjà cette traduction. Veuillez réessayer plus tard."
          ]
       }
    }

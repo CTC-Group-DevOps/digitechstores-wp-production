@@ -33,9 +33,13 @@ class WCML_Store_URLs_Edit_Base_UI extends WCML_Templates_Factory {
 			'trnsl_flag_url'        => $this->sitepress->get_flag_url( $this->language ),
 			'trnsl_display_name'    => $active_languages[ $this->language ]['english_name'],
 			'strings'               => [
+				/* translators: Column heading above the untranslated URL part, on the store URLs screen. Noun. */
 				'orig'     => __( 'Original', 'woocommerce-multilingual' ),
+				/* translators: Column heading above the translated URL part; the language name follows it on the same line, so the phrase stays open. */
 				'trnsl_to' => __( 'Translation to', 'woocommerce-multilingual' ),
+				/* translators: Button label that closes a dialog and discards the changes. Verb, imperative: the action, not the state "cancelled". */
 				'cancel'   => __( 'Cancel', 'woocommerce-multilingual' ),
+				/* translators: Button label that stores the settings of a dialog. Verb, imperative. */
 				'save'     => __( 'Save', 'woocommerce-multilingual' ),
 			],
 		];
@@ -55,6 +59,7 @@ class WCML_Store_URLs_Edit_Base_UI extends WCML_Templates_Factory {
 			}
 
 			$args['original_base_value'] = urldecode( get_post( $original_shop_id )->post_name );
+			/* translators: Name of the URL part of the shop page, on the store URLs screen. */
 			$args['label_name']          = __( 'Product Shop Base', 'woocommerce-multilingual' );
 		} else {
 			$translated_base               = $this->woocommerce_wpml->url_translation->get_base_translation( $this->base, $this->language );

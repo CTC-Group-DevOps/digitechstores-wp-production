@@ -61,6 +61,42 @@ var woodmartAdminModule, woodmart_media_init;
 				});
 			},
 
+			imageOptimizerNotice: function() {
+				$(document).on('click', '.wd-image-optimizer-notice-close', function() {
+					var $notice = $(this).closest('.wd-image-optimizer-notice');
+
+					$notice.fadeOut();
+
+					$.ajax({
+						url     : woodmartConfig.ajaxUrl,
+						type    : 'POST',
+						data    : {
+							action  : 'woodmart_dismiss_image_optimizer_notice',
+							security: $notice.data('nonce')
+						}
+					});
+				});
+
+				var $notice = $('.wd-image-optimizer-notice');
+				var $button = $notice.find('.xts-ajax-plugin');
+
+				if (! $notice.length || ! $button.length || ! window.MutationObserver) {
+					return;
+				}
+
+				var observer = new MutationObserver(function() {
+					if ($button.hasClass('xts-deactivate')) {
+						observer.disconnect();
+						$notice.fadeOut();
+					}
+				});
+
+				observer.observe($button[0], {
+					attributes     : true,
+					attributeFilter: ['class']
+				});
+			},
+
 			sizeGuideInit: function() {
 				if ($.fn.editTable) {
 					$('.woodmart-sguide-table-edit').each(function() {
@@ -359,6 +395,7 @@ var woodmartAdminModule, woodmart_media_init;
 					woodmartAdmin.product360ViewGallery();
 					woodmartAdmin.variationGallery();
 					woodmartAdmin.whiteLabel();
+					woodmartAdmin.imageOptimizerNotice();
 				});
 			},
 			mediaInit: function() {

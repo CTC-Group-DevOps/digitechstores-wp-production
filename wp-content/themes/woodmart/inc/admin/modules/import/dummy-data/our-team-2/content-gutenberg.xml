@@ -73,7 +73,7 @@
 											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"15954c5d-eb4e-4078-9365-6f1648f50944","colorScheme":"light","bgImage":{"id":27778,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/our-team-top.jpg"},"bgPosition":"center center","bgDisplaySize":"cover","paddingTop":"80","paddingBottom":"80","marginTop":"-40","marginBottom":"80","overlayImage":{"id":27591,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/about-me-2-quotes-bg.png"},"overlayPosition":"center right","overlayRepeat":"no-repeat","overlay":false,"paddingTopTablet":"60","paddingTopMobile":"40","paddingBottomTablet":"60","paddingBottomMobile":"40","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div id="wd-15954c5d" class="wp-block-wd-section color-scheme-light"><!-- wp:wd/row {"blockId":"b7553450-d798-4459-b0e7-d204542de811"} -->
 <div id="wd-b7553450" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"9da63cc9-bf53-4d01-b3e3-f5055b73899e","adjacentCount":2,"colWidth":66,"blocksGap":10,"flexOrderMobile":"1"} -->
-<div id="wd-9da63cc9" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"ad045782-81b0-4cf9-9119-99c771da63d5","content":"There are no u003cspan class=u0022wd-highlightu0022u003esecrets to successu003c/spanu003e. It is the result of preparation, hard work, and learning from failure.","tpFontSize":"36","markColorVariable":"u002du002dwd-primary-color","displayWidth":"","customWidth":"","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
+<div id="wd-9da63cc9" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"ad045782-81b0-4cf9-9119-99c771da63d5","content":"There are no \u003cspan class=\u0022wd-highlight\u0022\u003esecrets to success\u003c/span\u003e. It is the result of preparation, hard work, and learning from failure.","tpFontSize":"36","markColorVariable":"\u002d\u002dwd-primary-color","displayWidth":"","customWidth":"","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 id="wd-ad045782" class="wp-block-wd-title title">There are no <span class="wd-highlight">secrets to success</span>. It is the result of preparation, hard work, and learning from failure.</h2>
 <!-- /wp:wd/title -->
 
@@ -110,7 +110,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"81637051-026a-4e6b-96d0-9c58d5903dad","adjacentCount":3,"colWidth":43,"justifyContent":"center","adjacentCountMobile":1,"colWidthMobile":100} -->
-<div id="wd-81637051" class="wp-block-wd-column"><!-- wp:wd/paragraph {"blockId":"4925fda4-9707-4445-96d8-71e109eb528c","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14","tpFontVariant":"600","tpFontWeight":"600"} -->
+<div id="wd-81637051" class="wp-block-wd-column"><!-- wp:wd/paragraph {"blockId":"4925fda4-9707-4445-96d8-71e109eb528c","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14","tpFontVariant":"600","tpFontWeight":"600"} -->
 <p id="wd-4925fda4" class="wp-block-wd-paragraph">SEEMINGLY ELEGANT DESIGN</p>
 <!-- /wp:wd/paragraph -->
 
@@ -132,7 +132,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"ad99f195-1a06-4c01-ad9c-cb0e9dfdfc9f","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"5"} -->
+<!-- wp:wd/paragraph {"blockId":"ad99f195-1a06-4c01-ad9c-cb0e9dfdfc9f","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14","tpFontVariant":"600","tpFontWeight":"600","marginBottom":"5"} -->
 <p id="wd-ad99f195" class="wp-block-wd-paragraph wd-align">DEPENDING ON THE STATE</p>
 <!-- /wp:wd/paragraph -->
 
@@ -306,7 +306,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"b1980ee1-36e4-418e-9394-3a9cdc8f74d3","adjacentCount":2,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div id="wd-b1980ee1" class="wp-block-wd-column"><!-- wp:wd/paragraph {"blockId":"a8a9cea7-26dd-4182-81ac-43a9588c4694","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14","tpFontVariant":"600","tpFontWeight":"600"} -->
+<div id="wd-b1980ee1" class="wp-block-wd-column"><!-- wp:wd/paragraph {"blockId":"a8a9cea7-26dd-4182-81ac-43a9588c4694","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14","tpFontVariant":"600","tpFontWeight":"600"} -->
 <p id="wd-a8a9cea7" class="wp-block-wd-paragraph">SEEMINGLY ELEGANT DESIGN</p>
 <!-- /wp:wd/paragraph -->
 

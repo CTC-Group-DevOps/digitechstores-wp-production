@@ -19,12 +19,9 @@ abstract class TranslateIds {
 		$this->wpApi                 = &$wpApi;
 		$this->translateNestedIds    = $translateNestedIds;
 
-		$this->translationManagement->load_settings_if_required();
-		$settings_key = $this->getTmSettingsKey();
-		if ( isset( $this->translationManagement->settings[ $settings_key ] ) &&
-				! empty( $this->translationManagement->settings[ $settings_key ] ) ) {
-
-			$this->customFields = $this->translationManagement->settings[ $settings_key ];
+		$customFields = wpml_get_tm_sub_setting( $this->getTmSettingsKey() );
+		if ( ! empty( $customFields ) && is_array( $customFields ) ) {
+			$this->customFields = $customFields;
 		}
 	}
 

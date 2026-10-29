@@ -19,6 +19,24 @@
 	<wp:base_uploads_url>https://dummy.xtemos.com/woodmart2/pottery/wp-content/uploads/sites/35/</wp:base_uploads_url>
 
 								<item>
+					<title><![CDATA[Pottery Class]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/pottery/?p=33</link>
+					<pubDate>Fri, 19 Jul 2024 12:02:23 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/pottery/?p=33</guid>
+															<wp:post_id>33</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-19 12:02:23]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-19 12:02:23]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-19 12:02:23]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-19 12:02:23]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[32-revision-v1]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>32</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[revision]]></wp:post_type>
+																			</item>
+								<item>
 					<title><![CDATA[w-hmp-blog-5-opt]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/pottery/2024/02/12/5-reasons-youll-love-handmade-mugs/w-hmp-blog-5-opt/</link>
 					<pubDate>Fri, 19 Jul 2024 12:16:38 +0000</pubDate>

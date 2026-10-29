@@ -21,7 +21,7 @@ class CurrencyLayer extends ApiLayerService {
 	}
 
 	protected function getApiLegacyUrl() {
-		return 'http://apilayer.net/api/live?access_key=%s&source=%s&currencies=%s&amount=1';
+		return 'https://apilayer.net/api/live?access_key=%s&source=%s&currencies=%s&amount=1';
 	}
 
 	protected function isInvalidResponse( $decodedData ) {

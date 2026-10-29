@@ -7048,7 +7048,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 		
 		$ids = array();
 		foreach($slider_data as $data){
-			$ids[] = $data['id'];
+			$ids[] = intval($data['id']);
 		}
 
 		$wpdb->query("DELETE FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE `type` = 'template'");

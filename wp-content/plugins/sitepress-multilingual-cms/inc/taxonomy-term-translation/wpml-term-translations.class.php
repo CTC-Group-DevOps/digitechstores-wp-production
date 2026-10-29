@@ -22,17 +22,17 @@ class WPML_Terms_Translations {
 
 				$element_type = 'tax_' . $taxonomy;
 
-				$query = $wpdb->prepare(
-					"SELECT wptt.term_id
+				$element_ids_array = $wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT wptt.term_id
                                           FROM {$wpdb->prefix}icl_translations AS iclt
                                           JOIN {$wpdb->prefix}term_taxonomy AS wptt
                                             ON iclt.element_id = wptt.term_taxonomy_id
                                           WHERE language_code=%s AND element_type = %s",
-					$lang,
-					$element_type
+						$lang,
+						$element_type
+					)
 				);
-
-				$element_ids_array = $wpdb->get_col( $query );
 
 				foreach ( $terms as $key => $term ) {
 					if ( ! is_object( $term ) ) {
@@ -69,38 +69,63 @@ class WPML_Terms_Translations {
 		global $wpdb;
 
 		$cache_key_str = wp_json_encode( [ $slug, $taxonomy, $lang, $parent ] );
-		$cache_key     = $cache_key_str ? md5( $cache_key_str ) : '';
+		$cache_key = $cache_key_str ? $wpdb->prefix . '|' . md5( $cache_key_str ) : '';
 
 		if ( $cache_key && isset( static::$term_slug_exist_cache[ $cache_key ] ) ) {
 			return static::$term_slug_exist_cache[ $cache_key ];
 		}
 
-		$where      = 't.slug = %s AND tt.taxonomy = %s AND tt.parent = %d';
-		$where_args = array( $slug, $taxonomy, $parent );
-
 		if ( $lang ) {
-			$where       .= ' AND tr.language_code = %s';
-			$where_args[] = $lang;
+			$result = (bool) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT t.term_id
+					 FROM {$wpdb->terms} t
+					 JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id
+					 JOIN {$wpdb->prefix}icl_translations tr
+						ON tt.term_taxonomy_id = tr.element_id
+						AND tr.element_type = CONCAT('tax_', %s)
+					 WHERE t.slug = %s
+						AND tt.taxonomy = %s
+						AND tt.parent = %d
+						AND tr.language_code = %s
+					 LIMIT 1",
+					$taxonomy,
+					$slug,
+					$taxonomy,
+					$parent,
+					$lang
+				)
+			);
+		} else {
+			$result = (bool) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT t.term_id
+					 FROM {$wpdb->terms} t
+					 JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id
+					 JOIN {$wpdb->prefix}icl_translations tr
+						ON tt.term_taxonomy_id = tr.element_id
+						AND tr.element_type = CONCAT('tax_', %s)
+					 WHERE t.slug = %s
+						AND tt.taxonomy = %s
+						AND tt.parent = %d
+					 LIMIT 1",
+					$taxonomy,
+					$slug,
+					$taxonomy,
+					$parent
+				)
+			);
 		}
-
-		$query = "SELECT t.term_id
-		          FROM {$wpdb->terms} t
-		          JOIN {$wpdb->term_taxonomy} tt
-		            ON t.term_id = tt.term_id
-		          JOIN {$wpdb->prefix}icl_translations tr
-		            ON tt.term_taxonomy_id = tr.element_id
-		            	AND tr.element_type = CONCAT('tax_', %s)
-		          WHERE " . $wpdb->prepare( $where, $where_args ) . '
-		          LIMIT 1';
-
-		$existing_term_prepared_query = $wpdb->prepare( $query, $taxonomy );
-		$result                       = (bool) $wpdb->get_var( $existing_term_prepared_query );
 
 		if ( $cache_key ) {
 			static::$term_slug_exist_cache[ $cache_key ] = $result;
 		}
 
 		return $result;
+	}
+
+	public static function clear_term_slug_exist_cache() {
+		static::$term_slug_exist_cache = [];
 	}
 
 	public static function icl_save_term_translation_action( $taxonomy, $translated_term ) {
@@ -111,9 +136,13 @@ class WPML_Terms_Translations {
 
 			$original_ttid = $sitepress->get_original_element_id( $term_taxonomy_id, 'tax_' . $taxonomy );
 
-			$original_tax_sql      = "SELECT * FROM {$wpdb->term_taxonomy} WHERE taxonomy=%s AND term_taxonomy_id = %d";
-			$original_tax_prepared = $wpdb->prepare( $original_tax_sql, array( $taxonomy, $original_ttid ) );
-			$original_tax          = $wpdb->get_row( $original_tax_prepared );
+			$original_tax = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->term_taxonomy} WHERE taxonomy = %s AND term_taxonomy_id = %d",
+					$taxonomy,
+					$original_ttid
+				)
+			);
 
 			do_action( 'icl_save_term_translation', $original_tax, $translated_term );
 		}
@@ -133,11 +162,15 @@ class WPML_Terms_Translations {
 
 			if ( ! empty( $taxonomies ) ) {
 				$res = $wpdb->get_results(
-					"	SELECT language_code, taxonomy, term_id FROM {$wpdb->term_taxonomy} tt
+					$wpdb->prepare(
+						"	SELECT language_code, taxonomy, term_id FROM {$wpdb->term_taxonomy} tt
  										JOIN {$wpdb->prefix}icl_translations wpml_translations
  											ON wpml_translations.element_id = tt.term_taxonomy_id
- 												AND wpml_translations.element_type = CONCAT('tax_', tt.taxonomy)
-                                        WHERE tt.taxonomy IN (" . wpml_prepare_in( $taxonomies ) . ' )'
+												AND wpml_translations.element_type = CONCAT('tax_', tt.taxonomy)
+										WHERE tt.taxonomy IN ("
+						. implode( ', ', array_fill( 0, count( $taxonomies ), '%s' ) ) . ')',
+						$taxonomies
+					)
 				);
 			} else {
 				$res = array();
@@ -198,8 +231,8 @@ class WPML_Terms_Translations {
 
 		if ( $original_id && ! $original_tax_id ) {
 			$original_term = get_term( $original_id, $taxonomy, OBJECT, 'no' );
-			if ( isset( $original_term['term_taxonomy_id'] ) ) {
-				$original_tax_id = $original_term['term_taxonomy_id'];
+			if ( isset( $original_term->term_taxonomy_id ) ) {
+				$original_tax_id = $original_term->term_taxonomy_id;
 			}
 		}
 
@@ -386,6 +419,10 @@ class WPML_Terms_Translations {
 		}
 	}
 
+	public static function link_translated_posts_action( $term_taxonomy_id, $lang, $taxonomy ) {
+		wpml_get_term_translation_util()->link_created_term_translation( (int) $term_taxonomy_id, (string) $lang, (string) $taxonomy );
+	}
+
 	public static function set_object_terms_action( $post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) {
 		global $sitepress;
 
@@ -417,8 +454,13 @@ class WPML_Terms_Translations {
 			return;
 		}
 
-		$sql               = "SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE language_code = %s AND element_type = %s";
-		$termIdsInPostLang = $wpdb->get_col( $wpdb->prepare( $sql, $postLang, 'tax_' . $taxonomy ) );
+		$termIdsInPostLang = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE language_code = %s AND element_type = %s",
+				$postLang,
+				'tax_' . $taxonomy
+			)
+		);
 		$termIdsInPostLang = Fns::map( \WPML\FP\Cast::toInt(), $termIdsInPostLang );
 
 		$newlyCreatedTermIds = [];
@@ -468,8 +510,9 @@ class WPML_Terms_Translations {
 		return function ( $termId ) {
 			global $wpdb;
 
-			$sql    = "SELECT t.name, t.term_id FROM {$wpdb->terms} AS t JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id WHERE tt.term_taxonomy_id=%d";
-			$result = $wpdb->get_row( $wpdb->prepare( $sql, $termId ) );
+			$result = $wpdb->get_row(
+				$wpdb->prepare( "SELECT t.name, t.term_id FROM {$wpdb->terms} AS t JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id WHERE tt.term_taxonomy_id=%d", $termId )
+			);
 
 			return [
 				'id'      => $termId,
@@ -485,15 +528,15 @@ class WPML_Terms_Translations {
 			$idInPostLang = false;
 
 			if ( count( $termIdsInPostLang ) ) {
-				$in = wpml_prepare_in( $termIdsInPostLang, '%d' );
-
-				$sql = "
-					SELECT tt.term_taxonomy_id FROM {$wpdb->terms} AS t
-					JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
-					WHERE t.name=%s AND tt.taxonomy=%s AND tt.term_taxonomy_id IN ({$in})
-				";
-
-				$idInPostLang = $wpdb->get_var( $wpdb->prepare( $sql, $termData['name'], $taxonomy ) );
+				$idInPostLang = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT tt.term_taxonomy_id FROM {$wpdb->terms} AS t
+						JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+						WHERE t.name=%s AND tt.taxonomy=%s
+						AND tt.term_taxonomy_id IN (" . implode( ', ', array_fill( 0, count( $termIdsInPostLang ), '%d' ) ) . ')',
+						array_merge( [ $termData['name'], $taxonomy ], array_map( 'intval', $termIdsInPostLang ) )
+					)
+				);
 			}
 
 			return Obj::assoc( 'idInPostLang', $idInPostLang, $termData );
@@ -550,17 +593,22 @@ class WPML_Terms_Translations {
 		global $wpdb;
 
 		$lang_codes = $wpdb->get_col( "SELECT code FROM {$wpdb->prefix}icl_languages" );
-
-
-		$where_parts = array();
-
-		foreach ( $lang_codes as $key => $code ) {
-			$where_parts[ $key ] = "t.name LIKE '" . '% @' . esc_sql( $code ) . "%'";
+		if ( ! $lang_codes ) {
+			return array();
 		}
 
-		$where = '(' . join( ' OR ', $where_parts ) . ')';
 
-		$terms_with_suffix = $wpdb->get_results( "SELECT t.name, t.term_id, tt.taxonomy FROM {$wpdb->terms} AS t JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id WHERE {$where}" );
+		$language_pattern = ' @(' . implode( '|', array_map( 'preg_quote', $lang_codes ) ) . ')';
+
+		$terms_with_suffix = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT t.name, t.term_id, tt.taxonomy
+				FROM {$wpdb->terms} AS t
+				JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+				WHERE t.name REGEXP %s",
+				$language_pattern
+			)
+		);
 
 		$terms = array();
 

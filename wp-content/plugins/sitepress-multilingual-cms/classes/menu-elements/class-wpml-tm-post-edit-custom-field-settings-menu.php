@@ -22,7 +22,7 @@ class WPML_TM_Post_Edit_Custom_Field_Settings_Menu {
 			<table class="widefat">
 				<thead>
 				<tr>
-					<th colspan="2"><?php esc_html_e( 'Custom fields', 'sitepress' ); ?></th>
+					<th colspan="2"><?php /* translators: Heading above the list of extra fields of a post, in the translation settings. */ esc_html_e( 'Custom fields', 'sitepress' ); ?></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -36,9 +36,13 @@ class WPML_TM_Post_Edit_Custom_Field_Settings_Menu {
 					$radio_disabled = $field_setting->get_html_disabled();
 					$status         = (int) $field_setting->status();
 					$states         = array(
+						/* translators: Option in the dropdown that says what happens to a field: leave it out of the translation. Verb phrase, imperative. */
 						array( 'value' => WPML_IGNORE_CUSTOM_FIELD, 'text' => __( "Don't translate", 'sitepress' ) ),
+						/* translators: Option in the dropdown that says what happens to a field: put the same value in every language, every time the post is saved. Verb, imperative. */
 						array( 'value' => WPML_COPY_CUSTOM_FIELD, 'text' => __( "Copy", 'sitepress' ) ),
+						/* translators: Option in the dropdown that says what happens to a field: put the value in the translation once, and leave it alone afterwards. Verb phrase, imperative. */
 						array( 'value' => WPML_COPY_ONCE_CUSTOM_FIELD, 'text' => __( "Copy once", 'sitepress' ) ),
+						/* translators: Option in the dropdown that says what happens to a field, and the heading of the column of the post editing screen where a translation is started: the text is translated. Verb, imperative. */
 						array( 'value' => WPML_TRANSLATE_CUSTOM_FIELD, 'text' => __( "Translate", 'sitepress' ) ),
 					);
 					?>
@@ -67,6 +71,12 @@ class WPML_TM_Post_Edit_Custom_Field_Settings_Menu {
 										/>
 										<?php echo esc_html( $state['text'] ) ?>
 									</label>&nbsp;
+								<?php
+							}
+							foreach ( \WPML\TM\Settings\PreferenceOutcomeSentences::all() as $mode => $sentence ) {
+								?>
+								<p class="icl_mcs_cf_outcome"
+								   data-value="<?php echo esc_attr( (string) $mode ); ?>"<?php echo $status === (int) $mode ? '' : ' hidden'; ?>><?php echo esc_html( $sentence ); ?></p>
 								<?php
 							}
 							?>

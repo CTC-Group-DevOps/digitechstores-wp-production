@@ -72,6 +72,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "dropdown_indicator_color": {
+                                        "id": "dropdown_indicator_color",
+                                        "value": "",
+                                        "type": "color"
+                                    },
                                     "icon_width": {
                                         "id": "icon_width",
                                         "value": "",
@@ -213,6 +218,11 @@
                                     },
                                     "items_bg_color_active": {
                                         "id": "items_bg_color_active",
+                                        "value": "",
+                                        "type": "color"
+                                    },
+                                    "dropdown_indicator_color": {
+                                        "id": "dropdown_indicator_color",
                                         "value": "",
                                         "type": "color"
                                     },
@@ -1107,7 +1117,7 @@
                                     },
                                     "popular_requests": {
                                         "id": "popular_requests",
-                                        "value": false,
+                                        "value": true,
                                         "type": "switcher"
                                     },
                                     "search_history_enabled": {
@@ -1117,7 +1127,7 @@
                                     },
                                     "search_extra_content_enabled": {
                                         "id": "search_extra_content_enabled",
-                                        "value": false,
+                                        "value": true,
                                         "type": "switcher"
                                     },
                                     "search_extra_content": {
@@ -1300,6 +1310,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "default",
@@ -1421,6 +1436,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -1547,6 +1567,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -1684,6 +1709,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "default",
@@ -1724,6 +1754,16 @@
                                         "id": "position",
                                         "value": "side",
                                         "type": "selector"
+                                    },
+                                    "bg_dropdown_color": {
+                                        "id": "bg_dropdown_color",
+                                        "value": "",
+                                        "type": "color"
+                                    },
+                                    "box_shadow_dropdown": {
+                                        "id": "box_shadow_dropdown",
+                                        "value": [],
+                                        "type": "group"
                                     },
                                     "bg_overlay": {
                                         "id": "bg_overlay",
@@ -1834,6 +1874,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -2067,6 +2112,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "default",
@@ -2155,6 +2205,16 @@
                                         "id": "position",
                                         "value": "side",
                                         "type": "selector"
+                                    },
+                                    "bg_dropdown_color": {
+                                        "id": "bg_dropdown_color",
+                                        "value": "",
+                                        "type": "color"
+                                    },
+                                    "box_shadow_dropdown": {
+                                        "id": "box_shadow_dropdown",
+                                        "value": [],
+                                        "type": "group"
                                     },
                                     "bg_overlay": {
                                         "id": "bg_overlay",
@@ -2246,6 +2306,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "cart",
@@ -2284,8 +2349,9 @@
                     },
                     "mobile_height": {
                         "id": "mobile_height",
-                        "value": 50,
-                        "type": "slider"
+                        "value": "60",
+                        "type": "slider",
+                        "unit": "px"
                     },
                     "hide_desktop": {
                         "id": "hide_desktop",
@@ -2438,6 +2504,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "default",
@@ -2500,6 +2571,11 @@
                                     },
                                     "items_bg_color_active": {
                                         "id": "items_bg_color_active",
+                                        "value": "",
+                                        "type": "color"
+                                    },
+                                    "dropdown_indicator_color": {
+                                        "id": "dropdown_indicator_color",
                                         "value": "",
                                         "type": "color"
                                     },

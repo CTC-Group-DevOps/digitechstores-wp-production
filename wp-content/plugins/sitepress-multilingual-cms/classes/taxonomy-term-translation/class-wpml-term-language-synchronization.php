@@ -18,17 +18,21 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 
 	public function set_translated() {
 		$this->prepare_missing_originals();
-		$this->reassign_terms();
+		$result = $this->reassign_terms();
 		$this->set_initial_term_language();
+
+		return $result;
 	}
 
 	public function set_initial_term_language() {
-		$element_ids      = $this->wpdb->get_col(
-			$this->wpdb->prepare(
+		$wpdb = $this->wpdb;
+
+		$element_ids      = $wpdb->get_col(
+			$wpdb->prepare(
 				"
 													SELECT tt.term_taxonomy_id
-													FROM {$this->wpdb->term_taxonomy} AS tt
-													LEFT JOIN {$this->wpdb->prefix}icl_translations AS i
+													FROM {$wpdb->term_taxonomy} AS tt
+													LEFT JOIN {$wpdb->prefix}icl_translations AS i
 														ON tt.term_taxonomy_id = i.element_id
 															AND CONCAT('tax_', tt.taxonomy) = i.element_type
 													WHERE taxonomy = %s
@@ -43,12 +47,43 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 	}
 
 	private function reassign_terms() {
-		$update_query = $this->wpdb->prepare(
-			"UPDATE {$this->wpdb->term_relationships} AS o,
-					{$this->wpdb->prefix}icl_translations AS ic,
-					{$this->wpdb->prefix}icl_translations AS iw,
-					{$this->wpdb->prefix}icl_translations AS ip,
-					{$this->wpdb->posts} AS p
+		$wpdb = $this->wpdb;
+
+		$rows_removed = $wpdb->query(
+			$wpdb->prepare(
+				"DELETE o FROM {$wpdb->term_relationships} AS o
+					JOIN {$wpdb->prefix}icl_translations AS iw
+						ON iw.element_id = o.term_taxonomy_id
+							AND iw.element_type = %s
+					JOIN {$wpdb->prefix}icl_translations AS ic
+						ON ic.trid = iw.trid
+							AND ic.element_type = iw.element_type
+							AND ic.element_id != o.term_taxonomy_id
+					JOIN {$wpdb->posts} AS p
+						ON p.ID = o.object_id
+					JOIN {$wpdb->prefix}icl_translations AS ip
+						ON ip.element_id = p.ID
+							AND ip.element_type = CONCAT('post_', p.post_type)
+							AND ip.language_code = ic.language_code
+					JOIN {$wpdb->prefix}icl_translations AS iz
+						ON iz.trid = iw.trid
+							AND iz.element_type = iw.element_type
+					JOIN {$wpdb->term_relationships} AS t
+						ON t.object_id = o.object_id
+							AND t.term_taxonomy_id = iz.element_id
+					WHERE iz.element_id = ic.element_id
+						OR iz.element_id < o.term_taxonomy_id",
+				'tax_' . $this->taxonomy
+			)
+		);
+
+		$rows_affected = $wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->term_relationships} AS o,
+					{$wpdb->prefix}icl_translations AS ic,
+					{$wpdb->prefix}icl_translations AS iw,
+					{$wpdb->prefix}icl_translations AS ip,
+					{$wpdb->posts} AS p
 						SET o.term_taxonomy_id = ic.element_id
 						WHERE ic.trid = iw.trid
 							AND ic.element_type = iw.element_type
@@ -59,14 +94,15 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 							AND o.object_id = p.ID
 							AND o.term_taxonomy_id != ic.element_id
 							AND iw.element_type = %s",
-			'tax_' . $this->taxonomy
+				'tax_' . $this->taxonomy
+			)
 		);
-
-		$rows_affected = $this->wpdb->query( $update_query );
-		if ( $rows_affected ) {
-			$term_ids = $this->wpdb->get_col(
-				$this->wpdb->prepare(
-					"SELECT term_taxonomy_id FROM {$this->wpdb->term_taxonomy} WHERE taxonomy = %s",
+		$rows_removed  = (int) $rows_removed;
+		$rows_affected = (int) $rows_affected;
+		if ( $rows_affected || $rows_removed ) {
+			$term_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE taxonomy = %s",
 					$this->taxonomy
 				)
 			);
@@ -75,6 +111,11 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 				$this->sitepress->get_wp_api()->wp_update_term_count( $term_ids, $this->taxonomy );
 			}
 		}
+
+		return array(
+			'moved'              => $rows_affected,
+			'already_translated' => $rows_removed,
+		);
 	}
 
 	private function format_data( $sql_result ) {
@@ -103,7 +144,6 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 
 	private function prepare_missing_translations(
 		$trid,
-		$source_lang,
 		$langs
 	) {
 		$existing_translations = $this->sitepress->term_translations()->get_element_translations(
@@ -114,10 +154,9 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 			if ( ! isset( $existing_translations[ $lang ] ) ) {
 				$this->term_utils->create_automatic_translation(
 					array(
-						'lang_code'       => $lang,
-						'source_language' => $source_lang,
-						'trid'            => $trid,
-						'taxonomy'        => $this->taxonomy,
+						'lang_code' => $lang,
+						'trid'      => $trid,
+						'taxonomy'  => $this->taxonomy,
 					)
 				);
 			}
@@ -125,35 +164,37 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 	}
 
 	private function set_affected_ids() {
-		$query_for_post_ids = $this->wpdb->prepare(
-			"
-				SELECT tl.trid AS trid, tl.ttid AS ttid, tl.tlang AS term_lang, tl.pid AS post_id, pl.plang AS post_lang
+		$wpdb = $this->wpdb;
+
+		$ttid_pid_pairs = $wpdb->get_results(
+			$wpdb->prepare(
+				"
+					SELECT tl.trid AS trid, tl.ttid AS ttid, tl.tlang AS term_lang, tl.pid AS post_id, pl.plang AS post_lang
 				FROM (
 					SELECT
 					o.object_id AS pid,
 					tt.term_taxonomy_id AS ttid,
 					i.language_code AS tlang,
 					i.trid AS trid
-				FROM {$this->wpdb->term_relationships} AS o
-				JOIN {$this->wpdb->term_taxonomy} AS tt
+				FROM {$wpdb->term_relationships} AS o
+				JOIN {$wpdb->term_taxonomy} AS tt
 					ON o.term_taxonomy_id = tt.term_taxonomy_id
-				LEFT JOIN {$this->wpdb->prefix}icl_translations AS i
+				LEFT JOIN {$wpdb->prefix}icl_translations AS i
 					ON i.element_id = tt.term_taxonomy_id
 						AND i.element_type = CONCAT('tax_', tt.taxonomy)
 				WHERE tt.taxonomy = %s) AS tl
 				LEFT JOIN
 				( SELECT p.ID AS pid, i.language_code AS plang
-					FROM {$this->wpdb->posts} AS p
-					JOIN {$this->wpdb->prefix}icl_translations AS i
+					FROM {$wpdb->posts} AS p
+					JOIN {$wpdb->prefix}icl_translations AS i
 						ON i.element_id = p.ID
 							AND i.element_type = CONCAT('post_', p.post_type)
 				) AS pl
 					ON tl.pid = pl.pid
-				",
-			$this->taxonomy
+					",
+				$this->taxonomy
+			)
 		);
-
-		$ttid_pid_pairs = $this->wpdb->get_results( $query_for_post_ids );
 
 		return is_array( $ttid_pid_pairs )
 			? $this->format_data( $ttid_pid_pairs )
@@ -182,7 +223,6 @@ class WPML_Term_Language_Synchronization extends WPML_WPDB_And_SP_User {
 			if ( isset( $this->data[ $ttid ]['tlang']['trid'] ) ) {
 				$this->prepare_missing_translations(
 					$this->data[ $ttid ]['tlang']['trid'],
-					$this->data[ $ttid ]['tlang']['lang'],
 					array_keys( $this->missing_terms[ $ttid ] )
 				);
 			}

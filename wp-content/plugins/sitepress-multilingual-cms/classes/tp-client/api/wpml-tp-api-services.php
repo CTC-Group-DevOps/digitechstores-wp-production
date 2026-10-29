@@ -43,8 +43,7 @@ class WPML_TP_API_Services extends WPML_TP_Abstract_API {
 	}
 
 	public function refresh_cache() {
-		update_option( self::CACHED_SERVICES_KEY_TIMESTAMP, strtotime( '-2 day', $this->get_cached_services_timestamp() ) );
-		return (bool) $this->get_all();
+		return (bool) $this->get_all( true );
 	}
 
 	private function get_cached_services() {

@@ -1,4 +1,4 @@
-/* global woodmart_settings */
+/* global PhotoSwipe, PhotoSwipeUI_Default, woodmart_settings */
 (function($) {
 	woodmartThemeModule.callPhotoSwipe = function(index, items) {
 		if (woodmartThemeModule.$body.hasClass('rtl')) {
@@ -33,6 +33,13 @@
 				}
 			],
 			closeOnScroll: woodmart_settings.photoswipe_close_on_scroll,
+			parseShareButtonOut: function(shareButtonData, shareButtonOut) {
+				if ('download' !== shareButtonData.id) {
+					return shareButtonOut;
+				}
+
+				return shareButtonOut.replace('pswp__share--download', 'pswp__share--download pswp__single-tap');
+			},
 			isClickableElement: function (el) {
 				return el.tagName === 'A' || $(el).hasClass('wd-play-video')|| $(el).hasClass('wd-product-video');
 			},

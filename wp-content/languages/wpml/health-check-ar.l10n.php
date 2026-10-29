@@ -1,2 +1,0 @@
-<?php
-return ['messages'=>['%1$s (%2$s)'=>'%1$s (%2$s)']];

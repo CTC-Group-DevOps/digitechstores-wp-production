@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: WPML Multilingual & Multicurrency for WooCommerce
- * Plugin URI: https://wpml.org/documentation/related-projects/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml
- * Description: Make your store multilingual and enable multiple currencies | <a href="https://wpml.org/documentation/related-projects/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml">Documentation</a>
+ * Plugin URI: https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml
+ * Description: Make your store multilingual and enable multiple currencies | <a href="https://wpml.org/documentation/wpml-core-and-add-on-plugins/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wcml">Documentation</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
  * Text Domain: woocommerce-multilingual
- * Version: 5.5.7
+ * Version: 5.6.3
  * Plugin Slug: woocommerce-multilingual
  * WC requires at least: 3.9
- * WC tested up to: 11.0
+ * WC tested up to: 11.2
  *
  * @package WCML
  * @author  OnTheGoSystems
@@ -22,7 +22,7 @@ if (
 	return;
 }
 
-define( 'WCML_VERSION', '5.5.7' );
+define( 'WCML_VERSION', '5.6.3' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -90,9 +90,11 @@ function wcml_loader() {
 		\WCML\AdminDashboard\Hooks::class,
 		\WCML\AdminNotices\Review::class,
 		\WCML\Multicurrency\UI\Factory::class,
+		\WCML\Multicurrency\StripeConnect\Factory::class,
 		\WCML\PaymentGateways\BlockHooksFactory::class,
 		\WCML\PaymentGateways\Factory::class,
 		\WCML\Permalinks\Factory::class,
+		\WCML\Permalinks\TaxonomySlugTranslationActivator::class,
 		\WCML\CLI\Hooks::class,
 		\WCML\Reports\Hooks::class,
 		\WCML\Reports\Products\Query::class,
@@ -102,18 +104,20 @@ function wcml_loader() {
 		\WCML\Reports\Orders\Hooks::class,
 		\WCML\Multicurrency\Analytics\Factory::class,
 		\WCML\Setup\BeforeHooks::class,
+		\WCML\Setup\CostEstimateContributorsFactory::class,
 		\WCML\AdminNotices\CurrencySwitcherUseTwigTemplate::class,
 		\WCML\AdminNotices\MultiCurrencyMissing::class,
-		\WCML\AdminNotices\TranslationControlMovedNotice::class,
 		\WCML\Products\Hooks::class,
 		\WCML\API\VendorAddon\Hooks::class,
 		\WCML\Attributes\LookupTableFactory::class,
 		\WCML\Attributes\LookupFiltersFactory::class,
 		\WCML\HomeScreen\Factory::class,
 		\WCML\Terms\Count\Hooks::class,
+		\WCML\ProductFilters\TaxonomyHierarchyCache::class,
 		\WCML\Rest\Store\HooksFactory::class,
 		\WCML\Importer\Products::class,
 		\WCML\COT\Hooks::class,
+		\WCML\ProductCache\Hooks::class,
 		\WCML\DisplayAsTranslated\FrontendHooksFactory::class,
 		\WCML\User\Hooks::class,
 		\WCML\Exporter\AllLanguagesHooks::class,
@@ -124,9 +128,12 @@ function wcml_loader() {
 		\WCML\OrderItems\Hooks::class,
 		\WCML\Multicurrency\WpQueryMcPrice\Factory::class,
 		\WCML\Synchronization\Hooks::class,
+		\WCML\Synchronization\ProtectSyncHashMeta::class,
 		\WCML\PostHog\Hooks::class,
 		\WCML\WcEmailSettings\MultilingualHooks::class,
 		\WCML\EditorScopedSync\HooksFactory::class,
+		\WCML\Abilities\Hooks::class,
+		\WCML\Bonded\EmbeddedBodyRendererFactory::class,
 	];
 
 	$loaders[] = 'WCML_Product_Image_Filter_Factory';

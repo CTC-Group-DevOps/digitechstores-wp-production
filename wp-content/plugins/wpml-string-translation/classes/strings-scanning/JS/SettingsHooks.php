@@ -11,6 +11,10 @@ class SettingsHooks implements \IWPML_Action {
 
 	const SECTION_ID = 'ml-content-setup-string-translation';
 
+	const SETTINGS_SECTION = 'string-translation';
+
+	const ANCHOR_ID = 'detect-js-strings';
+
 	const PRIORITY_AFTER_MEDIA_SETTINGS = 20;
 
 	private $isDetectionEnabled;
@@ -26,8 +30,20 @@ class SettingsHooks implements \IWPML_Action {
 		add_action( 'wpml_st_before_localization_ui_table', [ $this, 'showLocalizationUINotice' ] );
 	}
 
+	const SETTINGS_CAPABILITIES = [ 'wpml_manage_string_translation', 'manage_translations' ];
+
+	public static function userCanReadSettings() {
+		foreach ( self::SETTINGS_CAPABILITIES as $capability ) {
+			if ( current_user_can( $capability ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function enqueueAppScript( $hookSuffix ) {
-		if ( 'wpml_page_tm/menu/settings' === $hookSuffix ) {
+		if ( 'wpml_page_tm/menu/settings' === $hookSuffix && self::userCanReadSettings() ) {
 			$app = Resources::enqueueApp( 'wpml-st-settings' );
 			$app( [
 				'name' => 'wpmlSTSettings',
@@ -44,15 +60,11 @@ class SettingsHooks implements \IWPML_Action {
 
 		?>
 		<div class="wpml-section" id="<?php echo esc_attr( self::SECTION_ID ); ?>">
-			<div class="wpml-section-header">
-				<h3><?php echo $this->getSectionTitle() ?></h3>
-			</div>
-
 			<div class="wpml-section-content wpml-section-content-wide">
 				<div class="wpml-settings-list">
 					<div role="presentation">
 						<ul class="settings-ul">
-							<li aria-label="detect-js-strings" id="detect-js-strings" class="setting-item <?php echo esc_attr( $rootStateClass ); ?>">
+							<li aria-label="<?php echo esc_attr( self::ANCHOR_ID ); ?>" id="<?php echo esc_attr( self::ANCHOR_ID ); ?>" class="setting-item <?php echo esc_attr( $rootStateClass ); ?>">
 								<div id="toggle-detect-js-string-spinner" style="display: none">
 									<span class="detect-js-string-spinner"></span>
 								</div>
@@ -63,9 +75,9 @@ class SettingsHooks implements \IWPML_Action {
 									<span class="setting-item-title-sublabel">
 										<?php
 											echo sprintf(
-												/* translators: Placeholders are for open and close link tag */
-												esc_html__( 'When enabled, WPML tracks JavaScript files loaded on your site\'s pages. Texts (strings) from these files will be included when you scan a theme or plugin in %1$sWPML > Theme and plugins localization%2$s.', 'wpml-string-translation' ),
-												'<a href="' . esc_url( admin_url( 'admin.php?page=' . ICL_PLUGIN_FOLDER . '/menu/theme-localization.php' ) ) . '">',
+												/* translators: Description under the setting that turns on scanning of JavaScript files, on the WPML settings page. %1$s: opening link tag, %2$s: closing link tag; the words between them become a link to the Admin Text Translation page. */
+												esc_html__( 'When enabled, WPML tracks JavaScript files loaded on your site\'s pages. Texts (strings) from these files will be included when you scan a theme or plugin in %1$sAdmin Texts Translation%2$s.', 'wpml-string-translation' ),
+												'<a href="' . esc_url( admin_url( 'admin.php?page=wpml-admin-texts-translation' ) ) . '">',
 												'</a>'
 											);
 										?>
@@ -83,7 +95,7 @@ class SettingsHooks implements \IWPML_Action {
 						<div id="" class="warning notice-warning otgs-notice wpml-settings-list-notice">
 							<p><?php
 								echo sprintf(
-									/* translators: Placeholders are for open and close bold tag */
+									/* translators: Warning under the setting that turns on scanning of JavaScript files, on the WPML settings page. %1$s: opening bold tag, %2$s: closing bold tag, around the word "Note:". */
 									esc_html__( '%1$sNote:%2$s This feature may affect site performance. We recommend disabling it after scanning is complete.', 'wpml-string-translation' ),
 									'<b>',
 									'</b>'
@@ -105,22 +117,23 @@ class SettingsHooks implements \IWPML_Action {
 	}
 
 	private function getSectionTitle() {
+		/* translators: Name of the String Translation page in the WPML menu, the heading of that page, and the title of its section on the WPML settings page. */
 		return esc_html__( 'String Translation', 'wpml-string-translation' );
 	}
 
 	public function showLocalizationUINotice() {
-		$urlToSettings = self::getSettingsURL();
+		$urlToSettings = admin_url( 'admin.php?page=tm/menu/settings&section=string-translation' );
 
 		if ( $this->isDetectionEnabled ) {
 			$text = sprintf(
-				/* translators: Placeholders are for open and close link tag */
+				/* translators: Notice shown while scanning of JavaScript files is switched on. %1$s: opening link tag, %2$s: closing link tag; the words between them become a link to the WPML settings page. */
 				esc_html__( 'JavaScript file scanning is active and may affect performance. %1$sDisable this feature%2$s in WPML Settings once your texts (strings) are registered.', 'wpml-string-translation' ),
 				'<a href="'. $urlToSettings . '">',
 				'</a>'
 			);
 		} else {
 			$text = sprintf(
-				/* translators: Placeholders are for open and close link tag */
+				/* translators: Notice on the Theme and plugins localization page after a scan found nothing. %1$s: opening link tag, %2$s: closing link tag; the words between them become a link to the WPML settings page. */
 				esc_html__( 'Missing texts (strings) after scanning? %1$sEnable Scan strings in JavaScript files%2$s in WPML Settings, visit the page containing the string, then scan again.', 'wpml-string-translation' ),
 				'<a href="'. $urlToSettings . '">',
 				'</a>'
@@ -137,6 +150,13 @@ class SettingsHooks implements \IWPML_Action {
 	}
 
 	public static function getSettingsURL(): string {
-		return UIPage::getSettings() . '#' . self::SECTION_ID;
+		if ( ! defined( 'WPML_TM_FOLDER' ) ) {
+			return UIPage::getSettings() . '#' . self::SECTION_ID;
+		}
+
+		return UIPage::getSettings()
+			. '&section=' . self::SETTINGS_SECTION
+			. '&flash=' . rawurlencode( self::ANCHOR_ID )
+			. '#' . self::ANCHOR_ID;
 	}
 }

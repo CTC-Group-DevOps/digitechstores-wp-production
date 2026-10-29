@@ -40,11 +40,12 @@ class Install_Plugins extends Singleton {
 		check_ajax_referer( 'woodmart_deactivate_plugin_nonce', 'security' );
 
 		$plugins = $this->get_plugins();
+		$slug    = isset( $_POST['xts_plugin'] ) ? sanitize_key( wp_unslash( $_POST['xts_plugin'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		if ( ! $plugins ) {
+		if ( ! $plugins || ! isset( $plugins[ $slug ] ) ) {
 			wp_send_json(
 				array(
-					'message' => esc_html__( 'Plugins list is empty.', 'woodmart' ),
+					'message' => esc_html__( 'Plugin was not found.', 'woodmart' ),
 					'status'  => 'error',
 				)
 			);
@@ -59,7 +60,9 @@ class Install_Plugins extends Singleton {
 			);
 		}
 
-		if ( is_multisite() && is_plugin_active_for_network( $plugins[ $_POST['xts_plugin'] ]['file_path'] ) ) { // phpcs:ignore
+		$plugin_path = $plugins[ $slug ]['file_path'];
+
+		if ( is_multisite() && is_plugin_active_for_network( $plugin_path ) ) {
 			wp_send_json(
 				array(
 					'message' => esc_html__( 'You cannot deactivate the plugin on a multisite.', 'woodmart' ),
@@ -68,13 +71,18 @@ class Install_Plugins extends Singleton {
 			);
 		}
 
-		if ( isset( $_POST['xts_plugin'] ) && is_plugin_active( $plugins[ $_POST['xts_plugin'] ]['file_path'] ) ) { // phpcs:ignore
-			deactivate_plugins( $plugins[ $_POST['xts_plugin'] ]['file_path'] ); // phpcs:ignore
+		if ( is_plugin_active( $plugin_path ) ) {
+			deactivate_plugins( $plugin_path, false, false );
 		}
 
 		wp_send_json(
 			array(
-				'data'   => $plugins[ $_POST['xts_plugin'] ]['status'], // phpcs:ignore
+				'data'   => array(
+					'status'           => 'activate',
+					'version'          => $plugins[ $slug ]['version'],
+					'required_plugins' => count( $this->get_required_plugins_to_activate() ) > 0 ? 'has_required' : 'no',
+					'is_all_activated' => $this->is_all_activated() ? 'yes' : 'no',
+				),
 				'status' => 'success',
 			)
 		);
@@ -228,7 +236,6 @@ class Install_Plugins extends Singleton {
 		}
 
 		if ( Setup_Wizard::get_instance()->is_setup() ) {
-			unset( $plugins['woodmart-images-optimizer'] );
 			unset( $plugins['woodmart-mcp'] );
 		}
 
@@ -264,7 +271,6 @@ class Install_Plugins extends Singleton {
 		$tgmpa   = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 		$output  = array();
 
-		unset( $plugins['woodmart-images-optimizer'] );
 		unset( $plugins['woodmart-mcp'] );
 
 		foreach ( $plugins as $slug => $plugin ) {

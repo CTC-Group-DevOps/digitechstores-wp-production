@@ -34,7 +34,7 @@ class MulticurrencyHooks implements \IWPML_Action {
 
 		add_action( 'woocommerce_bookings_after_create_booking_page', [ $this, 'booking_currency_dropdown' ] );
 		add_action( 'init', [ $this, 'set_booking_currency' ] );
-		add_action( 'wp_ajax_wcml_booking_set_currency', [ $this, 'set_booking_currency_ajax' ] );
+		\WCML\Request\Ajax::register( 'wcml_booking_set_currency', [ 'authorize' => [ 'WCML_Capabilities', 'canManageWcml' ], 'description' => 'WCML manager (shop manager or administrator role, WCML_Capabilities::canManageWcml)', 'nonce' => [ 'booking_set_currency', 'wcml_nonce' ] ], [ $this, 'set_booking_currency_ajax' ] );
 
 		add_action( 'woocommerce_bookings_create_booking_page_add_order_item', [ $this, 'set_order_currency_on_create_booking_page' ] );
 		add_filter( 'woocommerce_currency_symbol', [ $this, 'filter_booking_currency_symbol' ] );
@@ -259,11 +259,13 @@ class MulticurrencyHooks implements \IWPML_Action {
 			echo '<div class="wcml_custom_costs">';
 
 			echo '<input type="radio" name="_wcml_custom_costs" id="wcml_custom_costs_auto" value="0" class="wcml_custom_costs_input" ' . esc_html( $checked ) . ' />';
+			/* translators: Label of the first radio button on a bookable product: WPML converts the booking costs using the exchange rate. */
 			echo '<label for="wcml_custom_costs_auto">' . esc_html__( 'Calculate costs in other currencies automatically', 'woocommerce-multilingual' ) . '</label>';
 
 			$checked = 1 === (int) $customCostsStatus ? 'checked="checked"' : ' ';
 
 			echo '<input type="radio" name="_wcml_custom_costs" value="1" id="wcml_custom_costs_manually" class="wcml_custom_costs_input" ' . esc_html( $checked ) . ' />';
+			/* translators: Label of the second radio button on a bookable product: the shop owner types each currency's booking costs. */
 			echo '<label for="wcml_custom_costs_manually">' . esc_html__( 'Set costs in other currencies manually', 'woocommerce-multilingual' ) . '</label>';
 
 			wp_nonce_field( 'wcml_save_custom_costs', '_wcml_custom_costs_nonce' );
@@ -529,7 +531,7 @@ class MulticurrencyHooks implements \IWPML_Action {
 		$currencies    = $this->woocommerce_wpml->multi_currency->get_currencies( true );
 		?>
 		<tr valign="top">
-			<th scope="row"><?php _e( 'Booking currency', 'woocommerce-multilingual' ); ?></th>
+			<th scope="row"><?php /* translators: Row heading of the currency dropdown on the WooCommerce bookings screen. */ esc_html_e( 'Booking currency', 'woocommerce-multilingual' ); ?></th>
 			<td>
 				<select id="dropdown_booking_currency">
 					<?php foreach ( $currencies as $currency => $count ) : ?>
@@ -573,9 +575,12 @@ JS;
 	public function set_booking_currency_ajax() {
 		$nonce = filter_input( INPUT_POST, 'wcml_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'booking_set_currency' ) ) {
+			/* translators: Error returned when a request carries an expired or missing security token. */
 			echo json_encode( [ 'error' => __( 'Invalid nonce', 'woocommerce-multilingual' ) ] );
 			die();
 		}
+
+		\WCML_Capabilities::requireCanManageWcmlForAjax();
 
 		$this->set_booking_currency( filter_input( INPUT_POST, 'currency', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
 

@@ -51,8 +51,8 @@ class WCML_Currency_Switcher_Template extends WCML_Templates_Factory implements 
 	static public function get_formatted_price( $currency, $format ) {
 		$wc_currencies = get_woocommerce_currencies();
 
-		$currency_format = preg_replace(
-			[ '#%name%#', '#%symbol%#', '#%code%#' ],
+		$currency_format = str_replace(
+			[ '%name%', '%symbol%', '%code%' ],
 			[
 				$wc_currencies[ $currency ],
 				get_woocommerce_currency_symbol( $currency ),

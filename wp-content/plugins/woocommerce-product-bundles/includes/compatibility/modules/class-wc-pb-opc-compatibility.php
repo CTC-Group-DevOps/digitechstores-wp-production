@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * One Page Checkout Compatibility.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_OPC_Compatibility {
 
 	/**
 	 * Initialize the class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -69,7 +71,7 @@ class WC_PB_OPC_Compatibility {
 						'availability_html' => wc_get_stock_html( $product ),
 						'bundle_price_data' => $product->get_bundle_form_data(),
 					),
-					false,
+					'',
 					WC_PB()->plugin_path() . '/templates/'
 				);
 

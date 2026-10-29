@@ -7,47 +7,44 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "he_IL"
          },
-         "Edit": [
-            "עריכה"
+         "Edit %s": [
+            "ערוך את %s"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
+         ],
+         "Original:": [
+            "מקור:"
          ],
          "Translation to:": [
             "תרגום ל:"
          ],
          "Copy from original": [
-            "העתקה מהמקור"
+            "העתק מהמקור"
          ],
          "Use Shift+Enter to add a new line.": [
             "השתמש ב-Shift+Enter כדי להוסיף שורה חדשה."
          ],
-         "Original:": [
-            "מקור:"
-         ],
          "Add %s translation": [
-            "הוסף תרגום %s"
+            "הוסף תרגום ל-%s"
          ],
          "Edit %s translation": [
-            "ערוך תרגום %s"
+            "ערוך תרגום ל-%s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "הוסף תרגום %s (המחרוזת מופיעה באתר ואינה מתורגמת)"
+            "הוסף תרגום ל-%s (המחרוזת מופיעה באתר ואינה מתורגמת)"
          ],
          "Original language %s": [
-            "שפת מקור %s"
+            "שפת המקור %s"
          ],
          "Waiting for translator to %s": [
-            "ממתין למתרגם ל- %s"
+            "ממתין למתרגם ל-%s"
          ],
          "Translation in progress to %s": [
-            "תרגום מתבצע ל- %s"
-         ],
-         "In basket for translation to %s": [
-            "בסל לתרגום ל- %s"
+            "תרגום ל-%s בתהליך"
          ],
          "Translation saved.": [
             "התרגום נשמר."

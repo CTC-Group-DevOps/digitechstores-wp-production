@@ -24,7 +24,7 @@ class Display_Notice_Minimum_Requirements_If_Needed implements IWPML_Backend_Act
 			'wpml_page_sitepress-multilingual-cms/menu/taxonomy-translation',
 			'wpml_page_tm/menu/settings',
 			'wpml-string-translation/menu/string-translation',
-			'wpml_page_wpml-package-management',
+			'admin_page_wpml-package-management',
 		);
 
 	const NOTICE_GROUP = 'wpml-requirements';
@@ -48,18 +48,30 @@ class Display_Notice_Minimum_Requirements_If_Needed implements IWPML_Backend_Act
 		global $wpml_dic;
 		try {
 			$requirements_service = $wpml_dic->make( RequirementsService::class );
-			$useCache             = $this->userIsNotVisitingSupportPage( $screens[0] );
 
-			return $requirements_service->getInvalidRequirements( $useCache );
+			if ( $this->isSupportPage( $screens[0] ?? null ) ) {
+				return [ 'items' => $requirements_service->getInvalidRequirements( false ), 'pending' => false ];
+			}
+
+			$invalid_requirements = $requirements_service->getCachedInvalidRequirements();
+
+			return null === $invalid_requirements
+				? [ 'items' => [], 'pending' => true ]
+				: [ 'items' => $invalid_requirements, 'pending' => false ];
 		} catch ( Throwable $e ) {
 			error( 'Failed to get InvalidRequirements: ' . $e->getMessage() . ' ' . $e->getTraceAsString() );
 
-			return [];
+			return [ 'items' => [], 'pending' => true ];
 		}
 	}
 
-	public function display_wordpress_notice_if_needed( $invalid_requirements ) {
+	public function display_wordpress_notice_if_needed( $requirements ) {
 		try {
+			if ( $requirements['pending'] ) {
+				return;
+			}
+
+			$invalid_requirements = $requirements['items'];
 			if ( empty( $invalid_requirements ) ) {
 				$isRemoved = $this->remove_requirements_are_not_met_notice_if_exists();
 				if ( $isRemoved ) {
@@ -73,17 +85,27 @@ class Display_Notice_Minimum_Requirements_If_Needed implements IWPML_Backend_Act
 		}
 	}
 
-	public function load_statusbar_notification_data( $minimumRequirements ) {
+	public function load_statusbar_notification_data( $requirements ) {
+		$data = [
+			'supportPageUrl' => admin_url( 'admin.php?page=sitepress-multilingual-cms/menu/support.php' ),
+			'items'          => $requirements['items'],
+			'pending'        => $requirements['pending'],
+		];
+
+		if ( $requirements['pending'] ) {
+			$data['refreshEndpoint'] = [
+				'url'   => get_rest_url( null, 'wpml/v1/minimum-requirements' ),
+				'nonce' => wp_create_nonce( 'wp_rest' ),
+			];
+		}
+
 		wp_localize_script(
 			'wpml-ate-jobs-sync-ui',
 			'wpmlMinimumRequirements',
-			[
-				'supportPageUrl' => admin_url( 'admin.php?page=sitepress-multilingual-cms/menu/support.php' ),
-				'items'          => $minimumRequirements,
-			]
+			$data
 		);
 
-		return $minimumRequirements;
+		return $requirements;
 	}
 
 
@@ -109,6 +131,7 @@ class Display_Notice_Minimum_Requirements_If_Needed implements IWPML_Backend_Act
 	private function get_requirements_are_not_met_text() {
 		$support_url = esc_url( admin_url( 'admin.php?page=sitepress-multilingual-cms/menu/support.php' ) );
 		$message     = __( 'Your site doesn\'t meet WPML\'s minimum requirements.', 'sitepress' );
+		/* translators: Button label in a notice about something WPML needs: put it right straight away. Verb phrase, imperative. */
 		$button_text = __( 'Fix now', 'sitepress' );
 
 		$notice_text = <<<HTML
@@ -166,7 +189,13 @@ HTML;
 		return true;
 	}
 
-	private function userIsNotVisitingSupportPage( $screen ): bool {
-		return $screen && $screen->id !== 'sitepress-multilingual-cms/menu/support';
+	private function isSupportPage( $screen ): bool {
+		if ( ! is_object( $screen ) || ! isset( $screen->id ) || ! is_string( $screen->id ) ) {
+			return false;
+		}
+
+		$slug = WPML_PLUGIN_FOLDER . '/menu/support';
+
+		return $screen->id === $slug || substr( $screen->id, - strlen( '_' . $slug ) ) === '_' . $slug;
 	}
 }

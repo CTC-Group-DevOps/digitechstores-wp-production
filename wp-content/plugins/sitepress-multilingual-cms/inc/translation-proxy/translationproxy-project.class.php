@@ -139,7 +139,9 @@ class TranslationProxy_Project {
 
 	private function get_batch_job( $source_language = null, $target_languages = null, $tp_batch_info = null ) {
 
-		$batch_data = TranslationProxy_Basket::get_batch_data();
+		$batch_data = isset( $tp_batch_info['batchName'] )
+			? \WPML\TM\TranslationProxy\TpBatchState::getBatchDataForName( $tp_batch_info['batchName'] )
+			: \WPML\TM\TranslationProxy\TpBatchState::getBatchData();
 
 		if ( ! $batch_data ) {
 			if ( isset( $tp_batch_info ) ) {
@@ -179,7 +181,7 @@ class TranslationProxy_Project {
 			$batch_data = $this->create_batch_job( $basicBatchData, $batchExtraFields );
 
 			if ( $batch_data ) {
-				TranslationProxy_Basket::set_batch_data( $batch_data );
+				\WPML\TM\TranslationProxy\TpBatchState::setBatchData( $batch_data );
 			}
 		}
 
@@ -199,33 +201,42 @@ class TranslationProxy_Project {
 
 	public function create_batch_job( $batchData, $extraFields ) {
 
-		if ( ! $batchData[ 'source_language' ] ) {
-			$batchData[ 'source_language' ] = TranslationProxy_Basket::get_source_language();
+		if ( ! WPML_TP_Project_History::ensure_send_allowed( $this->service, $this->id, $this->access_key ) ) {
+			$this->errors[] = new WP_Error( 'wpml_tp_credentials_lost', 'Translation Proxy project credentials are missing; send blocked to avoid silently creating a new project.' );
+			return false;
 		}
 
 		if ( ! $batchData[ 'target_languages' ] ) {
-			$batchData[ 'target_languages' ] = TranslationProxy_Basket::get_remote_target_languages();
+			$batchData[ 'target_languages' ] = \WPML\TM\TranslationProxy\TpBatchState::getRemoteTargetLanguages();
 		}
 
 		if ( ! $batchData[ 'source_language' ] || ! $batchData[ 'target_languages' ] ) {
+			\WPML\TM\Jobs\JobLog::addError(
+				'tp_batch_create_failed',
+				array(
+					'has_source_language'  => (bool) $batchData['source_language'],
+					'has_target_languages' => (bool) $batchData['target_languages'],
+				)
+			);
+
 			return false;
 		}
 
 		if ( ! $batchData[ 'name' ] ) {
 			$batchData[ 'name' ] = sprintf(
+				/* translators: Name WPML gives the project it opens at the translation service. %s: the name of the site. */
 				__(
 					'%s: WPML Translation Jobs',
-					'wpml-translation-management'
+					'sitepress'
 				),
 				get_option( 'blogname' )
 			);
 		}
 
-		TranslationProxy_Basket::set_basket_name( $batchData[ 'name' ] );
+		\WPML\TM\TranslationProxy\TpBatchState::setBatchName( $batchData[ 'name' ] );
 
 		return $this->tp_client->batches()->create( $batchData, $extraFields );
 	}
-
 
 	public function send_to_translation_batch_mode(
 		$file,
@@ -241,13 +252,25 @@ class TranslationProxy_Project {
 		$tp_batch_info = null
 	) {
 
+		if ( ! WPML_TP_Project_History::ensure_send_allowed( $this->service, $this->id, $this->access_key ) ) {
+			$this->errors[] = new WP_Error( 'wpml_tp_credentials_lost', 'Translation Proxy project credentials are missing; send blocked to avoid silently creating a new project.' );
+			\WPML\TM\Jobs\JobLog::addError( 'tp_credentials_lost', array( 'cms_id' => $cms_id ) );
+			return false;
+		}
+
 		$batch_id = $this->get_batch_job_id(
 			$source_language,
-			TranslationProxy_Basket::get_remote_target_languages() ?: null,
+			\WPML\TM\TranslationProxy\TpBatchState::getRemoteTargetLanguages() ?: null,
 			$tp_batch_info
 		);
 
 		if ( ! $batch_id ) {
+			$this->errors[] = new WP_Error(
+				'wpml_tp_batch_unavailable',
+				'Could not create or reuse the Translation Proxy batch for this send.'
+			);
+			\WPML\TM\Jobs\JobLog::addError( 'tp_batch_unavailable', array( 'cms_id' => $cms_id ) );
+
 			return false;
 		}
 
@@ -266,7 +289,26 @@ class TranslationProxy_Project {
 
 		$tp_job = $this->tp_client->batches()->add_job( $batch_id, $job_data );
 
-		return $tp_job ? $tp_job->get_id() : false;
+		if ( ! $tp_job ) {
+			$exception       = $this->tp_client->batches()->get_exception();
+			$error_message   = $exception instanceof Exception
+				? $exception->getMessage()
+				: 'Translation Proxy did not accept the job.';
+			$this->errors[]  = new WP_Error( 'wpml_tp_add_job_failed', $error_message );
+
+			\WPML\TM\Jobs\JobLog::addError(
+				'tp_add_job_failed',
+				array(
+					'cms_id'   => $cms_id,
+					'batch_id' => $batch_id,
+					'error'    => \WPML\TM\TranslationProxy\SendTuning::sanitizeFailureReason( $error_message ),
+				)
+			);
+
+			return false;
+		}
+
+		return $tp_job->get_id();
 	}
 
 	function commit_batch_job( $tp_batch_id = false, $cleanBasketNameAndBatch = false ) {
@@ -284,16 +326,14 @@ class TranslationProxy_Project {
 		);
 
 		$response    = TranslationProxy_Api::proxy_request( '/batches/{batch_id}/commit.json', $params, 'PUT', false );
-		$basket_name = TranslationProxy_Basket::get_basket_name();
+		$basket_name = \WPML\TM\TranslationProxy\TpBatchState::getBatchName();
 		if ( $basket_name ) {
 			global $wpdb;
 
-			$batch_id_sql      = "SELECT id FROM {$wpdb->prefix}icl_translation_batches WHERE batch_name=%s";
-			$batch_id_prepared = $wpdb->prepare(
-				$batch_id_sql,
+			$batch_id          = $wpdb->get_var( $wpdb->prepare(
+				"SELECT id FROM {$wpdb->prefix}icl_translation_batches WHERE batch_name=%s",
 				array( $basket_name )
-			);
-			$batch_id          = $wpdb->get_var( $batch_id_prepared );
+			) );
 
 			$batch_data = array(
 				'batch_name'  => $basket_name,
@@ -319,7 +359,7 @@ class TranslationProxy_Project {
 		}
 
 		if ( $cleanBasketNameAndBatch ) {
-			TranslationProxy_Basket::cleanBasket();
+			\WPML\TM\TranslationProxy\TpBatchState::clear();
 		}
 
 		return isset( $response ) ? $response : false;
@@ -380,7 +420,7 @@ class TranslationProxy_Project {
 	}
 
 	private function get_jobs( $state = 'any' ) {
-		$batch = TranslationProxy_Basket::get_batch_data();
+		$batch = \WPML\TM\TranslationProxy\TpBatchState::getBatchData();
 
 		$params = array(
 			'project_id' => $this->id,

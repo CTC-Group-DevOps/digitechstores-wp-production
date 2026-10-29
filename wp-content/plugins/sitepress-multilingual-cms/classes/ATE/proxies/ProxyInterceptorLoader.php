@@ -41,34 +41,44 @@ class ProxyInterceptorLoader {
 		return $this->wpml_proxy_service->isEnabled();
 	}
 
-	public function enqueueJS( string $handle, string $url, array $deps = array(), $ver = false, $in_footer = true ) {
+	public function enqueueJS( string $handle, string $url, array $deps = array(), $ver = false, $in_footer = true, bool $enqueue = true ) {
 		if ( ! $this->isInitialized ) {
 			$this->enable();
 		}
-		$url = $this->getProxyUrl( $url );
-		$url = add_query_arg( [ '_wpnonce' => wp_create_nonce( 'wp_rest' ) ], $url );
+		$url = $this->getProxyUrlWithNonce( $url );
 
 		$deps = array_merge( $deps, [ self::HANDLE_JS ] );
 
 		wp_register_script( $handle, $url, $deps, $ver, $in_footer );
 
-		wp_enqueue_script( $handle );
+		if ( $enqueue ) {
+			wp_enqueue_script( $handle );
+		}
+	}
+
+	public function getProxyUrlWithNonce( string $url ): string {
+		return add_query_arg( [ '_wpnonce' => wp_create_nonce( 'wp_rest' ) ], $this->getProxyUrl( $url ) );
+	}
+
+	public function getInterceptorSrc(): string {
+		return plugins_url( 'res/js/wpml-proxy-interceptor.js', WPML_PLUGIN_PATH . '/sitepress.php' );
+	}
+
+	public function getInterceptorOptions(): array {
+		return [
+			'domains'              => $this->allowed_domains,
+			'bypassedHttpRequests' => $this->bypassed_http_requests,
+			'proxyPath'            => (string) $this->getProxyUrl( '' ),
+			'nonce'                => wp_create_nonce( 'wp_rest' ),
+		];
 	}
 
 	public function enable() {
-		$src = plugins_url( 'res/js/wpml-proxy-interceptor.js', WPML_PLUGIN_PATH . '/sitepress.php' );
-		wp_register_script( self::HANDLE_JS, $src, [], ICL_SITEPRESS_SCRIPT_VERSION, true );
+		wp_register_script( self::HANDLE_JS, $this->getInterceptorSrc(), [], ICL_SITEPRESS_SCRIPT_VERSION, true );
 
 		wp_add_inline_script(
 			self::HANDLE_JS,
-			'window.wpmlProxyOptions = ' . wp_json_encode(
-				[
-					'domains'              => $this->allowed_domains,
-					'bypassedHttpRequests' => $this->bypassed_http_requests,
-					'proxyPath'            => (string) $this->getProxyUrl( '' ),
-					'nonce'                => wp_create_nonce( 'wp_rest' ),
-				]
-			) . ';',
+			'window.wpmlProxyOptions = ' . wp_json_encode( $this->getInterceptorOptions() ) . ';',
 			'before'
 		);
 

@@ -11,8 +11,6 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 			return;
 		}
 
-		container.classList.add('wd-carousel-simple-mb');
-
 		var carouselWrap = container.querySelector('.wd-carousel-wrap');
 		var prevArrow    = container.querySelector('.wd-btn-arrow.wd-prev');
 		var nextArrow    = container.querySelector('.wd-btn-arrow.wd-next');
@@ -21,27 +19,32 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 			return;
 		}
 
-		function updateArrows() {
+		container.classList.add('wd-carousel-simple-mb');
+
+		function getArrowsState() {
 			if (woodmartThemeModule.windowWidth > 1024) {
-				return;
+				return null;
 			}
 
 			var scrollLeft  = carouselWrap.scrollLeft;
 			var clientWidth = carouselWrap.clientWidth;
 			var scrollWidth = carouselWrap.scrollWidth;
-
-			if (scrollWidth <= clientWidth) {
-				prevArrow.classList.add('wd-hide');
-				nextArrow.classList.add('wd-hide');
-				return;
-			}
-
 			var normalScroll = isRtl
 				? (scrollLeft <= 0 ? Math.abs(scrollLeft) : scrollWidth - clientWidth - scrollLeft)
 				: scrollLeft;
 
-			prevArrow.classList.toggle('wd-disabled', normalScroll <= 1);
-			nextArrow.classList.toggle('wd-disabled', normalScroll + clientWidth >= scrollWidth - 1);
+			return {
+				hide: scrollWidth <= clientWidth,
+				prevDisabled: normalScroll <= 1,
+				nextDisabled: normalScroll + clientWidth >= scrollWidth - 1
+			};
+		}
+
+		function updateArrows(arrowsState) {
+			prevArrow.classList.toggle('wd-hide', arrowsState.hide);
+			nextArrow.classList.toggle('wd-hide', arrowsState.hide);
+			prevArrow.classList.toggle('wd-disabled', !arrowsState.hide && arrowsState.prevDisabled);
+			nextArrow.classList.toggle('wd-disabled', !arrowsState.hide && arrowsState.nextDisabled);
 		}
 
 		function onArrowClick(e, direction) {
@@ -69,17 +72,34 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 		}
 
 		var arrowsUpdateScheduled = false;
+		var arrowsUpdatePending   = false;
 
 		function scheduleArrowsUpdate() {
 			if (arrowsUpdateScheduled) {
+				arrowsUpdatePending = true;
 				return;
 			}
 
 			arrowsUpdateScheduled = true;
 
 			requestAnimationFrame(function() {
-				updateArrows();
-				arrowsUpdateScheduled = false;
+				var arrowsState = getArrowsState();
+
+				if (!arrowsState) {
+					arrowsUpdateScheduled = false;
+					arrowsUpdatePending = false;
+					return;
+				}
+
+				requestAnimationFrame(function() {
+					updateArrows(arrowsState);
+					arrowsUpdateScheduled = false;
+
+					if (arrowsUpdatePending) {
+						arrowsUpdatePending = false;
+						scheduleArrowsUpdate();
+					}
+				});
 			});
 		}
 
@@ -88,7 +108,7 @@ woodmartThemeModule.mobileCarouselSimple = function() {
 
 		carouselWrap.addEventListener('scroll', scheduleArrowsUpdate, { passive: true });
 
-		updateArrows();
+		scheduleArrowsUpdate();
 	});
 };
 

@@ -8,16 +8,22 @@
             "lang": "vi"
          },
          "The wpml-config.xml file in the root folder of your theme and plugins tells WPML which content is translatable. You can override these settings with your own custom settings by adding them below.": [
-            "Tệp wpml-config.xml trong thư mục gốc của giao diện và plugin cho WPML biết nội dung nào có thể dịch được. Bạn có thể ghi đè các cài đặt này bằng cài đặt tùy chỉnh của riêng mình bằng cách thêm chúng bên dưới."
+            "Tệp wpml-config.xml trong thư mục gốc của giao diện và các plugin sẽ cho WPML biết nội dung nào có thể dịch được. Bạn có thể ghi đè các cài đặt này bằng các cài đặt tùy chỉnh của riêng mình bằng cách thêm chúng vào bên dưới."
          ],
          "Read more about language configuration files.": [
-            "Đọc thêm về các tệp cấu hình ngôn ngữ."
+            "Tìm hiểu thêm về các tệp cấu hình ngôn ngữ."
          ],
          "Save": [
             "Lưu"
          ],
          "Error": [
             "Lỗi"
+         ],
+         "Configuration saved.": [
+            "Đã lưu cấu hình."
+         ],
+         "Could not save the configuration — please retry.": [
+            "Không thể lưu cấu hình — vui lòng thử lại."
          ],
          "Shortcuts": [
             "Phím tắt"

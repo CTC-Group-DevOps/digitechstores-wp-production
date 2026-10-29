@@ -65,14 +65,14 @@
 					<pubDate>Fri, 09 Jun 2023 12:22:15 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/plants-elementor/?page_id=13</guid>
-											<content:encoded><![CDATA[<link rel="stylesheet" id="wd-mod-nav-vertical-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-nav-vertical.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-mod-nav-vertical-design-simple-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-nav-vertical-design-simple.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-el-menu-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-menu.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-el-menu-wpb-elem-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-menu-wpb-elem.css?ver=8.5.0" type="text/css" media="all" /> 					
+											<content:encoded><![CDATA[<link rel="stylesheet" id="wd-mod-nav-vertical-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-nav-vertical.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-mod-nav-vertical-design-simple-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-nav-vertical-design-simple.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-el-menu-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-menu.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-el-menu-wpb-elem-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-menu-wpb-elem.css?ver=8.6.0" type="text/css" media="all" /> 					
 						<ul id="menu-category-menu-plants"><li id="menu-item-1455" ><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product-category/plants/"><img  src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg" title="arrow" loading="lazy" width="18" height="18">Plants</a></li>
 <li id="menu-item-1456" ><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product-category/planters/"><img  src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg" title="arrow" loading="lazy" width="18" height="18">Planters</a></li>
 <li id="menu-item-1457" ><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product-category/plant-care/"><img  src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg" title="arrow" loading="lazy" width="18" height="18">Plant care</a></li>
 <li id="menu-item-1458" ><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product-category/gift-ideas/"><img  src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg" title="arrow" loading="lazy" width="18" height="18">Gift ideas</a></li>
 <li id="menu-item-1459" ><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product-category/pet-friendly/"><img  src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg" title="arrow" loading="lazy" width="18" height="18">Pet friendly</a></li>
 </ul>		
-								<link rel="stylesheet" id="wd-swiper-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/lib-swiper.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-slider-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-slider.css?ver=8.5.0" type="text/css" media="all" /> 						<style id="wd-style-term-38-inline-css" data-type="wd-style-term-38">
+								<link rel="stylesheet" id="wd-swiper-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/lib-swiper.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-slider-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-slider.css?ver=8.6.0" type="text/css" media="all" /> 						<style id="wd-style-term-38-inline-css" data-type="wd-style-term-38">
 				#slider-38 .wd-slide {
 	min-height: 580px;
 }
@@ -137,11 +137,15 @@
 						max-width:500px;					}
 									}
 								</style>
-																					<style>.elementor-87 .elementor-element.elementor-element-cde16c1{--display:flex;--gap:0px 0px;--row-gap:0px;--column-gap:0px;}.elementor-87 .elementor-element.elementor-element-26b64e2 .title-after_title, .elementor-87 .elementor-element.elementor-element-26b64e2 .title-subtitle, .elementor-87 .elementor-element.elementor-element-26b64e2 .woodmart-title-container{max-width:520px;}.elementor-87 .elementor-element.elementor-element-26b64e2 > .elementor-widget-container{margin:0px 0px 10px 0px;}.elementor-87 .elementor-element.elementor-element-03d74fb .wd-text-block{max-width:520px;}.elementor-87 .elementor-element.elementor-element-03d74fb > .elementor-widget-container{margin:0px 0px 20px 0px;}.elementor-87 .elementor-element.elementor-element-d47867e{--display:flex;--flex-direction:row;--container-widget-width:calc( ( 1 - var( --container-widget-flex-grow ) ) * 100% );--container-widget-height:100%;--container-widget-flex-grow:1;--container-widget-align-self:stretch;--flex-wrap-mobile:wrap;--align-items:center;--gap:10px 15px;--row-gap:10px;--column-gap:15px;}.elementor-87 .elementor-element.elementor-element-f1f9e8c{width:auto;max-width:auto;}.elementor-87 .elementor-element.elementor-element-a972e03{width:auto;max-width:auto;}.elementor-87 .elementor-element.elementor-element-35bac8d{width:auto;max-width:auto;}#slide-87 .wd-slide-container{--wd-align-items:flex-end;--wd-justify-content:left;}#slide-87 .wd-slide-bg{background-color:rgb(189,185,184);}@media(max-width:1024px){.elementor-87 .elementor-element.elementor-element-26b64e2 .title{font-size:32px;}#slide-87 .wd-slide-inner{max-width:1200px;}#slide-87 .wd-slide-container{--wd-align-items:center;--wd-justify-content:left;}}@media(max-width:768px){.elementor-87 .elementor-element.elementor-element-26b64e2 .title{font-size:24px;}#slide-87 .wd-slide-inner{max-width:500px;}#slide-87 .wd-slide-container{--wd-align-items:center;--wd-justify-content:left;}}</style>		
-					<link rel="stylesheet" id="wd-mod-animations-transform-base-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-animations-transform-base.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-mod-animations-transform-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-animations-transform.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-mod-transform-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-transform.css?ver=8.5.0" type="text/css" media="all" /> 					
-								<link rel="stylesheet" id="wd-section-title-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-section-title.css?ver=8.5.0" type="text/css" media="all" /> 					
+																					<link rel='stylesheet' id='dashicons-css' href='https://dummy.xtemos.com/woodmart2/plants-elementor/wp-includes/css/dashicons.min.css?ver=7.1.2' media='all' />
+<link rel='stylesheet' id='wp-pointer-css' href='https://dummy.xtemos.com/woodmart2/plants-elementor/wp-includes/css/wp-pointer.min.css?ver=7.1.2' media='all' />
+<link rel='stylesheet' id='wordfence-font-awesome-style-css' href='https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/plugins/wordfence/css/wf-font-awesome.1790780879.css?ver=9.0.2' media='all' />
+<link rel='stylesheet' id='wordfence-global-style-css' href='https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/plugins/wordfence/css/wf-global.1790780879.css?ver=9.0.2' media='all' />
+<style>.elementor-87 .elementor-element.elementor-element-cde16c1{--display:flex;--gap:0px 0px;--row-gap:0px;--column-gap:0px;}.elementor-87 .elementor-element.elementor-element-26b64e2 .title-after_title, .elementor-87 .elementor-element.elementor-element-26b64e2 .title-subtitle, .elementor-87 .elementor-element.elementor-element-26b64e2 .woodmart-title-container{max-width:520px;}.elementor-87 .elementor-element.elementor-element-26b64e2 > .elementor-widget-container{margin:0px 0px 10px 0px;}.elementor-87 .elementor-element.elementor-element-03d74fb .wd-text-block{max-width:520px;}.elementor-87 .elementor-element.elementor-element-03d74fb > .elementor-widget-container{margin:0px 0px 20px 0px;}.elementor-87 .elementor-element.elementor-element-d47867e{--display:flex;--flex-direction:row;--container-widget-width:calc( ( 1 - var( --container-widget-flex-grow ) ) * 100% );--container-widget-height:100%;--container-widget-flex-grow:1;--container-widget-align-self:stretch;--flex-wrap-mobile:wrap;--align-items:center;--gap:10px 15px;--row-gap:10px;--column-gap:15px;}.elementor-87 .elementor-element.elementor-element-f1f9e8c{width:auto;max-width:auto;}.elementor-87 .elementor-element.elementor-element-a972e03{width:auto;max-width:auto;}.elementor-87 .elementor-element.elementor-element-35bac8d{width:auto;max-width:auto;}#slide-87 .wd-slide-container{--wd-align-items:flex-end;--wd-justify-content:left;}#slide-87 .wd-slide-bg{background-color:rgb(189,185,184);}@media(max-width:1024px){.elementor-87 .elementor-element.elementor-element-26b64e2 .title{font-size:32px;}#slide-87 .wd-slide-inner{max-width:1200px;}#slide-87 .wd-slide-container{--wd-align-items:center;--wd-justify-content:left;}}@media(max-width:768px){.elementor-87 .elementor-element.elementor-element-26b64e2 .title{font-size:24px;}#slide-87 .wd-slide-inner{max-width:500px;}#slide-87 .wd-slide-container{--wd-align-items:center;--wd-justify-content:left;}}</style>		
+					<link rel="stylesheet" id="wd-mod-animations-transform-base-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-animations-transform-base.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-mod-animations-transform-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-animations-transform.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-mod-transform-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/mod-transform.css?ver=8.6.0" type="text/css" media="all" /> 					
+								<link rel="stylesheet" id="wd-section-title-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-section-title.css?ver=8.6.0" type="text/css" media="all" /> 					
 				<h4>A large selection of plants, fertilizers and accessories.</h4> 
-								<link rel="stylesheet" id="wd-text-block-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-text-block.css?ver=8.5.0" type="text/css" media="all" /> 					
+								<link rel="stylesheet" id="wd-text-block-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-text-block.css?ver=8.6.0" type="text/css" media="all" /> 					
 			<p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
 								<img width="115" height="40" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/Avatars-opt-115x40.png" alt="" decoding="async" loading="lazy" />					
 			<p>Rated 4.9 / 5 based on <u>374 reviews</u></p>
@@ -150,7 +154,7 @@
 																					<style>.elementor-120 .elementor-element.elementor-element-8f2b7f9{--display:flex;--gap:0px 0px;--row-gap:0px;--column-gap:0px;}.elementor-120 .elementor-element.elementor-element-4b8372c .title-after_title, .elementor-120 .elementor-element.elementor-element-4b8372c .title-subtitle, .elementor-120 .elementor-element.elementor-element-4b8372c .woodmart-title-container{max-width:435px;}.elementor-120 .elementor-element.elementor-element-4b8372c > .elementor-widget-container{margin:0px 0px 10px 0px;}.elementor-120 .elementor-element.elementor-element-d151927 .wd-text-block{max-width:520px;}.elementor-120 .elementor-element.elementor-element-d151927 > .elementor-widget-container{margin:0px 0px 20px 0px;}#slide-120 .wd-slide-container{--wd-align-items:flex-end;--wd-justify-content:left;}#slide-120 .wd-slide-bg{background-color:rgb(189,185,184);}@media(max-width:1024px){.elementor-120 .elementor-element.elementor-element-4b8372c .title{font-size:32px;}#slide-120 .wd-slide-inner{max-width:1200px;}#slide-120 .wd-slide-container{--wd-align-items:center;--wd-justify-content:left;}}@media(max-width:768px){.elementor-120 .elementor-element.elementor-element-4b8372c .title{font-size:24px;}#slide-120 .wd-slide-inner{max-width:500px;}#slide-120 .wd-slide-container{--wd-align-items:center;--wd-justify-content:left;}}</style>		
 				<h4>Come for the plants, stay for the service plants.</h4> 
 			<p>We believe plants and people belong together, but we know that city life sometimes keeps us apart. That's why we set out to reconnect people.</p>
-								<link rel="stylesheet" id="wd-button-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-button.css?ver=8.5.0" type="text/css" media="all" /> 					
+								<link rel="stylesheet" id="wd-button-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-button.css?ver=8.6.0" type="text/css" media="all" /> 					
 			<a  href="https://dummy.xtemos.com/woodmart2/plants-elementor/shop/">
 					Shop this plant				
 							</a>
@@ -163,13 +167,13 @@
 							</a>
 																			<img width="1040" height="480" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt.jpg 1040w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt-400x185.jpg 400w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt-768x354.jpg 768w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt-860x397.jpg 860w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt-430x198.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt-700x323.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-slide-3-opt-150x69.jpg 150w" sizes="auto, (max-width: 1040px) 100vw, 1040px" />																	
 				<h4>Most popular products</h4> 
-								<link rel="stylesheet" id="wd-product-loop-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-product-loop.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-loop-prod-el-base-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-loop-prod-el-base.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-loop-prod-predefined-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-loop-prod-predefined.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-product-loop-standard-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-product-loop-standard.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-mod-loop-prod-add-btn-replace-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-loop-prod-add-btn-replace.css?ver=8.5.0" type="text/css" media="all" /> 						
+								<link rel="stylesheet" id="wd-product-loop-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-product-loop.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-loop-prod-el-base-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-loop-prod-el-base.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-loop-prod-predefined-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-loop-prod-predefined.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-product-loop-standard-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-product-loop-standard.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-mod-loop-prod-add-btn-replace-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-loop-prod-add-btn-replace.css?ver=8.6.0" type="text/css" media="all" /> 						
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/coco-coir-pole/" tabindex="-1" aria-label="Coco Coir Pole">
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
-					<link rel="stylesheet" id="wd-woo-mod-product-labels-default-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-product-labels-default.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-mod-product-labels-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-product-labels.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-mod-product-labels-round-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-product-labels-round.css?ver=8.5.0" type="text/css" media="all" /> 						
+					<link rel="stylesheet" id="wd-woo-mod-product-labels-default-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-product-labels-default.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-mod-product-labels-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-product-labels.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-woo-mod-product-labels-round-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/woo-mod-product-labels-round.css?ver=8.6.0" type="text/css" media="all" /> 						
 				-23% New			
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="391" rel="nofollow">
+			<a href="" data-id="391" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -177,10 +181,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="391"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="391" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="391" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/coco-coir-pole/">Coco Coir Pole</a></h3>
@@ -191,7 +196,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/full-spectrum-led-grow-light/" tabindex="-1" aria-label="Full Spectrum LED Grow Light">
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="387" rel="nofollow">
+			<a href="" data-id="387" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -199,10 +204,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="387"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="387" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="387" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/full-spectrum-led-grow-light/">Full Spectrum LED Grow Light</a></h3>
@@ -213,7 +219,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/watering-can/" tabindex="-1" aria-label="Watering Can">
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="384" rel="nofollow">
+			<a href="" data-id="384" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -221,10 +227,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="384"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="384" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="384" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/watering-can/">Watering Can</a></h3>
@@ -235,7 +242,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/gardeners-tools/" tabindex="-1" aria-label="Gardener’s Tools">
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="381" rel="nofollow">
+			<a href="" data-id="381" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -243,10 +250,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="381"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="381" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="381" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/gardeners-tools/">Gardener’s Tools</a></h3>
@@ -258,7 +266,7 @@
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-2-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-2-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-2-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
 				-11%			
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-8-0-1.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-8-0-1.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-8-0-1-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-8-0-1-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-8-0-1-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="378" rel="nofollow">
+			<a href="" data-id="378" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -266,10 +274,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="378"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="378" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="378" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/indoor-plant-foliage-spray/">Indoor Plant Foliage Spray</a></h3>
@@ -280,7 +289,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/neem-oil-natural-leaf-shine/" tabindex="-1" aria-label="Neem Oil Natural Leaf Shine">
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-1-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-1-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-neem-oil-1-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-7-3.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-7-3.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-7-3-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-7-3-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-7-3-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="374" rel="nofollow">
+			<a href="" data-id="374" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -288,10 +297,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="374"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="374" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="374" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/neem-oil-natural-leaf-shine/">Neem Oil Natural Leaf Shine</a></h3>
@@ -303,7 +313,7 @@
 			<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-3-0.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-3-0.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-3-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-3-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-3-0-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />		</a>
 				Hot			
 				<img width="700" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-2.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-2.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-2-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-2-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-9-2-150x171.jpg 150w" sizes="auto, (max-width: 700px) 100vw, 700px" />			
-			<a href="" data-id="372" rel="nofollow">
+			<a href="" data-id="372" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -311,10 +321,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="372"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="372" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="372" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/cactus-succulent-potting-mix/">Cactus &#038; Succulent Potting Mix</a></h3>
@@ -322,14 +333,13 @@
 			Rated <strong>3.00</strong> out of 5		
 	<bdi>&#36;13.00</bdi>
 		<a href="/woodmart2/plants-elementor/wp-admin/admin-ajax.php?add-to-cart=372"  data-quantity="1" data-product_id="372" data-product_sku="WP-0048" aria-label="Add to cart: &ldquo;Cactus &amp; Succulent Potting Mix&rdquo;" rel="nofollow" data-success_message="&ldquo;Cactus &amp; Succulent Potting Mix&rdquo; has been added to your cart" role="button">Add to cart</a>	
-								<link rel="stylesheet" id="wd-swiper-arrows-critical-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/lib-swiper-arrows-critical.css?ver=8.5.0" type="text/css" media="all" /> 					
+								<link rel="stylesheet" id="wd-swiper-arrows-critical-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/lib-swiper-arrows-critical.css?ver=8.6.0" type="text/css" media="all" /> 					
 				<h4>Shopping by size</h4> 
-																							<link rel="stylesheet" id="wd-banner-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-banner.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-banner-style-mask-and-shadow-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-banner-style-mask-and-shadow.css?ver=8.5.0" type="text/css" media="all" /> 					
+						<link rel="stylesheet" id="wd-banner-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-banner.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-banner-style-mask-and-shadow-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-banner-style-mask-and-shadow.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-el-subtitle-style-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-subtitle-style.css?ver=8.6.0" type="text/css" media="all" /> 						
 													<video src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/plants-banners-video-1.mp4" autoplay muted loop playsinline></video>
-																<link rel="stylesheet" id="wd-el-subtitle-style-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-subtitle-style.css?ver=8.5.0" type="text/css" media="all" /> 			
 								1 - 2ft.							
 													<h4 data-elementor-setting-key="title">
-								Small plants							</h4>
+							Small plants							</h4>
 			<a  href="https://dummy.xtemos.com/woodmart2/plants-elementor/shop/">
 					Shop now				
 							</a>
@@ -337,7 +347,7 @@
 													<video src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/plants-banners-video-2.mp4" autoplay muted loop playsinline></video>
 								2 - 4ft.							
 													<h4 data-elementor-setting-key="title">
-								Medium plants							</h4>
+							Medium plants							</h4>
 			<a  href="https://dummy.xtemos.com/woodmart2/plants-elementor/shop/">
 					Shop now				
 							</a>
@@ -345,7 +355,7 @@
 													<video src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/plants-banners-video-3.mp4" autoplay muted loop playsinline></video>
 								5+ ft.							
 													<h4 data-elementor-setting-key="title">
-								Large plants							</h4>
+							Large plants							</h4>
 			<a  href="https://dummy.xtemos.com/woodmart2/plants-elementor/shop/">
 					Shop now				
 							</a>
@@ -353,13 +363,13 @@
 			<p>Explore our <img src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-1.png" alt="" width="130" height="52" data-wp-editing="1" /> extensive range of plants <img src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-2.png" alt="" width="130" height="52" /> for <img src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-3.png" alt="" width="130" height="52" /> your room.</p>
 								<img  src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/quotes.svg" title="quotes" loading="lazy" width="32" height="32">					
 				<h4>I am so happy, my dear friend, so absorbed in the exquisite sense of mere existence.</h4> 
-								<link rel="stylesheet" id="wd-info-box-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-info-box.css?ver=8.5.0" type="text/css" media="all" /> 					
+						<link rel="stylesheet" id="wd-info-box-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-info-box.css?ver=8.6.0" type="text/css" media="all" /> 						
 															<img width="60" height="60" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-teammember-circle-opt-60x60.png" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-teammember-circle-opt-60x60.png 60w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-teammember-circle-opt.png 128w" sizes="auto, (max-width: 60px) 100vw, 60px" />													
 											<h4						class="info-box-title title box-title-style-default wd-fontsize-xl" data-elementor-setting-key="title">
 								Jenny Wilson						</h4>
 					<p>Founder</p>
-								<link rel="stylesheet" id="wd-el-video-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-video.css?ver=8.5.0" type="text/css" media="all" /> 			
-							<a href="https://vimeo.com/235215203" aria-label="Play video">
+								<link rel="stylesheet" id="wd-el-video-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-video.css?ver=8.6.0" type="text/css" media="all" /> 			
+							<a href="https://www.youtube.com/watch?v=kcjwXUfPxAY" aria-label="Play video">
 									</a>
 				<h4>Exotic flowering plants</h4> 
 					<p>Most popular products</p>				
@@ -370,7 +380,7 @@
 			<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-coir-poles-1-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />		</a>
 				-23% New			
 				<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-indoor-plants-small-2-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />			
-			<a href="" data-id="391" rel="nofollow">
+			<a href="" data-id="391" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -378,10 +388,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="391"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="391" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="391" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/coco-coir-pole/">Coco Coir Pole</a></h3>
@@ -392,7 +403,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/full-spectrum-led-grow-light/" tabindex="-1" aria-label="Full Spectrum LED Grow Light">
 			<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-growing-lights-1-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />		</a>
 				<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-1-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />			
-			<a href="" data-id="387" rel="nofollow">
+			<a href="" data-id="387" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -400,10 +411,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="387"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="387" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="387" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/full-spectrum-led-grow-light/">Full Spectrum LED Grow Light</a></h3>
@@ -414,7 +426,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/watering-can/" tabindex="-1" aria-label="Watering Can">
 			<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-2-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />		</a>
 				<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />			
-			<a href="" data-id="384" rel="nofollow">
+			<a href="" data-id="384" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -422,10 +434,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="384"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="384" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="384" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/watering-can/">Watering Can</a></h3>
@@ -436,7 +449,7 @@
 		<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/gardeners-tools/" tabindex="-1" aria-label="Gardener’s Tools">
 			<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-gardeners-tools-1-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />		</a>
 				<img width="430" height="490" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-430x490.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-430x490.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-263x300.jpg 263w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0-150x171.jpg 150w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-plant-care-potting-mix-2-0.jpg 700w" sizes="auto, (max-width: 430px) 100vw, 430px" />			
-			<a href="" data-id="381" rel="nofollow">
+			<a href="" data-id="381" rel="nofollow" aria-label="Toggle compare">
 				Compare
 			</a>
 			<a
@@ -444,10 +457,11 @@
 				class="open-quick-view"
 				rel="nofollow"
 				data-id="381"
+				aria-label="Quick view"
 				>
 						Quick view					
 			</a>
-				<a href="" data-key="2217808152" data-product-id="381" rel="nofollow">
+				<a href="" data-key="9f309042ef" data-product-id="381" rel="nofollow" aria-label="Toggle wishlist">
 					Add to wishlist
 				</a>
 	<h3><a href="https://dummy.xtemos.com/woodmart2/plants-elementor/product/gardeners-tools/">Gardener’s Tools</a></h3>
@@ -456,22 +470,22 @@
 	<bdi>&#36;28.00</bdi>
 		<a href="/woodmart2/plants-elementor/wp-admin/admin-ajax.php?add-to-cart=381"  data-quantity="1" data-product_id="381" data-product_sku="WP-0053" aria-label="Add to cart: &ldquo;Gardener’s Tools&rdquo;" rel="nofollow" data-success_message="&ldquo;Gardener’s Tools&rdquo; has been added to your cart" role="button">Add to cart</a>	
 				<h4>Our articles</h4> 
-								<link rel="stylesheet" id="wd-blog-loop-base-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-loop-base.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-post-types-mod-predefined-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/post-types-mod-predefined.css?ver=8.5.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-blog-loop-design-list-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-loop-design-list.css?ver=8.5.0" type="text/css" media="all" /> 										
-																	<link rel="stylesheet" id="wd-post-types-mod-categories-style-bg-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/post-types-mod-categories-style-bg.css?ver=8.5.0" type="text/css" media="all" /> 			
+								<link rel="stylesheet" id="wd-blog-loop-base-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-loop-base.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-post-types-mod-predefined-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/post-types-mod-predefined.css?ver=8.6.0" type="text/css" media="all" /> 						<link rel="stylesheet" id="wd-blog-loop-design-list-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-loop-design-list.css?ver=8.6.0" type="text/css" media="all" /> 										
 <article id="post-872">
 					<img width="1200" height="800" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt.jpg 1200w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt-400x267.jpg 400w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt-768x512.jpg 768w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt-860x573.jpg 860w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt-430x287.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt-700x467.jpg 700w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-blog-1-opt-150x100.jpg 150w" sizes="auto, (max-width: 1200px) 100vw, 1200px" />				
-													<link rel="stylesheet" id="wd-post-types-mod-date-style-bg-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/post-types-mod-date-style-bg.css?ver=8.5.0" type="text/css" media="all" /> 						
+													<link rel="stylesheet" id="wd-post-types-mod-date-style-bg-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/post-types-mod-date-style-bg.css?ver=8.6.0" type="text/css" media="all" /> 						
 					13				
 					Jun				
 											<a tabindex="-1" href="https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/flower-arrangement-tips-tricks-from-floral-experts/" rel="bookmark" aria-label="Link on post Flower Arrangement Tips &amp; Tricks from Floral Experts"></a>
+										<link rel="stylesheet" id="wd-post-types-mod-categories-style-bg-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/post-types-mod-categories-style-bg.css?ver=8.6.0" type="text/css" media="all" /> 							
 					<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/blog/category/design-tips/" rel="category tag">Design Tips</a>				
-															<link rel="stylesheet" id="wd-blog-mod-author-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-mod-author.css?ver=8.5.0" type="text/css" media="all" /> 									
+															<link rel="stylesheet" id="wd-blog-mod-author-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-mod-author.css?ver=8.6.0" type="text/css" media="all" /> 									
 												Posted by
-					<img alt='author-avatar' src='https://secure.gravatar.com/avatar/9e359315edba85ade63ec52186b21c7b?s=22&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/9e359315edba85ade63ec52186b21c7b?s=44&#038;d=mm&#038;r=g 2x' class='avatar avatar-22 photo' height='22' width='22' loading='lazy' decoding='async'/>		
+					<img alt='author-avatar' src='https://secure.gravatar.com/avatar/5a0eff6ee057b9cf8ca47892b8fe584f3bb9b7d88309da5a798ec9477b0f5caf?s=22&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5a0eff6ee057b9cf8ca47892b8fe584f3bb9b7d88309da5a798ec9477b0f5caf?s=44&#038;d=mm&#038;r=g 2x' class='avatar avatar-22 photo' height='22' width='22' loading='lazy' decoding='async'/>		
 					<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/author/zakhar/" rel="author">Mr. Mackay</a>
 									<time datetime="2026-05-29T12:02:09+00:00">
 			May 29, 2026		</time>
-							<link rel="stylesheet" id="wd-social-icons-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-social-icons.css?ver=8.5.0" type="text/css" media="all" /> 							
+							<link rel="stylesheet" id="wd-social-icons-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-social-icons.css?ver=8.6.0" type="text/css" media="all" /> 							
 									<a rel="noopener noreferrer nofollow" href="https://www.facebook.com/sharer/sharer.php?u=https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/flower-arrangement-tips-tricks-from-floral-experts/" target="_blank" aria-label="Facebook social link">
 											</a>
 									<a rel="noopener noreferrer nofollow" href="https://x.com/share?url=https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/flower-arrangement-tips-tricks-from-floral-experts/" target="_blank" aria-label="X social link">
@@ -482,7 +496,7 @@
 											</a>
 									<a rel="noopener noreferrer nofollow" href="https://telegram.me/share/url?url=https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/flower-arrangement-tips-tricks-from-floral-experts/" target="_blank" aria-label="Telegram social link">
 											</a>
-																<link rel="stylesheet" id="wd-blog-mod-comments-button-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-mod-comments-button.css?ver=8.5.0" type="text/css" media="all" /> 										
+																<link rel="stylesheet" id="wd-blog-mod-comments-button-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/blog-mod-comments-button.css?ver=8.6.0" type="text/css" media="all" /> 										
 								<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/flower-arrangement-tips-tricks-from-floral-experts/#respond">0</a>							
 													<h3>
 						<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/flower-arrangement-tips-tricks-from-floral-experts/" rel="bookmark">
@@ -497,7 +511,7 @@
 											<a tabindex="-1" href="https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/how-often-how-much-you-should-water-houseplants/" rel="bookmark" aria-label="Link on post How Often &amp; How Much You Should Water Houseplants"></a>
 					<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/blog/category/design-tips/" rel="category tag">Design Tips</a>, <a href="https://dummy.xtemos.com/woodmart2/plants-elementor/blog/category/interviews/" rel="category tag">Interviews</a>				
 												Posted by
-					<img alt='author-avatar' src='https://secure.gravatar.com/avatar/9e359315edba85ade63ec52186b21c7b?s=22&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/9e359315edba85ade63ec52186b21c7b?s=44&#038;d=mm&#038;r=g 2x' class='avatar avatar-22 photo' height='22' width='22' loading='lazy' decoding='async'/>		
+					<img alt='author-avatar' src='https://secure.gravatar.com/avatar/5a0eff6ee057b9cf8ca47892b8fe584f3bb9b7d88309da5a798ec9477b0f5caf?s=22&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5a0eff6ee057b9cf8ca47892b8fe584f3bb9b7d88309da5a798ec9477b0f5caf?s=44&#038;d=mm&#038;r=g 2x' class='avatar avatar-22 photo' height='22' width='22' loading='lazy' decoding='async'/>		
 					<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/author/zakhar/" rel="author">Mr. Mackay</a>
 									<time datetime="2023-12-23T11:45:14+00:00">
 			December 23, 2023		</time>
@@ -525,7 +539,7 @@
 											<a tabindex="-1" href="https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/top-10-tips-and-tricks-to-beat-the-winter-blues/" rel="bookmark" aria-label="Link on post Top 10 Tips and Tricks To Beat the Winter Blues"></a>
 					<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/blog/category/common-care-questions/" rel="category tag">Common Care Questions</a>				
 												Posted by
-					<img alt='author-avatar' src='https://secure.gravatar.com/avatar/9e359315edba85ade63ec52186b21c7b?s=22&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/9e359315edba85ade63ec52186b21c7b?s=44&#038;d=mm&#038;r=g 2x' class='avatar avatar-22 photo' height='22' width='22' loading='lazy' decoding='async'/>		
+					<img alt='author-avatar' src='https://secure.gravatar.com/avatar/5a0eff6ee057b9cf8ca47892b8fe584f3bb9b7d88309da5a798ec9477b0f5caf?s=22&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5a0eff6ee057b9cf8ca47892b8fe584f3bb9b7d88309da5a798ec9477b0f5caf?s=44&#038;d=mm&#038;r=g 2x' class='avatar avatar-22 photo' height='22' width='22' loading='lazy' decoding='async'/>		
 					<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/author/zakhar/" rel="author">Mr. Mackay</a>
 									<time datetime="2023-12-23T11:55:16+00:00">
 			December 23, 2023		</time>
@@ -547,36 +561,36 @@
 						<a href="https://dummy.xtemos.com/woodmart2/plants-elementor/2023/06/13/top-10-tips-and-tricks-to-beat-the-winter-blues/">Continue reading</a>					
 </article>
 				<h4>View our instagram</h4> 
-								<link rel="stylesheet" id="wd-instagram-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-instagram.css?ver=8.5.0" type="text/css" media="all" /> 					
+								<link rel="stylesheet" id="wd-instagram-css" href="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/themes/woodmart/css/parts/el-instagram.css?ver=8.6.0" type="text/css" media="all" /> 					
 							<a href="https://www.instagram.com/wowmonstera/" target="_self" aria-label="Instagram picture"></a>
 							<img width="440" height="440" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-1-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-1-opt.jpg 440w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-1-opt-300x300.jpg 300w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-1-opt-180x180.jpg 180w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-1-opt-430x430.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-1-opt-150x150.jpg 150w" sizes="auto, (max-width: 440px) 100vw, 440px" />
-									3525
-									831
+									2656
+									107
 							<a href="https://www.instagram.com/wowmonstera/" target="_self" aria-label="Instagram picture"></a>
 							<img width="440" height="440" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-2-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-2-opt.jpg 440w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-2-opt-300x300.jpg 300w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-2-opt-180x180.jpg 180w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-2-opt-430x430.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-2-opt-150x150.jpg 150w" sizes="auto, (max-width: 440px) 100vw, 440px" />
-									7108
-									682
+									7406
+									146
 							<a href="https://www.instagram.com/wowmonstera/" target="_self" aria-label="Instagram picture"></a>
 							<img width="440" height="440" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-3-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-3-opt.jpg 440w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-3-opt-300x300.jpg 300w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-3-opt-180x180.jpg 180w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-3-opt-430x430.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-3-opt-150x150.jpg 150w" sizes="auto, (max-width: 440px) 100vw, 440px" />
-									6660
-									218
+									1086
+									846
 							<a href="https://www.instagram.com/wowmonstera/" target="_self" aria-label="Instagram picture"></a>
 							<img width="440" height="440" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-4-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-4-opt.jpg 440w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-4-opt-300x300.jpg 300w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-4-opt-180x180.jpg 180w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-4-opt-430x430.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-4-opt-150x150.jpg 150w" sizes="auto, (max-width: 440px) 100vw, 440px" />
-									7709
-									607
+									1393
+									473
 							<a href="https://www.instagram.com/wowmonstera/" target="_self" aria-label="Instagram picture"></a>
 							<img width="440" height="440" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-5-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-5-opt.jpg 440w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-5-opt-300x300.jpg 300w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-5-opt-180x180.jpg 180w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-5-opt-430x430.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-5-opt-150x150.jpg 150w" sizes="auto, (max-width: 440px) 100vw, 440px" />
-									9495
-									163
+									4072
+									442
 							<a href="https://www.instagram.com/wowmonstera/" target="_self" aria-label="Instagram picture"></a>
 							<img width="440" height="440" src="http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-6-opt.jpg" alt="" decoding="async" loading="lazy" srcset="https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-6-opt.jpg 440w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-6-opt-300x300.jpg 300w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-6-opt-180x180.jpg 180w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-6-opt-430x430.jpg 430w, https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/w-ps-instagram-6-opt-150x150.jpg 150w" sizes="auto, (max-width: 440px) 100vw, 440px" />
-									6984
-									741]]></content:encoded>
+									5094
+									643]]></content:encoded>
 															<wp:post_id>13</wp:post_id>
 					<wp:post_date><![CDATA[2023-06-09 12:22:15]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2023-06-09 12:22:15]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-07-15 08:55:15]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-07-15 08:55:15]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-06 14:34:16]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-06 14:34:16]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-plants]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -613,7 +627,7 @@
 						</wp:postmeta>
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_elementor_version]]></wp:meta_key>
-							<wp:meta_value><![CDATA[4.0.4]]></wp:meta_value>
+							<wp:meta_value><![CDATA[4.3.2]]></wp:meta_value>
 						</wp:postmeta>
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
@@ -621,7 +635,7 @@
 						</wp:postmeta>
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_elementor_data]]></wp:meta_key>
-							<wp:meta_value><![CDATA[[{"id":"9493dfb","elType":"container","settings":{"content_position":"middle","structure":"20","flex_gap":{"size":"40","column":"40","row":"40","unit":"px","isLinked":"1"},"margin":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"flex_direction":"row","flex_align_items":"stretch","flex_direction_tablet":"column","container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"5c221d0","elType":"container","settings":{"_column_size":"50","width":{"size":"24","unit":"%"},"border_border":"solid","border_width":{"unit":"px","top":"0","right":"2","bottom":"0","left":"0","isLinked":""},"border_color":"#5E6821","column_sticky_offset":"50","scroll_y":"-80","width_tablet":{"size":"100","unit":"%"},"hide_tablet":"hidden-tablet","hide_mobile":"hidden-mobile","content_width":"full","flex_justify_content":"center","container_sticky_offset":"50"},"elements":[{"id":"94ed64b","elType":"widget","settings":{"title":"","nav_menu":"37","dropdown_design":"simple","item_typography_typography":"custom","item_typography_font_family":"ClashDisplay","item_typography_font_size":{"unit":"px","size":"38","sizes":[]},"item_typography_font_weight":"500","item_typography_line_height":{"unit":"em","size":"1.6","sizes":[]},"icon_alignment":"right","scroll_y":"-80"},"elements":[],"widgetType":"wd_mega_menu"}],"isInner":"1"},{"id":"aec3b0c","elType":"container","settings":{"_column_size":"50","width":{"size":"76","unit":"%"},"column_sticky_offset":"50","scroll_y":"-80","width_tablet":{"size":"100","unit":"%"},"content_width":"full","container_sticky_offset":"50"},"elements":[{"id":"265ac23","elType":"widget","settings":{"scroll_y":"-80","slider":"plants-slider","sync_parent_id":"wd_65819b6ca99c1","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_slider"}],"isInner":"1"}],"isInner":false},{"id":"640f281","elType":"container","settings":{"flex_gap":{"size":"90","column":"90","row":"90","unit":"px","isLinked":"1"},"flex_gap_tablet":{"column":"60","row":"60","isLinked":"1","unit":"px","size":"60"},"flex_gap_mobile":{"column":"40","row":"40","isLinked":"1","unit":"px","size":"40"},"margin":{"unit":"px","top":"0","right":"0","bottom":"30","left":"0","isLinked":""},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"dd5b550","elType":"widget","settings":{"text":"Divider","color":"#5E6821","weight":{"unit":"px","size":"2","sizes":[]},"gap":{"unit":"px","size":"0","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"divider"},{"id":"e772580","elType":"widget","settings":{"subtitle":"","title":"Most popular products","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"}],"isInner":false},{"id":"f3fdeef","elType":"container","settings":{"wd_section_stretch":"stretch-content","margin":{"unit":"px","top":"0","right":"0","bottom":"90","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"41","left":"0","isLinked":""},"flex_gap":{"size":"","column":"","row":"","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"2367edd","elType":"widget","settings":{"post_type":"ids","include":[],"layout":"carousel","spacing":"30","items_per_page":"7","slides_per_view":{"unit":"px","size":"5","sizes":[]},"hide_pagination_control":"yes","scroll_y":"-80","sync_parent_id":"wd_65819b6cae0cd","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_products"}],"isInner":false},{"id":"4b40e98","elType":"container","settings":{"margin":{"unit":"px","top":"0","right":"0","bottom":"100","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"50","left":"0","isLinked":""},"flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"6f5d84f","elType":"widget","settings":{"subtitle":"","title":"Shopping by size","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"2fe9543","elType":"widget","settings":{"content_repeater":[{"title":"Small plants","subtitle":"1 - 2ft.","_id":"af8814f","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"source_type":"video","video":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/plants-banners-video-1.mp4","id":"416","size":"","alt":"","source":"library"},"custom_height":"Yes","image_height":{"unit":"px","size":"600","sizes":[]},"btn_text":"Shop now","vertical_alignment":"bottom","image_height_tablet":{"unit":"px","size":"460","sizes":[]}},{"title":"Medium plants","subtitle":"2 - 4ft.","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"source_type":"video","video":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/plants-banners-video-2.mp4","id":"424","size":"","alt":"","source":"library"},"custom_height":"Yes","image_height":{"unit":"px","size":"600","sizes":[]},"btn_text":"Shop now","vertical_alignment":"bottom","_id":"b57981c","image_height_tablet":{"unit":"px","size":"460","sizes":[]}},{"title":"Large plants","subtitle":"5+ ft.","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"source_type":"video","video":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/plants-banners-video-3.mp4","id":"425","size":"","alt":"","source":"library"},"custom_height":"Yes","image_height":{"unit":"px","size":"600","sizes":[]},"btn_text":"Shop now","vertical_alignment":"bottom","_id":"040a82c","image_height_tablet":{"unit":"px","size":"460","sizes":[]}}],"style":"mask","woodmart_color_scheme":"light","title_size":"extra-large","subtitle_typography_typography":"custom","subtitle_typography_font_size":{"unit":"px","size":"16","sizes":[]},"btn_position":"static","btn_color":"white","btn_style":"link","scroll_y":"-80","hide_pagination_control":"yes","sync_parent_id":"wd_65819b6cab85b","slides_per_view_tablet":{"unit":"px","size":"2","sizes":[]},"sync_group_id":"group-1"},"elements":[],"widgetType":"wd_banner_carousel"}],"isInner":false},{"id":"4854031","elType":"container","settings":{"wd_section_stretch":"stretch","background_background":"classic","background_color":"#5F6921","padding":{"unit":"px","top":"80","right":"15","bottom":"280","left":"15","isLinked":""},"padding_tablet":{"unit":"px","top":"50","right":"15","bottom":"250","left":"15","isLinked":""},"padding_mobile":{"unit":"px","top":"40","right":"15","bottom":"250","left":"15","isLinked":""},"flex_gap":{"size":"","column":"","row":"","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"7abdc76","elType":"widget","settings":{"text":"<p>Explore our <img class=\"alignnone wp-image-446 size-full\" src=\"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/ps-top-min-1.png\" alt=\"\" width=\"130\" height=\"52\" data-wp-editing=\"1\" \/> extensive range of plants <img class=\"alignnone size-full wp-image-447\" src=\"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/ps-top-min-2.png\" alt=\"\" width=\"130\" height=\"52\" \/> for <img class=\"alignnone size-full wp-image-448\" src=\"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/ps-top-min-3.png\" alt=\"\" width=\"130\" height=\"52\" \/> your room.<\/p>","text_color_scheme":"light","width":{"unit":"px","size":"864","sizes":[]},"typography_typography":"custom","typography_font_family":"ClashDisplay","typography_font_size":{"unit":"px","size":"68","sizes":[]},"typography_font_size_tablet":{"unit":"px","size":"36","sizes":[]},"typography_font_size_mobile":{"unit":"px","size":"30","sizes":[]},"typography_font_weight":"500","typography_line_height":{"unit":"px","size":"78","sizes":[]},"typography_line_height_tablet":{"unit":"px","size":"80","sizes":[]},"typography_line_height_mobile":{"unit":"px","size":"55","sizes":[]},"text_color":"title","scroll_y":"-80"},"elements":[],"widgetType":"wd_text_block"}],"isInner":false},{"id":"b1f8009","elType":"container","settings":{"structure":"20","margin":{"unit":"px","top":"-200","right":"0","bottom":"90","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"-200","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"-200","right":"0","bottom":"40","left":"0","isLinked":""},"reverse_order_tablet":"reverse-tablet","reverse_order_mobile":"reverse-mobile","flex_direction":"row","flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"flex_direction_tablet":"row","flex_gap_tablet":{"column":"","row":"","isLinked":"1","unit":"px","size":""},"container_sticky_offset":"50","scroll_y":"-80","flex_direction_mobile":"column-reverse","flex_gap_mobile":{"column":"0","row":"0","isLinked":"1","unit":"px","size":"0"}},"elements":[{"id":"216127d","elType":"container","settings":{"_column_size":"50","width":{"size":"41.6","unit":"%"},"column_sticky_offset":"50","scroll_y":"-80","background_background":"classic","background_color":"#E7E5D9","padding":{"unit":"px","top":"40","right":"40","bottom":"40","left":"40","isLinked":""},"width_tablet":{"size":"","unit":"%"},"content_width":"full","flex_gap":{"column":"0","row":"0","isLinked":"1","unit":"px","size":"0"},"container_sticky_offset":"50"},"elements":[{"id":"08addb3","elType":"widget","settings":{"scroll_y":"-80","image":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/quotes.svg","id":"463","size":"","alt":"","source":"library"},"image_size":"custom","image_custom_dimension":{"width":"32","height":"32"},"_margin":{"unit":"px","top":"0","right":"0","bottom":"10","left":"0","isLinked":""}},"elements":[],"widgetType":"wd_image_or_svg"},{"id":"5a3fa2e","elType":"widget","settings":{"subtitle":"","title":"I am so happy, my dear friend, so absorbed in the exquisite sense of mere existence.","after_title":"","size":"large","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"38","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"22","sizes":[]},"_margin":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"55c9380","elType":"widget","settings":{"text":"Divider","color":"#5E6821","weight":{"unit":"px","size":"2","sizes":[]},"gap":{"unit":"px","size":"0","sizes":[]},"_margin":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"scroll_y":"-80"},"elements":[],"widgetType":"divider"},{"id":"d1b919b","elType":"widget","settings":{"icon_type":"icon","icon_text":"53","image":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-teammember-circle-opt.png","id":"464","size":"","alt":"","source":"library"},"image_size":"custom","image_custom_dimension":{"width":"60","height":"60"},"subtitle":"","title":"Jenny Wilson","content":"<p>Founder<\/p>","btn_text":"","link":{"url":"","is_external":"","nofollow":"","custom_attributes":""},"alignment":"left","image_alignment":"left","image_vertical_alignment":"middle","title_size":"large","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"24","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"title_typography_line_height":{"unit":"em","size":"1","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_infobox"}],"isInner":"1"},{"id":"10fc032","elType":"container","settings":{"_column_size":"50","width":{"size":"58.4","unit":"%"},"column_sticky_offset":"50","scroll_y":"-80","flex_justify_content":"center","background_background":"classic","background_image":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-video-thumbnail-opt.jpg","id":"468","size":"","alt":"","source":"library"},"background_position":"center center","background_repeat":"no-repeat","background_size":"cover","padding":{"unit":"px","top":"100","right":"15","bottom":"100","left":"15","isLinked":""},"width_tablet":{"size":"","unit":"%"},"content_width":"full","container_sticky_offset":"50"},"elements":[{"id":"9ca292b","elType":"widget","settings":{"video_type":"vimeo","video_youtube_url":"https:\/\/www.youtube.com\/watch?v=XHOmBV4js_E","video_vimeo_url":"https:\/\/vimeo.com\/235215203","video_action_button":"play","text":"Play video","play_button_icon_size":{"unit":"px","size":"100","sizes":[]},"play_button_icon_idle_color":"#FFFFFF","play_button_icon_hover_color":"#FFFFFF99","scroll_y":"-80"},"elements":[],"widgetType":"wd_video"}],"isInner":"1"}],"isInner":false},{"id":"2fb7643","elType":"container","settings":{"margin":{"unit":"px","top":"0","right":"0","bottom":"90","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"c38e366","elType":"container","settings":{"_column_size":"100","width":{"size":"","unit":"%"},"flex_justify_content":"space-between","align":"space-between","column_sticky_offset":"50","scroll_y":"-80","content_width":"full","flex_direction":"row","flex_align_items":"flex-end","flex_gap":{"column":"30","row":"30","isLinked":"1","unit":"px","size":"30"},"flex_wrap":"nowrap","container_sticky_offset":"50"},"elements":[{"id":"ebc42e0","elType":"widget","settings":{"subtitle":"","title":"Exotic flowering plants","after_title":"<p>Most popular products<\/p>","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"3f91722","elType":"widget","settings":{"text":"Shop all","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"color":"primary","_element_width":"auto","scroll_y":"-80","_flex_size":"grow"},"elements":[],"widgetType":"wd_button"}],"isInner":"1"},{"id":"47ab6d2","elType":"widget","settings":{"spacing":"30","items_per_page":"4","img_size":"custom","img_size_custom":{"width":"430","height":"490"},"scroll_y":"-80","sync_parent_id":"wd_65819b6cae0cd","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_products"}],"isInner":false},{"id":"a57555f","elType":"container","settings":{"margin":{"unit":"px","top":"0","right":"0","bottom":"70","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"flex_gap":{"size":"0","column":"0","row":"0","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"ae1c73e","elType":"widget","settings":{"subtitle":"","title":"Our articles","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80","_margin":{"unit":"px","top":"0","right":"0","bottom":"20","left":"0","isLinked":""}},"elements":[],"widgetType":"wd_title"},{"id":"4128202","elType":"widget","settings":{"text":"Divider","color":"#5E6821","weight":{"unit":"px","size":"2","sizes":[]},"gap":{"unit":"px","size":"0","sizes":[]},"_margin":{"unit":"px","top":"0","right":"0","bottom":"30","left":"0","isLinked":""},"scroll_y":"-80"},"elements":[],"widgetType":"divider"},{"id":"a836008","elType":"widget","settings":{"blog_design":"list","img_size":"full","items_per_page":"3","parts_text":"","scroll_y":"-80","sync_parent_id":"wd_65819b6cab22c","_padding":{"unit":"px","top":"0","right":"0","bottom":"50","left":"0","isLinked":""},"_padding_tablet":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"_border_border":"solid","_border_width":{"unit":"px","top":"0","right":"0","bottom":"2","left":"0","isLinked":""},"_border_color":"#5E6821","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_blog"}],"isInner":false},{"id":"aaadcd9","elType":"container","settings":{"flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"margin":{"unit":"px","top":"0","right":"0","bottom":"20","left":"0","isLinked":""},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"e9c8e5a","elType":"widget","settings":{"subtitle":"","title":"View our instagram","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"1a7bdcc","elType":"widget","settings":{"username":"wowmonstera","size":"medium","images":[{"id":"501","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-1-opt.jpg"},{"id":"502","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-2-opt.jpg"},{"id":"503","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-3-opt.jpg"},{"id":"504","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-4-opt.jpg"},{"id":"505","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-5-opt.jpg"},{"id":"506","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-6-opt.jpg"}],"images_size":"full","images_link":"https:\/\/www.instagram.com\/wowmonstera\/","images_likes":"1000-10000","images_comments":"0-1000","design":"slider","per_row":{"unit":"px","size":"6","sizes":[]},"number":{"unit":"px","size":"6","sizes":[]},"spacing":"1","spacing_custom":"30","hide_pagination_control":"yes","scroll_y":"-80","sync_parent_id":"wd_65819b6cac940","per_row_tablet":{"unit":"px","size":"4","sizes":[]},"per_row_mobile":{"unit":"px","size":"2","sizes":[]},"sync_group_id":"group-1"},"elements":[],"widgetType":"wd_instagram"}],"isInner":false}]]]></wp:meta_value>
+							<wp:meta_value><![CDATA[[{"id":"9493dfb","elType":"container","settings":{"content_position":"middle","structure":"20","flex_gap":{"size":"40","column":"40","row":"40","unit":"px","isLinked":"1"},"margin":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"flex_direction":"row","flex_align_items":"stretch","flex_direction_tablet":"column","container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"5c221d0","elType":"container","settings":{"_column_size":"50","width":{"size":"24","unit":"%"},"border_border":"solid","border_width":{"unit":"px","top":"0","right":"2","bottom":"0","left":"0","isLinked":""},"border_color":"#5E6821","column_sticky_offset":"50","scroll_y":"-80","width_tablet":{"size":"100","unit":"%"},"hide_tablet":"hidden-tablet","hide_mobile":"hidden-mobile","content_width":"full","flex_justify_content":"center","container_sticky_offset":"50"},"elements":[{"id":"94ed64b","elType":"widget","settings":{"title":"","nav_menu":"37","dropdown_design":"simple","item_typography_typography":"custom","item_typography_font_family":"ClashDisplay","item_typography_font_size":{"unit":"px","size":"38","sizes":[]},"item_typography_font_weight":"500","item_typography_line_height":{"unit":"em","size":"1.6","sizes":[]},"icon_alignment":"right","scroll_y":"-80"},"elements":[],"widgetType":"wd_mega_menu"}],"isInner":"1"},{"id":"aec3b0c","elType":"container","settings":{"_column_size":"50","width":{"size":"76","unit":"%"},"column_sticky_offset":"50","scroll_y":"-80","width_tablet":{"size":"100","unit":"%"},"content_width":"full","container_sticky_offset":"50"},"elements":[{"id":"265ac23","elType":"widget","settings":{"scroll_y":"-80","slider":"plants-slider","sync_parent_id":"wd_65819b6ca99c1","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_slider"}],"isInner":"1"}],"isInner":false},{"id":"640f281","elType":"container","settings":{"flex_gap":{"size":"90","column":"90","row":"90","unit":"px","isLinked":"1"},"flex_gap_tablet":{"column":"60","row":"60","isLinked":"1","unit":"px","size":"60"},"flex_gap_mobile":{"column":"40","row":"40","isLinked":"1","unit":"px","size":"40"},"margin":{"unit":"px","top":"0","right":"0","bottom":"30","left":"0","isLinked":""},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"dd5b550","elType":"widget","settings":{"text":"Divider","color":"#5E6821","weight":{"unit":"px","size":"2","sizes":[]},"gap":{"unit":"px","size":"0","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"divider"},{"id":"e772580","elType":"widget","settings":{"subtitle":"","title":"Most popular products","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"}],"isInner":false},{"id":"f3fdeef","elType":"container","settings":{"wd_section_stretch":"stretch-content","margin":{"unit":"px","top":"0","right":"0","bottom":"90","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"41","left":"0","isLinked":""},"flex_gap":{"size":"","column":"","row":"","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"2367edd","elType":"widget","settings":{"post_type":"ids","include":[],"layout":"carousel","spacing":"30","items_per_page":"7","slides_per_view":{"unit":"px","size":"5","sizes":[]},"hide_pagination_control":"yes","scroll_y":"-80","sync_parent_id":"wd_65819b6cae0cd","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_products"}],"isInner":false},{"id":"4b40e98","elType":"container","settings":{"margin":{"unit":"px","top":"0","right":"0","bottom":"100","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"50","left":"0","isLinked":""},"flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"6f5d84f","elType":"widget","settings":{"subtitle":"","title":"Shopping by size","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"2fe9543","elType":"widget","settings":{"content_repeater":[{"title":"Small plants","subtitle":"1 - 2ft.","_id":"af8814f","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"source_type":"video","video":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/plants-banners-video-1.mp4","id":"416","size":"","alt":"","source":"library"},"custom_height":"Yes","image_height":{"unit":"px","size":"600","sizes":[]},"btn_text":"Shop now","vertical_alignment":"bottom","image_height_tablet":{"unit":"px","size":"460","sizes":[]}},{"title":"Medium plants","subtitle":"2 - 4ft.","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"source_type":"video","video":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/plants-banners-video-2.mp4","id":"424","size":"","alt":"","source":"library"},"custom_height":"Yes","image_height":{"unit":"px","size":"600","sizes":[]},"btn_text":"Shop now","vertical_alignment":"bottom","_id":"b57981c","image_height_tablet":{"unit":"px","size":"460","sizes":[]}},{"title":"Large plants","subtitle":"5+ ft.","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"source_type":"video","video":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/plants-banners-video-3.mp4","id":"425","size":"","alt":"","source":"library"},"custom_height":"Yes","image_height":{"unit":"px","size":"600","sizes":[]},"btn_text":"Shop now","vertical_alignment":"bottom","_id":"040a82c","image_height_tablet":{"unit":"px","size":"460","sizes":[]}}],"style":"mask","woodmart_color_scheme":"light","title_size":"extra-large","subtitle_typography_typography":"custom","subtitle_typography_font_size":{"unit":"px","size":"16","sizes":[]},"btn_position":"static","btn_color":"white","btn_style":"link","scroll_y":"-80","hide_pagination_control":"yes","sync_parent_id":"wd_65819b6cab85b","slides_per_view_tablet":{"unit":"px","size":"2","sizes":[]},"sync_group_id":"group-1"},"elements":[],"widgetType":"wd_banner_carousel"}],"isInner":false},{"id":"4854031","elType":"container","settings":{"wd_section_stretch":"stretch","background_background":"classic","background_color":"#5F6921","padding":{"unit":"px","top":"80","right":"15","bottom":"280","left":"15","isLinked":""},"padding_tablet":{"unit":"px","top":"50","right":"15","bottom":"250","left":"15","isLinked":""},"padding_mobile":{"unit":"px","top":"40","right":"15","bottom":"250","left":"15","isLinked":""},"flex_gap":{"size":"","column":"","row":"","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"7abdc76","elType":"widget","settings":{"text":"<p>Explore our <img class=\"alignnone wp-image-446 size-full\" src=\"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/ps-top-min-1.png\" alt=\"\" width=\"130\" height=\"52\" data-wp-editing=\"1\" \/> extensive range of plants <img class=\"alignnone size-full wp-image-447\" src=\"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/ps-top-min-2.png\" alt=\"\" width=\"130\" height=\"52\" \/> for <img class=\"alignnone size-full wp-image-448\" src=\"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/ps-top-min-3.png\" alt=\"\" width=\"130\" height=\"52\" \/> your room.<\/p>","text_color_scheme":"light","width":{"unit":"px","size":"864","sizes":[]},"typography_typography":"custom","typography_font_family":"ClashDisplay","typography_font_size":{"unit":"px","size":"68","sizes":[]},"typography_font_size_tablet":{"unit":"px","size":"36","sizes":[]},"typography_font_size_mobile":{"unit":"px","size":"30","sizes":[]},"typography_font_weight":"500","typography_line_height":{"unit":"px","size":"78","sizes":[]},"typography_line_height_tablet":{"unit":"px","size":"80","sizes":[]},"typography_line_height_mobile":{"unit":"px","size":"55","sizes":[]},"text_color":"title","scroll_y":"-80"},"elements":[],"widgetType":"wd_text_block"}],"isInner":false},{"id":"b1f8009","elType":"container","settings":{"structure":"20","margin":{"unit":"px","top":"-200","right":"0","bottom":"90","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"-200","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"-200","right":"0","bottom":"40","left":"0","isLinked":""},"reverse_order_tablet":"reverse-tablet","reverse_order_mobile":"reverse-mobile","flex_direction":"row","flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"flex_direction_tablet":"row","flex_gap_tablet":{"column":"","row":"","isLinked":"1","unit":"px","size":""},"container_sticky_offset":"50","scroll_y":"-80","flex_direction_mobile":"column-reverse","flex_gap_mobile":{"column":"0","row":"0","isLinked":"1","unit":"px","size":"0"}},"elements":[{"id":"216127d","elType":"container","settings":{"_column_size":"50","width":{"size":"41.6","unit":"%"},"column_sticky_offset":"50","scroll_y":"-80","background_background":"classic","background_color":"#E7E5D9","padding":{"unit":"px","top":"40","right":"40","bottom":"40","left":"40","isLinked":""},"width_tablet":{"size":"","unit":"%"},"content_width":"full","flex_gap":{"column":"0","row":"0","isLinked":"1","unit":"px","size":"0"},"container_sticky_offset":"50"},"elements":[{"id":"08addb3","elType":"widget","settings":{"scroll_y":"-80","image":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/quotes.svg","id":"463","size":"","alt":"","source":"library"},"image_size":"custom","image_custom_dimension":{"width":"32","height":"32"},"_margin":{"unit":"px","top":"0","right":"0","bottom":"10","left":"0","isLinked":""}},"elements":[],"widgetType":"wd_image_or_svg"},{"id":"5a3fa2e","elType":"widget","settings":{"subtitle":"","title":"I am so happy, my dear friend, so absorbed in the exquisite sense of mere existence.","after_title":"","size":"large","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"38","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"22","sizes":[]},"_margin":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"55c9380","elType":"widget","settings":{"text":"Divider","color":"#5E6821","weight":{"unit":"px","size":"2","sizes":[]},"gap":{"unit":"px","size":"0","sizes":[]},"_margin":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"scroll_y":"-80"},"elements":[],"widgetType":"divider"},{"id":"d1b919b","elType":"widget","settings":{"icon_type":"icon","icon_text":"53","image":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-teammember-circle-opt.png","id":"464","size":"","alt":"","source":"library"},"image_size":"custom","image_custom_dimension":{"width":"60","height":"60"},"subtitle":"","title":"Jenny Wilson","content":"<p>Founder<\/p>","btn_text":"","link":{"url":"","is_external":"","nofollow":"","custom_attributes":""},"alignment":"left","image_alignment":"left","image_vertical_alignment":"middle","title_size":"large","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"24","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"title_typography_line_height":{"unit":"em","size":"1","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_infobox"}],"isInner":"1"},{"id":"10fc032","elType":"container","settings":{"_column_size":"50","width":{"size":"58.4","unit":"%"},"column_sticky_offset":"50","scroll_y":"-80","flex_justify_content":"center","background_background":"classic","background_image":{"url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-video-thumbnail-opt.jpg","id":"468","size":"","alt":"","source":"library"},"background_position":"center center","background_repeat":"no-repeat","background_size":"cover","padding":{"unit":"px","top":"100","right":"15","bottom":"100","left":"15","isLinked":""},"width_tablet":{"size":"","unit":"%"},"content_width":"full","container_sticky_offset":"50"},"elements":[{"id":"9ca292b","elType":"widget","settings":{"video_type":"youtube","video_youtube_url":"https:\/\/www.youtube.com\/watch?v=kcjwXUfPxAY","video_vimeo_url":"https:\/\/vimeo.com\/235215203","video_action_button":"play","text":"Play video","play_button_icon_size":{"unit":"px","size":"100","sizes":[]},"play_button_icon_idle_color":"#FFFFFF","play_button_icon_hover_color":"#FFFFFF99","scroll_y":"-80"},"elements":[],"widgetType":"wd_video"}],"isInner":"1"}],"isInner":false},{"id":"2fb7643","elType":"container","settings":{"margin":{"unit":"px","top":"0","right":"0","bottom":"90","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"c38e366","elType":"container","settings":{"_column_size":"100","width":{"size":"","unit":"%"},"flex_justify_content":"space-between","align":"space-between","column_sticky_offset":"50","scroll_y":"-80","content_width":"full","flex_direction":"row","flex_align_items":"flex-end","flex_gap":{"column":"30","row":"30","isLinked":"1","unit":"px","size":"30"},"flex_wrap":"nowrap","container_sticky_offset":"50"},"elements":[{"id":"ebc42e0","elType":"widget","settings":{"subtitle":"","title":"Exotic flowering plants","after_title":"<p>Most popular products<\/p>","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"3f91722","elType":"widget","settings":{"text":"Shop all","link":{"url":"https:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/shop\/","is_external":"","nofollow":"","custom_attributes":""},"color":"primary","_element_width":"auto","scroll_y":"-80","_flex_size":"grow"},"elements":[],"widgetType":"wd_button"}],"isInner":"1"},{"id":"47ab6d2","elType":"widget","settings":{"spacing":"30","items_per_page":"4","img_size":"custom","img_size_custom":{"width":"430","height":"490"},"scroll_y":"-80","sync_parent_id":"wd_65819b6cae0cd","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_products"}],"isInner":false},{"id":"a57555f","elType":"container","settings":{"margin":{"unit":"px","top":"0","right":"0","bottom":"70","left":"0","isLinked":""},"margin_tablet":{"unit":"px","top":"0","right":"0","bottom":"60","left":"0","isLinked":""},"margin_mobile":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"flex_gap":{"size":"0","column":"0","row":"0","unit":"px","isLinked":"1"},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"ae1c73e","elType":"widget","settings":{"subtitle":"","title":"Our articles","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80","_margin":{"unit":"px","top":"0","right":"0","bottom":"20","left":"0","isLinked":""}},"elements":[],"widgetType":"wd_title"},{"id":"4128202","elType":"widget","settings":{"text":"Divider","color":"#5E6821","weight":{"unit":"px","size":"2","sizes":[]},"gap":{"unit":"px","size":"0","sizes":[]},"_margin":{"unit":"px","top":"0","right":"0","bottom":"30","left":"0","isLinked":""},"scroll_y":"-80"},"elements":[],"widgetType":"divider"},{"id":"a836008","elType":"widget","settings":{"blog_design":"list","img_size":"full","items_per_page":"3","parts_text":"","scroll_y":"-80","sync_parent_id":"wd_65819b6cab22c","_padding":{"unit":"px","top":"0","right":"0","bottom":"50","left":"0","isLinked":""},"_padding_tablet":{"unit":"px","top":"0","right":"0","bottom":"40","left":"0","isLinked":""},"_border_border":"solid","_border_width":{"unit":"px","top":"0","right":"0","bottom":"2","left":"0","isLinked":""},"_border_color":"#5E6821","sync_group_id":"group-1"},"elements":[],"widgetType":"wd_blog"}],"isInner":false},{"id":"aaadcd9","elType":"container","settings":{"flex_gap":{"size":"30","column":"30","row":"30","unit":"px","isLinked":"1"},"margin":{"unit":"px","top":"0","right":"0","bottom":"20","left":"0","isLinked":""},"container_sticky_offset":"50","scroll_y":"-80"},"elements":[{"id":"e9c8e5a","elType":"widget","settings":{"subtitle":"","title":"View our instagram","after_title":"","size":"medium","align":"left","title_typography_typography":"custom","title_typography_font_size":{"unit":"px","size":"28","sizes":[]},"title_typography_font_size_tablet":{"unit":"px","size":"22","sizes":[]},"title_typography_font_size_mobile":{"unit":"px","size":"20","sizes":[]},"scroll_y":"-80"},"elements":[],"widgetType":"wd_title"},{"id":"1a7bdcc","elType":"widget","settings":{"username":"wowmonstera","size":"medium","images":[{"id":"501","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-1-opt.jpg"},{"id":"502","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-2-opt.jpg"},{"id":"503","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-3-opt.jpg"},{"id":"504","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-4-opt.jpg"},{"id":"505","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-5-opt.jpg"},{"id":"506","url":"http:\/\/dummy.xtemos.com\/woodmart2\/plants-elementor\/wp-content\/uploads\/sites\/12\/2023\/06\/w-ps-instagram-6-opt.jpg"}],"images_size":"full","images_link":"https:\/\/www.instagram.com\/wowmonstera\/","images_likes":"1000-10000","images_comments":"0-1000","design":"slider","per_row":{"unit":"px","size":"6","sizes":[]},"number":{"unit":"px","size":"6","sizes":[]},"spacing":"1","spacing_custom":"30","hide_pagination_control":"yes","scroll_y":"-80","sync_parent_id":"wd_65819b6cac940","per_row_tablet":{"unit":"px","size":"4","sizes":[]},"per_row_mobile":{"unit":"px","size":"2","sizes":[]},"sync_group_id":"group-1"},"elements":[],"widgetType":"wd_instagram"}],"isInner":false}]]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>
@@ -714,6 +728,52 @@
 																					<wp:postmeta>
 							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
 							<wp:meta_value><![CDATA[2023/06/plants-banners-video-3.mp4]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[ps-top-min-1]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/home-plants/ps-top-min-1/</link>
+					<pubDate>Mon, 12 Jun 2023 13:46:56 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-1.png</guid>
+															<wp:post_id>446</wp:post_id>
+					<wp:post_date><![CDATA[2023-06-12 13:46:56]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2023-06-12 13:46:56]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2023-06-12 13:46:56]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2023-06-12 13:46:56]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[ps-top-min-1]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>13</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-1.png]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2023/06/ps-top-min-1.png]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[ps-top-min-2]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/home-plants/ps-top-min-2/</link>
+					<pubDate>Mon, 12 Jun 2023 13:47:27 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-2.png</guid>
+															<wp:post_id>447</wp:post_id>
+					<wp:post_date><![CDATA[2023-06-12 13:47:27]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2023-06-12 13:47:27]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2023-06-12 13:47:27]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2023-06-12 13:47:27]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[ps-top-min-2]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>13</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-2.png]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2023/06/ps-top-min-2.png]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>
@@ -1445,52 +1505,6 @@
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[ps-top-min-1]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/home-plants/ps-top-min-1/</link>
-					<pubDate>Mon, 12 Jun 2023 13:46:56 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-1.png</guid>
-															<wp:post_id>446</wp:post_id>
-					<wp:post_date><![CDATA[2023-06-12 13:46:56]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2023-06-12 13:46:56]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2023-06-12 13:46:56]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2023-06-12 13:46:56]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[ps-top-min-1]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>13</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-1.png]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2023/06/ps-top-min-1.png]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
-					<title><![CDATA[ps-top-min-2]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/home-plants/ps-top-min-2/</link>
-					<pubDate>Mon, 12 Jun 2023 13:47:27 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-2.png</guid>
-															<wp:post_id>447</wp:post_id>
-					<wp:post_date><![CDATA[2023-06-12 13:47:27]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2023-06-12 13:47:27]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2023-06-12 13:47:27]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2023-06-12 13:47:27]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[ps-top-min-2]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>13</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/ps-top-min-2.png]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2023/06/ps-top-min-2.png]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[ps-top-min-3]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/home-plants/ps-top-min-3/</link>
 					<pubDate>Mon, 12 Jun 2023 13:47:41 +0000</pubDate>
@@ -1703,29 +1717,6 @@
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[arrow]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/arrow/</link>
-					<pubDate>Fri, 09 Jun 2023 12:43:15 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg</guid>
-															<wp:post_id>57</wp:post_id>
-					<wp:post_date><![CDATA[2023-06-09 12:43:15]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2023-06-09 12:43:15]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2023-06-09 12:43:15]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2023-06-09 12:43:15]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[open]]></wp:comment_status>
-					<wp:post_name><![CDATA[arrow]]></wp:post_name>
-					<wp:status><![CDATA[inherit]]></wp:status>
-					<wp:post_parent>0</wp:post_parent>
-					<wp:menu_order>0</wp:menu_order>
-					<wp:post_type><![CDATA[attachment]]></wp:post_type>
-											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg]]></wp:attachment_url>
-																					<wp:postmeta>
-							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
-							<wp:meta_value><![CDATA[2023/06/arrow.svg]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[Gift ideas]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/2026/06/22/gift-ideas/</link>
 					<pubDate>Mon, 22 Jun 2026 12:41:33 +0000</pubDate>
@@ -1786,6 +1777,29 @@
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
 							<wp:meta_value><![CDATA[57]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[arrow]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/plants-elementor/arrow/</link>
+					<pubDate>Fri, 09 Jun 2023 12:43:15 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">http://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg</guid>
+															<wp:post_id>57</wp:post_id>
+					<wp:post_date><![CDATA[2023-06-09 12:43:15]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2023-06-09 12:43:15]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2023-06-09 12:43:15]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2023-06-09 12:43:15]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[open]]></wp:comment_status>
+					<wp:post_name><![CDATA[arrow]]></wp:post_name>
+					<wp:status><![CDATA[inherit]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[attachment]]></wp:post_type>
+											<wp:attachment_url><![CDATA[https://dummy.xtemos.com/woodmart2/plants-elementor/wp-content/uploads/sites/12/2023/06/arrow.svg]]></wp:attachment_url>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+							<wp:meta_value><![CDATA[2023/06/arrow.svg]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>

@@ -47,7 +47,7 @@
 					<pubDate>Fri, 29 Nov 2024 09:52:44 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35505</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"cb2daed8-4201-4e25-845b-649d636cab7d","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-cb2daed8" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -133,7 +133,7 @@
 
 <!-- wp:wd/section {"blockId":"53e560bc-3e73-4b02-99ea-236873d916cb","bgColorCode":"#f9f9f9","paddingTop":"80","paddingBottom":"80","marginBottom":"80","paddingTopTablet":"60","paddingTopMobile":"40","paddingBottomTablet":"60","paddingBottomMobile":"40","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div id="wd-53e560bc" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"6a0a3993-406c-4593-a9a0-65cf469c35f1","rowGap":"10"} -->
-<div id="wd-6a0a3993" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/paragraph {"blockId":"c99ac685-0d32-4886-9052-9b2be08c631b","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-6a0a3993" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/paragraph {"blockId":"c99ac685-0d32-4886-9052-9b2be08c631b","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-c99ac685" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -217,7 +217,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"fa2fd69d-9427-4877-ac69-d0820cf22764","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"fa2fd69d-9427-4877-ac69-d0820cf22764","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-fa2fd69d" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -236,7 +236,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"e2f31e41-af12-4043-adb9-2318102fc45a"} -->
-<div id="wd-e2f31e41" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"faa3da75-ef94-4846-8acc-17d6aa8d3081","content":"u003cspan class=u0022wd-highlightu0022u003eSergey Brinu003c/spanu003e"} -->
+<div id="wd-e2f31e41" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"faa3da75-ef94-4846-8acc-17d6aa8d3081","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eSergey Brin\u003c/span\u003e"} -->
 <h2 id="wd-faa3da75" class="wp-block-wd-title title"><span class="wd-highlight">Sergey Brin</span></h2>
 <!-- /wp:wd/title -->
 
@@ -266,7 +266,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"8be4d179-8e9f-484d-9d58-c80e333dabb6"} -->
-<div id="wd-8be4d179" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"2c043ec3-bfbe-479c-98b2-99dc5dca3dda","content":"u003cspan class=u0022wd-highlightu0022u003eu003cstrongu003eSarah Connoru003c/strongu003eu003c/spanu003e"} -->
+<div id="wd-8be4d179" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"2c043ec3-bfbe-479c-98b2-99dc5dca3dda","content":"\u003cspan class=\u0022wd-highlight\u0022\u003e\u003cstrong\u003eSarah Connor\u003c/strong\u003e\u003c/span\u003e"} -->
 <h2 id="wd-2c043ec3" class="wp-block-wd-title title"><span class="wd-highlight"><strong>Sarah Connor</strong></span></h2>
 <!-- /wp:wd/title -->
 
@@ -296,7 +296,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"f98992e4-9c09-4135-9846-0a2110266b53"} -->
-<div id="wd-f98992e4" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"ca0387d0-d48d-420f-85a5-24d51c8342f7","content":"u003cspan class=u0022wd-highlightu0022u003eHarleigh Dodsonu003c/spanu003e"} -->
+<div id="wd-f98992e4" class="wp-block-wd-container wd-dir-col"><!-- wp:wd/title {"blockId":"ca0387d0-d48d-420f-85a5-24d51c8342f7","content":"\u003cspan class=\u0022wd-highlight\u0022\u003eHarleigh Dodson\u003c/span\u003e"} -->
 <h2 id="wd-ca0387d0" class="wp-block-wd-title title"><span class="wd-highlight">Harleigh Dodson</span></h2>
 <!-- /wp:wd/title -->
 
@@ -319,7 +319,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"4252c347-95b2-4b2f-abf1-6474f876894d","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"4252c347-95b2-4b2f-abf1-6474f876894d","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-4252c347" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -371,7 +371,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"315108b5-2cf4-4862-9e2c-b4b68e241fe2","textAlign":"center","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"315108b5-2cf4-4862-9e2c-b4b68e241fe2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-315108b5" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -425,7 +425,7 @@
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/paragraph {"blockId":"737162f8-3e1f-49ca-b8dc-ddbdaa1f753e","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"737162f8-3e1f-49ca-b8dc-ddbdaa1f753e","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-737162f8" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENTS</p>
 <!-- /wp:wd/paragraph -->
 

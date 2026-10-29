@@ -24,7 +24,7 @@
 					<pubDate>Tue, 06 Aug 2024 14:54:45 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/furniture2-gutenberg/?post_type=woodmart_layout&#038;p=801</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"ed6a01c2-174d-4929-891a-08fe76e5ad31","blockVersion":"2","blockGap":10,"bgColorCode":"#ffffff","paddingTop":"20","paddingBottom":"40","marginTop":"-40","marginBottom":"40"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/section {"blockId":"ed6a01c2-174d-4929-891a-08fe76e5ad31","blockVersion":"2","bgColorCode":"#ffffff","paddingTop":"20","paddingBottom":"40","marginTop":"-40","marginBottom":"40"} -->
 <div class="wp-block-wd-section wd-ed6a01c2"><!-- wp:wd/container {"blockId":"522097fb-6956-4fe7-b125-44811b660cf9","blockVersion":"2","direction":"row","justify":"space-between"} -->
 <div class="wp-block-wd-container wd-dir-row wd-522097fb"><!-- wp:wd/woo-breadcrumbs {"blockId":"6c6220a9-3e66-4aeb-8cf8-078ae9d649a2","blockVersion":"2"} /-->
 
@@ -81,12 +81,12 @@
 
 <!-- wp:wd/woo-hook {"blockId":"1a883b32-6b56-4cab-b400-1d3376065d1e","blockVersion":"2","hook":"woocommerce_single_product_summary"} /-->
 
-<!-- wp:wd/container {"blockId":"e04c6dbb-4682-465f-8430-07c1014e236e","blockVersion":"2","direction":"row","wrap":"wrap","marginBottom":"10"} -->
+<!-- wp:wd/container {"blockId":"e04c6dbb-4682-465f-8430-07c1014e236e","blockVersion":"2","marginBottom":"10","direction":"row","wrap":"wrap"} -->
 <div class="wp-block-wd-container wd-dir-row wd-e04c6dbb"><!-- wp:wd/sp-compare-btn {"blockId":"9dd41807-d0c3-4878-a1f9-3985a22d1e96","blockVersion":"2"} /-->
 
 <!-- wp:wd/sp-wishlist-btn {"blockId":"98cd7031-83e1-4bd7-96f9-cd6b8586e5a3","blockVersion":"2"} /-->
 
-<!-- wp:wd/sp-size-guide-btn {"blockId":"c6adea86-3158-4392-8dbe-a512176d3074","blockVersion":"2"} /--></div>
+<!-- wp:wd/sp-price-tracker {"blockId":"d9bd5a4c-5ed3-425a-8ccd-ad290636716f","blockVersion":"2"} /--></div>
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/accordion {"blockId":"8a93a378-1978-4439-9d4d-e52b834f70a7","blockVersion":"2","allClosed":true,"borderType":"solid","borderColorCode":"rgba(0,0,0,0.1)","borderWidthTop":"1"} -->
@@ -107,14 +107,14 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/sp-fbt-products {"blockId":"a08d39c1-b129-472d-873e-0a02d88fed76","blockVersion":"2","showTitle":true,"bgColorCode":"#ffffff","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","paddingLock":true,"marginBottom":"60","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","marginBottomTablet":"40"} -->
-<!-- wp:wd/title {"blockId":"4c3c2ae0-b180-4a16-8520-0f4473278fa6","blockVersion":"2","content":"Frequently bought together","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"4c3c2ae0-b180-4a16-8520-0f4473278fa6","blockVersion":"2","content":"Frequently bought together","tpFontSize":"22"} -->
 <h2 class="wp-block-wd-title title wd-4c3c2ae0">Frequently bought together</h2>
 <!-- /wp:wd/title -->
 <!-- /wp:wd/sp-fbt-products -->
 
 <!-- wp:wd/row {"blockId":"c38b5e26-97e7-4fe0-99a2-de951bddb568","blockVersion":"2","bgColorCode":"#ffffff","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","paddingLock":true,"marginBottom":"60","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","marginBottomTablet":"40"} -->
 <div class="wp-block-wd-row wd-c38b5e26"><!-- wp:wd/column {"blockId":"08404bd3-0a58-4e71-8ee2-79c73456b9ee","blockVersion":"2","adjacentCount":2} -->
-<div class="wp-block-wd-column wd-08404bd3"><!-- wp:wd/title {"blockId":"374a854b-ca7e-4ae3-8e0d-ae71d6e53342","blockVersion":"2","content":"Product details","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<div class="wp-block-wd-column wd-08404bd3"><!-- wp:wd/title {"blockId":"374a854b-ca7e-4ae3-8e0d-ae71d6e53342","blockVersion":"2","content":"Product details","tpFontSize":"22"} -->
 <h2 class="wp-block-wd-title title wd-374a854b">Product details</h2>
 <!-- /wp:wd/title -->
 
@@ -126,7 +126,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"6e4840e4-1d37-4261-a716-733eb709c202","blockVersion":"2","adjacentCount":2,"sticky":true,"stickyTablet":true} -->
-<div class="wp-block-wd-column wd-sticky-on-lg wd-sticky-on-md-sm wd-6e4840e4"><!-- wp:wd/title {"blockId":"b9253145-087f-4a12-9186-9b16f94c711d","blockVersion":"2","content":"Description","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<div class="wp-block-wd-column wd-sticky-on-lg wd-sticky-on-md-sm wd-6e4840e4"><!-- wp:wd/title {"blockId":"b9253145-087f-4a12-9186-9b16f94c711d","blockVersion":"2","content":"Description","tpFontSize":"22"} -->
 <h2 class="wp-block-wd-title title wd-b9253145">Description</h2>
 <!-- /wp:wd/title -->
 
@@ -135,14 +135,14 @@
 <!-- /wp:wd/row -->
 
 <!-- wp:wd/container {"blockId":"d07cce13-567a-42b4-aba2-bb38a7dd4ef9","blockVersion":"2","bgColorCode":"#ffffff","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","paddingLock":true,"marginBottom":"60","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","marginBottomTablet":"40"} -->
-<div class="wp-block-wd-container wd-dir-col wd-d07cce13"><!-- wp:wd/title {"blockId":"3d3425b7-95b3-4e05-b33f-d73ce461568d","blockVersion":"2","content":"About brand","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<div class="wp-block-wd-container wd-dir-col wd-d07cce13"><!-- wp:wd/title {"blockId":"3d3425b7-95b3-4e05-b33f-d73ce461568d","blockVersion":"2","content":"About brand","tpFontSize":"22"} -->
 <h2 class="wp-block-wd-title title wd-3d3425b7">About brand</h2>
 <!-- /wp:wd/title -->
 
 <!-- wp:wd/sp-brand-info {"blockId":"e87ce817-3251-47a4-b45a-6f0a16b893b6","blockVersion":"2"} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/container {"blockId":"186fc6f4-494d-4de5-b834-b15c8edd585e","blockVersion":"2","rowGap":"30","bgColorCode":"#ffffff","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","paddingLock":true,"marginBottom":"60","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","marginBottomTablet":"20","marginBottomMobile":"0"} -->
+<!-- wp:wd/container {"blockId":"186fc6f4-494d-4de5-b834-b15c8edd585e","blockVersion":"2","bgColorCode":"#ffffff","paddingTop":"20","paddingRight":"20","paddingBottom":"20","paddingLeft":"20","paddingLock":true,"marginBottom":"60","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","rowGap":"30","marginBottomTablet":"20","marginBottomMobile":"0"} -->
 <div class="wp-block-wd-container wd-dir-col wd-186fc6f4"><!-- wp:wd/title {"blockId":"e9afee21-27ae-4c8f-a7ae-90f2cbdf8745","blockVersion":"2","content":"Customer reviews​","tpFontSize":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-e9afee21">Customer reviews​</h2>
 <!-- /wp:wd/title -->
@@ -151,15 +151,15 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/products {"blockId":"698a63d1-1035-42bb-8722-27c0051970f8","blockVersion":"2","show_title":true,"layout":"carousel","items_per_page":"6","products_with_background":true,"marginTop":"40","marginBottom":"40","slides_per_view":"5","hide_pagination_control":true,"sync_parent_id":"wd_9a13be74","productsBackgroundCode":"#ffffff","marginBottomTablet":"20","slides_per_viewTablet":"3","slides_per_viewMobile":"2","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} -->
-<!-- wp:wd/title {"blockId":"c69cef3b-6096-4d59-9b4d-6aede89be769","blockVersion":"2","content":"Related products","tpFontSize":"22","tpFontSizeMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"c69cef3b-6096-4d59-9b4d-6aede89be769","blockVersion":"2","content":"Related products","tpFontSize":"22"} -->
 <h2 class="wp-block-wd-title title wd-c69cef3b">Related products</h2>
 <!-- /wp:wd/title -->
 <!-- /wp:wd/products -->]]></content:encoded>
 															<wp:post_id>801</wp:post_id>
 					<wp:post_date><![CDATA[2024-08-06 14:54:45]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-08-06 14:54:45]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-08-04 13:28:20]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-08-04 13:28:20]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-06 13:49:00]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-06 13:49:00]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[single-product-furniture-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

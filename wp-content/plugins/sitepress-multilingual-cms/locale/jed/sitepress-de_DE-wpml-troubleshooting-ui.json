@@ -8,19 +8,19 @@
             "lang": "de_DE"
          },
          "Preparing...": [
-            "Wird vorbereitet..."
+            "Vorbereitung..."
          ],
          "All jobs have been cancelled": [
-            "Alle Aufträge wurden storniert"
+            "Alle Aufträge wurden abgebrochen"
          ],
          "There is no more jobs to cancel": [
-            "Es gibt keine weiteren Aufträge zum Stornieren"
+            "Es gibt keine weiteren Aufträge zum Abbrechen"
          ],
          "The jobs cancellation has failed": [
-            "Die Auftragsstornierung ist fehlgeschlagen"
+            "Das Abbrechen der Aufträge ist fehlgeschlagen"
          ],
          "Cancel in-progress automatic jobs": [
-            "Laufende automatische Aufträge stornieren"
+            "Laufende automatische Aufträge abbrechen"
          ],
          "Domain name has been updated": [
             "Domainname wurde aktualisiert"
@@ -29,22 +29,22 @@
             "Aktualisierung des Domainnamens ist fehlgeschlagen"
          ],
          "Update domain name in language switcher settings": [
-            "Domainname in den Einstellungen des Sprachumschalters aktualisieren"
+            "Domainnamen in den Einstellungen für den Sprachumschalter aktualisieren"
          ],
          "Disclaimer: MySQL Disk Space": [
             "Haftungsausschluss: MySQL-Speicherplatz"
          ],
          "Cleaning and compressing the wp_icl_translate and wp_icl_translation_status tables reduces its data size, but does not automatically free up disk space in MySQL. To reclaim disk space, a table rebuild is required—a risky operation not performed automatically by this tool.": [
-            "Das Bereinigen und Komprimieren der Tabellen wp_icl_translate und wp_icl_translation_status reduziert deren Datengröße, gibt aber nicht automatisch Speicherplatz in MySQL frei. Um Speicherplatz zurückzugewinnen, ist ein Tabellen-Rebuild erforderlich – ein riskanter Vorgang, der von diesem Tool nicht automatisch durchgeführt wird."
+            "Das Bereinigen und Komprimieren der Tabellen wp_icl_translate und wp_icl_translation_status reduziert deren Datengröße, gibt aber nicht automatisch Speicherplatz in MySQL frei. Um Speicherplatz zurückzugewinnen, ist ein Neuerstellen der Tabelle erforderlich – ein riskanter Vorgang, der von diesem Tool nicht automatisch durchgeführt wird."
          ],
          "Optimize translation tables": [
             "Übersetzungstabellen optimieren"
          ],
          "Previous State Migration": [
-            "Migration des vorherigen Zustands"
+            "Migration des vorherigen Status"
          ],
          "Translation Elements Migration": [
-            "Migration von Übersetzungselementen"
+            "Migration der Übersetzungselemente"
          ],
          "Processed": [
             "Verarbeitet"
@@ -62,42 +62,42 @@
             "Warnung"
          ],
          "This process is resource-intensive and may take a significant amount of time. It is recommended to run this optimization during periods of low traffic.": [
-            "Dieser Prozess ist ressourcenintensiv und kann eine erhebliche Zeit in Anspruch nehmen. Es wird empfohlen, diese Optimierung in Zeiten geringen Datenverkehrs durchzuführen."
+            "Dieser Vorgang ist ressourcenintensiv und kann eine erhebliche Zeit in Anspruch nehmen. Es wird empfohlen, diese Optimierung in Zeiten mit geringem Datenverkehr auszuführen."
          ],
          "Database Tables Optimization": [
             "Optimierung der Datenbanktabellen"
          ],
          "Refresh license data to recognise license update": [
-            "Lizenzdaten aktualisieren, um Lizenzaktualisierung zu erkennen"
+            "Lizenzdaten aktualisieren, um Lizenz-Update zu erkennen"
          ],
          "WPML License has been refreshed": [
             "WPML-Lizenz wurde aktualisiert"
          ],
          "Translate Everything Automatically is not active.": [
-            "Alles automatisch übersetzen ist nicht aktiv."
+            "„Alles automatisch übersetzen“ ist nicht aktiv."
          ],
          "Retry stuck automatic translations": [
             "Hängengebliebene automatische Übersetzungen erneut versuchen"
          ],
-         "Resends translation jobs that couldn't be processed due to a temporary issue while Translate Everything Automatically was active.": [
-            "Sendet Übersetzungsaufträge erneut, die aufgrund eines temporären Problems nicht verarbeitet werden konnten, während „Alles automatisch übersetzen“ aktiv war."
+         "Resends translation jobs that couldn't be processed due to a temporary issue while <b>Translate Everything Automatically</b> was active.": [
+            "Sendet Übersetzungsaufträge erneut, die aufgrund eines vorübergehenden Problems nicht verarbeitet werden konnten, während <b>Alles automatisch übersetzen</b> aktiv war."
          ],
          "Checking for stuck translation jobs...": [
             "Suche nach hängengebliebenen Übersetzungsaufträgen..."
          ],
          "Processing... %s stuck translation found so far": [
-            "Wird verarbeitet... Bisher %s hängengebliebene Übersetzung gefunden",
-            "Wird verarbeitet... Bisher %s hängengebliebene Übersetzungen gefunden"
+            "Verarbeitung... %s hängengebliebene Übersetzung bisher gefunden",
+            "Verarbeitung... %s hängengebliebene Übersetzungen bisher gefunden"
          ],
          "Something went wrong while checking for stuck translation jobs. Please <a>contact WPML support</a>.": [
-            "Beim Überprüfen auf hängengebliebene Übersetzungsaufträge ist ein Fehler aufgetreten. Bitte <a>kontaktieren Sie den WPML-Support</a>."
+            "Beim Prüfen auf hängengebliebene Übersetzungsaufträge ist ein Fehler aufgetreten. Bitte <a>kontaktiere den WPML-Support</a>."
          ],
          "No stuck translation jobs found.": [
             "Keine hängengebliebenen Übersetzungsaufträge gefunden."
          ],
-         "%s stuck translation job found. WPML will translate it automatically in the background.\nYou can check the progress in the Translation Dashboard.": [
-            "Es wurde %s hängengebliebener Übersetzungsauftrag gefunden. WPML wird ihn automatisch im Hintergrund übersetzen.\nSie können den Fortschritt im Übersetzungs-Dashboard überprüfen.",
-            "Es wurden %s hängengebliebene Übersetzungsaufträge gefunden. WPML wird sie automatisch im Hintergrund übersetzen.\nSie können den Fortschritt im Übersetzungs-Dashboard überprüfen."
+         "%s stuck translation job found. WPML will translate it automatically in the background.\nYou can check the progress in the <b>Translation Dashboard</b>.": [
+            "%s hängengebliebener Übersetzungsauftrag gefunden. WPML wird diesen automatisch im Hintergrund übersetzen.\nDu kannst den Fortschritt im <b>Übersetzungs-Dashboard</b> überprüfen.",
+            "%s hängengebliebene Übersetzungsaufträge gefunden. WPML wird diese automatisch im Hintergrund übersetzen.\nDu kannst deren Fortschritt im <b>Übersetzungs-Dashboard</b> überprüfen."
          ]
       }
    }

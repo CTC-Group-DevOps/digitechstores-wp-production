@@ -29,7 +29,10 @@ class StatusBar {
 			[
 				'parent' => false,
 				'id'     => 'ate-status-bar',
-				'title'  => '<i id="wpml-status-bar-icon" class="otgs-ico otgs-ico-wpml"></i>' .
+				'title'  => '<i id="wpml-status-bar-icon" class="otgs-ico otgs-ico-wpml" aria-hidden="true"></i>' .
+					'<span class="screen-reader-text" id="wpml-ate-status-bar-label">' .
+					esc_html__( 'WPML automatic translation', 'sitepress' ) .
+					'</span>' .
 					'<span id="wp-admin-bar-ate-status-bar-badge"></span>',
 				'href'   => false,
 				'meta'   => [ 'class' => 'wpml-status-bar-hidden' ]

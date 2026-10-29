@@ -19,53 +19,63 @@ class View {
 	}
 
 
-	public static function renderTabs( $active ) {
-		$baseUrl = admin_url( 'admin.php?page=' . Hooks::SUBMENU_HANDLE );
-		$tabs    = [
-			'requests' => [
-				'label' => __( 'Requests', 'sitepress' ),
-				'url'   => $baseUrl,
-			],
-			'by-post'  => [
-				'label' => __( 'By post / page', 'sitepress' ),
-				'url'   => $baseUrl . '&tab=by-post',
-			],
-		];
-		echo '<nav class="nav-tab-wrapper wpml-tm-job-log-tabs">';
-		foreach ( $tabs as $key => $tab ) {
-			$class = 'nav-tab' . ( $active === $key ? ' nav-tab-active' : '' );
-			printf(
-				'<a href="%s" class="%s">%s</a>',
-				esc_url( $tab['url'] ),
-				esc_attr( $class ),
-				esc_html( $tab['label'] )
-			);
+	private static function isEmbeddedInSupport() {
+		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		return $page === 'sitepress-multilingual-cms/menu/support.php';
+	}
+
+	public static function renderViewSwitchButton( $currentView ) {
+		if ( self::isEmbeddedInSupport() ) {
+			$baseUrl = admin_url( 'admin.php?page=sitepress-multilingual-cms/menu/support.php&tool=job-logs' );
+		} else {
+			$baseUrl = admin_url( 'admin.php?page=' . Hooks::SUBMENU_HANDLE );
 		}
-		echo '</nav>';
+
+		if ( $currentView === 'by-post' ) {
+			$label = __( 'Show all requests', 'sitepress' );
+			$url   = $baseUrl;
+		} else {
+			$label = __( 'Search by post / page', 'sitepress' );
+			$url   = $baseUrl . '&tab=by-post';
+		}
+
+		printf(
+			'<p class="wpml-tm-job-log-switch"><a href="%s" class="button">%s</a></p>',
+			esc_url( $url ),
+			esc_html( $label )
+		);
 	}
 
 
 	public function renderPage() {
 		$isEnabled = $this->isLoggingEnabled;
-		$label     = $isEnabled ? esc_html__( 'Job logs are enabled', 'sitepress' ) : esc_html__( 'Job logs are disabled', 'sitepress' );
 
-		$textEnabled  = esc_attr__( 'Job logs are enabled', 'sitepress' );
-		$textDisabled = esc_attr__( 'Job logs are disabled', 'sitepress' );
+		$textEnabled  = esc_attr__( 'Log translation jobs enabled', 'sitepress' );
+		$textDisabled = esc_attr__( 'Log translation jobs disabled', 'sitepress' );
+		$label        = $isEnabled ? $textEnabled : $textDisabled;
 		?>
 		<div class="wrap wpml-tm-job-log">
-			<h1><?php esc_html_e( 'Translation Management Job Logs', 'sitepress' ); ?></h1>
-			<p class="job-log-help-text" style="margin-bottom: 0">
-				<?php
-				$supportUrl = __( 'https://wpml.org/forums/forum/english-support/', 'sitepress' );
-				printf(
-					/* translators: %1$s: opening link tag, %2$s: closing link tag */
-					esc_html__( 'In order to get help, please %1$sopen a ticket in our Forum Thread (Maiya)%2$s. Enable logging, reproduce the issue, then click "Download all" to get the log file and attach it to your support ticket.', 'sitepress' ),
-					'<a href="' . esc_url( $supportUrl ) . '" target="_blank" rel="noopener noreferrer">',
-					'</a>'
-				);
-				?>
-			</p>
-			<?php self::renderTabs( 'requests' ); ?>
+			<?php if ( ! self::isEmbeddedInSupport() ) : ?>
+				<h1><?php esc_html_e( 'Translation job logs', 'sitepress' ); ?></h1>
+				<p class="job-log-help-text" style="margin-bottom: 0">
+					<?php
+					$supportUrl = \WPML\OutboundLinks\OutboundLinks::to(
+						\WPML\UserInterface\Web\Core\SharedKernel\Domain\SupportForumUrl::URL,
+						array(
+							'medium'   => 'settings',
+							'campaign' => 'support',
+						)
+					);
+					printf(
+						/* translators: Help text above the job log on the translation jobs screen. %1$s: the opening tag of a link to the support forum, %2$s: the closing tag of that link. "Download all" is the label of a button on the same screen, so use the same words you used for that button. */
+						esc_html__( 'In order to get help, please %1$sopen a ticket in our Forum Thread (Maiya)%2$s. Enable logging, reproduce the issue, then click "Download all" to get the log file and attach it to your support ticket.', 'sitepress' ),
+						'<a href="' . esc_url( $supportUrl ) . '" target="_blank" rel="noopener noreferrer">',
+						'</a>'
+					);
+					?>
+				</p>
+			<?php endif; ?>
+			<?php self::renderViewSwitchButton( 'requests' ); ?>
 			<div class="job-log-toolbar">
 				<div class="job-log-settings-toggle-wrapper">
 					<label class="job-log-settings-toggle">
@@ -76,9 +86,9 @@ class View {
 					<span class="job-log-toggle-loader spinner" style="display: none; float: none; margin: 0 0 0 8px;"></span>
 				</div>
 				<div class="job-log-clear-wrapper">
-					<button type="button" class="button" id="job-log-download-all-button"><?php esc_html_e( 'Download all', 'sitepress' ); ?></button>
-					<button type="button" class="button" id="job-log-download-last-100-button"><?php esc_html_e( 'Download last 100', 'sitepress' ); ?></button>
-					<button type="button" class="button" id="job-log-clear-button"><?php esc_html_e( 'Clear logs', 'sitepress' ); ?></button>
+					<button type="button" class="button wpml-button base-btn wpml-button--outlined" id="job-log-download-all-button"><?php /* translators: Button label above the job log: save every stored log to a file. Verb, imperative. */ esc_html_e( 'Download all', 'sitepress' ); ?></button>
+					<button type="button" class="button wpml-button base-btn wpml-button--outlined" id="job-log-download-last-100-button"><?php esc_html_e( 'Download last 100', 'sitepress' ); ?></button>
+					<button type="button" class="button wpml-button base-btn wpml-button--outlined" id="job-log-clear-button"><?php /* translators: Button label above the job log: delete the stored logs. Verb, imperative. */ esc_html_e( 'Clear logs', 'sitepress' ); ?></button>
 					<?php
 					$totalBytes = FsJobLogStorage::getTotalSize();
 					$capBytes   = FsJobLogStorage::getMaxTotalBytes();
@@ -88,7 +98,7 @@ class View {
 					$capState   = $capRatio >= 0.9 ? 'is-critical' : ( $capRatio >= 0.7 ? 'is-warning' : '' );
 					$sizeLabel  = FsJobLogStorage::formatBytes( $totalBytes ) . ' / ' . FsJobLogStorage::formatBytes( $capBytes );
 					$capTooltip = sprintf(
-						/* translators: 1: cap size formatted (e.g. "50.0 MB"); 2: file count */
+						/* translators: Tooltip on the disk usage figure above the job log; clicking the figure opens the limits dialog. %1$s: the largest total size allowed, already written out, for example "50.0 MB", %2$d: how many requests are kept at most. */
 						__( 'Total job-log disk usage. Caps: %1$s / %2$d files. Click to change.', 'sitepress' ),
 						FsJobLogStorage::formatBytes( $capBytes ),
 						$capFiles
@@ -124,7 +134,7 @@ class View {
 
 			<div class="job-log-cap-modal-backdrop" id="job-log-cap-modal" style="display:none" aria-hidden="true">
 				<div class="job-log-cap-modal" role="dialog" aria-modal="true" aria-labelledby="job-log-cap-modal-title">
-					<h2 id="job-log-cap-modal-title"><?php esc_html_e( 'Job-log storage limits', 'sitepress' ); ?></h2>
+					<h2 id="job-log-cap-modal-title"><?php /* translators: Heading of the dialog that sets how much disk space the log of translation requests may use. */ esc_html_e( 'Job-log storage limits', 'sitepress' ); ?></h2>
 					<div class="job-log-cap-modal-field">
 						<label for="job-log-cap-mb"><?php esc_html_e( 'Maximum total size (MB)', 'sitepress' ); ?></label>
 						<input type="number" id="job-log-cap-mb" step="1" />
@@ -137,8 +147,8 @@ class View {
 					</div>
 					<div class="job-log-cap-modal-error" id="job-log-cap-modal-error" style="display:none"></div>
 					<div class="job-log-cap-modal-actions">
-						<button type="button" class="button" id="job-log-cap-cancel"><?php esc_html_e( 'Cancel', 'sitepress' ); ?></button>
-						<button type="button" class="button button-primary" id="job-log-cap-save"><?php esc_html_e( 'Save', 'sitepress' ); ?></button>
+						<button type="button" class="button wpml-button base-btn wpml-button--outlined" id="job-log-cap-cancel"><?php /* translators: Button label that closes a dialog without doing anything, or stops what is going on. Verb, imperative, not the noun "a cancellation". */ esc_html_e( 'Cancel', 'sitepress' ); ?></button>
+						<button type="button" class="button button-primary wpml-button base-btn" id="job-log-cap-save"><?php /* translators: Button label that keeps what was entered. Verb, imperative. */ esc_html_e( 'Save', 'sitepress' ); ?></button>
 						<span class="job-log-cap-modal-loader spinner" style="float:none;margin:0 0 0 8px;display:none"></span>
 					</div>
 				</div>
@@ -150,12 +160,12 @@ class View {
 	private function renderTableHeader() {
 		?>
 		<tr>
-			<th class="job-log-col-status" style="width: 110px"><?php esc_html_e( 'Status', 'sitepress' ); ?></th>
-			<th class="job-log-col-when"><?php esc_html_e( 'When', 'sitepress' ); ?></th>
-			<th class="job-log-col-endpoint"><?php esc_html_e( 'Endpoint', 'sitepress' ); ?></th>
-			<th class="job-log-col-duration" style="width: 100px"><?php esc_html_e( 'Duration', 'sitepress' ); ?></th>
-			<th class="job-log-col-pid" style="width: 80px"><?php esc_html_e( 'PID', 'sitepress' ); ?></th>
-			<th class="job-log-col-actions" style="width: 220px"><?php esc_html_e( 'Actions', 'sitepress' ); ?></th>
+			<th class="job-log-col-status" style="width: 110px"><?php /* translators: Column heading in tables of the WPML admin, above the cells that say how far something has got. Noun, singular. */ esc_html_e( 'Status', 'sitepress' ); ?></th>
+			<th class="job-log-col-when"><?php /* translators: Column heading in the job log table: when the request was made. */ esc_html_e( 'When', 'sitepress' ); ?></th>
+			<th class="job-log-col-endpoint"><?php /* translators: Column heading in the job log table: which part of the translation service the request went to. */ esc_html_e( 'Endpoint', 'sitepress' ); ?></th>
+			<th class="job-log-col-duration" style="width: 100px"><?php /* translators: Column heading in the job log table, and a label in the details of one request: how long the request took. */ esc_html_e( 'Duration', 'sitepress' ); ?></th>
+			<th class="job-log-col-pid" style="width: 80px"><?php /* translators: Column heading in the job log table: the number the server gives the process that handled the request. Keep the abbreviation used by system tools in your language. */ esc_html_e( 'PID', 'sitepress' ); ?></th>
+			<th class="job-log-col-actions" style="width: 220px"><?php /* translators: Column heading in the job log table, above the buttons that act on a row. */ esc_html_e( 'Actions', 'sitepress' ); ?></th>
 		</tr>
 		<?php
 	}
@@ -163,7 +173,7 @@ class View {
 	private function renderEmptyTable() {
 		?>
 		<tr>
-			<td colspan="6"><?php esc_html_e( 'No entries', 'sitepress' ); ?></td>
+			<td colspan="6"><?php /* translators: Shown in place of a table when the log holds nothing. */ esc_html_e( 'No entries', 'sitepress' ); ?></td>
 		</tr>
 		<?php
 	}
@@ -190,15 +200,15 @@ class View {
 			<td><?php echo $this->renderDuration( $durationMs, $status ); ?></td>
 			<td><?php echo $phpPid !== null ? esc_html( (string) $phpPid ) : '—'; ?></td>
 			<td>
-				<button class="button tm-log-view"
+				<button class="button wpml-button base-btn wpml-button--outlined tm-log-view"
 				        data-loguid="<?php echo esc_attr( $logUid ); ?>"
 				        data-target="<?php echo esc_attr( $detailPanelId ); ?>"
-				        data-textopen="<?php esc_attr_e( 'View', 'sitepress' ); ?>"
-				        data-textclose="<?php esc_attr_e( 'Hide', 'sitepress' ); ?>">
-					<?php esc_html_e( 'View', 'sitepress' ); ?>
+				        data-textopen="<?php /* translators: Button label in the job log table that opens the details of a request, and link text that opens the translated item. Verb, imperative: to look at it. */ esc_attr_e( 'View', 'sitepress' ); ?>"
+				        data-textclose="<?php /* translators: Label of the control that folds something away: the details of a request in the job log, or a notice. Verb, imperative. */ esc_attr_e( 'Hide', 'sitepress' ); ?>">
+					<?php /* translators: Button label in the job log table that opens the details of a request, and link text that opens the translated item. Verb, imperative: to look at it. */ esc_html_e( 'View', 'sitepress' ); ?>
 				</button>
-				<button class="button tm-log-download" data-loguid="<?php echo esc_attr( $logUid ); ?>">
-					<?php esc_html_e( 'Download', 'sitepress' ); ?>
+				<button class="button wpml-button base-btn wpml-button--outlined tm-log-download" data-loguid="<?php echo esc_attr( $logUid ); ?>">
+					<?php /* translators: Button label: save a file to the computer, the log of one request or a plugin; also the name of a kind of request in the Endpoint column of the job log table. Verb, imperative. */ esc_html_e( 'Download', 'sitepress' ); ?>
 				</button>
 			</td>
 		</tr>
@@ -234,22 +244,25 @@ class View {
 		switch ( $status ) {
 			case FsJobLogStorage::STATUS_COMPLETE:
 				$colour = $hasErrorLogs ? '#c8471f' : '#1C7D6B';
-				$text   = $hasErrorLogs ? __( 'errors', 'sitepress' ) : __( 'complete', 'sitepress' );
+				$text   = $hasErrorLogs ? /* translators: Status shown on a row of the job log table: the request finished but errors were recorded. Plural noun, written in lower case. */ __( 'errors', 'sitepress' ) : /* translators: Status shown on a row of the job log table: the request finished with no errors. Adjective, written in lower case. */ __( 'complete', 'sitepress' );
 				break;
 			case FsJobLogStorage::STATUS_IN_PROGRESS:
 				$colour = '#2F7D92';
+				/* translators: Status shown on a row of the job log table: the request is still running. Written in lower case. */
 				$text   = __( 'in progress', 'sitepress' );
 				break;
 			case FsJobLogStorage::STATUS_STUCK:
 				$colour = '#996415';
+				/* translators: Status shown on a row of the job log table: the request stopped moving and is not going on. Adjective, written in lower case. */
 				$text   = __( 'stuck', 'sitepress' );
 				break;
 			case FsJobLogStorage::STATUS_LEGACY:
 				$colour = $hasErrorLogs ? '#c8471f' : '#999';
-				$text   = $hasErrorLogs ? __( 'legacy/errors', 'sitepress' ) : __( 'legacy', 'sitepress' );
+				$text   = $hasErrorLogs ? /* translators: Status shown on a row of the job log table: the request comes from an older version of WPML and errors were recorded. Written in lower case. */ __( 'legacy/errors', 'sitepress' ) : /* translators: Status shown on a row of the job log table: the request comes from an older version of WPML. Adjective, written in lower case. */ __( 'legacy', 'sitepress' );
 				break;
 			case FsJobLogStorage::STATUS_ABORTED:
 				$colour = '#c8471f';
+				/* translators: Status shown on a row of the job log table: the request was broken off before it finished. Adjective, written in lower case. */
 				$text   = __( 'aborted', 'sitepress' );
 				break;
 		}
@@ -264,6 +277,7 @@ class View {
 	private function renderDuration( $durationMs, $status ) {
 		if ( $durationMs === null ) {
 			if ( $status === FsJobLogStorage::STATUS_STUCK || $status === FsJobLogStorage::STATUS_IN_PROGRESS ) {
+				/* translators: Shown in the Duration column of the job log table when the request has not finished, so there is no duration yet. Keep it as a dash. */
 				return '<em>' . esc_html__( '—', 'sitepress' ) . '</em>';
 			}
 			return '—';
@@ -273,14 +287,18 @@ class View {
 
 	private function classifyEndpoint( $url ) {
 		if ( $this->endsWith( $url, 'send-to-translation' ) ) {
+			/* translators: Name of a kind of request in the Endpoint column of the job log table: content was sent for translation. */
 			return __( 'Send', 'sitepress' );
 		}
 		if ( $this->endsWith( $url, 'sync' ) ) {
+			/* translators: Name of a kind of request in the Endpoint column of the job log table: WPML and the translation service brought their data up to date. Noun, and short if your language allows it. */
 			return __( 'Sync', 'sitepress' );
 		}
 		if ( $this->endsWith( $url, 'download' ) ) {
+			/* translators: Button label: save a file to the computer, the log of one request or a plugin; also the name of a kind of request in the Endpoint column of the job log table. Verb, imperative. */
 			return __( 'Download', 'sitepress' );
 		}
+		/* translators: Name of a kind of request in the Endpoint column of the job log table, for requests that fit none of the other names. */
 		return __( 'Other', 'sitepress' );
 	}
 
@@ -327,15 +345,15 @@ class View {
 		}
 		?>
 		<div class="job-log-detail-header">
-			<div><strong><?php esc_html_e( 'URL', 'sitepress' ); ?>:</strong> <code><?php echo esc_html( $requestUrl ); ?></code></div>
-			<div><strong><?php esc_html_e( 'Started', 'sitepress' ); ?>:</strong> <?php echo esc_html( $startedMs !== '' ? $startedMs : $requestDateTime ); ?></div>
+			<div><strong><?php /* translators: Label in the details of one request in the job log, in front of the web address the request went to. */ esc_html_e( 'URL', 'sitepress' ); ?>:</strong> <code><?php echo esc_html( $requestUrl ); ?></code></div>
+			<div><strong><?php /* translators: Label in the details of one request in the job log, in front of the time the request began. Past participle used as a label. */ esc_html_e( 'Started', 'sitepress' ); ?>:</strong> <?php echo esc_html( $startedMs !== '' ? $startedMs : $requestDateTime ); ?></div>
 			<?php if ( $durationMs !== null ) : ?>
-				<div><strong><?php esc_html_e( 'Duration', 'sitepress' ); ?>:</strong> <?php echo esc_html( number_format( $durationMs ) . ' ms' ); ?></div>
+				<div><strong><?php /* translators: Column heading in the job log table, and a label in the details of one request: how long the request took. */ esc_html_e( 'Duration', 'sitepress' ); ?>:</strong> <?php echo esc_html( number_format( $durationMs ) . ' ms' ); ?></div>
 			<?php elseif ( ! $wasFinalised ) : ?>
-				<div style="color:#c8471f"><strong><?php esc_html_e( 'Did not complete', 'sitepress' ); ?></strong> — <?php esc_html_e( 'request_finished was never written; the worker likely crashed mid-request.', 'sitepress' ); ?></div>
+				<div style="color:#c8471f"><strong><?php esc_html_e( 'Did not complete', 'sitepress' ); ?></strong> — <?php /* translators: Second half of the line "Did not complete — request_finished was never written; the worker likely crashed mid-request." in the details of one request in the job log. It starts in lower case because it follows the dash. "request_finished" is the name of a log entry and stays as it is. */ esc_html_e( 'request_finished was never written; the worker likely crashed mid-request.', 'sitepress' ); ?></div>
 			<?php endif; ?>
 			<?php if ( $phpPid !== null ) : ?>
-				<div><strong><?php esc_html_e( 'PHP PID', 'sitepress' ); ?>:</strong> <?php echo esc_html( (string) $phpPid ); ?></div>
+				<div><strong><?php /* translators: Label in the details of one request in the job log, in front of the number the server gave the process that handled it. */ esc_html_e( 'PHP PID', 'sitepress' ); ?>:</strong> <?php echo esc_html( (string) $phpPid ); ?></div>
 			<?php endif; ?>
 			<?php if ( $hasErrorLogs ) : ?>
 				<div style="color:#c8471f"><strong><?php esc_html_e( 'This request contains error logs.', 'sitepress' ); ?></strong></div>
@@ -343,7 +361,7 @@ class View {
 		</div>
 
 		<div class="job-log-detail-params">
-			<strong><?php esc_html_e( 'Request parameters', 'sitepress' ); ?>:</strong>
+			<strong><?php /* translators: Label in the details of one request in the job log, above the values that were sent with it. */ esc_html_e( 'Request parameters', 'sitepress' ); ?>:</strong>
 			<pre><?php echo esc_html( (string) wp_json_encode( $requestParams, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) ); ?></pre>
 		</div>
 
@@ -363,6 +381,7 @@ class View {
 	private function renderGroup( $index, array $group ) {
 		echo '<div class="job-log-group">';
 		echo '<strong>'
+			/* translators: Column heading in the menu synchronization table, and the word before the number of a step in the details of one request in the job log, as in "Action 1:". Noun: the thing that will be done. */
 			. esc_html__( 'Action', 'sitepress' ) . ' ' . (int) $index . ': '
 			. esc_html( (string) ( $group['label'] ?? '' ) )
 			. '</strong><br>';
@@ -604,7 +623,8 @@ class View {
 
 		echo '<div style="' . $rootCss . '">';
 		echo '<span class="job-log-label job-log-sublabel">' . $this->getStepHtml( $i, $this->isErrorEvent( $log ) ) . esc_html( (string) ( $log['id'] ?? '' ) ) . $elapsedBadge . $pidBadge . '</span> ';
-		echo '<button class="button tm-log-toggle tm-log-stack-trace-toggle" data-target="' . esc_attr( $sectionId ) . '">' . esc_html__( 'View trace', 'sitepress' ) . '</button>';
+		/* translators: Button label in the job log that shows the list of code steps recorded with an error. */
+		echo '<button class="button wpml-button base-btn wpml-button--outlined tm-log-toggle tm-log-stack-trace-toggle" data-target="' . esc_attr( $sectionId ) . '">' . esc_html__( 'View trace', 'sitepress' ) . '</button>';
 		echo '</div>';
 		echo '<div id="' . esc_attr( $sectionId ) . '" style="display: none">';
 		echo '<pre>';
@@ -641,21 +661,25 @@ class View {
 	}
 
 	private function getToggleButtonHtml( $section_id ) {
+		/* translators: Button label in the job log that unfolds a section, and the wording that button shows while the section is folded. Verb, imperative. */
 		$text_open  = esc_attr__( 'Open', 'sitepress' );
+		/* translators: Label of the control that closes an open section or dialog. Verb, imperative, not the adjective meaning near. */
 		$text_close = esc_attr__( 'Close', 'sitepress' );
 		$section_id = esc_attr( $section_id );
 
 		return sprintf(
-			'<button class="button tm-log-toggle" data-textopen="%1$s" data-textclose="%2$s" data-target="%3$s">%4$s</button>',
+			'<button class="button wpml-button base-btn wpml-button--outlined tm-log-toggle" data-textopen="%1$s" data-textclose="%2$s" data-target="%3$s">%4$s</button>',
 			$text_open,
 			$text_close,
 			$section_id,
+			/* translators: Button label in the job log that unfolds a section, and the wording that button shows while the section is folded. Verb, imperative. */
 			esc_html__( 'Open', 'sitepress' )
 		);
 	}
 
 	private function getStepHtml( $i, $error = false ) {
 		$class = $error ? ' job-log-step-error' : '';
+		/* translators: Word before the number of a step in the details of one request in the job log, as in "Step 1:". */
 		return '<span class="job-log-step' . $class . '">' . __( 'Step', 'sitepress' ) . ' ' . ( $i + 1 ) . ':' . '</span> ';
 	}
 }

@@ -26,8 +26,8 @@ class SetCorrectTranslateEverythingState implements \IWPML_Upgrade_Command {
 
 		$isAnyPostTypeDisabledForAutoTranslate = Automatic::isAnyPostTypeDisabledForAutoTranslate();
 
-		// If TM is not allowed (blog licence) Or TranslateEverything is paused we disable TranslateEverything
-		if ( $tmNotAllowed || $translateEverythingIsPaused || $isAnyPostTypeDisabledForAutoTranslate ) {
+		// Disable TranslateEverything if the licence forbids TM, or if the user
+		if ( $tmNotAllowed || $translateEverythingIsPaused ) {
 			$wpmlSetupOptions[ Option::TRANSLATE_EVERYTHING ] = false;
 		}
 

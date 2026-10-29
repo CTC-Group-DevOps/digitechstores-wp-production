@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 function get_yotpo_widget_field_name($widget_type_name) {
   switch ($widget_type_name) {
     case 'ReviewsMainWidget':
@@ -17,23 +19,50 @@ function get_yotpo_widget_field_name($widget_type_name) {
   }
 }
 
-function receive_widget_instances() {
-  $yotpo_settings = get_option('yotpo_settings', wc_yotpo_get_default_settings());
-  $yotpo_api = new Yotpo($yotpo_settings['app_key'], $yotpo_settings['secret']);
-  return $yotpo_api->get_widget_instances();
+// Reads the widget instances with the given app key and secret, or with the stored ones when none are given.
+function receive_widget_instances($app_key = null, $secret = null) {
+  if (null === $app_key && null === $secret) {
+    $yotpo_settings = get_option('yotpo_settings', wc_yotpo_get_default_settings());
+    $app_key = $yotpo_settings['app_key'];
+    $secret = $yotpo_settings['secret'];
+  }
+  $yotpo_api = new Yotpo($app_key, $secret);
+  $response = $yotpo_api->get_widget_instances();
+  if (!is_array($response) || !isset($response['widget_instances']) || !is_array($response['widget_instances'])) {
+    $reason = !empty($yotpo_api->error) ? $yotpo_api->error : 'unexpected response from the Yotpo API';
+    ytdbg($reason, 'Fetching widget instances failed:');
+    return new WP_Error('yotpo_widget_instances', $reason);
+  }
+  return $response;
 }
 
-function get_widget_instances() {
-  $response = receive_widget_instances()['widget_instances'];
+// Returns the widget IDs keyed by field name, or a WP_Error when the Yotpo API could not be reached
+// or answered unexpectedly (e.g. a TLS certificate problem). Callers must keep the stored IDs on error.
+// Uses the given app key and secret, or the stored ones when none are given.
+function get_widget_instances($app_key = null, $secret = null) {
+  $response = receive_widget_instances($app_key, $secret);
+  if (is_wp_error($response)) {
+    return $response;
+  }
   $ids_object = array();
-  foreach($response as &$val) {
-    $ids_object[get_yotpo_widget_field_name($val['widget_type_name'])] = $val['widget_instance_id'];
+  foreach($response['widget_instances'] as $val) {
+    // Only the widgets the plugin shows: an account also has others (galleries, an SEO page), which
+    // were stored under an empty key.
+    $field = isset($val['widget_type_name']) ? get_yotpo_widget_field_name($val['widget_type_name']) : null;
+    if ($field && isset($val['widget_instance_id'])) {
+      $ids_object[$field] = $val['widget_instance_id'];
+    }
   }
   return $ids_object;
 }
 
-function get_widgets_instances() {
-  return yotpo_get_arr_value($_POST, 'yotpo_widget_version') === 'v3' ? get_widget_instances() : array(
+function wc_yotpo_widget_instances_error_message($error) {
+  return 'Could not fetch the widgets\' IDs from Yotpo, the saved IDs were kept: ' . esc_html($error->get_error_message());
+}
+
+// $app_key and $secret are the ones being saved: the lookup must not use the previously stored keys.
+function get_widgets_instances($app_key = null, $secret = null) {
+  return use_v3_widgets() ? get_widget_instances($app_key, $secret) : array(
     'reviews_widget' => yotpo_get_arr_value($_POST, 'yotpo_reviews_widget_id'),
     'qna' => yotpo_get_arr_value($_POST, 'yotpo_qna_widget_id'),
     'star_rating' => yotpo_get_arr_value($_POST, 'yotpo_star_ratings_widget_id'),
@@ -68,26 +97,125 @@ function get_v2_widgets_enables() {
   );
 }
 
+// Length of the mask: only a fixed placeholder, so it says nothing about the saved secret's length.
+const WC_YOTPO_SECRET_MASK_LENGTH = 24;
+
+/**
+ * What the secret field holds once a secret is saved: the browser shows it as a password, and the saved
+ * secret itself stays out of the page.
+ */
+function wc_yotpo_saved_secret_mask() {
+  return str_repeat('*', WC_YOTPO_SECRET_MASK_LENGTH);
+}
+
+/**
+ * The app key and secret to save. The saved secret never reaches the page, so the field left as it was
+ * (wc_yotpo_saved_secret_mask()) or emptied keeps it, for the same app key. A different app key needs its own secret, and an empty app key is refused:
+ * both keep the saved keys, with a notice.
+ *
+ * @return array{0:string, 1:string} The app key and secret.
+ */
+function wc_yotpo_posted_keys($current_settings) {
+  $saved_key = (string) yotpo_get_arr_value($current_settings, 'app_key', '');
+  $saved_secret = (string) yotpo_get_arr_value($current_settings, 'secret', '');
+  $app_key = trim((string) yotpo_get_arr_value($_POST, 'yotpo_app_key', ''));
+  $secret = trim((string) yotpo_get_arr_value($_POST, 'yotpo_oauth_token', ''));
+  if (wc_yotpo_saved_secret_mask() === $secret) {
+    $secret = '';
+  }
+  if ('' === $saved_key || '' === $saved_secret) {
+    // Keys are still being entered; a secret saved without its app key stays unless a new one is typed.
+    return array($app_key, '' === $secret ? $saved_secret : $secret);
+  }
+  if ('' === $app_key) {
+    wc_yotpo_display_message('The app key can\'t be empty. The saved keys were kept.', true);
+    return array($saved_key, $saved_secret);
+  }
+  if ('' === $secret) {
+    if ($app_key !== $saved_key) {
+      wc_yotpo_display_message('To connect a different app key, enter its secret token too. The saved keys were kept.', true);
+    }
+    return array($saved_key, $saved_secret);
+  }
+  return array($app_key, $secret);
+}
+
+/**
+ * Whether Yotpo accepts these keys, checked with the widget lookup (it needs a Core API token).
+ *
+ * @return WP_Error|null Why not, or null when Yotpo accepted them.
+ */
+function wc_yotpo_refused_keys_error($app_key, $secret) {
+  $response = receive_widget_instances($app_key, $secret);
+  return is_wp_error($response) ? $response : null;
+}
+
+/**
+ * The keys to save: the posted ones (wc_yotpo_posted_keys()), unless they differ from the saved keys and
+ * Yotpo refuses them, in which case the store keeps its saved keys, with a notice. Checked whatever the
+ * widget version: V2 stores don't look the widgets up when saving, so the widget lookup alone wouldn't tell.
+ *
+ * @return array{0:string, 1:string, 2:bool} The app key, the secret, and whether Yotpo refused the posted ones.
+ */
+function wc_yotpo_keys_to_save($current_settings) {
+  list($app_key, $secret) = wc_yotpo_posted_keys($current_settings);
+  $saved_key = (string) yotpo_get_arr_value($current_settings, 'app_key', '');
+  $saved_secret = (string) yotpo_get_arr_value($current_settings, 'secret', '');
+  $changed = '' !== $saved_key && ($app_key !== $saved_key || ('' !== $saved_secret && $secret !== $saved_secret));
+  $refused = $changed ? wc_yotpo_refused_keys_error($app_key, $secret) : null;
+  if (!$refused) {
+    return array($app_key, $secret, false);
+  }
+  // Yotpo didn't accept the new keys (or couldn't be reached): the store stays on its account, with its keys.
+  wc_yotpo_display_message('Could not connect with the new keys, the saved keys were kept: ' . esc_html($refused->get_error_message()), true);
+  return array($saved_key, $saved_secret, true);
+}
+
 function wc_proccess_yotpo_settings() {
   $current_settings = get_option('yotpo_settings', wc_yotpo_get_default_settings());
+  $product_sync_was_on = Yotpo_Product_Sync::setting_on();
+  $tags_were_on = Yotpo_Product_Sync::tags_on();
+  $order_sync_was_on = Yotpo_Order_Sync::setting_on();
+  list($app_key, $secret, $refused) = wc_yotpo_keys_to_save($current_settings);
+  $saved_key = (string) yotpo_get_arr_value($current_settings, 'app_key', '');
+  $new_account = '' !== $saved_key && $app_key !== $saved_key;
+  $widgets_ids = $refused && use_v3_widgets() ? yotpo_get_arr_value($current_settings, 'v3_widgets_ids', []) : get_widgets_instances($app_key, $secret);
+  if (is_wp_error($widgets_ids)) {
+    wc_yotpo_display_message(wc_yotpo_widget_instances_error_message($widgets_ids), true);
+    $widgets_ids = yotpo_get_arr_value($current_settings, 'v3_widgets_ids', []);
+  }
+  if ($new_account) {
+    Yotpo_Account_Switch::app_key_changed($saved_key, $app_key);
+  }
   $new_settings = array(
-    'app_key' => yotpo_get_arr_value($_POST, 'yotpo_app_key'),
-    'secret' => yotpo_get_arr_value($_POST, 'yotpo_oauth_token'),
+    'app_key' => $app_key,
+    'secret' => $secret,
     'v2_widget_location' => yotpo_get_arr_value($_POST, 'yotpo_v2_widget_location'),
     'v3_widget_location' => yotpo_get_arr_value($_POST, 'yotpo_v3_widget_location'),
     'language_code' => yotpo_get_arr_value($_POST, 'yotpo_widget_language_code'),
     'main_widget_tab_name' => yotpo_get_arr_value($_POST, 'yotpo_main_widget_tab_name'),
     'qna_widget_tab_name' => yotpo_get_arr_value($_POST, 'yotpo_qna_widget_tab_name'),
-    'widget_version' => yotpo_get_arr_value($_POST, 'yotpo_widget_version'),
-    'v3_widgets_ids' => get_widgets_instances(),
+    // Not a choice any more: saving keeps the version, and only "Switch to V3 widgets" changes it, one way.
+    'widget_version' => use_v3_widgets() ? 'v3' : 'v2',
+    'v3_widgets_ids' => $widgets_ids,
     'v3_widgets_enables' => get_v3_widgets_enables(),
     'v2_widgets_enables' => get_v2_widgets_enables(),
     'yotpo_order_status' => yotpo_get_arr_value($_POST, 'yotpo_order_status'),
     'yotpo_language_as_site' => isset($_POST['yotpo_language_as_site']) ? true : false,
+    'widget_language_from_page' => isset($_POST['widget_language_from_page']),
     'disable_native_review_system' => isset($_POST['disable_native_review_system']) ? true : false,
-    'show_submit_past_orders' => yotpo_get_arr_value($current_settings, 'show_submit_past_orders'),
+    'product_sync_enabled' => isset($_POST['product_sync_enabled']),
+    'product_sync_tags' => isset($_POST['product_sync_tags']),
+    'order_sync_enabled' => isset($_POST['order_sync_enabled']),
     'debug_mode' => isset($_POST['debug_mode']) ? true : false);
   update_option('yotpo_settings', $new_settings);
+  if ($new_account) {
+    // The full catalog sync starts for the new account only when product sync is on in what was just saved.
+    wc_yotpo_display_message('This store is now connected to the Yotpo account with app key ' . esc_html($app_key) . '.' . (Yotpo_Product_Sync::enabled() ? ' Your product catalog is being sent to it.' : ''));
+  }
+  Yotpo_Product_Sync::setting_changed($product_sync_was_on, $new_settings['product_sync_enabled']);
+  Yotpo_Product_Sync::tags_setting_changed($tags_were_on, $new_settings['product_sync_tags'], $product_sync_was_on, $new_settings['product_sync_enabled']);
+  Yotpo_Order_Sync::setting_changed($order_sync_was_on, $new_settings['order_sync_enabled']);
   if ($current_settings['disable_native_review_system'] != $new_settings['disable_native_review_system']) {
     if ($new_settings['disable_native_review_system'] == false) {
       update_option('woocommerce_enable_review_rating', get_option('native_star_ratings_enabled'));
@@ -95,44 +223,4 @@ function wc_proccess_yotpo_settings() {
       update_option('woocommerce_enable_review_rating', 'no');
     }
   }
-}
-
-function wc_display_yotpo_register() {
-  $email = isset($_POST['yotpo_user_email']) ? sanitize_email($_POST['yotpo_user_email']) : '';
-  $user_name = isset($_POST['yotpo_user_name']) ? sanitize_user($_POST['yotpo_user_name']) : '';
-  $register_html = "<div class='wrap'><h2>Yotpo Registration</h2>
-  <form method='post'>
-  <table class='form-table'>"
-          . wp_nonce_field('yotpo_registration_form') .
-          "<fieldset>
-      <h2 class='y-register-title'>Fill out the form below and click register to get started with Yotpo.</h2></br></br>    
-      <tr valign='top'>
-        <th scope='row'><div>Email address:</div></th>			 			  
-        <td><div><input type='text' name='yotpo_user_email' value='$email' /></div></td>
-      </tr>
-      <tr valign='top'>
-        <th scope='row'><div>Name:</div></th>			 			  
-        <td><div><input type='text' name='yotpo_user_name' value='$user_name' /></div></td>
-      </tr>
-      <tr valign='top'>
-        <th scope='row'><div>Password:</div></th>			 			  
-        <td><div><input type='password' name='yotpo_user_password' /></div></td>
-      </tr>
-      <tr valign='top'>
-        <th scope='row'><div>Confirm password:</div></th>			 			  
-        <td><div><input type='password' name='yotpo_user_confirm_password' /></div></td>
-      </tr>
-      <tr valign='top'>
-        <th scope='row'></th>
-        <td><div><input type='submit' name='yotpo_register' value='Register' class='button-primary submit-btn' /></div></td>
-      </tr>			  
-    </fieldset>			
-    <table/>
-  </form>
-  <form method='post'>
-    <div>Already registered to Yotpo?<input type='submit' name='log_in_button' value='click here' class='button-secondary not-user-btn' /></div>
-  </form></br><p class='description'>*Learn <a href='http://support.yotpo.com/entries/24454261-Exporting-reviews-for-Woocommerce'>how to export your existing reviews</a> into Yotpo.</p></br></br>
-  <div class='yotpo-terms'>By registering I accept the <a href='https://www.yotpo.com/terms-of-service' target='_blank'>Terms of Use</a> and recognize that a 'Powered by Yotpo' link will appear on the bottom of my Yotpo widget.</div>
-</div>";
-  echo wp_kses($register_html, yotpo_allowed_register_html());
 }

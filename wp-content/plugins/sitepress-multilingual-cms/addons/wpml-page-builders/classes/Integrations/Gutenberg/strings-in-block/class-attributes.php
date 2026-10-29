@@ -136,6 +136,8 @@ class Attributes extends Base {
 					ICL_TM_COMPLETE === (int) $translations[ $string_id ][ $lang ]['status']
 				) {
 					$attrs[ $attr_key ] = $translations[ $string_id ][ $lang ]['value'];
+				} else {
+					$attrs[ $attr_key ] = $this->updateShortcodeStrings( $attr_value, $lang );
 				}
 			}
 
@@ -145,6 +147,14 @@ class Attributes extends Base {
 		}
 
 		return $attrs;
+	}
+
+	private function updateShortcodeStrings( $attr_value, $lang ) {
+		if ( ! is_string( $attr_value ) || false === strpos( $attr_value, '[' ) ) {
+			return $attr_value;
+		}
+
+		return apply_filters( 'wpml_pb_update_translations_in_content', $attr_value, $lang );
 	}
 
 	private function hasJsonEncoding( $attr_key, $config_keys ) {

@@ -2,9 +2,16 @@
 
 namespace WCML\Compatibility\WpFastestCache;
 
+use WPML\FP\Fns;
+use WPML\FP\Lst;
+
 class MulticurrencyHooks implements \IWPML_Action {
 
 	public function add_hooks() {
+		add_filter( 'wcml_multicurrency_supported_cache_plugins', Lst::append( 'WP Fastest Cache' ) );
+
+		add_filter( 'wcml_user_store_strategy', Fns::always( 'cookie' ) );
+
 		add_filter(
 			'wcml_is_cache_enabled_for_switching_currency',
 			[

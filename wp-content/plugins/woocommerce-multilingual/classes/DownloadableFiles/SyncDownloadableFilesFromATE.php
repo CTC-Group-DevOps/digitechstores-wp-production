@@ -20,7 +20,14 @@ class SyncDownloadableFilesFromATE {
 
 		$groupedDownloadableFiles = $this->groupDownloadableFilesByProductIdConsideringProductVariants( $post_id, $fields, $job->language_code );
 
+		$allowed_target_ids = $this->getJobProductAndVariationIds( (int) $post_id );
+
 		foreach ( $groupedDownloadableFiles as $product_id => $downloadableFiles ) {
+			$product_id = (int) $product_id;
+			if ( ! in_array( $product_id, $allowed_target_ids, true ) ) {
+				continue;
+			}
+
 			$needUpdate     = false;
 			$orig_file_path = maybe_unserialize( get_post_meta( $product_id, \WCML_Downloadable_Products::DOWNLOADABLE_FILES_META, true ) );
 
@@ -48,6 +55,19 @@ class SyncDownloadableFilesFromATE {
 				update_post_meta( $product_id, \WCML_Downloadable_Products::DOWNLOADABLE_FILES_META, $orig_file_path );
 			}
 		}
+	}
+
+	private function getJobProductAndVariationIds( $product_id ) {
+		$ids = [ (int) $product_id ];
+
+		$product = function_exists( 'wc_get_product' ) ? wc_get_product( (int) $product_id ) : null;
+		if ( $product ) {
+			foreach ( (array) $product->get_children() as $variation_id ) {
+				$ids[] = (int) $variation_id;
+			}
+		}
+
+		return $ids;
 	}
 
 	private function groupDownloadableFilesByProductIdConsideringProductVariants( $product_id, array $fields, $language ) {

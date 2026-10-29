@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order-related functions and filters.
  *
  * @class    WC_PB_BS_Order
- * @version  5.8.0
+ * @version  8.5.16
  */
 class WC_PB_BS_Order {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 

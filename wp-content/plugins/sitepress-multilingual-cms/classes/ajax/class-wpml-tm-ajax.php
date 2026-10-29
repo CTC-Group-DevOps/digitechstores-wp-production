@@ -12,7 +12,7 @@ class WPML_TM_AJAX {
 			wp_send_json_error(
 				__(
 					'You have attempted to submit data in a not legit way.',
-					'wpml-translation-management'
+					'sitepress'
 				)
 			);
 

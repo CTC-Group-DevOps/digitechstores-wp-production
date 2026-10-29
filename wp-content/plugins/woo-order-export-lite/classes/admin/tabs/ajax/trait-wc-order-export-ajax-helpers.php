@@ -71,7 +71,9 @@ trait WC_Order_Export_Ajax_Helpers {
 
 				break;
 		}
-		header( 'Content-Disposition: attachment; filename="' . $download_name . '"' );
+
+		if ( apply_filters('woe_force_download', true) )
+			header( 'Content-Disposition: attachment; filename="' . $download_name . '"' );
 	}
 
 	protected function start_prevent_object_cache() {
@@ -110,9 +112,7 @@ trait WC_Order_Export_Ajax_Helpers {
 			}
 			wp_delete_file( $filename );
             //also delete storage file
-            if(file_exists($filename . '.storage')) {
-                wp_delete_file($filename . '.storage');
-            }
+            WC_Order_Export_Engine::delete_storage_file($filename);
 		}
 	}
 
@@ -168,17 +168,19 @@ trait WC_Order_Export_Ajax_Helpers {
 			delete_transient( $this->tempfile_prefix . $file_id );
 			wp_delete_file( $filename );
             //also delete storage file
-            if(file_exists($filename . '.storage')) {
-                wp_delete_file($filename . '.storage');
-            }
+            WC_Order_Export_Engine::delete_storage_file($filename);
 		}
 		$this->stop_prevent_object_cache();
 	}
 
 	public function build_and_send_file( $settings, $export = false, $browser_output = true ) {
 		$result = [];
-		$ids = isset($_REQUEST['ids']) ? sanitize_text_field(wp_unslash($_REQUEST['ids'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$filename = WC_Order_Export_Engine::build_file_full( $settings, '', 0, explode( ",", $ids ) );
+		if( isset($_REQUEST['ids']) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			 $ids = sanitize_text_field(wp_unslash($_REQUEST['ids']));// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			 $ids = array_filter( array_map('intval', explode( ",",$ids)) );
+		} else
+			$ids = [];
+		$filename = WC_Order_Export_Engine::build_file_full( $settings, '', 0, $ids );
 		$download_name = WC_Order_Export_Engine::make_filename( $settings['export_filename'] );
 		WC_Order_Export_Manage::set_correct_file_ext( $settings );
 		if ( $export ) {

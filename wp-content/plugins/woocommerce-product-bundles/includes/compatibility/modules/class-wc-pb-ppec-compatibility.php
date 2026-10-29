@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PayPal Express Checkout Compatibility.
  *
- * @version  6.6.1
+ * @version  8.5.16
  */
 class WC_PB_PPEC_Compatibility {
 
@@ -31,6 +31,7 @@ class WC_PB_PPEC_Compatibility {
 	 * Enable/Disable PayPal Express Checkout Quick-pay buttons based on the validity of the Bundle's configuration.
 	 *
 	 * @since 6.6.1
+	 * @return void
 	 */
 	public static function handle_ppec_quickpay_buttons_visibility() {
 

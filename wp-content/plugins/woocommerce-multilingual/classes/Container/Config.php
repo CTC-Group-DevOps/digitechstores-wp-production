@@ -18,6 +18,7 @@ class Config {
 			\WCML_Dependencies::class,
 			\WCML_Exchange_Rates::class,
 			\WCML_Multi_Currency::class,
+			\WCML\Reviews\Translations\DemandRecorder::class,
 		];
 	}
 

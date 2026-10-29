@@ -1,12 +1,12 @@
 <div class="{{ css_classes }}" >
 	<ul>
 		<li class="wcml-cs-active-currency" >
-			<a class="wcml-cs-item-toggle">{{ get_formatted_price( selected_currency, format )|raw }}</a>
+			<button type="button" class="wcml-cs-item-toggle" aria-current="true" aria-haspopup="true" aria-expanded="false">{{ get_formatted_price( selected_currency, format )|raw }}</button>
 			<ul class="wcml-cs-submenu">
 				{% for currency in currencies %}
 					{% if currency != selected_currency %}
 						<li>
-							<a rel="{{ currency }}">{{ get_formatted_price( currency, format )|raw }}</a>
+							<button type="button" data-currency="{{ currency }}">{{ get_formatted_price( currency, format )|raw }}</button>
 						</li>
 					{% endif %}
 				{% endfor %}

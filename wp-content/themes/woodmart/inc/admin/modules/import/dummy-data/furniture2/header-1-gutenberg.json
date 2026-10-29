@@ -1117,7 +1117,7 @@
                                     },
                                     "popular_requests": {
                                         "id": "popular_requests",
-                                        "value": false,
+                                        "value": true,
                                         "type": "switcher"
                                     },
                                     "search_history_enabled": {
@@ -1127,7 +1127,7 @@
                                     },
                                     "search_extra_content_enabled": {
                                         "id": "search_extra_content_enabled",
-                                        "value": false,
+                                        "value": true,
                                         "type": "switcher"
                                     },
                                     "search_extra_content": {
@@ -1310,6 +1310,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "default",
@@ -1431,6 +1436,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -1557,6 +1567,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -1693,6 +1708,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -1854,6 +1874,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",
@@ -2087,6 +2112,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "default",
@@ -2276,6 +2306,11 @@
                                         "value": "",
                                         "type": "color"
                                     },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
+                                    },
                                     "icon_type": {
                                         "id": "icon_type",
                                         "value": "cart",
@@ -2314,8 +2349,9 @@
                     },
                     "mobile_height": {
                         "id": "mobile_height",
-                        "value": 50,
-                        "type": "slider"
+                        "value": "60",
+                        "type": "slider",
+                        "unit": "px"
                     },
                     "hide_desktop": {
                         "id": "hide_desktop",
@@ -2467,6 +2503,11 @@
                                         "id": "icon_bg_hover_color",
                                         "value": "",
                                         "type": "color"
+                                    },
+                                    "border_radius": {
+                                        "id": "border_radius",
+                                        "value": "",
+                                        "type": "slider"
                                     },
                                     "icon_type": {
                                         "id": "icon_type",

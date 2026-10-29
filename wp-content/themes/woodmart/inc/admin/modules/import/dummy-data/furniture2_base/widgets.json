@@ -29,10 +29,10 @@
     "sidebar-shop": {
         "widgets": {
             "woocommerce_price_filter-2": {
-                "title": "Filter by price"
+                "title": "Price"
             },
             "woodmart-woocommerce-layered-nav-2": {
-                "title": "Filter by brand",
+                "title": "Brand",
                 "attribute": "product_brand",
                 "category": [
                     "all"
@@ -63,7 +63,7 @@
                 "search_by_filters": "1"
             },
             "wd-widget-stock-status-2": {
-                "title": "Stock status",
+                "title": "Product status",
                 "instock": "1",
                 "onsale": "1",
                 "onbackorder": "1"

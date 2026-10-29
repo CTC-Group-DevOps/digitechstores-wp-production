@@ -17,6 +17,10 @@ class WPML_TM_Translation_Batch {
 
 	private $translationMode = null;
 
+	private $createdByTranslateEverything = false;
+
+	private $reviewMode = null;
+
 	private $tpBatchInfo;
 
 	private $howToHandleExisting = self::HANDLE_EXISTING_LEAVE;
@@ -107,9 +111,27 @@ class WPML_TM_Translation_Batch {
 
 	public function get_batch_options() {
 		return array(
-			'basket_name'   => $this->get_basket_name(),
-			'deadline_date' => $this->get_deadline() ? $this->get_deadline()->format( 'Y-m-d' ) : '',
+			'basket_name'                     => $this->get_basket_name(),
+			'deadline_date'                   => $this->get_deadline() ? $this->get_deadline()->format( 'Y-m-d' ) : null,
+			'created_by_translate_everything' => $this->createdByTranslateEverything,
+			'review_mode'                     => $this->reviewMode,
 		);
+	}
+
+	public function setCreatedByTranslateEverything( $createdByTranslateEverything ) {
+		$this->createdByTranslateEverything = (bool) $createdByTranslateEverything;
+	}
+
+	public function isCreatedByTranslateEverything() {
+		return $this->createdByTranslateEverything;
+	}
+
+	public function setReviewMode( $reviewMode ) {
+		$this->reviewMode = is_string( $reviewMode ) && '' !== $reviewMode ? $reviewMode : null;
+	}
+
+	public function getReviewMode() {
+		return $this->reviewMode;
 	}
 
 	public function getTranslationMode() {
@@ -132,11 +154,10 @@ class WPML_TM_Translation_Batch {
 		$elements = [];
 		foreach ( $this->elements as $element ) {
 			$elements[] = [
-				'element_id'            => $element->get_element_id(),
-				'element_type'          => $element->get_element_type(),
-				'source_lang'           => $element->get_source_lang(),
-				'target_langs'          => $element->get_target_langs(),
-				'media_to_translations' => $element->get_media_to_translations(),
+				'element_id'   => $element->get_element_id(),
+				'element_type' => $element->get_element_type(),
+				'source_lang'  => $element->get_source_lang(),
+				'target_langs' => $element->get_target_langs(),
 			];
 		}
 

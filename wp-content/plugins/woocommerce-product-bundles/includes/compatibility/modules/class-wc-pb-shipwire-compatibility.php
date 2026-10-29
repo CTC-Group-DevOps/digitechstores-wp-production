@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Shipwire Integration.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Shipwire_Compatibility {
 
 	/**
 	 * Initialize the class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -34,6 +36,8 @@ class WC_PB_Shipwire_Compatibility {
 
 	/**
 	 * Modify the returned order items and products to return the correct items/weights/values for shipping.
+	 *
+	 * @return void
 	 */
 	public static function add_filters() {
 
@@ -43,6 +47,8 @@ class WC_PB_Shipwire_Compatibility {
 
 	/**
 	 * Remove filters.
+	 *
+	 * @return void
 	 */
 	public static function remove_filters() {
 

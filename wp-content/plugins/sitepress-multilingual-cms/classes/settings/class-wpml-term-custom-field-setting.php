@@ -1,9 +1,15 @@
 <?php
 
+use WPML\Core\Component\CustomFieldPreferences\Domain\ElementType;
+
 class WPML_Term_Custom_Field_Setting extends WPML_Custom_Field_Setting {
 
 	protected function get_state_array_setting_index() {
 		return WPML_Term_Custom_Field_Setting_Keys::get_state_array_setting_index();
+	}
+
+	protected function get_element_type() {
+		return ElementType::TERM;
 	}
 
 	protected function get_unlocked_setting_index() {

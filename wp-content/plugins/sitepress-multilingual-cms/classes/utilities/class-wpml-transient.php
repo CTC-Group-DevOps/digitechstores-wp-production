@@ -17,7 +17,8 @@ class WPML_Transient {
 		$data = get_option( self::WPML_TRANSIENT_PREFIX . $name );
 
 		if ( $data ) {
-			if ( (int) $data['expiration'] < time() ) {
+			$expiration = isset( $data['expiration'] ) ? (int) $data['expiration'] : 0;
+			if ( $expiration && $expiration < time() ) {
 				delete_option( self::WPML_TRANSIENT_PREFIX . $name );
 
 				return '';

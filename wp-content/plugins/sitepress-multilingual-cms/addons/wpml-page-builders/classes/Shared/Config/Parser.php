@@ -40,7 +40,7 @@ class Parser {
 
 			if ( $fieldsInItems ) {
 				$pbConfig[ $widgetName ]['fields_in_item'] = [];
-				$fieldsInItems                             = $this->normalize( $fieldsInItems );
+				$fieldsInItems                             = self::normalize( $fieldsInItems );
 
 				foreach ( $fieldsInItems as $fieldsInItem ) {
 					$itemOf                                               = Obj::path( [ 'attr', 'items_of' ], $fieldsInItem );
@@ -73,7 +73,7 @@ class Parser {
 	private function parseFields( array $rawFields ) {
 		$parsedFields = [];
 
-		foreach ( $this->normalize( $rawFields ) as $field ) {
+		foreach ( self::normalize( $rawFields ) as $field ) {
 			if ( in_array( Obj::path( [ 'attr', 'type' ], $field ), self::EXCLUDE_TYPES, true ) ) {
 				continue;
 			}
@@ -108,7 +108,7 @@ class Parser {
 			->getOrElse( [] );
 	}
 
-	public function normalize( array $partialConfig ) {
+	public static function normalize( array $partialConfig ) {
 		$isAssocArray = count( array_filter( array_keys( $partialConfig ), 'is_string' ) ) > 0;
 
 		return $isAssocArray ? [ $partialConfig ] : $partialConfig;

@@ -178,6 +178,7 @@
 .wpml-tm-job-log #job-log-download-all-button,
 .wpml-tm-job-log #job-log-download-last-100-button,
 .wpml-tm-job-log #job-log-clear-button,
+.wpml-tm-job-log .wpml-tm-job-log-switch .button,
 .wpml-tm-job-log .job-log-summary-row .button.tm-log-view,
 .wpml-tm-job-log .job-log-summary-row .button.tm-log-download,
 .wpml-tm-job-log .job-log-cap-modal #job-log-cap-cancel,
@@ -193,7 +194,8 @@
 
 .wpml-tm-job-log #job-log-download-all-button,
 .wpml-tm-job-log #job-log-download-last-100-button,
-.wpml-tm-job-log #job-log-clear-button {
+.wpml-tm-job-log #job-log-clear-button,
+.wpml-tm-job-log .wpml-tm-job-log-switch .button {
 	min-height: 32px;
 	padding: 4px 14px;
 	font-size: 13px;
@@ -213,11 +215,13 @@
 	font-weight: 500;
 }
 
-/* Outline state — default for: Download all, Download last 100, per-row Download, modal Cancel. */
+/* Outline state — default for: Download all, Download last 100, view-switch, per-row Download, modal Cancel. */
 .wpml-tm-job-log #job-log-download-all-button:hover,
 .wpml-tm-job-log #job-log-download-all-button:focus,
 .wpml-tm-job-log #job-log-download-last-100-button:hover,
 .wpml-tm-job-log #job-log-download-last-100-button:focus,
+.wpml-tm-job-log .wpml-tm-job-log-switch .button:hover,
+.wpml-tm-job-log .wpml-tm-job-log-switch .button:focus,
 .wpml-tm-job-log .job-log-summary-row .button.tm-log-download:hover,
 .wpml-tm-job-log .job-log-summary-row .button.tm-log-download:focus,
 .wpml-tm-job-log .job-log-cap-modal #job-log-cap-cancel:hover,
@@ -569,9 +573,9 @@
 	margin-top: 20px;
 }
 
-/* Tab nav (shared by Requests / By post) --------------------------------- */
+/* View-switch button (jumps between Requests and By post / page) --------- */
 
-.wpml-tm-job-log .wpml-tm-job-log-tabs {
+.wpml-tm-job-log .wpml-tm-job-log-switch {
 	margin: 12px 0 14px;
 }
 

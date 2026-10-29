@@ -1,5 +1,8 @@
 <?php
 
+use WPML\StringTranslation\Infrastructure\TranslateEverything\EnglishSourceLanguage;
+use WPML\ST\StringValue;
+
 class WPML_Autoregister_Save_Strings {
 	const INSERT_CHUNK_SIZE = 200;
 
@@ -10,6 +13,8 @@ class WPML_Autoregister_Save_Strings {
 	private $data = array();
 
 	private $lang_of_domain;
+
+	private $english_source_lang;
 
 	public function __construct( wpdb $wpdb, SitePress $sitepress, ?WPML_Language_Of_Domain $language_of_domain = null ) {
 		$this->wpdb           = $wpdb;
@@ -35,16 +40,32 @@ class WPML_Autoregister_Save_Strings {
 			$flag = 0 === strpos( $domain, 'admin_texts_' )
 					|| WPML_ST_Blog_Name_And_Description_Hooks::is_string( $name );
 
-			$domain_lang = $flag ? $this->sitepress->get_user_admin_language( get_current_user_id() ) : 'en';
+			$domain_lang = $flag
+				? $this->sitepress->get_user_admin_language( get_current_user_id() )
+				: $this->get_english_source_lang();
 		}
 
 		return $domain_lang;
 	}
 
+	private function get_english_source_lang() {
+		if ( null === $this->english_source_lang ) {
+			$this->english_source_lang = EnglishSourceLanguage::resolve(
+				array_keys( (array) $this->sitepress->get_active_languages() ),
+				(string) $this->sitepress->get_default_language()
+			);
+		}
+
+		return $this->english_source_lang;
+	}
+
 	private function persist() {
 		foreach ( array_chunk( $this->data, self::INSERT_CHUNK_SIZE ) as $chunk ) {
+			$has_text_column = StringValue::isReady();
+
 			$query = "INSERT IGNORE INTO {$this->wpdb->prefix}icl_strings "
-					 . '(`language`, `context`, `gettext_context`, `domain_name_context_md5`, `name`, `value`, `status`) VALUES ';
+					 . '(`language`, `context`, `gettext_context`, `domain_name_context_md5`, `name`, `value`, `status`'
+					 . ( $has_text_column ? ', `has_text`' : '' ) . ') VALUES ';
 
 			$i = 0;
 			foreach ( $chunk as $string ) {
@@ -52,16 +73,23 @@ class WPML_Autoregister_Save_Strings {
 					$query .= ',';
 				}
 
-				$query .= $this->wpdb->prepare(
-					"('%s', '%s', '%s', '%s', '%s', '%s', %d)",
+				$row_values = array(
 					$this->get_source_lang( $string['name'], $string['domain'] ),
 					$string['domain'],
 					$string['gettext_context'],
 					md5( $string['domain'] . $string['name'] . $string['gettext_context'] ),
 					$string['name'],
 					$string['value'],
-					ICL_TM_NOT_TRANSLATED
+					ICL_TM_NOT_TRANSLATED,
 				);
+
+				if ( $has_text_column ) {
+					$row_values[] = StringValue::hasTextFlag( $string['value'] );
+
+					$query .= $this->wpdb->prepare( '(%s, %s, %s, %s, %s, %s, %d, %d)', $row_values );
+				} else {
+					$query .= $this->wpdb->prepare( '(%s, %s, %s, %s, %s, %s, %d)', $row_values );
+				}
 
 				$i ++;
 			}

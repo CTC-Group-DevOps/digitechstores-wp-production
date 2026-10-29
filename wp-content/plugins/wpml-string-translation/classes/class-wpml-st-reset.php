@@ -5,6 +5,8 @@ class WPML_ST_Reset {
 
 	private $settings;
 
+	private $blog_id = 0;
+
 	public function __construct( $wpdb, ?WPML_ST_Settings $settings = null ) {
 		$this->wpdb = $wpdb;
 
@@ -17,35 +19,25 @@ class WPML_ST_Reset {
 	public function reset() {
 		$this->settings->delete_settings();
 
+		$this->blog_id = (int) $this->wpdb->blogid;
+
 		add_action( 'shutdown', array( $this, 'remove_db_tables' ), PHP_INT_MAX - 1 );
 	}
 
 	public function remove_db_tables() {
-		$blog_id = $this->retrieve_current_blog_id();
+		$blog_id = $this->blog_id ?: (int) $this->wpdb->blogid;
 
 		$is_multisite_reset = $blog_id && function_exists( 'is_multisite' ) && is_multisite();
 		if ( $is_multisite_reset ) {
 			switch_to_blog( $blog_id );
 		}
 
-		$table = $this->wpdb->prefix . 'icl_string_pages';
-		$this->wpdb->query( 'DROP TABLE IF EXISTS ' . $table );
-
-		$table = $this->wpdb->prefix . 'icl_string_urls';
-		$this->wpdb->query( 'DROP TABLE IF EXISTS ' . $table );
+		$wpdb = $this->wpdb;
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}icl_string_pages" );
+		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}icl_string_urls" );
 
 		if ( $is_multisite_reset ) {
 			restore_current_blog();
 		}
-	}
-
-	private function retrieve_current_blog_id() {
-		$filtered_id = array_key_exists( 'id', $_POST )
-			? filter_var( $_POST['id'], FILTER_SANITIZE_NUMBER_INT ) : false;
-		$filtered_id = array_key_exists( 'id', $_GET ) && ! $filtered_id ?
-			filter_var( $_GET['id'], FILTER_SANITIZE_NUMBER_INT ) : $filtered_id;
-		$blog_id     = false !== $filtered_id ? $filtered_id : $this->wpdb->blogid;
-
-		return $blog_id;
 	}
 }

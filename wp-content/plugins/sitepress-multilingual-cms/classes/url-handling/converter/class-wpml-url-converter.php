@@ -100,8 +100,12 @@ class WPML_URL_Converter {
 	public function get_language_from_url( $url ) {
 		$http_referer_factory = new WPML_URL_HTTP_Referer_Factory();
 		$http_referer         = $http_referer_factory->create();
-		$url                  = $http_referer->get_url( $url );
-		$language             = $this->lang_param->lang_by_param( $url ) ?: $this->get_strategy()->get_lang_from_url_string( $url );
+
+		return $this->get_language_of_url( $http_referer->get_url( $url ) );
+	}
+
+	public function get_language_of_url( $url ) {
+		$language = $this->lang_param->lang_by_param( $url ) ?: $this->get_strategy()->get_lang_from_url_string( $url );
 
 		$language = apply_filters( 'wpml_get_language_from_url', $language, $url );
 

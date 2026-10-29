@@ -458,6 +458,10 @@ class WOODMART_Product_Category_Filter extends WPH_Widget {
 		$all_counts = $walker->get_filtered_product_cat_counts( $categories_ids, $list_args['query_type'] );
 		$include    = array_keys( array_filter( $all_counts ) );
 
+		// Pass the already calculated counts to the walker so walk() reuses them
+		// instead of running a second identical query during rendering.
+		$walker->filtered_counts = $all_counts;
+
 		if ( empty( $include ) ) {
 			return array();
 		}

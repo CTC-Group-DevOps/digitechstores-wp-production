@@ -57,6 +57,6 @@ class WPML_TM_Word_Calculator {
 	}
 
 	public static function get_asian_languages() {
-		return array( 'ja', 'ko', 'zh-hans', 'zh-hant', 'mn', 'ne', 'hi', 'pa', 'ta', 'th' );
+		return array( 'ja', 'ko', 'zh-hans', 'zh-hant', 'zh-cn', 'zh-tw', 'zh-hk', 'zh-mo', 'zh-sg', 'mn', 'ne', 'hi', 'pa', 'ta', 'th' );
 	}
 }

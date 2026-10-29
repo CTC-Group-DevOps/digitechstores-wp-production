@@ -16,12 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Addons Compatibility.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Addons_Compatibility {
 
 	/**
 	 * Initialize the module.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -73,7 +75,8 @@ class WC_PB_Addons_Compatibility {
 		// Special case for addons for bundles inside composite products when manually editing an order.
 		add_filter( 'woocommerce_posted_composite_configuration', array( __CLASS__, 'get_composited_bundle_configuration' ), 20, 2 );
 
-		// Enable edit-in-cart feature if any items have addons.
+		// Enable editing when the bundle or its items have add-ons.
+		add_filter( 'woocommerce_bundle_is_editable_in_cart', array( __CLASS__, 'bundle_is_editable_in_cart' ), 1, 3 );
 		add_filter( 'woocommerce_is_bundle_container_order_item_editable', array( __CLASS__, 'addon_bundle_editable_in_cart' ), 10, 3 );
 
 		// Allow pre-populate of add-on fields based on cart key.
@@ -179,7 +182,7 @@ class WC_PB_Addons_Compatibility {
 		<div class="disable_addons">
 		<div class="form-field">
 			<label for="disable_addons"><?php echo esc_html__( 'Disable Add-Ons', 'woocommerce-product-bundles' ); ?></label>
-			<input type="checkbox" class="checkbox"<?php echo( $disable_addons ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( $loop ); ?>][disable_addons]" <?php echo( $disable_addons ? 'value="1"' : '' ); ?>/>
+			<input type="checkbox" class="checkbox"<?php echo( $disable_addons ? ' checked="checked"' : '' ); ?> name="bundle_data[<?php echo esc_attr( (string) $loop ); ?>][disable_addons]" <?php echo( $disable_addons ? 'value="1"' : '' ); ?>/>
 			<?php echo wc_help_tip( __( 'Check this option to disable any Product Add-Ons associated with this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 		</div>
 		</div>
@@ -436,7 +439,7 @@ class WC_PB_Addons_Compatibility {
 	 * Validate bundled item addons.
 	 *
 	 * @param  bool            $add Whether to add the bundled item to the cart.
-	 * @param  int             $bundle The bundle product ID.
+	 * @param  WC_Product      $bundle The bundle product.
 	 * @param  WC_Bundled_Item $bundled_item The bundled item.
 	 * @param  int             $quantity The quantity.
 	 * @param  int             $variation_id The variation ID.
@@ -543,7 +546,7 @@ class WC_PB_Addons_Compatibility {
 	 *
 	 * @param  array             $cart_item The cart item.
 	 * @param  WC_Product_Bundle $bundle   The bundle product.
-	 * @param  array|bool        $cart_contents The cart contents.
+	 * @param  array|false       $cart_contents The cart contents.
 	 * @return array
 	 */
 	public static function preprocess_bundled_cart_item_addon_data( $cart_item, $bundle, $cart_contents = false ) {
@@ -656,6 +659,7 @@ class WC_PB_Addons_Compatibility {
 	 * @since  6.0.4
 	 *
 	 * @param  WC_Bundled_Item $bundled_item The bundled item.
+	 * @return void
 	 */
 	public static function add_addon_price_zero_filter( $bundled_item ) {
 		if ( doing_action( 'wp_ajax_woocommerce_configure_bundle_order_item' ) || doing_action( 'wp_ajax_woocommerce_configure_composite_order_item' ) ) {
@@ -674,6 +678,7 @@ class WC_PB_Addons_Compatibility {
 	 * @since  6.0.4
 	 *
 	 * @param  WC_Bundled_Item $bundled_item The bundled item.
+	 * @return void
 	 */
 	public static function remove_addon_price_zero_filter( $bundled_item ) {
 		if ( doing_action( 'wp_ajax_woocommerce_configure_bundle_order_item' ) || doing_action( 'wp_ajax_woocommerce_configure_composite_order_item' ) ) {
@@ -692,6 +697,7 @@ class WC_PB_Addons_Compatibility {
 	 * @since  6.0.4
 	 *
 	 * @param  mixed $price The price.
+	 * @return string
 	 */
 	public static function option_price_raw_zero_filter( $price ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		return '';
@@ -703,6 +709,7 @@ class WC_PB_Addons_Compatibility {
 	 * @param WC_Product_Bundle $product The product.
 	 * @param WC_Order_Item     $item The item.
 	 * @param WC_Order          $order The order.
+	 * @return void
 	 */
 	public static function admin_render_bundle_addons( $product, $item, $order ) {
 		if ( ! doing_action( 'wp_ajax_woocommerce_configure_bundle_order_item' ) ) {
@@ -1105,8 +1112,8 @@ class WC_PB_Addons_Compatibility {
 	/**
 	 * Maybe hide the edit button for addons in the order editing screen.
 	 *
-	 * @param  boolean $display Whether to display the edit button.
-	 * @param  array   $item   The item.
+	 * @param  boolean       $display Whether to display the edit button.
+	 * @param  WC_Order_Item $item   The order item.
 	 *
 	 * @return boolean
 	 */
@@ -1115,7 +1122,24 @@ class WC_PB_Addons_Compatibility {
 	}
 
 	/**
-	 * The bundle should be editable if any items have addons.
+	 * Enable cart editing for in-stock bundles with add-ons.
+	 *
+	 * @since 8.5.14
+	 * @param bool              $editable  Whether the bundle is editable.
+	 * @param WC_Product_Bundle $bundle    The bundle product.
+	 * @param array|false       $cart_item The cart item.
+	 * @return bool
+	 */
+	public static function bundle_is_editable_in_cart( $editable, $bundle, $cart_item ) {
+		if ( $editable || ! $bundle->is_in_stock() ) {
+			return $editable;
+		}
+
+		return self::addon_bundle_editable_in_cart( $editable, $bundle, $cart_item );
+	}
+
+	/**
+	 * The bundle should be editable if it or any enabled items have add-ons.
 	 *
 	 * @param  boolean           $editable Whether the bundle is editable.
 	 * @param  WC_Product_Bundle $bundle  The bundle product.
@@ -1124,9 +1148,17 @@ class WC_PB_Addons_Compatibility {
 	 */
 	public static function addon_bundle_editable_in_cart( $editable, $bundle, $cart_item ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
+		if ( $editable ) {
+			return $editable;
+		}
+
+		if ( self::has_addons( $bundle ) ) {
+			return true;
+		}
+
 		$bundle_items = $bundle->get_bundled_items();
 		foreach ( $bundle_items as $bundle_item ) {
-			if ( self::has_addons( $bundle_item->get_product() ) ) {
+			if ( ! $bundle_item->disable_addons() && self::has_addons( $bundle_item->get_product() ) ) {
 				$editable = true;
 				break;
 			}

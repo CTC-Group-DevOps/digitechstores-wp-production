@@ -1,6 +1,8 @@
 <?php
 
 abstract class WPML_Element_Translation extends WPML_WPDB_User {
+	private const PREFETCH_BATCH_SIZE = 1000;
+
 	protected $element_data = [];
 
 	protected $translations = [];
@@ -172,14 +174,32 @@ abstract class WPML_Element_Translation extends WPML_WPDB_User {
 
 	public function prefetch_ids( $element_ids ) {
 		$element_ids = (array) $element_ids;
-		$element_ids = array_diff( $element_ids, array_keys( $this->element_data ) );
+		$element_ids = array_diff( $element_ids, array_keys( $this->element_data ), array_keys( $this->translations ) );
 		if ( (bool) $element_ids === false ) {
 			return;
 		}
 
-		$elements = $this->wpdb->get_results( $this->get_sql_by_element_ids( $element_ids ), ARRAY_A );
+		foreach ( $this->prefetch_batches( $element_ids ) as $batch ) {
+			$elements = $this->wpdb->get_results( $this->get_sql_by_element_ids( $batch ), ARRAY_A );
 
-		$this->group_and_populate_cache( $elements );
+			$this->group_and_populate_cache( $elements );
+		}
+
+		foreach ( array_diff( $element_ids, array_keys( $this->element_data ) ) as $missing_id ) {
+			if ( ! isset( $this->translations[ $missing_id ] ) ) {
+				$this->translations[ $missing_id ] = [];
+			}
+		}
+	}
+
+	private function prefetch_batches( array $element_ids ) {
+		if ( count( $element_ids ) <= self::PREFETCH_BATCH_SIZE ) {
+			return [ $element_ids ];
+		}
+
+		sort( $element_ids, SORT_NUMERIC );
+
+		return array_chunk( $element_ids, self::PREFETCH_BATCH_SIZE );
 	}
 
 	private function get_base_sql() {

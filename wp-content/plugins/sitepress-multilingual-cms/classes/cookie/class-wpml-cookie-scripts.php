@@ -2,6 +2,8 @@
 
 class WPML_Cookie_Scripts {
 
+	private static $registered;
+
 	private $language_cookie_name;
 
 	private $current_language;
@@ -12,7 +14,17 @@ class WPML_Cookie_Scripts {
 	}
 
 	public function add_hooks() {
+		if ( self::$registered instanceof self ) {
+			remove_action( 'wp_enqueue_scripts', array( self::$registered, 'enqueue_scripts' ), - PHP_INT_MAX );
+		}
+
+		self::$registered = $this;
+
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), - PHP_INT_MAX );
+	}
+
+	public static function reset_registration() {
+		self::$registered = null;
 	}
 
 	public function enqueue_scripts() {
@@ -22,7 +34,8 @@ class WPML_Cookie_Scripts {
 		$cookies = array(
 			$this->language_cookie_name => array(
 				'value'   => $this->current_language,
-				'expires' => 1,
+				'expires' => gmdate( 'D, d M Y H:i:s', time() + DAY_IN_SECONDS ) . ' GMT',
+				'maxAge'  => DAY_IN_SECONDS,
 				'path'    => '/',
 			),
 		);

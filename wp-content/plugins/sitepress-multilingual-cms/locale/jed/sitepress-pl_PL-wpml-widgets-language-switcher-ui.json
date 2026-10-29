@@ -11,13 +11,13 @@
             "Wszystkie"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "Aby wyświetlić ten niestandardowy blok HTML w określonym języku, najpierw umieść go w bloku Grupa."
+            "Aby wyświetlić ten blok własnego kodu HTML w konkretnym języku, najpierw umieść go wewnątrz bloku Grupa."
          ],
          "Place inside Group block": [
-            "Umieść w bloku Grupa"
+            "Umieść wewnątrz bloku Grupa"
          ],
          "Display on language": [
-            "Wyświetl w języku"
+            "Wyświetlaj w języku"
          ]
       }
    }

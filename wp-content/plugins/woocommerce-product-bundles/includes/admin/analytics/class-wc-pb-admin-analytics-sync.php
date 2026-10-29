@@ -18,33 +18,35 @@ use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataS
  * Admin Reports Class for syncing the lookup table.
  *
  * @class    WC_PB_Admin_Analytics_Sync
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Admin_Analytics_Sync {
 
 	/**
 	 * Keeps track of which order ID is being processed.
 	 *
-	 * @var int
+	 * @var int|false
 	 */
 	protected static $updating_order_id = false;
 
 	/**
 	 * The last item in an order is the one to trigger the aggregation process.
 	 *
-	 * @var int
+	 * @var int|false
 	 */
 	protected static $trigger_order_item_id = false;
 
 	/**
 	 * Keeps track of which bundled order items need to be aggregated into their container.
 	 *
-	 * @var int
+	 * @var array
 	 */
 	protected static $bundled_order_item_ids = array();
 
 	/**
 	 * Setup Admin class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		/*
@@ -77,6 +79,8 @@ class WC_PB_Admin_Analytics_Sync {
 
 	/**
 	 * Update order stats if triggered.
+	 *
+	 * @return void
 	 */
 	public static function handle_trigger_order_item_stats_update() {
 
@@ -146,8 +150,8 @@ class WC_PB_Admin_Analytics_Sync {
 	/**
 	 * Schedules a batch of row renenerations for order stats.
 	 *
-	 * @param  int $batch   Batch number.
-	 * @param  int $batches Total number of batches.
+	 * @param  int       $batch   Batch number.
+	 * @param  int|float $batches Total number of batches.
 	 * @return void
 	 */
 	protected static function queue_order_item_stats_update_batch( $batch, $batches ) {
@@ -221,8 +225,9 @@ class WC_PB_Admin_Analytics_Sync {
 
 		global $wpdb;
 
-		// Nothing to process?
+		// Nothing to process? Release the order so the next one is not mistaken for a stale update.
 		if ( false === self::$updating_order_id || empty( self::$bundled_order_item_ids ) ) {
+			self::reset_runtime_variables();
 			return;
 		}
 
@@ -380,6 +385,11 @@ class WC_PB_Admin_Analytics_Sync {
 
 		global $wpdb;
 
+		// Retry a lookup key upgrade that the database update gave up on, so refunds can be regenerated too.
+		if ( 1 === absint( $batch ) ) {
+			WC_PB_Install::upgrade_refund_analytics_schema();
+		}
+
 		$order_item_stats_table_name = ProductsDataStore::get_db_table_name();
 		$pb_bundled_items_table_name = $wpdb->prefix . 'woocommerce_bundled_items';
 
@@ -413,6 +423,14 @@ class WC_PB_Admin_Analytics_Sync {
 		// Do the work.
 		foreach ( $order_ids as $order_id ) {
 			ProductsDataStore::sync_order_products( $order_id );
+
+			// Refunds of bundled items alone have no bundle row of their own, so the query above cannot find them.
+			$order = wc_get_order( $order_id );
+			if ( $order instanceof WC_Order ) {
+				foreach ( $order->get_refunds() as $refund ) {
+					ProductsDataStore::sync_order_products( $refund->get_id() );
+				}
+			}
 		}
 
 		// Queue next batch.
@@ -439,6 +457,11 @@ class WC_PB_Admin_Analytics_Sync {
 			$order = wc_get_order( $order_id );
 
 			if ( ! $order ) {
+				return;
+			}
+
+			if ( 'shop_order_refund' === $order->get_type() ) {
+				self::sync_refund_order_item_stats( $order, $order_item_id );
 				return;
 			}
 
@@ -482,9 +505,106 @@ class WC_PB_Admin_Analytics_Sync {
 	}
 
 	/**
+	 * Copy native refund metrics using the original order's container membership.
+	 *
+	 * @since 8.5.16
+	 * @param WC_Order_Refund $refund Refund order.
+	 * @param int             $order_item_id Native item ID, or zero to synchronize all refund rows.
+	 * @return bool Whether the lookup writes succeeded.
+	 */
+	public static function sync_refund_order_item_stats( $refund, $order_item_id = 0 ) {
+		global $wpdb;
+
+		if ( ! $refund instanceof WC_Order_Refund || '1' !== get_option( 'wc_pb_refund_analytics_schema' ) ) {
+			return true;
+		}
+
+		// A non-persistent, site-scoped cache keeps only the current refund's membership.
+		$cache_group = 'wc_pb_refund_analytics';
+		wp_cache_add_non_persistent_groups( $cache_group );
+		$context = wp_cache_get( 'current', $cache_group );
+		// Core reports each refund item once per sync, so a repeated item starts a new sync.
+		if ( ! $order_item_id || ! is_array( $context ) || $context['refund_id'] !== $refund->get_id() || isset( $context['synced'][ $order_item_id ] ) ) {
+			$membership     = array();
+			$refunded_items = array();
+			$parent         = wc_get_order( $refund->get_parent_id() );
+			if ( $parent && ! is_wp_error( $parent ) ) {
+				foreach ( $parent->get_items() as $container_id => $container ) {
+					if ( ! is_object( $container ) || ! method_exists( $container, 'get_product_id' ) ) {
+						continue;
+					}
+					$children = wc_pb_get_bundled_order_items( $container, $parent, true );
+					if ( ! $children ) {
+						continue;
+					}
+					$membership[ $container_id ] = array( 0, $container->get_product_id( 'edit' ) );
+					foreach ( $children as $child_id ) {
+						$membership[ $child_id ] = array( $container_id, $container->get_product_id( 'edit' ) );
+					}
+				}
+			}
+			foreach ( $refund->get_items() as $item_id => $item ) {
+				$original_id                = $item->get_meta( '_refunded_item_id' );
+				$refunded_items[ $item_id ] = is_numeric( $original_id ) ? absint( $original_id ) : 0;
+			}
+			$context = array(
+				'refund_id'      => $refund->get_id(),
+				'membership'     => $membership,
+				'refunded_items' => $refunded_items,
+				'synced'         => array(),
+			);
+			// Rebuild the refund's rows, like an order's, so rows that native Analytics or the bundle membership no longer has do not linger.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- This class owns the derived lookup writes.
+			if ( false === $wpdb->delete( $wpdb->prefix . 'wc_order_bundle_lookup', array( 'order_id' => $refund->get_id() ), array( '%d' ) ) ) {
+				WC_PB_Core_Compatibility::log( $wpdb->last_error, 'error', 'wc_pb_db_updates' );
+				return false;
+			}
+		}
+		if ( $order_item_id ) {
+			$context['synced'][ $order_item_id ] = true;
+			wp_cache_set( 'current', $context, $cache_group );
+		} else {
+			wp_cache_delete( 'current', $cache_group );
+		}
+		$membership     = $context['membership'];
+		$refunded_items = $context['refunded_items'];
+		if ( ! $membership ) {
+			return true;
+		}
+
+		$table      = $wpdb->prefix . 'wc_order_bundle_lookup';
+		$core_table = ProductsDataStore::get_db_table_name();
+		$item_where = $order_item_id ? $wpdb->prepare( ' AND order_item_id = %d', $order_item_id ) : '';
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Synchronize the just-written native lookup, not a cached report.
+		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$core_table} WHERE order_id = %d", $refund->get_id() ) . $item_where, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
+		if ( $wpdb->last_error ) {
+			WC_PB_Core_Compatibility::log( $wpdb->last_error, 'error', 'wc_pb_db_updates' );
+			return false;
+		}
+		$columns = array_flip( array( 'order_item_id', 'order_id', 'product_id', 'variation_id', 'customer_id', 'product_qty', 'product_net_revenue', 'date_created', 'coupon_amount', 'tax_amount', 'product_gross_revenue' ) );
+		foreach ( $rows as $row ) {
+			$original_id = $refunded_items[ $row['order_item_id'] ] ?? (int) $row['order_item_id'];
+			if ( ! isset( $membership[ $original_id ] ) ) {
+				continue;
+			}
+			$row                         = array_intersect_key( $row, $columns );
+			$row['order_item_id']        = $original_id;
+			$row['parent_order_item_id'] = $membership[ $original_id ][0];
+			$row['bundle_id']            = $membership[ $original_id ][1];
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- This class owns the derived lookup writes.
+			if ( false === $wpdb->replace( $table, $row ) ) {
+				WC_PB_Core_Compatibility::log( $wpdb->last_error, 'error', 'wc_pb_db_updates' );
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Clean bundles data when an order is deleted.
 	 *
 	 * @param int $order_id Order ID.
+	 * @return void
 	 */
 	public static function sync_on_order_delete( $order_id ) {
 		global $wpdb;

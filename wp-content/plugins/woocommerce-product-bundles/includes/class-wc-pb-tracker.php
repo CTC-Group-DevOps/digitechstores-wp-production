@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles Tracker.
  *
  * @class    WC_PB_Tracker
- * @version  8.5.8
+ * @version  8.5.16
  */
 class WC_PB_Tracker {
 
@@ -65,6 +65,7 @@ class WC_PB_Tracker {
 	 * Initialize the tracker.
 	 *
 	 * @version 8.5.8
+	 * @return void
 	 */
 	public static function init() {
 		if ( 'yes' === get_option( 'woocommerce_allow_tracking', 'no' ) ) {
@@ -119,6 +120,7 @@ class WC_PB_Tracker {
 	 * Runs independently in a background task.
 	 *
 	 * @see ::maybe_calculate_tracking_data().
+	 * @return void
 	 */
 	private static function calculate_tracking_data() {
 		self::set_start_time();
@@ -160,6 +162,7 @@ class WC_PB_Tracker {
 	 * Track bundle sells first date when saving a product (wp-admin / rest api).
 	 *
 	 * @param  WC_Product $product The product object.
+	 * @return void
 	 */
 	public static function track_bundle_sell_ids( $product ) {
 
@@ -1209,12 +1212,13 @@ class WC_PB_Tracker {
 
 		$data = &self::$data['orders'];
 
-		// Number of orders containing bundles.
+		// Number of orders containing bundles. Refund rows share the lookup but are not orders.
 		if ( ! isset( $data['product_bundles_count'] ) ) {
 			$data['product_bundles_count'] = (int) $wpdb->get_var(
 				"
 				SELECT COUNT(DISTINCT `pb_lookup`.`order_id`)
 				FROM `{$wpdb->prefix}wc_order_bundle_lookup` AS `pb_lookup`
+				WHERE `pb_lookup`.`product_gross_revenue` >= 0 AND ( `pb_lookup`.`product_qty` > 0 OR `pb_lookup`.`product_net_revenue` > 0 )
 			"
 			);
 

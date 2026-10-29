@@ -23,6 +23,7 @@ class WCML_Locale {
 			return in_array(
 				$locale,
 				[
+					'ar',
 					'de_DE',
 					'el',
 					'es_ES',
@@ -30,11 +31,18 @@ class WCML_Locale {
 					'he_IL',
 					'it_IT',
 					'ja',
+					'ko_KR',
 					'nl_NL',
 					'pl_PL',
 					'pt_BR',
+					'pt_PT',
+					'ru_RU',
 					'sv_SE',
-					'zn_CN',
+					'th',
+					'tr_TR',
+					'vi_VN',
+					'zh-Hans',
+					'zh_CN',
 				],
 				true
 			);

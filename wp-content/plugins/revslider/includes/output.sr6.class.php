@@ -494,6 +494,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	public function set_custom_settings($settings){
 		$settings = preg_replace('/\\\\u([0-9a-fA-F]{4})/', '', $settings);
 		$settings = ($settings !== '' && !is_array($settings)) ? json_decode(str_replace(array('({', '})', "'"), array('[', ']', '"'), wp_kses_post($settings)), true) : $settings;
+		$settings = $this->sanitize_custom_settings($settings);
 		
 		$this->custom_settings = apply_filters('revslider_set_custom_settings', $settings, $this);
 	}
@@ -2542,9 +2543,10 @@ class RevSliderOutput extends RevSliderFunctions {
 		$html = '';
 		if(!empty($style)){
 			foreach($style as $k => $v){
+				if(!preg_match('/^-?[a-zA-Z][a-zA-Z0-9-]*$/', (string)$k)) continue; //customCSS keys land in the attribute as they are
 				$v = esc_attr(trim($v));
-				// convert back quotes for font families
-				if ($k == 'font-family') $v = str_replace(array('&quot;', '&#039;'), array('"', "'"), $v);
+				// convert back quotes for font families, as single quotes: a double one would close the style attribute
+				if ($k == 'font-family') $v = str_replace(array('&quot;', '&#039;'), "'", $v);
 				$html .= (!in_array($v, array('', 'px', '%'), true)) ? $k.':'.$v.';' : '';
 			}
 		}		
@@ -5858,7 +5860,7 @@ class RevSliderOutput extends RevSliderFunctions {
 					$target	= ' data-tag="'.$slide->get_param(array('seo', 'tag'), 'l').'" data-target="'.$slide->get_param(array('seo', 'target'), '_self').'"';					
 					$http	= $slide->get_param(array('seo', 'linkHelp'), 'auto');
 					$l		= $this->remove_http($slide->get_param(array('seo', 'link'), ''), $http);
-					$link	= ($l !== '') ? ' data-link="'.do_shortcode($l).'"'.$target : $link;
+					$link	= ($l !== '') ? ' data-link="'.esc_attr(do_shortcode($l)).'"'.$target : $link;
 				break;
 				case 'slide': //---- link to slide
 					$slide_link = $this->get_val($params, array('seo', 'slideLink'), 'nothing');

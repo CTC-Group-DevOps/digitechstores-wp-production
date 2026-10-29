@@ -13,7 +13,7 @@ class WPML_Theme_Plugin_Localization_Options_Ajax implements IWPML_AJAX_Action, 
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_wpml_update_localization_options', array( $this, 'update_localization_options' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_update_localization_options', \WPML\Request\Policy\Policy::capability( [ 'wpml_manage_theme_and_plugin_localization', 'manage_translations' ], \WPML\Request\Policy\Authenticity::actionNonce( 'wpml-localization-options-nonce', 'nonce' ) ), array( $this, 'update_localization_options' ) );
 	}
 
 	public function update_localization_options() {

@@ -531,3 +531,24 @@ function wc_pb_update_510_delete_unused_meta() {
 function wc_pb_update_510_db_version() {
 	WC_PB_Install::update_db_version( '5.1.0' );
 }
+
+/**
+ * Include historical refund metrics in the Analytics lookup.
+ *
+ * @since 8.5.16
+ * @param object|null $updater Optional background worker resource monitor.
+ * @return int Native updater continuation code.
+ */
+function wc_pb_update_8516_refund_analytics( $updater = null ) {
+	return WC_PB_Install::update_refund_analytics( $updater );
+}
+
+/**
+ * Complete the refund Analytics database update.
+ *
+ * @since 8.5.16
+ * @return void
+ */
+function wc_pb_update_8516_db_version() {
+	WC_PB_Install::update_db_version( '8.5.16' );
+}

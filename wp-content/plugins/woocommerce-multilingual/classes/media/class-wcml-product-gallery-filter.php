@@ -2,17 +2,22 @@
 
 class WCML_Product_Gallery_Filter implements IWPML_Action {
 
+	const CACHE_GROUP = 'WCML_Product_Gallery_Filter';
+
 	private $translation_element_factory;
 	private $wpml_cache;
 
 	public function __construct( WPML_Translation_Element_Factory $translation_element_factory, $wpml_cache = null ) {
 		$this->translation_element_factory = $translation_element_factory;
 
-		$cache_group      = 'WCML_Product_Gallery_Filter';
 		$this->wpml_cache = $wpml_cache;
 		if ( null === $wpml_cache ) {
-			$this->wpml_cache = new WPML_WP_Cache( $cache_group );
+			$this->wpml_cache = new WPML_WP_Cache( self::CACHE_GROUP );
 		}
+	}
+
+	public static function delete_cache( $product_id ) {
+		wp_cache_delete( $product_id . '_image_gallery', self::CACHE_GROUP );
 	}
 
 	public function add_hooks() {

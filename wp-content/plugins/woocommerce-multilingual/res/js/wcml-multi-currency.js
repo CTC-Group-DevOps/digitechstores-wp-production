@@ -1,23 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', wcml_switch_currency_handler);
+
+    // The dropdowns open their submenu from CSS or from their own script, so keep `aria-expanded` honest.
+    document.querySelectorAll('.wcml_currency_switcher .wcml-cs-item-toggle[aria-expanded]').forEach(function(toggle) {
+        var submenu = toggle.parentElement.querySelector('.wcml-cs-submenu');
+        var sync = function() {
+            setTimeout(function() {
+                toggle.setAttribute('aria-expanded', submenu && getComputedStyle(submenu).visibility === 'visible' ? 'true' : 'false');
+            }, 0);
+        };
+
+        ['mouseenter', 'mouseleave', 'focusin', 'focusout', 'click'].forEach(function(eventName) {
+            toggle.parentElement.addEventListener(eventName, sync);
+        });
+    });
 });
 
 function wcml_switch_currency_handler(event) {
-    var eventTargetElement = event.target;
+    // The `a` part supports switcher templates customized before WCML switched to `button`.
+    var targetElement = event.target.closest('.wcml_currency_switcher button[data-currency], .wcml_currency_switcher a');
 
-    if (eventTargetElement.matches('.wcml_currency_switcher a, .wcml_currency_switcher a *')) {
-        event.preventDefault();
-        var targetElement = eventTargetElement.closest('.wcml_currency_switcher a');
-
-        if (targetElement.disabled ||
-            targetElement.parentElement.classList.contains('wcml-cs-active-currency') ||
-            targetElement.classList.contains('wcml-cs-active-currency')) {
-            return;
-        }
-
-        document.removeEventListener('click', wcml_switch_currency_handler);
-        wcml_load_currency(targetElement.getAttribute('rel'));
+    if (!targetElement) {
+        return;
     }
+
+    event.preventDefault();
+
+    if (targetElement.disabled ||
+        targetElement.parentElement.classList.contains('wcml-cs-active-currency') ||
+        targetElement.classList.contains('wcml-cs-active-currency')) {
+        return;
+    }
+
+    document.removeEventListener('click', wcml_switch_currency_handler);
+    wcml_load_currency(targetElement.dataset.currency || targetElement.getAttribute('rel'));
 }
 
 function wcml_load_currency(currency, force_switch) {

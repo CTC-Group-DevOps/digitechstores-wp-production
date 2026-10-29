@@ -3,13 +3,13 @@
 namespace WPML\PB\Elementor\Config\DynamicElements\PremiumAddonsForElementor;
 
 use WPML\FP\Obj;
-use WPML\FP\Relation;
+use WPML\PB\Elementor\Helper\Path;
 use function WPML\FP\compose;
 
 class PremiumAddonsButton {
 
 	public static function get() {
-		$isButton = Relation::propEq( 'widgetType', 'premium-addon-button' );
+		$isButton = Path::propEq( 'widgetType', 'premium-addon-button' );
 
 		$buttonLinkLens = compose(
 			Obj::lensProp( 'settings' ),

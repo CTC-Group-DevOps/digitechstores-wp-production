@@ -14,11 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Allows DB updates via WP-CLI.
  *
  * @class    WC_PB_CLI
- * @version  5.5.0
+ * @version  8.5.16
  */
 class WC_PB_CLI_Update {
 	/**
 	 * Registers the update command.
+	 *
+	 * @return void
 	 */
 	public static function register_command() {
 		WP_CLI::add_command( 'wc pb update', array( 'WC_PB_CLI_Update', 'update' ) );
@@ -26,6 +28,8 @@ class WC_PB_CLI_Update {
 
 	/**
 	 * Runs all pending WooCommerce database updates.
+	 *
+	 * @return void
 	 */
 	public static function update() {
 

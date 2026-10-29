@@ -7,6 +7,7 @@ use WPML\Collect\Support\Collection;
 use function WPML\Container\make;
 use WPML\FP\Either;
 use WPML\ST\Gettext\AutoRegisterSettings;
+use WPML\ST\StringsCleanup\StringsWaitingForTranslation;
 use WPML\ST\StringsCleanup\UntranslatedStrings;
 
 class InitStringsRemoving implements IHandler {
@@ -21,11 +22,14 @@ class InitStringsRemoving implements IHandler {
 			$autoRegsiterSettings = make( AutoRegisterSettings::class );
 
 			if ( $autoRegsiterSettings->isEnabled() ) {
-				$autoRegsiterSettings->setEnabled( false );
+				do_action( 'wpml_st_update_settings', 'setAutoregisterStringsTypeDisabled' );
 			}
 
 			return Either::of( [
-				'total_strings' => $untranslatedStrings->getCountInDomains( $domains )
+				'total_strings' => $untranslatedStrings->getCountInDomains(
+					$domains,
+					StringsWaitingForTranslation::isRequested( $data )
+				)
 			] );
 		} else {
 			return Either::left( __( 'Error: please try again', 'wpml-string-translation' ) );

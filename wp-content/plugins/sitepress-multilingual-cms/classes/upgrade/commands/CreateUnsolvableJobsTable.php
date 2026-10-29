@@ -2,7 +2,7 @@
 
 namespace WPML\TM\Upgrade\Commands;
 
-use SitePress_Setup;
+use WPML\Upgrade\CreateTable;
 
 class CreateUnsolvableJobsTable implements \IWPML_Upgrade_Command {
 
@@ -25,8 +25,7 @@ class CreateUnsolvableJobsTable implements \IWPML_Upgrade_Command {
 
 	public static function create_table_if_not_exists( $wpdb ) {
 
-			$table_name      = $wpdb->prefix . self::TABLE_NAME;
-			$charset_collate = SitePress_Setup::get_charset_collate();
+			$table_name = $wpdb->prefix . self::TABLE_NAME;
 
 			$query = "
 				CREATE TABLE IF NOT EXISTS `{$table_name}` (
@@ -40,9 +39,10 @@ class CreateUnsolvableJobsTable implements \IWPML_Upgrade_Command {
 				`counter` tinyint(4)  NOT NULL,
 				PRIMARY KEY (`job_id`),
 				KEY `ate_job_id` (`ate_job_id`)
-				) ENGINE=INNODB {$charset_collate};
+				) ENGINE=INNODB
 			";
-			return $wpdb->query( $query );
+
+			return CreateTable::create( $wpdb, $table_name, $query );
 	}
 
 	public function run_admin() {

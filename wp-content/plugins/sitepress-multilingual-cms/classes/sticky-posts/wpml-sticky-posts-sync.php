@@ -26,14 +26,12 @@ class WPML_Sticky_Posts_Sync {
 		$option = 'sticky_posts_' . $current_language;
 		$posts  = get_option( $option );
 		if ( ! is_array( $posts ) || empty( $posts ) ) {
-			$posts = $this->get_unfiltered_sticky_posts_option();
-			if ( $posts ) {
-				$posts = $this->populate_lang_option->filter_by_language(
-					$this->get_unfiltered_sticky_posts_option(),
-					$current_language
-				);
-				update_option( $option, $posts, true );
-			}
+			$unfiltered = $this->get_unfiltered_sticky_posts_option();
+			$posts      = $unfiltered
+				? $this->populate_lang_option->filter_by_language( $unfiltered, $current_language )
+				: array();
+
+			update_option( $option, $posts, true );
 		}
 
 		return $posts;

@@ -455,5 +455,6 @@
     "isntagram_link": "#",
     "threads_link": "#",
     "youtube_link": "#",
-    "fb_link": "#"
+    "fb_link": "#",
+    "site_viewport": "scalable"
 }

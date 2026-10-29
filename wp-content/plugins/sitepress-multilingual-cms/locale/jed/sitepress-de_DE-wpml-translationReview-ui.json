@@ -14,16 +14,16 @@
             "Genehmigt!"
          ],
          "Loading the next translation for review...": [
-            "Lade die nächste Übersetzung zur Überprüfung..."
+            "Die nächste Übersetzung für den Review wird geladen ..."
          ],
          "Back": [
             "Zurück"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Deaktivieren, um die nächste Übersetzung nach Abschluss dieser Überprüfung nicht automatisch zu laden."
+            "Deaktiviere diese Option, um nach Abschluss dieses Reviews nicht automatisch die nächste Übersetzung zu laden."
          ],
          "Turn on to automatically load the next translation after finishing this  .": [
-            "Aktivieren, um die nächste Übersetzung nach Abschluss dieser Überprüfung automatisch zu laden."
+            "Aktiviere diese Option, um nach Abschluss dieses Reviews automatisch die nächste Übersetzung zu laden."
          ],
          "Edit": [
             "Bearbeiten"
@@ -32,7 +32,7 @@
             "Übersetzung bearbeiten"
          ],
          "Next review": [
-            "Nächste Überprüfung"
+            "Nächster Review"
          ],
          "Publish this translation": [
             "Diese Übersetzung veröffentlichen"
@@ -44,13 +44,13 @@
             "Veröffentlicht!"
          ],
          "Please wait, applying translation..": [
-            "Bitte warten, Übersetzung wird angewendet..."
+            "Bitte warten, Übersetzung wird angewendet ..."
          ],
          "There was an error in applying translation.": [
             "Beim Anwenden der Übersetzung ist ein Fehler aufgetreten."
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "Jemand überprüft diese Übersetzung bereits. Bitte versuchen Sie es später erneut."
+            "Jemand anderes überprüft bereits diese Übersetzung. Bitte versuche es später erneut."
          ]
       }
    }

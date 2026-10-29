@@ -3,6 +3,11 @@
 class WPML_Block_Editor_Helper {
 
 	public static function is_active() {
+
+		if ( function_exists( 'classicpress_version' ) ) {
+			return false;
+		}
+
 		$gutenberg = ! ( false === has_filter( 'replace_editor', 'gutenberg_init' ) );
 
 		$block_editor = version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' );
@@ -20,6 +25,7 @@ class WPML_Block_Editor_Helper {
 
 		return true;
 	}
+
 
 	public static function is_edit_post() {
 		$current_screen = get_current_screen();

@@ -3,15 +3,15 @@
  * Plugin Name: Flexible Checkout Fields PRO
  * Plugin URI: https://www.wpdesk.net/sk/flexible-checkout-fields-pro-plugin/
  * Description: Extension to the free version. Adds new field types, custom sections and more.
- * Version: 4.0.30
+ * Version: 4.0.32
  * Author: WP Desk
  * Author URI: https://www.wpdesk.net/sk/flexible-checkout-fields-pro-author/
  * Text Domain: flexible-checkout-fields-pro
  * Domain Path: /lang/
  * Requires at least: 6.4
  * Tested up to: 7.1
- * WC requires at least: 10.7
- * WC tested up to: 11.1
+ * WC requires at least: 10.8
+ * WC tested up to: 11.2
  * Requires PHP: 7.4
  *
  * Copyright 2023 WP Desk Ltd.
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /* THIS VARIABLE CAN BE CHANGED AUTOMATICALLY */
-$plugin_version = '4.0.30';
+$plugin_version = '4.0.32';
 
 /*
  * Compatible version with base version of FCF plugin:

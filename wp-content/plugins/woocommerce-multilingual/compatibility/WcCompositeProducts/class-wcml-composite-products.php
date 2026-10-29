@@ -158,6 +158,7 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper implements \IWPM
 
 			$composite_data = $this->get_composite_data( $product_id );
 
+			/* translators: Heading of the group of composite-product component fields in WPML's translation editor. "Composite Products" is the name of the WooCommerce extension. */
 			$composite_section = new WPML_Editor_UI_Field_Section( __( 'Composite Products ( Components )', 'woocommerce-multilingual' ) );
 			end( $composite_data );
 			$last_key = key( $composite_data );
@@ -167,8 +168,10 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper implements \IWPM
 					$divider = false;
 				}
 				$group = new WPML_Editor_UI_Field_Group( '', $divider );
+				/* translators: Label of a name field in WPML's translation editor for a product. Noun. */
 				$composite_field = new WPML_Editor_UI_Single_Line_Field( 'composite_'.$component_id.'_title', __( 'Name', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $composite_field );
+				/* translators: Label of a description field in WPML's translation editor for a product. Noun. */
 				$composite_field = new WPML_Editor_UI_Single_Line_Field( 'composite_'.$component_id.'_description' , __( 'Description', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $composite_field );
 				$composite_section->add_field( $group );
@@ -182,6 +185,7 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper implements \IWPM
 			$composite_scenarios_meta = $this->get_composite_scenarios_meta( $product_id );
 			if( $composite_scenarios_meta ){
 
+				/* translators: Heading of the group of composite-product scenario fields in WPML's translation editor. "Composite Products" is the name of the WooCommerce extension. */
 				$composite_scenarios = new WPML_Editor_UI_Field_Section( __( 'Composite Products ( Scenarios )', 'woocommerce-multilingual' ) );
 				end( $composite_scenarios_meta );
 				$last_key = key( $composite_scenarios_meta );
@@ -191,8 +195,10 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper implements \IWPM
 						$divider = false;
 					}
 					$group = new WPML_Editor_UI_Field_Group( '', $divider );
+					/* translators: Label of a name field in WPML's translation editor for a product. Noun. */
 					$composite_scenario_field = new WPML_Editor_UI_Single_Line_Field( 'composite_scenario_'.$scenario_key.'_title', __( 'Name', 'woocommerce-multilingual' ), $data, false );
 					$group->add_field( $composite_scenario_field );
+					/* translators: Label of a description field in WPML's translation editor for a product. Noun. */
 					$composite_scenario_field = new WPML_Editor_UI_Single_Line_Field( 'composite_scenario_'.$scenario_key.'_description' , __( 'Description', 'woocommerce-multilingual' ), $data, false );
 					$group->add_field( $composite_scenario_field );
 					$composite_scenarios->add_field( $group );

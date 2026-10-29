@@ -4,6 +4,8 @@ abstract class WPML_Admin_Text_Functionality {
 
 	const TRANSLATABLE_NAMES_SETTING    = '_icl_admin_option_names';
 	const TRANSLATABLE_ID_NAMES_SETTING = '_icl_admin_option_id_names';
+	const CONFIGURED_NAMES_SETTING      = '_wpml_admin_option_names_from_config';
+	const CONFIGURED_ID_NAMES_SETTING   = '_wpml_admin_option_id_names_from_config';
 
 	final public function is_blacklisted( $option_name ) {
 		global $wp_taxonomies;
@@ -32,12 +34,13 @@ abstract class WPML_Admin_Text_Functionality {
 				'wpml_config_index',
 				'wpml_config_index_updated',
 				'wpml_config_files_arr',
-				'icl_admin_messages',
 				'wpml-package-translation-db-updates-run',
 				'wpml_media',
 				'wpml_ta_settings',
 				self::TRANSLATABLE_NAMES_SETTING,
 				self::TRANSLATABLE_ID_NAMES_SETTING,
+				self::CONFIGURED_NAMES_SETTING,
+				self::CONFIGURED_ID_NAMES_SETTING,
 				'_icl_cache',
 				'icl_sitepress_version',
 				'rewrite_rules',
@@ -87,7 +90,6 @@ abstract class WPML_Admin_Text_Functionality {
 				'WPLANG',
 				'wp_icl_translators_cached',
 				'cron',
-				'_transient_WPML_ST_MO_Downloader_lang_map',
 				'icl_translation_jobs_basket',
 			] ),
 			1

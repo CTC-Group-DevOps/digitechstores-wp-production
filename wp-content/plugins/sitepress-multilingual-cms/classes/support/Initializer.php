@@ -3,14 +3,23 @@
 namespace WPML\Support;
 
 use Exception;
+use Throwable;
 use WPML\Core\Component\MinimumRequirements\Application\Service\RequirementsService;
+
+use function WPML\PHP\Logger\error;
 
 class Initializer {
 
 	public static function getData(): array {
 		global $wpml_dic;
 		$requirementsService = $wpml_dic->make( RequirementsService::class );
-		$invalidRequirements = $requirementsService->getInvalidRequirements();
+
+		try {
+			$invalidRequirements = $requirementsService->getInvalidRequirements( true );
+		} catch ( Throwable $e ) {
+			error( 'Failed to get InvalidRequirements: ' . $e->getMessage() . ' ' . $e->getTraceAsString() );
+			$invalidRequirements = [];
+		}
 
 		return[
 			'showMinRequirementsComponent'  =>  count( $invalidRequirements ) > 0,

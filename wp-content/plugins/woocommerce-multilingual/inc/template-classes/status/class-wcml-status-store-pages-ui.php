@@ -29,13 +29,21 @@ class WCML_Status_Store_Pages_UI extends WCML_Templates_Factory {
 			'install_link' => \WCML\Utilities\AdminUrl::getWooStatus( 'tools' ),
 			'request_uri'  => $_SERVER['REQUEST_URI'],
 			'strings'      => [
+				/* translators: Heading of the block on the Status screen about the cart, checkout and other WooCommerce pages. */
 				'store_pages'     => __( 'WooCommerce Store Pages', 'woocommerce-multilingual' ),
+				/* translators: Explanation under the "WooCommerce Store Pages" heading; "this menu" is the block itself. */
 				'pages_trnsl'     => __( "To run a multilingual e-commerce site, you need to have the WooCommerce shop pages translated to all the site's languages. Once all the pages are installed you can add the translations for them from this menu.", 'woocommerce-multilingual' ),
+				/* translators: Warning on the Status screen when a WooCommerce page is missing in the original language. */
 				'not_created'     => __( 'One or more WooCommerce pages have not been created.', 'woocommerce-multilingual' ),
+				/* translators: Button on the Status screen that creates the missing WooCommerce pages. Verb phrase, imperative. */
 				'install'         => __( 'Install WooCommerce Pages', 'woocommerce-multilingual' ),
+				/* translators: Warning on the Status screen; the list of languages follows the colon. */
 				'not_exist'       => __( 'WooCommerce store pages do not exist for these languages:', 'woocommerce-multilingual' ),
+				/* translators: Button on the Status screen that creates the missing translations of the WooCommerce pages. Verb phrase, imperative. */
 				'create_transl'   => __( 'Create missing translations', 'woocommerce-multilingual' ),
+				/* translators: Line on the Status screen; the list of pages follows it, so keep the colon and the trailing space. */
 				'translated_wpml' => __( 'These pages are currently being translated by translators via WPML: ', 'woocommerce-multilingual' ),
+				/* translators: Line on the Status screen shown when every WooCommerce page has all its translations. */
 				'translated'      => __( "WooCommerce store pages are translated to all the site's languages.", 'woocommerce-multilingual' ),
 			],
 			'nonces'       => [

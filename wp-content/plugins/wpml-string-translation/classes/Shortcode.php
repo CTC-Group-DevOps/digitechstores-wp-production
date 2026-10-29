@@ -60,9 +60,14 @@ class Shortcode {
 		$cache_found = false;
 		$string      = wp_cache_get( $cache_key, $cache_group, false, $cache_found );
 		if ( ! $cache_found ) {
-			$query  = 'SELECT name, id, value, status FROM ' . $this->wpdb->prefix . 'icl_strings WHERE context=%s';
-			$sql    = $this->wpdb->prepare( $query, $this->context );
-			$string = $this->wpdb->get_results( $sql, OBJECT_K );
+			$wpdb   = $this->wpdb;
+			$string = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT name, id, value, status FROM {$wpdb->prefix}icl_strings WHERE context=%s",
+					$this->context
+				),
+				OBJECT_K
+			);
 			wp_cache_set( $cache_key, $string, $cache_group );
 		}
 

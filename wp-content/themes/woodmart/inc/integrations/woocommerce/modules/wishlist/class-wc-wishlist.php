@@ -204,14 +204,28 @@ class WC_Wishlist {
 		}
 
 		$product_id = woodmart_clean( $_GET['product_id'] ); //phpcs:ignore
-		$group_id   = '';
+		$group_id   = 0;
 		$content    = '';
 
 		if ( isset( $_GET['group_id'] ) ) {
-			$group_id = woodmart_clean( $_GET['group_id'] ); //phpcs:ignore
+			$group_id = absint( $_GET['group_id'] ); //phpcs:ignore
 		}
 
-		$wishlist = $this->get_wishlist( $group_id );
+		$wishlist = $this->get_wishlist();
+
+		if ( is_user_logged_in() && $group_id && ! $wishlist->is_group_owner( $group_id ) ) {
+			wp_send_json(
+				array(
+					'status'  => 'error',
+					'message' => esc_html__( 'You are not allowed to modify this wishlist.', 'woodmart' ),
+				),
+				403
+			);
+		}
+
+		if ( $group_id ) {
+			$wishlist = $this->get_wishlist( $group_id );
+		}
 
 		if ( is_array( $product_id ) ) {
 			foreach ( $product_id as $id ) {

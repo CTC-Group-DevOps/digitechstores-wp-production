@@ -30,12 +30,46 @@ class WPML_Debug_Information {
 					$output['theme'] = $this->get_theme_info();
 					break;
 				case 'extra-debug':
-					$output['extra-debug'] = apply_filters( 'icl_get_extra_debug_info', array() );
+					$output['extra-debug'] = $this->mask_installer_site_keys( apply_filters( 'icl_get_extra_debug_info', array() ) );
 					break;
 			}
 		}
 
 		return $output;
+	}
+
+	private function mask_installer_site_keys( $extra_debug ) {
+		if (
+			! isset( $extra_debug['installer'] )
+			|| ! is_array( $extra_debug['installer'] )
+			|| ! isset( $extra_debug['installer']['repositories'] )
+			|| ! is_array( $extra_debug['installer']['repositories'] )
+		) {
+			return $extra_debug;
+		}
+
+		foreach ( $extra_debug['installer']['repositories'] as $repository_id => $repository ) {
+			if ( isset( $repository['subscription'] ) && is_array( $repository['subscription'] ) && array_key_exists( 'key', $repository['subscription'] ) ) {
+				$extra_debug['installer']['repositories'][ $repository_id ]['subscription']['key'] = $this->mask_site_key( $repository['subscription']['key'] );
+			}
+		}
+
+		return $extra_debug;
+	}
+
+	private function mask_site_key( $key ) {
+		if ( null === $key || is_bool( $key ) || '' === $key ) {
+			return $key;
+		}
+		if ( ! is_scalar( $key ) ) {
+			return null;
+		}
+
+		$key    = (string) $key;
+		$length = strlen( $key );
+		$shown  = $length > 4 ? substr( $key, -4 ) : '';
+
+		return str_repeat( '*', $length - strlen( $shown ) ) . $shown;
 	}
 
 	function get_core_info() {
@@ -49,10 +83,11 @@ class WPML_Debug_Information {
 				'PermalinkStructure' => get_option( 'permalink_structure' ),
 				'PostTypes'          => implode( ', ', get_post_types( '', 'names' ) ),
 				'PostStatus'         => implode( ', ', get_post_stati() ),
-				'RestEnabled'        => wpml_is_rest_enabled(false) ? 'Yes' : 'No',
+				'RestEnabled'        => wpml_is_rest_enabled() ? 'Yes' : 'No',
 			),
 			'Server'    => array(
-				'jQueryVersion'  => wp_script_is( 'jquery', 'registered' ) ? $GLOBALS['wp_scripts']->registered['jquery']->ver : __( 'n/a', 'bbpress' ),
+				/* translators: Shown in a table cell in place of a value that is not there. Keep the short form your language uses for "not available". */
+				'jQueryVersion'  => wp_script_is( 'jquery', 'registered' ) ? $GLOBALS['wp_scripts']->registered['jquery']->ver : __( 'n/a', 'sitepress' ),
 				'PHPVersion'     => $this->sitepress->get_wp_api()->phpversion(),
 				'MySQLVersion'   => $this->wpdb->db_version(),
 				'ServerSoftware' => $_SERVER['SERVER_SOFTWARE'],

@@ -21,28 +21,37 @@ class WPML_ST_Theme_Localization_UI implements IWPML_Theme_Plugin_Localization_U
 	}
 
 	public function get_model() {
+		$components   = $this->get_components();
+		$active_count = count( array_filter( array_column( $components, 'active' ) ) );
 
 		$model = array(
 			'show_active_label'  => true,
 			'scan_button_label'  => __( 'Scan selected themes for strings', 'wpml-string-translation' ),
 			'completed_title'    => __( 'Completely translated strings', 'wpml-string-translation' ),
 			'needs_update_title' => __( 'Strings in need of translation', 'wpml-string-translation' ),
+			/* translators: Name of the group on the Theme and plugins localization page that holds the themes. Noun, plural. */
 			'component'          => __( 'Themes', 'wpml-string-translation' ),
+			/* translators: Column heading on the Theme and plugins localization page: the text domain, the short name a theme or plugin uses for its texts. */
 			'domain'             => __( 'Textdomain', 'wpml-string-translation' ),
+			/* translators: Option in the filter on the Theme and plugins localization page: show every theme or plugin. */
 			'all_text'           => __( 'All', 'wpml-string-translation' ),
+			/* translators: Option in the filter on the Theme and plugins localization page: show only themes or plugins that are switched on. On the Packages page it is also the state of a package that is in use. Adjective. */
 			'active_text'        => __( 'Active', 'wpml-string-translation' ),
+			/* translators: Option in the filter on the Theme and plugins localization page: show only themes or plugins that are switched off. Adjective. */
 			'inactive_text'      => __( 'Inactive', 'wpml-string-translation' ),
+			/* translators: Link on the Theme and plugins localization page that shows the text domain of each theme or plugin. Verb, imperative, lower case in the source. */
 			'show_textdomains'   => __( 'show textdomains', 'wpml-string-translation' ),
+			/* translators: Link on the Theme and plugins localization page that hides the text domain of each theme or plugin. Verb, imperative, lower case in the source. */
 			'hide_textdomains'   => __( 'hide textdomains', 'wpml-string-translation' ),
 			'type'               => 'theme',
-			'components'         => $this->get_components(),
+			'components'         => $components,
 			'stats_id'           => 'wpml_theme_scan_stats',
 			'scan_button_id'     => 'wpml_theme_localization_scan',
 			'section_class'      => 'wpml_theme_localization',
-			'download_po'        => __( 'Download .po file', 'wpml_string_translation' ),
+			'download_po'        => __( 'Download .po file', 'wpml-string-translation' ),
 			'status_count'       => array(
-				'active'   => 1,
-				'inactive' => count( $this->utils->get_theme_data() ) - 1,
+				'active'   => $active_count,
+				'inactive' => count( $components ) - $active_count,
 			),
 			'render_filters'     => true,
 			'render_section'     => true,
@@ -61,8 +70,8 @@ class WPML_ST_Theme_Localization_UI implements IWPML_Theme_Plugin_Localization_U
 			$components[ $theme_folder ] = [
 				'id'                       => md5( $theme_data['path'] ),
 				'component_name'           => $theme_data['name'],
-				'component_id_for_mo_scan' => $theme_folder, 
-				'active'                   => wp_get_theme()->get( 'Name' ) === $theme_data['name'],
+				'component_id_for_mo_scan' => $theme_folder,
+				'active'                   => WPML_ST_Path_Confinement::is_active_theme_directory( $theme_data['path'] ),
 				'completed'                => false,
 				'needs_rescan'             => false,
 				'statusIconTitle'          => __( 'Not scanned yet', 'wpml-string-translation' ),
@@ -71,6 +80,7 @@ class WPML_ST_Theme_Localization_UI implements IWPML_Theme_Plugin_Localization_U
 
 			if ( in_array( $theme_folder, $themeFolderNamesInStats ) ) {
 				$components[ $theme_folder ]['completed']       = true;
+				/* translators: Tooltip on the icon next to a theme or plugin on the Theme and plugins localization page: its texts have already been scanned. Past participle used as a state. */
 				$components[ $theme_folder ]['statusIconTitle'] = __( 'Scanned', 'wpml-string-translation' );
 			}
 

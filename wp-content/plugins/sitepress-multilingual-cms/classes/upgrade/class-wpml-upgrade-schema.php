@@ -57,6 +57,22 @@ class WPML_Upgrade_Schema {
 		return is_array( $results ) && count( $results );
 	}
 
+	public function ensure_columns( $table_name, array $columns ) {
+		if ( ! $this->does_table_exist( $table_name ) ) {
+			return false;
+		}
+
+		$any_missing = false;
+		foreach ( $columns as $column_name => $attribute_string ) {
+			if ( ! $this->does_column_exist( $table_name, $column_name ) ) {
+				$any_missing = true;
+				$this->add_column( $table_name, $column_name, $attribute_string );
+			}
+		}
+
+		return $any_missing;
+	}
+
 	public function add_column( $table_name, $column_name, $attribute_string ) {
 		$wpdb        = $this->wpdb;
 		$table_name  = $this->get_prefixed_table_name( $table_name );
@@ -93,6 +109,13 @@ class WPML_Upgrade_Schema {
 		return $wpdb->query( "ALTER TABLE `{$table_name}` DROP INDEX `{$index_name}`" );
 	}
 
+	public function drop_column( $table_name, $column_name ) {
+		$wpdb       = $this->wpdb;
+		$table_name = $this->get_prefixed_table_name( $table_name );
+
+		return $wpdb->query( 'ALTER TABLE `' . esc_sql( $table_name ) . '` DROP COLUMN `' . esc_sql( $column_name ) . '`' );
+	}
+
 	public function get_column_collation( $table_name, $column_name ) {
 		$wpdb       = $this->wpdb;
 		$table_name = $this->get_prefixed_table_name( $table_name );
@@ -124,49 +147,72 @@ class WPML_Upgrade_Schema {
 		return null;
 	}
 
-	public function get_default_collate() {
-		$posts_table_collate = $this->get_table_collation( $this->wpdb->posts );
+	public function get_default_charset_and_collate() {
+		$collate = $this->get_table_collation( $this->wpdb->posts );
 
-		if ( $posts_table_collate ) {
-			return $posts_table_collate;
-		} elseif ( ! empty( $this->wpdb->collate ) ) {
-			return $this->wpdb->collate;
+		if ( $collate ) {
+			return [
+				'charset' => $this->get_collation_charset( $collate ),
+				'collate' => $collate,
+			];
 		}
 
-		return null;
+		return [
+			'charset' => ! empty( $this->wpdb->charset ) ? $this->wpdb->charset : null,
+			'collate' => ! empty( $this->wpdb->collate ) ? $this->wpdb->collate : null,
+		];
+	}
+
+	public function get_default_collate() {
+		$pair = $this->get_default_charset_and_collate();
+
+		return $pair['collate'];
 	}
 
 	public function get_table_charset( $table_name ) {
+		$collation = $this->get_table_collation( $table_name );
+
+		return $collation ? $this->get_collation_charset( $collation ) : null;
+	}
+
+	public function get_collation_charset( $collation ) {
 		$wpdb = $this->wpdb;
 
-		try {
-			return $wpdb->get_var(
+		if ( $this->has_full_collation_name_column() ) {
+			$charset = $wpdb->get_var(
 				$wpdb->prepare(
-					'SELECT CCSA.character_set_name
-					FROM information_schema.`TABLES` T,
-					information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` CCSA
-					WHERE CCSA.collation_name = T.table_collation
-					AND T.table_schema = %s
-					AND T.table_name = %s;',
-					$wpdb->dbname,
-					$table_name
+					'SELECT CHARACTER_SET_NAME FROM information_schema.COLLATION_CHARACTER_SET_APPLICABILITY WHERE FULL_COLLATION_NAME = %s LIMIT 1',
+					$collation
 				)
 			);
-		} catch ( Exception $e ) {
-			return null;
+		} else {
+			$charset = $wpdb->get_var(
+				$wpdb->prepare(
+					'SELECT CHARACTER_SET_NAME FROM information_schema.COLLATION_CHARACTER_SET_APPLICABILITY WHERE COLLATION_NAME = %s LIMIT 1',
+					$collation
+				)
+			);
 		}
+
+		if ( is_string( $charset ) && '' !== $charset ) {
+			return $charset;
+		}
+
+		$parts = explode( '_', $collation, 2 );
+
+		return $parts[0];
+	}
+
+	private function has_full_collation_name_column() {
+		return $this->has_results(
+			$this->wpdb->get_results( "SHOW COLUMNS FROM information_schema.COLLATION_CHARACTER_SET_APPLICABILITY LIKE 'FULL_COLLATION_NAME'" )
+		);
 	}
 
 	public function get_default_charset() {
-		$post_table_charset = $this->get_table_charset( $this->wpdb->posts );
+		$pair = $this->get_default_charset_and_collate();
 
-		if ( $post_table_charset ) {
-			return $post_table_charset;
-		} elseif ( ! empty( $this->wpdb->charset ) ) {
-			return $this->wpdb->charset;
-		}
-
-		return null;
+		return $pair['charset'];
 	}
 
 	public function get_wpdb() {

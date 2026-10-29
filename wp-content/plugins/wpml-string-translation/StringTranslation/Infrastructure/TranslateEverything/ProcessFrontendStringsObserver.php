@@ -2,7 +2,6 @@
 
 namespace WPML\StringTranslation\Infrastructure\TranslateEverything;
 
-use WPML\FP\Lst;
 use WPML\Setup\Option;
 use WPML\StringTranslation\Application\StringHtml\Command\ProcessFrontendStringsObserverInterface;
 use WPML\TM\AutomaticTranslation\Actions\Actions;
@@ -21,17 +20,12 @@ class ProcessFrontendStringsObserver implements ProcessFrontendStringsObserverIn
 
 	public function newFrontendStringsRegistered( array $stringIds ) {
 		if ( count( $stringIds ) && Option::shouldTranslateEverything() ) {
-			$eligibleLanguages = $this->untranslatedStrings->getEligibleLanguageCodes( true );
-
-			$notTranslatedFrontendStrings = $this->untranslatedStrings->getElementsToProcess(
-				$eligibleLanguages,
-				'string',
-				1
+			$elements = $this->untranslatedStrings->getElementsToProcessForStrings(
+				$this->untranslatedStrings->getEligibleLanguageCodes( true ),
+				$stringIds
 			);
 
-			if ( count( $notTranslatedFrontendStrings ) ) {
-				$elements = Lst::xprod( $stringIds, $eligibleLanguages );
-
+			if ( count( $elements ) ) {
 				$this->untranslatedStrings->createTranslationJobs( $this->actions, $elements, 'string' );
 			}
 		}

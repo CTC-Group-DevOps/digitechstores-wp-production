@@ -22,6 +22,8 @@ class WPML_Gutenberg_Strings_Registration {
 
 	private $sequence = 0;
 
+	private $registered_in_pass = [];
+
 	public function __construct(
 		WPML\PB\Gutenberg\StringsInBlock\StringsInBlock $strings_in_blocks,
 		WPML_ST_String_Factory $string_factory,
@@ -43,8 +45,9 @@ class WPML_Gutenberg_Strings_Registration {
 		do_action( 'wpml_start_GB_register_strings', $post, $package_data );
 
 		$original_strings       = $this->string_translation->get_package_strings( $package_data );
-		$this->leftover_strings = $original_strings;
-		$this->string_location  = 1;
+		$this->leftover_strings   = $original_strings;
+		$this->string_location    = 1;
+		$this->registered_in_pass = [];
 
 		$this->register_blocks(
 			WPML_Gutenberg_Integration::parse_blocks( $post->post_content ),
@@ -60,16 +63,21 @@ class WPML_Gutenberg_Strings_Registration {
 		do_action( 'wpml_delete_unused_package_strings', $package_data );
 	}
 
+	public function has_registered_strings( array $package_data ) {
+		return ! empty( $this->string_translation->get_package_strings( $package_data ) );
+	}
+
 	public function register_strings_from_widget( array $blocks, array $package_data ) {
 		do_action( 'wpml_start_string_package_registration', $package_data );
 
 		$original_strings       = $this->string_translation->get_package_strings( $package_data );
-		$this->leftover_strings = $original_strings;
-		$this->string_location  = 1;
+		$this->leftover_strings   = $original_strings;
+		$this->string_location    = 1;
+		$this->registered_in_pass = [];
 
-		foreach ( $blocks as $blockId => $block ) {
-			$block['id'] = $blockId;
-			$this->register_blocks( [ $block ], $package_data, null, [ 'block-' . $blockId ] );
+		foreach ( $blocks as $blockId => $widgetBlocks ) {
+			$widgetBlocks = is_array( $widgetBlocks ) ? $widgetBlocks : [ $widgetBlocks ];
+			$this->register_blocks( $widgetBlocks, $package_data, null, [ 'block-' . $blockId ] );
 		}
 
 		$current_strings = $this->string_translation->get_package_strings( $package_data );
@@ -104,6 +112,11 @@ class WPML_Gutenberg_Strings_Registration {
 					if ( $post_id && apply_filters( 'wpml_pb_register_strings_in_content', false, $post_id, $string->value ) ) {
 						continue;
 					}
+
+					if ( isset( $this->registered_in_pass[ $string->id ] ) ) {
+						continue;
+					}
+					$this->registered_in_pass[ $string->id ] = true;
 
 					$groupLabel = Groups::buildGroupLabel( $newCrumbs, $string->name );
 

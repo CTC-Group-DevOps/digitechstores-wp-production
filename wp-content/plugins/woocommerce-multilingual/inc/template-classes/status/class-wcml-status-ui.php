@@ -34,6 +34,7 @@ class WCML_Status_UI extends WCML_Templates_Factory {
 			'media'          => $WCML_Status_Media_UI->get_view(),
 			'troubl_url'     => \WCML\Utilities\AdminUrl::getTroubleshootingTab(),
 			'strings'        => [
+				/* translators: Tab title and heading of the screen with the plugin's repair tools. */
 				'troubl' => __( 'Troubleshooting', 'woocommerce-multilingual' ),
 			],
 		];

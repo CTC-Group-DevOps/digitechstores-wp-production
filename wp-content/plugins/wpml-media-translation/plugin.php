@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WPML Media Translation
- * Plugin URI: https://wpml.org/
- * Description: Show different images for content in different languages | <a href="https://wpml.org/documentation/getting-started-guide/media-translation/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlmedia">Documentation</a> | <a href="https://wpml.org/version/wpml-media-translation-3-1-2/">WPML Media Translation 3.1.2 release notes</a>
+ * Plugin URI: https://wpml.org/documentation/wpml-core-and-add-on-plugins/media-translation/
+ * Description: Show different images for content in different languages | <a href="https://wpml.org/documentation/translating-your-contents/media/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlmedia">Documentation</a> | <a href="https://wpml.org/version/wpml-media-translation-5-2-0/">WPML Media Translation 5.2.0 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 3.1.2
+ * Version: 5.2.0
  * Plugin Slug: wpml-media-translation
  *
  * @package wpml/media
@@ -15,7 +15,7 @@ if ( defined( 'WPML_MEDIA_VERSION' ) ) {
 	return;
 }
 
-define( 'WPML_MEDIA_VERSION', '3.1.2' );
+define( 'WPML_MEDIA_VERSION', '5.2.0' );
 define( 'WPML_MEDIA_PATH', dirname( __FILE__ ) );
 
 require_once WPML_MEDIA_PATH . '/vendor/autoload.php';
@@ -35,7 +35,6 @@ function wpml_media_remove_flag_notice() {
 	);
 }
 
-// phpcs:disable WordPress.NamingConventions.ValidVariableName.NotSnakeCase
 global $WPML_media, $wpdb, $sitepress, $iclTranslationManagement;
 
 $media_dependencies = new WPML_Media_Dependencies();
@@ -76,7 +75,6 @@ if ( $media_dependencies->check() ) {
 				'WPML_Media_Post_Batch_Url_Translation_Factory',
 				'WPML_Media_Custom_Field_Images_Translation_Factory',
 				'WPML_Media_Custom_Field_Batch_Url_Translation_Factory',
-				'WPML_Media_Editor_Notices_Factory',
 				'WPML_Media_Help_Tab_Factory',
 			);
 

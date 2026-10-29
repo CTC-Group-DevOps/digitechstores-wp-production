@@ -10,6 +10,8 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 
 	const SUBMENU_HANDLE = 'wpml-tm-job-log';
 
+	const CAPABILITIES = [ 'manage_options', 'wpml_manage_support' ];
+
 	private $viewFactory;
 
 	public function __construct( ViewFactory $viewFactory ) {
@@ -19,16 +21,16 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 	public function add_hooks() {
 		add_action( 'admin_menu', [ $this, 'addLogSubmenuPage' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueScripts' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_toggle_feature', [ $this, 'handleAjaxToggle' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_clear', [ $this, 'handleAjaxClear' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_save_caps', [ $this, 'handleAjaxSaveCaps' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_download', [ $this, 'handleAjaxDownload' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_download_all', [ $this, 'handleAjaxDownloadAll' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_download_last_100', [ $this, 'handleAjaxDownloadLast100' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_get_request_detail', [ $this, 'handleAjaxGetRequestDetail' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_search_posts', [ $this, 'handleAjaxSearchPosts' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_entity_timeline', [ $this, 'handleAjaxEntityTimeline' ] );
-		add_action( 'wp_ajax_wpml_tm_job_log_download_entity_timeline', [ $this, 'handleAjaxDownloadEntityTimeline' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_toggle_feature', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxToggle' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_clear', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxClear' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_save_caps', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxSaveCaps' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_download', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxDownload' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_download_all', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxDownloadAll' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_download_last_100', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxDownloadLast100' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_get_request_detail', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxGetRequestDetail' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_search_posts', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxSearchPosts' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_entity_timeline', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxEntityTimeline' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tm_job_log_download_entity_timeline', \WPML\Request\Policy\Policy::capability( self::CAPABILITIES, \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_tm_job_log', 'nonce' ) ), [ $this, 'handleAjaxDownloadEntityTimeline' ] );
 	}
 
 	public function addLogSubmenuPage() {
@@ -36,7 +38,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 			WPML_PLUGIN_FOLDER . '/menu/support.php',
 			__( 'Translation Management Job Logs', 'sitepress' ),
 			__( 'TM job logs', 'sitepress' ),
-			'manage_options',
+			'wpml_manage_support',
 			self::SUBMENU_HANDLE,
 			[ $this, 'renderPage' ]
 		);
@@ -49,6 +51,16 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 			return;
 		}
 		$this->viewFactory->create()->renderPage();
+	}
+
+	public static function userMayManageJobLog() {
+		foreach ( self::CAPABILITIES as $capability ) {
+			if ( current_user_can( $capability ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function enqueueScripts() {
@@ -80,6 +92,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 					'loadDetailFailed'     => __( 'Failed to load request details', 'sitepress' ),
 					'capsSavedReloading'   => __( 'Caps saved — reloading…', 'sitepress' ),
 					'capsSaveFailed'       => __( 'Failed to save caps', 'sitepress' ),
+					/* translators: Message shown when the search on the translation jobs screen could not be carried out. */
 					'entitySearchFailed'   => __( 'Search failed', 'sitepress' ),
 					'entityTimelineFailed' => __( 'Failed to load timeline', 'sitepress' ),
 					'entityNoResults'      => __( 'No posts found', 'sitepress' ),
@@ -92,7 +105,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_send_json_error( 'Insufficient permissions' );
 		}
 
@@ -110,7 +123,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_send_json_error( 'Insufficient permissions' );
 		}
 
@@ -131,7 +144,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_send_json_error( 'Insufficient permissions' );
 		}
 
@@ -141,7 +154,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( $maxMb < FsJobLogStorage::MIN_CONFIGURABLE_MB || $maxMb > FsJobLogStorage::MAX_CONFIGURABLE_MB ) {
 			wp_send_json_error(
                 sprintf(
-				/* translators: 1: min MB; 2: max MB */
+				/* translators: Error message in the dialog that sets the limits of the job log. %1$d: the smallest size that may be entered, %2$d: the largest, both in megabytes. */
                     __( 'Maximum size must be between %1$d and %2$d MB.', 'sitepress' ),
                     FsJobLogStorage::MIN_CONFIGURABLE_MB,
                     FsJobLogStorage::MAX_CONFIGURABLE_MB
@@ -151,7 +164,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( $maxFiles < FsJobLogStorage::MIN_CONFIGURABLE_FILES || $maxFiles > FsJobLogStorage::MAX_CONFIGURABLE_FILES ) {
 			wp_send_json_error(
                 sprintf(
-				/* translators: 1: min files; 2: max files */
+				/* translators: Error message in the dialog that sets the limits of the job log. %1$d: the smallest number of requests that may be kept, %2$d: the largest. */
                     __( 'Maximum file count must be between %1$d and %2$d.', 'sitepress' ),
                     FsJobLogStorage::MIN_CONFIGURABLE_FILES,
                     FsJobLogStorage::MAX_CONFIGURABLE_FILES
@@ -161,6 +174,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 
 		global $sitepress;
 		if ( ! $sitepress ) {
+			/* translators: Message shown when the limits of the job log cannot be read or saved. */
 			wp_send_json_error( __( 'Settings unavailable.', 'sitepress' ) );
 		}
 
@@ -180,7 +194,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_send_json_error( 'Insufficient permissions' );
 		}
 
@@ -199,7 +213,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_send_json_error( 'Insufficient permissions' );
 		}
 
@@ -265,7 +279,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_send_json_error( 'Insufficient permissions' );
 		}
 
@@ -287,7 +301,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_die( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_die( 'Insufficient permissions' );
 		}
 
@@ -311,7 +325,9 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		while ( ob_get_level() > 0 ) {
 			ob_end_flush();
 		}
-		@set_time_limit( 300 );
+		if ( function_exists( 'set_time_limit' ) ) {
+			@set_time_limit( 300 );
+		}
 
 		( new EntityTimelineView() )->streamTimelineText( $payload );
 
@@ -322,7 +338,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_die( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_die( 'Insufficient permissions' );
 		}
 
@@ -354,7 +370,7 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpml_tm_job_log' ) ) {
 			wp_die( 'Invalid nonce' );
 		}
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! self::userMayManageJobLog() ) {
 			wp_die( 'Insufficient permissions' );
 		}
 
@@ -378,7 +394,9 @@ class Hooks implements \IWPML_Backend_Action, \IWPML_DIC_Action {
 		while ( ob_get_level() > 0 ) {
 			ob_end_flush();
 		}
-		@set_time_limit( 300 );
+		if ( function_exists( 'set_time_limit' ) ) {
+			@set_time_limit( 300 );
+		}
 
 		$this->streamBulkBody( $summaries, $limit );
 

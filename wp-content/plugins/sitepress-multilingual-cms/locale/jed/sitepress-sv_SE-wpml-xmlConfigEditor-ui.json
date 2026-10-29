@@ -19,6 +19,12 @@
          "Error": [
             "Fel"
          ],
+         "Configuration saved.": [
+            "Konfigurationen har sparats."
+         ],
+         "Could not save the configuration — please retry.": [
+            "Det gick inte att spara konfigurationen – försök igen."
+         ],
          "Shortcuts": [
             "Genvägar"
          ],

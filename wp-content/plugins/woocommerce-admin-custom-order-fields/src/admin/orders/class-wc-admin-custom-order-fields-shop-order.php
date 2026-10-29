@@ -184,7 +184,8 @@ class WC_Admin_Custom_Order_Fields_Shop_Order {
 
 			if ( $column === $order_field->get_meta_key() ) {
 
-				echo $order_field->get_value_formatted(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				// order meta can be written by other channels (REST API, importers, other plugins) so it is not trusted HTML; match the customer-facing templates
+				echo wp_kses_post( $order_field->get_value_formatted() );
 
 				break;
 			}

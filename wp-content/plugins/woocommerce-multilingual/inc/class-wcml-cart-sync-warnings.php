@@ -27,8 +27,6 @@ class WCML_Cart_Sync_Warnings {
 			add_action( 'admin_notices', [ $this, 'show_cart_notice' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'register_styles' ] );
 		}
-
-		add_action( 'admin_init', [ $this, 'handle_dismiss_cart_notice' ] );
 	}
 
 	public function check_if_show_notices_needed() {
@@ -61,10 +59,12 @@ class WCML_Cart_Sync_Warnings {
 		$admin_settings_url = esc_url( \WCML\Utilities\AdminUrl::getSettingsTab() . '#cart' );
 		$documentation_link = esc_url( WCML_Tracking_Link::getWcmlClearCartDoc() );
 
+		/* translators: First sentence of the admin warning about the cart losing its contents on a language or currency switch. */
 		$reset_cart_strings[] = esc_html_x( 'Because of some elements in your site configuration, when the users switch the currency or the language on the front end, the cart content might not be synchronized correctly.', 'Reset cart option warning 1', 'woocommerce-multilingual' );
 		/* translators: %s is link to "reset cart configuration" */
 		$reset_cart_strings[] = esc_html_x( 'It is recommended that you %s with the option to reset the cart in a situation like this.', 'Reset cart option warning 2', 'woocommerce-multilingual' );
 
+		/* translators: Link text placed inside the sentence "It is recommended that you ... with the option to reset the cart"; it opens the plugin's settings. Verb phrase, lower case because it sits mid-sentence. */
 		$reset_cart_configure_link = '<strong><a href="' . $admin_settings_url . '">' . esc_html__( 'configure WPML Multilingual & Multicurrency for WooCommerce', 'woocommerce-multilingual' ) . '</a></strong>';
 
 		$reset_cart_message  = $reset_cart_strings[0];
@@ -72,13 +72,15 @@ class WCML_Cart_Sync_Warnings {
 		$reset_cart_message .= $list_of_extensions;
 		$reset_cart_message .= '<p>';
 		$reset_cart_message .= $reset_cart_strings[1];
+		/* translators: Link text at the end of the cart warning; it opens the WPML documentation. */
 		$reset_cart_message .= '<strong><a href="' . $documentation_link . '" target="_blank">' . esc_html__( 'More details', 'woocommerce-multilingual' ) . '</a></strong>';
 
 		$message  = '<div class="message error otgs-is-dismissible">';
 		$message .= '<p>';
 		$message .= sprintf( $reset_cart_message, $reset_cart_configure_link );
 		$message .= '</p>';
-		$message .= '<a class="notice-dismiss" href="' . esc_url( add_query_arg( 'wcml_action', self::KEY_DISMISS, $request_url ) ) . '"><span class="screen-reader-text">' . esc_html__( 'Dismiss', 'woocommerce-multilingual' ) . '</span></a>';
+		/* translators: Accessible label (screen readers) of the close button that hides an admin notice. Verb, imperative. */
+		$message .= '<a class="notice-dismiss" href="' . esc_url( WCML_Requests::dismissUrl( self::KEY_DISMISS, $request_url ) ) . '"><span class="screen-reader-text">' . esc_html__( 'Dismiss', 'woocommerce-multilingual' ) . '</span></a>';
 		$message .= '</div>';
 
 		echo $message;
@@ -108,12 +110,4 @@ class WCML_Cart_Sync_Warnings {
 		return $html;
 
 	}
-
-	public function handle_dismiss_cart_notice() {
-		if ( isset( $_GET['wcml_action'] ) && $_GET['wcml_action'] === self::KEY_DISMISS ) {
-			$this->woocommerce_wpml->settings[self::KEY_DISMISS] = true;
-			$this->woocommerce_wpml->update_settings();
-			wcml_safe_redirect( remove_query_arg( 'wcml_action' ) );
-		}
-	}	
 }

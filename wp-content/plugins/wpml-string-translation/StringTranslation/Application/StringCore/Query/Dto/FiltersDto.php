@@ -6,21 +6,11 @@ class FiltersDto {
 
 	private $domains;
 
-	private $translationPriorities;
-
-	public function __construct(
-		array $domains,
-		array $translationPriorities
-	) {
-		$this->domains               = $domains;
-		$this->translationPriorities = $translationPriorities;
+	public function __construct( array $domains ) {
+		$this->domains = $domains;
 	}
 
 	public function getDomains(): array {
 		return $this->domains;
-	}
-
-	public function getTranslationPriorities(): array {
-		return $this->translationPriorities;
 	}
 }

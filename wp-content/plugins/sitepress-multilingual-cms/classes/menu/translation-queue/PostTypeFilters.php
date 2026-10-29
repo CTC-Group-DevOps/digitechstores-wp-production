@@ -44,7 +44,14 @@ class PostTypeFilters {
 
 				case 'st-batch':
 					$type = 'strings';
-					$name = __( 'Strings', 'wpml-translation-management' );
+					/* translators: Name of a kind of content in the translation screens: the single texts of the site, as opposed to posts and pages. Plural noun. */
+					$name = __( 'Strings', 'sitepress' );
+					break;
+
+				case 'tax':
+					$type     = substr( $type, 4 );
+					$taxonomy = get_taxonomy( $type );
+					$name     = $taxonomy && isset( $taxonomy->labels->singular_name ) ? (string) $taxonomy->labels->singular_name : $type;
 					break;
 			}
 

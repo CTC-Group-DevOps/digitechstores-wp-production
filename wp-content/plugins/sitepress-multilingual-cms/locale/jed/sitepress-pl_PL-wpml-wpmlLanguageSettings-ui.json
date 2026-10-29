@@ -11,7 +11,7 @@
             "Wybierz typ pliku obrazu dla flag"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "Ta opcja dotyczy tylko wbudowanych flag WPML, a nie niestandardowych, przesłanych flag."
+            "Ta opcja dotyczy tylko wbudowanych flag WPML, a nie tych przesłanych przez użytkownika."
          ],
          "%s format": [
             "Format %s"

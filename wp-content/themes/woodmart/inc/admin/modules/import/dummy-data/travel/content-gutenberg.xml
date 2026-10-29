@@ -593,7 +593,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/title {"blockId":"dc9629c6-355a-45c6-aa1b-73a7daf9a267","blockVersion":"2","textAlign":"center","design":"simple","content":"Our Best Hotels","tpFontSize":"34","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/title {"blockId":"dc9629c6-355a-45c6-aa1b-73a7daf9a267","blockVersion":"2","textAlign":"center","design":"simple","content":"Our Best Hotels","tpFontSize":"34","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-simple wd-dc9629c6"><span>Our Best Hotels</span></h2>
 <!-- /wp:wd/title -->
 
@@ -632,7 +632,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"506b7c01-9f91-4c59-80e7-f5c1bf54f863","blockVersion":"2","paddingTop":"40","paddingBottom":"40","parallaxScroll":true,"parallaxScrollY":20,"adjacentCount":2,"colWidth":50,"blocksGap":15,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_20 wd_scroll_z_0 wd_scroll_smoothness_30 wd-506b7c01"><!-- wp:wd/title {"blockId":"2166705f-8beb-4b1e-8d9a-da8485d1b778","blockVersion":"2","content":"Hotels in u003cemu003eu003cstrongu003eMiamiu003c/strongu003e u003c/emu003ewith unforgettable ocean views.","tpFontSize":"45","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"540","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_20 wd_scroll_z_0 wd_scroll_smoothness_30 wd-506b7c01"><!-- wp:wd/title {"blockId":"2166705f-8beb-4b1e-8d9a-da8485d1b778","blockVersion":"2","content":"Hotels in \u003cem\u003e\u003cstrong\u003eMiami\u003c/strong\u003e \u003c/em\u003ewith unforgettable ocean views.","tpFontSize":"45","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"540","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-2166705f wd-custom-width">Hotels in <em><strong>Miami</strong> </em>with unforgettable ocean views.</h2>
 <!-- /wp:wd/title -->
 
@@ -654,7 +654,7 @@
 
 <!-- wp:wd/row {"blockId":"728cbf4b-234c-4b2b-9717-9f62da6dbd78","blockVersion":"2","displayWidth":"full-width","columnsGap":160,"columnsGapTablet":0} -->
 <div class="wp-block-wd-row wd-728cbf4b wd-custom-width"><!-- wp:wd/column {"blockId":"ff84d945-ccad-4768-97f3-85db35f3b10e","blockVersion":"2","paddingTop":"40","paddingBottom":"40","parallaxScroll":true,"parallaxScrollY":20,"adjacentCount":2,"colWidth":50,"blocksGap":15,"justifyContent":"center","textAlign":"end","flexOrderTablet":"2","adjacentCountTablet":1,"colWidthTablet":100,"textAlignTablet":"start"} -->
-<div class="wp-block-wd-column wd-align wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_20 wd_scroll_z_0 wd_scroll_smoothness_30 wd-ff84d945"><!-- wp:wd/title {"blockId":"73ddd9c1-d379-447b-9372-f6854b19c423","blockVersion":"2","content":"Magic u003cemu003eu003cstrongu003eblueu003c/strongu003eu003c/emu003e turquoise beaches of the Bahamas.","tpFontSize":"45","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"540","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-align wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_20 wd_scroll_z_0 wd_scroll_smoothness_30 wd-ff84d945"><!-- wp:wd/title {"blockId":"73ddd9c1-d379-447b-9372-f6854b19c423","blockVersion":"2","content":"Magic \u003cem\u003e\u003cstrong\u003eblue\u003c/strong\u003e\u003c/em\u003e turquoise beaches of the Bahamas.","tpFontSize":"45","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"540","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-73ddd9c1 wd-custom-width">Magic <em><strong>blue</strong></em> turquoise beaches of the Bahamas.</h2>
 <!-- /wp:wd/title -->
 
@@ -688,7 +688,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"96094cbd-25bb-40ba-bad0-f55f49876f94","blockVersion":"2","paddingTop":"40","paddingBottom":"40","parallaxScroll":true,"parallaxScrollY":20,"adjacentCount":2,"colWidth":50,"blocksGap":15,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_20 wd_scroll_z_0 wd_scroll_smoothness_30 wd-96094cbd"><!-- wp:wd/title {"blockId":"939e0403-5fd3-4da2-95f3-2bf5be19e1d1","blockVersion":"2","content":"u003cemu003eu003cstrongu003eBeautifulu003c/strongu003eu003c/emu003e hotels on the rocky shores of Greece.","tpFontSize":"45","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"540","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-parallax-on-scroll wd_scroll_x_0 wd_scroll_y_20 wd_scroll_z_0 wd_scroll_smoothness_30 wd-96094cbd"><!-- wp:wd/title {"blockId":"939e0403-5fd3-4da2-95f3-2bf5be19e1d1","blockVersion":"2","content":"\u003cem\u003e\u003cstrong\u003eBeautiful\u003c/strong\u003e\u003c/em\u003e hotels on the rocky shores of Greece.","tpFontSize":"45","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"540","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-939e0403 wd-custom-width"><em><strong>Beautiful</strong></em> hotels on the rocky shores of Greece.</h2>
 <!-- /wp:wd/title -->
 
@@ -697,7 +697,7 @@
 <!-- /wp:wd/paragraph -->
 
 <!-- wp:wd/container {"blockId":"91ddee36-9ca0-477b-8ad8-3d4522dc31a3","blockVersion":"2","marginBottom":"15","direction":"row","colGap":"60","rowGap":"15","directionMobile":"column"} -->
-<div class="wp-block-wd-container wd-dir-row wd-dir-col-sm wd-91ddee36"><!-- wp:wd/list {"blockId":"c35afb41-0bbe-4c18-b9ba-6b2da963d77f","blockVersion":"2","iconType":"image","svg":"u003csvg class=u0022wd-svg-iconu0022 xmlns=u0022http://www.w3.org/2000/svgu0022 width=u00228u0022 height=u00228u0022 viewBox=u00220 0 8 8u0022 fill=u0022noneu0022u003eu003crect width=u00228u0022 height=u00228u0022 rx=u00224u0022 fill=u0022#FFD200u0022u003eu003c/rectu003eu003c/svgu003e","image":{"id":28810,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg"},"iconSize":"8"} -->
+<div class="wp-block-wd-container wd-dir-row wd-dir-col-sm wd-91ddee36"><!-- wp:wd/list {"blockId":"c35afb41-0bbe-4c18-b9ba-6b2da963d77f","blockVersion":"2","iconType":"image","svg":"\u003csvg class=\u0022wd-svg-icon\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022 width=\u00228\u0022 height=\u00228\u0022 viewBox=\u00220 0 8 8\u0022 fill=\u0022none\u0022\u003e\u003crect width=\u00228\u0022 height=\u00228\u0022 rx=\u00224\u0022 fill=\u0022#FFD200\u0022\u003e\u003c/rect\u003e\u003c/svg\u003e","image":{"id":28810,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg"},"iconSize":"8"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-c35afb41"><!-- wp:wd/list-item {"blockId":"c47a6656-ffc5-4f90-8901-39d1b6f3ecec","blockVersion":"2","iconType":"image","svg":"","image":{"id":28810,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg"}} -->
 <li class="wp-block-wd-list-item wd-c47a6656"><div class="wd-icon"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg" alt="" class="wp-image-28810"/></div><span class="wd-list-content">Breathtaking sea view</span></li>
 <!-- /wp:wd/list-item -->
@@ -707,7 +707,7 @@
 <!-- /wp:wd/list-item --></ul>
 <!-- /wp:wd/list -->
 
-<!-- wp:wd/list {"blockId":"5bc10223-f464-4deb-9008-a263ec48633f","blockVersion":"2","iconType":"image","svg":"u003csvg class=u0022wd-svg-iconu0022 xmlns=u0022http://www.w3.org/2000/svgu0022 width=u00228u0022 height=u00228u0022 viewBox=u00220 0 8 8u0022 fill=u0022noneu0022u003eu003crect width=u00228u0022 height=u00228u0022 rx=u00224u0022 fill=u0022#FFD200u0022u003eu003c/rectu003eu003c/svgu003e","image":{"id":28810,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg"},"iconSize":"8"} -->
+<!-- wp:wd/list {"blockId":"5bc10223-f464-4deb-9008-a263ec48633f","blockVersion":"2","iconType":"image","svg":"\u003csvg class=\u0022wd-svg-icon\u0022 xmlns=\u0022http://www.w3.org/2000/svg\u0022 width=\u00228\u0022 height=\u00228\u0022 viewBox=\u00220 0 8 8\u0022 fill=\u0022none\u0022\u003e\u003crect width=\u00228\u0022 height=\u00228\u0022 rx=\u00224\u0022 fill=\u0022#FFD200\u0022\u003e\u003c/rect\u003e\u003c/svg\u003e","image":{"id":28810,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg"},"iconSize":"8"} -->
 <ul class="wp-block-wd-list wd-list wd-type-image wd-style-default wd-5bc10223"><!-- wp:wd/list-item {"blockId":"ae2b1588-77dd-4e5a-abde-432279b3e4b4","blockVersion":"2","iconType":"image","svg":"","image":{"id":28810,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg"}} -->
 <li class="wp-block-wd-list-item wd-ae2b1588"><div class="wd-icon"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/08/travel-circle-figure.svg" alt="" class="wp-image-28810"/></div><span class="wd-list-content">Breathtaking sea view</span></li>
 <!-- /wp:wd/list-item -->
@@ -731,7 +731,7 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/title {"blockId":"41ead712-b415-4f4b-bba7-f85d254f7d79","blockVersion":"2","textAlign":"center","design":"simple","content":"What We Offer","tpFontSize":"34","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/title {"blockId":"41ead712-b415-4f4b-bba7-f85d254f7d79","blockVersion":"2","textAlign":"center","design":"simple","content":"What We Offer","tpFontSize":"34","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-simple wd-41ead712"><span>What We Offer</span></h2>
 <!-- /wp:wd/title -->
 
@@ -829,7 +829,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/title {"blockId":"b90e3645-7d76-489b-9b51-9aef3e95d098","blockVersion":"2","textAlign":"center","design":"simple","content":"Photo Gallery","tpFontSize":"34","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/title {"blockId":"b90e3645-7d76-489b-9b51-9aef3e95d098","blockVersion":"2","textAlign":"center","design":"simple","content":"Photo Gallery","tpFontSize":"34","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-simple wd-b90e3645"><span>Photo Gallery</span></h2>
 <!-- /wp:wd/title -->
 
@@ -877,7 +877,7 @@
 <!-- /wp:wd/gallery --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/title {"blockId":"6ce0cc00-bf47-4f5a-867a-58908947c8aa","blockVersion":"2","textAlign":"center","design":"simple","content":"Latest Articles","tpFontSize":"34","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/title {"blockId":"6ce0cc00-bf47-4f5a-867a-58908947c8aa","blockVersion":"2","textAlign":"center","design":"simple","content":"Latest Articles","tpFontSize":"34","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-simple wd-6ce0cc00"><span>Latest Articles</span></h2>
 <!-- /wp:wd/title -->
 
@@ -888,7 +888,7 @@
 <!-- wp:wd/blog {"blockId":"b22b8bbb-3cad-4ffd-9480-4bb75f8d5d7f","blockVersion":"2","items_per_page":"3","layout":"carousel","blog_carousel_design":"small-images","img_size":"custom","imgSizeCustomWidth":"293","imgSizeCustomHeight":"341","marginBottom":"80","slides_per_view":"2","hide_pagination_control":true,"sync_parent_id":"wd_012f4743","marginBottomMobile":"60","slides_per_viewTablet":"1","hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
 <!-- wp:wd/section {"blockId":"8d26e8c9-94c4-4463-a26d-57de928b46fe","blockVersion":"2","bgImage":{"id":22722,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/travel-testimonials-bg.jpg"},"bgPosition":"top center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingBottom":"80","marginBottom":"0","paddingBottomMobile":"60"} -->
-<div class="wp-block-wd-section wd-8d26e8c9"><!-- wp:wd/title {"blockId":"b498bb5f-0020-4076-82ad-285049f733ac","blockVersion":"2","textAlign":"center","design":"simple","content":"Latest Articles","tpFontSize":"34","activeBorderColorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-section wd-8d26e8c9"><!-- wp:wd/title {"blockId":"b498bb5f-0020-4076-82ad-285049f733ac","blockVersion":"2","textAlign":"center","design":"simple","content":"Latest Articles","tpFontSize":"34","activeBorderColorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 class="wp-block-wd-title title wd-align wd-design-simple wd-b498bb5f"><span>Latest Articles</span></h2>
 <!-- /wp:wd/title -->
 

@@ -18,10 +18,10 @@ class AuthenticationAjax {
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_translation_service_authentication', [ $this, 'authenticate_service' ] );
-		add_action( 'wp_ajax_translation_service_update_credentials', [ $this, 'update_credentials' ] );
-		add_action( 'wp_ajax_translation_service_enable_unlisted_service', [ $this, 'enable_unlisted_service' ] );
-		add_action( 'wp_ajax_translation_service_invalidation', [ $this, 'invalidate_service' ] );
+		\WPML\Request\Adapter\Ajax::register( 'translation_service_authentication', \WPML\Request\Policy\Policy::capability( 'manage_translations', \WPML\Request\Policy\Authenticity::actionNonce( 'translation_service_authentication', 'nonce' ) ), [ $this, 'authenticate_service' ] );
+		\WPML\Request\Adapter\Ajax::register( 'translation_service_update_credentials', \WPML\Request\Policy\Policy::capability( 'manage_translations', \WPML\Request\Policy\Authenticity::actionNonce( 'translation_service_authentication', 'nonce' ) ), [ $this, 'update_credentials' ] );
+		\WPML\Request\Adapter\Ajax::register( 'translation_service_enable_unlisted_service', \WPML\Request\Policy\Policy::capability( 'manage_translations', \WPML\Request\Policy\Authenticity::actionNonce( 'translation_service_authentication', 'nonce' ) ), [ $this, 'enable_unlisted_service' ] );
+		\WPML\Request\Adapter\Ajax::register( 'translation_service_invalidation', \WPML\Request\Policy\Policy::capability( 'manage_translations', \WPML\Request\Policy\Authenticity::actionNonce( 'translation_service_authentication', 'nonce' ) ), [ $this, 'invalidate_service' ] );
 	}
 
 	public function authenticate_service() {
@@ -32,10 +32,11 @@ class AuthenticationAjax {
 				);
 			},
 			[ $this, 'is_valid_request_with_params' ],
-			__( 'Service activated.', 'wpml-translation-management' ),
+			/* translators: Message shown after a translation service was set up and can be used. */
+			__( 'Service activated.', 'sitepress' ),
 			__(
 				'The authentication didn\'t work. Please make sure you entered your details correctly and try again.',
-				'wpml-translation-management'
+				'sitepress'
 			)
 		);
 	}
@@ -48,22 +49,28 @@ class AuthenticationAjax {
 				);
 			},
 			[ $this, 'is_valid_request_with_params' ],
-			__( 'Service credentials updated.', 'wpml-translation-management' ),
+			__( 'Service credentials updated.', 'sitepress' ),
 			__(
 				'The authentication didn\'t work. Please make sure you entered your details correctly and try again.',
-				'wpml-translation-management'
+				'sitepress'
 			)
 		);
 	}
 
 	public function enable_unlisted_service() {
+		if ( \WPML\Setup\Initializer::rejectSettingsMutationAjax() ) {
+			return;
+		}
+
 		if ( ! $this->is_valid_nonce_request() ) {
+			/* translators: Title of the message shown when a request could not be carried out. */
 			$this->send_error( __( 'Invalid Request', 'sitepress' ), __( 'Reload the page and try again.', 'sitepress' ) );
 		}
 
 		$suid = isset( $_POST['suid'] ) ? sanitize_text_field( $_POST['suid'] ) : '';
 
 		if ( ! $suid ) {
+			/* translators: Title of the message shown when a request could not be carried out. */
 			$this->send_error( __( 'Invalid Request', 'sitepress' ), __( 'The field can\'t be empty.', 'sitepress' ) );
 
 			return;
@@ -83,6 +90,7 @@ class AuthenticationAjax {
 		$result = \WPML\TM\Menu\TranslationServices\Endpoints\Select::select( $service->id );
 
 		if ( is_string( $result ) ) {
+			/* translators: Title of the message shown when the server answered with a problem. */
 			$this->send_error( __( 'Error Server', 'sitepress' ), __( 'Unable to set this service as default.', 'sitepress' ) );
 
 			return;
@@ -96,8 +104,9 @@ class AuthenticationAjax {
 				$this->authorize_factory->create()->deauthorize();
 			},
 			[ $this, 'is_valid_nonce_request' ],
-			__( 'Service invalidated.', 'wpml-translation-management' ),
-			__( 'Unable to invalidate this service. Please contact WPML support.', 'wpml-translation-management' )
+			/* translators: Message shown after the account details of a translation service are dropped, so the service can no longer be used. */
+			__( 'Service invalidated.', 'sitepress' ),
+			__( 'Unable to invalidate this service. Please contact WPML support.', 'sitepress' )
 		);
 	}
 
@@ -107,6 +116,10 @@ class AuthenticationAjax {
 		$success_message,
 		$failure_message
 	) {
+		if ( \WPML\Setup\Initializer::rejectSettingsMutationAjax() ) {
+			return;
+		}
+
 		if ( $request_validation() ) {
 			try {
 				$action();
@@ -116,7 +129,8 @@ class AuthenticationAjax {
 				return $this->send_error_message( $failure_message );
 			}
 		} else {
-			$this->send_error_message( __( 'Invalid Request', 'wpml-translation-management' ) );
+			/* translators: Title of the message shown when a request could not be carried out. */
+			$this->send_error_message( __( 'Invalid Request', 'sitepress' ) );
 		}
 	}
 

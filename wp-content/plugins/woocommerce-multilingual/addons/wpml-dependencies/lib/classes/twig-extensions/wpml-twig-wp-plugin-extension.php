@@ -10,9 +10,9 @@ class WPML_Twig_WP_Plugin_Extension extends Twig_Extension {
 	}
 
 	public function getFilters() {
-		return array(
-			new Twig_SimpleFilter( 'wp_do_action', array( $this, 'wp_do_action_filter' ) ),
-		);
+		return [
+			new Twig_SimpleFilter( 'wp_do_action', [ $this, 'wp_do_action_filter' ] ),
+		];
 	}
 
 	public function wp_do_action_filter( $tag ) {

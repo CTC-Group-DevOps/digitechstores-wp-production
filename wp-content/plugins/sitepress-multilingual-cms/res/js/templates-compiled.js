@@ -13,9 +13,9 @@ __p += '<div class="icl_tt_form wpml-dialog" id="icl_tt_form_' +
 ((__t = ( copyMessage )) == null ? '' : __t) +
 ' </p><label><input type="checkbox" name="overwrite"> ' +
 ((__t = ( labels.copyAllOverwrite )) == null ? '' : __t) +
-'</label></div><div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft" value="' +
+'</label></div><div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft button button-secondary" value="' +
 ((__t = ( labels.cancel )) == null ? '' : __t) +
-'" type="button"> <input class="button-primary js-copy-all-ok alignright" value="' +
+'" type="button"> <input class="js-copy-all-ok alignright button button-primary" value="' +
 ((__t = ( labels.Ok )) == null ? '' : __t) +
 '" type="submit"> <span class="spinner alignright"></span></div></div></div>';
 return __p
@@ -25,25 +25,27 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/filter.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '', __j = Array.prototype.join;
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<div class="icl-tt-tools tablenav top clearfix"> ';
  if ( mode === "translate" ) { ;
 __p += ' ' +
-((__t = ( WPML_core[ "templates/taxonomy-translation/status-trans-select.html" ]( { taxonomy: taxonomy } ) )) == null ? '' : __t) +
-' <label for="in-lang" id="in-lang-label" class="hidden">' +
-((__t = (labels.in)) == null ? '' : __t) +
-'</label> <select name="language" id="in-lang" class="hidden"><option value="all">' +
-((__t = ( labels.anyLang )) == null ? '' : __t) +
-'</option> ';
- _.each(langs, function( lang, code ) { ;
+((__t = ( WPML_core[ "templates/taxonomy-translation/status-trans-select.html" ]( { taxonomy: taxonomy, langs: langs, showLanguage: false, untranslated: false, language: "all" } ) )) == null ? '' : __t) +
+' ';
+ if ( taxonomy.hierarchical ) { ;
+__p += ' <select name="child_of" id="child_of" class="postform"><option value="-1" selected="selected">&mdash; ' +
+((__t = ( labels.selectParent )) == null ? '' : __t) +
+' &mdash;</option> ';
+ _.each( parents, function( parent, term_id ) { ;
 __p += ' <option value="' +
-((__t = ( code )) == null ? '' : __t) +
+((__t = ( term_id )) == null ? '' : __t) +
 '">' +
-((__t = ( lang.label )) == null ? '' : __t) +
+__e( parent ) +
 '</option> ';
  }); ;
-__p += ' </select><div class="alignright"><input type="text" name="search" id="tax-search" placeholder="' +
+__p += ' </select> ';
+ } ;
+__p += ' <div class="alignright"><input type="text" name="search" id="tax-search" placeholder="' +
 ((__t = ( labels.searchPlaceHolder )) == null ? '' : __t) +
 '" value=""></div> ';
  } else { ;
@@ -68,7 +70,57 @@ __p += '<a class="icl_tt_label" id="' +
 ((__t = ( langs[ lang ].label )) == null ? '' : __t) +
 ': ' +
 ((__t = ( labels.editTranslation )) == null ? '' : __t) +
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.editTranslation )) == null ? '' : __t) +
 '"><i class="otgs-ico-edit"></i></a><div id="popup-' +
+((__t = (lang)) == null ? '' : __t) +
+'"></div>';
+return __p
+  }
+};
+
+this["WPML_core"]["templates/taxonomy-translation/label-in-progress.html"] = function(obj) {
+  obj || (obj = {});
+  with (obj) {
+    var __t, __p = '';
+__p += '<span class="icl_tt_label wpml-tt-in-progress" id="' +
+((__t = ( taxonomy )) == null ? '' : __t) +
+'_' +
+((__t = ( lang )) == null ? '' : __t) +
+'" title="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.refreshingTranslation )) == null ? '' : __t) +
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.refreshingTranslation )) == null ? '' : __t) +
+'"><i class="otgs-ico-refresh-spin"></i></span><div id="popup-' +
+((__t = ( lang )) == null ? '' : __t) +
+'"></div>';
+return __p
+  }
+};
+
+this["WPML_core"]["templates/taxonomy-translation/label-needs-update.html"] = function(obj) {
+  obj || (obj = {});
+  with (obj) {
+    var __t, __p = '';
+__p += '<a class="icl_tt_label wpml-tt-needs-update" id="' +
+((__t = (taxonomy)) == null ? '' : __t) +
+'_' +
+((__t = (lang)) == null ? '' : __t) +
+'" title="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.needsUpdate )) == null ? '' : __t) +
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.needsUpdate )) == null ? '' : __t) +
+'"><i class="otgs-ico-needs-update"></i></a><div id="popup-' +
 ((__t = (lang)) == null ? '' : __t) +
 '"></div>';
 return __p
@@ -142,9 +194,9 @@ __e( labels.copyFromOriginal ) +
 __e( translatedLabels.slug ) +
 '" type="text"></div> ';
  } ;
-__p += ' <div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft" value="' +
+__p += ' <div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft button button-secondary" value="' +
 __e( labels.cancel ) +
-'" type="button"> <input class="button-primary js-label-save alignright" value="' +
+'" type="button"> <input class="js-label-save alignright button button-primary" value="' +
 __e( labels.save ) +
 '" type="submit"> <span class="spinner alignright"></span></div></div></div>';
 return __p
@@ -252,6 +304,10 @@ __p += '<a class="icl_tt_label lowlight" id="' +
 ((__t = ( langs[ lang ].label )) == null ? '' : __t) +
 ': ' +
 ((__t = ( labels.addTranslation )) == null ? '' : __t) +
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.addTranslation )) == null ? '' : __t) +
 '"><i class="otgs-ico-add"></i></a><div id="popup-' +
 ((__t = ( lang )) == null ? '' : __t) +
 '"></div>';
@@ -267,7 +323,11 @@ __p += '<span title="' +
 ((__t = ( langs[ lang ].label )) == null ? '' : __t) +
 ': ' +
 ((__t = ( labels.originalLanguage )) == null ? '' : __t) +
-'"><i class="otgs-ico-original"></i></span>';
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.originalLanguage )) == null ? '' : __t) +
+'" role="img"><i class="otgs-ico-original"></i></span>';
 return __p
   }
 };
@@ -275,10 +335,12 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/original-label.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '', __j = Array.prototype.join;
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<td class="wpml-col-title"><span class="wpml-title-flag"><img src="' +
 ((__t = ( flag )) == null ? '' : __t) +
+'" alt="' +
+__e( flagAlt ) +
 '"></span><strong>' +
 ((__t = ( taxLabel.singular + ' / ' + taxLabel.general )) == null ? '' : __t) +
 '</strong><p> ';
@@ -297,7 +359,7 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/original-term-popup.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '';
+    var __t, __p = '', __e = _.escape;
 __p += '<div class="icl_tt_form wpml-dialog" id="icl_tt_form_' +
 ((__t = ( trid + '_' + lang )) == null ? '' : __t) +
 '" title="' +
@@ -311,18 +373,18 @@ __p += '<div class="icl_tt_form wpml-dialog" id="icl_tt_form_' +
 '</strong></h3></header><div class="wpml-form-row-no-translation"><label for="term-name">' +
 ((__t = ( labels.Name )) == null ? '' : __t) +
 '</label> <input id="term-name" value="' +
-((__t = ( term.name )) == null ? '' : __t) +
+__e( term.name ) +
 '" type="text"></div><div class="wpml-form-row-no-translation"><label for="term-slug">' +
 ((__t = ( labels.Slug )) == null ? '' : __t) +
 '</label> <input id="term-slug" value="' +
-((__t = ( term.slug )) == null ? '' : __t) +
+__e( term.slug ) +
 '" type="text"></div><div class="wpml-form-row-no-translation"><label for="term-description">' +
 ((__t = ( labels.Description )) == null ? '' : __t) +
 '</label> <textarea id="term-description" cols="22" rows="4">' +
-((__t = ( term.description )) == null ? '' : __t) +
-'</textarea></div><div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft" value="' +
+__e( term.description ) +
+'</textarea></div><div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft button button-secondary" value="' +
 ((__t = ( labels.cancel )) == null ? '' : __t) +
-'" type="button"> <input class="button-primary term-save alignright" value="' +
+'" type="button"> <input class="term-save alignright button button-primary" value="' +
 ((__t = ( labels.save )) == null ? '' : __t) +
 '" type="submit"> <span class="spinner alignright"></span></div></div></div>';
 return __p
@@ -332,12 +394,14 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/original-term.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '', __j = Array.prototype.join;
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<a class="icl_tt_term_name" id="' +
 ((__t = (trid + '-' + lang)) == null ? '' : __t) +
 '"><span class="wpml-title-flag"><img src="' +
 ((__t = ( langs[ lang ].flag )) == null ? '' : __t) +
+'" alt="' +
+__e( langs[ lang ].label ) +
 '"></span><strong> ';
  if(!name){ ;
 __p += ' ' +
@@ -351,7 +415,7 @@ __p += ' ' +
 ' ';
  } ;
 __p += ' ' +
-((__t = (name)) == null ? '' : __t) +
+__e( name ) +
 ' ';
  } ;
 __p += ' </strong></a><div id="' +
@@ -384,14 +448,55 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/status-trans-select.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '';
-__p += '<div class="alignleft"><label for="status-select">' +
-((__t = (labels.Show)) == null ? '' : __t) +
-'</label> <select id="status-select" name="status"><option value="0">' +
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+__p += '<div class="alignleft wpml-tt-filter-sentence" data-show-language="' +
+((__t = ( showLanguage ? 1 : 0 )) == null ? '' : __t) +
+'"> ';
+ _.each( showLanguage ? labels.filterSentenceWithLanguage : labels.filterSentence, function( segment ) { ;
+__p += ' ';
+ if ( segment.type === "text" ) { ;
+__p += ' <span class="wpml-tt-filter-sentence-text">' +
+__e( segment.text ) +
+'</span> ';
+ } else if ( segment.control === 1 ) { ;
+__p += ' <select id="status-select" name="status" aria-label="' +
+__e( labels.filterByStatus ) +
+'"><option value="0" ';
+ if ( ! untranslated ) { ;
+__p += ' selected="selected" ';
+ } ;
+__p += '>' +
 ((__t = (labels.all + ' ' + taxonomy.label)) == null ? '' : __t) +
-'</option><option value="1">' +
+'</option><option value="1" ';
+ if ( untranslated ) { ;
+__p += ' selected="selected" ';
+ } ;
+__p += '>' +
 ((__t = (labels.untranslated + ' ' + taxonomy.label)) == null ? '' : __t) +
-'</option></select></div>';
+'</option></select> ';
+ } else if ( segment.control === 2 ) { ;
+__p += ' <select name="language" id="in-lang" aria-label="' +
+__e( labels.filterByLanguage ) +
+'"><option value="all">' +
+((__t = ( labels.anyLang )) == null ? '' : __t) +
+'</option> ';
+ _.each( langs, function( lang, code ) { ;
+__p += ' <option value="' +
+((__t = ( code )) == null ? '' : __t) +
+'" ';
+ if ( language === code ) { ;
+__p += ' selected="selected" ';
+ } ;
+__p += '>' +
+((__t = ( lang.label )) == null ? '' : __t) +
+'</option> ';
+ }); ;
+__p += ' </select> ';
+ } ;
+__p += ' ';
+ }); ;
+__p += ' </div>';
 return __p
   }
 };
@@ -510,25 +615,73 @@ return __p
   }
 };
 
+this["WPML_core"]["templates/taxonomy-translation/term-in-progress.html"] = function(obj) {
+  obj || (obj = {});
+  with (obj) {
+    var __t, __p = '';
+__p += '<span class="icl_tt_term_name wpml-tt-in-progress" id="' +
+((__t = ( trid + '-' + lang )) == null ? '' : __t) +
+'" title="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.refreshingTranslation )) == null ? '' : __t) +
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.refreshingTranslation )) == null ? '' : __t) +
+'"><i class="otgs-ico-refresh-spin"></i></span><div id="' +
+((__t = ( trid + '-popup-' + lang )) == null ? '' : __t) +
+'"></div>';
+return __p
+  }
+};
+
+this["WPML_core"]["templates/taxonomy-translation/term-needs-update.html"] = function(obj) {
+  obj || (obj = {});
+  with (obj) {
+    var __t, __p = '', __e = _.escape;
+__p += '<a class="icl_tt_term_name wpml-tt-needs-update" id="' +
+((__t = ( trid + '-' + lang )) == null ? '' : __t) +
+'" title="' +
+__e( stateLabel ) +
+'" aria-label="' +
+__e( stateLabel ) +
+'"><i class="otgs-ico-needs-update"></i></a><div id="' +
+((__t = ( trid + '-popup-' + lang )) == null ? '' : __t) +
+'"></div>';
+return __p
+  }
+};
+
 this["WPML_core"]["templates/taxonomy-translation/term-not-synced.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '', __j = Array.prototype.join;
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<span class="icl_tt_term_name_sync" id="' +
 ((__t = (trid + '-' + lang)) == null ? '' : __t) +
 '"> ';
  if ( name ) { ;
-__p += ' ' +
-((__t = ( parent )) == null ? '' : __t) +
-'<br> ';
+__p += ' ';
+ if ( removedParent ) { ;
+__p += ' <span class="wpml-parent-change-removed" style="background-color:#F55959;">-' +
+__e( removedParent ) +
+'</span> ';
+ } ;
+__p += ' ';
+ if ( addedParent ) { ;
+__p += ' <span class="wpml-parent-change-added" style="background-color:#CCFF99;">+' +
+__e( addedParent ) +
+'</span> ';
+ } ;
+__p += ' <br> ';
  if ( level > 0 ) { ;
 __p += ' ' +
 ((__t = ( Array(level+1).join('—') + " " )) == null ? '' : __t) +
 ' ';
  } ;
 __p += ' ' +
-((__t = ( name )) == null ? '' : __t) +
+__e( name ) +
 ' ';
  } ;
 __p += ' </span>';
@@ -543,6 +696,10 @@ this["WPML_core"]["templates/taxonomy-translation/term-not-translated.html"] = f
 __p += '<a class="icl_tt_term_name lowlight" id="' +
 ((__t = ( trid + '-' + lang )) == null ? '' : __t) +
 '" title="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.addTranslation )) == null ? '' : __t) +
+'" aria-label="' +
 ((__t = ( langs[ lang ].label )) == null ? '' : __t) +
 ': ' +
 ((__t = ( labels.addTranslation )) == null ? '' : __t) +
@@ -561,7 +718,11 @@ __p += '<span title="' +
 ((__t = ( langs[ lang ].label )) == null ? '' : __t) +
 ': ' +
 ((__t = ( labels.originalLanguage )) == null ? '' : __t) +
-'"><i class="otgs-ico-original"></i></span>';
+'" aria-label="' +
+((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+': ' +
+((__t = ( labels.originalLanguage )) == null ? '' : __t) +
+'" role="img"><i class="otgs-ico-original"></i></span>';
 return __p
   }
 };
@@ -572,65 +733,64 @@ this["WPML_core"]["templates/taxonomy-translation/term-popup.html"] = function(o
     var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<div class="icl_tt_form wpml-dialog" id="icl_tt_form_' +
-((__t = ( trid + '_' + lang )) == null ? '' : __t) +
+__e( trid + '_' + lang ) +
 '" title="' +
-((__t = ( labels.termPopupDialogTitle )) == null ? '' : __t) +
+__e( labels.termPopupDialogTitle ) +
 '"><div class="wpml-dialog-body wpml-dialog-translate"><header class="wpml-term-translation-header"><h3 class="wpml-header-original">' +
-((__t = ( labels.original )) == null ? '' : __t) +
+__e( labels.original ) +
 ' <span class="wpml-title-flag"><img src="' +
-((__t = ( langs[ source_lang ].flag )) == null ? '' : __t) +
+__e( langs[ source_lang ].flag ) +
 '"></span><strong>' +
-((__t = ( langs[ source_lang ].label )) == null ? '' : __t) +
+__e( langs[ source_lang ].label ) +
 '</strong></h3><h3 class="wpml-header-translation">' +
-((__t = ( labels.translationTo )) == null ? '' : __t) +
+__e( labels.translationTo ) +
 ' <span class="wpml-title-flag"><img src="' +
-((__t = ( langs[ lang ].flag )) == null ? '' : __t) +
+__e( langs[ lang ].flag ) +
 '"></span><strong>' +
-((__t = ( langs[ lang ].label )) == null ? '' : __t) +
+__e( langs[ lang ].label ) +
 '</strong></h3></header><div class="wpml-form-row"><label for="term-name">' +
-((__t = ( labels.Name )) == null ? '' : __t) +
+__e( labels.Name ) +
 '</label> <input readonly="readonly" id="term-name-original" value="' +
-((__t = ( original_term.name )) == null ? '' : __t) +
+__e( original_term.name ) +
 '" type="text"> <button class="button-copy button-secondary js-button-copy otgs-ico-copy" title="' +
-((__t = ( labels.copyFromOriginal )) == null ? '' : __t) +
+__e( labels.copyFromOriginal ) +
 '"></button> <input id="term-name" value="' +
-((__t = ( term.name )) == null ? '' : __t) +
+__e( term.name ) +
 '" type="text"></div><div class="wpml-form-row"><label for="term-slug">' +
-((__t = ( labels.Slug )) == null ? '' : __t) +
+__e( labels.Slug ) +
 '</label> <input readonly="readonly" id="term-slug-original" value="' +
-((__t = ( original_term.slug )) == null ? '' : __t) +
+__e( original_term.slug ) +
 '" type="text"> <button class="button-copy button-secondary js-button-copy otgs-ico-copy" title="' +
-((__t = ( labels.copyFromOriginal )) == null ? '' : __t) +
+__e( labels.copyFromOriginal ) +
 '"></button> <input id="term-slug" value="' +
-((__t = ( term.slug )) == null ? '' : __t) +
+__e( term.slug ) +
 '" type="text"></div><div class="wpml-form-row"><label for="term-description">' +
-((__t = ( labels.Description )) == null ? '' : __t) +
+__e( labels.Description ) +
 '</label> <textarea readonly="readonly" id="term-description-original" cols="22" rows="4">' +
-((__t = ( original_term.description )) == null ? '' : __t) +
+__e( original_term.description ) +
 '</textarea> <button class="button-copy button-secondary js-button-copy otgs-ico-copy" title="' +
-((__t = ( labels.copyFromOriginal )) == null ? '' : __t) +
+__e( labels.copyFromOriginal ) +
 '"></button> <textarea id="term-description" cols="22" rows="4">' +
-((__t = ( term.description )) == null ? '' : __t) +
+__e( term.description ) +
 '</textarea></div> ';
  if ( original_term_meta.length ) { ;
 __p += ' <hr><label>' +
-((__t = ( labels.termMetaLabel)) == null ? '' : __t) +
+__e( labels.termMetaLabel) +
 '</label><div class="wpml-form-row"> ';
  _.each(original_term_meta, function(meta_data){
-					if (Array.isArray(meta_data.meta_value)) {
-						meta_data.meta_value = meta_data.meta_value.join("");
-					}
+					/* `var` is function-scoped, so declaring this inside the Array branch left it undefined for a non-array meta_value - value.includes() below threw on the first such row, and on later rows silently reused the PREVIOUS row's value. Compute it for every row. */
+					var value = Array.isArray(meta_data.meta_value) ? meta_data.meta_value.join("") : String(meta_data.meta_value == null ? "" : meta_data.meta_value);
 				;
 __p += ' <label for="term-meta">' +
-((__t = ( meta_data.meta_key )) == null ? '' : __t) +
+__e( meta_data.meta_key ) +
 '</label> ';
- if ( meta_data.meta_value.includes('\r\n') || meta_data.meta_value.includes('\n') ) { ;
+ if ( value.includes('\r\n') || value.includes('\n') ) { ;
 __p += ' <textarea readonly="readonly" cols="22" rows="4">' +
 __e( meta_data.meta_value ) +
 '</textarea> <button class="button-copy button-secondary js-button-copy otgs-ico-copy" title="' +
-((__t = ( labels.copyFromOriginal )) == null ? '' : __t) +
+__e( labels.copyFromOriginal ) +
 '"></button> <textarea name="term-meta" class="term-meta" data-meta-key="' +
-((__t = ( meta_data.meta_key )) == null ? '' : __t) +
+__e( meta_data.meta_key ) +
 '" cols="22" rows="4">' +
 __e( term_meta[meta_data.meta_key] ) +
 '</textarea> ';
@@ -638,9 +798,9 @@ __e( term_meta[meta_data.meta_key] ) +
 __p += ' <input readonly="readonly" value="' +
 __e( meta_data.meta_value ) +
 '" type="text"> <button class="button-copy button-secondary js-button-copy otgs-ico-copy" title="' +
-((__t = ( labels.copyFromOriginal )) == null ? '' : __t) +
+__e( labels.copyFromOriginal ) +
 '"></button> <input name="term-meta" class="term-meta" data-meta-key="' +
-((__t = ( meta_data.meta_key )) == null ? '' : __t) +
+__e( meta_data.meta_key ) +
 '" value="' +
 __e( term_meta[meta_data.meta_key] ) +
 '" type="text"> ';
@@ -649,10 +809,10 @@ __p += ' ';
  }); ;
 __p += ' </div> ';
  } ;
-__p += ' </div><div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft" value="' +
-((__t = ( labels.cancel )) == null ? '' : __t) +
-'" type="button"> <input class="button-primary term-save alignright" value="' +
-((__t = ( labels.save )) == null ? '' : __t) +
+__p += ' </div><div class="wpml-dialog-footer"><span class="errors icl_error_text"></span> <input class="cancel wpml-dialog-close-button alignleft button button-secondary" value="' +
+__e( labels.cancel ) +
+'" type="button"> <input class="term-save alignright button button-primary" value="' +
+__e( labels.save ) +
 '" type="submit"> <span class="spinner alignright"></span></div></div>';
 return __p
   }
@@ -661,14 +821,14 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/term-synced.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '', __j = Array.prototype.join;
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<span class="icl_tt_term_name_sync" id="' +
 ((__t = (trid + '-' + lang)) == null ? '' : __t) +
 '"> ';
  if ( name ) { ;
 __p += ' ' +
-((__t = ( parent )) == null ? '' : __t) +
+__e( parent ) +
 ' ';
 if ( level > 0 ) { ;
 __p += ' <br> ' +
@@ -676,7 +836,7 @@ __p += ' <br> ' +
 ' ';
  } ;
 __p += ' ' +
-((__t = ( name )) == null ? '' : __t) +
+__e( name ) +
 ' ';
  } ;
 __p += ' </span>';
@@ -687,13 +847,13 @@ return __p
 this["WPML_core"]["templates/taxonomy-translation/term-translated.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '';
+    var __t, __p = '', __e = _.escape;
 __p += '<a class="icl_tt_term_name" id="' +
 ((__t = ( trid + '-' + lang )) == null ? '' : __t) +
 '" title="' +
-((__t = ( langs[ lang ].label )) == null ? '' : __t) +
-': ' +
-((__t = ( labels.editTranslation )) == null ? '' : __t) +
+__e( stateLabel ) +
+'" aria-label="' +
+__e( stateLabel ) +
 '"><i class="otgs-ico-edit"></i></a><div id="' +
 ((__t = ( trid + '-popup-' + lang )) == null ? '' : __t) +
 '"></div>';
@@ -896,7 +1056,7 @@ return __p
 this["WPML_TM"]["templates/translation-editor/textarea.html"] = function(obj) {
   obj || (obj = {});
   with (obj) {
-    var __t, __p = '', __j = Array.prototype.join;
+    var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 __p += '<label>' +
 ((__t = (field.title)) == null ? '' : __t) +
@@ -913,7 +1073,7 @@ __p += '<label>' +
 '][data]" ' +
 ((__t = (field.translation_direction)) == null ? '' : __t) +
 '>' +
-((__t = ( field.field_data_translated )) == null ? '' : __t) +
+__e( field.field_data_translated ) +
 '</textarea><div class="field_translation_complete"><label><input class="icl_tm_finished js-field-translation-complete" name="fields[' +
 ((__t = (field.field_type)) == null ? '' : __t) +
 '][finished]" type="checkbox" ';

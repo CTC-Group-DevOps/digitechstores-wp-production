@@ -486,7 +486,7 @@
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=19926</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"142c00b3-4bcb-4d3a-98c0-ee26551b20c8","blockVersion":"2","pagination":false,"paginationTablet":false,"paginationMobile":false,"autoplay":true,"autoplaySpeed":"25000","stretch":true,"height":"820","marginBottom":"80","heightTablet":"620","heightMobile":"480","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-stretched wd-autoplay-on wd-142c00b3"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"47c103a9-7e6a-4529-8b24-d65500a1371b","blockVersion":"2","align":"flex-start","aspectRatio":"","image":{"id":19940,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/coffee-slide-1.jpg","width":1920,"height":820},"bgImage":{"id":"","url":""},"bgColorCode":"#e2ede9"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-47c103a9"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"6082d844-66fa-42aa-9610-5addb6b6e8dd","blockVersion":"2","content":"Start your day with a good cup of coffee","tpFontSize":"54","tpLineHeight":"1.2","colorVariable":"u002du002dwd-primary-color","animation":"slide-from-left","animationDelay":"250","displayWidth":"custom","customWidth":"597","tpFontSizeTablet":"38","tpFontSizeMobile":"26","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"400","customWidthMobile":"230"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-47c103a9"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"6082d844-66fa-42aa-9610-5addb6b6e8dd","blockVersion":"2","content":"Start your day with a good cup of coffee","tpFontSize":"54","tpLineHeight":"1.2","colorVariable":"\u002d\u002dwd-primary-color","animation":"slide-from-left","animationDelay":"250","displayWidth":"custom","customWidth":"597","tpFontSizeTablet":"38","tpFontSizeMobile":"26","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"400","customWidthMobile":"230"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-left wd_delay_250 wd-6082d844 wd-custom-width">Start your day with a good cup of coffee</h2>
 <!-- /wp:wd/title -->
 
@@ -506,7 +506,7 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"bda84ca8-59fb-4a5c-a308-bf80505be3b1","blockVersion":"2","aspectRatio":"","image":{"id":19941,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/coffee-slide-2.jpg","width":1920,"height":820},"bgImage":{"id":"","url":""},"bgColorCode":"#e2ede9"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-bda84ca8"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"95d2f4ac-7c3b-4121-9f53-5192667464e7","blockVersion":"2","textAlign":"center","content":"A cup of hot coffee is what you need","tpFontSize":"54","tpLineHeight":"1.2","colorVariable":"u002du002dwd-primary-color","animation":"slide-from-left","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"597","tpFontSizeTablet":"38","tpFontSizeMobile":"26","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"606","customWidthMobile":"230"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-bda84ca8"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"95d2f4ac-7c3b-4121-9f53-5192667464e7","blockVersion":"2","textAlign":"center","content":"A cup of hot coffee is what you need","tpFontSize":"54","tpLineHeight":"1.2","colorVariable":"\u002d\u002dwd-primary-color","animation":"slide-from-left","animationDelay":"250","alignSelf":"center","displayWidth":"custom","customWidth":"597","tpFontSizeTablet":"38","tpFontSizeMobile":"26","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"606","customWidthMobile":"230"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-left wd_delay_250 wd-95d2f4ac wd-custom-width wd-align-s-center">A cup of hot coffee is what you need</h2>
 <!-- /wp:wd/title -->
 
@@ -526,7 +526,7 @@
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"1d5a0ed3-21b3-4224-89a5-be3e5ef2774c","blockVersion":"2","align":"flex-start","aspectRatio":"","image":{"id":19942,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/coffee-slide-3.jpg","width":1920,"height":820},"bgImage":{"id":"","url":""},"bgColorCode":"#e2ede9"} -->
-<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-1d5a0ed3"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"2f39ca8c-dcab-4500-b85e-4b228a9ce482","blockVersion":"2","content":"Everything you need to know coffee","tpFontSize":"54","tpLineHeight":"1.2","colorVariable":"u002du002dwd-primary-color","animation":"slide-from-left","animationDelay":"250","displayWidth":"custom","customWidth":"597","tpFontSizeTablet":"38","tpFontSizeMobile":"26","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"400","customWidthMobile":"230"} -->
+<div class="wp-block-wd-slider-item wd-slide wd-carousel-item wd-1d5a0ed3"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"2f39ca8c-dcab-4500-b85e-4b228a9ce482","blockVersion":"2","content":"Everything you need to know coffee","tpFontSize":"54","tpLineHeight":"1.2","colorVariable":"\u002d\u002dwd-primary-color","animation":"slide-from-left","animationDelay":"250","displayWidth":"custom","customWidth":"597","tpFontSizeTablet":"38","tpFontSizeMobile":"26","tpLineHeightUnits":"em","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"400","customWidthMobile":"230"} -->
 <h2 class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-left wd_delay_250 wd-2f39ca8c wd-custom-width">Everything you need to know coffee</h2>
 <!-- /wp:wd/title -->
 
@@ -546,7 +546,7 @@
 <!-- /wp:wd/slider-item --></div></div><div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-pos-sep wd-style-1 color-scheme-dark"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div></div>
 <!-- /wp:wd/slider -->
 
-<!-- wp:wd/title {"blockId":"030bd7e2-d5f8-4891-a2d8-bf99e9e0e772","blockVersion":"2","textAlign":"center","content":"Our Coffee","tpFontSize":"36","colorVariable":"u002du002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"26"} -->
+<!-- wp:wd/title {"blockId":"030bd7e2-d5f8-4891-a2d8-bf99e9e0e772","blockVersion":"2","textAlign":"center","content":"Our Coffee","tpFontSize":"36","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"26"} -->
 <h2 class="wp-block-wd-title title wd-align wd-030bd7e2">Our Coffee</h2>
 <!-- /wp:wd/title -->
 
@@ -581,7 +581,7 @@
 <div class="wp-block-wd-row wd-68c87d64"><!-- wp:wd/column {"blockId":"b58b43ec-66e7-41fd-a95c-224cdf5497ce","blockVersion":"2","adjacentCount":2,"colWidth":58,"flexOrderMobile":"2"} -->
 <div class="wp-block-wd-column wd-b58b43ec"><!-- wp:wd/cover {"blockId":"c8916f49-0146-4196-8b00-755f5c6ac236","blockVersion":"2","hover":"zoom-in","contentAlignVertical":"end","height":"502","bgImage":{"id":19936,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/coffee-banner-1.jpg"},"paddingTop":"0","paddingRight":"0","paddingBottom":"0","paddingLeft":"0","paddingLock":true,"heightTablet":"472"} -->
 <div class="wp-block-wd-cover wd-hover-parent wd-hover-zoom-in wd-c8916f49"><div class="wd-block-cover-img"></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"c41cf50f-da3f-43fe-a555-c744b8e59cb4","blockVersion":"2","bgColorCode":"#f3f3f3","paddingTop":"30","paddingRight":"30","paddingBottom":"30","paddingLeft":"30","paddingLock":true,"displayWidth":"custom","customWidth":"408","metadata":{"name":"Banner content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-c41cf50f wd-custom-width"><!-- wp:wd/title {"blockId":"9c1a95d0-d45e-4320-8b04-0dfee0c7c5de","blockVersion":"2","content":"Check out our coffee shop","tpFontSize":"34","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"26"} -->
+<div class="wp-block-wd-container wd-dir-col wd-c41cf50f wd-custom-width"><!-- wp:wd/title {"blockId":"9c1a95d0-d45e-4320-8b04-0dfee0c7c5de","blockVersion":"2","content":"Check out our coffee shop","tpFontSize":"34","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"26"} -->
 <h2 class="wp-block-wd-title title wd-9c1a95d0">Check out our coffee shop</h2>
 <!-- /wp:wd/title -->
 
@@ -597,7 +597,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"b8eaab65-3f2b-4549-8edd-5ea99a711866","blockVersion":"2","adjacentCount":2,"colWidth":42,"blocksGap":10,"alignItems":"center","justifyContent":"flex-end","flexOrderMobile":"1"} -->
-<div class="wp-block-wd-column wd-align-is-lg-center wd-b8eaab65"><!-- wp:wd/title {"blockId":"e7bc41d0-8ba4-4d01-be24-b9fbfe5095b3","blockVersion":"2","textAlign":"center","content":"Try new flavors first","tpFontSize":"32","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"26"} -->
+<div class="wp-block-wd-column wd-align-is-lg-center wd-b8eaab65"><!-- wp:wd/title {"blockId":"e7bc41d0-8ba4-4d01-be24-b9fbfe5095b3","blockVersion":"2","textAlign":"center","content":"Try new flavors first","tpFontSize":"32","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"26"} -->
 <h2 class="wp-block-wd-title title wd-align wd-e7bc41d0">Try new flavors first</h2>
 <!-- /wp:wd/title -->
 
@@ -622,7 +622,7 @@
 <div class="wp-block-wd-icon wd-c7ae9244"><img class="wp-image-19938" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/coffee-svg-1.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"0537b835-1de6-456b-8ade-77a12944075f","blockVersion":"2","content":"Finely ground coffee beans","tpFontSize":"44","tpLineHeight":"1.2","colorVariable":"u002du002dwd-primary-color","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"26","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"0537b835-1de6-456b-8ade-77a12944075f","blockVersion":"2","content":"Finely ground coffee beans","tpFontSize":"44","tpLineHeight":"1.2","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"26","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-0537b835">Finely ground coffee beans</h2>
 <!-- /wp:wd/title -->
 
@@ -650,7 +650,7 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/title {"blockId":"925c23b8-14a0-4f5d-a04b-fa0492b31146","blockVersion":"2","textAlign":"center","content":"Brewing Equipment","tpFontSize":"36","colorVariable":"u002du002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"26"} -->
+<!-- wp:wd/title {"blockId":"925c23b8-14a0-4f5d-a04b-fa0492b31146","blockVersion":"2","textAlign":"center","content":"Brewing Equipment","tpFontSize":"36","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"26"} -->
 <h2 class="wp-block-wd-title title wd-align wd-925c23b8">Brewing Equipment</h2>
 <!-- /wp:wd/title -->
 
@@ -674,7 +674,7 @@
 <div class="wp-block-wd-icon wd-65e8222b"><img class="wp-image-19939" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/coffee-svg-2.svg" alt=""/></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"1b9f55c3-73a4-4c5f-b801-91c3eb453697","blockVersion":"2","content":"Choose for your perfect coffee roast","tpFontSize":"44","tpLineHeight":"1.2","colorVariable":"u002du002dwd-primary-color","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"26","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"1b9f55c3-73a4-4c5f-b801-91c3eb453697","blockVersion":"2","content":"Choose for your perfect coffee roast","tpFontSize":"44","tpLineHeight":"1.2","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"26","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-1b9f55c3">Choose for your perfect coffee roast</h2>
 <!-- /wp:wd/title -->
 
@@ -696,7 +696,7 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/title {"blockId":"a1ba1d7f-a633-429f-b5a9-e741609b1049","blockVersion":"2","textAlign":"center","content":"Our Articles","tpFontSize":"36","colorVariable":"u002du002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"26"} -->
+<!-- wp:wd/title {"blockId":"a1ba1d7f-a633-429f-b5a9-e741609b1049","blockVersion":"2","textAlign":"center","content":"Our Articles","tpFontSize":"36","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10","tpFontSizeTablet":"26"} -->
 <h2 class="wp-block-wd-title title wd-align wd-a1ba1d7f">Our Articles</h2>
 <!-- /wp:wd/title -->
 
@@ -1295,7 +1295,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"8bf2678f-2fa4-4e26-881d-e02e56ae10aa","blockVersion":"2","adjacentCount":2,"justifyContent":"center","alignItemsMobile":"center","flexOrderMobile":"1"} -->
-<div class="wp-block-wd-column wd-align-is-sm-center wd-8bf2678f"><!-- wp:wd/title {"blockId":"e5181339-08ba-4691-ba91-8bc023f192d1","blockVersion":"2","content":"Do you like the theme? share with your friends!","tpFontSize":"32","colorVariable":"u002du002dwd-primary-color","displayWidth":"custom","customWidth":"470","textAlignMobile":"center","tpFontSizeTablet":"26","alignSelfMobile":"center"} -->
+<div class="wp-block-wd-column wd-align-is-sm-center wd-8bf2678f"><!-- wp:wd/title {"blockId":"e5181339-08ba-4691-ba91-8bc023f192d1","blockVersion":"2","content":"Do you like the theme? share with your friends!","tpFontSize":"32","colorVariable":"\u002d\u002dwd-primary-color","displayWidth":"custom","customWidth":"470","textAlignMobile":"center","tpFontSizeTablet":"26","alignSelfMobile":"center"} -->
 <h2 class="wp-block-wd-title title wd-align wd-e5181339 wd-custom-width wd-align-s-center-sm">Do you like the theme? share with your friends!</h2>
 <!-- /wp:wd/title -->
 

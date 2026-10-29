@@ -15,11 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * QuickView Compatibility.
  *
  * @since  4.11.4
+ * @version 8.5.16
  */
 class WC_PB_QV_Compatibility {
 
 	/**
 	 * Initialize compatibility class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -30,6 +33,8 @@ class WC_PB_QV_Compatibility {
 
 	/**
 	 * Load scripts for use by QV on non-product pages.
+	 *
+	 * @return void
 	 */
 	public static function load_scripts() {
 

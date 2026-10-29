@@ -1199,7 +1199,7 @@ input[disabled] {
 }
 
 .wd-skip-links {
-  position: fixed;
+  position: fixed !important;
   top: -1000em;
   inset-inline-start: 10px;
   z-index: 999999;
@@ -5461,6 +5461,7 @@ svg,
   display: block;
   width: var(--wd-icon-w, revert-layer);
   max-width: var(--wd-icon-w, 100px);
+  min-width: 0;
   height: inherit;
   object-fit: contain;
   transition: all 0.25s ease;
@@ -13173,6 +13174,7 @@ picture) {
 .wd-slider > .wd-carousel-inner > .wd-carousel {
   padding: 0;
   --wd-gap: 0.001px;
+  overflow: var(--wd-carousel-overflow, clip);
 }
 
 .wd-slide {
@@ -13197,7 +13199,6 @@ picture) {
 
 .wd-slider.wd-section-container > .wd-carousel-inner > .wd-carousel {
   border-radius: var(--wd-brd-radius);
-  overflow: var(--wd-carousel-overflow, clip);
 }
 
 .wd-slider {
@@ -15385,6 +15386,19 @@ body:not(:has(.wd-nav-side-hidden-mb-on)) .wd-toolbar-shop-cat {
   }
   .whb-flex-row:not(:has(.whb-visible-lg)) .whb-hidden-lg {
     display: flex;
+  }
+  .whb-header:not(:has(.whb-visible-lg)).whb-sticky-prepared {
+    padding-top: var(--wd-header-sm-h);
+  }
+  .whb-header:not(:has(.whb-visible-lg)) .whb-row:not(.whb-hidden-mobile).whb-hidden-desktop {
+    display: block;
+  }
+  .whb-header:not(:has(.whb-visible-lg)) .whb-row.whb-hidden-mobile {
+    display: none;
+  }
+  .whb-header:not(:has(.whb-visible-lg)) :is(.wd-dropdown-my-account,
+  .wd-dropdown-cart) {
+    display: none;
   }
 }
 .wd-sticky-social {

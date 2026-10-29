@@ -3,13 +3,22 @@
 namespace WPML\TM\ATE\ClonedSites\AutoMigration;
 
 use WPML\API\Settings;
+use WPML\FP\Fns;
+use WPML\Notices\SiteKey\StoredSiteKey;
 use WPML\TM\ATE\API\AmsCredentialsStorage;
 use WPML\TM\ATE\API\AmsRequestSigner;
+use WPML\TM\ATE\API\CachedAMSAPI;
+use WPML\TM\ATE\ClonedSites\AttachedCopy;
+use WPML\TM\ATE\ClonedSites\IdentitySnapshot;
 use WPML\TM\ATE\ClonedSites\InProgressJobsCanceller;
 use WPML\TM\ATE\ClonedSites\MigrationLogger;
 use WPML\TM\ATE\ClonedSites\AliasDomainResetFlag;
 use WPML\TM\ATE\ClonedSites\SetupMigration\Resetter\SiteKeyCleaner;
 use WPML\TM\ATE\ClonedSites\SetupMigration\Resetter\SiteKeyRegistrar;
+use WPML\TM\ATE\SiteName\Sender as SiteNameSender;
+use WPML\Utilities\AdvisoryLock;
+use WPML\Utilities\AdvisoryLockFactory;
+use WPML\WP\OptionManager;
 
 use function WPML\Container\make;
 
@@ -17,13 +26,20 @@ class Handler {
 
 	const TRANSIENT_KEY = 'wpml_ate_auto_migration_succeeded';
 	const OPTION_MIGRATION_DATA = 'wpml_ate_auto_migration_data';
-	const OPTION_MIGRATION_FAILED = 'wpml_ate_auto_migration_failed';
+
+	const REFUSED_AFTER_REREGISTRATION = 'refused_after_reregistration';
+
+	const REREGISTRATION_IN_PROGRESS = 'reregistration_in_progress';
+
+	const REREGISTRATION_LOCK = 'ate_reregistration';
+
+	const LOCK_TIMEOUT_SECONDS = 20;
 
 	private $signer;
 
 	private $endpoints;
 
-	private $credentialsStorage;
+	private $attachedCopy;
 
 	private $auth;
 
@@ -32,6 +48,8 @@ class Handler {
 	private $siteKeyRegistrar;
 
 	private static $processing = false;
+
+	private $lastFailureReason = '';
 
 	public function __construct(
 		AmsRequestSigner $signer,
@@ -44,12 +62,14 @@ class Handler {
 		$this->signer             = $signer;
 		$this->endpoints          = $endpoints;
 		$this->auth               = $auth;
-		$this->credentialsStorage = $credentialsStorage;
+		$this->attachedCopy       = new AttachedCopy( $signer, $endpoints, $credentialsStorage );
 		$this->siteKeyCleaner     = $siteKeyCleaner;
 		$this->siteKeyRegistrar   = $siteKeyRegistrar;
 	}
 
 	public function tryMigrate( string $oldUrl = '', string $newUrl = '' ): bool {
+		$this->lastFailureReason = '';
+
 		if ( ! $oldUrl || ! $newUrl ) {
 			$existing = self::getMigrationData();
 			if ( is_array( $existing ) ) {
@@ -59,151 +79,180 @@ class Handler {
 		}
 
 		if ( ! $this->ensureInstallerAvailable() ) {
-			return $this->fail( $oldUrl, $newUrl );
+			$this->lastFailureReason = 'installer_unavailable';
+
+			return false;
 		}
 
 		if ( ! \SitePress_Setup::setup_complete() ) {
+			$this->lastFailureReason = 'setup_incomplete';
+
 			return false;
 		}
 
 		if ( self::$processing ) {
+			$this->lastFailureReason = 'already_running';
+
 			return false;
 		}
 
 		if ( $this->alreadyMigratedForCurrentUrls( $oldUrl, $newUrl ) ) {
-			return true;
+			$this->lastFailureReason = self::REFUSED_AFTER_REREGISTRATION;
+
+			return false;
 		}
 
-		self::$processing = true;
+		$lock = $this->acquireReRegistrationLock();
+		if ( false === $lock ) {
+			$this->lastFailureReason = self::REREGISTRATION_IN_PROGRESS;
 
-		MigrationLogger::begin();
+			return false;
+		}
 
 		try {
-			$result = $this->doMigrate( $oldUrl, $newUrl );
+			if ( $this->alreadyMigratedForCurrentUrls( $oldUrl, $newUrl ) ) {
+				$this->lastFailureReason = self::REFUSED_AFTER_REREGISTRATION;
 
-			if ( $result ) {
-				delete_option( self::OPTION_MIGRATION_FAILED );
-				MigrationLogger::siteUnlocked();
-			} else {
-				MigrationLogger::migrationFailed();
-				$this->fail( $oldUrl, $newUrl );
+				return false;
 			}
 
-			return $result;
+			self::$processing = true;
+
+			MigrationLogger::begin();
+
+			try {
+				$result = $this->doMigrate( $oldUrl, $newUrl );
+
+				if ( $result ) {
+					MigrationLogger::siteUnlocked();
+				} else {
+					MigrationLogger::migrationFailed();
+				}
+
+				return $result;
+			} finally {
+				MigrationLogger::end();
+				self::$processing = false;
+			}
 		} finally {
-			MigrationLogger::end();
-			self::$processing = false;
+			if ( $lock ) {
+				$lock->release();
+			}
 		}
 	}
 
-	private function fail( string $oldUrl = '', string $newUrl = '' ): bool {
-		update_option( self::OPTION_MIGRATION_FAILED, true, false );
+	private function acquireReRegistrationLock() {
+		$factory = make( AdvisoryLockFactory::class );
 
-		if ( $oldUrl || $newUrl ) {
-			update_option( self::OPTION_MIGRATION_DATA, [
-				'old_url' => $oldUrl,
-				'new_url' => $newUrl,
-			], false );
+		if ( ! $factory ) {
+			return null;
 		}
 
-		return false;
+		$lock = $factory->create( self::REREGISTRATION_LOCK );
+
+		return $lock->acquire( self::LOCK_TIMEOUT_SECONDS ) ? $lock : false;
 	}
 
 	private function doMigrate( string $oldUrl, string $newUrl ): bool {
-		$body = $this->callCopyWithAttachment();
+		$registrationData = get_option( \WPML_TM_ATE_Authentication::AMS_DATA_KEY, [] );
+		$copy             = $this->attachedCopy->ask(
+			(string) ( $registrationData['shared'] ?? '' ),
+			(string) $this->auth->get_site_id()
+		);
+		$failure          = $copy->coalesce( Fns::identity(), Fns::always( null ) )->get();
 
-		if ( ! $body ) {
+		if ( null !== $failure ) {
+			$this->lastFailureReason = AttachedCopy::INCOMPLETE === $failure ? 'copy_response_incomplete' : 'copy_failed';
+
 			return false;
 		}
 
-		if ( ! isset( $body['new_shared_key'], $body['new_secret_key'], $body['new_website_uuid'] ) ) {
-			MigrationLogger::copyResponseInvalid( $body );
-			return false;
-		}
+		$body = $copy->get();
 
-		$stored = $this->credentialsStorage->store( $body );
+		$snapshot = IdentitySnapshot::capture( $this->auth );
+
+		$stored = $this->attachedCopy->store( $body );
 		MigrationLogger::credentialsStored( $stored );
 
 		if ( ! $stored ) {
+			$snapshot->restore();
+			$this->lastFailureReason = 'credentials_not_stored';
+
 			return false;
 		}
 
 		if ( ! $this->sendConfirmation() ) {
 			MigrationLogger::confirmFailed();
+			$snapshot->restore();
+			$this->lastFailureReason = 'confirm_failed';
+
 			return false;
 		}
 
-		$cancelledCount = make( InProgressJobsCanceller::class )->cancel();
-		MigrationLogger::jobsCancelled( (int) $cancelledCount );
+		$moved = ! self::isSameSiteAddress( $oldUrl, $newUrl );
 
-		$this->handleSiteKey( $body );
+		if ( $moved && ! $this->handleSiteKey( $body, $snapshot->websiteUuid() ) ) {
+			$snapshot->restore();
+			$this->lastFailureReason = 'site_key_not_registered';
+
+			return false;
+		}
+
+		$this->publish( $body, $oldUrl, $newUrl, $snapshot->websiteUuid() );
+
+		return true;
+	}
+
+	private function publish( array $body, string $oldUrl, string $newUrl, string $previousUuid = '' ) {
+		CachedAMSAPI::clearCache();
+
+		SiteNameSender::send();
 
 		$organizationName      = $body['billing_group_name'] ?? $oldUrl;
 		$organizationConnected = (bool) ( $body['organization_connected'] ?? true );
 
 		$aliasDomainReset = AliasDomainResetFlag::isSet();
 
-		update_option( self::OPTION_MIGRATION_DATA, [
-			'old_url'                => $oldUrl,
-			'new_url'                => $newUrl,
-			'organization_name'      => $organizationName,
-			'organization_connected' => $organizationConnected,
-			'alias_domain_reset'     => $aliasDomainReset,
-		], false );
+		$moved = ! self::isSameSiteAddress( $oldUrl, $newUrl );
 
-		if ( $oldUrl && $newUrl ) {
+		$sameRecord = '' !== $previousUuid && $previousUuid === (string) $body['new_website_uuid'];
+
+		if ( $moved ) {
+			update_option( self::OPTION_MIGRATION_DATA, [
+				'old_url'                => $oldUrl,
+				'new_url'                => $newUrl,
+				'organization_name'      => $organizationName,
+				'organization_connected' => $organizationConnected,
+				'alias_domain_reset'     => $aliasDomainReset,
+				'same_record'            => $sameRecord,
+			], false );
+		}
+
+		if ( $moved && $oldUrl && $newUrl ) {
 			Settings::setAndSave( 'migrated_site', [
 				'old_url' => $oldUrl,
 				'new_url' => $newUrl,
 			] );
 		}
 
+		self::forgetCachedMemory();
 		set_transient( self::TRANSIENT_KEY, [
 			'old_url' => $oldUrl,
 			'new_url' => $newUrl,
 		], HOUR_IN_SECONDS );
 
+		if ( ! $sameRecord ) {
+			$cancelledCount = make( InProgressJobsCanceller::class )->cancel();
+			MigrationLogger::jobsCancelled( (int) $cancelledCount );
+		}
+
 		do_action( 'wpml_tm_ate_synchronize_translators' );
 
-		return true;
+		\WPML\Upgrade\Commands\MigrateLanguagesToCountryModel::reapplyAteCountryMappingIfDeferred();
 	}
 
-	private function callCopyWithAttachment() {
-		$registration_data = get_option( \WPML_TM_ATE_Authentication::AMS_DATA_KEY, [] );
-
-		$url = $this->endpoints->get_ams_copy_attached();
-
-		$params = [
-			'shared_key'                  => isset( $registration_data['shared'] ) ? $registration_data['shared'] : '',
-			'website_uuid'                => $this->auth->get_site_id(),
-			'respect_previous_disconnect' => 'true',
-		];
-
-		MigrationLogger::copyRequestSent( $url );
-
-		$response = $this->signer->send( $url, 'POST', $params );
-
-		MigrationLogger::copyResponse( $response );
-
-		if ( is_wp_error( $response ) || ! is_array( $response ) ) {
-			return null;
-		}
-
-		if (
-			! isset( $response['response']['code'] )
-			|| $response['response']['code'] !== 200
-			|| ! isset( $response['body'] )
-		) {
-			return null;
-		}
-
-		$body = json_decode( $response['body'], true );
-
-		if ( ! is_array( $body ) ) {
-			return null;
-		}
-
-		return $body;
+	public function getLastFailureReason(): string {
+		return $this->lastFailureReason;
 	}
 
 	private function sendConfirmation(): bool {
@@ -238,12 +287,62 @@ class Handler {
 		return $confirmed;
 	}
 
-	private function handleSiteKey( array $body ) {
+	private function handleSiteKey( array $body, string $previousUuid ): bool {
 		$siteKey = isset( $body['site_key'] ) ? $body['site_key'] : null;
 
-		if ( ! $siteKey || ! $this->siteKeyRegistrar->register( $siteKey ) ) {
-			$this->siteKeyCleaner->unregister();
+		if ( $siteKey ) {
+			return (bool) $this->siteKeyRegistrar->register( $siteKey );
 		}
+
+		if ( '' !== $previousUuid && (string) $body['new_website_uuid'] === $previousUuid ) {
+			return true;
+		}
+
+		if ( $this->revalidateHeldKey() ) {
+			return true;
+		}
+
+		$this->siteKeyCleaner->unregister();
+
+		return true;
+	}
+
+	private function revalidateHeldKey(): bool {
+		if ( class_exists( 'WP_Installer' ) && \WP_Installer::get_repository_hardcoded_site_key( 'wpml' ) ) {
+			return true;
+		}
+
+		$heldKey = $this->getHeldSiteKey();
+		if ( '' === $heldKey ) {
+			return false;
+		}
+
+		$outcome = $this->siteKeyRegistrar->registerWithOutcome( $heldKey );
+
+		if ( SiteKeyRegistrar::REFUSED === $outcome ) {
+			return false;
+		}
+
+		if ( SiteKeyRegistrar::REGISTERED !== $outcome ) {
+			return true;
+		}
+
+		do_action( 'otgs_installer_site_key_update', 'wpml' );
+
+		return true;
+	}
+
+	private function getHeldSiteKey(): string {
+		if ( ! function_exists( 'OTGS_Installer' ) ) {
+			return '';
+		}
+
+		$installer = \OTGS_Installer();
+		if ( ! is_object( $installer ) || ! method_exists( $installer, 'get_site_key' ) ) {
+			return '';
+		}
+
+		return StoredSiteKey::orStored( $installer->get_site_key( 'wpml' ) );
 	}
 
 	private function ensureInstallerAvailable(): bool {
@@ -256,6 +355,21 @@ class Handler {
 		}
 
 		return function_exists( 'OTGS_Installer' );
+	}
+
+	public static function isSameSiteAddress( string $first, string $second ): bool {
+		$fold = function ( string $url ): string {
+			$url = strtolower( trim( $url ) );
+			$url = (string) preg_replace( '#^https?://#', '', $url );
+			$url = (string) preg_replace( '#^www\.#', '', $url );
+
+			return rtrim( $url, '/' );
+		};
+
+		$first  = $fold( $first );
+		$second = $fold( $second );
+
+		return '' !== $first && $first === $second;
 	}
 
 	public static function hasMigrated(): bool {
@@ -293,18 +407,10 @@ class Handler {
 		if ( ! $installer ) {
 			return false;
 		}
-		return (bool) $installer->get_site_key( 'wpml' );
-	}
-
-	public static function hasFailed(): bool {
-		return (bool) get_option( self::OPTION_MIGRATION_FAILED, false );
+		return '' !== StoredSiteKey::orStored( $installer->get_site_key( 'wpml' ) );
 	}
 
 	public static function resolveInitialState( $migrationData = null ): string {
-		if ( self::hasFailed() ) {
-			return 'error';
-		}
-
 		if ( $migrationData === null ) {
 			$migrationData = self::getMigrationData();
 		}
@@ -313,23 +419,43 @@ class Handler {
 			return 'error';
 		}
 
-		$connected = isset( $migrationData['organization_connected'] )
-			? (bool) $migrationData['organization_connected']
-			: true;
+		if ( ! isset( $migrationData['organization_connected'] ) ) {
+			return 'error';
+		}
 
-		return $connected ? 'success' : 'success-independent';
+		if ( self::isSameRecord( $migrationData ) ) {
+			return 'moved';
+		}
+
+		return $migrationData['organization_connected'] ? 'success' : 'success-independent';
 	}
 
-	public static function clearFailureFlag() {
-		delete_option( self::OPTION_MIGRATION_FAILED );
+	public static function isSameRecord( $migrationData = null ): bool {
+		if ( $migrationData === null ) {
+			$migrationData = self::getMigrationData();
+		}
+
+		return is_array( $migrationData ) && ! empty( $migrationData['same_record'] );
 	}
 
 	private function alreadyMigratedForCurrentUrls( string $oldUrl, string $newUrl ): bool {
+		self::forgetCachedMemory();
+
 		$cached = get_transient( self::TRANSIENT_KEY );
 
 		return is_array( $cached )
 			&& isset( $cached['old_url'], $cached['new_url'] )
 			&& $cached['old_url'] === $oldUrl
 			&& $cached['new_url'] === $newUrl;
+	}
+
+	private static function forgetCachedMemory() {
+		if ( function_exists( 'wp_using_ext_object_cache' ) && wp_using_ext_object_cache() ) {
+			return;
+		}
+
+		$options = new OptionManager();
+		$options->getFreshRaw( '_transient_timeout_' . self::TRANSIENT_KEY );
+		$options->getFreshRaw( '_transient_' . self::TRANSIENT_KEY );
 	}
 }

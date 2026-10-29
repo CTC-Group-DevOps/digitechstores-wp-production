@@ -11,7 +11,7 @@ class WPML_TM_MCS_Term_Custom_Field_Settings_Menu extends WPML_TM_MCS_Custom_Fie
 	}
 
 	protected function get_title() {
-		return __( 'Custom Term Meta Translation', 'wpml-translation-management' );
+		return __( 'Custom Term Meta Translation', 'sitepress' );
 	}
 
 	protected function kind_shorthand() {
@@ -19,13 +19,15 @@ class WPML_TM_MCS_Term_Custom_Field_Settings_Menu extends WPML_TM_MCS_Custom_Fie
 	}
 
 	public function get_no_data_message() {
-		return __( 'No term meta found. It is possible that they will only show up here after you add/create them.', 'wpml-translation-management' );
+		/* translators: Shown in place of the list of extra fields of a term when there are none. "It is possible" is about those fields. */
+		return __( 'No term meta found. It is possible that they will only show up here after you add/create them.', 'sitepress' );
 	}
 
 	public function get_column_header( $id ) {
 		$header = $id;
 		if ( 'name' === $id ) {
-			$header = __( 'Term Meta', 'wpml-translation-management' );
+			/* translators: Heading above the list of the extra fields a term can carry. */
+			$header = __( 'Term Meta', 'sitepress' );
 		}
 		return $header;
 	}

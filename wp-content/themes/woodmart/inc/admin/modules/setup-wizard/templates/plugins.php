@@ -8,8 +8,8 @@
 use XTS\Admin\Modules\Setup_Wizard;
 use XTS\Admin\Modules\Setup_Wizard\Install_Plugins;
 
-if ( isset( $_GET['wd_builder'] ) ) {
-	$builder = esc_html( $_GET['wd_builder'] );
+if ( isset( $_GET['wd_builder'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$builder = sanitize_key( wp_unslash( $_GET['wd_builder'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 } elseif ( woodmart_get_current_page_builder() ) {
 	$builder = woodmart_get_current_page_builder();
 } else {
@@ -19,11 +19,7 @@ if ( isset( $_GET['wd_builder'] ) ) {
 $dashboard       = Setup_Wizard::get_instance();
 $install_plugins = Install_Plugins::get_instance();
 
-if ( isset( $args['show_plugins'] ) && 'compatible' === $args['show_plugins'] ) {
-	$plugins_list = woodmart_get_config( 'compatible-plugins' );
-} else {
-	$plugins_list = $install_plugins->get_plugins();
-}
+$plugins_list = $install_plugins->get_plugins();
 
 ?>
 <div class="xts-plugins<?php echo ! count( $install_plugins->get_required_plugins_to_activate() ) ? ' xts-required-active' : ''; ?>">
@@ -120,7 +116,7 @@ if ( isset( $args['show_plugins'] ) && 'compatible' === $args['show_plugins'] ) 
 		</div>
 	<?php endif; ?>
 
-	<?php if ( $plugins_list && ( ! isset( $args['show_plugins'] ) || 'compatible' !== $args['show_plugins'] ) ) : ?>
+	<?php if ( $plugins_list ) : ?>
 		<script>
 			var xtsPluginsData = <?php echo wp_json_encode( $plugins_list ); ?>
 		</script>

@@ -43,8 +43,8 @@ class WPML_Elementor_Data_Settings implements IWPML_Page_Builders_Data_Settings 
 	}
 
 	public function save_post_body_as_plain_text( $type, $post_id, $original_post, $string_translations, $lang ) {
-		if ( $this->is_handling_post( $post_id ) ) {
-			$this->elementor_db->save_plain_text( $post_id );
+		if ( $this->is_handling_post( $post_id ) && $this->elementor_db->save_plain_text( $post_id ) ) {
+			\WPML\PB\Helper\TranslationContent::followRecord( $post_id );
 		}
 	}
 
@@ -60,11 +60,9 @@ class WPML_Elementor_Data_Settings implements IWPML_Page_Builders_Data_Settings 
 		return [
 			'_elementor_version',
 			self::META_KEY_MODE,
-			'_elementor_page_settings',
 			'_elementor_css',
 			'_elementor_template_type',
 			'_elementor_template_widget_type',
-			'_elementor_popup_display_settings',
 		];
 	}
 

@@ -13,7 +13,7 @@ class Fixerio extends ApiLayerService {
 	}
 
 	public function getUrl() {
-		return 'http://fixer.io/';
+		return 'https://fixer.io/';
 	}
 
 	protected function getApiLayerUrl() {
@@ -21,6 +21,6 @@ class Fixerio extends ApiLayerService {
 	}
 
 	protected function getApiLegacyUrl() {
-		return 'http://data.fixer.io/api/latest?access_key=%1$s&base=%2$s&symbols=%3$s';
+		return 'https://data.fixer.io/api/latest?access_key=%1$s&base=%2$s&symbols=%3$s';
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use WPML\PB\BeaverBuilder\Modules\ModuleWithItemsFromConfig;
+use WPML\PB\TranslationJob\SourceLabels;
 
 class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Translatable_Nodes {
 
@@ -119,11 +120,13 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder and Elementor. Before the colon is the name Beaver Builder and Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Button: Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'link',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Button: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -134,11 +137,13 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'heading',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder and Elementor. Before the colon is the name Beaver Builder and Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Heading: Title', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'link',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Heading: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -149,6 +154,7 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'html',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder or Elementor: the raw markup of an HTML widget. "HTML" is the widget's name in both builders and stays in English. */
 						'type'        => __( 'HTML', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
@@ -159,6 +165,7 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'link_url',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Photo: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -169,6 +176,7 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder and Elementor. Before the colon is the name Beaver Builder and Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Text Editor: Text', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
@@ -194,21 +202,25 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Callout: Heading', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Callout: Text', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'cta_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Callout: Call to action text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'link',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Callout: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -219,51 +231,61 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'name_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Name Field Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'subject_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Subject Field Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'email_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Email Field Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'phone_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Phone Field Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'message_placeholder',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Your Message Placeholder', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'terms_checkbox_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Checkbox Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'terms_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Terms and Conditions', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'success_message',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Success Message', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'btn_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Button Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'success_url',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Contact Form: Redirect Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -274,21 +296,25 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'title',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to Action: Heading', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to Action: Text', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'btn_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to Action: Button text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'btn_link',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Call to Action: Button link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -300,31 +326,37 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'terms_checkbox_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Subscribe form: Checkbox Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'terms_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Subscribe form: Terms and Conditions', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'custom_subject',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Subscribe form: Notification Subject', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'success_message',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Subscribe form: Success Message', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'btn_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Subscribe form: Button Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'success_url',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Subscribe form: Redirect Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -340,11 +372,13 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Icon: Text', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'link',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Icon: Link', 'sitepress' ),
 						'editor_type' => 'LINK',
 					),
@@ -360,6 +394,7 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'address',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Map: Address', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -370,6 +405,7 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'            => array(
 					array(
 						'field'       => 'heading',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Testimonial: Heading', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -382,21 +418,25 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'before_number_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Number Counter: Text before number', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'after_number_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Number Counter: Text after number', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'number_prefix',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Number Counter: Number Prefix', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'number_suffix',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Number Counter: Number Suffix', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -407,21 +447,25 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'no_results_message',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Posts: No Results Message', 'sitepress' ),
 						'editor_type' => 'VISUAL',
 					),
 					array(
 						'field'       => 'more_btn_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Posts: Button Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'terms_list_label',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Posts: Terms Label', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
 					array(
 						'field'       => 'more_link_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Posts: More Link Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -432,6 +476,7 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 				'fields'     => array(
 					array(
 						'field'       => 'more_link_text',
+						/* translators: Field label in WPML's translation editor for a page built with Beaver Builder. Before the colon is the name Beaver Builder gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 						'type'        => __( 'Posts Slider: More Link Text', 'sitepress' ),
 						'editor_type' => 'LINE',
 					),
@@ -442,6 +487,6 @@ class WPML_Beaver_Builder_Translatable_Nodes implements IWPML_Page_Builders_Tran
 	}
 
 	public function initialize_nodes_to_translate() {
-		$this->nodes_to_translate = apply_filters( 'wpml_beaver_builder_modules_to_translate', self::get_nodes_to_translate() );
+		$this->nodes_to_translate = apply_filters( 'wpml_beaver_builder_modules_to_translate', SourceLabels::run( [ self::class, 'get_nodes_to_translate' ] ) );
 	}
 }

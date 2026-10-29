@@ -2,6 +2,7 @@
 
 namespace WPML\MediaTranslation;
 
+use WPML\FP\Obj;
 use WPML\LIB\WP\Attachment;
 
 class CopiedAndReferencedMediaExtractor {
@@ -24,7 +25,9 @@ class CopiedAndReferencedMediaExtractor {
 			$post = $post[0];
 		}
 
-		$pb_media = $this->get_page_builder_media( $post );
+		$post_language = $this->get_post_language( $post );
+
+		$pb_media = $this->get_page_builder_media( $post, $post_language );
 
 		list( $pb_copied_media, $pb_referenced_media ) = $this->part_page_builder_media( $pb_media );
 
@@ -64,15 +67,63 @@ class CopiedAndReferencedMediaExtractor {
 			$not_classified_media_in_tags[] = $media_in_tag;
 		}
 
+		$unresolved_block_media = array();
+		if ( $get_attachment_ids_from_urls ) {
+			foreach ( array_keys( array_values( $copied_media_in_blocks ) ) as $index ) {
+				if ( empty( $copied_media[ $index ]['attachment_id'] ) && '' !== Attachment::extractSrcFromAttributes( $copied_media[ $index ] ) ) {
+					$unresolved_block_media[] = $index;
+				}
+			}
+		}
+
+		$can_batch          = MediaImgParse::canBatchResolve();
+		$not_classified_ids = array();
+		if ( $can_batch && $get_attachment_ids_from_urls && ( $not_classified_media_in_tags || $unresolved_block_media ) ) {
+			$not_classified_srcs = array();
+			foreach ( $not_classified_media_in_tags as $media_in_tag ) {
+				$src = Attachment::extractSrcFromAttributes( $media_in_tag );
+				if ( '' !== $src && empty( $media_in_tag['attachment_id'] ) ) {
+					$not_classified_srcs[ $src ] = \WPML_Media_Attachment_By_URL::normalizeUrl( $src );
+				}
+			}
+			foreach ( $unresolved_block_media as $index ) {
+				$src                         = Attachment::extractSrcFromAttributes( $copied_media[ $index ] );
+				$not_classified_srcs[ $src ] = \WPML_Media_Attachment_By_URL::normalizeUrl( $src );
+			}
+			if ( $not_classified_srcs ) {
+				$ids_by_url = Attachment::attachmentUrlsToPostIds( array_values( array_unique( $not_classified_srcs ) ) );
+				foreach ( $not_classified_srcs as $src => $url ) {
+					$not_classified_ids[ $src ] = isset( $ids_by_url[ $url ] ) ? $ids_by_url[ $url ] : null;
+				}
+			}
+		}
+
+		foreach ( $unresolved_block_media as $index ) {
+			$src     = Attachment::extractSrcFromAttributes( $copied_media[ $index ] );
+			$post_id = $can_batch
+				? ( isset( $not_classified_ids[ $src ] ) ? (int) $not_classified_ids[ $src ] : 0 )
+				: (int) attachment_url_to_postid( \WPML_Media_Attachment_By_URL::normalizeUrl( $src ) );
+
+			$copied_media[ $index ]['attachment_id'] = $post_id > 0 ? $this->in_post_language( $post_id, $post_language ) : null;
+		}
+
 		foreach ( $not_classified_media_in_tags as &$not_classified_media_in_tag ) {
+			if ( $get_attachment_ids_from_urls && (int) Obj::propOr( 0, 'attachment_id', $not_classified_media_in_tag ) > 0 ) {
+				$not_classified_media_in_tag['attachment_id'] = (int) $not_classified_media_in_tag['attachment_id'];
+				$copied_media[]                               = $not_classified_media_in_tag;
+				continue;
+			}
 			$not_classified_media_in_tag['attachment_id'] = null;
 
 			if ( $get_attachment_ids_from_urls ) {
-				$post_id = attachment_url_to_postid( Attachment::extractSrcFromAttributes( $not_classified_media_in_tag ) );
+				$src     = Attachment::extractSrcFromAttributes( $not_classified_media_in_tag );
+				$post_id = $can_batch
+					? ( isset( $not_classified_ids[ $src ] ) ? (int) $not_classified_ids[ $src ] : 0 )
+					: attachment_url_to_postid( \WPML_Media_Attachment_By_URL::normalizeUrl( $src ) );
 				if ( ! is_numeric( $post_id ) ) {
 					continue;
 				}
-				$not_classified_media_in_tag['attachment_id'] = $post_id;
+				$not_classified_media_in_tag['attachment_id'] = (int) $post_id > 0 ? $this->in_post_language( (int) $post_id, $post_language ) : null;
 			}
 
 			$copied_media[] = $not_classified_media_in_tag;
@@ -84,7 +135,23 @@ class CopiedAndReferencedMediaExtractor {
 		);
 	}
 
-	private function get_page_builder_media( $post ) {
+	private function get_post_language( $post ) {
+		if ( empty( $post->ID ) || empty( $post->post_type ) ) {
+			return null;
+		}
+
+		return $this->sitepress->get_language_for_element( $post->ID, 'post_' . $post->post_type ) ?: null;
+	}
+
+	private function in_post_language( $attachment_id, $post_language ) {
+		if ( ! $post_language ) {
+			return $attachment_id;
+		}
+
+		return (int) ( $this->sitepress->get_object_id( $attachment_id, 'attachment', true, $post_language ) ?: $attachment_id );
+	}
+
+	private function get_page_builder_media( $post, $post_language = null ) {
 		do_action( 'wpml_pb_find_used_media_in_post', $post );
 		$pb_media = apply_filters( 'wpml_pb_get_used_media_in_post', $post );
 		if ( ! is_array( $pb_media ) ) {
@@ -92,14 +159,21 @@ class CopiedAndReferencedMediaExtractor {
 		}
 
 		$pb_media = array_map(
-			function ( $media ) {
+			function ( $media ) use ( $post_language ) {
+				if ( is_numeric( $media['id'] ) ) {
+					$attachment_id = $media['id'];
+				} else {
+					$attachment_id = Attachment::idFromUrl( \WPML_Media_Attachment_By_URL::normalizeUrl( $media['url'] ) );
+					$attachment_id = $attachment_id ? $this->in_post_language( (int) $attachment_id, $post_language ) : $attachment_id;
+				}
+
 				return array(
 					'attributes'    => array(
 						'src'     => $media['url'],
 						'alt'     => '',
 						'caption' => '',
 					),
-					'attachment_id' => is_numeric( $media['id'] ) ? $media['id'] : attachment_url_to_postid( $media['url'] ),
+					'attachment_id' => $attachment_id,
 					'shortcode'     => $media['shortcode'] ?? '',
 				);
 			},

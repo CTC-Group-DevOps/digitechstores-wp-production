@@ -1,29 +1,29 @@
 <?php
 
 class WPML_Notice {
-	private $display_callbacks      = array();
+	private $display_callbacks      = [];
 	private $id;
 	private $text;
 	private $collapsed_text;
 	private $group                  = 'default';
-	private $restricted_to_user_ids = array();
+	private $restricted_to_user_ids = [];
 
-	private $actions = array();
-	private $css_class_types                = array();
-	private $css_classes                    = array();
+	private $actions = [];
+	private $css_class_types                = [];
+	private $css_classes                    = [];
 	private $dismissible                    = false;
-	private $exclude_from_pages             = array();
+	private $exclude_from_pages             = [];
 	private $hideable                       = false;
 	private $collapsable                    = false;
-	private $restrict_to_pages              = array();
-	private $restrict_to_page_prefixes      = array();
-	private $restrict_to_screen_ids         = array();
+	private $restrict_to_pages              = [];
+	private $restrict_to_page_prefixes      = [];
+	private $restrict_to_screen_ids         = [];
 	private $hide_if_notice_exists          = null;
 	private $dismissible_for_different_text = true;
 
 	private $default_group_name = 'default';
 
-	private $capabilities = array();
+	private $capabilities = [];
 
 	private $dismiss_reset = false;
 
@@ -36,7 +36,7 @@ class WPML_Notice {
 	public function __construct( $id, $text, $group = 'default' ) {
 		$this->id    = $id;
 		$this->text  = $text;
-		$this->group = $group ? $group : $this->default_group_name;
+		$this->group = $group ?: $this->default_group_name;
 	}
 
 	public function add_action( WPML_Notice_Action $action ) {
@@ -125,7 +125,11 @@ class WPML_Notice {
 
 	public function get_display_callbacks() {
 		$isNotIncompleteObject = function( $callback ) {
-			return ! ( isset( $callback[0] ) && $callback[0] instanceof __PHP_Incomplete_Class );
+			if ( $callback instanceof __PHP_Incomplete_Class ) {
+				return false;
+			}
+
+			return ! ( is_array( $callback ) && isset( $callback[0] ) && $callback[0] instanceof __PHP_Incomplete_Class );
 		};
 
 		return array_filter( $this->display_callbacks, $isNotIncompleteObject );
@@ -207,7 +211,7 @@ class WPML_Notice {
 	}
 
 	public function set_dismissible( $dismissible ) {
-		$this->dismissible = $dismissible;
+		$this->dismissible = (bool) $dismissible;
 	}
 
 	public function set_exclude_from_pages( array $pages ) {
@@ -215,10 +219,10 @@ class WPML_Notice {
 	}
 
 	public function set_hide_if_notice_exists( $notice_id, $notice_group = null ) {
-		$this->hide_if_notice_exists = array(
+		$this->hide_if_notice_exists = [
 			'id'    => $notice_id,
 			'group' => $notice_group,
-		);
+		];
 	}
 
 	public function get_hide_if_notice_exists() {
@@ -226,15 +230,15 @@ class WPML_Notice {
 	}
 
 	public function set_hideable( $hideable ) {
-		$this->hideable = $hideable;
+		$this->hideable = (bool) $hideable;
 	}
 
 	public function set_collapsable( $collapsable ) {
-		$this->collapsable = $collapsable;
+		$this->collapsable = (bool) $collapsable;
 	}
 
 	public function set_nonce_action( $action ) {
-		$this->nonce_action = $action;
+		$this->nonce_action = (string) $action;
 	}
 
 	public function set_collapsed_text( $collapsed_text ) {
@@ -272,7 +276,7 @@ class WPML_Notice {
 	}
 
 	public function set_text_only( $text_only ) {
-		$this->text_only = $text_only;
+		$this->text_only = (bool) $text_only;
 	}
 
 	public static function make( $id, $text, $group = 'default' ) {

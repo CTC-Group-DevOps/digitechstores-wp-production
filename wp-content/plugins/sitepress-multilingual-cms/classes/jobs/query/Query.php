@@ -8,4 +8,6 @@ interface Query {
 	public function get_data_query( WPML_TM_Jobs_Search_Params $params );
 
 	public function get_count_query( WPML_TM_Jobs_Search_Params $params );
+
+	public function get_exists_query( WPML_TM_Jobs_Search_Params $params );
 }

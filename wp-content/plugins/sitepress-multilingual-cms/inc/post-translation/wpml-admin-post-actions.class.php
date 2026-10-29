@@ -1,6 +1,7 @@
 <?php
 
 use WPML\API\Sanitize;
+use WPML\Language\ActiveLanguagesReadModel;
 
 class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 
@@ -43,7 +44,9 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 		}
 
 		$http_referer = $this->get_http_referer();
-		if ( ! $this->has_save_post_action( $post ) && ! $http_referer->is_rest_request_called_from_post_edit_page() ) {
+		if ( ! $this->has_save_post_action( $post )
+			&& ( WPML_Save_Translation_Data_Action::is_delivery_window_open()
+				|| ! $http_referer->is_rest_request_called_from_post_edit_page() ) ) {
 			return;
 		}
 		if ( WPML_WordPress_Actions::is_bulk_trash( $post_id ) ||
@@ -73,18 +76,24 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 			return;
 		}
 
+		$previous_trid = (int) $this->get_element_trid( $post_id );
+
 		if ( isset( $post_vars['icl_translation_of'] ) && is_numeric( $post_vars['icl_translation_of'] ) ) {
-			$translation_of_data_prepared = $this->wpdb->prepare(
-				"SELECT trid, language_code
-				 FROM {$this->wpdb->prefix}icl_translations
+			$wpdb = $this->wpdb;
+			list( $trid, $source_language ) = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT trid, language_code
+				 FROM {$wpdb->prefix}icl_translations
 				 WHERE element_id=%d
 					AND element_type=%s
 				 LIMIT 1",
-				$post_vars['icl_translation_of'],
-				'post_' . $post->post_type
+					$post_vars['icl_translation_of'],
+					'post_' . $post->post_type
+				),
+				'ARRAY_N'
 			);
-			list( $trid, $source_language ) = $this->wpdb->get_row( $translation_of_data_prepared, 'ARRAY_N' );
 		}
+		$translation_of_trid = isset( $trid ) ? (int) $trid : 0;
 
 		if ( isset( $post_vars['icl_translation_of'] ) && $post_vars['icl_translation_of'] == 'none' ) {
 			$trid            = null;
@@ -94,6 +103,17 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 			$source_language = isset( $source_language )
 				? $source_language : $this->get_save_post_source_lang( $trid, $language_code, $default_language );
 		}
+
+		list( $trid, $source_language ) = $this->authorize_requested_group_change(
+			$trid,
+			$previous_trid,
+			$translation_of_trid,
+			'post_' . $post->post_type,
+			$language_code,
+			$source_language,
+			$default_language
+		);
+
 		if ( isset( $post_vars['icl_tn_note'] ) ) {
 			update_post_meta( $post_id, '_icl_translator_note', $post_vars['icl_tn_note'] );
 		}
@@ -147,13 +167,25 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 		}
 		$language_code = $language_code
 			? $language_code
-			: filter_input(
-				INPUT_GET,
-				'lang',
-				FILTER_SANITIZE_FULL_SPECIAL_CHARS
-			);
+			: $this->get_save_post_lang_from_url();
 
 		return $language_code ? $language_code : parent::get_save_post_lang( $post_id, $sitepress );
+	}
+
+	private function get_save_post_lang_from_url() {
+		$requested = filter_input(
+			INPUT_GET,
+			'lang',
+			FILTER_SANITIZE_FULL_SPECIAL_CHARS
+		);
+
+		if ( ! $requested ) {
+			return null;
+		}
+
+		$resolved = ActiveLanguagesReadModel::canonical( (string) $requested );
+
+		return array_key_exists( $resolved, ActiveLanguagesReadModel::rows() ) ? $resolved : null;
 	}
 
 	private function is_inline_action( $post_vars ) {
@@ -186,6 +218,41 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 		parse_str( $query, $query_parts );
 
 		return isset( $query_parts['source_lang'] ) ? $query_parts['source_lang'] : false;
+	}
+
+	protected function authorize_requested_group_change( $trid, $previous_trid, $translation_of_trid, $element_type, $language_code, $source_language, $default_language ) {
+		if (
+			$trid
+			&& (int) $trid !== (int) $previous_trid
+			&& in_array( (int) $trid, $this->get_request_trid_candidates( $translation_of_trid ), true )
+			&& ! $this->current_user_can_join_translation_group( $trid, $element_type, $language_code )
+		) {
+			if ( $previous_trid ) {
+				$trid            = $previous_trid;
+				$source_language = SitePress::get_source_language_by_trid( $trid );
+				$source_language = 'all' === $source_language ? $default_language : $source_language;
+				$source_language = $source_language !== $language_code ? $source_language : null;
+			} else {
+				$trid            = null;
+				$source_language = $language_code;
+			}
+		}
+
+		return array( $trid, $source_language );
+	}
+
+	private function get_request_trid_candidates( $translation_of_trid ) {
+		$candidates = [ (int) $translation_of_trid ];
+
+		if ( isset( $_POST['icl_trid'] ) ) {
+			$candidates[] = (int) filter_var( wp_unslash( $_POST['icl_trid'] ), FILTER_SANITIZE_NUMBER_INT );
+		}
+		if ( isset( $_GET['trid'] ) ) {
+			$candidates[] = (int) filter_var( wp_unslash( $_GET['trid'] ), FILTER_SANITIZE_NUMBER_INT );
+		}
+		$candidates[] = (int) $this->get_trid_from_referer();
+
+		return array_values( array_filter( array_unique( $candidates ) ) );
 	}
 
 	public function get_trid_from_referer() {

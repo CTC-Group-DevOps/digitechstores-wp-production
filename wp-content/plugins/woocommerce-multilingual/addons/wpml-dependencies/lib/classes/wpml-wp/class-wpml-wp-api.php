@@ -20,7 +20,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function get_option( $option, $default = false ) {
-
 		return get_option( $option, $default );
 	}
 
@@ -49,6 +48,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function get_post_status( $ID = '' ) {
+		$ID = is_string( $ID ) ? (int) $ID : $ID;
 		return get_post_status( $ID );
 	}
 
@@ -62,62 +62,50 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' ) {
-
 		return add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
 	}
 
 	public function add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function = '', $icon_url = '', $position = null ) {
-
 		return add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 	}
 
 	public function get_post_type_archive_link( $post_type ) {
-
 		return get_post_type_archive_link( $post_type );
 	}
 
 	public function get_edit_post_link( $id = 0, $context = 'display' ) {
-
 		return get_edit_post_link( $id, $context );
 	}
 
 	public function get_the_title( $post ) {
-
 		return get_the_title( $post );
 	}
 
 	public function get_day_link( $year, $month, $day ) {
-
 		return get_day_link( $year, $month, $day );
 	}
 
 	public function get_month_link( $year, $month ) {
-
 		return get_month_link( $year, $month );
 	}
 
 	public function get_year_link( $year ) {
-
 		return get_year_link( $year );
 	}
 
 	public function get_author_posts_url( $author_id, $author_nicename = '' ) {
-
 		return get_author_posts_url( $author_id, $author_nicename );
 	}
 
 	public function current_user_can( $capability ) {
-
 		return current_user_can( $capability );
 	}
 
 	public function get_user_meta( $user_id, $key = '', $single = false ) {
-
 		return get_user_meta( $user_id, $key, $single );
 	}
 
 	public function get_post_type( $post = null ) {
-
 		return get_post_type( $post );
 	}
 
@@ -150,17 +138,14 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function user_can( $user, $capability ) {
-
 		return user_can( $user, $capability );
 	}
 
 	public function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
-
 		return add_filter( $tag, $function_to_add, $priority, $accepted_args );
 	}
 
 	public function remove_filter( $tag, $function_to_remove, $priority = 10 ) {
-
 		return remove_filter( $tag, $function_to_remove, $priority );
 	}
 
@@ -189,7 +174,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function is_admin() {
-
 		return is_admin();
 	}
 
@@ -211,9 +195,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 				  && $_GET['page'] == $this->constant( 'WPML_TM_FOLDER' ) . $page_suffix;
 
 		if ( $tab ) {
-			if ( $tab == $default_tab && ! isset( $_GET['sm'] ) ) {
-				$result = $result && true;
-			} else {
+			if ( ! ( $tab == $default_tab && ! isset( $_GET['sm'] ) ) ) {
 				$result = $result && isset( $_GET['sm'] ) && $_GET['sm'] == $tab;
 			}
 		}
@@ -326,22 +308,18 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function wp_update_term_count( $terms, $taxonomy, $do_deferred = false ) {
-
 		return wp_update_term_count( $terms, $taxonomy, $do_deferred );
 	}
 
 	public function get_taxonomy( $taxonomy ) {
-
 		return get_taxonomy( $taxonomy );
 	}
 
 	public function wp_set_object_terms( $object_id, $terms, $taxonomy, $append = false ) {
-
 		return wp_set_object_terms( $object_id, $terms, $taxonomy, $append );
 	}
 
 	public function get_post_types( $args = array(), $output = 'names', $operator = 'and' ) {
-
 		return get_post_types( $args, $output, $operator );
 	}
 
@@ -364,17 +342,14 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function get_current_user_id() {
-
 		return get_current_user_id();
 	}
 
 	public function get_post( $post = null, $output = OBJECT, $filter = 'raw' ) {
-
 		return get_post( $post, $output, $filter );
 	}
 
 	public function get_post_meta( $post_id, $key = '', $single = false ) {
-
 		return get_post_meta( $post_id, $key, $single );
 	}
 
@@ -397,22 +372,18 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function get_term_meta( $term_id, $key = '', $single = false ) {
-
 		return get_term_meta( $term_id, $key, $single );
 	}
 
 	public function get_permalink( $id = 0, $leavename = false ) {
-
 		return get_permalink( $id, $leavename );
 	}
 
 	public function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
-
 		return wp_mail( $to, $subject, $message, $headers, $attachments );
 	}
 
 	public function get_post_custom( $post_id = 0 ) {
-
 		return get_post_custom( $post_id );
 	}
 
@@ -427,7 +398,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function load_textdomain( $domain, $mofile ) {
-
 		return load_textdomain( $domain, $mofile );
 	}
 
@@ -436,7 +406,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 		$path = '',
 		$scheme = null
 	) {
-
 		return get_home_url( $blog_id, $path, $scheme );
 	}
 
@@ -445,7 +414,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 		$path = '',
 		$scheme = null
 	) {
-
 		return get_site_url( $blog_id, $path, $scheme );
 	}
 
@@ -473,7 +441,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 		$taxonomy = 'post_tag',
 		$args = array()
 	) {
-
 		return wp_get_post_terms( $post_id, $taxonomy, $args );
 	}
 
@@ -482,12 +449,10 @@ class WPML_WP_API extends WPML_PHP_Functions {
 		$output = 'names',
 		$operator = 'and'
 	) {
-
 		return get_taxonomies( $args, $output, $operator );
 	}
 
 	public function wp_get_theme( $stylesheet = null, $theme_root = null ) {
-
 		return wp_get_theme( $stylesheet, $theme_root );
 	}
 
@@ -543,12 +508,10 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function get_post_custom_keys( $post_id ) {
-
 		return get_post_custom_keys( $post_id );
 	}
 
 	public function get_bloginfo( $show = '', $filter = 'raw' ) {
-
 		return get_bloginfo( $show, $filter );
 	}
 
@@ -557,7 +520,6 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function get_naked_version( $version ) {
-
 		$elements = explode( '.', str_replace( '..', '.', preg_replace( '/([^0-9\.]+)/', '.$1.', str_replace( array( '-', '_', '+' ), '.', trim( $version ) ) ) ) );
 
 		$naked_elements = array( '0', '0', '0' );

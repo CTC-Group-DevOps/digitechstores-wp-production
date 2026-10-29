@@ -8,10 +8,10 @@
             "lang": "ja"
          },
          "Choose the image file type for flags": [
-            "フラグの画像ファイルタイプを選択"
+            "国旗の画像ファイル形式を選択してください"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "このオプションは、組み込みのWPMLフラグにのみ影響し、カスタムアップロードされたフラグには影響しません。"
+            "このオプションは WPML 内蔵の国旗にのみ適用され、カスタムアップロードされたものには影響しません。"
          ],
          "%s format": [
             "%s 形式"

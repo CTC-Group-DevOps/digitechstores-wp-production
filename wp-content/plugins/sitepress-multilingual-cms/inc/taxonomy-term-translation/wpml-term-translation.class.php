@@ -1,7 +1,7 @@
 <?php
 
 use WPML\FP\Fns;
-use WPML\LIB\WP\Cache;
+use WPML\FP\Maybe;
 
 class WPML_Term_Translation extends WPML_Element_Translation {
 	const CACHE_MAX_WARMUP_COUNT = 200;
@@ -9,6 +9,8 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 	const CACHE_GROUP            = 'wpml_term_translation';
 
 	protected $cache_max_warmup_count = self::CACHE_MAX_WARMUP_COUNT;
+
+	private static $keys_in_cache = array();
 
 	public function get_cache_max_warmup_count() {
 		return $this->cache_max_warmup_count;
@@ -19,6 +21,8 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 	}
 
 	public function add_hooks() {
+		wp_cache_add_non_persistent_groups( self::CACHE_GROUP );
+
 		add_action( 'delete_term', array( $this, 'invalidate_cache' ) );
 
 		add_action( 'set_object_terms', array( $this, 'invalidate_cache' ) );
@@ -32,24 +36,59 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 		add_action( 'clean_term_cache', array( $this, 'invalidate_cache' ) );
 	}
 
-	private function get_cache_expire() {
-		return self::CACHE_EXPIRE;
+	public function invalidate_cache() {
+		foreach ( array_keys( self::$keys_in_cache ) as $key ) {
+			wp_cache_delete( $key, self::CACHE_GROUP );
+		}
+		self::$keys_in_cache = array();
 	}
 
-	public function invalidate_cache() {
-		Cache::flushGroup( self::CACHE_GROUP );
+	private function get_from_cache( $key ) {
+		$value = wp_cache_get( $key, self::CACHE_GROUP );
+
+		return is_array( $value ) && array_key_exists( 'data', $value ) ? Maybe::just( $value['data'] ) : Maybe::nothing();
+	}
+
+	private function set_in_cache( $key, $value ) {
+		self::$keys_in_cache[ $key ] = true;
+		wp_cache_set( $key, array( 'data' => $value ), self::CACHE_GROUP, self::CACHE_EXPIRE );
 	}
 
 	public function lang_code_by_termid( $term_id ) {
 		return $this->get_element_lang_code( (int) $this->adjust_ttid_for_term_id( $term_id ) );
 	}
 
+	public function term_ids_by_slug( $slug, $taxonomy ) {
+		$wpdb      = $this->wpdb;
+		$cache_key = $taxonomy . ':' . $slug;
+
+		return WPML_Non_Persistent_Cache::execute_and_cache(
+			$cache_key,
+			function () use ( $slug, $taxonomy, $wpdb ) {
+				return array_map(
+					'intval',
+					(array) $wpdb->get_col(
+						$wpdb->prepare(
+							"SELECT t.term_id
+							FROM {$wpdb->terms} t
+							JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id
+							WHERE tt.taxonomy = %s AND t.slug = %s
+							ORDER BY t.term_id",
+							$taxonomy,
+							$slug
+						)
+					)
+				);
+			},
+			__CLASS__
+		);
+	}
+
 	private function set_data_to_cache( array $data ) {
-		$expire = $this->get_cache_expire();
 		foreach ( $data as $row ) {
-			Cache::set( self::CACHE_GROUP, 'ttid_by_termid_' . $row['term_id'], $expire, (int) $row['element_id'] );
-			Cache::set( self::CACHE_GROUP, 'ttid_by_termidtaxonomy_' . $row['term_id'] . $row['taxonomy'], $expire, (int) $row['element_id'] );
-			Cache::set( self::CACHE_GROUP, 'termid_by_ttid_' . $row['element_id'], $expire, (int) $row['term_id'] );
+			$this->set_in_cache( 'ttid_by_termid_' . $row['term_id'], (int) $row['element_id'] );
+			$this->set_in_cache( 'ttid_by_termidtaxonomy_' . $row['term_id'] . $row['taxonomy'], (int) $row['element_id'] );
+			$this->set_in_cache( 'termid_by_ttid_' . $row['element_id'], (int) $row['term_id'] );
 		}
 	}
 
@@ -75,13 +114,13 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 			if ( count( $data ) ) {
 				$this->set_data_to_cache( $data );
 			} else {
-				Cache::set( self::CACHE_GROUP, $key_prefix . $term_id, $this->get_cache_expire(), $term_id );
+				$this->set_in_cache( $key_prefix . $term_id, $term_id );
 			}
 
-			return Cache::get( self::CACHE_GROUP, $key )->getOrElse( $term_id );
+			return $this->get_from_cache( $key )->getOrElse( $term_id );
 		};
 
-		return Cache::get( self::CACHE_GROUP, $key )->getOrElse( $get_ttid_or_fallback_to_term_id );
+		return $this->get_from_cache( $key )->getOrElse( $get_ttid_or_fallback_to_term_id );
 	}
 
 	public function adjust_term_id_for_ttid( $ttid ) {
@@ -102,13 +141,13 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 			if ( count( $data ) ) {
 				$this->set_data_to_cache( $data );
 			} else {
-				Cache::set( self::CACHE_GROUP, $key_prefix . $ttid, $this->get_cache_expire(), $ttid );
+				$this->set_in_cache( $key_prefix . $ttid, $ttid );
 			}
 
-			return Cache::get( self::CACHE_GROUP, $key )->getOrElse( $ttid );
+			return $this->get_from_cache( $key )->getOrElse( $ttid );
 		};
 
-		return Cache::get( self::CACHE_GROUP, $key )->getOrElse( $get_term_id_or_fallback_to_ttid );
+		return $this->get_from_cache( $key )->getOrElse( $get_term_id_or_fallback_to_ttid );
 	}
 
 	public function term_id_in( $term_id, $lang_code, $original_fallback = false ) {
@@ -136,13 +175,13 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 			if ( count( $data ) ) {
 				$this->set_data_to_cache( $data );
 			} else {
-				Cache::set( self::CACHE_GROUP, $key_prefix . $term_id . $taxonomy, $this->get_cache_expire(), $term_id );
+				$this->set_in_cache( $key_prefix . $term_id . $taxonomy, $term_id );
 			}
 
-			return Cache::get( self::CACHE_GROUP, $key )->getOrElse( $term_id );
+			return $this->get_from_cache( $key )->getOrElse( $term_id );
 		};
 
-		$ttid = Cache::get( self::CACHE_GROUP, $key )->getOrElse( $get_term_id );
+		$ttid = $this->get_from_cache( $key )->getOrElse( $get_term_id );
 
 		return $this->get_element_trid( $ttid );
 	}
@@ -184,7 +223,7 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 			$data  = $this->wpdb->get_results( $sql, ARRAY_A );
 			$count = is_array( $data ) ? count( $data ) : 0;
 
-			Cache::set( self::CACHE_GROUP, $key, $this->get_cache_expire(), $count );
+			$this->set_in_cache( $key, $count );
 
 			if ( $count > 0 && $count <= $this->get_cache_max_warmup_count() ) {
 				$data = $this->get_maybe_warm_term_id_cache_data();
@@ -194,7 +233,7 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 			return $count;
 		};
 
-		return Cache::get( self::CACHE_GROUP, $key )->getOrElse( $get_count );
+		return $this->get_from_cache( $key )->getOrElse( $get_count );
 	}
 
 	private function get_maybe_warm_term_id_cache_data( $where_sql = '', $where_sql_params = array() ) {

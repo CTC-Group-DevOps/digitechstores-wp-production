@@ -6,7 +6,7 @@
  * Description: Easily add custom fields to your WooCommerce orders and display them in the Orders admin, the My Orders section, and even order emails!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.17.4
+ * Version: 1.18.0
  * Text Domain: woocommerce-admin-custom-order-fields
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * WC requires at least: 3.9.4
- * WC tested up to: 11.0.1
+ * WC tested up to: 11.1.2
  * Woo: 272218:31cde5f743a6d0ef83cc108f4b85cf8b
 
  */

@@ -15,50 +15,54 @@ abstract class WPML_Slug_Translation_Records {
 	}
 
 	public function get_slug( $type ) {
+		$wpdb       = $this->wpdb;
 		$cache_item = $this->cache_factory->create_cache_item( $this->get_cache_group(), $type );
 
-		if ( ! $cache_item->exists() ) {
-			$slug = new WPML_ST_Slug();
+		list( $cached, $found ) = $cache_item->get_with_found();
 
-			$original = $this->wpdb->get_row(
-				$this->wpdb->prepare(
-					"SELECT id, value, language, context, name
-					 FROM {$this->wpdb->prefix}icl_strings
-					 WHERE name = %s
-					    AND (context = %s OR context = %s)",
-					$this->get_string_name( $type ),
-					self::CONTEXT_DEFAULT,
-					self::CONTEXT_WORDPRESS
+		if ( $found && is_array( $cached ) ) {
+			return WPML_ST_Slug::from_array( $cached );
+		}
+
+		$slug = new WPML_ST_Slug();
+
+		$original = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT id, value, language, context, name
+				 FROM {$wpdb->prefix}icl_strings
+				 WHERE name = %s
+				    AND (context = %s OR context = %s)",
+				$this->get_string_name( $type ),
+				self::CONTEXT_DEFAULT,
+				self::CONTEXT_WORDPRESS
+			)
+		);
+
+		if ( $original ) {
+			$slug->set_lang_data( $original );
+
+			$translations = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT value, language, status
+				 FROM {$wpdb->prefix}icl_string_translations
+				 WHERE string_id = %d
+					AND value <> '' 
+				    AND language <> %s",
+					$original->id,
+					$original->language
 				)
 			);
 
-			if ( $original ) {
-				$slug->set_lang_data( $original );
-
-				$translations = $this->wpdb->get_results(
-					$this->wpdb->prepare(
-						"SELECT value, language, status
-					 FROM {$this->wpdb->prefix}icl_string_translations
-					 WHERE string_id = %d
-						AND value <> '' 
-					    AND language <> %s",
-						$original->id,
-						$original->language
-					)
-				);
-
-				if ( $translations ) {
-					foreach ( $translations as $translation ) {
-						$slug->set_lang_data( $translation );
-					}
+			if ( $translations ) {
+				foreach ( $translations as $translation ) {
+					$slug->set_lang_data( $translation );
 				}
 			}
-
-			$cache_item->set( $slug );
-
 		}
 
-		return $cache_item->get();
+		$cache_item->set( $slug->to_array() );
+
+		return $slug;
 	}
 
 	private function get_cache_group() {
@@ -103,6 +107,10 @@ abstract class WPML_Slug_Translation_Records {
 	public function register_slug( $type, $slug ) {
 		$source_lang = apply_filters( 'wpml_st_register_slug_set_source_language', null, $type, $slug );
 
+		if ( null === $source_lang ) {
+			$source_lang = $this->get_registration_source_language();
+		}
+
 		$string_id = icl_register_string(
 			self::CONTEXT_WORDPRESS,
 			$this->get_string_name( $type ),
@@ -116,14 +124,26 @@ abstract class WPML_Slug_Translation_Records {
 		return $string_id;
 	}
 
+	protected function get_registration_source_language() {
+		return null;
+	}
+
 	public function update_original_slug( $type, $slug ) {
-		$this->wpdb->update(
+		$updated = $this->wpdb->update(
 			$this->wpdb->prefix . 'icl_strings',
 			array( 'value' => $slug ),
 			array( 'name' => $this->get_string_name( $type ) )
 		);
 
 		$this->flush_cache();
+
+		if ( 0 < (int) $updated ) {
+			do_action(
+				'wpml_translated_slug_updated',
+				WPML_Slug_Translation_Factory::POST === $this->get_element_type() ? 'post_type' : 'taxonomy',
+				$type
+			);
+		}
 	}
 
 	public function get_original_slug_and_lang( $type ) {

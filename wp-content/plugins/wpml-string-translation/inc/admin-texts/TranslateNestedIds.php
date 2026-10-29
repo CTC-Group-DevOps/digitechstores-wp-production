@@ -53,6 +53,10 @@ class TranslateNestedIds {
 		if ( in_array( $slug, [ Ids::ANY_POST, Ids::ANY_TERM ], true ) ) {
 			return true;
 		}
+
+		if ( self::TYPE_POST_IDS === $type && 'attachment' === $slug ) {
+			return true;
+		}
 		if ( self::TYPE_POST_IDS === $type && $this->sitepress->is_display_as_translated_post_type( $slug ) ) {
 			return true;
 		}

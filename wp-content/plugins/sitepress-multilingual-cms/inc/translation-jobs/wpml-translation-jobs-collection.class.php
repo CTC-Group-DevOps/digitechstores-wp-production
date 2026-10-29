@@ -132,6 +132,7 @@ class WPML_Translation_Jobs_Collection extends WPML_Abstract_Job_Collection {
 	}
 
 	private function calculate_batch_counts( $data, $count, $pagination_args ) {
+		$wpdb                      = $this->wpdb;
 		$first_job                 = reset( $data );
 		$last_job                  = end( $data );
 		$first_batch               = $first_job->batch_id;
@@ -141,8 +142,8 @@ class WPML_Translation_Jobs_Collection extends WPML_Abstract_Job_Collection {
 		$before_count_query        = $count_select_from_snippet . ' LIMIT %d' . $count_where_snippet;
 		$page                      = $pagination_args['page'];
 		$per_page                  = $pagination_args['per_page'];
-		$count_before              = $page > 1 ? $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$count_before              = $page > 1 ? $wpdb->get_var(
+			$wpdb->prepare(
 				$before_count_query,
 				array(
 					( $page - 1 ) * $per_page,
@@ -150,15 +151,15 @@ class WPML_Translation_Jobs_Collection extends WPML_Abstract_Job_Collection {
 				)
 			)
 		) : 0;
-		$count_first               = $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$count_first               = $wpdb->get_var(
+			$wpdb->prepare(
 				$before_count_query,
 				array( PHP_INT_MAX, $first_batch )
 			)
 		);
 		$after_count_query         = $count_select_from_snippet . ' LIMIT %d, %d' . $count_where_snippet;
-		$count_after               = $page * $per_page > $count ? 0 : $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$count_after               = $page * $per_page > $count ? 0 : $wpdb->get_var(
+			$wpdb->prepare(
 				$after_count_query,
 				array(
 					$page * $per_page,
@@ -167,8 +168,8 @@ class WPML_Translation_Jobs_Collection extends WPML_Abstract_Job_Collection {
 				)
 			)
 		);
-		$count_last                = $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$count_last                = $wpdb->get_var(
+			$wpdb->prepare(
 				$after_count_query,
 				array( 0, PHP_INT_MAX, $last_batch )
 			)

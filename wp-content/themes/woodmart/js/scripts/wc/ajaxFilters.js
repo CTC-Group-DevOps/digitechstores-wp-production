@@ -1,4 +1,4 @@
-/* global woodmart_settings */
+/* global woodmart_settings, woodmart_wpml_js_data */
 (function($) {
 	woodmartThemeModule.ajaxFilters = function() {
 		if (!woodmartThemeModule.$body.hasClass('woodmart-ajax-shop-on') || typeof ($.fn.pjax) === 'undefined' || woodmartThemeModule.$body.hasClass('single-product') || woodmartThemeModule.$body.hasClass('elementor-editor-active') || $('.products[data-source="main_loop"]').length === 0) {
@@ -13,7 +13,7 @@
 		});
 
 		woodmartThemeModule.$document.on('pjax:end', function() {
-		    if (isPopstateNavigation) {
+			if (isPopstateNavigation) {
 				woodmartThemeModule.$document.trigger('wdShopPageInit');
 				isPopstateNavigation = false;
 			}
@@ -87,12 +87,6 @@
 			$('.wd-scroll-content').on('scroll', function() {
 				woodmartThemeModule.$document.trigger('wood-images-loaded');
 			});
-
-			if (typeof woodmart_wpml_js_data !== 'undefined' && woodmart_wpml_js_data.languages) {
-				$.each(woodmart_wpml_js_data.languages, function(index, language) {
-					$('.wpml-ls-item-' + language.code + ' > :is(.woodmart-nav-link, .wpml-ls-link)').attr('href', language.url);
-				});
-			}
 		});
 
 		woodmartThemeModule.$document.on('pjax:beforeReplace', function() {
@@ -113,7 +107,27 @@
 
 			$siteContent.removeClass('wd-loading');
 			$siteContent.addClass('wd-loaded');
+
+			updateLanguageSwitcher();
 		});
+
+		var updateLanguageSwitcher = function() {
+			var $wpmlData = $('#woodmart-wpml-ls-data');
+
+			if ($wpmlData.length) {
+				try {
+					woodmart_wpml_js_data = JSON.parse($wpmlData.text());
+				} catch (error) {}
+			}
+
+			if (typeof woodmart_wpml_js_data === 'undefined' || !woodmart_wpml_js_data.languages) {
+				return;
+			}
+
+			$.each(woodmart_wpml_js_data.languages, function(index, language) {
+				$('.wpml-ls-item-' + language.code + ' > :is(.woodmart-nav-link, .wpml-ls-link)').attr('href', language.url);
+			});
+		};
 
 		var scrollToTop = function(type) {
 			if (woodmart_settings.ajax_scroll === 'no' && type === false) {

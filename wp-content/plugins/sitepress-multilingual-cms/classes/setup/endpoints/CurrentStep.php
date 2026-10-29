@@ -15,30 +15,39 @@ use WPML\FP\Relation;
 use WPML\Infrastructure\WordPress\Component\PostHog\Domain\Event\SetupWizard\Capture\CaptureWizardFirstStep;
 use WPML\PostHog\Event\CaptureWizardFirstStepEvent;
 use WPML\PostHog\Event\CaptureWizardStepEvent;
-use WPML\PostHog\State\PostHogState;
+use WPML\Setup\FurthestStep;
 use WPML\Setup\Option;
 
 class CurrentStep implements IHandler {
 
 	const STEP_TRANSLATION_SETTINGS = 'translationSettings';
-	const STEP_HIGH_COSTS_WARNING = 'highCostsWarning';
+	const STEP_AI_TRANSLATION = 'aiTranslation';
+
+	const STEPS_REMOVED_FOR_SERVICE = [ 'translation', 'translationCosts' ];
+
 	const STEPS = [
 		'languages',
 		'address',
 		'license',
-		'aiTranslation',
 		'translation',
+		'translationCosts',
+		'aiTranslation',
 		self::STEP_TRANSLATION_SETTINGS,
-		self::STEP_HIGH_COSTS_WARNING,
-		'pauseTranslateEverything',
 		'support',
 		'plugins',
-		'finished'
+		'finished',
+		'pauseTranslateEverything',
 	];
 
 	public function run( Collection $data ) {
 		$isValid = Logic::allPass( [
 			Lst::includes( Fns::__, self::STEPS ),
+			function ( $step ) {
+				return ! (
+					Lst::includes( $step, self::STEPS_REMOVED_FOR_SERVICE )
+					&& \TranslationProxy::has_preferred_translation_service()
+				);
+			},
 			Logic::ifElse(
 				Relation::equals( 'languages' ),
 				Fns::identity(),
@@ -57,20 +66,19 @@ class CurrentStep implements IHandler {
 
 	private function captureStepEvent( $nextStep ) {
 
-		if ( ! PostHogState::isEnabled() ) {
-			return;
-		}
-
 		$completedStep = Option::getCurrentStep();
 
 		if ( $completedStep === $nextStep ) {
 			return;
 		}
 
-		$eventData = [
-			'completed_step' => $completedStep,
-			'next_step'      => $nextStep,
-		];
+		$eventData = array_merge(
+			[
+				'completed_step' => $completedStep,
+				'next_step'      => $nextStep,
+			],
+			FurthestStep::advance( $nextStep )
+		);
 
 		switch ( $completedStep ) {
 			case 'languages':

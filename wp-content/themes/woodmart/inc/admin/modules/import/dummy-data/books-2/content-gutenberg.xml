@@ -777,7 +777,7 @@
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/blog {"blockId":"99c5ef91-95c3-486d-8497-c9bf3a622225","blockVersion":"2","items_per_page":"5","layout":"carousel","blog_carousel_design":"meta-image","blog_grid_design":"meta-image","parts_meta":false,"parts_text":false,"parts_btn":false,"order":"ASC","marginBottom":"40","slides_per_view":"4","scroll_carousel_init":true,"hide_pagination_control":true,"marginBottomTablet":"20","slides_per_viewTablet":"3","hide_prev_next_buttonsMobile":true,"hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
+<!-- wp:wd/blog {"blockId":"99c5ef91-95c3-486d-8497-c9bf3a622225","blockVersion":"2","items_per_page":"5","layout":"carousel","blog_carousel_design":"meta-image","blog_grid_design":"meta-image","parts_meta":false,"parts_text":false,"parts_btn":false,"order":"ASC","marginBottom":"40","slides_per_view":"4","hide_pagination_control":true,"marginBottomTablet":"20","slides_per_viewTablet":"3","hide_prev_next_buttonsMobile":true,"hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} /-->
 
 <!-- wp:wd/container {"blockId":"d59c2ebd-5a5a-46da-a2c7-841b864f1dea","blockVersion":"2","paddingTop":"40","paddingBottom":"40","marginBottom":"0","borderType":"solid","borderColorCode":"rgba(255,255,255,0.1)","borderWidthTop":"2","borderWidthBottom":"2","direction":"row","justify":"space-between","wrap":"wrap","colGap":"","rowGap":"40"} -->
 <div class="wp-block-wd-container wd-dir-row wd-d59c2ebd"><!-- wp:wd/container {"blockId":"a25b6474-6d17-4744-ac4c-dea17aae6e47","blockVersion":"2","displayWidth":"custom","customWidth":"580","rowGap":""} -->
@@ -795,8 +795,8 @@
 <div class="wp-block-wd-title title wd-c2e86093">Shop</div>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/icon {"blockId":"bce04b7e-0943-4115-84a0-7598a5952932","blockVersion":"2","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewbox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon wd-role-btn","customAttrs":"aria-label|Toggle,\ntabindex|0"} -->
-<div class="wp-block-wd-icon wd-toggle-icon wd-role-btn wd-bce04b7e" aria-label="Toggle" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewbox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
+<!-- wp:wd/icon {"blockId":"bce04b7e-0943-4115-84a0-7598a5952932","blockVersion":"2","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewbox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon wd-role-btn","customAttrs":"tabindex|0"} -->
+<div class="wp-block-wd-icon wd-toggle-icon wd-role-btn wd-bce04b7e" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewbox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
 <!-- /wp:wd/icon --></div>
 <!-- /wp:wd/container -->
 
@@ -835,8 +835,8 @@
 <div class="wp-block-wd-title title wd-9e91148e">Resources</div>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/icon {"blockId":"4001786a-7860-436e-b0ce-49f8de89ff6c","blockVersion":"2","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewbox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon wd-role-btn","customAttrs":"aria-label|Toggle,\ntabindex|0"} -->
-<div class="wp-block-wd-icon wd-toggle-icon wd-role-btn wd-4001786a" aria-label="Toggle" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewbox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
+<!-- wp:wd/icon {"blockId":"4001786a-7860-436e-b0ce-49f8de89ff6c","blockVersion":"2","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewbox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon wd-role-btn","customAttrs":"tabindex|0"} -->
+<div class="wp-block-wd-icon wd-toggle-icon wd-role-btn wd-4001786a" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewbox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
 <!-- /wp:wd/icon --></div>
 <!-- /wp:wd/container -->
 
@@ -879,8 +879,8 @@
 <div class="wp-block-wd-title title wd-c2724c42">Follow us</div>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/icon {"blockId":"780e5728-73f3-41bd-af2d-12dd6601b9ea","blockVersion":"2","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewbox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon wd-role-btn","customAttrs":"aria-label|Toggle,\ntabindex|0"} -->
-<div class="wp-block-wd-icon wd-toggle-icon wd-role-btn wd-780e5728" aria-label="Toggle" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewbox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
+<!-- wp:wd/icon {"blockId":"780e5728-73f3-41bd-af2d-12dd6601b9ea","blockVersion":"2","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewbox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon wd-role-btn","customAttrs":"tabindex|0"} -->
+<div class="wp-block-wd-icon wd-toggle-icon wd-role-btn wd-780e5728" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewbox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
 <!-- /wp:wd/icon --></div>
 <!-- /wp:wd/container -->
 
@@ -921,8 +921,8 @@
 															<wp:post_id>166</wp:post_id>
 					<wp:post_date><![CDATA[2026-07-13 13:34:52]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2026-07-13 13:34:52]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-08-20 12:23:59]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-08-20 12:23:59]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 06:22:09]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 06:22:09]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[footer-books-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -1121,7 +1121,7 @@
 
 <!-- wp:wd/li-product-labels {"blockId":"a468209f-b9b6-4fbf-906c-d842db86f1d5","blockVersion":"2","exclude":"2009,2008,2007,2006","positionType":"absolute","positionZIndex":"2","positionTop":"15","positionLeft":"15","displayWidth":"fit-content"} /-->
 
-<!-- wp:wd/li-product-wishlist {"blockId":"12bf832b-7218-4e65-b542-a674a416c9b0","blockVersion":"2","positionType":"absolute","positionZIndex":"2","positionTop":"15","positionRight":"15","transitionOpacity":0.3,"opacity":0,"opacityParentHover":1,"displayWidth":"fit-content","opacityTablet":1} /-->
+<!-- wp:wd/li-product-wishlist {"blockId":"12bf832b-7218-4e65-b542-a674a416c9b0","blockVersion":"2","linkPaddingTop":"15","linkPaddingRight":"15","linkPaddingBottom":"15","linkPaddingLeft":"15","positionType":"absolute","positionZIndex":"2","positionTop":"0","positionRight":"0","transitionOpacity":0.3,"opacity":0,"opacityParentHover":1,"displayWidth":"fit-content","opacityTablet":1} /-->
 
 <!-- wp:wd/li-product-thumbnail {"blockId":"c2ba3201-bc06-4151-9e5a-5183ee59915a","blockVersion":"2","image_on_hover":false,"transformTranslateX":"","transformTranslateY":"0","transformHoverTranslateX":"","transformHoverTranslateY":"","transformParentHoverTranslateX":"","transformParentHoverTranslateY":"-40","transitionTransform":0.3,"transformParentHoverTranslateYTablet":"0"} /-->
 
@@ -1150,8 +1150,8 @@
 															<wp:post_id>229</wp:post_id>
 					<wp:post_date><![CDATA[2026-07-13 14:01:18]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2026-07-13 14:01:18]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-11 06:15:19]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-11 06:15:19]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-14 12:42:26]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-14 12:42:26]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[product-loop-item-books-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

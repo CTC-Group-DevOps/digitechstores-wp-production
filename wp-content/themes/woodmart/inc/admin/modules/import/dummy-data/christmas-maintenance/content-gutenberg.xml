@@ -66,7 +66,7 @@
 <p id="wd-a94286ec" class="wp-block-wd-paragraph wd-hide-md-sm wd-custom-width">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/countdown-timer {"blockId":"fc61bba7-86cc-440a-87ef-864904965064","date":"2025-01-01T13:00:00","size":"large","bgTimerColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/countdown-timer {"blockId":"fc61bba7-86cc-440a-87ef-864904965064","date":"2025-01-01T13:00:00","size":"large","bgTimerColorVariable":"\u002d\u002dwd-primary-color"} -->
 <div id="wd-fc61bba7" class="wp-block-wd-countdown-timer wd-countdown-timer"><div class="wd-timer wd-size-large" data-end-date="2025-01-01T13:00:00" data-hide-on-finish="no"><span class="wd-timer-days"><span class="wd-timer-value">0</span><span class="wd-timer-text">days</span></span><span class="wd-timer-hours"><span class="wd-timer-value">00</span><span class="wd-timer-text">hr</span></span><span class="wd-timer-min"><span class="wd-timer-value">00</span><span class="wd-timer-text">min</span></span><span class="wd-timer-sec"><span class="wd-timer-value">00</span><span class="wd-timer-text">sc</span></span></div></div>
 <!-- /wp:wd/countdown-timer -->
 

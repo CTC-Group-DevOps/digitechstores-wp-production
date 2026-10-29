@@ -20,7 +20,7 @@ class WPML_Plugin_Integration_Nexgen_Gallery {
 			$current_url     = preg_replace( '/(^http[s]?:\/\/)/', '', home_url() );
 			$preview_url     = $default_url . 'nextgen-attach_to_post/preview';
 			$alt_preview_url = $default_url . 'index.php/nextgen-attach_to_post/preview';
-			if ( preg_match_all( "#<img(.*)http(s)?://({$preview_url}|{$alt_preview_url})/id--(\\d+)(.*)\\/>#mi", $content, $matches, PREG_SET_ORDER ) ) {
+			if ( preg_match_all( '#<img(.*)http(s)?://(' . preg_quote( $preview_url, '#' ) . '|' . preg_quote( $alt_preview_url, '#' ) . ')/id--(\d+)(.*)\/>#mi', $content, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
 					$content = str_replace( $match[0], "<img{$match[1]}http{$match[2]}://{$current_url}nextgen-attach_to_post/preview/id--{$match[4]}\"{$match[5]}/>", $content );
 				}

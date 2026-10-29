@@ -3,7 +3,11 @@
 class WPML_TP_API_Request {
 	const API_VERSION = 1.1;
 
+	const DEFAULT_TIMEOUT = 60;
+
 	private $url;
+
+	private $timeout = self::DEFAULT_TIMEOUT;
 
 	private $params = array( 'api_version' => self::API_VERSION );
 
@@ -32,6 +36,14 @@ class WPML_TP_API_Request {
 
 	public function set_has_api_response( $has_api_response ) {
 		$this->has_api_response = (bool) $has_api_response;
+	}
+
+	public function set_timeout( $timeout ) {
+		$this->timeout = (int) $timeout;
+	}
+
+	public function get_timeout() {
+		return $this->timeout;
 	}
 
 	public function get_url() {

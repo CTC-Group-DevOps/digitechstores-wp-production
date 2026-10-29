@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['no'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['_acfw_enable_date_range_schedule','_acfw_enable_shipping_overrides'],'urls'=>[['kind'=>9,'url'=>'/?lang=ar'],['kind'=>7,'url'=>'/%D8%AA%D8%B5%D9%86%D9%8A%D9%81%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA/%d8%a7%d9%84%d8%b9%d9%84%d8%a7%d9%85%d8%a7%d8%aa-%d8%a7%d9%84%d8%aa%d8%ac%d8%a7%d8%b1%d9%8a%d8%a9/lg-ar/?lang=ar'],['kind'=>9,'url'=>'/product/this-is-test-product/?lang=ar']]]]];

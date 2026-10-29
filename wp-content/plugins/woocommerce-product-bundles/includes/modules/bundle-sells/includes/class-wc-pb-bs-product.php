@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_BS_Product
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_BS_Product {
 	/*
@@ -43,7 +43,12 @@ class WC_PB_BS_Product {
 
 			$bundle_sell_ids = $product->get_meta( '_wc_pb_bundle_sell_ids', true );
 
-			if ( ! empty( $bundle_sell_ids ) && is_array( $bundle_sell_ids ) ) {
+			// Generic meta imports can store a comma-separated string instead of an array of IDs.
+			if ( ! empty( $bundle_sell_ids ) && ! is_array( $bundle_sell_ids ) ) {
+				$bundle_sell_ids = is_scalar( $bundle_sell_ids ) ? wp_parse_id_list( $bundle_sell_ids ) : array();
+			}
+
+			if ( ! empty( $bundle_sell_ids ) ) {
 
 				$bundle_sell_ids = array_map( 'intval', $bundle_sell_ids );
 
@@ -64,9 +69,7 @@ class WC_PB_BS_Product {
 			 * @param  WC_Product  $product          Product containing the bundle-sells.
 			 */
 			$bundle_sell_ids = 'view' === $context ? apply_filters( 'wc_pb_bundle_sell_ids', $bundle_sell_ids, $product ) : $bundle_sell_ids;
-			if ( is_array( $bundle_sell_ids ) ) {
-				$bundle_sell_ids = array_values( array_diff( $bundle_sell_ids, array( $product->get_id() ) ) );
-			}
+			$bundle_sell_ids = is_array( $bundle_sell_ids ) ? array_values( array_diff( $bundle_sell_ids, array( $product->get_id() ) ) ) : array();
 		}
 
 		return $bundle_sell_ids;

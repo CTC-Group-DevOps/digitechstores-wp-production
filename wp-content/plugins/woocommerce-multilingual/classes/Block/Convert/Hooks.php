@@ -17,6 +17,8 @@ class Hooks implements IWPML_Frontend_Action, IWPML_DIC_Action {
 
 	private $frontendRestLang;
 
+	private $restLanguageScopes = [];
+
 	public function __construct( ISitePress $sitepress, Language $frontendRestLang ) {
 		$this->sitepress        = $sitepress;
 		$this->frontendRestLang = $frontendRestLang;
@@ -29,6 +31,7 @@ class Hooks implements IWPML_Frontend_Action, IWPML_DIC_Action {
 
 		if ( ! ( is_admin() || \WPML_URL_HTTP_Referer::is_post_edit_page() ) ) {
 			add_filter( 'rest_request_before_callbacks', [ $this, 'useLanguageFrontendRestLang' ], 10, 3 );
+			add_filter( 'rest_request_after_callbacks', [ $this, 'closeLanguageFrontendRestLang' ] );
 		}
 	}
 
@@ -43,12 +46,25 @@ class Hooks implements IWPML_Frontend_Action, IWPML_DIC_Action {
 	}
 
 	public function useLanguageFrontendRestLang( $response, $handler, $request ) {
+		$opened = false;
+
 		if ( $this->isWcRestRequest( $request ) ) {
 			$lang = $this->frontendRestLang->get();
 
-			if ( $lang ) {
+			if ( $lang && $lang !== $this->sitepress->get_current_language() ) {
 				$this->sitepress->switch_lang( $lang );
+				$opened = true;
 			}
+		}
+
+		$this->restLanguageScopes[] = $opened;
+
+		return $response;
+	}
+
+	public function closeLanguageFrontendRestLang( $response ) {
+		if ( array_pop( $this->restLanguageScopes ) ) {
+			$this->sitepress->switch_lang();
 		}
 
 		return $response;

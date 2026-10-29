@@ -113,7 +113,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"02289bd2-ef61-40e0-ad59-d757dc9ac63a","blockVersion":"2","displayWidth":"custom","customWidth":"320","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-02289bd2 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"38257bed-9ce4-4291-9878-e3f1296866bc","blockVersion":"2","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-container wd-dir-col wd-02289bd2 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"38257bed-9ce4-4291-9878-e3f1296866bc","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p class="wp-block-wd-paragraph wd-38257bed"><strong>STEP 1</strong></p>
 <!-- /wp:wd/paragraph -->
 
@@ -139,7 +139,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"3cda6a22-beb2-4330-a044-5033bc6cbbd2","blockVersion":"2","displayWidth":"custom","customWidth":"320","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-3cda6a22 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"2da953bf-c2c8-49cb-b929-b23172f08cbd","blockVersion":"2","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-container wd-dir-col wd-3cda6a22 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"2da953bf-c2c8-49cb-b929-b23172f08cbd","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p class="wp-block-wd-paragraph wd-2da953bf"><strong>STEP 2</strong></p>
 <!-- /wp:wd/paragraph -->
 
@@ -165,7 +165,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"a7b3da37-d090-480a-b5cb-1beff31d3bff","blockVersion":"2","displayWidth":"custom","customWidth":"320","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-a7b3da37 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"52544fe4-8714-4402-9cac-da24f5cc857a","blockVersion":"2","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-container wd-dir-col wd-a7b3da37 wd-custom-width"><!-- wp:wd/paragraph {"blockId":"52544fe4-8714-4402-9cac-da24f5cc857a","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p class="wp-block-wd-paragraph wd-52544fe4"><strong>STEP 3</strong></p>
 <!-- /wp:wd/paragraph -->
 

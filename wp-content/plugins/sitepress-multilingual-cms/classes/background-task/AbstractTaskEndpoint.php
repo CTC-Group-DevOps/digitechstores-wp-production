@@ -9,11 +9,13 @@ use WPML\Core\BackgroundTask\Model\TaskEndpointInterface;
 use WPML\Core\BackgroundTask\Service\BackgroundTaskService;
 use WPML\Core\BackgroundTask\Command\UpdateBackgroundTask;
 use WPML\Core\BackgroundTask\Model\BackgroundTask;
+use WPML\Ajax\Authorization\Authorized;
+use WPML\Ajax\IHandler;
 use WPML\FP\Either;
 use WPML\LIB\WP\User;
 use function WPML\Container\make;
 
-abstract class AbstractTaskEndpoint implements TaskEndpointInterface {
+abstract class AbstractTaskEndpoint implements TaskEndpointInterface, IHandler, Authorized {
 	const LOCK_TIME = 2*60;
 	const MAX_RETRIES = 0;
 
@@ -48,16 +50,24 @@ abstract class AbstractTaskEndpoint implements TaskEndpointInterface {
 
 	abstract function runBackgroundTask( BackgroundTask $task );
 
+	public function authorize( Collection $data ) {
+		return User::canManageTranslations();
+	}
+
 	public function run(
 		Collection $data
 	) {
-		if ( ! User::canManageTranslations() ) {
-			return Either::left( 'Insufficient permissions' );
-		}
+		$endpointLock = null;
 
 		try {
 			if ( ! isset( $data['taskId'] ) ) {
 				throw new TaskIsNotRunnableException();
+			}
+
+			$endpointLock = $this->makeLock( $this->getType() );
+
+			if ( ! $endpointLock->create( $this->getLockTime() ) ) {
+				return Either::left( [ 'error' => 'locked' ] );
 			}
 
 			$taskId     = $data['taskId'];
@@ -68,13 +78,20 @@ abstract class AbstractTaskEndpoint implements TaskEndpointInterface {
 
 			return $this->getResponse( $task );
 		} catch ( TaskIsNotRunnableException $e ) {
-			return Either::of( [ 'error' => $e->getMessage() ] );
+			if ( $endpointLock ) {
+				$endpointLock->release();
+			}
+
+			return Either::left( [ 'error' => $e->getMessage() ] );
 		}
 	}
 
+	private function makeLock( $taskType ) {
+		return make( 'WPML\Utilities\Lock', [ ':name' => $taskType ] );
+	}
+
 	private function getResponse( BackgroundTask $backgroundTask ) {
-		$endpointLock = make( 'WPML\Utilities\Lock', [ ':name' => $backgroundTask->getTaskType() ] );
-		$endpointLock->release();
+		$this->makeLock( $backgroundTask->getTaskType() )->release();
 
 		return Either::of(
 			BackgroundTaskViewModel::get( $backgroundTask, true )

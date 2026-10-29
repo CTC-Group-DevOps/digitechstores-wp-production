@@ -5,7 +5,7 @@ class WPML_File {
 
 	private $filesystem;
 
-	public function __construct( ?WPML_WP_API $wp_api = null, ?WP_Filesystem_Direct $filesystem = null ) {
+	public function __construct( ?WPML_WP_API $wp_api = null, ?WP_Filesystem_Base $filesystem = null ) {
 		if ( ! $wp_api ) {
 			$wp_api = new WPML_WP_API();
 		}
@@ -13,7 +13,7 @@ class WPML_File {
 		$this->wp_api = $wp_api;
 
 		if ( ! $filesystem ) {
-			$filesystem = new WP_Filesystem_Direct( null );
+			$filesystem = $this->wp_api->get_wp_filesystem();
 		}
 
 		$this->filesystem = $filesystem;
@@ -31,18 +31,17 @@ class WPML_File {
 		if ( $this->wp_api->defined( 'WP_CONTENT_DIR' ) && $this->wp_api->defined( 'WP_CONTENT_URL' ) ) {
 			$base_path = $this->fix_dir_separator( (string) $this->wp_api->constant( 'WP_CONTENT_DIR' ) );
 
+			$content_base = array(
+				'path' => $base_path,
+				'uri'  => (string) $this->wp_api->constant( 'WP_CONTENT_URL' ),
+			);
+
 			if ( 0 === strpos( $path, $base_path ) ) {
-				$base = array(
-					'path' => $base_path,
-					'uri'  => $this->wp_api->constant( 'WP_CONTENT_URL' ),
-				);
+				$base = $content_base;
 			}
 
 			if ( false === strpos( $path, $base_path ) ) {
-				$base = array(
-					'path' => $base_path,
-					'uri'  => $this->wp_api->constant( 'WP_CONTENT_URL' ),
-				);
+				$base = $content_base;
 
 				$wpml_plugin_folder_parts = explode(
 					(string) $this->wp_api->constant( 'DIRECTORY_SEPARATOR' ),
@@ -62,6 +61,8 @@ class WPML_File {
 						$path
 					);
 				}
+
+				$base = $this->get_base_containing_path( $path, $content_base );
 			}
 		}
 
@@ -83,6 +84,32 @@ class WPML_File {
 		return trailingslashit( (string) $base['uri'] ) . $relative_path;
 	}
 
+	private function get_base_containing_path( $path, array $default_base ) {
+		$candidates = array(
+			array( 'WP_CONTENT_DIR', 'WP_CONTENT_URL' ),
+			array( 'WP_PLUGIN_DIR', 'WP_PLUGIN_URL' ),
+		);
+
+		foreach ( $candidates as $candidate ) {
+			list( $dir_constant, $uri_constant ) = $candidate;
+
+			if ( ! $this->wp_api->defined( $dir_constant ) || ! $this->wp_api->defined( $uri_constant ) ) {
+				continue;
+			}
+
+			$dir = $this->fix_dir_separator( (string) $this->wp_api->constant( $dir_constant ) );
+
+			if ( '' !== $dir && 0 === strpos( $path, $dir ) ) {
+				return array(
+					'path' => $dir,
+					'uri'  => (string) $this->wp_api->constant( $uri_constant ),
+				);
+			}
+		}
+
+		return $default_base;
+	}
+
 	private function pop_folder_array( $times, $folder_array ) {
 		$latest_folder = array_pop( $folder_array );
 		if ( '..' === $latest_folder ) {
@@ -98,11 +125,23 @@ class WPML_File {
 	}
 
 	public function get_relative_path( $path ) {
-		return str_replace( $this->fix_dir_separator( ABSPATH ), '', $this->fix_dir_separator( $path ) );
+		$path    = $this->fix_dir_separator( $path );
+		$abspath = $this->fix_dir_separator( (string) $this->wp_api->constant( 'ABSPATH' ) );
+
+		if ( '' !== $abspath && 0 === strpos( $path, $abspath ) ) {
+			return (string) substr( $path, strlen( $abspath ) );
+		}
+
+		return $path;
 	}
 
 	public function get_full_path( $path ) {
-		return ABSPATH . $this->get_relative_path( $path );
+		$relative_path = $this->get_relative_path( $path );
+		if ( 0 === strpos( $relative_path, '/' ) || 0 === strpos( $relative_path, '\\' ) || 1 === preg_match( '#^[A-Za-z]:[\\\\/]#', $relative_path ) ) {
+			return $relative_path;
+		}
+
+		return (string) $this->wp_api->constant( 'ABSPATH' ) . $relative_path;
 	}
 
 	public function file_exists( $path ) {

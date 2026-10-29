@@ -35,7 +35,7 @@ class Import_Feedback extends Singleton {
 	 * @return bool
 	 */
 	public function is_shown() {
-		return (bool) get_option( 'wd_import_feedback_shown', false ) || (bool) get_transient( 'wd_import_feedback_dismissed' ) || ! Setup_Wizard::get_instance()->is_setup();
+		return ( (bool) get_option( 'wd_import_feedback_shown', false ) || (bool) get_transient( 'wd_import_feedback_dismissed' ) ) && ! Setup_Wizard::get_instance()->is_setup();
 	}
 
 	/**

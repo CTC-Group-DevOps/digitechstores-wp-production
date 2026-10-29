@@ -9,7 +9,7 @@
 
 <div class="hidden">
     {% set slot_settings = [] %}
-    {% set slot_settings = slot_settings|merge({'shortcode_actions': settings.statics.footer}) %}
+    {% set slot_settings = slot_settings|merge({'shortcode_actions': settings.statics.shortcode_actions}) %}
 
     {% include 'table-slots.twig'
         with {

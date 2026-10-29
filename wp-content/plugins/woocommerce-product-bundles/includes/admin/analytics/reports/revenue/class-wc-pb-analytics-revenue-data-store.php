@@ -17,7 +17,7 @@ use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
 /**
  * WC_PB_Analytics_Revenue_Data_Store class.
  *
- * @version 6.17.2
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 
@@ -80,20 +80,25 @@ class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 
 	/**
 	 * Assign report columns once full table name has been assigned.
+	 *
+	 * @return void
 	 */
 	protected function assign_report_columns() {
+		// Units and orders count sale rows only; refund rows reduce net revenue.
 		$table_name           = self::get_db_table_name();
 		$this->report_columns = array(
 			'product_id'         => 'bundle_id as product_id',
-			'items_sold'         => "SUM( CASE WHEN product_id = bundle_id THEN {$table_name}.product_qty END ) as items_sold",
-			'bundled_items_sold' => "SUM( CASE WHEN product_gross_revenue >= 0 AND product_id <> bundle_id THEN {$table_name}.product_qty END ) as bundled_items_sold",
+			'items_sold'         => "SUM( CASE WHEN ( product_gross_revenue >= 0 AND ( product_qty > 0 OR product_net_revenue > 0 ) ) AND product_id = bundle_id THEN {$table_name}.product_qty END ) as items_sold",
+			'bundled_items_sold' => "SUM( CASE WHEN ( product_gross_revenue >= 0 AND ( product_qty > 0 OR product_net_revenue > 0 ) ) AND product_id <> bundle_id THEN {$table_name}.product_qty END ) as bundled_items_sold",
 			'net_revenue'        => 'SUM( product_net_revenue ) AS net_revenue',
-			'orders_count'       => "COUNT( DISTINCT ( CASE WHEN product_gross_revenue >= 0 THEN {$table_name}.order_id END ) ) as orders_count",
+			'orders_count'       => "COUNT( DISTINCT ( CASE WHEN ( product_gross_revenue >= 0 AND ( product_qty > 0 OR product_net_revenue > 0 ) ) THEN {$table_name}.order_id END ) ) as orders_count",
 		);
 	}
 
 	/**
 	 * Set up all the hooks for maintaining and populating table data.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		// @see WC_PB_Admin_Analytics_Sync
@@ -105,6 +110,7 @@ class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 	 * @param array  $query_args Parameters supplied by the user.
 	 * @param string $arg_name   Target of the JOIN sql param.
 	 * @param string $id_cell    ID cell identifier, like `table_name.id_column_name`.
+	 * @return void
 	 */
 	protected function add_from_sql_params( $query_args, $arg_name, $id_cell ) {
 		global $wpdb;
@@ -135,6 +141,7 @@ class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 	 * Updates the database query with parameters used for Products report: categories and order status.
 	 *
 	 * @param array $query_args Query arguments supplied by the user.
+	 * @return void
 	 */
 	protected function add_sql_query_params( $query_args ) {
 		global $wpdb;
@@ -188,6 +195,7 @@ class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 	 *
 	 * @param array $products_data Product data.
 	 * @param array $query_args  Query parameters.
+	 * @return void
 	 */
 	protected function include_extended_info( &$products_data, $query_args ) {
 		global $wpdb;
@@ -379,6 +387,8 @@ class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 
 	/**
 	 * Initialize query objects.
+	 *
+	 * @return void
 	 */
 	protected function initialize_queries() {
 		$this->clear_all_clauses();

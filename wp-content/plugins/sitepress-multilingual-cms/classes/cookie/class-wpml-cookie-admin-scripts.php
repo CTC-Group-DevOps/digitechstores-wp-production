@@ -7,8 +7,9 @@ class WPML_Cookie_Admin_Scripts {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_script( 'wpml-cookie-ajax-setting', ICL_PLUGIN_URL . '/res/js/cookies/cookie-ajax-setting.js', array( 'jquery', 'wp-pointer' ), ICL_SITEPRESS_SCRIPT_VERSION );
+		wp_enqueue_script( OTGS_Assets_Handles::POPOVER_TOOLTIP );
+		wp_enqueue_style( OTGS_Assets_Handles::POPOVER_TOOLTIP );
+		wp_enqueue_script( 'wpml-cookie-ajax-setting', ICL_PLUGIN_URL . '/res/js/cookies/cookie-ajax-setting.js', array( 'jquery' ), ICL_SITEPRESS_SCRIPT_VERSION );
 
 		wp_localize_script(
 			'wpml-cookie-ajax-setting',

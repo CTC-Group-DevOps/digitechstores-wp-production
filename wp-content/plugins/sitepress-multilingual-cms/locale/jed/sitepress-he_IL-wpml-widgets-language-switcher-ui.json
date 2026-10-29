@@ -11,13 +11,13 @@
             "הכל"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "כדי להציג את בלוק ה-HTML המותאם אישית הזה בשפה ספציפית, מקם אותו תחילה בתוך בלוק קבוצה."
+            "כדי להציג את בלוק ה-HTML המותאם אישית הזה בשפה ספציפית, תחילה עליך למקם אותו בתוך בלוק קבוצה (Group)."
          ],
          "Place inside Group block": [
             "מקם בתוך בלוק קבוצה"
          ],
          "Display on language": [
-            "הצג בשפה"
+            "הצגה בשפה"
          ]
       }
    }

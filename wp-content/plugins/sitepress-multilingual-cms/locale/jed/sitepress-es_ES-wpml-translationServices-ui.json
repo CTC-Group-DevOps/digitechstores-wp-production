@@ -8,7 +8,7 @@
             "lang": "es_ES"
          },
          "Connect this site to your %s account": [
-            "Conecte este sitio a su cuenta %s"
+            "Conecte este sitio a su cuenta de %s"
          ],
          "Error": [
             "Error"
@@ -32,16 +32,16 @@
             "Ajustes"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "Actualmente no es posible conectar un servicio de traducción cuando WPML está configurado para traducir automáticamente el contenido de su sitio. Para usar un servicio de traducción, cambie su modo de traducción en la página <LinkToSettingsPage />."
+            "Actualmente no es posible conectar un servicio de traducción cuando WPML está configurado para traducir el contenido de su sitio automáticamente. Para usar un servicio de traducción, cambie su modo de traducción en la página <LinkToSettingsPage />."
          ],
          "Sort descending": [
-            "Ordenar descendente"
+            "Orden descendente"
          ],
          "Sort ascending": [
-            "Ordenar ascendente"
+            "Orden ascendente"
          ],
          "Cancel sorting": [
-            "Cancelar ordenación"
+            "Cancelar orden"
          ],
          "Documentation": [
             "Documentación"

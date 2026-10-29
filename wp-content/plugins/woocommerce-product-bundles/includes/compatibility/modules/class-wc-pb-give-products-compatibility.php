@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Give Products Integration.
  *
- * @version 6.15.0
+ * @version 8.5.16
  */
 class WC_PB_Give_Products_Compatibility {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		// Whenever a product bundle is given to an user make sure all the bundled items are included in the order.
@@ -33,6 +35,7 @@ class WC_PB_Give_Products_Compatibility {
 	 * Important: Only works reliably with static bundles. WC_PB_Order::add_bundle_to_order() normally expects a configuration array when a bundle has configurable content.
 	 *
 	 * @param  int $order_id Order ID.
+	 * @return void
 	 */
 	public static function add_bundle_to_order( $order_id ) {
 
@@ -79,6 +82,7 @@ class WC_PB_Give_Products_Compatibility {
 	 * Regenerate download permissions for this order to include the permissions for the bundled items if any.
 	 *
 	 * @param  int $order_id Order ID.
+	 * @return void
 	 */
 	public static function regenerate_download_permissions( $order_id ) {
 		$data_store = WC_Data_Store::load( 'customer-download' );

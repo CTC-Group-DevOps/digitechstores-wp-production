@@ -1,5 +1,7 @@
 <?php
 
+use WPML\PHP\Exception\ClientMessageException;
+
 class WPML_TP_Apply_Translation_Post_Strategy implements WPML_TP_Apply_Translation_Strategy {
 	private $jobs_api;
 
@@ -14,7 +16,7 @@ class WPML_TP_Apply_Translation_Post_Strategy implements WPML_TP_Apply_Translati
 
 	public function apply( WPML_TM_Job_Entity $job, WPML_TP_Translation_Collection $translations ) {
 		if ( ! $job instanceof WPML_TM_Post_Job_Entity ) {
-			throw new InvalidArgumentException( 'A job must have post type' );
+			throw new ClientMessageException( 'A job must have post type' );
 		}
 
 		kses_remove_filters();

@@ -924,6 +924,10 @@ Solutions Trend" title_font_size="eyJwYXJhbV90eXBlIjoid29vZG1hcnRfcmVzcG9uc2l2ZV
 							<wp:meta_key><![CDATA[woodmart_shortcodes_custom_css]]></wp:meta_key>
 							<wp:meta_value><![CDATA[.wd-rs-6179573e72b73{--wd-max-width: 420px;}#wd-61bcb25c3387f{--wd-max-width:277px;}#wd-61bcb20f17fab{--wd-max-width:302px;}@media (max-width: 767.98px) {html .wd-rs-6101186e3edf6 > .vc_column-inner{border-right-width:0px !important;}}]]></wp:meta_value>
 						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_wpb_shortcodes_custom_css_updated]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
 									</item>
 				</channel>
 </rss>

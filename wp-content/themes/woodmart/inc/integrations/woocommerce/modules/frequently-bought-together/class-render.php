@@ -179,10 +179,10 @@ class Render extends Singleton {
 			wp_send_json_error();
 		}
 
-		$bundle_id                 = sanitize_text_field( wp_unslash( $_POST['bundle_id'] ) );
-		$main_product_id           = sanitize_text_field( wp_unslash( $_POST['main_product'] ) );
+		$bundle_id                 = absint( $_POST['bundle_id'] );
+		$main_product_id           = absint( $_POST['main_product'] );
 		$main_product              = wc_get_product( $main_product_id );
-		$products_id               = woodmart_clean( $_POST['products_id'] ); //phpcs:ignore
+		$products_id               = array_map( 'absint', (array) woodmart_clean( $_POST['products_id'] ) ); //phpcs:ignore
 		$fbt_products              = get_post_meta( $bundle_id, '_woodmart_fbt_products', true );
 		$main_product_qty          = 1;
 		$main_product_variation_id = 0;
@@ -190,8 +190,40 @@ class Render extends Singleton {
 		$main_product_discount     = get_post_meta( $bundle_id, '_woodmart_main_products_discount', true );
 		$item_keys                 = array();
 
-		if ( ! $products_id || count( $products_id ) < 2 || ! $fbt_products ) {
+		if ( ! $main_product || ! $products_id || count( $products_id ) < 2 || ! $fbt_products ) {
 			wp_send_json_error();
+		}
+
+		/*
+		 * The bundle must be published and the posted main product must actually be
+		 * the product this bundle is attached to. Otherwise a client could apply an
+		 * unrelated bundle's discount to any product of its choosing.
+		 */
+		$owning_bundles = array_map( 'absint', (array) get_post_meta( $main_product_id, 'woodmart_fbt_bundles_id', true ) );
+
+		if ( 'publish' !== get_post_status( $bundle_id ) || ! in_array( $bundle_id, $owning_bundles, true ) ) {
+			wp_send_json_error();
+		}
+
+		/*
+		 * Every posted child ID must either be the main product or a product that is
+		 * genuinely part of this bundle's configuration. The IDs are translated the
+		 * same way the front-end and the cart-build loop below do (wpml_object_id),
+		 * otherwise validation would reject legitimate requests on secondary
+		 * languages where the posted IDs are the translated ones.
+		 */
+		$fbt_product_ids = array();
+
+		foreach ( (array) $fbt_products as $fbt_product ) {
+			if ( isset( $fbt_product['id'] ) ) {
+				$fbt_product_ids[] = (int) apply_filters( 'wpml_object_id', $fbt_product['id'], 'product', true );
+			}
+		}
+
+		foreach ( $products_id as $posted_product_id => $variation_id ) {
+			if ( (int) $posted_product_id !== $main_product_id && ! in_array( (int) $posted_product_id, $fbt_product_ids, true ) ) {
+				wp_send_json_error();
+			}
 		}
 
 		if ( $main_product->is_type( 'variable' ) ) {
@@ -199,7 +231,12 @@ class Render extends Singleton {
 				wp_send_json_error();
 			}
 
-			$main_variation_product    = wc_get_product( $products_id[ $main_product_id ] );
+			$main_variation_product = wc_get_product( $products_id[ $main_product_id ] );
+
+			if ( ! $main_variation_product || $main_variation_product->get_parent_id() !== $main_product_id ) {
+				wp_send_json_error();
+			}
+
 			$main_product_variation_id = $main_variation_product->get_id();
 			$main_product_variation    = $main_variation_product->get_variation_attributes();
 		}
@@ -240,12 +277,21 @@ class Render extends Singleton {
 			$item_variation_id = 0;
 			$item_variation    = array();
 
+			if ( ! $product ) {
+				continue;
+			}
+
 			if ( $product->is_type( 'variable' ) ) {
 				if ( ! $products_id[ $product_id ] ) {
 					continue;
 				}
 
 				$variation_product = wc_get_product( $products_id[ $product_id ] );
+
+				if ( ! $variation_product || $variation_product->get_parent_id() !== (int) $product_id ) {
+					continue;
+				}
+
 				$item_variation_id = $variation_product->get_id();
 				$item_variation    = $variation_product->get_variation_attributes();
 			}

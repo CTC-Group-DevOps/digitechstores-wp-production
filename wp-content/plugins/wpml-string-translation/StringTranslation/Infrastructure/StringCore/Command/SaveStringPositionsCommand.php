@@ -29,14 +29,29 @@ class SaveStringPositionsCommand implements SaveStringPositionsCommandInterface 
 	}
 
 	public function run( array $strings ) {
-		$strings = $this->findStringFieldsByDomainValueAndContext( $strings, ['id', 'positions'] );
+		$strings = $this->findStringFieldsByDomainValueAndContext( $strings, ['id', 'matching_positions'] );
 
-		$newPositions = [];
+		$newPositions      = [];
+		$newPositionKeys   = [];
 		foreach ( $strings as $string ) {
-			$newPositions = array_merge(
-				$newPositions,
-				$string->getNewPositions()
-			);
+			if ( count( $string->getNewPositions() ) > 0 && ! $string->hasId() ) {
+				continue;
+			}
+			foreach ( $string->getNewPositions() as $position ) {
+				$key = $string->getId()
+					. ':'
+					. $position->getKind()
+					. ':'
+					. strlen( $position->getPositionInPage() )
+					. ':'
+					. $position->getPositionInPage();
+				if ( isset( $newPositionKeys[ $key ] ) ) {
+					continue;
+				}
+
+				$newPositionKeys[ $key ] = true;
+				$newPositions[]          = $position;
+			}
 		}
 		$this->insertStringPositionsCommand->run( $newPositions );
 	}

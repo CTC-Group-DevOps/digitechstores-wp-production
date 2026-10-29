@@ -10,8 +10,15 @@ class EntityTimelineView {
 	public function renderPage() {
 		?>
 		<div class="wrap wpml-tm-job-log">
-			<h1><?php esc_html_e( 'Translation Management Job Logs', 'sitepress' ); ?></h1>
-			<?php View::renderTabs( 'by-post' ); ?>
+			<?php
+			$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+			if ( $page !== 'sitepress-multilingual-cms/menu/support.php' ) :
+				?>
+				<h1><?php esc_html_e( 'Translation job logs', 'sitepress' ); ?></h1>
+				<?php
+			endif;
+			?>
+			<?php View::renderViewSwitchButton( 'by-post' ); ?>
 
 			<div class="job-log-entity-finder">
 				<label for="job-log-entity-picker" class="job-log-entity-picker-label">
@@ -80,12 +87,12 @@ class EntityTimelineView {
 				        class="button job-log-entity-download-button"
 				        data-post-id="<?php echo esc_attr( (string) $postId ); ?>"
 				        title="<?php esc_attr_e( 'Download this post\'s full timeline as text', 'sitepress' ); ?>">
-					<?php esc_html_e( 'Download timeline', 'sitepress' ); ?>
+					<?php /* translators: Button label on the translation jobs screen: save the whole list of what happened to this content as a file. Verb, imperative. */ esc_html_e( 'Download timeline', 'sitepress' ); ?>
 				</button>
 			</div>
 			<div class="job-log-entity-state-row">
 				<?php if ( $modified ) : ?>
-					<span><strong><?php esc_html_e( 'Modified:', 'sitepress' ); ?></strong> <?php echo esc_html( $modified ); ?></span>
+					<span><strong><?php /* translators: Label in front of the date on which the content was last changed, in the history of a piece of content. */ esc_html_e( 'Modified:', 'sitepress' ); ?></strong> <?php echo esc_html( $modified ); ?></span>
 				<?php endif; ?>
 				<?php if ( $trid ) : ?>
 					<span><strong>trid:</strong> <?php echo esc_html( (string) $trid ); ?></span>
@@ -95,13 +102,13 @@ class EntityTimelineView {
 			<div class="job-log-entity-state-block">
 				<strong><?php esc_html_e( 'Translations (current state):', 'sitepress' ); ?></strong>
 				<?php if ( empty( $translations ) ) : ?>
-					<em><?php esc_html_e( 'none', 'sitepress' ); ?></em>
+					<em><?php /* translators: Shown in place of a value when there is nothing to show. Written in lower case because it stands where a value would. */ esc_html_e( 'none', 'sitepress' ); ?></em>
 				<?php else : ?>
 					<ul>
 						<?php foreach ( $translations as $tr ) : ?>
 							<li>
 								<?php echo esc_html( $tr['language_code'] ?? '?' ); ?>
-								→ <?php echo esc_html( ( isset( $tr['translated_post_id'] ) && $tr['translated_post_id'] ) ? '#' . $tr['translated_post_id'] : __( 'no translated post', 'sitepress' ) ); ?>
+								→ <?php echo esc_html( ( isset( $tr['translated_post_id'] ) && $tr['translated_post_id'] ) ? '#' . $tr['translated_post_id'] : /* translators: Shown in place of a link when the content has no translation yet in that language. It starts in lower case because it follows an arrow. */ __( 'no translated post', 'sitepress' ) ); ?>
 								<?php if ( ! empty( $tr['status'] ) ) : ?>
 									(<?php echo esc_html( $tr['status'] ); ?>)
 								<?php endif; ?>
@@ -114,7 +121,7 @@ class EntityTimelineView {
 			<div class="job-log-entity-state-block">
 				<strong><?php esc_html_e( 'In-flight jobs (translated = 0):', 'sitepress' ); ?></strong>
 				<?php if ( empty( $activeJobs ) ) : ?>
-					<em><?php esc_html_e( 'none', 'sitepress' ); ?></em>
+					<em><?php /* translators: Shown in place of a value when there is nothing to show. Written in lower case because it stands where a value would. */ esc_html_e( 'none', 'sitepress' ); ?></em>
 				<?php else : ?>
 					<ul>
 						<?php foreach ( $activeJobs as $j ) : ?>
@@ -123,6 +130,7 @@ class EntityTimelineView {
 								/* translators: 1: job id, 2: target language, 3: status int, 4: age */
 								echo esc_html(
                                     sprintf(
+                                        /* translators: One translation job in the history of a piece of content. %1$d: the number that stands for the job, %2$s: the code of the language it translates into, %3$s: the state of the job, %4$s: how long ago it was made, for example "2h". */
                                         __( '#%1$d (%2$s, status %3$s, age %4$s)', 'sitepress' ),
                                         (int) ( $j['job_id'] ?? 0 ),
                                         (string) ( $j['target_lang'] ?? '?' ),
@@ -146,7 +154,7 @@ class EntityTimelineView {
 			<div class="job-log-entity-timeline-header">
 				<?php
 				printf(
-					/* translators: 1: total events, 2: request count */
+					/* translators: Heading above the history of a piece of content on the translation jobs screen. %1$d: how many events the history holds, %2$d: how many requests they came from. */
 					esc_html__( 'Timeline — %1$d events across %2$d requests', 'sitepress' ),
 					(int) $eventTotal,
 					(int) $requestCount
@@ -224,13 +232,13 @@ class EntityTimelineView {
 			<div class="job-log-entity-event-head">
 				<span class="job-log-entity-event-time"><?php echo esc_html( $ts ); ?></span>
 				<?php if ( $logUid ) : ?>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=' . Hooks::SUBMENU_HANDLE ) ); ?>" class="job-log-entity-event-req" title="<?php esc_attr_e( 'Originating request', 'sitepress' ); ?>">
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=' . Hooks::SUBMENU_HANDLE ) ); ?>" class="job-log-entity-event-req" title="<?php /* translators: Link in the history of a piece of content that opens the request the event came from. */ esc_attr_e( 'Originating request', 'sitepress' ); ?>">
 						req:<?php echo esc_html( substr( $logUid, 0, 6 ) ); ?>
 					</a>
 				<?php endif; ?>
 				<span class="job-log-entity-event-id"><?php echo esc_html( $label ); ?></span>
 				<?php if ( $isError ) : ?>
-					<span class="job-log-entity-event-badge"><?php esc_html_e( 'error', 'sitepress' ); ?></span>
+					<span class="job-log-entity-event-badge"><?php /* translators: Word marking an event in the history of a piece of content that went wrong. Written in lower case because it sits in a small badge. */ esc_html_e( 'error', 'sitepress' ); ?></span>
 				<?php endif; ?>
 			</div>
 			<?php if ( $dataJson && $dataJson !== '[]' ) : ?>

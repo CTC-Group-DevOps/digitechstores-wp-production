@@ -11,16 +11,18 @@ class WPML_ST_Word_Count_String_Records {
 	}
 
 	public function get_total_words() {
-		return (int) $this->wpdb->get_var( "SELECT SUM(word_count) FROM {$this->wpdb->prefix}icl_strings" );
+		$wpdb = $this->wpdb;
+
+		return (int) $wpdb->get_var( "SELECT SUM(word_count) FROM {$wpdb->prefix}icl_strings" );
 	}
 
 	public function get_all_values_without_word_count() {
-		$query = "
-			SELECT id, value FROM {$this->wpdb->prefix}icl_strings
-			WHERE word_count IS NULL
-		";
+		$wpdb = $this->wpdb;
 
-		return $this->wpdb->get_results( $query );
+		return $wpdb->get_results(
+			"SELECT id, value FROM {$wpdb->prefix}icl_strings
+			WHERE word_count IS NULL"
+		);
 	}
 
 	public function get_words_to_translate_per_lang( $lang, $package_id = null ) {
@@ -54,9 +56,11 @@ class WPML_ST_Word_Count_String_Records {
 	}
 
 	public function get_value_and_language( $string_id ) {
-		return $this->wpdb->get_row(
-			$this->wpdb->prepare(
-				"SELECT value, language FROM {$this->wpdb->prefix}icl_strings WHERE id = %d",
+		$wpdb = $this->wpdb;
+
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT value, language FROM {$wpdb->prefix}icl_strings WHERE id = %d",
 				$string_id
 			)
 		);
@@ -71,16 +75,20 @@ class WPML_ST_Word_Count_String_Records {
 	}
 
 	public function get_word_count( $string_id ) {
-		return (int) $this->wpdb->get_var(
-			$this->wpdb->prepare(
-				"SELECT word_count FROM {$this->wpdb->prefix}icl_strings WHERE ID = %d",
+		$wpdb = $this->wpdb;
+
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT word_count FROM {$wpdb->prefix}icl_strings WHERE ID = %d",
 				$string_id
 			)
 		);
 	}
 
 	public function reset_all() {
-		$this->wpdb->query( "UPDATE {$this->wpdb->prefix}icl_strings SET word_count = NULL" );
+		$wpdb = $this->wpdb;
+
+		$wpdb->query( "UPDATE {$wpdb->prefix}icl_strings SET word_count = NULL" );
 	}
 
 	public function get_ids_from_package_ids( array $package_ids ) {
@@ -88,9 +96,17 @@ class WPML_ST_Word_Count_String_Records {
 			return array();
 		}
 
-		$query = "SELECT id FROM {$this->wpdb->prefix}icl_strings
-				  WHERE string_package_id IN(" . wpml_prepare_in( $package_ids ) . ')';
+		$wpdb = $this->wpdb;
 
-		return array_map( 'intval', $this->wpdb->get_col( $query ) );
+		return array_map(
+			'intval',
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT id FROM {$wpdb->prefix}icl_strings
+					WHERE string_package_id IN (" . implode( ', ', array_fill( 0, count( $package_ids ), '%d' ) ) . ')',
+					array_map( 'intval', $package_ids )
+				)
+			)
+		);
 	}
 }

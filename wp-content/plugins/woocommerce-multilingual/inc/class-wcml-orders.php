@@ -24,10 +24,9 @@ class WCML_Orders {
 
 		add_action( 'init', [ $this, 'init' ] );
 
-		add_action( 'wp_ajax_woocommerce_checkout', [ $this, 'switch_to_current' ], 9 );
-		add_action( 'wp_ajax_nopriv_woocommerce_checkout', [ $this, 'switch_to_current' ], 9 );
+		\WCML\Request\Ajax::listen( 'woocommerce_checkout', [ $this, 'switch_to_current' ], 'WooCommerce checkout (incl. anonymous): sets the e-mail language in memory for the host request only; WooCommerce verifies its own nonce', 9, 1, true );
 
-		add_action( 'wp_ajax_wcml_order_delete_items', [ $this, 'order_delete_items' ] );
+		\WCML\Request\Ajax::register( 'wcml_order_delete_items', [ 'authenticated' => 'sets the caller\'s own dashboard order-language cookie; session-scoped, no site state', 'nonce' => [ 'set_dashboard_order_language', 'wcml_nonce' ] ], [ $this, 'order_delete_items' ] );
 	}
 
 	public function init() {
@@ -185,7 +184,7 @@ class WCML_Orders {
 			$selected_lang = $_COOKIE [ self::DASHBOARD_COOKIE_NAME ] ?? $this->sitepress->get_default_language();
 			?>
 			<li class="wide">
-				<label><?php _e( 'Order language:' ); ?></label>
+				<label><?php /* translators: Label of the dropdown that sets an order's language, in the order editor. */ esc_html_e( 'Order language:', 'woocommerce-multilingual' ); ?></label>
 				<select id="dropdown_shop_order_language" name="wcml_shop_order_language">
 					<?php if ( ! empty( $languages ) ) : ?>
 
@@ -201,6 +200,7 @@ class WCML_Orders {
 			</li>
 			<?php
 			$wcml_set_dashboard_order_language_nonce   = esc_js( wp_create_nonce( 'set_dashboard_order_language' ) );
+			/* translators: Confirmation the shop owner sees before changing an order's language in the order editor. */
 			$wcml_set_dashboard_order_language_message = esc_js( __( 'All the products will be removed from the current order in order to change the language', 'woocommerce-multilingual' ) );
 			$wcml_set_dashboard_order_language_script  = <<<JS
                  var order_lang_current_value = jQuery('#dropdown_shop_order_language option:selected').val();
@@ -241,6 +241,7 @@ JS;
 	public function order_delete_items() {
 		$nonce = filter_input( INPUT_POST, 'wcml_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'set_dashboard_order_language' ) ) {
+			/* translators: Error returned when a request carries an expired or missing security token. */
 			echo json_encode( [ 'error' => __( 'Invalid nonce', 'woocommerce-multilingual' ) ] );
 			die();
 		}

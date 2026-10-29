@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Subscriptions Integration.
  *
- * @version  5.10.1
+ * @version  8.5.16
  */
 class WC_PB_Subscriptions_Compatibility {
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		/*

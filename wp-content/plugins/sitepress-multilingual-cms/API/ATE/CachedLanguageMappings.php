@@ -12,8 +12,6 @@ class CachedLanguageMappings extends LanguageMappings {
 	}
 
 	public static function clearCache() {
-		$transientStorage = new Transient();
-		$transientStorage->delete( CachedATEAPI::CACHE_OPTION );
+		CachedATEAPI::clearAllCaches();
 	}
 }
-

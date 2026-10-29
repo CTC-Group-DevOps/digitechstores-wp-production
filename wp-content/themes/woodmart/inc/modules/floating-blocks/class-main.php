@@ -18,6 +18,29 @@ class Main extends Singleton {
 	 */
 	public function init() {
 		add_action( 'init', array( $this, 'include_files' ), 10 );
+
+		add_action( 'elementor/documents/register', array( $this, 'register_elementor_document_types' ) );
+	}
+
+	/**
+	 * Register Elementor document types for floating blocks and popups.
+	 *
+	 * @param \Elementor\Core\Documents_Manager $documents_manager Elementor documents manager.
+	 */
+	public function register_elementor_document_types( $documents_manager ) {
+		if ( ! woodmart_is_elementor_installed() ) {
+			return;
+		}
+
+		$dir = WOODMART_THEMEROOT . '/inc/modules/floating-blocks/';
+
+		require_once $dir . 'integrations/elementor/class-fb-doc.php';
+		require_once $dir . 'integrations/elementor/class-popup-doc.php';
+
+		$documents_manager->register_document_type( 'wd_floating_block', Integrations\Fb_Document::class );
+		$documents_manager->register_document_type( 'wd_popup', Integrations\Popup_Document::class );
+
+		add_action( 'elementor/editor/before_enqueue_scripts', 'woodmart_enqueue_admin_scripts' );
 	}
 
 	/**
@@ -27,11 +50,6 @@ class Main extends Singleton {
 		$dir = WOODMART_THEMEROOT . '/inc/modules/floating-blocks/';
 
 		require_once $dir . '/class-manager.php';
-
-		if ( woodmart_is_elementor_installed() ) {
-			require_once $dir . '/integrations/elementor/class-fb-doc.php';
-			require_once $dir . '/integrations/elementor/class-popup-doc.php';
-		}
 
 		// WPBakery.
 		if ( defined( 'WPB_VC_VERSION' ) && ! isset( $_GET['vcv-gutenberg-editor'] ) ) { // phpcs:ignore.

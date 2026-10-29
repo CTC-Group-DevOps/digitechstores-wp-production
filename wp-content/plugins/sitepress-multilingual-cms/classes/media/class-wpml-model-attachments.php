@@ -38,7 +38,17 @@ class WPML_Model_Attachments {
 		if ( is_array( $attachment_translations ) ) {
 			foreach ( $attachment_translations as $attachment_translation ) {
 				if ( $attachment_translation->language_code === $target_language ) {
-					return get_post( $attachment_translation->element_id );
+					$duplicated_attachment = get_post( $attachment_translation->element_id );
+					if ( ! $duplicated_attachment ) {
+						throw new WPML_Media_Exception(
+							sprintf(
+								'Attachment translation with id %d does not exist',
+								(int) $attachment_translation->element_id
+							)
+						);
+					}
+
+					return $duplicated_attachment;
 				}
 			}
 		}
@@ -96,20 +106,13 @@ class WPML_Model_Attachments {
 
 
 	private function insert_attachment( $post ) {
-		$add_attachment_filters_temp = null;
-		if ( array_key_exists( 'add_attachment', $GLOBALS['wp_filter'] ) ) {
-			$add_attachment_filters_temp = $GLOBALS['wp_filter']['add_attachment'];
-			unset( $GLOBALS['wp_filter']['add_attachment'] );
-		}
-
-		$duplicated_attachment_id = wp_insert_post( $post );
+		$duplicated_attachment_id = \WPML\Media\AddAttachmentHook::suspendDuring(
+			function () use ( $post ) {
+				return wp_insert_post( $post );
+			}
+		);
 		if ( ! is_int( $duplicated_attachment_id ) ) {
 			$duplicated_attachment_id = 0;
-		}
-
-		if ( null !== $add_attachment_filters_temp ) {
-			$GLOBALS['wp_filter']['add_attachment'] = $add_attachment_filters_temp;
-			unset( $add_attachment_filters_temp );
 		}
 
 		return $duplicated_attachment_id;

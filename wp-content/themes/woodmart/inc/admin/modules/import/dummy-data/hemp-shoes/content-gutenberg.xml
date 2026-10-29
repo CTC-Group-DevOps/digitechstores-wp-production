@@ -209,7 +209,7 @@
 <div id="wd-ccd6beeb" class="wp-block-wd-image wd-block-image"><img class="wp-image-36722" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2025/03/hs-materials-thread-opt.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
-<!-- wp:wd/paragraph {"blockId":"c9bdd767-2128-4b9d-8ea3-85b89dc1e05b","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14"} -->
+<!-- wp:wd/paragraph {"blockId":"c9bdd767-2128-4b9d-8ea3-85b89dc1e05b","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14"} -->
 <p id="wd-c9bdd767" class="wp-block-wd-paragraph">Hemp thread</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/carousel-item -->
@@ -219,7 +219,7 @@
 <div id="wd-abdfa340" class="wp-block-wd-image wd-block-image"><img class="wp-image-36724" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2025/03/hs-materials-fabric-opt.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
-<!-- wp:wd/paragraph {"blockId":"36e849cb-22c0-4872-8ed2-66002c98ecd4","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14"} -->
+<!-- wp:wd/paragraph {"blockId":"36e849cb-22c0-4872-8ed2-66002c98ecd4","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14"} -->
 <p id="wd-36e849cb" class="wp-block-wd-paragraph">Hemp fabric</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/carousel-item -->
@@ -229,7 +229,7 @@
 <div id="wd-123679f9" class="wp-block-wd-image wd-block-image"><img class="wp-image-36726" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2025/03/hs-materials-rubber-opt.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
-<!-- wp:wd/paragraph {"blockId":"b59188f4-dab6-4a54-87db-207a67e4769a","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14"} -->
+<!-- wp:wd/paragraph {"blockId":"b59188f4-dab6-4a54-87db-207a67e4769a","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14"} -->
 <p id="wd-b59188f4" class="wp-block-wd-paragraph">Recycled rubber</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/carousel-item --></div></div><div class="wd-nav-arrows wd-pos-sep wd-hover-1 wd-icon-1"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div></div>
@@ -254,7 +254,7 @@
 <h2 id="wd-d0daf46d" class="wp-block-wd-title title">We make the perfect shoes for you</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/accordion {"blockId":"85ec0d56-46f6-4daf-9435-9698f628fd9e","titleTpFontFamily":"var(u002du002dwd-title-font)","titleTpFontSize":"18","titleTpFontVariant":"500","titleTpFontWeight":"500"} -->
+<!-- wp:wd/accordion {"blockId":"85ec0d56-46f6-4daf-9435-9698f628fd9e","titleTpFontFamily":"var(\u002d\u002dwd-title-font)","titleTpFontSize":"18","titleTpFontVariant":"500","titleTpFontWeight":"500"} -->
 <div id="wd-85ec0d56" class="wp-block-wd-accordion wd-accordion wd-style-default wd-titles-start wd-opener-style-arrow wd-opener-pos-end" data-state="first"><!-- wp:wd/accordion-pane {"blockId":"c6974a71-9558-4e81-8dce-4426c7cceef1","initiallyOpened":true} -->
 <div id="wd-c6974a71" class="wp-block-wd-accordion-pane wd-accordion-item"><div class="wd-accordion-title wd-active"><div class="wd-accordion-title-text"><span>1. Design the shoes</span></div><span class="wd-accordion-opener"></span></div><div class="wd-accordion-content wd-active"><div class="wd-accordion-content-inner"><!-- wp:wd/paragraph {"blockId":"4bd5cd6a-a8aa-4b4e-8dae-639e8eb7368b"} -->
 <p id="wd-4bd5cd6a" class="wp-block-wd-paragraph">At worst the discussion is at least working towards the final goal of your site where questions about lorem ipsum don’t.</p>
@@ -335,7 +335,7 @@
 <p id="wd-146e1e92" class="wp-block-wd-paragraph">Very good product, comfortable and very light weight. The colour of the shoe is as exact as is shown in website and size is also as expected…..I'm recommending 👍</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"37e31e02-66db-4abe-9c1e-147fc524c18f","content":"Jerome Bell u003cspan class=u0022wd-highlightu0022u003e- Dog Traineru003c/spanu003e ","markFontFamily":"var(u002du002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
+<!-- wp:wd/title {"blockId":"37e31e02-66db-4abe-9c1e-147fc524c18f","content":"Jerome Bell \u003cspan class=\u0022wd-highlight\u0022\u003e- Dog Trainer\u003c/span\u003e ","markFontFamily":"var(\u002d\u002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
 <h2 id="wd-37e31e02" class="wp-block-wd-title title">Jerome Bell <span class="wd-highlight">- Dog Trainer</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -355,7 +355,7 @@
 <p id="wd-a195e832" class="wp-block-wd-paragraph">They are good for walking Look wise they are great. comfortable in wearing for long hours and you will surely love it's foam padding perfect choice of shoes.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"4f73ce32-cb76-4c54-9011-13530de874d8","content":"Jenny Wilson u003cspan class=u0022wd-highlightu0022u003e- Web Designeru003c/spanu003e ","markFontFamily":"var(u002du002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
+<!-- wp:wd/title {"blockId":"4f73ce32-cb76-4c54-9011-13530de874d8","content":"Jenny Wilson \u003cspan class=\u0022wd-highlight\u0022\u003e- Web Designer\u003c/span\u003e ","markFontFamily":"var(\u002d\u002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
 <h2 id="wd-4f73ce32" class="wp-block-wd-title title">Jenny Wilson <span class="wd-highlight">- Web Designer</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -375,7 +375,7 @@
 <p id="wd-e8531703" class="wp-block-wd-paragraph">This product is too comfortable. I have ordered these shoes for my sister. She is using it as office shoes. Looks cool with every clothing for ladies.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"07fa675d-b8ef-4fbb-b1bd-6c47a0dded79","content":"Ronald Richards u003cspan class=u0022wd-highlightu0022u003e- Marketing Coordinatoru003c/spanu003e ","markFontFamily":"var(u002du002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
+<!-- wp:wd/title {"blockId":"07fa675d-b8ef-4fbb-b1bd-6c47a0dded79","content":"Ronald Richards \u003cspan class=\u0022wd-highlight\u0022\u003e- Marketing Coordinator\u003c/span\u003e ","markFontFamily":"var(\u002d\u002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
 <h2 id="wd-07fa675d" class="wp-block-wd-title title">Ronald Richards <span class="wd-highlight">- Marketing Coordinator</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -395,7 +395,7 @@
 <p id="wd-05ca4c50" class="wp-block-wd-paragraph">A wonderful serenity has taken possession of my entire soul,like these sweet mornings of spring which I enjoy with my whole heart. Looks cool with every clothing.</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"50fead2d-41c0-4603-950f-f63dbdf5578b","content":"Aviana Plummer u003cspan class=u0022wd-highlightu0022u003e- Ceo / Founderu003c/spanu003e ","markFontFamily":"var(u002du002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
+<!-- wp:wd/title {"blockId":"50fead2d-41c0-4603-950f-f63dbdf5578b","content":"Aviana Plummer \u003cspan class=\u0022wd-highlight\u0022\u003e- Ceo / Founder\u003c/span\u003e ","markFontFamily":"var(\u002d\u002dwd-text-font)","markFontVariant":"400","markFontWeight":"400","markColorCode":"#767676"} -->
 <h2 id="wd-50fead2d" class="wp-block-wd-title title">Aviana Plummer <span class="wd-highlight">- Ceo / Founder</span> </h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/container --></div>
@@ -438,7 +438,7 @@
 <!-- /wp:wd/container -->
 
 <!-- wp:wd/container {"blockId":"cd72d208-9f4c-4bf7-bbc2-56341f5ffe32","direction":"row","justify":"flex-end","align":"center","wrap":"wrap","justifyMobile":"center"} -->
-<div id="wd-cd72d208" class="wp-block-wd-container wd-dir-row wd-align-is-lg-center"><!-- wp:wd/title {"blockId":"32886fe1-0517-4c1e-85ca-5b494bd1d6ee","content":"$89.99","tpFontSize":"32","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-cd72d208" class="wp-block-wd-container wd-dir-row wd-align-is-lg-center"><!-- wp:wd/title {"blockId":"32886fe1-0517-4c1e-85ca-5b494bd1d6ee","content":"$89.99","tpFontSize":"32","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <h2 id="wd-32886fe1" class="wp-block-wd-title title">$89.99</h2>
 <!-- /wp:wd/title -->
 
@@ -538,7 +538,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/marquee {"blockId":"8f7b6f5b-3620-4537-92cd-6830c0e1cf38","speed":"60","tpFontFamily":"var(u002du002dwd-title-font)","tpFontSize":"18","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","colorCode":"#ffffff","bgColorCode":"#000000","paddingTop":"10","paddingBottom":"10","marginBottom":"80","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","tpLineHeightUnits":"em","marginBottomTablet":"60","marginBottomMobile":"40"} -->
+<!-- wp:wd/marquee {"blockId":"8f7b6f5b-3620-4537-92cd-6830c0e1cf38","speed":"60","tpFontFamily":"var(\u002d\u002dwd-title-font)","tpFontSize":"18","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","colorCode":"#ffffff","bgColorCode":"#000000","paddingTop":"10","paddingBottom":"10","marginBottom":"80","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","tpLineHeightUnits":"em","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <!-- wp:wd/marquee-item {"blockId":"ed1a339b-d286-4998-b48d-863299f1aa80"} -->
 <div id="wd-ed1a339b" class="wp-block-wd-marquee-item wd-marquee-item"><!-- wp:wd/icon {"blockId":"6b7c4615-46d1-440c-ac6f-53e6f96553e7","image":{"id":36763,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2025/03/hs-delivery-left.svg","width":32,"height":32},"width":"28"} -->
 <div id="wd-6b7c4615" class="wp-block-wd-icon"><img class="wp-image-36763" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2025/03/hs-delivery-left.svg" alt="" /></div>

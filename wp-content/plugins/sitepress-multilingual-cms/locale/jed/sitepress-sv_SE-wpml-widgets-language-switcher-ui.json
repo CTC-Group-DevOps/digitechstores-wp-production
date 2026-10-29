@@ -11,10 +11,10 @@
             "Alla"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "För att visa detta anpassade HTML-block på ett specifikt språk, placera det först inuti ett gruppblock."
+            "För att visa detta anpassade HTML-block på ett specifikt språk måste du först placera det i ett gruppblock."
          ],
          "Place inside Group block": [
-            "Placera inuti gruppblock"
+            "Placera i gruppblock"
          ],
          "Display on language": [
             "Visa på språk"

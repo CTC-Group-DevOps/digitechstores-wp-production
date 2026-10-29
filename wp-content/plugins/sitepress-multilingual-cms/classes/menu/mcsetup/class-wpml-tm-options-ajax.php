@@ -11,7 +11,7 @@ class WPML_TM_Options_Ajax {
 	}
 
 	public function ajax_hooks() {
-		add_action( 'wp_ajax_wpml_translated_document_options', array( $this, 'wpml_translated_document_options' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_translated_document_options', \WPML\Request\Policy\Policy::capability( 'manage_options', \WPML\Request\Policy\Authenticity::actionNonce( 'wpml-translated-document-options-nonce', 'nonce' ) ), array( $this, 'wpml_translated_document_options' ) );
 	}
 
 	public function wpml_translated_document_options() {

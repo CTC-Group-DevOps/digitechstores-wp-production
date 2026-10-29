@@ -7,17 +7,20 @@
             "plural_forms": "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
             "lang": "pl_PL"
          },
-         "Edit": [
-            "Edytuj"
+         "Edit %s": [
+            "Edytuj: %s"
          ],
          "Shift+Tab": [
-            "Shift+Tab"
+            "Shift+tab"
          ],
          "Tab": [
             "Tab"
          ],
+         "Original:": [
+            "Oryginał:"
+         ],
          "Translation to:": [
-            "Tłumaczenie na:"
+            "Tłumaczenie na język:"
          ],
          "Copy from original": [
             "Kopiuj z oryginału"
@@ -25,32 +28,26 @@
          "Use Shift+Enter to add a new line.": [
             "Użyj Shift+Enter, aby dodać nową linię."
          ],
-         "Original:": [
-            "Oryginał:"
-         ],
          "Add %s translation": [
-            "Dodaj tłumaczenie %s"
+            "Dodaj tłumaczenie: %s"
          ],
          "Edit %s translation": [
-            "Edytuj tłumaczenie %s"
+            "Edytuj tłumaczenie: %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "Dodaj tłumaczenie %s (ciąg znaków pojawia się na stronie i nie jest przetłumaczony)"
+            "Dodaj tłumaczenie: %s (ciąg znaków pojawia się na stronie i nie jest przetłumaczony)"
          ],
          "Original language %s": [
-            "Język oryginalny %s"
+            "Język oryginalny: %s"
          ],
          "Waiting for translator to %s": [
-            "Oczekiwanie na tłumacza na %s"
+            "Oczekiwanie na tłumacza (język: %s)"
          ],
          "Translation in progress to %s": [
-            "Tłumaczenie w toku na %s"
-         ],
-         "In basket for translation to %s": [
-            "W koszyku do tłumaczenia na %s"
+            "Tłumaczenie w toku (język: %s)"
          ],
          "Translation saved.": [
-            "Tłumaczenie zapisane."
+            "Tłumaczenie zostało zapisane."
          ],
          "Translation update failed.": [
             "Aktualizacja tłumaczenia nie powiodła się."

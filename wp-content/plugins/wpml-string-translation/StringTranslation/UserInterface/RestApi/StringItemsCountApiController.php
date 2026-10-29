@@ -37,7 +37,6 @@ class StringItemsCountApiController extends AbstractStringItemApiController {
 			$request->get_param( 'source' ),
 			$request->get_param( 'domain' ),
 			$request->get_param( 'title' ),
-			$request->get_param( 'translationPriority' ),
 			$request->get_param( 'sourceLanguageCode' ),
 			$request->get_param( 'targetLanguageCode' ),
 			$request->get_param( 'translationStatuses' ) ?? []

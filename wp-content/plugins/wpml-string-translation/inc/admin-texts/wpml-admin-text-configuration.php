@@ -101,25 +101,47 @@ class WPML_Admin_Text_Configuration extends WPML_Admin_Text_Functionality {
 			return array();
 		}
 
-		foreach ( $top_level_filters as $key => $filter ) {
-			$like                      = strpos( $filter, '*' ) !== false;
-			$comparator                = $like ? ' LIKE ' : '=';
-			$top_level_filters[ $key ] = $wpdb->prepare(
-				' option_name ' . $comparator . ' %s ',
-				$like
-															 ? str_replace( '*', '%', $wpdb->esc_like( $filter ) )
-															 : $filter
-			);
+		$args = array(
+			$wpdb->esc_like( '_transient' ) . '%',
+			$wpdb->esc_like( '_site_transient' ) . '%',
+		);
+		foreach ( $top_level_filters as $filter ) {
+			$like = false !== strpos( $filter, '*' );
+			if ( $like ) {
+				$args[] = 0;
+				$args[] = '';
+				$args[] = 1;
+				$args[] = str_replace( '*', '%', $wpdb->esc_like( $filter ) );
+			} else {
+				$args[] = 1;
+				$args[] = $filter;
+				$args[] = 0;
+				$args[] = '';
+			}
 		}
 
-		$where = ' AND ( ' . join( ' OR ', $top_level_filters ) . ' )';
-
-		$strings     = $wpdb->get_results(
-			"SELECT option_name, option_value
-											FROM {$wpdb->options}
-											WHERE option_name NOT LIKE '_transient%'
-											AND option_name NOT LIKE '_site_transient%' {$where}
-											AND LENGTH(option_value) < 1000000"
+		$strings = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT option_name, option_value
+				FROM {$wpdb->options}
+				WHERE option_name NOT LIKE %s
+					AND option_name NOT LIKE %s
+					AND ( " . implode(
+						' OR ',
+						array_fill(
+							0,
+							count( $top_level_filters ),
+							'( ( %d = 1 AND option_name = %s ) OR ( %d = 1 AND option_name LIKE %s ) )'
+						)
+					) . " )
+					AND LENGTH(option_value) < 1000000",
+				$args[0],
+				$args[1],
+				$args[2],
+				$args[3],
+				$args[4],
+				...array_slice( $args, 5 )
+			)
 		);
 		$all_options = array();
 		foreach ( $strings as $data_pair ) {

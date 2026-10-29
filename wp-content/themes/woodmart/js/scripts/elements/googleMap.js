@@ -9,6 +9,20 @@
 	});
 
 	woodmartThemeModule.googleMapInit = function() {
+		/**
+		 * Escape marker fields before they are interpolated into infowindow HTML.
+		 * Values come from stored block settings and must not render as live markup.
+		 * All builders pass them raw, so this is the only place they get escaped.
+		 */
+		const escapeHtml = function ( str ) {
+			return String( null === str || undefined === str ? '' : str )
+				.replace( /&/g, '&amp;' )
+				.replace( /</g, '&lt;' )
+				.replace( />/g, '&gt;' )
+				.replace( /"/g, '&quot;' )
+				.replace( /'/g, '&#39;' );
+		};
+
 		$('.google-map-container').each(function() {
 			var $map = $(this);
 			var data = $map.data('map-args');
@@ -43,7 +57,7 @@
 					}
 
 					if ( marker.marker_title || marker.marker_description ) {
-						location.html = `<h3 style="min-width:300px; text-align:center; margin:15px;">${marker.marker_title}</h3>${marker.marker_description}`;
+						location.html = `<h3 style="min-width:300px; text-align:center; margin:15px;">${escapeHtml(marker.marker_title)}</h3>${escapeHtml(marker.marker_description)}`;
 					}
 
 					return location;
@@ -68,7 +82,7 @@
 				];
 
 				if ('yes' === data.marker_text_needed) {
-					config.locations[0].html = data.marker_text;
+					config.locations[0].html = `<h3 style="min-width:300px; text-align:center; margin:15px;">${escapeHtml(data.marker_title)}</h3>${escapeHtml(data.marker_text)}`;
 				}
 			}
 

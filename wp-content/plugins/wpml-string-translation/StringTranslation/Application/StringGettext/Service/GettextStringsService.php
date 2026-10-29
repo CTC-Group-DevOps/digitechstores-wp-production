@@ -152,11 +152,15 @@ class GettextStringsService {
 		$this->queueRepository->savePendingStringsQueue();
 	}
 
-	public function processSavedPendingStringsAndSettingsQueue() {
-		$hasCompleted = $this->processPendingStrings->run( $this->queueRepository->loadPendingStrings() );
-		if ( $hasCompleted ) {
-			$this->queueRepository->markPendingStringsAsProcessed();
-		}
+	public function processSavedPendingStringsAndSettingsQueue(): bool {
+		return $this->processPendingStrings->run();
+	}
+
+	public function getLastPendingQueueDeferralDiagnostic(): array {
+		return $this->processPendingStrings->getLastDeferralDiagnostic();
+	}
+
+	public function getLastPendingQueueQuarantineDiagnostic(): array {
+		return $this->processPendingStrings->getLastQuarantineDiagnostic();
 	}
 }
-

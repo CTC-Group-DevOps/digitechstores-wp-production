@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../../inc/constants-since-5-0.php';
+
 use WPML\FP\Lst;
 
 class WPML_TM_Job_Entity {
@@ -8,6 +10,7 @@ class WPML_TM_Job_Entity {
 	const STRING_TYPE  = 'string';
 	const STRING_BATCH = 'st-batch_strings';
 	const PACKAGE_TYPE = 'package';
+	const TAXONOMY_TYPE = 'tax';
 
 	private $id;
 
@@ -96,6 +99,7 @@ class WPML_TM_Job_Entity {
 				ICL_TM_NEEDS_REVIEW,
 				ICL_TM_ATE_CANCELLED,
 				ICL_TM_ATE_NEEDS_RETRY,
+				ICL_TM_ATE_UNSOLVABLE,
 			),
 			true
 		) ) {
@@ -218,6 +222,6 @@ class WPML_TM_Job_Entity {
 	}
 
 	public static function is_type_valid( $type ) {
-		return Lst::includes( $type, [ self::POST_TYPE, self::STRING_TYPE, self::PACKAGE_TYPE, self::STRING_BATCH ] );
+		return Lst::includes( $type, [ self::POST_TYPE, self::STRING_TYPE, self::PACKAGE_TYPE, self::STRING_BATCH, self::TAXONOMY_TYPE ] );
 	}
 }

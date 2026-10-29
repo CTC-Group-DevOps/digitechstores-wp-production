@@ -170,7 +170,7 @@ if ( ! function_exists( 'woodmart_shortcode_button' ) ) {
 			$icon = '<span class="wd-btn-icon">' . $image_output . '</span>';
 		}
 
-		$attributes .= ' class="' . $btn_class . '"';
+		$attributes .= ' class="' . esc_attr( $btn_class ) . '"';
 
 		if ( $link_nofollow ) {
 			$attributes .= ' rel="nofollow"';

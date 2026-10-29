@@ -7,6 +7,8 @@ class AliasDomainProber {
 	const TIMEOUT_SECONDS = 10;
 
 	public function probe( $aliasUrl, $token ) {
+		AliasDomainCheckHandler::expect( $token );
+
 		$url = add_query_arg(
 			AliasDomainCheckHandler::GET_PARAM,
 			$token,

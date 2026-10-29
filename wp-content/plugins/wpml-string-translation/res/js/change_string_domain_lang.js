@@ -171,16 +171,39 @@ WPML_String_Translation.ChangeDomainLanguage = function () {
 				data:     data,
 				dataType: 'json',
 				success:  function (response) {
-					if (response.success) {
+					if (response && response.success) {
 						window.location.reload(true);
+						return;
 					}
-					if (response.error) {
-						privateData.spinner.removeClass( 'is-active' ).css('display', 'none');
-						alert(response.error);
-						privateData.apply_button.prop('disabled', false);
+					// wp_send_json_error() answers {success:false,data:'...'};
+					// a 2xx carrying one is a refusal and used to match neither
+					// branch.
+					if (response && false === response.success) {
+						showFailure(response.data);
+						return;
 					}
+					if (response && response.error) {
+						showFailure(response.error);
+					}
+				},
+				// A refused language is answered with 400 (and a caller without
+				// the capability with 403), which jQuery routes here and never
+				// to success:. Without this the dialog stayed frozen with the
+				// apply button disabled and the spinner running.
+				error:    function (xhr) {
+					showFailure(xhr && xhr.responseJSON ? xhr.responseJSON.data : null);
 				}
 			});
+	};
+
+	/**
+	 * Stop the spinner, give the apply button back, and say what happened. The
+	 * fallback sentence is localized in PHP and shipped with the nonce.
+	 */
+	var showFailure = function (message) {
+		privateData.spinner.removeClass( 'is-active' ).css('display', 'none');
+		privateData.apply_button.prop('disabled', false);
+		alert(message ? message : wpml_st_change_domain_data.errorText);
 	};
 
 	var checkAllClick = function () {

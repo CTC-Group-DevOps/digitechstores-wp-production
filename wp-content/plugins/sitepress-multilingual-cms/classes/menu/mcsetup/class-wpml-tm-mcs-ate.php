@@ -1,7 +1,5 @@
 <?php
 
-use WPML\TM\ATE\ClonedSites\Lock;
-
 class WPML_TM_MCS_ATE extends WPML_Twig_Template_Loader {
 	private $authentication;
 	private $authentication_data;
@@ -26,15 +24,23 @@ class WPML_TM_MCS_ATE extends WPML_Twig_Template_Loader {
 		$this->strings             = $strings;
 		$this->authentication_data = get_option( WPML_TM_ATE_Authentication::AMS_DATA_KEY, array() );
 
-		$wpml_support      = esc_html__( 'WPML support', 'wpml-translation-management' );
-		$wpml_support_link = '<a target="_blank" rel="noopener" href="https://wpml.org/forums/forum/english-support/">' . $wpml_support . '</a>';
+		/* translators: Link text inside a sentence about a problem with automatic translation; it opens the WPML support pages. It is the name of the support team, a noun. */
+		$wpml_support      = esc_html__( 'WPML support', 'sitepress' );
+		$wpml_support_url  = \WPML\OutboundLinks\OutboundLinks::to(
+			\WPML\UserInterface\Web\Core\SharedKernel\Domain\SupportForumUrl::URL,
+			array(
+				'medium'   => 'settings',
+				'campaign' => 'support',
+			)
+		);
+		$wpml_support_link = '<a target="_blank" rel="noopener" href="' . esc_url( $wpml_support_url ) . '">' . $wpml_support . '</a>';
 
 		$this->model = [
-			'status_button_text'          => $this->get_status_button_text(),
-			'synchronize_button_text'     => $this->strings->get_synchronize_button_text(),
-			'is_ate_communication_locked' => Lock::isLocked(),
-			'strings'                     => [
-				'error_help' => sprintf( esc_html__( 'Please try again in a few minutes. If the problem persists, please contact %s.', 'wpml-translation-management' ), $wpml_support_link ),
+			'status_button_text'      => $this->get_status_button_text(),
+			'synchronize_button_text' => $this->strings->get_synchronize_button_text(),
+			'strings'                 => [
+				/* translators: %s: link to WPML support. */
+				'error_help' => sprintf( esc_html__( 'Please try again in a few minutes. If the problem persists, please contact %s.', 'sitepress' ), $wpml_support_link ),
 			],
 		];
 	}
@@ -50,7 +56,9 @@ class WPML_TM_MCS_ATE extends WPML_Twig_Template_Loader {
 
 	public function get_model( array $args = array() ) {
 		if ( array_key_exists( 'wizard', $args ) ) {
-			$this->model['strings']['error_help'] = esc_html__( 'You can continue the Translation Management configuration later by going to WPML -> Settings -> Translation Editor.', 'wpml-translation-management' );
+			$this->model['strings']['error_help'] = wpml_bold_names(
+				__( 'You can continue the <b>Translation Management</b> configuration later by going to WPML -> Settings -> Translation Editor.', 'sitepress' )
+			);
 		}
 
 		return $this->model;

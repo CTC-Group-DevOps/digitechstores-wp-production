@@ -35,7 +35,7 @@ class WPML_TM_Page_Builders_Field_Wrapper {
 			return null;
 		}
 
-		return apply_filters( 'wpml_st_get_string_package', false, $this->get_package_id() );
+		return apply_filters( 'wpml_st_get_string_package', null, $this->get_package_id() );
 	}
 
 	public function get_string_id() {
@@ -51,21 +51,28 @@ class WPML_TM_Page_Builders_Field_Wrapper {
 	}
 
 	public function get_string_type() {
-		$result = false;
-		if ( $this->is_valid( true ) ) {
-			$package_strings = $this->get_package()->get_package_strings();
-			if ( ! $package_strings ) {
-				return false;
-			}
-			$package_strings = wp_list_pluck( $package_strings, 'type', 'id' );
-			$result          = $package_strings[ $this->get_string_id() ] ?? false;
-		}
-
-		return $result;
+		return $this->getStringColumn( 'type' );
 	}
 
-	public static function get_wrap_tag( $string ) {
-		return isset( $string->wrap_tag ) ? $string->wrap_tag : '';
+	public function getStringName() {
+		return $this->getStringColumn( 'name' );
+	}
+
+	private function getStringColumn( $column ) {
+		if ( ! $this->is_valid( true ) ) {
+			return false;
+		}
+
+		$package_strings = $this->get_package()->get_package_strings();
+		if ( ! $package_strings ) {
+			return false;
+		}
+
+		return wp_list_pluck( $package_strings, $column, 'id' )[ $this->get_string_id() ] ?? false;
+	}
+
+	public static function get_wrap_tag( $wpml_string ) {
+		return isset( $wpml_string->wrap_tag ) ? $wpml_string->wrap_tag : '';
 	}
 
 	public static function generate_field_slug( $package_id, $string_id ) {

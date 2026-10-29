@@ -14,13 +14,13 @@
             "HTML-anker"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Voeg een snelkoppeling toe aan dit blok bij het laden van de pagina met de URL “#anchor”."
+            "Voeg een snelkoppeling naar dit blok toe bij het laden van de pagina via de “#anchor”-URL."
          ],
          "Additional CSS class(es)": [
-            "Extra CSS-klasse(n)"
+            "Extra CSS-class(es)"
          ],
          "Separate multiple classes with spaces.": [
-            "Scheid meerdere klassen met spaties."
+            "Scheid meerdere classes met spaties."
          ],
          "Color": [
             "Kleur"
@@ -41,7 +41,7 @@
             "Blokmarge"
          ],
          "Block padding": [
-            "Blokopvulling"
+            "Blokpadding"
          ],
          "LANGUAGE": [
             "TAAL"
@@ -50,16 +50,16 @@
             "Taalafstand"
          ],
          "Language padding": [
-            "Taalopvulling"
+            "Taalpadding"
          ],
          "Display": [
             "Weergave"
          ],
          "Show flag": [
-            "Vlag tonen"
+            "Vlag weergeven"
          ],
          "Show language name": [
-            "Taalnaam tonen"
+            "Taalnaam weergeven"
          ],
          "Display language name in": [
             "Taalnaam weergeven in"
@@ -80,22 +80,22 @@
             "Afstand"
          ],
          "Switch to %s": [
-            "Schakel over naar %s"
+            "Overschakelen naar %s"
          ],
          "Available languages": [
             "Beschikbare talen"
          ],
          "Allow wrapping to multiple lines": [
-            "Meerdere regels toestaan"
+            "Omloop naar meerdere regels toestaan"
          ],
          "Open on click": [
             "Openen bij klikken"
          ],
          "Show arrow": [
-            "Pijl tonen"
+            "Pijl weergeven"
          ],
          "Layout": [
-            "Lay-out"
+            "Layout"
          ],
          "Justification": [
             "Uitlijning"
@@ -143,7 +143,7 @@
             "Items rechts uitlijnen"
          ],
          "Justify items space between": [
-            "Items verdelen met ruimte ertussen"
+            "Items spreiden"
          ],
          "Horizontal": [
             "Horizontaal"
@@ -161,7 +161,7 @@
             "Groot"
          ],
          "X-Large": [
-            "X-groot"
+            "Extra groot"
          ],
          "Ab": [
             "Ab"
@@ -176,19 +176,16 @@
             "Klein"
          ],
          "Displays the WPML Language Switcher.": [
-            "Toont de WPML-taalschakelaar."
+            "Geeft de WPML-taalschakelaar weer."
          ],
          "displays the WPML Language Switcher": [
-            "toont de WPML-taalschakelaar"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Toont de WPML-taalschakelaar. <br/> Leer <a>hoe u dit blok vertaalt</a>."
+            "geeft de WPML-taalschakelaar weer"
          ],
          "Navigation Language Switcher": [
-            "Navigatietaalschakelaar"
+            "Navigatie-taalschakelaar"
          ],
          "Reset all": [
-            "Alles resetten"
+            "Alles opnieuw instellen"
          ]
       }
    }

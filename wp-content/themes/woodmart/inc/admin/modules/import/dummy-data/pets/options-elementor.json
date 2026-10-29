@@ -422,7 +422,7 @@
     "checkout_remove_button": "1",
     "checkout_link_to_product": "1",
     "shipping_progress_bar_enabled": "1",
-    "shipping_progress_bar_amount": "1000",
+    "shipping_progress_bar_amount": "100",
     "shop_view": "grid",
     "products_columns": "5",
     "products_hover": "buttons-on-hover",
@@ -440,5 +440,7 @@
     "legacy_product_tabs_enabled": "0",
     "products_columns_tablet": "3",
     "carousel_arrows_hover_style": "1",
-    "thums_position": "bottom"
+    "thums_position": "bottom",
+    "estimate_delivery_enabled": "1",
+    "popular_requests": "Dry Dog Food\r\nCat Litter\r\nFlea Treatment\r\nTreats"
 }

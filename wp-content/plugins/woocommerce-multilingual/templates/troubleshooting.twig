@@ -1,8 +1,11 @@
 <div class="wrap wcml_trblsh">
+    {% if visible.header %}
     <h2>{{ header.title }}</h2>
     <div class="wcml_trbl_warning">
         <h3>{{ header.warning }}</h3>
     </div>
+    {% endif %}
+    {% if visible.status %}
     <div class="wcml_trbl_status">
 			<h3>{{ status.title }}</h3>
 			<ul class="ul-square">
@@ -11,6 +14,8 @@
 			{% endfor %}
 			</ul>
 		</div>
+    {% endif %}
+		{% if visible.synchronizeData %}
 		<div class="wcml_trbl_section">
 			<h3>{{ synchronizeData.title }}</h3>
 			<ul>
@@ -46,6 +51,8 @@
 				</li>
 			</ul>
 		</div>
+		{% endif %}
+		{% if visible.connect %}
 		<div class="wcml_trbl_section">
 			<h3>{{ connect.title }}</h3>
 			<ul>
@@ -58,6 +65,8 @@
 				</li>
 			</ul>
 		</div>
+		{% endif %}
+		{% if visible.taxonomies %}
 		<div class="wcml_trbl_section">
 			<h3>{{ taxonomies.title }}</h3>
 			<ul>
@@ -92,7 +101,8 @@
 				<li>{{ taxonomies.link|raw }}</li>
 			</ul>
 		</div>
-		{% if reviews.reviewsEnable %}
+		{% endif %}
+		{% if visible.reviews and reviews.reviewsEnable %}
 			<div class="wcml_trbl_section">
 				<h3>{{ reviews.title }}</h3>
 				<ul>
@@ -108,6 +118,7 @@
 				</ul>
 			</div>
 		{% endif %}
+		{% if visible.cleanup %}
 		<div class="wcml_trbl_section">
 			<h3>{{ cleanup.title }}</h3>
 			<ul>
@@ -120,8 +131,10 @@
 				</li>
 			</ul>
 		</div>
+		{% endif %}
+		{% if visible.run %}
 		<div class="wcml_trbl_action">
-			<button type="button" class="button-primary" id="wcml_trbl_run">{{ run.start }}</button>
+			<button type="button" class="button-primary wpml-button base-btn" id="wcml_trbl_run">{{ run.start }}</button>
 			<span class="spinner"></span>
 		</div>
 		<div class="wcml_trbl_warning wcml_trbl_error">
@@ -143,8 +156,11 @@
 				</li>
 			</ul>
     </div>
+		{% endif %}
+		{% if visible.settings %}
 		<div class="wcml_trbl_status">
       <h3>{{ settings.title }}</h3>
 			<textarea style="font-size:12px;width:100%;margin-bottom:10px" wrap="off" rows="16" readonly="readonly">{{ settings.data|raw }}</textarea>
 		</div>
+		{% endif %}
 </div>

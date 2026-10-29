@@ -221,12 +221,54 @@ class WC_Conditional_Content_Admin_Controller {
 
 		if ( isset( $_POST['wccc_rule'] ) ) {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-			update_post_meta( $post_id, 'wccc_rule', $_POST['wccc_rule'] );
+			update_post_meta( $post_id, 'wccc_rule', $this->sanitize_rule_keys( $_POST['wccc_rule'] ) );
 		} else {
 			delete_post_meta( $post_id, 'wccc_rule' );
 		}
 
 		return null;
+	}
+
+	/**
+	 * Rebuild a posted rule structure with sanitised group and rule keys.
+	 *
+	 * The rule values are stored as posted - that debt stays declared - but the
+	 * keys are echoed back into the name attributes of the next edit screen,
+	 * where classes/inputs/select.php leaves a name containing the Backbone
+	 * template sentinel unescaped. sanitize_key() removes the primitive.
+	 *
+	 * @param mixed $groups The posted wccc_rule value.
+	 *
+	 * @return array The same structure with clean keys.
+	 */
+	private function sanitize_rule_keys( $groups ) {
+		if ( ! is_array( $groups ) ) {
+			return array();
+		}
+
+		$clean = array();
+
+		foreach ( $groups as $group_id => $rules ) {
+			$group_key = sanitize_key( (string) $group_id );
+
+			if ( '' === $group_key || ! is_array( $rules ) ) {
+				continue;
+			}
+
+			$clean[ $group_key ] = array();
+
+			foreach ( $rules as $rule_id => $rule ) {
+				$rule_key = sanitize_key( (string) $rule_id );
+
+				if ( '' === $rule_key || ! is_array( $rule ) ) {
+					continue;
+				}
+
+				$clean[ $group_key ][ $rule_key ] = $rule;
+			}
+		}
+
+		return $clean;
 	}
 
 	/**

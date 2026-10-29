@@ -14,26 +14,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Min_Max_Compatibility {
 
 	/**
 	 * The bundled item object whose qty input is being filtered.
 	 *
-	 * @var WC_Bundled_Item
+	 * @var WC_Bundled_Item|false
 	 */
 	public static $bundled_item = false;
 
 	/**
 	 * Unfiltered quantity input data used at restoration time.
 	 *
-	 * @var array
+	 * @var array|false
 	 */
 	public static $unfiltered_args = false;
 
 	/**
 	 * Initialize hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		/*
@@ -287,8 +289,8 @@ class WC_PB_Min_Max_Compatibility {
 	/**
 	 * Restore min/max bundled item quantities to the values they had before min/max interference.
 	 *
-	 * @param  array  $data The quantity input arguments.
-	 * @param  object $product The product object.
+	 * @param  array        $data The quantity input arguments.
+	 * @param  object|false $product The product object, or false outside a product context.
 	 * @return array
 	 */
 	public static function restore_quantity_input_args( $data, $product ) {

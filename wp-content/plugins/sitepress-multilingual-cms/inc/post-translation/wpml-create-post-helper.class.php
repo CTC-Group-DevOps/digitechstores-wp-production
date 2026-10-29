@@ -9,28 +9,30 @@ class WPML_Create_Post_Helper {
 	}
 
 	public function insert_post( array $postarr, $lang = null, $wp_error = false ) {
-		$current_language = null;
-		$postarr          = $this->slash_and_preserve_tag_ids( $postarr );
+		$has_switched_lang = false;
+		$postarr           = $this->slash_and_preserve_tag_ids( $postarr );
 
 		if ( $lang ) {
-			$current_language = $this->sitepress->get_current_language();
+			$has_switched_lang = true;
 			$this->sitepress->switch_lang( $lang, false );
 		}
 
-		if ( isset( $postarr['ID'] ) ) {
-			$returnTrue = \WPML\FP\Fns::always( true );
-			add_filter( 'wpml_disable_term_adjust_id', $returnTrue );
-			$new_post_id = wp_update_post( $postarr, $wp_error );
-			remove_filter( 'wpml_disable_term_adjust_id', $returnTrue );
-		} else {
-			add_filter( 'wp_insert_post_empty_content', array( $this, 'allow_empty_post' ), 10, 0 );
-			$new_post_id = wp_insert_post( $postarr, $wp_error );
-			remove_filter( 'wp_insert_post_empty_content', array( $this, 'allow_empty_post' ) );
+		try {
+			if ( isset( $postarr['ID'] ) ) {
+				$returnTrue = \WPML\FP\Fns::always( true );
+				add_filter( 'wpml_disable_term_adjust_id', $returnTrue );
+				$new_post_id = wp_update_post( $postarr, $wp_error );
+				remove_filter( 'wpml_disable_term_adjust_id', $returnTrue );
+			} else {
+				add_filter( 'wp_insert_post_empty_content', array( $this, 'allow_empty_post' ), 10, 0 );
+				$new_post_id = wp_insert_post( $postarr, $wp_error );
+				remove_filter( 'wp_insert_post_empty_content', array( $this, 'allow_empty_post' ) );
 
-		}
-
-		if ( $current_language ) {
-			$this->sitepress->switch_lang( $current_language, false );
+			}
+		} finally {
+			if ( $has_switched_lang ) {
+				$this->sitepress->switch_lang();
+			}
 		}
 
 		return $new_post_id;

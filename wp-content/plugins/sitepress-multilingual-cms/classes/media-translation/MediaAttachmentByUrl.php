@@ -16,7 +16,7 @@ class MediaAttachmentByUrl {
 	public $cache_hit_flag = null;
 
 	public function __construct( \wpdb $wpdb, $url, $language ) {
-		$this->url      = $url;
+		$this->url      = \WPML_Media_Attachment_By_URL::normalizeUrl( $url );
 		$this->language = $language;
 		$this->wpdb     = $wpdb;
 	}
@@ -42,11 +42,13 @@ class MediaAttachmentByUrl {
 	}
 
 	private function get_id_from_guid() {
-		$attachment_id = $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$wpdb = $this->wpdb;
+
+		$attachment_id = $wpdb->get_var(
+			$wpdb->prepare(
 				"
-		SELECT ID FROM {$this->wpdb->posts} p
-		JOIN {$this->wpdb->prefix}icl_translations t ON t.element_id = p.ID
+		SELECT ID FROM {$wpdb->posts} p
+		JOIN {$wpdb->prefix}icl_translations t ON t.element_id = p.ID
 		WHERE t.element_type='post_attachment' AND t.language_code=%s AND p.guid=%s
 		LIMIT 1
 		",
@@ -59,16 +61,17 @@ class MediaAttachmentByUrl {
 	}
 
 	private function get_id_from_meta() {
+		$wpdb = $this->wpdb;
 
 		$uploads_dir   = wp_get_upload_dir();
-		$relative_path = ltrim( preg_replace( '@^' . $uploads_dir['baseurl'] . '@', '', $this->url ), '/' );
+		$relative_path = ltrim( preg_replace( '@^' . preg_quote( $uploads_dir['baseurl'], '@' ) . '@', '', $this->url ), '/' );
 
-		$attachment_id = $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$attachment_id = $wpdb->get_var(
+			$wpdb->prepare(
 				"
 			SELECT post_id 
-			FROM {$this->wpdb->postmeta} p 
-			JOIN {$this->wpdb->prefix}icl_translations t ON t.element_id = p.post_id 
+			FROM {$wpdb->postmeta} p
+			JOIN {$wpdb->prefix}icl_translations t ON t.element_id = p.post_id
 			WHERE p.meta_key='_wp_attached_file' AND p.meta_value=%s 
 				AND t.element_type='post_attachment' AND t.language_code=%s
 			",
@@ -85,15 +88,16 @@ class MediaAttachmentByUrl {
 	}
 
 	private function get_attachment_image_from_meta_fallback( $relative_path ) {
+		$wpdb          = $this->wpdb;
 		$attachment_id = null;
 
 		$relative_path_original = preg_replace( self::SIZE_SUFFIX_REGEXP, '.$3', $relative_path );
-		$attachment_id_original = $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		$attachment_id_original = $wpdb->get_var(
+			$wpdb->prepare(
 				"
 			SELECT p.post_id 
-			FROM {$this->wpdb->postmeta} p
-			JOIN {$this->wpdb->prefix}icl_translations t ON t.element_id = p.post_id
+			FROM {$wpdb->postmeta} p
+			JOIN {$wpdb->prefix}icl_translations t ON t.element_id = p.post_id
 			WHERE p.meta_key='_wp_attached_file' AND p.meta_value=%s 
 				AND t.element_type='post_attachment' AND t.language_code=%s
 			",

@@ -95,13 +95,14 @@ class WPML_TranslationProxy_Communication_Log {
 	}
 
 	public function add_com_log_link() {
-		$url = esc_attr( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=com-log' );
+		$url = esc_attr( 'admin.php?page=' . WPML_PLUGIN_FOLDER . '/menu/support.php&tool=communication-log' );
 		?>
 				  <?php
 					printf(
+						/* translators: Line on the Support screen. %1$s: a line break, %2$s: the address of the communication log screen, filling the link tag that is already in the text. */
 						__(
 							'For retrieving debug information for communication between your%1$s site and the translation system, use the <a href="%2$s">communication log</a> page.',
-							'wpml-translation-management'
+							'sitepress'
 						),
 						'<br>',
 						$url
@@ -120,8 +121,9 @@ class WPML_TranslationProxy_Communication_Log {
 		if ( $this->is_logging_enabled() ) {
 
 			$max_log_length = 10000;
+			$max_entry_length = $max_log_length / 2 - strlen( PHP_EOL );
 
-			$string = $this->now() . ' - ' . $string;
+			$string = $this->shorten( $this->now() . ' - ' . $string, $max_entry_length );
 
 			$log  = $this->get_log();
 			$log .= $string;
@@ -129,11 +131,39 @@ class WPML_TranslationProxy_Communication_Log {
 
 			$log_length = strlen( $log );
 			if ( $log_length > $max_log_length ) {
-				$log = substr( $log, $log_length - $max_log_length );
+				$log = $this->drop_oldest_entries( $log, $log_length - $max_log_length );
 			}
 
 			$this->save_log( $log );
 		}
+	}
+
+	private function shorten( $string, $max_length ) {
+		$length = strlen( $string );
+		if ( $length <= $max_length ) {
+			return $string;
+		}
+
+		$note = ' [shortened: %d characters left out]';
+		$keep = $max_length - strlen( sprintf( $note, $length ) );
+
+		if ( function_exists( 'mb_strcut' ) ) {
+			$kept     = mb_strcut( $string, 0, $keep, 'UTF-8' );
+			$left_out = mb_strlen( substr( $string, strlen( $kept ) ), 'UTF-8' );
+		} else {
+			$kept     = substr( $string, 0, $keep );
+			$left_out = $length - $keep;
+		}
+
+		return $kept . sprintf( $note, $left_out );
+	}
+
+	private function drop_oldest_entries( $log, $length ) {
+		if ( preg_match( '#^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2} [ap]m - #m', $log, $matches, PREG_OFFSET_CAPTURE, $length ) ) {
+			return substr( $log, $matches[0][1] );
+		}
+
+		return substr( $log, $length );
 	}
 
 	private function save_log( $log ) {

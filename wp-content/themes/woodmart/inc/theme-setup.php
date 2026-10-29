@@ -410,7 +410,7 @@ if ( ! function_exists( 'woodmart_register_required_plugins' ) ) {
 		);
 
 		$external_builder = 'wpb' === woodmart_get_current_page_builder() ? 'wpb' : 'elementor';
-		$builder          = 'native' === woodmart_get_opt( 'current_builder', 'native' ) ? 'gutenberg' : $external_builder;
+		$builder          = 'native' === woodmart_get_opt( 'current_builder' ) ? 'gutenberg' : $external_builder;
 
 		if ( ! empty( $_GET['wd_builder'] ) ) { // phpcs:ignore
 			$builder = wp_unslash( $_GET['wd_builder'] ); // phpcs:ignore
@@ -441,10 +441,6 @@ if ( ! function_exists( 'woodmart_register_required_plugins' ) ) {
 			$plugins = array_filter(
 				$plugins,
 				function ( $plugin ) {
-					if ( 'woodmart-images-optimizer' === $plugin['slug'] && ! defined( 'WOODMART_IMAGES_OPTIMIZER_VERSION' ) ) {
-						return '';
-					}
-
 					if ( 'woodmart-mcp' === $plugin['slug'] && ! defined( 'WOODMART_MCP_VERSION' ) ) {
 						return '';
 					}

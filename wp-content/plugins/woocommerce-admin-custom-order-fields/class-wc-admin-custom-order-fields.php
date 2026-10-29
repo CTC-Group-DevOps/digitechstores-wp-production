@@ -34,7 +34,7 @@ class WC_Admin_Custom_Order_Fields extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	public const VERSION = '1.17.4';
+	public const VERSION = '1.18.0';
 
 	/** @var WC_Admin_Custom_Order_Fields single instance of this plugin */
 	protected static $instance;
@@ -259,6 +259,11 @@ class WC_Admin_Custom_Order_Fields extends Framework\SV_WC_Plugin {
 
 		check_ajax_referer( 'search-field', 'security' );
 
+		// a nonce is a CSRF token, not an authorization check: only users allowed to view orders may query order meta
+		if ( ! current_user_can( 'edit_shop_orders' ) ) {
+			wp_send_json_error( [ 'message' => 'Insufficient permissions.' ], 403 );
+		}
+
 		// the search term
 		$search_term = isset( $_GET['term'] ) ? urldecode( stripslashes( sanitize_text_field( $_GET['term'] ) ) ) : '';
 
@@ -269,6 +274,11 @@ class WC_Admin_Custom_Order_Fields extends Framework\SV_WC_Plugin {
 			die;
 		}
 
+		// only allow searching the meta keys of configured custom order fields (never arbitrary order meta such as billing data or payment tokens)
+		if ( ! $this->is_custom_order_field_meta_key( $field_name ) ) {
+			wp_send_json_error( [ 'message' => 'Unknown field.' ], 400 );
+		}
+
 		$found_values = [];
 		$meta_table   = Framework\SV_WC_Order_Compatibility::get_orders_meta_table();
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -277,7 +287,7 @@ class WC_Admin_Custom_Order_Fields extends Framework\SV_WC_Plugin {
 			FROM {$meta_table}
 			WHERE meta_key = %s
 			  AND meta_value LIKE %s
-		",$field_name, '%' . $search_term . '%' ) );
+		",$field_name, '%' . $wpdb->esc_like( $search_term ) . '%' ) );
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		if ( $results ) {
@@ -483,6 +493,34 @@ class WC_Admin_Custom_Order_Fields extends Framework\SV_WC_Plugin {
 		}
 
 		return $order_fields;
+	}
+
+
+	/**
+	 * Determines whether a meta key belongs to one of the configured custom order fields.
+	 *
+	 * Used as an allow-list wherever a request supplies a meta key, so that only plugin-owned
+	 * order meta can be read or searched.
+	 *
+	 * @since 1.18.0
+	 *
+	 * @param string $meta_key meta key supplied by the request
+	 * @return bool
+	 */
+	public function is_custom_order_field_meta_key( $meta_key ) : bool {
+
+		if ( ! is_string( $meta_key ) || '' === $meta_key ) {
+			return false;
+		}
+
+		foreach ( $this->get_order_fields() as $order_field ) {
+
+			if ( hash_equals( $order_field->get_meta_key(), $meta_key ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 

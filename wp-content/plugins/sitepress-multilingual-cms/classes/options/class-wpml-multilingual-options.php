@@ -64,7 +64,6 @@ class WPML_Multilingual_Options {
 	private function add_notice( $page_id ) {
 		$notice_id     = md5( $page_id );
 		$admin_notices = wpml_get_admin_notices();
-		$admin_notices->remove_notice( self::NOTICE_GROUP, $notice_id );
 
 		$text   = '<h4>' . __( 'You can set different options for each language', 'sitepress' ) . '</h4>'
 			. '<p>' . __( 'Use the language switcher in the top admin bar to switch languages, then set and save options for each language individually.', 'sitepress' ) . '</p>';
@@ -72,7 +71,7 @@ class WPML_Multilingual_Options {
 		$notice->set_css_class_types( 'notice-info' );
 		$notice->set_restrict_to_screen_ids( [ $page_id ] );
 		$notice->set_dismissible( true );
-		$admin_notices->add_notice( $notice, true );
+		$admin_notices->add_notice( $notice );
 	}
 
 	public function init_hooks() {

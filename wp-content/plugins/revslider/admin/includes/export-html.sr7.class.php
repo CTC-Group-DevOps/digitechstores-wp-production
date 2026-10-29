@@ -263,20 +263,20 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 				$repl_to = end($repl_to);
 				$remove	 = false;
 				
-				if(is_file($upload_dir.$_file)){
+				if($this->is_export_media_file($upload_dir, $_file)){
 					$this->add_file_to_zip($upload_dir.$_file, $use_path_raw);
 					$remove = true;
-				}elseif(is_file($upload_dir_multi.$_file)){
+				}elseif($this->is_export_media_file($upload_dir_multi, $_file)){
 					$this->add_file_to_zip($upload_dir_multi.$_file, $use_path_raw);
 					$remove = true;
-				}elseif(is_file(RS_PLUGIN_PATH.$_file)){
+				}elseif($this->is_export_media_file(RS_PLUGIN_PATH, $_file)){
 					//we need to be special with internal files
 					$__file = basename($_file);
 					$this->add_file_to_zip($use_path_raw.'/'.$__file, $use_path_raw);
 					$remove = true;
 					$add = '/';
 				}else{
-					if(defined('WHITEBOARD_PLUGIN_PATH') && is_file(WHITEBOARD_PLUGIN_PATH.$_file)){
+					if(defined('WHITEBOARD_PLUGIN_PATH') && $this->is_export_media_file(WHITEBOARD_PLUGIN_PATH, $_file)){
 						//we need to be special with svg files
 						$__file = basename($_file);
 						$this->add_file_to_zip(WHITEBOARD_PLUGIN_PATH.$__file, $use_path_raw);
@@ -284,7 +284,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 						$add = '/';
 					}
 					foreach($replace ?? [] as $_path){
-						if(!is_file($_path.$_file)) continue;
+						if(!$this->is_export_media_file($_path, $_file)) continue;
 						//we need to be special with svg files
 						$mf = str_replace('//', '/', $_path.$_file);
 						$__file = basename($_file);

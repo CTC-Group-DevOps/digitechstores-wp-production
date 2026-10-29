@@ -7,41 +7,62 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "he_IL"
          },
+         "Sending for translation": [
+            "שולח לתרגום"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "לא ניתן היה להתחיל בתרגום מכיוון שהשרת לא ענה."
+         ],
+         "This translation cannot be opened right now.": [
+            "לא ניתן לפתוח תרגום זה כרגע."
+         ],
+         "Refresh this page": [
+            "רענן עמוד זה"
+         ],
          "Translation Dashboard": [
-            "לוח מחוונים לתרגום"
+            "לוח בקרת תרגום"
          ],
          "WPML Translation Editor": [
-            "עורך התרגום של WPML"
+            "עורך תרגום של WPML"
          ],
          "WordPress Editor": [
-            "עורך וורדפרס"
+            "עורך WordPress"
+         ],
+         "The WordPress Editor doesn't offer Automatic Translation, <b>Translation Memory</b> and other features that make translation easier.": [
+            "עורך WordPress אינו מציע תרגום אוטומטי, <b>זיכרון תרגום</b> ותכונות אחרות שמקלות על התרגום."
          ],
          "Also, switching back to WPML's Translation Editor later will require re-translating content that you translated with the WordPress editor.": [
-            "כמו כן, חזרה מאוחר יותר לעורך התרגום של WPML תדרוש תרגום מחדש של תוכן שתרגמת באמצעות עורך וורדפרס."
+            "כמו כן, חזרה לעורך התרגום של WPML בשלב מאוחר יותר תדרוש תרגום מחדש של תוכן שתרגמת באמצעות עורך WordPress."
+         ],
+         "This translation was previously created in the WordPress editor. When you switch to WPML Translation Editor, the structure of the translated post will be updated to match the original, but WPML will use your existing translation as a base so the tone and terminology are preserved.": [
+            "תרגום זה נוצר בעבר בעורך WordPress. כאשר תעבור לעורך התרגום של WPML, מבנה הפוסט המתורגם יעודכן כך שיתאים למקור, אך WPML ישתמש בתרגום הקיים שלך כבסיס כדי שהטון והטרמינולוגיה יישמרו."
          ],
          "This will overwrite content you translated with the WordPress Editor. If you switch now, you'll have to translate selected content again.": [
-            "פעולה זו תחליף תוכן שתרגמת באמצעות עורך וורדפרס. אם תעבור עכשיו, תצטרך לתרגם שוב תוכן נבחר."
+            "פעולה זו תדרוס תוכן שתרגמת באמצעות עורך WordPress. אם תעבור עכשיו, תצטרך לתרגם שוב תוכן נבחר."
+         ],
+         "I understand, switch to the WordPress Editor": [
+            "אני מבין, עבור לעורך WordPress"
+         ],
+         "I understand, switch to %s": [
+            "אני מבין, עבור אל %s"
+         ],
+         "I understand, switch to <b>Translation Dashboard</b>": [
+            "אני מבין, עבור אל <b>לוח בקרת תרגום</b>"
          ],
          "You are about to translate with the %s": [
             "אתה עומד לתרגם באמצעות %s"
          ],
          "Translate with the WordPress Editor if you need different designs per language or if the content isn't compatible with WPML's Translation Editor.": [
-            "תרגם באמצעות עורך וורדפרס אם אתה זקוק לעיצובים שונים לכל שפה או אם התוכן אינו תואם לעורך התרגום של WPML."
+            "תרגם באמצעות עורך WordPress אם דרושים לך עיצובים שונים לכל שפה או אם התוכן אינו תואם לעורך התרגום של WPML."
          ],
          "What do you want to translate?": [
             "מה ברצונך לתרגם?"
-         ],
-         "I understand, switch to the WordPress Editor": [
-            "אני מבין, עבור לעורך וורדפרס"
          ],
          "Apply": [
             "החל"
          ],
          "Cancel": [
-            "ביטול"
-         ],
-         "I understand, switch to %s": [
-            "אני מבין, עבור אל %s"
+            "בטל"
          ],
          "Only this %s": [
             "רק %s זה"
@@ -50,19 +71,13 @@
             "מומלץ"
          ],
          "All %s": [
-            "כל %s"
+            "כל ה-%s"
          ],
          "All the site's content": [
             "כל תוכן האתר"
          ],
-         "I understand, switch to Translation Dashboard": [
-            "אני מבין, עבור ללוח המחוונים לתרגום"
-         ],
-         "The WordPress Editor doesn't offer Automatic Translation, Translation Memory and other features that make translation easier.": [
-            "עורך וורדפרס אינו מציע תרגום אוטומטי, זיכרון תרגום ותכונות נוספות שמקלות על התרגום."
-         ],
          "Translate items in batch after reviewing the cost of AI translation": [
-            "תרגם פריטים בקבוצה לאחר סקירת עלות התרגום באמצעות AI"
+            "תרגם פריטים בסדרה לאחר סקירת עלות תרגום ה-AI"
          ]
       }
    }

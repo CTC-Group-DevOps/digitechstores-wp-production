@@ -1,2 +1,2 @@
-=== WPML Media Translation ===
-Stable tag: 3.1.2
+=== WPML Media ===
+Stable tag: 5.2.0

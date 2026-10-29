@@ -14,16 +14,16 @@
             "ข้อผิดพลาด"
          ],
          "« Use a different Translation Service": [
-            "« ใช้บริการแปลภาษาอื่น"
+            "« ใช้บริการการแปลอื่น"
          ],
          "Authenticate": [
-            "ยืนยันตัวตน"
+            "ตรวจสอบสิทธิ์"
          ],
          "Visit <link_to_service /> to request an API Token. This token allows WPML to connect to <service_name /> to send and receive jobs.": [
-            "เยี่ยมชม <link_to_service /> เพื่อขอ API Token โทเค็นนี้อนุญาตให้ WPML เชื่อมต่อกับ <service_name /> เพื่อส่งและรับงาน"
+            "ไปที่ <link_to_service /> เพื่อขอ API Token ซึ่งโทเค็นนี้จะช่วยให้ WPML สามารถเชื่อมต่อกับ <service_name /> เพื่อส่งและรับงานได้"
          ],
          "Search translation services": [
-            "ค้นหาบริการแปลภาษา"
+            "ค้นหาบริการการแปล"
          ],
          "Search": [
             "ค้นหา"
@@ -32,7 +32,7 @@
             "การตั้งค่า"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "ขณะนี้ไม่สามารถเชื่อมต่อบริการแปลภาษาได้เมื่อ WPML ถูกตั้งค่าให้แปลเนื้อหาของไซต์ของคุณโดยอัตโนมัติ หากต้องการใช้บริการแปลภาษา โปรดเปลี่ยนโหมดการแปลของคุณในหน้า <LinkToSettingsPage />"
+            "ในขณะนี้ยังไม่สามารถเชื่อมต่อบริการการแปลได้เมื่อตั้งค่า WPML ให้แปลเนื้อหาของไซต์โดยอัตโนมัติ หากต้องการใช้บริการการแปล โปรดเปลี่ยนโหมดการแปลของคุณในหน้า <LinkToSettingsPage />"
          ],
          "Sort descending": [
             "เรียงลำดับจากมากไปน้อย"

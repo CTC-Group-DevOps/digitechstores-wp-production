@@ -21,6 +21,7 @@ class Hooks implements \IWPML_Backend_Action {
 				'name' => 'wcmlReports',
 				'data' => [
 					'strings' => [
+						/* translators: Column heading for the language of an order or a product, in the WooCommerce analytics reports and their exported files. Noun. */
 						'languageLabel' => __( 'Language', 'woocommerce-multilingual' ),
 					],
 				],

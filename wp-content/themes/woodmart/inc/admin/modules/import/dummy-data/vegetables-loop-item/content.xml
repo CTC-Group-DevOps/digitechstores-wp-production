@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0"
+	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:wp="http://wordpress.org/export/1.2/"
+>
+
+<channel>
+	<title>Vegetables</title>
+	<link>https://dummy.xtemos.com/woodmart2/vegetables</link>
+	<description></description>
+	<pubDate>Fri, 01 Mar 2024 12:17:21 +0000</pubDate>
+	<language>en-US</language>
+	<wp:wxr_version>1.2</wp:wxr_version>
+	<wp:base_site_url>https://dummy.xtemos.com/woodmart2/</wp:base_site_url>
+	<wp:base_blog_url>https://dummy.xtemos.com/woodmart2/vegetables</wp:base_blog_url>
+	<wp:base_uploads_url>https://dummy.xtemos.com/woodmart2/vegetables/wp-content/uploads/sites/18/</wp:base_uploads_url>
+
+								<item>
+					<title><![CDATA[Product loop item – Vegetables]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/vegetables/woodmart_layout/product-loop-item-vegetables/</link>
+					<pubDate>Mon, 05 Oct 2026 13:19:25 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/vegetables/woodmart_layout/product-loop-item-vegetables/</guid>
+											<content:encoded><![CDATA[<!-- wp:wd/woo-hook {"blockId":"8e50ebe2-accc-45b9-8cc0-e828edb2208c","blockVersion":"2","hook":"woocommerce_before_shop_loop_item","marginBottom":"8"} /-->
+
+<!-- wp:wd/woo-hook {"blockId":"89702980-b8b9-43c1-94c7-a0b7659da645","blockVersion":"2","hook":"woocommerce_before_shop_loop_item_title","marginBottom":"8"} /-->
+
+<!-- wp:wd/li-product-thumbnail {"blockId":"28aab1bd-fa64-4c3f-a3c7-0eae971f3c4a","blockVersion":"2","borderRadius":"0","borderRadiusTop":"0","borderRadiusRight":"0","borderRadiusBottom":"0","borderRadiusLeft":"0"} -->
+<!-- wp:wd/li-product-labels {"blockId":"c2df5a28-3597-4cfd-872e-6ba433bed714","blockVersion":"2","exclude":"attrs,2199,2197,2200","positionTop":"7","positionLeft":"7"} /-->
+
+<!-- wp:wd/li-product-wishlist {"blockId":"83be7b1c-3c62-40e9-a513-c37cd7664795","blockVersion":"2","linkPaddingTop":"13","linkPaddingRight":"15","linkPaddingBottom":"13","linkPaddingLeft":"15","linkPaddingLock":false,"iconSize":20,"tooltip_position":"start","positionTop":"0","positionRight":"0","transitionOpacity":0.3,"opacity":0.5,"opacityParentHover":1,"linkPaddingTopTablet":"10","linkPaddingRightTablet":"10","linkPaddingBottomTablet":"10","linkPaddingLeftTablet":"10","iconSizeTablet":14} /-->
+<!-- /wp:wd/li-product-thumbnail -->
+
+<!-- wp:wd/container {"blockId":"30ef8c1e-1edf-42f3-ab97-6e457559e56b","blockVersion":"2","bgColorCode":"#ffffff","paddingTop":"15","paddingRight":"15","paddingBottom":"15","paddingLeft":"15","paddingLock":true,"marginBottom":"-52","transformTranslateY":"","transformParentHoverTranslateY":"-48","transitionTransform":0.3,"flexSize":"grow","flexGrow":"1","flexShrink":"1","flexBasis":"auto","marginBottomTablet":"0","transformParentHoverTranslateYTablet":"0","flexBasisUnits":"custom"} -->
+<div class="wp-block-wd-container wd-dir-col wd-30ef8c1e wd-transform"><!-- wp:wd/woo-hook {"blockId":"165c29cf-57f4-4661-b629-b2d7a58d2d63","blockVersion":"2","hook":"woocommerce_shop_loop_item_title"} /-->
+
+<!-- wp:wd/container {"blockId":"8d563568-cae3-40fa-a247-4630aa25cda3","blockVersion":"2","direction":"row","justify":"space-between","align":"center"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-8d563568"><!-- wp:wd/li-product-title {"blockId":"a339dbd5-32ae-40bf-b8fb-87099c360ad8","blockVersion":"2","linesLimit":true} /-->
+
+<!-- wp:wd/li-product-labels {"blockId":"7895a329-e86d-43a7-8c16-d4bbb057763a","blockVersion":"2","textAlign":"flex-end","orientation":"horizontal","source":"include","include":"2199,2197,2200","flexSize":"grow"} /--></div>
+<!-- /wp:wd/container -->
+
+<!-- wp:wd/woo-hook {"blockId":"92583dce-e888-4415-9618-4842317c40e2","blockVersion":"2","hook":"woocommerce_after_shop_loop_item_title"} /-->
+
+<!-- wp:wd/container {"blockId":"e860994f-f6f7-40df-840f-5447c02f359d","blockVersion":"2","direction":"row","justify":"space-between","align":"center","wrap":"wrap","directionMobile":"row"} -->
+<div class="wp-block-wd-container wd-dir-row wd-dir-row-sm wd-align-is-lg-center wd-e860994f"><!-- wp:wd/li-product-price {"blockId":"d954f9c6-c9f1-48a8-a0c9-61ce3a238a5d","blockVersion":"2"} /-->
+
+<!-- wp:wd/li-product-rating {"blockId":"c1772619-17c0-472c-a29c-8d4f99e7c75d","blockVersion":"2","design":"compact","show_count":false,"textColorCode":"#333333","textTpFontVariant":"600","textTpFontWeight":"600","flexSize":"custom","flexShrink":"0"} /--></div>
+<!-- /wp:wd/container -->
+
+<!-- wp:wd/woo-hook {"blockId":"25e2ed68-8310-40e4-b865-4f53d2ff428e","blockVersion":"2","hook":"woocommerce_after_shop_loop_item"} /-->
+
+<!-- wp:wd/container {"blockId":"c9d50209-6325-4976-9fe4-08540cce8a84","blockVersion":"2","direction":"row","align":"center","colGap":"15","marginTop":"auto","marginUnits":"custom","directionMobile":"column","alignMobile":"stretch"} -->
+<div class="wp-block-wd-container wd-dir-row wd-dir-col-sm wd-align-is-lg-center wd-align-is-sm-stretch wd-c9d50209"><!-- wp:wd/li-product-add-to-cart {"blockId":"a07b7953-159b-4da6-8302-296bb0bfd6e9","blockVersion":"2","stretch":true,"show_quantity":true,"quantity_overlap":false,"flexSize":"custom","flexGrow":"1","flexShrink":"1","displayWidth":"","flexSizeTablet":"grow"} /--></div>
+<!-- /wp:wd/container --></div>
+<!-- /wp:wd/container -->]]></content:encoded>
+															<wp:post_id>529</wp:post_id>
+					<wp:post_date><![CDATA[2026-10-05 13:19:25]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2026-10-05 13:19:25]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2026-10-05 13:21:22]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-05 13:21:22]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[product-loop-item-vegetables]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[woodmart_layout]]></wp:post_type>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_layout_type]]></wp:meta_key>
+							<wp:meta_value><![CDATA[product_loop_item]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_layout_conditions]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:1:{i:0;a:3:{s:20:"condition_comparison";s:7:"include";s:14:"condition_type";s:3:"all";s:15:"condition_query";s:0:"";}}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_preview_width]]></wp:meta_key>
+							<wp:meta_value><![CDATA[320]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_stretch_product]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_transform]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_overflowX]]></wp:meta_key>
+							<wp:meta_value><![CDATA[clip]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_overflowY]]></wp:meta_key>
+							<wp:meta_value><![CDATA[clip]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_borderRadiusLock]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_borderHoverRadiusLock]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundType]]></wp:meta_key>
+							<wp:meta_value><![CDATA[classic]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundImageTablet]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundImageMobile]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundImage]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundImageSize]]></wp:meta_key>
+							<wp:meta_value><![CDATA[full]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundGradientPosition]]></wp:meta_key>
+							<wp:meta_value><![CDATA[center center]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundVideo]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundVideoSource]]></wp:meta_key>
+							<wp:meta_value><![CDATA[external]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundVideoFallback]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverType]]></wp:meta_key>
+							<wp:meta_value><![CDATA[classic]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverImageTablet]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverImageMobile]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverImage]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverImageSize]]></wp:meta_key>
+							<wp:meta_value><![CDATA[full]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverGradientPosition]]></wp:meta_key>
+							<wp:meta_value><![CDATA[center center]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverVideo]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverVideoSource]]></wp:meta_key>
+							<wp:meta_value><![CDATA[external]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_backgroundHoverVideoFallback]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowPosition]]></wp:meta_key>
+							<wp:meta_value><![CDATA[outline]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowHorizontal]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowVertical]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowBlur]]></wp:meta_key>
+							<wp:meta_value><![CDATA[10]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowSpread]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowHoverPosition]]></wp:meta_key>
+							<wp:meta_value><![CDATA[outline]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowHoverHorizontal]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowHoverVertical]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowHoverBlur]]></wp:meta_key>
+							<wp:meta_value><![CDATA[10]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_box_shadowHoverSpread]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_transformProportionalScale]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_transformHoverTranslateYTablet]]></wp:meta_key>
+							<wp:meta_value><![CDATA[0]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_transformHoverTranslateY]]></wp:meta_key>
+							<wp:meta_value><![CDATA[-10]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[wd_transformHoverProportionalScale]]></wp:meta_key>
+							<wp:meta_value><![CDATA[1]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_wpb_vc_editor_type]]></wp:meta_key>
+							<wp:meta_value><![CDATA[classic]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+				</channel>
+</rss>
+	

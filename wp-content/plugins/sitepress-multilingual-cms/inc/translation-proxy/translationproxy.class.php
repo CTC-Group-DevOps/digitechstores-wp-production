@@ -3,13 +3,16 @@
 use WPML\TM\TranslationProxy\Services\AuthorizationFactory;
 use WPML\FP\Obj;
 
-require_once WPML_TM_PATH . '/inc/translation-proxy/functions.php';
-require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-basket.class.php';
-require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-api.class.php';
-require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-project.class.php';
-require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-service.class.php';
-require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-popup.class.php';
-require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-translator.class.php';
+// Under a blog license (TM not allowed) it is not, yet this class is
+// blog-license screens (wpmldev-7163).
+if ( defined( 'WPML_TM_VERSION' ) ) {
+	require_once WPML_TM_PATH . '/inc/translation-proxy/functions.php';
+	require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-api.class.php';
+	require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-project.class.php';
+	require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-service.class.php';
+	require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-popup.class.php';
+	require_once WPML_TM_PATH . '/inc/translation-proxy/translationproxy-translator.class.php';
+}
 
 define( 'CUSTOM_TEXT_MAX_LENGTH', 1000 );
 
@@ -65,14 +68,17 @@ class TranslationProxy {
 					try {
 						( new AuthorizationFactory() )->create()->authorize( new \stdClass() );
 					} catch ( \Exception $e ) {
+						/* translators: Error message shown when the translation service refused the account details. %d: the number that stands for that service. */
 						$result = new WP_Error( '1', sprintf( __( 'Authentication failed ( serviceId: %d )', 'sitepress' ), $service_id ) );
 					}
 				}
 			} catch ( \Exception $e ) {
+				/* translators: Error message shown when the translation service could not be chosen. %d: the number that stands for that service. */
 				$result = new WP_Error( '2', sprintf( __( 'Failed to select translation service  ( serviceId: %d )', 'sitepress' ), $service_id ) );
 				$sitepress->set_setting( 'translation_service', false, true );
 			}
 		} else {
+			/* translators: Error message shown when the translation service could not be chosen. %d: the number that stands for that service. */
 			$result = new WP_Error( '2', sprintf( __( 'Failed to select translation service ( serviceId: %d )', 'sitepress' ), $service_id ) );
 			$sitepress->set_setting( 'translation_service', false, true );
 		}
@@ -131,9 +137,11 @@ class TranslationProxy {
 		if ( $service ) {
 			$service_info = array();
 			if ( icl_do_not_promote() ) {
-				$service_info['name']        = __( 'Translation Service', 'wpml-translation-management' );
+				/* translators: Shown in place of the name of the translation service when the site has none set up. */
+				$service_info['name']        = __( 'Translation Service', 'sitepress' );
 				$service_info['logo']        = false;
-				$service_info['header']      = __( 'Translation Service', 'wpml-translation-management' );
+				/* translators: Shown in place of the name of the translation service when the site has none set up. */
+				$service_info['header']      = __( 'Translation Service', 'sitepress' );
 				$service_info['description'] = false;
 				$service_info['contact_url'] = false;
 			} else {
@@ -151,75 +159,6 @@ class TranslationProxy {
 		}
 
 		return $info;
-	}
-
-	public static function get_service_promo() {
-		global $sitepress;
-
-		if ( icl_do_not_promote() ) {
-			return '';
-		}
-
-		$cache_key   = 'get_service_promo';
-		$cache_found = false;
-
-		$output = wp_cache_get( $cache_key, '', false, $cache_found );
-
-		if ( $cache_found ) {
-			return $output;
-		}
-
-		$icl_translation_services = apply_filters( 'icl_translation_services', array() );
-		$icl_translation_services = array_merge( $icl_translation_services, self::get_current_service_info() );
-
-		$output = '';
-
-		if ( ! empty( $icl_translation_services ) ) {
-
-			$sitepress_settings     = $sitepress->get_settings();
-			$icl_dashboard_settings = isset( $sitepress_settings['dashboard'] ) ? $sitepress_settings['dashboard'] : array();
-
-			if ( empty( $icl_dashboard_settings['hide_icl_promo'] ) ) {
-				$exp_hidden = '';
-				$col_hidden = ' hidden';
-			} else {
-				$exp_hidden = ' hidden';
-				$col_hidden = '';
-			}
-
-			$output .= '<div class="icl-translation-services' . $exp_hidden . '">';
-			foreach ( $icl_translation_services as $service ) {
-				$output .= '<div class="icl-translation-services-inner">';
-				$output .= '<p class="icl-translation-services-logo"><span><img src="' . $service['logo'] . '" alt="' . $service['name'] . '" /></span></p>';
-				$output .= '<h3 class="icl-translation-services-header">  ' . $service['header'] . '</h3>';
-				$output .= '<div class="icl-translation-desc"> ' . $service['description'] . '</div>';
-				$output .= '</div>';
-				$output .= '<p class="icl-translation-links">';
-				$output .= '<a class="icl-mail-ico" href="' . $service['contact_url'] . '" target="_blank">' . __( 'Contact', 'wpml-translation-management' ) . " {$service['name']}</a>";
-				$output .= '<a id="icl_hide_promo" href="#">' . __( 'Hide this', 'wpml-translation-management' ) . '</a>';
-				$output .= '</p>';
-			}
-			$output .= '</div>';
-
-			$output .= '<a class="' . $col_hidden . '" id="icl_show_promo" href="#">' . __( 'Need translators?', 'wpml-translation-management' ) . '</a>';
-		}
-
-		wp_cache_set( $cache_key, $output );
-
-		return $output;
-	}
-
-	public static function get_service_dashboard_info() {
-		global $sitepress;
-
-		return self::get_custom_html(
-			'dashboard',
-			$sitepress->get_current_language(),
-			array(
-				'TranslationProxy_Popup',
-				'get_link',
-			)
-		);
 	}
 
 	public static function get_service_translators_info() {
@@ -315,7 +254,8 @@ class TranslationProxy {
 	public static function get_current_service_name() {
 
 		if ( icl_do_not_promote() ) {
-			return __( 'Translation Service', 'wpml-translation-management' );
+			/* translators: Shown in place of the name of the translation service when the site has none set up. */
+			return __( 'Translation Service', 'sitepress' );
 		}
 
 		$translation_service = self::get_current_service();
@@ -448,6 +388,19 @@ class TranslationProxy {
 		}
 
 		return self::get_tp_client()->services()->get_custom_fields( $service_id );
+	}
+
+	public static function get_extra_fields( $force_refresh = false ) {
+		if ( $force_refresh ) {
+			$networking   = wpml_tm_load_tp_networking();
+			$project      = self::get_current_project();
+			$extra_fields = $networking->get_extra_fields_remote( $project );
+			self::save_extra_fields( $extra_fields );
+		} else {
+			$extra_fields = self::get_extra_fields_local();
+		}
+
+		return self::maybe_convert_extra_fields( $extra_fields );
 	}
 
 	public static function get_extra_fields_local() {

@@ -47,12 +47,14 @@ class WPML_TM_ICL_Translation_Status {
 	}
 
 	public function rid() {
+		$row = $this->get_row();
 
-		return (int) $this->wpdb->get_var(
-			"SELECT rid
-		     FROM {$this->wpdb->prefix}{$this->table} "
-			. $this->get_where()
-		);
+		return $row ? (int) $row->rid : 0;
+	}
+
+	public function exists() {
+
+		return (bool) $this->rid();
 	}
 
 	public function status() {
@@ -65,17 +67,20 @@ class WPML_TM_ICL_Translation_Status {
 				if ( $this->translation_id ) {
 					$job = TranslationsRepository::getByTranslationId( $this->translation_id );
 					if ( $job ) {
-						$this->status_result = \WPML\FP\Obj::prop( 'status', $job );
+						$this->status_result = (int) \WPML\FP\Obj::prop( 'status', $job );
 
 						return $this->status_result;
 					}
 				}
 
-				$this->status_result = (int) $this->wpdb->get_var(
-					"SELECT status
-					 FROM {$this->wpdb->prefix}{$this->table} "
-					. $this->get_where()
-				);
+				if ( $this->translation_id && $this->tm_records->is_translation_status_preloaded( $this->translation_id ) ) {
+					$this->status_result = 0;
+
+					return 0;
+				}
+
+				$row                 = $this->get_row();
+				$this->status_result = $row ? (int) $row->status : 0;
 			}
 		}
 		return (int) $this->status_result;
@@ -83,21 +88,21 @@ class WPML_TM_ICL_Translation_Status {
 
 
 	public function md5() {
+		$row = $this->get_row();
 
-		return $this->wpdb->get_var(
-			"SELECT md5
-		     FROM {$this->wpdb->prefix}{$this->table} "
-			. $this->get_where()
-		);
+		return $row ? $row->md5 : null;
+	}
+
+	public function needs_update() {
+		$row = $this->get_row();
+
+		return $row ? (bool) $row->needs_update : false;
 	}
 
 	public function translation_id() {
+		$row = $this->get_row();
 
-		return (int) $this->wpdb->get_var(
-			"SELECT translation_id
-		     FROM {$this->wpdb->prefix}{$this->table} "
-			. $this->get_where()
-		);
+		return $row ? (int) $row->translation_id : 0;
 	}
 
 	public function trid() {
@@ -111,28 +116,39 @@ class WPML_TM_ICL_Translation_Status {
 	}
 
 	public function translator_id() {
+		$row = $this->get_row();
 
-		return (int) $this->wpdb->get_var(
-			"SELECT translator_id
-		     FROM {$this->wpdb->prefix}{$this->table} "
-			. $this->get_where()
-		);
+		return $row ? (int) $row->translator_id : 0;
 	}
 
 	public function service() {
+		$row = $this->get_row();
 
-		return (int) $this->wpdb->get_var(
-			"SELECT translation_service
-		     FROM {$this->wpdb->prefix}{$this->table} "
-			. $this->get_where()
-		);
+		return $row ? (int) $row->translation_service : 0;
 	}
 
-	private function get_where() {
-		return ' WHERE ' .
-			   ( $this->translation_id
-				   ? $this->wpdb->prepare( ' translation_id = %d ', $this->translation_id )
-				   : $this->wpdb->prepare( ' rid = %d ', $this->rid ) );
+	private function get_row() {
+		$wpdb = $this->wpdb;
+
+		if ( $this->translation_id ) {
+			return $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT rid, translation_id, status, md5, needs_update, translator_id, translation_service
+					 FROM {$wpdb->prefix}icl_translation_status
+					 WHERE translation_id = %d",
+					$this->translation_id
+				)
+			);
+		}
+
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT rid, translation_id, status, md5, needs_update, translator_id, translation_service
+				 FROM {$wpdb->prefix}icl_translation_status
+				 WHERE rid = %d",
+				$this->rid
+			)
+		);
 	}
 
 	private function get_args() {

@@ -1,4 +1,17 @@
 <?php
+
+use WPML\Core\SharedKernel\Component\WpmlOrgClient\Domain\WpmlOrgOrigin;
+
+if ( ! class_exists( WpmlOrgOrigin::class, false ) ) {
+	$wpml_org_origin_file = __DIR__ . '/../wpml/src/Core/SharedKernel/Component/WpmlOrgClient/Domain/WpmlOrgOrigin.php';
+
+	if ( file_exists( $wpml_org_origin_file ) ) {
+		require_once $wpml_org_origin_file;
+	}
+
+	unset( $wpml_org_origin_file );
+}
+
 if ( file_exists( WPML_PLUGIN_PATH . '/inc/sandbox.inc' ) ) {
 	require WPML_PLUGIN_PATH . '/inc/sandbox.inc';
 	define( 'OTG_SANDBOX', true );
@@ -18,6 +31,30 @@ if ( ! defined( 'ICL_PLUGIN_INACTIVE' ) ) {
 	define( 'ICL_PLUGIN_INACTIVE', false );
 }
 
+/*
+ * The `tm/` admin page namespace (WPML > Translations, WPML > Settings, …)
+ * belongs to core on every license. It used to be defined only by
+ * inc/constants-tm.php, which loads with tm.php — and a Blog license never
+ * loads tm.php (WPML\Plugins::loadEmbeddedTM), so every core reference to the
+ * constant fataled or fell back to a legacy slug that no longer serves
+ * (wpmldev-8159, wpmldev-8160). Defined here, before TM is consulted; the TM
+ * file keeps its own guarded definition for stand-alone loads.
+ */
+if ( ! defined( 'WPML_TM_FOLDER' ) ) {
+	define( 'WPML_TM_FOLDER', 'tm' );
+}
+
+/*
+ * Same story for the TM module's own folder: TM was merged into core, so it is
+ * the plugin folder, and core reads it on every license (37 files). tm.php
+ * used to be the only place that defined it, and on a Blog license that meant
+ * "Undefined constant WPML_TM_PATH" (wpmldev-9934). tm.php keeps its guarded
+ * definition. Whether TM is loaded is WPML_TM_VERSION's job, never this one's.
+ */
+if ( ! defined( 'WPML_TM_PATH' ) ) {
+	define( 'WPML_TM_PATH', WPML_PLUGIN_PATH );
+}
+
 if ( defined( 'PHP_INT_MIN' ) ) {
 	define( 'WPML_PRIORITY_BEFORE_EVERYTHING', PHP_INT_MIN );
 } else {
@@ -31,9 +68,9 @@ define( 'ICL_TM_NEEDS_UPDATE', 3 );
 define( 'ICL_TM_TRANSLATION_READY_TO_DOWNLOAD', 4 );
 define( 'ICL_TM_DUPLICATE', 9 );
 define( 'ICL_TM_COMPLETE', 10 );
-define( 'ICL_TM_IN_BASKET', 20 );
 define( 'ICL_TM_NEEDS_REVIEW', 30 );
 define( 'ICL_TM_ATE_NEEDS_RETRY', 40 );
+require_once __DIR__ . '/constants-since-5-0.php';
 
 
 define( 'ICL_TM_PENDING_TP', 102 );
@@ -94,8 +131,13 @@ define( 'ICL_PRO_TRANSLATION_COST_PER_WORD', 0.09 );
 define( 'ICL_PRO_TRANSLATION_PICKUP_XMLRPC', 0 );
 define( 'ICL_PRO_TRANSLATION_PICKUP_POLLING', 1 );
 
+
 if ( ! defined( 'ICL_REMOTE_WPML_CONFIG_FILES_INDEX' ) ) {
-	define( 'ICL_REMOTE_WPML_CONFIG_FILES_INDEX', 'http://cdn.wpml.org/' );
+	define( 'ICL_REMOTE_WPML_CONFIG_FILES_INDEX', WpmlOrgOrigin::cdn() . '/' );
+}
+
+if ( ! WpmlOrgOrigin::isProduction() && ! defined( 'CDT_QA_API_URL' ) ) {
+	define( 'CDT_QA_API_URL', WpmlOrgOrigin::cdt() );
 }
 
 define( 'ICL_ICONS_URL', ICL_PLUGIN_URL . '/res/img/' );
@@ -136,6 +178,7 @@ define( 'WPML_TERM_META_SETTING_INDEX_PLURAL', 'custom_term_fields_translation' 
 
 define( 'WPML_POST_META_READONLY_SETTING_INDEX', 'custom_fields_readonly_config' );
 define( 'WPML_TERM_META_READONLY_SETTING_INDEX', 'custom_term_fields_readonly_config' );
+
 
 define( 'WPML_POST_META_UNLOCKED_SETTING_INDEX', 'custom_fields_unlocked_config' );
 define( 'WPML_TERM_META_UNLOCKED_SETTING_INDEX', 'custom_term_fields_unlocked_config' );

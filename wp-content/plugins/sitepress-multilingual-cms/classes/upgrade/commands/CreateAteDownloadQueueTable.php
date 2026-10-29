@@ -2,7 +2,7 @@
 
 namespace WPML\TM\Upgrade\Commands;
 
-use SitePress_Setup;
+use WPML\Upgrade\CreateTable;
 
 class CreateAteDownloadQueueTable implements \IWPML_Upgrade_Command {
 
@@ -19,21 +19,35 @@ class CreateAteDownloadQueueTable implements \IWPML_Upgrade_Command {
 	public function run() {
 		$wpdb = $this->schema->get_wpdb();
 
-		$tableName      = $wpdb->prefix . self::TABLE_NAME;
-		$charsetCollate = SitePress_Setup::get_charset_collate();
+		$this->result = self::create_table_if_not_exists( $wpdb );
 
-		$query = "
-			CREATE TABLE IF NOT EXISTS `{$tableName}` (
+		return $this->result;
+	}
+
+	/**
+	 * The one copy of the DDL, so the install/activation path
+	 * (`icl_sitepress_activate()`) and this upgrade command create the very
+	 * same table. A site that was reset never sees the upgrade command again
+	 * unless its licence loads TM, and activation has to stand on its own.
+	 *
+	 * @param \wpdb $wpdb
+	 *
+	 * @return bool
+	 */
+	public static function create_table_if_not_exists( $wpdb ) {
+		$table_name = $wpdb->prefix . self::TABLE_NAME;
+
+		return CreateTable::create(
+			$wpdb,
+			$table_name,
+			'
+			CREATE TABLE IF NOT EXISTS `' . esc_sql( $table_name ) . '` (
 			  `editor_job_id` BIGINT(20) UNSIGNED NOT NULL,
 			  `download_url` VARCHAR(2000) NOT NULL,
 			  `lock_timestamp` INT(11) UNSIGNED NULL,
 			  PRIMARY KEY (`editor_job_id`)
-			) ENGINE=INNODB {$charsetCollate};
-		";
-
-		$this->result = $wpdb->query( $query );
-
-		return $this->result;
+			) ENGINE=INNODB'
+		);
 	}
 
 	public function run_admin() {

@@ -36,7 +36,7 @@ class WCML_Table_Rate_Shipping implements \IWPML_Action {
 
 		if ( is_admin() ) {
 			add_action( 'woocommerce_settings_shipping', [ $this, 'registerShippingRatesStrings' ], self::PRIORITY_REGISTER_RATE_LABELS );
-			add_action( 'wp_ajax_woocommerce_table_rate_delete', [ $this, 'unregister_abort_messages_ajax' ], self::PRIORITY_BEFORE_DELETE );
+			\WCML\Request\Ajax::listen( 'woocommerce_table_rate_delete', [ $this, 'unregister_abort_messages_ajax' ], 'WooCommerce Table Rate delete: unregisters the rate strings; verifies the WooCommerce nonce and manage_woocommerce itself', self::PRIORITY_BEFORE_DELETE );
 			add_action( 'delete_product_shipping_class', [ $this, 'unregister_abort_messages_shipping_class' ], self::PRIORITY_BEFORE_DELETE );
 		}
 		add_filter( 'woocommerce_table_rate_query_rates', [ $this, 'translate_abort_messages' ] );
@@ -164,6 +164,10 @@ class WCML_Table_Rate_Shipping implements \IWPML_Action {
 
 	public function unregister_abort_messages_ajax() {
 		check_ajax_referer( 'delete-rate', 'security' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
 
 		wpml_collect( (array) Obj::prop( 'rate_id', $_POST ) )
 			->map( Fns::unary( 'intval' ) )

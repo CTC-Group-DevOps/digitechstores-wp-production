@@ -3,6 +3,8 @@
 namespace WPML\CLI\Core;
 
 use WPML\CLI\Core\Commands\ClearCacheFactory;
+use WPML\CLI\Core\Commands\MigrateLanguagesFactory;
+use WPML\CLI\Core\Commands\PullDeliveryFactory;
 use WPML\CLI\Core\Commands\ICommand;
 
 class BootStrap {
@@ -11,6 +13,8 @@ class BootStrap {
 	public function init() {
 		$commands_factory = [
 			ClearCacheFactory::class,
+			MigrateLanguagesFactory::class,
+			PullDeliveryFactory::class,
 		];
 
 		foreach ( $commands_factory as $command_factory ) {

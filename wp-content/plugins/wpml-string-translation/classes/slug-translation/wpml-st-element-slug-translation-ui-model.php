@@ -40,8 +40,10 @@ class WPML_ST_Element_Slug_Translation_UI_Model {
 
 		$model = array(
 			'strings' => array(
+				/* translators: Text above the table of slugs on the WPML settings page. %s: the name of the content type, for example "Posts" or "Products". */
 				'toggle_slugs_table' => sprintf( __( 'Set different slugs in different languages for %s.', 'wpml-string-translation' ), $custom_type->labels->name ),
 				'slug_status_incomplete' => __( "Not marked as 'complete'. Press 'Save' to enable.", 'wpml-string-translation' ),
+				/* translators: Marks the row of the original language in the table of slugs on the WPML settings page. */
 				'original_label' => __( '(original)', 'wpml-string-translation' ),
 			),
 			'css_class_wrapper' => 	$is_translated_mode ? '' : 'hidden',
@@ -52,6 +54,7 @@ class WPML_ST_Element_Slug_Translation_UI_Model {
 
 		if ( $is_slug_translated && ! $original_slug_and_lang->is_registered ) {
 			$model['has_missing_translations_message'] = sprintf(
+				/* translators: Warning above the table of slugs on the WPML settings page. %s: the name of the content type, for example "Posts" or "Products". */
 				esc_html__(
 					'%s slugs are set to be translated, but they are missing their translation',
 					'wpml-string-translation'
@@ -85,6 +88,7 @@ class WPML_ST_Element_Slug_Translation_UI_Model {
 						'echo'               => false,
 						'class'              => 'js-translate-slug-original',
 						'data'               => array( 'slug' => $slug->value ),
+						'languages'          => $languages,
 					)
 				);
 			}
@@ -129,8 +133,14 @@ class WPML_ST_Element_Slug_Translation_UI_Model {
 		$languages = $this->sitepress->get_active_languages();
 
 		if ( ! in_array( $string_lang, array_keys( $languages ) ) ) {
-			$all_languages             = $this->sitepress->get_languages();
-			$languages[ $string_lang ] = $all_languages[ $string_lang ];
+			$all_languages = $this->sitepress->get_languages();
+
+			$languages[ $string_lang ] = isset( $all_languages[ $string_lang ] )
+				? $all_languages[ $string_lang ]
+				: array(
+					'code'         => $string_lang,
+					'display_name' => $string_lang,
+				);
 		}
 
 		return $languages;

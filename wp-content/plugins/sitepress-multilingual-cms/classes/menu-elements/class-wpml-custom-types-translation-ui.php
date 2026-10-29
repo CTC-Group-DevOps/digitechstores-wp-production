@@ -34,8 +34,14 @@ class WPML_Custom_Types_Translation_UI {
 	public function render_row( $content_label, $name, $content_slug, $disabled, $current_translation_mode, $unlocked, $content_label_singular = false ) {
 		$radio_name    = esc_attr( $name . '[' . $content_slug . ']' );
 		$unlocked_name = esc_attr( $name . '_unlocked[' . $content_slug . ']' );
+		$search_target = '';
+		if ( 'icl_sync_custom_posts' === $name ) {
+			$search_target = 'wpml-search-post-type-' . sanitize_title( $content_slug );
+		} elseif ( 'icl_sync_tax' === $name ) {
+			$search_target = 'wpml-search-taxonomy-' . sanitize_title( $content_slug );
+		}
 		?>
-		<div class="wpml-flex-table-cell name">
+		<div class="wpml-flex-table-cell name"<?php echo $search_target ? ' data-wpml-search-target="' . esc_attr( $search_target ) . '"' : ''; ?>>
 			<?php
 			$this->unlock_button_ui->render( $disabled, $unlocked, $radio_name, $unlocked_name );
 			echo $content_label;

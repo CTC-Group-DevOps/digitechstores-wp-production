@@ -47,6 +47,10 @@ class Store {
 		$this->termTranslations = $wpml_term_translations;
 	}
 
+	public function getSyncHashManager() {
+		return $this->syncHashManager;
+	}
+
 	public function getComponent( $component ) {
 		switch ( $component ) {
 			case self::COMPONENT_ATTACHMENTS:

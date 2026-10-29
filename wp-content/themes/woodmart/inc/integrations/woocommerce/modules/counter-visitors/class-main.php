@@ -316,9 +316,16 @@ class Main extends Singleton {
 			return;
 		}
 
-		$product_id = sanitize_text_field( $_POST['product_id'] ); //phpcs:ignore
-		$count      = intval( sanitize_text_field( $_POST['count'] ) ); //phpcs:ignore
-		$new_count  = $this->get_count_visits_in_db( $product_id, $count );
+		$product_id = absint( $_POST['product_id'] ); //phpcs:ignore
+
+		// This endpoint is public, so make sure the ID really is a product before
+		// writing any visit-counter meta to it (prevents arbitrary post-meta writes).
+		if ( ! $product_id || 'product' !== get_post_type( $product_id ) ) {
+			return;
+		}
+
+		$count     = intval( sanitize_text_field( $_POST['count'] ) ); //phpcs:ignore
+		$new_count = $this->get_count_visits_in_db( $product_id, $count );
 
 		wp_send_json(
 			array(

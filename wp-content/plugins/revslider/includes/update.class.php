@@ -41,7 +41,7 @@ class RevSliderUpdate extends RevSliderFunctions {
 
 		$code = get_option( 'revslider-code', '' );
 		$get_version = sanitize_key( wp_unslash( $_POST['get_version'] ?? '' ) );
-		if ('sr7' !== $get_version || empty($code)) return $value;
+		if ('sr7' !== $get_version) return $value;
 
 		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		if(empty($value)) $value = new stdClass();
@@ -50,7 +50,8 @@ class RevSliderUpdate extends RevSliderFunctions {
 		$value->response[RS_PLUGIN_SLUG_PATH]->slug = RS_PLUGIN_SLUG;
 		$value->response[RS_PLUGIN_SLUG_PATH]->plugin = RS_PLUGIN_SLUG_PATH;
 		$value->response[RS_PLUGIN_SLUG_PATH]->new_version = '7.0.0';
-		$value->response[RS_PLUGIN_SLUG_PATH]->package = $rslb->get_url('updates').'/revslider/download.php?code='.$code.'&version=7.0.0';
+		//the SR7 core is free (ADR-0027): a stored licence code, valid or lapsed, goes along; a site with only a connection code sends none
+		$value->response[RS_PLUGIN_SLUG_PATH]->package = $rslb->get_url('updates').'/revslider/download.php?version=7.0.0'.(empty($code) ? '' : '&code='.urlencode($code));
 		$value->response[RS_PLUGIN_SLUG_PATH]->tested = preg_replace('/[^0-9.].*/', '', get_bloginfo('version'));;
 		$value->response[RS_PLUGIN_SLUG_PATH]->url = 'https://www.sliderrevolution.com/';
 		return $value;
@@ -164,7 +165,7 @@ class RevSliderUpdate extends RevSliderFunctions {
 		$request = $rslb->call_url($this->remote_url_info, $rattr, 'updates');
 		
 		if(!is_wp_error($request)){
-			if($response = maybe_unserialize($request['body'])){
+			if($response = $this->maybe_unserialize_safe($request['body'], array('stdClass'))){
 				if(is_object($response)){
 					$data = $response;
 					$data->basic->url	= $this->plugin_url;

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Points and Rewards Compatibility.
  *
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_PnR_Compatibility {
 
@@ -40,6 +40,8 @@ class WC_PB_PnR_Compatibility {
 
 	/**
 	 * Initialize.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -83,11 +85,11 @@ class WC_PB_PnR_Compatibility {
 	/**
 	 * Return zero points for bundled order items if container item has product- or category-level points or bundled item is not priced individually.
 	 *
-	 * @param  int        $points - Points earned.
-	 * @param  WC_Product $product - Product object.
-	 * @param  string     $item_key - Item key.
-	 * @param  array      $item - Item values.
-	 * @param  WC_Order   $order - Order object.
+	 * @param  int                   $points - Points earned.
+	 * @param  WC_Product            $product - Product object.
+	 * @param  string                $item_key - Item key.
+	 * @param  WC_Order_Item_Product $item - Order item.
+	 * @param  WC_Order              $order - Order object.
 	 * @return int
 	 */
 	public static function points_earned_for_bundled_order_item( $points, $product, $item_key, $item, $order ) {

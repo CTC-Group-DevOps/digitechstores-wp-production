@@ -24,10 +24,35 @@ class WPML_Media_Attachment_By_URL {
 			 $language,
 		\WPML\Media\Classes\WPML_Media_Attachment_By_URL_Query $media_attachment_by_url_query
 	) {
-		$this->url                           = $url;
+		$this->url                           = self::normalizeUrl( $url );
 		$this->language                      = $language;
 		$this->wpdb                          = $wpdb;
 		$this->media_attachment_by_url_query = $media_attachment_by_url_query;
+	}
+
+	public static function normalizeUrl( $url ) {
+		if ( ! is_string( $url ) || '' === $url || '/' !== $url[0] ) {
+			return $url;
+		}
+
+		$uploads_dir = wp_get_upload_dir();
+		$baseurl     = wp_parse_url( $uploads_dir['baseurl'] );
+
+		if ( empty( $baseurl['scheme'] ) ) {
+			return $url;
+		}
+
+		if ( 0 === strpos( $url, '//' ) ) {
+			return $baseurl['scheme'] . ':' . $url;
+		}
+
+		if ( empty( $baseurl['host'] ) ) {
+			return $url;
+		}
+
+		$port = isset( $baseurl['port'] ) ? ':' . $baseurl['port'] : '';
+
+		return $baseurl['scheme'] . '://' . $baseurl['host'] . $port . $url;
 	}
 
 	public static function getUrl( $url ) {
@@ -45,7 +70,7 @@ class WPML_Media_Attachment_By_URL {
 
 	public static function getUrlRelativePath( $url ) {
 		$uploads_dir   = wp_get_upload_dir();
-		$relative_path = ltrim( preg_replace( '@^' . $uploads_dir['baseurl'] . '@', '', $url ), '/' );
+		$relative_path = ltrim( preg_replace( '@^' . preg_quote( $uploads_dir['baseurl'], '@' ) . '@', '', $url ), '/' );
 
 		return $relative_path;
 	}

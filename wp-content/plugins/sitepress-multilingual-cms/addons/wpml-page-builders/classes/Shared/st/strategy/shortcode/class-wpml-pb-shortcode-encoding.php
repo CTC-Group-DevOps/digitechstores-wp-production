@@ -16,6 +16,8 @@ class WPML_PB_Shortcode_Encoding {
 			return html_entity_decode( $content );
 		}
 
+		$encoding = $this->get_effective_encoding( $content, $encoding );
+
 		switch ( $encoding ) {
 			case self::ENCODE_TYPES_BASE64:
 				$content = html_entity_decode( rawurldecode( base64_decode( wp_strip_all_tags( $content ) ) ) );
@@ -47,7 +49,7 @@ class WPML_PB_Shortcode_Encoding {
 				$rows    = (array) json_decode( urldecode( $encoded_content ), true );
 				foreach ( $rows as $i => $row ) {
 					foreach ( $row as $key => $value ) {
-						if ( 'label' === $key ) {
+						if ( in_array( $key, [ 'label', 'title' ], true ) ) {
 							$content[ $key . '_' . $i ] = [
 								'value'     => $value,
 								'translate' => true,
@@ -78,6 +80,20 @@ class WPML_PB_Shortcode_Encoding {
 		}
 
 		return apply_filters( 'wpml_pb_shortcode_decode', $content, $encoding, $encoded_content );
+	}
+
+	public function get_effective_encoding( $content, $encoding ) {
+		if ( self::ENCODE_TYPES_BASE64 !== $encoding || ! is_string( $content ) ) {
+			return $encoding;
+		}
+
+		$decoded = base64_decode( wp_strip_all_tags( $content ), true );
+
+		return false !== $decoded && $this->is_text( $decoded ) ? $encoding : '';
+	}
+
+	private function is_text( $value ) {
+		return 1 === preg_match( '//u', $value ) && ! preg_match( '/[\x00-\x08\x0E-\x1F\x7F]/', $value );
 	}
 
 	public function encode( $content, $encoding ) {

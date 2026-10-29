@@ -7,7 +7,7 @@ class WPML_String_Translation_Job extends WPML_Translation_Job {
 	protected function load_job_data( $string_translation_id ) {
 		global $wpdb;
 
-		$query = $wpdb->prepare(
+		return $wpdb->get_row( $wpdb->prepare(
 			"SELECT st.id,
                          s.language AS source_language_code,
                          st.language AS language_code,
@@ -30,9 +30,7 @@ class WPML_String_Translation_Job extends WPML_Translation_Job {
                     WHERE st.id = %d
                     LIMIT 1",
 			$string_translation_id
-		);
-
-		return $wpdb->get_row( $query );
+		) );
 	}
 
 	public function get_title() {

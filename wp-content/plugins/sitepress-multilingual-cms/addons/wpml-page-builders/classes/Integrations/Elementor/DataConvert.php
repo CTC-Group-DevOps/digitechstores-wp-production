@@ -28,7 +28,7 @@ class DataConvert {
 	}
 
 	private static function unserializeString( $string, $associative ) {
-		return is_serialized( $string ) ? unserialize( $string ) : json_decode( $string, $associative );
+		return is_serialized( $string ) ? unserialize( $string, [ 'allowed_classes' => false ] ) : json_decode( $string, $associative );
 	}
 
 	private static function isElementorArray( $data ) {

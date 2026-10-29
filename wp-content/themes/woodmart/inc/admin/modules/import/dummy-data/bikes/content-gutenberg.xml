@@ -471,7 +471,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"a994a2b6-b19c-47da-aa6e-4c3d371cb221","blockVersion":"2","adjacentCount":2,"colWidth":42,"justifyContent":"center"} -->
-<div class="wp-block-wd-column wd-a994a2b6"><!-- wp:wd/title {"blockId":"bea2b7ad-eb0e-468a-b7cf-254db87bcb60","blockVersion":"2","content":"Cube Nutrailu003cbru003eu003cspan class=u0022wd-highlightu0022u003eHybridu003c/spanu003e Bicycle.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-a994a2b6"><!-- wp:wd/title {"blockId":"bea2b7ad-eb0e-468a-b7cf-254db87bcb60","blockVersion":"2","content":"Cube Nutrail\u003cbr\u003e\u003cspan class=\u0022wd-highlight\u0022\u003eHybrid\u003c/span\u003e Bicycle.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-bea2b7ad">Cube Nutrail<br><span class="wd-highlight">Hybrid</span> Bicycle.</h2>
 <!-- /wp:wd/title -->
 
@@ -501,7 +501,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"363b7d4a-33a6-4d22-a1e3-649f55627b61","blockVersion":"2","adjacentCount":2,"colWidth":42,"justifyContent":"center"} -->
-<div class="wp-block-wd-column wd-363b7d4a"><!-- wp:wd/title {"blockId":"a53d8232-41c3-4335-89b5-73a72d269cd9","blockVersion":"2","content":"Cube u003cspan class=u0022wd-highlightu0022u003eStereou003c/spanu003eu003cbru003eReaction Bike.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-363b7d4a"><!-- wp:wd/title {"blockId":"a53d8232-41c3-4335-89b5-73a72d269cd9","blockVersion":"2","content":"Cube \u003cspan class=\u0022wd-highlight\u0022\u003eStereo\u003c/span\u003e\u003cbr\u003eReaction Bike.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-a53d8232">Cube <span class="wd-highlight">Stereo</span><br>Reaction Bike.</h2>
 <!-- /wp:wd/title -->
 
@@ -531,7 +531,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"4f6c4ffd-4f3b-4ab2-b145-3dd6d5d9afa1","blockVersion":"2","adjacentCount":2,"colWidth":42,"justifyContent":"center"} -->
-<div class="wp-block-wd-column wd-4f6c4ffd"><!-- wp:wd/title {"blockId":"27337900-591f-4c61-9f98-5f136067364c","blockVersion":"2","content":"Cube Roadu003cbru003eu003cspan class=u0022wd-highlightu0022u003eCyclocrossu003c/spanu003e Bike.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-4f6c4ffd"><!-- wp:wd/title {"blockId":"27337900-591f-4c61-9f98-5f136067364c","blockVersion":"2","content":"Cube Road\u003cbr\u003e\u003cspan class=\u0022wd-highlight\u0022\u003eCyclocross\u003c/span\u003e Bike.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-27337900">Cube Road<br><span class="wd-highlight">Cyclocross</span> Bike.</h2>
 <!-- /wp:wd/title -->
 
@@ -585,7 +585,7 @@
 <!-- wp:wd/column {"blockId":"3d4de000-524c-4b1b-8048-a8ea8e3ba9a1","blockVersion":"2","adjacentCount":3} -->
 <div class="wp-block-wd-column wd-3d4de000"><!-- wp:wd/cover {"blockId":"76f6c00d-0a52-48f3-bdc2-33077589ffb4","blockVersion":"2","hover":"zoom-in","contentAlignVertical":"center","colorScheme":"light","height":"260","bgImage":{"id":21063,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/bikes-category-img-3.jpg"},"overlayColorCode":"#000000","overlay":true,"overlayOpacity":0.3,"flexSize":"grow","displayWidth":"","customWidth":"","displayWidthMobile":"full-width","customWidthUnits":"%"} -->
 <div class="wp-block-wd-cover wd-hover-parent wd-hover-zoom-in color-scheme-light wd-76f6c00d wd-custom-width wd-bg-parent"><div class="wd-bg-overlay"></div><div class="wd-block-cover-img"></div><a class="wd-block-cover-link wd-fill" href="#" aria-label="Cover link"></a><!-- wp:wd/container {"blockId":"8621c01a-d5bc-4098-a1df-1115a65f6e16","blockVersion":"2","displayWidth":"custom","customWidth":"240","metadata":{"name":"Banner content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-8621c01a wd-custom-width"><!-- wp:wd/title {"blockId":"9a580508-c507-459d-97fd-5576b0d8825b","blockVersion":"2","content":"Long Ride u003cbru003eOn a Road Bike.","tpFontSize":"26","tpFontSizeTablet":"22"} -->
+<div class="wp-block-wd-container wd-dir-col wd-8621c01a wd-custom-width"><!-- wp:wd/title {"blockId":"9a580508-c507-459d-97fd-5576b0d8825b","blockVersion":"2","content":"Long Ride \u003cbr\u003eOn a Road Bike.","tpFontSize":"26","tpFontSizeTablet":"22"} -->
 <h2 class="wp-block-wd-title title wd-9a580508">Long Ride <br>On a Road Bike.</h2>
 <!-- /wp:wd/title -->
 
@@ -626,7 +626,7 @@
 <!-- wp:wd/section {"blockId":"082a2390-d1dc-4f3b-a4b8-85382cc52f58","blockVersion":"2","bgImage":{"id":21101,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/bikes-video-bg.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","bgColorCode":"#202020","paddingTop":"90","paddingBottom":"90","marginBottom":"0","colorScheme":"light","bgDisplaySizeMobile":"custom","bgCustomDisplaySizeMobile":"0","paddingTopMobile":"60","paddingBottomMobile":"60"} -->
 <div class="wp-block-wd-section color-scheme-light wd-082a2390"><!-- wp:wd/row {"blockId":"930188dd-2898-43c6-a82f-221665f7a71e","blockVersion":"2","marginBottom":"40"} -->
 <div class="wp-block-wd-row wd-930188dd"><!-- wp:wd/column {"blockId":"1c35f15b-8511-43ee-bef4-51718fc02626","blockVersion":"2","adjacentCount":2,"colWidth":42,"justifyContent":"center","adjacentCountTablet":2,"colWidthTablet":50} -->
-<div class="wp-block-wd-column wd-1c35f15b"><!-- wp:wd/title {"blockId":"286ceb3e-bfb7-4bbb-ac84-e46304ce155d","blockVersion":"2","content":"Nothing u003cbru003eCan u003cspan class=u0022wd-highlightu0022u003eStopu003c/spanu003e You.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-1c35f15b"><!-- wp:wd/title {"blockId":"286ceb3e-bfb7-4bbb-ac84-e46304ce155d","blockVersion":"2","content":"Nothing \u003cbr\u003eCan \u003cspan class=\u0022wd-highlight\u0022\u003eStop\u003c/span\u003e You.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-286ceb3e">Nothing <br>Can <span class="wd-highlight">Stop</span> You.</h2>
 <!-- /wp:wd/title -->
 
@@ -655,7 +655,7 @@
 <!-- wp:wd/row {"blockId":"6ac9727e-c285-498a-8bc6-dfe662554f74","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-6ac9727e"><!-- wp:wd/column {"blockId":"867c36b4-4833-45ef-aab0-90de6519e5b4","blockVersion":"2","adjacentCount":4,"adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-867c36b4"><!-- wp:wd/infobox {"blockId":"72bffd1a-670e-4270-b6a1-e2a2cd5c36a5","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-72bffd1a"><!-- wp:wd/icon {"blockId":"daa867a5-89c2-4c3b-b21e-067e2a03e14e","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-72bffd1a"><!-- wp:wd/icon {"blockId":"daa867a5-89c2-4c3b-b21e-067e2a03e14e","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-daa867a5"><span class="wd-text-icon">1.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -673,7 +673,7 @@
 
 <!-- wp:wd/column {"blockId":"b6eb5212-92da-460a-a8cd-6d7e539006c7","blockVersion":"2","adjacentCount":4,"adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-b6eb5212"><!-- wp:wd/infobox {"blockId":"8aa8acbf-3622-4873-864b-815666091ea6","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-8aa8acbf"><!-- wp:wd/icon {"blockId":"8d2f0bac-6087-423d-9333-7380559df8bc","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-8aa8acbf"><!-- wp:wd/icon {"blockId":"8d2f0bac-6087-423d-9333-7380559df8bc","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-8d2f0bac"><span class="wd-text-icon">2.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -691,7 +691,7 @@
 
 <!-- wp:wd/column {"blockId":"a377b5fd-8dd5-4383-a7c1-6769387828d3","blockVersion":"2","adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-a377b5fd"><!-- wp:wd/infobox {"blockId":"c9c6b192-64d5-4e81-91ca-90a02d1f8c2f","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-c9c6b192"><!-- wp:wd/icon {"blockId":"a48d6f0d-1009-440b-9d9a-649c1e7c92aa","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-c9c6b192"><!-- wp:wd/icon {"blockId":"a48d6f0d-1009-440b-9d9a-649c1e7c92aa","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-a48d6f0d"><span class="wd-text-icon">3.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -709,7 +709,7 @@
 
 <!-- wp:wd/column {"blockId":"5954bf90-2613-4af8-bf5f-e946178f5aed","blockVersion":"2","adjacentCountTablet":2,"colWidthTablet":50} -->
 <div class="wp-block-wd-column wd-5954bf90"><!-- wp:wd/infobox {"blockId":"f610bcfb-2821-422d-95f0-65516f2a486e","blockVersion":"2","iconPositionHorizontal":"start","iconPositionVertical":"center"} -->
-<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-f610bcfb"><!-- wp:wd/icon {"blockId":"c365d63b-508e-4969-b2ba-679f77327410","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"u002du002dwd-primary-color"} -->
+<div class="wp-block-wd-infobox wd-hover-parent wd-icon-start wd-f610bcfb"><!-- wp:wd/icon {"blockId":"c365d63b-508e-4969-b2ba-679f77327410","blockVersion":"2","type":"text","tpFontSize":"52","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div class="wp-block-wd-icon wd-with-text wd-c365d63b"><span class="wd-text-icon">4.</span></div>
 <!-- /wp:wd/icon -->
 
@@ -729,7 +729,7 @@
 
 <!-- wp:wd/section {"blockId":"5b5c6865-8196-414a-8444-42431649d336","blockVersion":"2","bgImage":{"id":21070,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/bikes-image-map-bg.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"80","paddingBottom":"30","paddingTopMobile":"60","paddingBottomTablet":"0"} -->
 <div class="wp-block-wd-section wd-5b5c6865"><!-- wp:wd/container {"blockId":"a0b2269c-496b-4ade-bb50-a40142290ad7","blockVersion":"2","align":"center","rowGap":"30"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-a0b2269c"><!-- wp:wd/title {"blockId":"8ba53c07-7261-4863-89a3-ff837c484f7f","blockVersion":"2","textAlign":"center","content":"The Best Choice For A u003cspan class=u0022wd-highlightu0022u003eWinteru003c/spanu003e Ride.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","displayWidth":"custom","customWidth":"660","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-a0b2269c"><!-- wp:wd/title {"blockId":"8ba53c07-7261-4863-89a3-ff837c484f7f","blockVersion":"2","textAlign":"center","content":"The Best Choice For A \u003cspan class=\u0022wd-highlight\u0022\u003eWinter\u003c/span\u003e Ride.","tpFontSize":"68","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","displayWidth":"custom","customWidth":"660","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-align wd-8ba53c07 wd-custom-width">The Best Choice For A <span class="wd-highlight">Winter</span> Ride.</h2>
 <!-- /wp:wd/title -->
 
@@ -756,7 +756,7 @@
 <!-- wp:wd/section {"blockId":"42e56f12-4e57-49c0-afc8-7272a11c30a1","blockVersion":"2","paddingRight":"0","paddingLeft":"0","marginBottom":"80","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-section wd-42e56f12"><!-- wp:wd/row {"blockId":"6d12768b-a9f8-4bae-aece-2a0251088011","blockVersion":"2","displayWidth":"full-width","columnsGapTablet":60} -->
 <div class="wp-block-wd-row wd-6d12768b wd-custom-width"><!-- wp:wd/column {"blockId":"33c882ab-428f-4e4d-a5f6-9607809b0d69","blockVersion":"2","paddingRight":"6","paddingLeft":"6","paddingUnits":"%","adjacentCount":2,"colWidth":58,"blocksGap":30,"justifyContent":"center","paddingRightTablet":"15","paddingLeftTablet":"15","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-33c882ab"><!-- wp:wd/title {"blockId":"943b533e-2b57-42fd-9082-377c81d204d9","blockVersion":"2","content":"Hardtail Mountainu003cbru003eBikes u003cspan class=u0022wd-highlightu0022u003eBestu003c/spanu003e Features.","tpFontSize":"62","tpLineHeight":"1.1","markColorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-33c882ab"><!-- wp:wd/title {"blockId":"943b533e-2b57-42fd-9082-377c81d204d9","blockVersion":"2","content":"Hardtail Mountain\u003cbr\u003eBikes \u003cspan class=\u0022wd-highlight\u0022\u003eBest\u003c/span\u003e Features.","tpFontSize":"62","tpLineHeight":"1.1","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"38","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-943b533e">Hardtail Mountain<br>Bikes <span class="wd-highlight">Best</span> Features.</h2>
 <!-- /wp:wd/title -->
 
@@ -881,7 +881,7 @@
 
 <!-- wp:wd/row {"blockId":"4ce72c31-31fd-48d3-a1c1-f5f56a4940ea","blockVersion":"2","marginBottom":"60"} -->
 <div class="wp-block-wd-row wd-4ce72c31"><!-- wp:wd/column {"blockId":"f4ff04a0-f781-4664-a775-635172bb4c28","blockVersion":"2","adjacentCount":4,"adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-f4ff04a0"><!-- wp:wd/title {"blockId":"10541498-b95c-4022-a2e8-bad868035ab1","blockVersion":"2","content":"Find Us u003cbru003eu003cspan class=u0022wd-highlightu0022u003eWoodu003c/spanu003e Bikes.","tpFontSize":"42","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-f4ff04a0"><!-- wp:wd/title {"blockId":"10541498-b95c-4022-a2e8-bad868035ab1","blockVersion":"2","content":"Find Us \u003cbr\u003e\u003cspan class=\u0022wd-highlight\u0022\u003eWood\u003c/span\u003e Bikes.","tpFontSize":"42","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","tpFontSizeMobile":"35","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-10541498">Find Us <br><span class="wd-highlight">Wood</span> Bikes.</h2>
 <!-- /wp:wd/title --></div>
 <!-- /wp:wd/column -->
@@ -961,7 +961,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"7cb22904-1461-43ed-995c-26f27020e33e","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-7cb22904"><!-- wp:wd/title {"blockId":"21a0beb3-9f1c-4b15-8e2c-1a102a5b1e7f","blockVersion":"2","content":"EXCHANGE u0026amp; RETURN","tpFontSize":"16"} -->
+<div class="wp-block-wd-container wd-dir-col wd-7cb22904"><!-- wp:wd/title {"blockId":"21a0beb3-9f1c-4b15-8e2c-1a102a5b1e7f","blockVersion":"2","content":"EXCHANGE \u0026amp; RETURN","tpFontSize":"16"} -->
 <h2 class="wp-block-wd-title title wd-21a0beb3">EXCHANGE &amp; RETURN</h2>
 <!-- /wp:wd/title -->
 

@@ -12,8 +12,4 @@ class WPML_Name_Query_Filter_Untranslated extends WPML_Name_Query_Filter {
 		return null;
 	}
 
-	protected function get_from_join_snippet() {
-
-		return " FROM {$this->wpdb->posts} p ";
-	}
 }

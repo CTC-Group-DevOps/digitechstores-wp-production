@@ -118,7 +118,9 @@ class DynamicContent implements \IWPML_Frontend_Action, \IWPML_Backend_Action {
 
 		$payload['value']['settings'] = $settings;
 
-		return self::VARIABLE . '(' . wp_json_encode( $payload ) . ')$';
+		$flags = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS;
+
+		return self::VARIABLE . '(' . wp_json_encode( $payload, $flags ) . ')$';
 	}
 
 	private function isDiviBlock( \WP_Block_Parser_Block $block ) {

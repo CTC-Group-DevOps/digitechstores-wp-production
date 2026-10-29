@@ -72,6 +72,7 @@ class Autoupdates {
 		'fi',
 		'ga',
 		'fr_FR',
+		'hi_IN',
 		'he_IL',
 		'hu_HU',
 		'id_ID',

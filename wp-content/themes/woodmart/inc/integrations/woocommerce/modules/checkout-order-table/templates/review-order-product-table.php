@@ -18,25 +18,6 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 	$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
 	if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
-		$sku_output = '';
-
-		if ( woodmart_get_opt( 'show_sku_in_checkout_page' ) ) {
-			$sku = $_product->get_sku() ? $_product->get_sku() : esc_html__( 'N/A', 'woocommerce' );
-
-			ob_start();
-			?>
-			<div class="wd-product-detail wd-product-sku">
-				<span class="wd-label">
-					<?php echo esc_html__( 'SKU:', 'woodmart' ); ?>
-				</span>
-				<span class="wd-sku">
-					<?php echo esc_html( $sku ); ?>
-				</span>
-			</div>
-			<?php
-			$sku_output = ob_get_clean();
-		}
-
 		if ( $_product->is_sold_individually() || ! woodmart_get_opt( 'checkout_product_quantity' ) || isset( $cart_item['wd_is_free_gift'] ) || ( ! empty( $cart_item['wd_fbt_parent_keys'] ) && isset( WC()->cart->cart_contents[ $cart_item['wd_fbt_parent_keys'] ] ) ) ) {
 			ob_start();
 			?>
@@ -45,15 +26,11 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			</strong>
 			<input type="hidden" name="cart[<?php echo esc_attr( $cart_item_key ); ?>][qty]" value="<?php echo esc_attr( $cart_item['quantity'] ); ?>" />
 			<?php
-			echo wp_kses( $sku_output, true );
-
 			$product_quantity = ob_get_clean();
 		} else {
-			$product_quantity = $sku_output;
-
 			woodmart_enqueue_js_script( 'checkout-quantity' );
 
-			$product_quantity .= woocommerce_quantity_input(
+			$product_quantity = woocommerce_quantity_input(
 				array(
 					'input_name'   => "cart[{$cart_item_key}][qty]",
 					'input_value'  => $cart_item['quantity'],

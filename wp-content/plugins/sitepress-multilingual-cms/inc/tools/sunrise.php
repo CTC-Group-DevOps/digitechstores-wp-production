@@ -26,8 +26,9 @@ class WPML_Sunrise_Lang_In_Domains {
 			$this->no_recursion = true;
 
 			$domains = $this->extract_variables_from_query( $q, 'domain' );
+			$paths   = $this->extract_variables_from_query( $q, 'path' );
 
-			if ( $domains && $this->query_has_no_result( $q ) ) {
+			if ( $domains && $this->query_has_no_result( $domains, $paths ) ) {
 				$q = $this->transpose_query_if_one_domain_is_matching( $q, $domains );
 			}
 
@@ -69,42 +70,92 @@ class WPML_Sunrise_Lang_In_Domains {
 		return $variables;
 	}
 
-	private function query_has_no_result( $q ) {
-		return ! (bool) $this->wpdb->get_row( $q );
+	private function query_has_no_result( array $domains, array $paths ) {
+		$wpdb = $this->wpdb;
+		$paths = $paths ?: array( null );
+
+		foreach ( $domains as $domain ) {
+			foreach ( $paths as $path ) {
+				if ( null === $path ) {
+					$match = $wpdb->get_row(
+						$wpdb->prepare(
+							"SELECT blog_id FROM {$wpdb->blogs} WHERE domain = %s LIMIT 1",
+							$domain
+						)
+					);
+				} else {
+					$match = $wpdb->get_row(
+						$wpdb->prepare(
+							"SELECT blog_id FROM {$wpdb->blogs} WHERE domain = %s AND path = %s LIMIT 1",
+							$domain,
+							$path
+						)
+					);
+				}
+
+				if ( $match ) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	private function transpose_query_if_one_domain_is_matching( $q, $domains ) {
+		$wpdb = $this->wpdb;
+
 		$paths = $this->extract_variables_from_query( $q, 'path' );
 
-		$placeholders = implode( ',', array_fill( 0, sizeof( $paths ), '%s' ) );
-
-		$parameters   = $paths;
-		$parameters[] = BLOG_ID_CURRENT_SITE;
-
-		$blogs = $this->wpdb->get_col(
-			$this->wpdb->prepare(
-				"SELECT blog_id FROM {$this->wpdb->blogs} WHERE path IN ($placeholders) ORDER BY blog_id = %d",
-				$parameters
+		$blogs = array_map(
+			'intval',
+			(array) get_sites(
+				array(
+					'fields'                 => 'ids',
+					'number'                 => 0,
+					'orderby'                => 'id',
+					'order'                  => 'ASC',
+					'path__in'               => $paths,
+					'update_site_cache'      => false,
+					'update_site_meta_cache' => false,
+				)
 			)
 		);
+
+		$default_site_key = array_search( (int) BLOG_ID_CURRENT_SITE, $blogs, true );
+		if ( false !== $default_site_key ) {
+			unset( $blogs[ $default_site_key ] );
+			$blogs[] = (int) BLOG_ID_CURRENT_SITE;
+		}
 
 		$found_blog_id = null;
 		foreach ( (array) $blogs as $blog_id ) {
 			$prefix = $this->table_prefix;
 
 			if ( $blog_id > 1 ) {
-				$prefix .= $blog_id . '_';
+				$prefix .= (int) $blog_id . '_';
 			}
 
-			$icl_settings = $this->wpdb->get_var( "SELECT option_value FROM {$prefix}options WHERE option_name = 'icl_sitepress_settings'" );
+			if ( 1 !== preg_match( '/^[A-Za-z0-9_]+$/D', $prefix ) ) {
+				continue;
+			}
+
+			$icl_settings = $this->wpdb->get_var(
+				"SELECT option_value FROM " . esc_sql( $prefix ) . "options WHERE option_name = 'icl_sitepress_settings'"
+			);
 
 			if ( $icl_settings ) {
-				$icl_settings = unserialize( $icl_settings );
+				$icl_settings = unserialize( $icl_settings, [ 'allowed_classes' => false ] );
 
-				if ( $icl_settings && 2 === (int) $icl_settings['language_negotiation_type'] ) {
+				if (
+					is_array( $icl_settings )
+					&& isset( $icl_settings['language_negotiation_type'], $icl_settings['language_domains'] )
+					&& is_array( $icl_settings['language_domains'] )
+					&& 2 === (int) $icl_settings['language_negotiation_type']
+				) {
 					$found_blog_id = $this->get_blog_id_from_domain( $domains, $icl_settings, $blog_id );
 					if ( $found_blog_id ) {
-						$q = $this->wpdb->prepare( "SELECT blog_id FROM {$this->wpdb->blogs} WHERE blog_id = %d", $found_blog_id );
+						$q = $this->wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE blog_id = %d", $found_blog_id );
 						break;
 					}
 				}

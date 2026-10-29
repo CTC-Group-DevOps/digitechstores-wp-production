@@ -13,6 +13,8 @@ use WPML\FP\Obj;
 use WPML\LIB\WP\User;
 use WPML\Setup\Option;
 use WPML\TM\API\ATE\LanguageMappings;
+use WPML\TM\ATE\Network\SubsiteAttach;
+use WPML\TM\ATE\Network\SubsiteAttachState;
 use function WPML\Container\make;
 use function WPML\FP\pipe;
 
@@ -20,14 +22,11 @@ class EnableATE implements IHandler {
 
 
 	public function run( Collection $data ) {
-		if ( ! User::canManageTranslations() ) {
-			return Either::left( 'Insufficient permissions' );
-		}
-
 		return $this->enable();
 	}
 
 	public function enable() {
+		Settings::assoc( 'translation-management', 'doc_translation_method', ICL_TM_TMETHOD_ATE );
 
 		$cache = wpml_get_cache( \WPML_Translation_Roles_Records::CACHE_GROUP );
 		$cache->flush_group_cache();
@@ -37,6 +36,10 @@ class EnableATE implements IHandler {
 		if ( Obj::propOr( false, 'activated', $status ) ) {
 			$result = Either::right( true );
 		} else {
+			if ( SubsiteAttach::PENDING === make( SubsiteAttach::class )->beforeRegistration() ) {
+				return Either::left( [ 'subsiteAttach' => SubsiteAttachState::clientState() ] );
+			}
+
 			$amsUsers = make( \WPML_TM_AMS_Users::class );
 
 			$amsApi = make( \WPML_TM_AMS_API::class );
@@ -55,13 +58,8 @@ class EnableATE implements IHandler {
 			$ateApi->get_status();
 		}
 
-		$setTranslationMethod = Fns::tap( function () {
-			Settings::assoc( 'translation-management', 'doc_translation_method', ICL_TM_TMETHOD_ATE );
-		} );
-
 		return $result->map( Fns::tap( [ make( \WPML_TM_AMS_Synchronize_Actions::class ), 'synchronize_translators' ] ) )
 									->map( $this->confirmSiteKey() )
-									->map( $setTranslationMethod )
 		              ->bimap(
 		              	$this->formatError(),
 		              	Fns::identity()
@@ -77,6 +75,12 @@ class EnableATE implements IHandler {
 
 	private function formatError() {
 		return function( $errorData ) {
+			$entry              = new \WPML\TM\ATE\Log\Entry();
+			$entry->eventType   = \WPML\TM\ATE\Log\EventsTypes::SERVER_AMS;
+			$entry->description = __( 'Enabling Automatic Translation (ATE registration) failed.', 'sitepress' );
+			$entry->extraData   = [ 'errorData' => $errorData ];
+			wpml_tm_ate_ams_log( $entry );
+
 			return [ 'error' => $errorData ];
 		};
 	}

@@ -59,6 +59,17 @@ class AdminUrl {
 		return $url;
 	}
 
+	public static function getMultiCurrencyDestination(): string {
+		if ( class_exists( '\WCML_Bonded_Menu' ) && \WCML_Bonded_Menu::is_active() ) {
+			return self::getAdminUrl( [
+				'page'    => AdminPages::BONDED_SETTINGS_PAGE,
+				'section' => AdminPages::TAB_MULTICURRENCY,
+			] );
+		}
+
+		return self::getMultiCurrencyTab();
+	}
+
 	public static function getStoreURLTab() : string {
 		return self::getAdminUrl( [
 			'page' => self::PAGE_WPML_WCML,
@@ -81,10 +92,20 @@ class AdminUrl {
 	}
 
 	public static function getTroubleshootingTab() : string {
-		return self::getAdminUrl( [
+		$legacy = self::getAdminUrl( [
 			'page' => self::PAGE_WPML_WCML,
 			'tab'  => self::TAB_TROUBLESHOOTING,
 		] );
+
+		if ( class_exists( '\WCML_Bonded_Menu' ) && \WCML_Bonded_Menu::is_active() ) {
+			$bonded = (string) apply_filters( 'wcml_bonded_target_url', '', 'troubleshooting-safe' );
+
+			if ( '' !== $bonded ) {
+				return $bonded;
+			}
+		}
+
+		return $legacy;
 	}
 
 	public static function getSetupLater() : string {
@@ -138,7 +159,8 @@ class AdminUrl {
 
 	public static function getWPMLTaxonomyTranslation( $taxonomy = null ) : string {
 		$args = [
-			'page'     => WPML_PLUGIN_FOLDER . '/menu/taxonomy-translation.php',
+			'page'     => 'tm/menu/main.php',
+			'tab'      => 'taxonomy',
 			'taxonomy' => $taxonomy,
 		];
 
@@ -148,7 +170,8 @@ class AdminUrl {
 	public static function getWPMLStringTranslation( array $args = [] ) : string {
 		$args = array_merge(
 			[
-				'page' => WPML_ST_FOLDER . '/menu/string-translation.php',
+				'page' => 'tm/menu/main.php',
+				'tab'  => 'strings',
 			],
 			$args
 		);

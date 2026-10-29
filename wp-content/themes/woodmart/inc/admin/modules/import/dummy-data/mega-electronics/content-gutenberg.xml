@@ -29,7 +29,7 @@
 											<content:encoded><![CDATA[<!-- wp:wd/row {"blockId":"d30c650d-44c7-4091-ab02-b948404d792f","blockVersion":"2","columnsGap":20,"marginTop":"-20","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div class="wp-block-wd-row wd-d30c650d"><!-- wp:wd/column {"blockId":"e66fff29-671a-4fcd-aeb5-5c264faa0d8c","blockVersion":"2","adjacentCount":2,"adjacentCountTablet":1,"colWidthTablet":100} -->
 <div class="wp-block-wd-column wd-e66fff29"><!-- wp:wd/slider {"blockId":"6f2475ce-2888-42aa-a82c-eb9f1e9c0ea1","blockVersion":"2","arrows":false,"paginationAlign":"center","paginationStyle":"3","autoplay":true,"autoplaySpeed":"25000","height":"460"} -->
-<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-autoplay-on wd-6f2475ce"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"da37d0dd-cbb6-4b19-ba15-6bf4624608fd","blockVersion":"2","blockGap":10,"justify":"flex-start","colorScheme":"light","aspectRatio":"","image":{"id":295,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event.jpg","width":700,"height":460},"bgImage":{"id":"","url":""},"bgColorCode":"#6a2560"} -->
+<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-autoplay-on wd-6f2475ce"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"da37d0dd-cbb6-4b19-ba15-6bf4624608fd","blockVersion":"2","blockGap":10,"justify":"flex-start","colorScheme":"light","aspectRatio":"","image":{"id":295,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event.jpg","width":700,"height":460},"bgImage":{"id":"","url":""},"bgColorCode":"#6a2560"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-da37d0dd"><div class="wd-slide-container"><!-- wp:wd/title {"blockId":"8d9f18c7-0dda-4bb0-ad9b-3ce9bb7fff12","blockVersion":"2","textAlign":"center","content":"Apple Shopping Event","tpFontSize":"36","tpFontSizeTablet":"22","tpFontSizeMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-8d9f18c7">Apple Shopping Event</h2>
 <!-- /wp:wd/title -->
@@ -40,7 +40,7 @@
 
 <!-- wp:wd/button {"blockId":"d1ba5aef-c350-42f1-8d85-f4e72df20f20","blockVersion":"2","predefinedColor":"primary","shape":"semi-round"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-semi-round wd-d1ba5aef" href="#"><span>Shop Now</span></a>
-<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event.jpg" class="wp-image-295" alt=""/></div></div>
+<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event.jpg" class="wp-image-295" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"98bf12de-f4e6-483b-bf7b-c42ed31586b1","blockVersion":"2","blockGap":10,"justify":"flex-start","align":"flex-start","colorScheme":"light","aspectRatio":"","image":{"id":298,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/pre-order-g-pixel-7.jpg","width":700,"height":460},"bgImage":{"id":"","url":""},"bgColorCode":"#233647"} -->
@@ -54,7 +54,7 @@
 
 <!-- wp:wd/button {"blockId":"d48dab0f-bcf2-4a4d-bb3a-6d8d7c32c412","blockVersion":"2","predefinedColor":"primary","shape":"semi-round"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-semi-round wd-d48dab0f" href="#"><span>Pre-Order Now</span></a>
-<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/pre-order-g-pixel-7.jpg" class="wp-image-298" alt=""/></div></div>
+<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/pre-order-g-pixel-7.jpg" class="wp-image-298" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"73800764-bc77-4bf6-9206-78b3c4382463","blockVersion":"2","blockGap":10,"justify":"flex-start","align":"flex-start","colorScheme":"light","aspectRatio":"","image":{"id":300,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/discount-on-all-smart-appliances.jpg","width":700,"height":460},"bgImage":{"id":"","url":""},"bgColorCode":"#464646"} -->
@@ -68,7 +68,7 @@
 
 <!-- wp:wd/button {"blockId":"8b37a5ac-8c99-4681-9d55-db7e370bacbc","blockVersion":"2","predefinedColor":"primary","shape":"semi-round"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-semi-round wd-8b37a5ac" href="#"><span>Shop Now</span></a>
-<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/discount-on-all-smart-appliances.jpg" class="wp-image-300" alt=""/></div></div>
+<!-- /wp:wd/button --></div><div class="wd-slide-bg wd-fill"><img src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/discount-on-all-smart-appliances.jpg" class="wp-image-300" alt="" /></div></div>
 <!-- /wp:wd/slider-item --></div></div><div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-pos-sep wd-hide-lg wd-style-1 color-scheme-dark"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div><div class="wd-nav-pagin-wrap wd-slider-pagin wd-custom-style wd-style-shape-3 wd-align color-scheme-dark"><ul class="wd-nav-pagin"></ul></div></div>
 <!-- /wp:wd/slider --></div>
 <!-- /wp:wd/column -->
@@ -143,7 +143,7 @@
 
 <!-- wp:wd/button {"blockId":"a158d4eb-5408-4c14-a67b-152a17bcfecd","blockVersion":"2","predefinedColor":"","shape":"round","icon":"right","colorCode":"#1c61e7","colorHoverCode":"#1c61e7","bgColorCode":"#e1ebff","bgHoverColorCode":"#dbe3f9"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-default btn-shape-round btn-icon-pos-right wd-a158d4eb" href="#"><span>More Products</span><!-- wp:wd/icon {"blockId":"73029b5a-0f44-4739-b026-e963b708e132","blockVersion":"2","image":{"id":335,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-73029b5a"><img class="wp-image-335" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-73029b5a"><img class="wp-image-335" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container -->
@@ -177,7 +177,7 @@
 
 <!-- wp:wd/button {"blockId":"de799173-98eb-488a-8210-4d3bd381fae3","blockVersion":"2","predefinedColor":"","shape":"round","icon":"right","colorCode":"#1c61e7","colorHoverCode":"#1c61e7","bgColorCode":"#e1ebff","bgHoverColorCode":"#dbe3f9"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-default btn-shape-round btn-icon-pos-right wd-de799173" href="#"><span>More Products</span><!-- wp:wd/icon {"blockId":"149af50f-6182-40e5-aa87-d6488f60e988","blockVersion":"2","image":{"id":335,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-149af50f"><img class="wp-image-335" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-149af50f"><img class="wp-image-335" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container -->
@@ -190,7 +190,7 @@
 <div class="wp-block-wd-section wd-21d830fd"><!-- wp:wd/row {"blockId":"25afc24c-2dfa-469c-b915-d72963721947","blockVersion":"2","columnsGapMobile":0} -->
 <div class="wp-block-wd-row wd-25afc24c"><!-- wp:wd/column {"blockId":"53d06b38-17e6-4f04-80c7-1be97057587c","blockVersion":"2","adjacentCount":2,"colWidth":42} -->
 <div class="wp-block-wd-column wd-53d06b38"><!-- wp:wd/image {"blockId":"ff957260-e67d-4b4f-9c87-a4ab88a512f2","blockVersion":"2","image":{"id":359,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event-full-img-opt.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event-full-img-opt.png","width":580,"height":365}} -->
-<div class="wp-block-wd-image wd-block-image wd-ff957260"><img class="wp-image-359" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event-full-img-opt.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-ff957260"><img class="wp-image-359" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/apple-shopping-event-full-img-opt.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
@@ -209,7 +209,7 @@
 
 <!-- wp:wd/button {"blockId":"005fe852-09d2-409c-a5f9-682f56eecc49","blockVersion":"2","predefinedColor":"primary","shape":"semi-round","icon":"right"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-color-primary btn-size-default btn-shape-semi-round btn-icon-pos-right wd-005fe852" href="#"><span>Go Shopping</span><!-- wp:wd/icon {"blockId":"153063a5-026e-429c-b0dd-79aa5a72130b","blockVersion":"2","image":{"id":362,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-white.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-153063a5"><img class="wp-image-362" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-white.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-153063a5"><img class="wp-image-362" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-white.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/column --></div>
@@ -227,7 +227,7 @@
 
 <!-- wp:wd/button {"blockId":"16027129-b870-4eff-a21f-396e2d0ce00c","blockVersion":"2","predefinedColor":"","shape":"round","icon":"right","colorCode":"#1c61e7","colorHoverCode":"#1c61e7","bgColorCode":"#e1ebff","bgHoverColorCode":"#dbe3f9"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-default btn-shape-round btn-icon-pos-right wd-16027129" href="#"><span>More Products</span><!-- wp:wd/icon {"blockId":"d374a6c0-e7d6-4ec7-bcbc-2e72a2af9e85","blockVersion":"2","image":{"id":335,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-d374a6c0"><img class="wp-image-335" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-d374a6c0"><img class="wp-image-335" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-right-primary.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container -->
@@ -239,7 +239,7 @@
 <div class="wp-block-wd-column wd-445f3ae0"><!-- wp:wd/row {"blockId":"47495afa-77dc-4f67-a69f-1c4b4cdfa8d2","blockVersion":"2","bgColorCode":"#ffffff","paddingTop":"75","paddingRight":"15","paddingBottom":"75","paddingLeft":"15","borderRadius":"10","borderRadiusTop":"10","borderRadiusRight":"10","borderRadiusBottom":"10","borderRadiusLeft":"10","paddingTopTablet":"40","paddingBottomTablet":"40"} -->
 <div class="wp-block-wd-row wd-47495afa"><!-- wp:wd/column {"blockId":"f1812d2a-474c-4fb6-a3b0-3effe58aed8b","blockVersion":"2","adjacentCount":2,"justifyContent":"center"} -->
 <div class="wp-block-wd-column wd-f1812d2a"><!-- wp:wd/image {"blockId":"2f8ed69a-d8dc-4e16-9e89-02da3ede718e","blockVersion":"2","image":{"id":383,"url":"https://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/microsoft-accessories.jpg"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/microsoft-accessories.jpg","width":440,"height":255}} -->
-<div class="wp-block-wd-image wd-block-image wd-2f8ed69a"><img class="wp-image-383" src="https://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/microsoft-accessories.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-2f8ed69a"><img class="wp-image-383" src="https://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/microsoft-accessories.jpg" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
@@ -255,25 +255,25 @@
 <!-- wp:wd/container {"blockId":"826ba94c-bf62-41cf-a7e1-6abcd114af0e","blockVersion":"2","direction":"row","wrap":"wrap","colGap":"15","rowGap":"10"} -->
 <div class="wp-block-wd-container wd-dir-row wd-826ba94c"><!-- wp:wd/button {"blockId":"74a575b3-9ed2-40b4-bdb8-f4b95ff0a01e","blockVersion":"2","size":"small","shape":"semi-round","icon":"left"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-small btn-shape-semi-round btn-icon-pos-left wd-74a575b3" href="#"><span>Keyboards</span><!-- wp:wd/icon {"blockId":"64c18923-65a4-4773-a591-9724457b5b80","blockVersion":"2","image":{"id":389,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/keyboard.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-64c18923"><img class="wp-image-389" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/keyboard.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-64c18923"><img class="wp-image-389" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/keyboard.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button -->
 
 <!-- wp:wd/button {"blockId":"d7bb746c-14ea-4018-84de-21e1b16697b4","blockVersion":"2","size":"small","shape":"semi-round","icon":"left"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-small btn-shape-semi-round btn-icon-pos-left wd-d7bb746c" href="#"><span>Surface pen</span><!-- wp:wd/icon {"blockId":"fe68968a-1133-4cba-9c6c-32bb0fbeeb37","blockVersion":"2","image":{"id":392,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/pen.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-fe68968a"><img class="wp-image-392" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/pen.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-fe68968a"><img class="wp-image-392" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/pen.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button -->
 
 <!-- wp:wd/button {"blockId":"39b23918-bf88-4edf-9927-c1975b83058e","blockVersion":"2","size":"small","shape":"semi-round","icon":"left"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-small btn-shape-semi-round btn-icon-pos-left wd-39b23918" href="#"><span>Mices</span><!-- wp:wd/icon {"blockId":"8b517aa2-1f59-4703-a5ac-50ac5be5f0c7","blockVersion":"2","image":{"id":393,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/wirelss-mouse.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-8b517aa2"><img class="wp-image-393" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/wirelss-mouse.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-8b517aa2"><img class="wp-image-393" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/wirelss-mouse.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button -->
 
 <!-- wp:wd/button {"blockId":"7f422391-0420-4929-b926-8f40a48b20c0","blockVersion":"2","size":"small","shape":"semi-round","icon":"left"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-small btn-shape-semi-round btn-icon-pos-left wd-7f422391" href="#"><span>Headphones</span><!-- wp:wd/icon {"blockId":"db3cd368-a991-4a4c-a382-65827b5e7b82","blockVersion":"2","image":{"id":394,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/headphone.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-db3cd368"><img class="wp-image-394" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/headphone.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-db3cd368"><img class="wp-image-394" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/headphone.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/container --></div>
@@ -372,7 +372,7 @@
 
 <!-- wp:wd/button {"blockId":"9e261c0e-04a9-43b7-be96-91e304e00a61","blockVersion":"2","predefinedColor":"","size":"small","shape":"semi-round","icon":"right"} -->
 <a class="wp-block-wd-button btn btn-style-default btn-size-small btn-shape-semi-round btn-icon-pos-right wd-9e261c0e" href="#"><span>Read more</span><!-- wp:wd/icon {"blockId":"a7239068-f1a4-49fc-b60a-a067d15f1b7f","blockVersion":"2","image":{"id":417,"url":"http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-down-black.svg"},"width":"14"} -->
-<div class="wp-block-wd-icon wd-a7239068"><img class="wp-image-417" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-down-black.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-a7239068"><img class="wp-image-417" src="http://dummy.xtemos.com/woodmart2/mega-electronics-gutenberg/wp-content/uploads/sites/27/2024/07/chevron-down-black.svg" alt="" /></div>
 <!-- /wp:wd/icon --></a>
 <!-- /wp:wd/button --></div>
 <!-- /wp:wd/collapsible-content --></div>
@@ -380,8 +380,8 @@
 															<wp:post_id>25</wp:post_id>
 					<wp:post_date><![CDATA[2024-07-11 14:58:09]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-07-11 14:58:09]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-06-18 13:18:00]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-06-18 13:18:00]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-23 10:38:43]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-23 10:38:43]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-mega-electronics]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

@@ -1,6 +1,7 @@
 <?php
 
 use WPML\FP\Obj;
+use WPML\QueryFiltering\NameFilterTypeResolver;
 
 class WPML_Query_Parser {
 
@@ -13,12 +14,19 @@ class WPML_Query_Parser {
 
 	private $query_filter;
 
-	public function __construct( $sitepress, $query_filter ) {
+	private NameFilterTypeResolver $name_filter_type_resolver;
+
+	private $opt_out;
+
+	public function __construct( $sitepress, $query_filter, ?WPML_Term_Query_Opt_Out $opt_out = null ) {
 		$this->sitepress         = $sitepress;
 		$this->wpdb              = $sitepress->wpdb();
 		$this->post_translations = $sitepress->post_translations();
 		$this->term_translations = $sitepress->term_translations();
 		$this->query_filter      = $query_filter;
+		$this->opt_out           = $opt_out ? $opt_out : new WPML_Term_Query_Opt_Out( $sitepress );
+
+		$this->name_filter_type_resolver = new NameFilterTypeResolver();
 	}
 
 	private function adjust_default_taxonomies_query_vars( $q, $lang ) {
@@ -118,6 +126,7 @@ class WPML_Query_Parser {
 		$translated_values = array();
 
 		if ( $type === 'ids' ) {
+			$this->prefetch_term_translations( $values );
 
 			foreach ( $values as $id ) {
 				$sign                = (int) $id < 0 ? - 1 : 1;
@@ -142,24 +151,39 @@ class WPML_Query_Parser {
 		return $translated_values;
 	}
 
-	private function translate_term_slug( $slug, $taxonomy, $lang ) {
-		$id = (int) $this->wpdb->get_var(
-			$this->wpdb->prepare(
-				"SELECT t.term_id FROM {$this->wpdb->terms} t
-								 JOIN {$this->wpdb->term_taxonomy} tt ON t.term_id = tt.term_id
-								 WHERE tt.taxonomy = %s AND t.slug = %s LIMIT 1",
-				$taxonomy,
-				$slug
-			)
-		);
+	private function prefetch_term_translations( $values ) {
+		$ttids = array();
+		foreach ( $values as $id ) {
+			$ttid = (int) $this->term_translations->adjust_ttid_for_term_id( abs( (int) $id ) );
+			if ( $ttid > 0 ) {
+				$ttids[] = $ttid;
+			}
+		}
 
+		if ( count( $ttids ) > 1 ) {
+			$this->term_translations->prefetch_ids( $ttids );
+		}
+	}
+
+	private function translate_term_slug( $slug, $taxonomy, $lang ) {
+		$wpdb = $this->wpdb;
+
+		$ids = $this->term_translations->term_ids_by_slug( $slug, $taxonomy );
+
+		foreach ( $ids as $candidate ) {
+			if ( $this->term_translations->lang_code_by_termid( $candidate ) === $lang ) {
+				return $slug;
+			}
+		}
+
+		$id      = $ids ? (int) $ids[0] : 0;
 		$term_id = (int) $this->term_translations->term_id_in( $id, $lang, true );
 
 		if ( $term_id !== $id ) {
 
-			$slug = $this->wpdb->get_var(
-				$this->wpdb->prepare(
-					"SELECT slug FROM {$this->wpdb->terms}
+			$slug = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT slug FROM {$wpdb->terms}
 								 WHERE term_id = %d LIMIT 1",
 					$term_id
 				)
@@ -189,7 +213,7 @@ class WPML_Query_Parser {
 			 is_array( $q->query_vars['tax_query'] ) &&
 			 is_array( $q->tax_query->queries ) &&
 			 is_array( $q->query['tax_query'] ) &&
-			 empty( $q->query_vars['suppress_filters'] )
+			 ! $this->opt_out->is_stand_down_requested( $q )
 		) {
 
 			$new_conditions             = $this->adjust_tax_query_conditions( $q->query['tax_query'] );
@@ -266,7 +290,7 @@ class WPML_Query_Parser {
 
 				if ( $new_url && ! is_wp_error( $new_url ) ) {
 					global $wpml_wp_api;
-					$wpml_wp_api->wp_safe_redirect( $new_url );
+					$wpml_wp_api->wp_safe_redirect( $new_url, 301 );
 
 					return null;
 				}
@@ -274,6 +298,63 @@ class WPML_Query_Parser {
 		}
 
 		return $q;
+	}
+
+	private function get_page_at_path_in_language( $path, $post_type, $language ) {
+		$slugs = array_values( array_filter( explode( '/', trim( (string) $path, '/' ) ), 'strlen' ) );
+
+		if ( ! $slugs ) {
+			return null;
+		}
+
+		foreach ( $this->get_path_lookup_scopes( $language ) as $scope ) {
+			$candidates = $this->get_slug_path_candidates( $slugs, $post_type, $scope );
+
+			if ( ! $candidates ) {
+				continue;
+			}
+
+			$scorer = new WPML_Score_Hierarchy( $candidates, $slugs );
+			$scored = $scorer->get_possible_ids_ordered();
+
+			if ( ! empty( $scored['matching_ids'] ) ) {
+				$page = get_post( (int) $scored['matching_ids'][0] );
+
+				if ( $page ) {
+					return $page;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private function get_path_lookup_scopes( $language ) {
+		$scopes  = array( $language );
+		$default = $this->sitepress->get_default_language();
+
+		if ( $default && $default !== $language ) {
+			$scopes[] = $default;
+		}
+
+		return $scopes;
+	}
+
+	private function get_slug_path_candidates( array $slugs, $post_type, $language ) {
+		$element_type = 'post_' . $post_type;
+		$in_slugs     = implode( ',', array_fill( 0, count( $slugs ), '%s' ) );
+
+		$sql = $this->wpdb->prepare(
+			"SELECT p.ID, p.post_name, p.post_parent, par.post_name AS parent_name
+				FROM {$this->wpdb->posts} p
+				JOIN {$this->wpdb->prefix}icl_translations t
+					ON t.element_id = p.ID AND t.element_type = %s AND t.language_code = %s
+				LEFT JOIN {$this->wpdb->posts} par ON par.ID = p.post_parent
+				WHERE p.post_type = %s AND p.post_name IN ( " . $in_slugs . ' )',
+			array_merge( array( $element_type, $language, $post_type ), $slugs )
+		);
+
+		return (array) $this->wpdb->get_results( $sql );
 	}
 
 	private function get_query_taxonomy_term_slugs( WP_Query $q ) {
@@ -293,6 +374,8 @@ class WPML_Query_Parser {
 	}
 
 	function parse_query( $q ) {
+		$wpdb = $this->wpdb;
+
 		if ( $this->sitepress->get_wp_api()->is_admin()
 			 && ! $this->sitepress->get_wp_api()->constant( 'DOING_AJAX' )
 		) {
@@ -303,7 +386,7 @@ class WPML_Query_Parser {
 
 		list( $q, $redir_pid ) = $this->maybe_adjust_name_var( $q );
 
-		if ( $q->is_main_query() && (bool) $redir_pid === true ) {
+		if ( $q->is_main_query() && $redir_pid ) {
 			if ( (bool) ( $redir_target = $this->is_redirected( $redir_pid, $q ) ) ) {
 				$this->sitepress->get_wp_api()->wp_safe_redirect( $redir_target, 301 );
 			}
@@ -320,7 +403,9 @@ class WPML_Query_Parser {
 			return $q;
 		}
 		if ( 'attachment' === $post_type || $current_language !== $this->sitepress->get_default_language() ) {
-			$q = $this->adjust_default_taxonomies_query_vars( $q, $current_language );
+			if ( ! $this->opt_out->is_stand_down_requested( $q ) ) {
+				$q = $this->adjust_default_taxonomies_query_vars( $q, $current_language );
+			}
 
 			if ( ! is_array( $post_type ) ) {
 				$post_type = (array) $post_type;
@@ -339,24 +424,37 @@ class WPML_Query_Parser {
 
 				if ( $this->sitepress->is_translated_post_type( $first_post_type ) && ! empty( $q->query_vars['name'] ) ) {
 					if ( is_post_type_hierarchical( $first_post_type ) ) {
-						$requested_page = get_page_by_path( $q->query_vars['name'], OBJECT, $first_post_type );
+						$requested_page = $this->get_page_at_path_in_language(
+							$q->query_vars['name'],
+							$first_post_type,
+							$current_language
+						);
+
+						if ( ! $requested_page ) {
+							$requested_page = get_page_by_path( $q->query_vars['name'], OBJECT, $first_post_type );
+						}
+
 						if ( $requested_page && 'attachment' !== $requested_page->post_type ) {
 							$q->query_vars['p'] = $this->post_translations->element_id_in( $requested_page->ID, $current_language, true );
 							unset( $q->query_vars['name'] );
 							$q->query_vars[ $first_post_type ] = '';
 						}
 					} else {
-						$pid_prepared = $this->wpdb->prepare(
-							"
-							SELECT ID FROM {$this->wpdb->posts} p
-							JOIN {$this->wpdb->prefix}icl_translations t
-								ON t.element_id = p.ID AND t.element_type='post_{$first_post_type}'
+						$pid = $wpdb->get_var(
+							$wpdb->prepare(
+								"
+							SELECT ID FROM {$wpdb->posts} p
+							JOIN {$wpdb->prefix}icl_translations t
+								ON t.element_id = p.ID AND t.element_type=CONCAT('post_', %s)
 							WHERE post_name=%s AND post_type=%s AND t.language_code=%s
 							LIMIT 1
-						",
-							array( $q->query_vars['name'], $first_post_type, $current_language )
+							",
+								$first_post_type,
+								$q->query_vars['name'],
+								$first_post_type,
+								$current_language
+							)
 						);
-						$pid          = $this->wpdb->get_var( $pid_prepared );
 						if ( ! empty( $pid ) ) {
 							$q->query_vars['p'] = $this->post_translations->element_id_in( $pid, $current_language, true );
 							unset( $q->query_vars['name'] );
@@ -379,17 +477,45 @@ class WPML_Query_Parser {
 
 	private function maybe_adjust_parent( $q, $post_type, $current_language ) {
 		$post_type = ! is_scalar( $post_type ) && count( $post_type ) === 1 ? end( $post_type ) : $post_type;
-		if ( ! empty( $q->query_vars['post_parent'] )
-			 && $q->query_vars['post_type'] !== 'attachment'
-			 && $post_type
-			 && is_scalar( $post_type )
-			 && $this->sitepress->is_translated_post_type( $post_type )
+
+		$has_parent_filter = ! empty( $q->query_vars['post_parent'] )
+							 || ! empty( $q->query_vars['post_parent__in'] )
+							 || ! empty( $q->query_vars['post_parent__not_in'] );
+
+		$queried_post_type = isset( $q->query_vars['post_type'] ) ? $q->query_vars['post_type'] : '';
+
+		if ( ! $has_parent_filter
+			 || 'attachment' === $queried_post_type
+			 || ! $post_type
+			 || ! is_scalar( $post_type )
+			 || ! $this->sitepress->is_translated_post_type( $post_type )
 		) {
+			return $q;
+		}
+
+		if ( ! empty( $q->query_vars['post_parent'] ) ) {
 			$q->query_vars['post_parent'] = $this->post_translations->element_id_in(
 				$q->query_vars['post_parent'],
 				$current_language,
 				true
 			);
+		}
+
+		foreach ( array( 'post_parent__in', 'post_parent__not_in' ) as $parent_list ) {
+			if ( empty( $q->query_vars[ $parent_list ] ) || ! is_array( $q->query_vars[ $parent_list ] ) ) {
+				continue;
+			}
+
+			$translated = array();
+			foreach ( $q->query_vars[ $parent_list ] as $parent_id ) {
+				$translated[] = $this->post_translations->element_id_in(
+					$parent_id,
+					$current_language,
+					true
+				);
+			}
+
+			$q->query_vars[ $parent_list ] = $translated;
 		}
 
 		return $q;
@@ -408,12 +534,11 @@ class WPML_Query_Parser {
 				$name_in_q,
 				$q
 			);
+			$type = $this->name_filter_type_resolver->resolve( $type, $q, $name_in_q );
 			if ( $altered === true ) {
 				$name_before = $q->get( 'name' );
 				$q->set( 'name', $name_found );
 			}
-			$type = $type ? $type : 'page';
-			$type = is_scalar( $type ) ? $type : ( count( $type ) === 1 ? end( $type ) : false );
 			list( $q, $redirect ) = $type
 				? $this->query_filter->get_page_name_filter( $type )->filter_page_name( $q ) : array( $q, false );
 			if ( isset( $name_before ) ) {
@@ -423,6 +548,7 @@ class WPML_Query_Parser {
 
 		return array( $q, $redirect );
 	}
+
 
 	private function adjust_query_ids( $q, $index ) {
 		if ( ! empty( $q->query_vars[ $index ] ) ) {

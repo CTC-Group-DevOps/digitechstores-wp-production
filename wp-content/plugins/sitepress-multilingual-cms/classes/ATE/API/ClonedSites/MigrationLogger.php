@@ -94,6 +94,10 @@ class MigrationLogger {
 		JobLog::add( 'jobs_cancelled', [ 'count' => $count ] );
 	}
 
+	public static function jobsCancelFailed( \Throwable $e ) {
+		JobLog::addError( 'jobs_cancel_failed', [ 'class' => get_class( $e ), 'message' => $e->getMessage() ] );
+	}
+
 	public static function siteUnlocked() {
 		JobLog::add( 'site_unlocked', [] );
 	}

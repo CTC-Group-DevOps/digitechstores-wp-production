@@ -14,25 +14,25 @@
             "Błąd"
          ],
          "« Use a different Translation Service": [
-            "« Użyj innej usługi tłumaczeniowej"
+            "« Użyj innego serwisu tłumaczeniowego"
          ],
          "Authenticate": [
             "Uwierzytelnij"
          ],
          "Visit <link_to_service /> to request an API Token. This token allows WPML to connect to <service_name /> to send and receive jobs.": [
-            "Odwiedź <link_to_service />, aby poprosić o token API. Ten token umożliwia WPML połączenie z <service_name /> w celu wysyłania i odbierania zadań."
+            "Odwiedź <link_to_service />, aby poprosić o token API. Token ten pozwala WPML na połączenie się z <service_name /> w celu wysyłania i odbierania zadań."
          ],
          "Search translation services": [
-            "Wyszukaj usługi tłumaczeniowe"
+            "Szukaj serwisów tłumaczeniowych"
          ],
          "Search": [
-            "Szukaj"
+            "Wyszukiwanie"
          ],
          "Settings": [
             "Ustawienia"
          ],
          "It’s not currently possible to connect a translation service when WPML is set to translate your site’s content automatically. To use a translation service, please change your translation mode on the <LinkToSettingsPage /> page.": [
-            "Obecnie nie można połączyć usługi tłumaczeniowej, gdy WPML jest ustawiony na automatyczne tłumaczenie zawartości witryny. Aby skorzystać z usługi tłumaczeniowej, zmień tryb tłumaczenia na stronie <LinkToSettingsPage />."
+            "Obecnie nie można połączyć się z serwisem tłumaczeniowym, gdy WPML jest ustawiony na automatyczne tłumaczenie treści witryny. Aby skorzystać z serwisu tłumaczeniowego, zmień tryb tłumaczenia na stronie <LinkToSettingsPage />."
          ],
          "Sort descending": [
             "Sortuj malejąco"

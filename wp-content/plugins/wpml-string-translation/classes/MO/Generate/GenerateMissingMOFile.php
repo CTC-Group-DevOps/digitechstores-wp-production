@@ -21,7 +21,7 @@ class MissingMOFile {
 	private $optionManager;
 
 	public function __construct(
-		\WP_Filesystem_Direct $filesystem,
+		\WP_Filesystem_Base $filesystem,
 		Builder $builder,
 		StringsRetrieveMOOriginals $stringsRetrieve,
 		\WPML_Language_Records $languageRecords,

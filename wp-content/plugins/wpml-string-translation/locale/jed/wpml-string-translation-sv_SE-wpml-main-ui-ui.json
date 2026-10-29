@@ -7,14 +7,17 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "sv_SE"
          },
-         "Edit": [
-            "Redigera"
+         "Edit %s": [
+            "Redigera %s"
          ],
          "Shift+Tab": [
-            "Skift+tabb"
+            "Skift+tab"
          ],
          "Tab": [
-            "Tabb"
+            "Tab"
+         ],
+         "Original:": [
+            "Original:"
          ],
          "Translation to:": [
             "Översättning till:"
@@ -25,17 +28,14 @@
          "Use Shift+Enter to add a new line.": [
             "Använd Skift+Enter för att lägga till en ny rad."
          ],
-         "Original:": [
-            "Original:"
-         ],
          "Add %s translation": [
-            "Lägg till %s översättning"
+            "Lägg till översättning för %s"
          ],
          "Edit %s translation": [
-            "Redigera %s översättning"
+            "Redigera översättning för %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "Lägg till %s översättning (strängen visas på webbplatsen och är inte översatt)"
+            "Lägg till översättning för %s (strängen visas på webbplatsen och är inte översatt)"
          ],
          "Original language %s": [
             "Originalspråk %s"
@@ -46,11 +46,8 @@
          "Translation in progress to %s": [
             "Översättning pågår till %s"
          ],
-         "In basket for translation to %s": [
-            "I korgen för översättning till %s"
-         ],
          "Translation saved.": [
-            "Översättning sparad."
+            "Översättningen har sparats."
          ],
          "Translation update failed.": [
             "Det gick inte att uppdatera översättningen."

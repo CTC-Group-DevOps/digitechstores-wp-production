@@ -4,7 +4,7 @@ namespace WPML\TM\Translations\TranslationElements;
 
 class FilterJobUrlMigration {
 	public function maybeFilterJobElementsAfterMigration( $job, $sitepress ) {
-		if ( ! ICL_TM_COMPLETE === $job->status || ! isset( $job->elements ) ) {
+		if ( ICL_TM_COMPLETE !== (int) $job->status || ! isset( $job->elements ) ) {
 			return $job;
 		}
 

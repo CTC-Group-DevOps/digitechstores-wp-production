@@ -236,7 +236,7 @@
 <h2 id="wd-2ee2c0ba" class="wp-block-wd-title title">01. About our studio</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/divider {"blockId":"d5bbfbdf-5537-4664-8fc0-a9150fe3c577","style":"zigzag","svgSize":14,"weight":3,"width":"68","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/divider {"blockId":"d5bbfbdf-5537-4664-8fc0-a9150fe3c577","style":"zigzag","svgSize":14,"weight":3,"width":"68","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div id="wd-d5bbfbdf" class="wp-block-wd-divider wd-style-line wd-type-svg"></div>
 <!-- /wp:wd/divider -->
 
@@ -257,7 +257,7 @@
 <div id="wd-c72487dd" class="wp-block-wd-image wd-block-image"><img class="wp-image-34365" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/11/team-member-small2.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
-<!-- wp:wd/paragraph {"blockId":"d8b8e65c-5217-458f-a94f-303ed13f17e6","markColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"d8b8e65c-5217-458f-a94f-303ed13f17e6","markColorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-d8b8e65c" class="wp-block-wd-paragraph">by <strong><span class="wd-highlight">Sergey Brin</span></strong> – Google Inc.</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container --></div>
@@ -278,7 +278,7 @@
 <h2 id="wd-867929d3" class="wp-block-wd-title title">02. Developers team</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/divider {"blockId":"3635158a-bad9-4fc8-b18a-bdc0e20de2cf","style":"zigzag","svgSize":14,"weight":3,"width":"68","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/divider {"blockId":"3635158a-bad9-4fc8-b18a-bdc0e20de2cf","style":"zigzag","svgSize":14,"weight":3,"width":"68","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div id="wd-3635158a" class="wp-block-wd-divider wd-style-line wd-type-svg"></div>
 <!-- /wp:wd/divider -->
 
@@ -295,7 +295,7 @@
 <div id="wd-8faf7cf5" class="wp-block-wd-image wd-block-image"><img class="wp-image-34365" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/11/team-member-small2.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
-<!-- wp:wd/paragraph {"blockId":"fea7b893-a6e4-4381-a388-5a1e7be01435","markColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"fea7b893-a6e4-4381-a388-5a1e7be01435","markColorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-fea7b893" class="wp-block-wd-paragraph">by <strong><span class="wd-highlight">Sergey Brin</span></strong> – Google Inc.</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container --></div>
@@ -398,7 +398,7 @@
 <h2 id="wd-e4b5702c" class="wp-block-wd-title title">03. Studio latest projects</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/divider {"blockId":"b43aea43-f791-40e3-a9f2-34c2dabc88d2","style":"zigzag","svgSize":14,"weight":3,"width":"68","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/divider {"blockId":"b43aea43-f791-40e3-a9f2-34c2dabc88d2","style":"zigzag","svgSize":14,"weight":3,"width":"68","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div id="wd-b43aea43" class="wp-block-wd-divider wd-style-line wd-type-svg"></div>
 <!-- /wp:wd/divider -->
 
@@ -415,7 +415,7 @@
 <div id="wd-345959ff" class="wp-block-wd-image wd-block-image"><img class="wp-image-34365" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/11/team-member-small2.png" alt="" /></div>
 <!-- /wp:wd/image -->
 
-<!-- wp:wd/paragraph {"blockId":"4c4d6990-b079-4659-9b0e-62cd2a25d663","markColorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"4c4d6990-b079-4659-9b0e-62cd2a25d663","markColorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-4c4d6990" class="wp-block-wd-paragraph">by <strong><span class="wd-highlight">Sergey Brin</span></strong> – Google Inc.</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/container --></div>

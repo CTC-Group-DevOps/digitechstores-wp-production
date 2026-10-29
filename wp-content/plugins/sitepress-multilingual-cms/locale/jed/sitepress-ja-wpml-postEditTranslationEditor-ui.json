@@ -7,32 +7,56 @@
             "plural_forms": "nplurals=1; plural=0;",
             "lang": "ja"
          },
+         "Sending for translation": [
+            "翻訳に送信中"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "サーバーからの応答がないため、翻訳を開始できませんでした。"
+         ],
+         "This translation cannot be opened right now.": [
+            "現在、この翻訳を開くことができません。"
+         ],
+         "Refresh this page": [
+            "このページを更新してください"
+         ],
          "Translation Dashboard": [
             "翻訳ダッシュボード"
          ],
          "WPML Translation Editor": [
-            "WPML翻訳エディター"
+            "WPML 翻訳エディタ"
          ],
          "WordPress Editor": [
-            "WordPressエディター"
+            "WordPress エディタ"
+         ],
+         "The WordPress Editor doesn't offer Automatic Translation, <b>Translation Memory</b> and other features that make translation easier.": [
+            "WordPress エディタでは、自動翻訳や<b>翻訳メモリ</b>、その他翻訳を容易にする機能を利用できません。"
          ],
          "Also, switching back to WPML's Translation Editor later will require re-translating content that you translated with the WordPress editor.": [
-            "また、後でWPMLの翻訳エディターに戻すと、WordPressエディターで翻訳したコンテンツを再翻訳する必要があります。"
+            "また、後で WPML 翻訳エディタに戻す場合、WordPress エディタで翻訳したコンテンツを再翻訳する必要があります。"
+         ],
+         "This translation was previously created in the WordPress editor. When you switch to WPML Translation Editor, the structure of the translated post will be updated to match the original, but WPML will use your existing translation as a base so the tone and terminology are preserved.": [
+            "この翻訳は以前 WordPress エディタで作成されました。WPML 翻訳エディタに切り替えると、翻訳済み投稿の構造は元言語に合わせて更新されますが、WPML は既存の翻訳をベースとして使用するため、トーンや用語集は維持されます。"
          ],
          "This will overwrite content you translated with the WordPress Editor. If you switch now, you'll have to translate selected content again.": [
-            "これにより、WordPressエディターで翻訳したコンテンツが上書きされます。今すぐ切り替えると、選択したコンテンツを再度翻訳する必要があります。"
+            "これにより、WordPress エディタで翻訳したコンテンツが上書きされます。今切り替えると、選択したコンテンツを再度翻訳する必要があります。"
+         ],
+         "I understand, switch to the WordPress Editor": [
+            "理解しました。WordPress エディタに切り替えます"
+         ],
+         "I understand, switch to %s": [
+            "理解しました。%s に切り替えます"
+         ],
+         "I understand, switch to <b>Translation Dashboard</b>": [
+            "理解しました。<b>翻訳ダッシュボード</b>に切り替えます"
          ],
          "You are about to translate with the %s": [
-            "%sで翻訳しようとしています"
+            "%s で翻訳しようとしています"
          ],
          "Translate with the WordPress Editor if you need different designs per language or if the content isn't compatible with WPML's Translation Editor.": [
-            "言語ごとに異なるデザインが必要な場合、またはコンテンツがWPMLの翻訳エディターと互換性がない場合は、WordPressエディターで翻訳してください。"
+            "言語ごとに異なるデザインが必要な場合や、コンテンツが WPML 翻訳エディタと互換性がない場合は、WordPress エディタで翻訳してください。"
          ],
          "What do you want to translate?": [
             "何を翻訳しますか？"
-         ],
-         "I understand, switch to the WordPress Editor": [
-            "承知しました。WordPressエディターに切り替えます"
          ],
          "Apply": [
             "適用"
@@ -40,29 +64,20 @@
          "Cancel": [
             "キャンセル"
          ],
-         "I understand, switch to %s": [
-            "承知しました。%sに切り替えます"
-         ],
          "Only this %s": [
-            "この%sのみ"
+            "この %s のみ"
          ],
          "Recommended": [
             "推奨"
          ],
          "All %s": [
-            "すべての%s"
+            "すべての %s"
          ],
          "All the site's content": [
             "サイトのすべてのコンテンツ"
          ],
-         "I understand, switch to Translation Dashboard": [
-            "承知しました。翻訳ダッシュボードに切り替えます"
-         ],
-         "The WordPress Editor doesn't offer Automatic Translation, Translation Memory and other features that make translation easier.": [
-            "WordPressエディターは、自動翻訳、翻訳メモリ、その他翻訳を容易にする機能を提供していません。"
-         ],
          "Translate items in batch after reviewing the cost of AI translation": [
-            "AI翻訳の費用を確認した後、項目を一括で翻訳する"
+            "AI 翻訳のコストを確認した後、アイテムを一括で翻訳する"
          ]
       }
    }

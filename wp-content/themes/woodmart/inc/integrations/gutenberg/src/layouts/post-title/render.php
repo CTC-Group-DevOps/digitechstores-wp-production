@@ -17,13 +17,16 @@ if ( ! function_exists( 'wd_gutenberg_single_post_title' ) ) {
 			return '';
 		}
 
+		$allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' );
+		$html_tag     = isset( $block_attributes['htmlTag'] ) && in_array( $block_attributes['htmlTag'], $allowed_tags, true ) ? $block_attributes['htmlTag'] : 'h1';
+
 		ob_start();
 		woodmart_enqueue_inline_style( 'post-types-mod-predefined' );
 		?>
 		<div <?php echo $el_id ? 'id="' . esc_attr( $el_id ) . '" ' : ''; ?>class="wd-single-post-title<?php echo esc_attr( $wrapper_classes ); ?>">
-			<<?php echo esc_attr( $block_attributes['htmlTag'] ); ?> class="wd-post-title wd-entities-title entry-title title">
+			<<?php echo esc_attr( $html_tag ); ?> class="wd-post-title wd-entities-title entry-title title">
 				<?php echo wp_kses_post( $title ); ?>
-			</<?php echo esc_attr( $block_attributes['htmlTag'] ); ?>>
+			</<?php echo esc_attr( $html_tag ); ?>>
 		</div>
 		<?php
 		return ob_get_clean();

@@ -19,7 +19,8 @@ class TranslationServices {
 
 			return $this->selectByServiceId( $service->id );
 		} catch ( \Exception $e ) {
-			return Either::left( sprintf( __( 'Service with SUID=%s cannot be found', ' sitepress-multilingual-cms' ), $suid ) );
+			/* translators: Error message shown when the translation service the site is set to use cannot be found. %s: the code that stands for that service. */
+			return Either::left( sprintf( __( 'Service with SUID=%s cannot be found', 'sitepress' ), $suid ) );
 		}
 	}
 

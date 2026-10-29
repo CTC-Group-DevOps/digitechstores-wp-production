@@ -17,7 +17,7 @@ use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
 /**
  * WC_PB_REST_Reports_Bundles_Data_Store class.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 
@@ -78,6 +78,8 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 
 	/**
 	 * Assign report columns once full table name has been assigned.
+	 *
+	 * @return void
 	 */
 	protected function assign_report_columns() {
 		$table_name           = self::get_db_table_name();
@@ -90,6 +92,8 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 
 	/**
 	 * Set up all the hooks for maintaining and populating table data.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		// Sync.
@@ -100,6 +104,7 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 	 *
 	 * @param array $products_data Bundle Product data.
 	 * @param array $query_args  Query parameters.
+	 * @return void
 	 */
 	protected function include_extended_info( &$products_data, $query_args ) {
 		global $wpdb;
@@ -263,6 +268,7 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 	 * Updates the database query with parameters used for Products report: categories and order status.
 	 *
 	 * @param array $query_args Query arguments supplied by the user.
+	 * @return void
 	 */
 	protected function add_sql_query_params( $query_args ) {
 		global $wpdb;
@@ -293,6 +299,7 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 	 * @param array  $query_args Parameters supplied by the user.
 	 * @param string $arg_name   Target of the JOIN sql param.
 	 * @param string $id_cell    ID cell identifier, like `table_name.id_column_name`.
+	 * @return void
 	 */
 	protected function add_from_sql_params( $query_args, $arg_name, $id_cell ) {
 		global $wpdb;
@@ -410,6 +417,8 @@ class WC_PB_Analytics_Stock_Data_Store extends WC_PB_Analytics_Data_Store {
 
 	/**
 	 * Initialize query objects.
+	 *
+	 * @return void
 	 */
 	protected function initialize_queries() {
 		global $wpdb;

@@ -18,8 +18,12 @@ class WPML_TM_Translation_Jobs_Fix_Summary {
 
 	public function add_hooks() {
 		add_action( 'init', array( $this, 'display_summary' ) );
-		add_action(
-			'wp_ajax_' . WPML_TP_Sync_Ajax_Handler::AJAX_ACTION,
+		\WPML\Request\Adapter\Ajax::register(
+			WPML_TP_Sync_Ajax_Handler::AJAX_ACTION,
+			\WPML\Request\Policy\Policy::capability(
+				'manage_translations',
+				\WPML\Request\Policy\Authenticity::actionNonce( 'sync-job-states', 'nonce' )
+			),
 			array(
 				$this,
 				'mark_invalid_jobs_as_synced',

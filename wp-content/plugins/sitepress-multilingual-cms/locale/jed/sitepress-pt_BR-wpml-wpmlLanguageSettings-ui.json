@@ -11,7 +11,7 @@
             "Escolha o tipo de arquivo de imagem para as bandeiras"
          ],
          "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
-            "Esta opção afeta apenas as bandeiras WPML incorporadas, não as personalizadas carregadas."
+            "Esta opção afeta apenas as bandeiras integradas do WPML, não as personalizadas que foram enviadas."
          ],
          "%s format": [
             "Formato %s"

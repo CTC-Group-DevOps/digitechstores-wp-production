@@ -11,23 +11,22 @@ class SearchPopulatedKindsQuery implements SearchPopulatedKindsQueryInterface {
 
 	private $sitepress;
 
-	private $queryBuilderResolver;
+	private $queryBuilder;
 
 	public function __construct(
 		$wpdb,
 		$sitepress,
-		QueryBuilderResolver $queryBuilderResolver
+		SearchPopulatedKindsQueryBuilder $queryBuilder
 	) {
 		$this->wpdb = $wpdb;
 		$this->sitepress = $sitepress;
-		$this->queryBuilderResolver = $queryBuilderResolver;
+		$this->queryBuilder = $queryBuilder;
 	}
 
 	public function get( SearchPopulatedKindsCriteria $criteria ) {
-		$queryBuilder = $this->queryBuilderResolver->resolveSearchPopulatedKindsQueryBuilder();
 		$populatedKinds = $criteria->getStringPackageTypeIds();
 		foreach( $populatedKinds as $postTypeIndex => $postType ) {
-			$query = $queryBuilder->build( $criteria, $postType );
+			$query = $this->queryBuilder->build( $criteria, $postType );
 			if ( ! $this->wpdb->get_col( $query ) ) {
 				unset( $populatedKinds[ $postTypeIndex ] );
 			}

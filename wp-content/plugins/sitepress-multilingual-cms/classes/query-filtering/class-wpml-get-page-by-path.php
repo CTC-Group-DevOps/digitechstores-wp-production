@@ -24,11 +24,13 @@ class WPML_Get_Page_By_Path {
 		$this->post_type = $post_type;
 		$this->language  = $lang;
 
-		$this->clear_cache( $page_name, $post_type );
+		$post_types = array( $post_type );
+
+		$this->clear_cache( $page_name, $post_types );
 
 		add_filter( 'query', [ $this, 'get_page_by_path_filter' ], self::BEFORE_REMOVE_PLACEHOLDER_ESCAPE_PRIORITY );
 		$temp_lang_switch = new WPML_Temporary_Switch_Language( $this->sitepress, $lang );
-		$page             = get_page_by_path( $page_name, $output, $post_type );
+		$page             = get_page_by_path( $page_name, $output, $post_types );
 		$temp_lang_switch->restore_lang();
 		remove_filter( 'query', [ $this, 'get_page_by_path_filter' ], self::BEFORE_REMOVE_PLACEHOLDER_ESCAPE_PRIORITY );
 
@@ -41,7 +43,12 @@ class WPML_Get_Page_By_Path {
 			&& $this->debug_backtrace->is_function_in_call_stack( 'get_page_by_path' )
 		) {
 
-			$where = $this->wpdb->prepare( "ID IN ( SELECT element_id FROM {$this->wpdb->prefix}icl_translations WHERE language_code = %s AND element_type LIKE 'post_%%' ) AND ", $this->language );
+			$wpdb  = $this->wpdb;
+			$where = $wpdb->prepare(
+				"ID IN ( SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE language_code = %s AND element_type LIKE %s ) AND ",
+				$this->language,
+				'post_%'
+			);
 
 			$query = str_replace( 'WHERE ', 'WHERE ' . $where, $query );
 		}
@@ -49,8 +56,8 @@ class WPML_Get_Page_By_Path {
 		return $query;
 	}
 
-	private function clear_cache( $page_name, $post_type ) {
-		$hash = md5( $page_name . serialize( $post_type ) );
+	private function clear_cache( $page_name, $post_types ) {
+		$hash = md5( $page_name . serialize( $post_types ) );
 		$last_changed             = wp_cache_get_last_changed( 'posts' );
 		$cache_key_with_timestamp = "get_page_by_path:$hash:$last_changed";
 		wp_cache_delete( $cache_key_with_timestamp, 'posts' );

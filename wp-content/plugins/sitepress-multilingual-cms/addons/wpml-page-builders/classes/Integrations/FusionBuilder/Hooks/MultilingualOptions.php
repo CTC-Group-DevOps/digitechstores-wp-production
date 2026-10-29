@@ -70,7 +70,9 @@ class MultilingualOptions implements \IWPML_Backend_Action, \IWPML_AJAX_Action, 
 			$currentLanguageDisplayName
 		) . '</h4>'
 		. '<ul>'
+		/* translators: First line of the notice on the Avada theme options screen, shown while one language is being edited. */
 		. '<li>' . __( 'Avada stores a separate set of options for each language.', 'sitepress' ) . '</li>'
+		/* translators: Second line of that notice; the switcher is WPML's language switcher in the WordPress admin bar. */
 		. '<li>' . __( 'To edit other languages, use the switcher in the top admin bar.', 'sitepress' ) . '</li>';
 		if ( $dashboardUrl ) {
 			$text .= '<li>' . sprintf(
@@ -88,7 +90,9 @@ class MultilingualOptions implements \IWPML_Backend_Action, \IWPML_AJAX_Action, 
 	}
 
 	private function getNoticeContentForAllLanguages() {
+		/* translators: Heading of the notice on the Avada theme options screen, shown while the all-languages view is being edited. */
 		$text  = '<h4>' . __( 'You\'re editing theme options for all languages', 'sitepress' ) . '</h4>'
+			/* translators: Body of that notice. */
 			. '<p>' . __( 'Your edits will be synchronized to all languages on your site.', 'sitepress' ) . '</p>';
 		$text .= '<div class="otgs-notice warning">';
 		if ( defined( 'WPML_ST_FOLDER' ) ) {
@@ -116,7 +120,7 @@ class MultilingualOptions implements \IWPML_Backend_Action, \IWPML_AJAX_Action, 
 			return null;
 		}
 
-		return admin_url( 'admin.php?page=tm/menu/main.php&sections=string' );
+		return admin_url( 'admin.php?page=tm/menu/main.php&sm=dashboard&sections=string' );
 	}
 
 	public function syncStringsToOptions( $translationId, $translationData = [], $language = '', $stringId = null ) {

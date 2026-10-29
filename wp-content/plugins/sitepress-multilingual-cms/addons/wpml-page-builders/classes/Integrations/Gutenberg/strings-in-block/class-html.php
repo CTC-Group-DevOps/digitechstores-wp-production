@@ -90,6 +90,7 @@ class HTML extends Base {
 			$translation = $this->getTranslation( $block->innerHTML, $lang, $block, $string_translations );
 
 			if ( $translation ) {
+				$block            = $this->get_dom_handler( $block )->applyTranslationToInnerContent( $block, $block->innerHTML, $translation );
 				$block->innerHTML = $translation;
 			}
 		}
@@ -123,7 +124,16 @@ class HTML extends Base {
 
 	private function updateTranslationInBlock( $text, $translation, \WP_Block_Parser_Block $block, $element, $dom_handle ) {
 		if ( $translation ) {
+			$innerContentBeforeUpdate = $block->innerContent;
+
 			$block = $dom_handle->applyStringTranslations( $block, $element, $translation, $text );
+
+			$elementSpansInnerBlock = $block->innerContent === $innerContentBeforeUpdate;
+
+			if ( $elementSpansInnerBlock ) {
+				$block = $dom_handle->applyTranslationToInnerContent( $block, $text, $translation );
+			}
+
 			$dom_handle->setElementValue( $element, $translation );
 		}
 
@@ -151,15 +161,11 @@ class HTML extends Base {
 	}
 
 	private static function preserveNewLines( $original, $translation ) {
-		$endsWith = function ( $find, $s ) {
-			return Str::sub( - Str::len( $find ), $s ) === $find;
-		};
-
 		if ( Str::startsWith( "\n", $original ) && ! Str::startsWith( "\n", $translation ) ) {
 			$translation = "\n" . $translation;
 		}
 
-		if ( $endsWith( "\n", $original ) && ! $endsWith( "\n", $translation ) ) {
+		if ( Str::endsWith( "\n", $original ) && ! Str::endsWith( "\n", $translation ) ) {
 			$translation .= "\n";
 		}
 

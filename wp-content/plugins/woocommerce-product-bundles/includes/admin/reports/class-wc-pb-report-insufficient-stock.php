@@ -20,19 +20,21 @@ if ( ! class_exists( 'WC_Report_Stock' ) ) {
  *
  * Handles reporting of bundles with an "Insufficient stock" status.
  *
- * @version  6.21.0
+ * @version  8.5.16
  */
 class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 
 	/**
 	 * Bundle IDs sorted by title.
 	 *
-	 * @var array
+	 * @var int[]
 	 */
 	private $ordered_bundle_ids = array();
 
 	/**
 	 * No items found text.
+	 *
+	 * @return void
 	 */
 	public function no_items() {
 		esc_html_e( 'No products found with insufficient stock.', 'woocommerce-product-bundles' );
@@ -43,6 +45,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 	 *
 	 * @param  int $current_page Current page.
 	 * @param  int $per_page    Items per page.
+	 * @return void
 	 */
 	public function get_items( $current_page, $per_page ) {
 
@@ -195,7 +198,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 	/**
 	 * Get columns.
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function get_columns() {
 

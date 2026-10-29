@@ -118,8 +118,8 @@ class RevSliderInstagram extends RevSliderFunctions {
 			return;
 		}
 
-		$token		 = $_GET[self::QUERY_TOKEN];
-		$connectwith = $_GET[self::QUERY_CONNECTWITH];
+		$token		 = sanitize_text_field($_GET[self::QUERY_TOKEN]);
+		$connectwith = isset($_GET[self::QUERY_CONNECTWITH]) ? sanitize_text_field($_GET[self::QUERY_CONNECTWITH]) : '';
 		$id			 = $this->get_val($_GET, 'id');
 		$alias		 = $this->get_val($_GET, 'alias');
 
@@ -173,7 +173,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 		//redirect
 		$url = sanitize_url( set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
 		$url = add_query_arg(array(self::QUERY_TOKEN => false, 'rs_ig_nonce' => false, self::QUERY_SHOW => 1), $url);
-		wp_redirect($url);
+		wp_safe_redirect($url);
 		exit();
 	}
 
@@ -186,8 +186,8 @@ class RevSliderInstagram extends RevSliderFunctions {
 		}
 
 		if(isset($_GET[self::QUERY_ERROR])){
-			$err = __('Instagram Reports: ', 'revslider') . esc_html($_GET[self::QUERY_ERROR]);
-			echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){ RVS.F.showInfo({content:"' . $err . '", type:"warning", showdelay:1, hidedelay:5, hideon:"", event:"" }); });});</script>';
+			$err = wp_json_encode(__('Instagram Reports: ', 'revslider') . esc_html(wp_unslash($_GET[self::QUERY_ERROR]))); //a JS string, so its escapes cannot turn back into markup
+			echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){ RVS.F.showInfo({content:' . $err . ', type:"warning", showdelay:1, hidedelay:5, hideon:"", event:"" }); });});</script>';
 		}
 	}
 

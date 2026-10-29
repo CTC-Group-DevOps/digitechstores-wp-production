@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Extend REST API to support bundle-sells.
  *
  * @class    WC_PB_BS_REST_API
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_BS_REST_API {
 
@@ -30,6 +30,8 @@ class WC_PB_BS_REST_API {
 
 	/**
 	 * Setup REST API bundle-sells class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -39,6 +41,8 @@ class WC_PB_BS_REST_API {
 
 	/**
 	 * Register custom REST API fields for product requests.
+	 *
+	 * @return void
 	 */
 	public static function register_product_fields() {
 
@@ -100,7 +104,7 @@ class WC_PB_BS_REST_API {
 	 * @param  array           $response The response object.
 	 * @param  string          $field_name Field name.
 	 * @param  WP_REST_Request $request The request object.
-	 * @return array
+	 * @return array|false|null Field value, or null when the response has no product ID.
 	 */
 	public static function get_product_field_value( $response, $field_name, $request ) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -220,7 +224,7 @@ class WC_PB_BS_REST_API {
 	 * @param  string     $key Field key.
 	 * @param  WC_Product $product Product object.
 	 *
-	 * @return array
+	 * @return array|false Bundle-sell IDs, or false for an unknown field.
 	 */
 	private static function get_product_field( $key, $product ) {
 

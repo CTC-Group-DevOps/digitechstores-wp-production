@@ -33,7 +33,7 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 					if ( $stringValue ) {
 						$strings[] = new WPML_PB_String(
 							$stringValue,
-							$this->get_string_name( $node_id, $item, $element, $field ),
+							$this->get_string_name( $node_id, $item, $element, $field, '', $index ),
 							$this->get_title( $field ),
 							$this->get_editor_type( $field )
 						);
@@ -47,7 +47,7 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 						if ( isset( $item[ $key ][ $inner_field ] ) ) {
 							$strings[] = new WPML_PB_String(
 								$item[ $key ][ $inner_field ],
-								$this->get_string_name( $node_id, $item, $element, $inner_field, $key ),
+								$this->get_string_name( $node_id, $item, $element, $inner_field, $key, $index ),
 								$this->get_title( $inner_field ),
 								$this->get_editor_type( $inner_field )
 							);
@@ -62,12 +62,12 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 	public function update( $node_id, $element, WPML_PB_String $pbString ) {
 		$activeRepeater = $this->get_active_repeater( $element );
 
-		foreach ( $this->get_items( $element ) as $key => $item ) {
+		foreach ( $this->get_items( $element ) as $index => $item ) {
 			if ( null === $activeRepeater ) {
 				continue;
 			}
 
-			$activeItem = false === $activeRepeater ? null : ( $activeRepeater[ $key ] ?? null );
+			$activeItem = false === $activeRepeater ? null : ( $activeRepeater[ $index ] ?? null );
 
 			foreach ( $this->get_fields() as $field_key => $field ) {
 				if ( ! is_array( $field ) ) {
@@ -75,14 +75,14 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 						continue;
 					}
 
-					if ( $this->get_string_name( $node_id, $item, $element, $field ) === $pbString->get_name() ) {
+					if ( $this->get_string_name( $node_id, $item, $element, $field, '', $index ) === $pbString->get_name() ) {
 						$pathInFlatField = explode( self::FIELD_SEPARATOR, $field );
 						$stringValue     = Obj::path( $pathInFlatField, $item );
 						if ( is_string( $stringValue ) ) {
 							$item = Obj::assocPath( $pathInFlatField, $pbString->get_value(), $item );
 						}
 
-						return [ $key, $item ];
+						return [ $index, $item ];
 					}
 				} else {
 					if ( $this->is_repeater_field_inactive( $activeItem, $field_key ) ) {
@@ -92,11 +92,11 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 					foreach ( $field as $inner_field ) {
 						if (
 							isset( $item[ $field_key ][ $inner_field ] ) &&
-							$this->get_string_name( $node_id, $item, $element, $inner_field, $field_key ) === $pbString->get_name()
+							$this->get_string_name( $node_id, $item, $element, $inner_field, $field_key, $index ) === $pbString->get_name()
 						) {
 							$item[ $field_key ][ $inner_field ] = $pbString->get_value();
 
-							return [ $key, $item ];
+							return [ $index, $item ];
 						}
 					}
 				}
@@ -106,9 +106,9 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 		return [ null, null ];
 	}
 
-	private function get_string_name( $nodeId, $item, $element, $field = '', $key = '' ) {
+	private function get_string_name( $nodeId, $item, $element, $field = '', $key = '', $index = null ) {
 		$widgetType = Obj::prop( 'widgetType', $element );
-		$itemId     = Obj::prop( '_id', $item );
+		$itemId     = Obj::prop( '_id', $item ) ?? $index;
 		$name       = $widgetType . '-' . $field . '-' . $nodeId . '-' . $itemId;
 
 		return apply_filters(
@@ -120,12 +120,20 @@ abstract class WPML_Elementor_Module_With_Items implements IWPML_Page_Builders_M
 				'element' => $element,
 				'field'   => $field,
 				'key'     => $key,
+				'index'   => $index,
 			]
 		);
 	}
 
 	public function get_items( $element ) {
-		return $element[ WPML_Elementor_Translatable_Nodes::SETTINGS_FIELD ][ $this->get_items_field() ];
+		return Obj::pathOr(
+			[],
+			array_merge(
+				[ WPML_Elementor_Translatable_Nodes::SETTINGS_FIELD ],
+				explode( self::FIELD_SEPARATOR, $this->get_items_field() )
+			),
+			$element
+		);
 	}
 
 	private function get_active_repeater( $element ) {

@@ -470,6 +470,7 @@ class WOODMART_Widget_Layered_Nav extends WPH_Widget {
 				$counts                       = array_map( 'absint', wp_list_pluck( $results, 'term_count', 'term_count_id' ) );
 				$cached_counts[ $query_hash ] = $counts;
 				if ( true === $cache ) {
+					$cached_counts = $this->limit_cached_counts( $cached_counts, $query_hash );
 					set_transient( 'wc_layered_nav_counts_' . sanitize_title( $taxonomy ), $cached_counts, DAY_IN_SECONDS );
 				}
 			}
@@ -478,6 +479,37 @@ class WOODMART_Widget_Layered_Nav extends WPH_Widget {
 		} else {
 			return wc_get_container()->get( Filterer::class )->get_filtered_term_product_counts( $term_ids, $taxonomy, $query_type );
 		}
+	}
+
+	/**
+	 * Limit the number of query result entries stored in the layered nav count transient.
+	 *
+	 * Mirrors WooCommerce's Filterer::limit_layered_nav_count_cache_entries() (added in 10.9), which this
+	 * custom branch bypasses, so the per-taxonomy transient cannot grow without bound.
+	 *
+	 * @param  array  $cached_counts Cached count entries keyed by query hash.
+	 * @param  string $current_hash  Hash for the query that was just added.
+	 * @return array Bounded cached count entries.
+	 */
+	protected function limit_cached_counts( $cached_counts, $current_hash ) {
+		if ( method_exists( Filterer::class, 'limit_layered_nav_count_cache_entries' ) ) {
+			return Filterer::limit_layered_nav_count_cache_entries( $cached_counts, $current_hash );
+		}
+
+		$max_entries = (int) apply_filters( 'woocommerce_layered_nav_count_cache_max_entries', 1000 );
+
+		if ( $max_entries < 1 || count( $cached_counts ) <= $max_entries ) {
+			return $cached_counts;
+		}
+
+		// Keep the freshest entry at the end so the oldest ones are trimmed first.
+		if ( isset( $cached_counts[ $current_hash ] ) ) {
+			$current_counts = $cached_counts[ $current_hash ];
+			unset( $cached_counts[ $current_hash ] );
+			$cached_counts[ $current_hash ] = $current_counts;
+		}
+
+		return array_slice( $cached_counts, -$max_entries, null, true );
 	}
 
 	/**

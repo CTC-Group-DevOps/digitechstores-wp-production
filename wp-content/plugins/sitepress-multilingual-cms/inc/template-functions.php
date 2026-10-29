@@ -1,5 +1,8 @@
 <?php
 
+use WPML\Core\Component\CustomFieldPreferences\Domain\ElementType;
+use WPML\TM\Settings\PreferenceResolver;
+
 function icl_sitepress_get_capabilities() {
 	return wpml_get_capabilities_names();
 }
@@ -29,6 +32,7 @@ function wpml_get_read_only_capabilities_filter( $empty ) {
 add_filter( 'wpml_capabilities_read_only', 'wpml_get_read_only_capabilities_filter', 10, 1 );
 
 function wpml_get_roles() {
+	/* translators: Heading of the group of permissions WPML adds, on the screen where the rights of a role are set. */
 	$wp_roles['label']        = __( 'WPML capabilities', 'sitepress' );
 	$wp_roles['capabilities'] = wpml_get_capabilities();
 
@@ -365,7 +369,7 @@ function wpml_cf_translation_preferences( $id, $custom_field = false, $class = '
 		$class = @strval( $class );
 		if ( $fieldset ) {
 			$output .= '
-<fieldset id="wpml_cf_translation_preferences_fieldset_' . $id . '" class="wpml_cf_translation_preferences_fieldset ' . $class . '-form-fieldset form-fieldset fieldset">' . '<legend>' . __( 'Translation preferences', 'sitepress' ) . '</legend>';
+<fieldset id="wpml_cf_translation_preferences_fieldset_' . $id . '" class="wpml_cf_translation_preferences_fieldset ' . $class . '-form-fieldset form-fieldset fieldset">' . '<legend>' . /* translators: Heading above the settings that say how each field of a post is translated, on the post editing screen. */ __( 'Translation preferences', 'sitepress' ) . '</legend>';
 		}
 		$actions  = array(
 			'ignore'    => 0,
@@ -392,7 +396,7 @@ function wpml_cf_translation_preferences( $id, $custom_field = false, $class = '
 						. '</div>';
 				}
 			} elseif ( ! $suppress_error ) {
-				$output  .= '<span style="color:#FF0000;">' . __( "To synchronize values for translations, you need to enable WPML's Translation Management module.", 'sitepress' ) . '</span>';
+				$output  .= '<span style="color:#FF0000;">' . wpml_bold_names( __( "To synchronize values for translations, you need to enable WPML's Translation Management module.", 'sitepress' ) ) . '</span>';
 				$disabled = true;
 			}
 		} elseif ( ! $suppress_error ) {
@@ -419,19 +423,22 @@ function wpml_cf_translation_preferences( $id, $custom_field = false, $class = '
 		);
 
 		$output .= '<ul><li>';
+		/* translators: Option in the dropdown that says what happens to a field: leave it out of the translation. Verb phrase, imperative. */
 		$output .= wpml_translation_preference_input_helper( $args, 'wpml_cf_translation_preferences_option_ignore_', WPML_IGNORE_CUSTOM_FIELD, __( "Don't translate", 'sitepress' ) );
 		$output .= '</li><li>';
 		$output .= wpml_translation_preference_input_helper( $args, 'wpml_cf_translation_preferences_option_copy_', WPML_COPY_CUSTOM_FIELD, __( 'Copy from original to translation', 'sitepress' ) );
 		$output .= '</li><li>';
+		/* translators: Option in the dropdown that says what happens to a field: put the value in the translation once, and leave it alone afterwards. Verb phrase, imperative. */
 		$output .= wpml_translation_preference_input_helper( $args, 'wpml_cf_translation_preferences_option_copy_once_', WPML_COPY_ONCE_CUSTOM_FIELD, __( 'Copy once', 'sitepress' ) );
 		$output .= '</li><li>';
+		/* translators: Option in the dropdown that says what happens to a field, and the heading of the column of the post editing screen where a translation is started: the text is translated. Verb, imperative. */
 		$output .= wpml_translation_preference_input_helper( $args, 'wpml_cf_translation_preferences_option_translate_', WPML_TRANSLATE_CUSTOM_FIELD, __( 'Translate', 'sitepress' ) );
 		$output .= '</li></ul>';
 
 		if ( $custom_field && $ajax ) {
 			$output .= '
 <div style=";margin: 5px 0 5px 0;" id="wpml_cf_translation_preferences_ajax_response_' . $id . '"></div>
-<input type="button" onclick="icl_cf_translation_preferences_submit(\'' . $id . '\', jQuery(this));" style="margin-top:5px;" class="button-secondary" value="' . __( 'Apply' ) . '" name="wpml_cf_translation_preferences_submit_' . $id . '" />
+<input type="button" onclick="icl_cf_translation_preferences_submit(\'' . $id . '\', jQuery(this));" style="margin-top:5px;" class="button-secondary" value="' . /* translators: Button label next to a dropdown: carry out the chosen action. Verb, imperative. */ __( 'Apply', 'sitepress' ) . '" name="wpml_cf_translation_preferences_submit_' . $id . '" />
 <input type="hidden" name="wpml_cf_translation_preferences_data_' . $id . '" value="custom_field=' . $custom_field . '&amp;_icl_nonce=' . wp_create_nonce( 'wpml_cf_translation_preferences_nonce' ) . '" />';
 		}
 		if ( $fieldset ) {
@@ -445,7 +452,7 @@ function wpml_cf_translation_preferences( $id, $custom_field = false, $class = '
 }
 
 function wpml_get_copied_fields_for_post_edit( $fields = array() ) {
-	global $sitepress, $wpdb, $sitepress_settings, $pagenow;
+	global $sitepress, $wpdb, $pagenow;
 
 	$copied_cf    = array( 'fields' => array() );
 	$translations = null;
@@ -482,10 +489,11 @@ function wpml_get_copied_fields_for_post_edit( $fields = array() ) {
 
 				$copied_cf['_wpml_original_post_id'] = $translations[ $source_lang ]->element_id;
 				$ccf_note                            = '<img src="' . ICL_PLUGIN_URL . '/res/img/alert.png" alt="Notice" width="16" height="16" style="margin-right:8px" />';
+				/* translators: Note under a field on the post editing screen: WPML fills it from the original when the post is saved. %s: the name of the original language. */
 				$copied_cf['copy_message']           = $ccf_note . sprintf( __( 'WPML will copy this field from %s when you save this post.', 'sitepress' ), $lang_details['display_name'] );
 
-				foreach ( (array) $sitepress_settings['translation-management']['custom_fields_translation'] as $key => $sync_opt ) {
-					if ( $sync_opt == 1 && ( isset( $original_custom[ $key ] ) || in_array( $key, $fields ) ) ) {
+				foreach ( PreferenceResolver::namesByMode( ElementType::POST, WPML_COPY_CUSTOM_FIELD ) as $key ) {
+					if ( isset( $original_custom[ $key ] ) || in_array( $key, $fields, true ) ) {
 						$copied_cf['fields'][] = $key;
 					}
 				}
@@ -508,17 +516,20 @@ function wpml_get_language_information( $empty_value = null, $post_id = null ) {
 
 	$post = get_post( $post_id );
 	if ( empty( $post ) ) {
-		// translators: Post id.
+		/* translators: Error message returned when no post can be found. %d: the number that stands for the post that was looked for. */
 		return new WP_Error( 'missing_post', sprintf( __( 'No such post for ID = %d', 'sitepress' ), $post_id ) );
 	}
 
 	$language             = $sitepress->get_language_for_element( $post_id, 'post_' . $post->post_type );
 	$language_information = $sitepress->get_language_details( $language );
 
+	$locale = $sitepress->get_locale( $language );
+	$locale = $locale ? (string) $locale : ( $language ? (string) $language : '' );
+
 	$current_language = $sitepress->get_current_language();
 	$info             = [
 		'language_code'      => $language,
-		'locale'             => $sitepress->get_locale( $language ),
+		'locale'             => $locale,
 		'text_direction'     => $sitepress->is_rtl( $language ),
 		'display_name'       => $sitepress->get_display_language_name( $language, $current_language ),
 		'native_name'        => isset( $language_information['display_name'] ) ? $language_information['display_name'] : '',
@@ -533,6 +544,7 @@ add_filter( 'wpcf_meta_box_post_type', 'wpml_wpcf_meta_box_order_defaults' );
 function wpml_wpcf_meta_box_order_defaults( $boxes ) {
 	$boxes['wpml'] = array(
 		'callback' => 'wpml_custom_post_translation_options',
+		/* translators: Column heading in a table and a field label, for the translation of a piece of content. Noun. */
 		'title'    => __( 'Translation', 'sitepress' ),
 		'default'  => 'normal',
 		'priority' => 'low',
@@ -556,6 +568,7 @@ function wpml_custom_post_translation_options() {
 
 	if ( $translated ) {
 
+		/* translators: Notice on the screen where a content type is set up. %1$s: the name of the content type, in bold, %2$s: the opening tag of a link to the translation settings, %3$s: its closing tag. */
 		$out .= sprintf( __( '%1$s is translated via WPML. %2$sClick here to change translation options.%3$s', 'sitepress' ), '<strong>' . $type->labels->singular_name . '</strong>', '<a href="' . $link . '">', '</a>' );
 
 		if (
@@ -572,11 +585,13 @@ function wpml_custom_post_translation_options() {
 					$out .= '<ul><li>' . __( 'Slugs are currently translated. Click the link above to edit the translations.', 'sitepress' ) . '<li></ul>';
 				}
 			} else {
+				/* translators: Notice on the screen where a content type is set up, when the part of the address that stands for it is not being translated. %1$s: the opening tag of a link that turns that on, %2$s: its closing tag. */
 				$out .= '<ul><li>' . sprintf( __( 'Slug translation is currently disabled in WPML. %1$sClick here to enable.%2$s', 'sitepress' ), '<a href="' . $link2 . '">', '</a>' ) . '</li></ul>';
 			}
 		}
 	} else {
 
+		/* translators: Notice on the screen where a content type is set up, when that type is not translated. %1$s: the name of the content type, in bold, %2$s: the opening tag of a link to the translation settings, %3$s: its closing tag. */
 		$out .= sprintf( __( '%1$s is not translated. %2$sClick here to make this post type translatable.%3$s', 'sitepress' ), '<strong>' . $type->labels->singular_name . '</strong>', '<a href="' . $link . '">', '</a>' );
 	}
 
@@ -817,6 +832,6 @@ function wpml_permalink_filter( $url, $language_code = null ) {
 function wpml_switch_language_action( $language_code = null ) {
 	global $sitepress;
 
-	$sitepress->switch_lang( $language_code, true );
+	$sitepress->switch_lang( $language_code, false );
 }
 

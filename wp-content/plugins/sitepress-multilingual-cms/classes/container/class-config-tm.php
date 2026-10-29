@@ -3,7 +3,6 @@
 namespace WPML\TM\Container;
 
 use WPML\TM\ATE\ClonedSites\ApiCommunication;
-use WPML\TM\ATE\ClonedSites\Lock;
 use WPML\TM\ATE\Log\Storage;
 
 class Config {
@@ -40,7 +39,6 @@ class Config {
 			\WPML_TM_Translation_Status::class,
 			Storage::class,
 			ApiCommunication::class,
-			Lock::class,
 		];
 	}
 }

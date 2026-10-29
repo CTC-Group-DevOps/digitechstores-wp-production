@@ -36,14 +36,15 @@ class WPML_ST_Element_Slug_Translation_UI {
 		}
 
 		if ( ! empty( $model['has_missing_translations_message'] ) ) {
-			ICL_AdminNotifier::displayInstantMessage(
-				$model['has_missing_translations_message'],
-				'error',
-				true,
-				false
-			);
+			$this->display_missing_translations_message( $model['has_missing_translations_message'] );
 		}
 
 		return $this->template_service->show( $model, self::TEMPLATE_FILE );
+	}
+
+	private function display_missing_translations_message( $message ) {
+		$classes = 'instant-message message message-error icl-admin-instant-message icl-admin-message icl-admin-message-error';
+
+		echo '<div class="' . $classes . '">' . $message . '</div>';
 	}
 }

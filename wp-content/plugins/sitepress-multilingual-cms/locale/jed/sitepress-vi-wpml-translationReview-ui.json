@@ -11,19 +11,19 @@
             "Đã chấp nhận"
          ],
          "Approved!": [
-            "Đã duyệt!"
+            "Đã phê duyệt!"
          ],
          "Loading the next translation for review...": [
-            "Đang tải bản dịch tiếp theo để xem xét..."
+            "Đang tải bản dịch tiếp theo để đánh giá..."
          ],
          "Back": [
             "Quay lại"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "Tắt để không tự động tải bản dịch tiếp theo sau khi hoàn tất đánh giá này."
+            "Tắt để không tự động tải bản dịch tiếp theo sau khi hoàn thành việc đánh giá này."
          ],
          "Turn on to automatically load the next translation after finishing this  .": [
-            "Bật để tự động tải bản dịch tiếp theo sau khi hoàn tất việc này."
+            "Bật để tự động tải bản dịch tiếp theo sau khi hoàn thành việc này  ."
          ],
          "Edit": [
             "Chỉnh sửa"
@@ -50,7 +50,7 @@
             "Đã xảy ra lỗi khi áp dụng bản dịch."
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "Ai đó đang xem xét bản dịch này. Vui lòng thử lại sau."
+            "Có người đang đánh giá bản dịch này. Vui lòng thử lại sau."
          ]
       }
    }

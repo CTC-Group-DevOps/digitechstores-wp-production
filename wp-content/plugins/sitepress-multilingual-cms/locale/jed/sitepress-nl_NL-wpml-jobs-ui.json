@@ -7,17 +7,20 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "nl_NL"
          },
+         "%1$s and %2$s": [
+            "%1$s en %2$s"
+         ],
          "Start batch sync": [
-            "Batchsynchronisatie starten"
+            "Batch-synchronisatie starten"
          ],
          "Cancel job": [
-            "Taak annuleren"
+            "Vertaalopdracht annuleren"
          ],
          "Continue reviewing": [
-            "Doorgaan met beoordelen"
+            "Doorgaan met controleren"
          ],
          "Start downloading XLIFF file": [
-            "XLIFF-bestand downloaden starten"
+            "Downloaden XLIFF-bestand starten"
          ],
          "Edit": [
             "Bewerken"
@@ -25,38 +28,47 @@
          "Get translation": [
             "Vertaling ophalen"
          ],
+         "Edit Translation": [
+            "Vertaling bewerken"
+         ],
+         "Continue Translating": [
+            "Doorgaan met vertalen"
+         ],
          "Resign": [
-            "Afmelden"
+            "Teruggeven"
          ],
          "Review": [
-            "Beoordelen"
+            "Controleren"
          ],
          "Translate": [
             "Vertalen"
          ],
          "Take and Translate": [
-            "Nemen en vertalen"
+            "Overnemen en vertalen"
+         ],
+         "This job was created by Translate Everything and cannot be cancelled on its own. To stop it, turn off Translate Everything from the Translation Dashboard.": [
+            "Deze taak is gemaakt door Alles automatisch vertalen en kan niet afzonderlijk worden geannuleerd. Om deze te stoppen, schakelt u Alles automatisch vertalen uit op het vertaaldashboard."
          ],
          "View": [
-            "Bekijken"
+            "Weergeven"
+         ],
+         "Never mind. I want to review these translations.": [
+            "Laat maar. Ik wil deze vertalingen controleren."
+         ],
+         "Cancel": [
+            "Annuleren"
+         ],
+         "This will remove the selected jobs from the Translations Queue without publishing them. What would you like to do with the translations?": [
+            "Hiermee worden de geselecteerde opdrachten uit de vertaalwachtrij verwijderd zonder ze te publiceren. Wat wilt u met de vertalingen doen?"
+         ],
+         "Cancel Translation Review": [
+            "Controle van vertaling annuleren"
          ],
          "Delete Translations": [
             "Vertalingen verwijderen"
          ],
          "Keep Translations as Draft": [
             "Vertalingen als concept bewaren"
-         ],
-         "Never mind. I want to review these translations.": [
-            "Laat maar. Ik wil deze vertalingen beoordelen."
-         ],
-         "Cancel": [
-            "Annuleren"
-         ],
-         "This will remove the selected jobs from the Translations Queue without publishing them. What would you like to do with the translations?": [
-            "Hiermee worden de geselecteerde taken uit de vertaalwachtrij verwijderd zonder ze te publiceren. Wat wilt u met de vertalingen doen?"
-         ],
-         "Cancel Translation Review": [
-            "Vertaling beoordeling annuleren"
          ],
          "Bulk actions": [
             "Bulkacties"
@@ -65,13 +77,13 @@
             "Toepassen"
          ],
          "Actions applied to multiple translation jobs can take a few seconds. Please do not leave the page.": [
-            "Acties die op meerdere vertaaltaken worden toegepast, kunnen enkele seconden duren. Verlaat de pagina niet."
+            "Acties die op meerdere vertaalopdrachten worden toegepast, kunnen enkele seconden duren. Verlaat de pagina niet."
          ],
          "Actions applied to multiple translation jobs can take a few minutes. Please do not leave the page.": [
-            "Acties die op meerdere vertaaltaken worden toegepast, kunnen enkele minuten duren. Verlaat de pagina niet."
+            "Acties die op meerdere vertaalopdrachten worden toegepast, kunnen enkele minuten duren. Verlaat de pagina niet."
          ],
          "Select translator": [
-            "Vertaler selecteren"
+            "Selecteer vertaler"
          ],
          "Assign": [
             "Toewijzen"
@@ -79,44 +91,62 @@
          "Cancelled": [
             "Geannuleerd"
          ],
-         "Needs translation": [
-            "Vertaling nodig"
+         "Automatic translation failed repeatedly and WPML stopped retrying. Resend or discard the job from the Translation Dashboard, or cancel it here.": [
+            "De automatische vertaling is herhaaldelijk mislukt en WPML is gestopt met het opnieuw proberen. Verzend de taak opnieuw of verwijder deze uit het vertaaldashboard, of annuleer de taak hier."
          ],
-         "In progress": [
-            "Bezig"
+         "Needs translation": [
+            "Vertaling vereist"
+         ],
+         "Needs update": [
+            "Update vereist"
          ],
          "Translation ready to download": [
-            "Vertaling klaar om te downloaden"
+            "Vertaling gereed voor downloaden"
          ],
          "Completed": [
             "Voltooid"
+         ],
+         "Failed - needs attention": [
+            "Mislukt - aandacht vereist"
+         ],
+         "%s terms are published immediately because they don't support draft mode.": [
+            "%s termen worden onmiddellijk gepubliceerd omdat ze de conceptmodus niet ondersteunen."
          ],
          "%s are immediately published because they don't support draft mode.": [
             "%s worden onmiddellijk gepubliceerd omdat ze de conceptmodus niet ondersteunen."
          ],
          "Published — Pending review": [
-            "Gepubliceerd — In afwachting van beoordeling"
+            "Gepubliceerd — Wacht op controle"
          ],
          "Draft — Pending review": [
-            "Concept — In afwachting van beoordeling"
+            "Concept — Wacht op controle"
          ],
          "Review in progress": [
-            "Beoordeling bezig"
+            "Controle in uitvoering"
          ],
          "Published — Review in progress": [
-            "Gepubliceerd — Beoordeling bezig"
+            "Gepubliceerd — Controle in uitvoering"
          ],
          "Draft — Review in progress": [
-            "Concept — Beoordeling bezig"
+            "Concept — Controle in uitvoering"
+         ],
+         "Waiting for your Pay-As-You-Go payment": [
+            "Wachten op uw “Betalen naar gebruik”-betaling"
+         ],
+         "Waiting for payment": [
+            "Wachten op betaling"
          ],
          "Insufficient funds": [
             "Onvoldoende saldo"
          ],
-         "Needs update": [
-            "Update nodig"
+         "Automatic translation was paused by a temporary error and retries automatically — no action needed. If the status has not changed in about 30 minutes, contact WPML support.": [
+            "Automatische vertaling is gepauzeerd door een tijdelijke fout en wordt automatisch opnieuw geprobeerd — geen actie vereist. Als de status na ongeveer 30 minuten niet is veranderd, neem dan contact op met WPML-support."
+         ],
+         "In progress": [
+            "In uitvoering"
          ],
          "View original": [
-            "Origineel bekijken"
+            "Origineel weergeven"
          ],
          "(no title)": [
             "(geen titel)"
@@ -125,16 +155,19 @@
             "Automatische vertaling"
          ],
          "TP ID: %d": [
-            "TP ID: %d"
+            "TP-ID: %d"
          ],
          "Reset": [
-            "Resetten"
+            "Opnieuw instellen"
          ],
          "Filter": [
             "Filteren"
          ],
-         "ID (%s)": [
-            "ID (%s)"
+         "Reference ID (%s)": [
+            "Referentie-ID (%s)"
+         ],
+         "Job ID (%s)": [
+            "Opdracht-ID (%s)"
          ],
          "Title (%s)": [
             "Titel (%s)"
@@ -179,13 +212,16 @@
             "Iedereen"
          ],
          "Include jobs from translation services": [
-            "Taken van vertaalservices opnemen"
+            "Opdrachten van vertaalservices opnemen"
          ],
          "All types": [
             "Alle types"
          ],
          "Select visible columns": [
             "Zichtbare kolommen selecteren"
+         ],
+         "No Data": [
+            "Geen gegevens"
          ],
          "Sort descending": [
             "Aflopend sorteren"
@@ -194,28 +230,28 @@
             "Oplopend sorteren"
          ],
          "Cancel sorting": [
-            "Sortering annuleren"
+            "Sorteren annuleren"
          ],
          "The bulk action is running...": [
             "De bulkactie wordt uitgevoerd..."
          ],
          "Export all jobs to XLIFF 1.0": [
-            "Alle taken exporteren naar XLIFF 1.0"
+            "Alle opdrachten exporteren naar XLIFF 1.0"
          ],
          "Export all filtered jobs to XLIFF 1.0": [
-            "Alle gefilterde taken exporteren naar XLIFF 1.0"
+            "Alle gefilterde opdrachten exporteren naar XLIFF 1.0"
          ],
          "Export all jobs to XLIFF 1.1": [
-            "Alle taken exporteren naar XLIFF 1.1"
+            "Alle opdrachten exporteren naar XLIFF 1.1"
          ],
          "Export all filtered jobs to XLIFF 1.1": [
-            "Alle gefilterde taken exporteren naar XLIFF 1.1"
+            "Alle gefilterde opdrachten exporteren naar XLIFF 1.1"
          ],
          "Export all jobs to XLIFF 1.2": [
-            "Alle taken exporteren naar XLIFF 1.2"
+            "Alle opdrachten exporteren naar XLIFF 1.2"
          ],
          "Export all filtered jobs to XLIFF 1.2": [
-            "Alle gefilterde taken exporteren naar XLIFF 1.2"
+            "Alle gefilterde opdrachten exporteren naar XLIFF 1.2"
          ],
          "Export": [
             "Exporteren"
@@ -244,17 +280,23 @@
          "Filter by %s": [
             "Filteren op %s"
          ],
+         "WPML's id for this translation. It stays the same when the job is sent again.": [
+            "De ID van WPML voor deze vertaling. Deze blijft hetzelfde wanneer de opdracht opnieuw wordt verzonden."
+         ],
+         "The number in exported XLIFF file names. It changes when the job is sent again.": [
+            "Het nummer in geëxporteerde XLIFF-bestandsnamen. Dit verandert wanneer de opdracht opnieuw wordt verzonden."
+         ],
          "Title": [
             "Titel"
          ],
          "Approve translation reviews": [
-            "Vertaling beoordelingen goedkeuren"
+            "Vertaalcontroles goedkeuren"
          ],
          "Cancel jobs": [
-            "Taken annuleren"
+            "Opdrachten annuleren"
          ],
          "Cancel translation reviews": [
-            "Vertaling beoordelingen annuleren"
+            "Vertaalcontroles annuleren"
          ],
          "Export to XLIFF %s": [
             "Exporteren naar XLIFF %s"
@@ -263,7 +305,22 @@
             "Vertalingen ophalen"
          ],
          "This action does not apply to any of the selected translation jobs": [
-            "Deze actie is niet van toepassing op een van de geselecteerde vertaaltaken"
+            "Deze actie is niet van toepassing op de geselecteerde vertaalopdrachten"
+         ],
+         "%d translation is still in progress. You will not be charged for it.": [
+            "%d vertaling is nog in uitvoering. Deze wordt niet in rekening gebracht.",
+            "%d vertalingen zijn nog in uitvoering. Deze worden niet in rekening gebracht."
+         ],
+         "usage ledger": [
+            "gebruiksoverzicht"
+         ],
+         "Cancelled. %1$d translation was in progress; its %2$s words are back on your account. Details:": [
+            "Geannuleerd. %1$d vertaling was in uitvoering; de %2$s woorden staan weer op uw account. Details:",
+            "Geannuleerd. %1$d vertalingen waren in uitvoering; de %2$s woorden staan weer op uw account. Details:"
+         ],
+         "Cancelled. We asked to return the words for %d translation in progress; the usage ledger shows it once confirmed.": [
+            "Geannuleerd. We hebben gevraagd om de woorden voor %d vertaling in uitvoering terug te storten; het gebruiksoverzicht toont dit zodra het is bevestigd.",
+            "Geannuleerd. We hebben gevraagd om de woorden voor %d vertalingen in uitvoering terug te storten; het gebruiksoverzicht toont ze zodra ze zijn bevestigd."
          ],
          "Translations have been downloaded": [
             "Vertalingen zijn gedownload"
@@ -277,47 +334,82 @@
          "Translation could not be downloaded": [
             "Vertaling kon niet worden gedownload"
          ],
-         "Approving translations reviews failed!": [
-            "Het goedkeuren van vertaling beoordelingen is mislukt!"
+         "paused after repeated failures, will be retried automatically — %s": [
+            "gepauzeerd na herhaalde fouten, wordt automatisch opnieuw geprobeerd — %s"
          ],
-         "Failed approving translations for the following posts: ": [
-            "Het goedkeuren van vertalingen voor de volgende berichten is mislukt: "
+         "%d translation could not be downloaded": [
+            "%d vertaling kon niet worden gedownload",
+            "%d vertalingen konden niet worden gedownload"
          ],
-         "Translations reviews approved successfully!": [
-            "Vertaling beoordelingen succesvol goedgekeurd!"
+         "%d translation has been downloaded": [
+            "%d vertaling is gedownload",
+            "%d vertalingen zijn gedownload"
          ],
          "No valid jobs selected to approve translations reviews!": [
-            "Geen geldige taken geselecteerd om vertaling beoordelingen goed te keuren!"
+            "Geen geldige opdrachten geselecteerd om vertaalcontroles goed te keuren!"
+         ],
+         "%1$s (%2$s)": [
+            "%1$s (%2$s)"
+         ],
+         "%s was not approved because it is still open for editing.": [
+            "%s is niet goedgekeurd omdat deze nog openstaat voor bewerking.",
+            "%s zijn niet goedgekeurd omdat ze nog openstaan voor bewerking."
+         ],
+         "Approving it now would publish the translation without the edits.": [
+            "Als u deze nu goedkeurt, wordt de vertaling gepubliceerd zonder de bewerkingen.",
+            "Als u ze nu goedkeurt, worden de vertalingen gepubliceerd zonder de bewerkingen."
+         ],
+         "Click Continue reviewing, finish the edits and click Complete in the editor.": [
+            "Klik op Doorgaan met controleren, voltooi de bewerkingen en klik op Voltooien in de editor."
+         ],
+         "Then approve the translation here.": [
+            "Keur de vertaling vervolgens hier goed.",
+            "Keur de vertalingen vervolgens hier goed."
+         ],
+         "If the editor does not open, send the content to translation again from the Translation Dashboard.": [
+            "Als de editor niet opent, verzend de inhoud dan opnieuw voor vertaling via het Vertaaldashboard."
+         ],
+         "Approving translations reviews failed!": [
+            "Goedkeuren van vertaalcontroles mislukt!"
+         ],
+         "Failed approving translations for the following posts: ": [
+            "Goedkeuren van vertalingen voor de volgende berichten mislukt: "
+         ],
+         "Translations reviews approved successfully!": [
+            "Vertaalcontroles succesvol goedgekeurd!"
          ],
          "The translator has been assigned to the job": [
-            "De vertaler is toegewezen aan de taak"
+            "De vertaler is aan de opdracht toegewezen"
          ],
          "The translator could not be assigned to the job": [
-            "De vertaler kon niet worden toegewezen aan de taak"
+            "De vertaler kon niet aan de opdracht worden toegewezen"
          ],
          "The jobs have been cancelled": [
-            "De taken zijn geannuleerd"
+            "De opdrachten zijn geannuleerd"
          ],
          "The job has been cancelled": [
-            "De taak is geannuleerd"
+            "De opdracht is geannuleerd"
          ],
          "The jobs could not be cancelled": [
-            "De taken konden niet worden geannuleerd"
+            "De opdrachten konden niet worden geannuleerd"
          ],
          "The job could not be cancelled": [
-            "De taak kon niet worden geannuleerd"
+            "De opdracht kon niet worden geannuleerd"
          ],
          "Translation reviews have been canceled": [
-            "Vertaling beoordelingen zijn geannuleerd"
+            "Vertaalcontroles zijn geannuleerd"
          ],
          "Translation review has been canceled": [
-            "Vertaling beoordeling is geannuleerd"
+            "Vertaalcontrole is geannuleerd"
          ],
          "Translation reviews could not be canceled": [
-            "Vertaling beoordelingen konden niet worden geannuleerd"
+            "Vertaalcontroles konden niet worden geannuleerd"
          ],
          "Translation review could not be canceled": [
-            "Vertaling beoordeling kon niet worden geannuleerd"
+            "Vertaalcontrole kon niet worden geannuleerd"
+         ],
+         "Translated by": [
+            "Vertaald door"
          ],
          "Sent on": [
             "Verzonden op"
@@ -329,10 +421,13 @@
             "Status"
          ],
          "Pending review": [
-            "In afwachting van beoordeling"
+            "Wacht op controle"
          ],
-         "ID": [
-            "ID"
+         "Reference ID": [
+            "Referentie-ID"
+         ],
+         "Job ID": [
+            "Opdracht-ID"
          ],
          "Type": [
             "Type"
@@ -340,69 +435,74 @@
          "Languages": [
             "Talen"
          ],
-         "Translated by": [
-            "Vertaald door"
-         ],
          "Download XLIFF file couldn't be finished": [
-            "XLIFF-bestand downloaden kon niet worden voltooid"
+            "Downloaden van XLIFF-bestand kon niet worden voltooid"
          ],
          "Could not load jobs for export": [
-            "Kon taken voor export niet laden"
+            "Kon opdrachten voor export niet laden"
          ],
          "The export to XLIFF failed": [
             "De export naar XLIFF is mislukt"
          ],
          "Imported %d jobs": [
-            "%d taken geïmporteerd"
+            "%d opdrachten geïmporteerd"
          ],
          "Imported one job": [
-            "Eén taak geïmporteerd"
+            "Eén opdracht geïmporteerd"
          ],
          "Could not import any job": [
-            "Kon geen taken importeren"
+            "Kon geen enkele opdracht importeren"
          ],
          "Import failed!": [
-            "Importeren mislukt!"
+            "Import mislukt!"
          ],
          "Loading translations queue": [
             "Vertaalwachtrij laden"
          ],
          "Loading translation jobs": [
-            "Vertaaltaken laden"
+            "Vertaalopdrachten laden"
          ],
          "Jobs could not be loaded": [
-            "Taken konden niet worden geladen"
+            "Opdrachten konden niet worden geladen"
+         ],
+         "This translator cannot translate this language pair.": [
+            "Deze vertaler kan dit taalpaar niet vertalen."
+         ],
+         "This translator is no longer available. Reload the page and choose a translator again.": [
+            "Deze vertaler is niet langer beschikbaar. Herlaad de pagina en kies opnieuw een vertaler."
          ],
          "Specify some jobs to resign": [
-            "Specificeer enkele taken om af te melden"
+            "Geef enkele opdrachten op om terug te geven"
          ],
          "We could not resign jobs: %s": [
-            "We konden taken niet afmelden: %s"
+            "We konden de opdrachten niet teruggeven: %s"
          ],
          "Resigned from jobs": [
-            "Afgezegd van taken"
+            "Opdrachten teruggegeven"
          ],
          "Resigned from job": [
-            "Afgezegd van taak"
+            "Opdracht teruggegeven"
          ],
          "Failed to resign from jobs": [
-            "Afmelden van taken mislukt"
+            "Teruggeven van opdrachten mislukt"
          ],
          "The Advanced Editor jobs synchronization has failed": [
-            "De synchronisatie van de Advanced Editor-taken is mislukt"
+            "De synchronisatie van de Advanced Editor-opdrachten is mislukt"
          ],
          "Synchronization with the Professional Translation service has failed": [
             "Synchronisatie met de professionele vertaalservice is mislukt"
          ],
-         "%d translation has been downloaded": [
-            "%d vertaling is gedownload",
-            "%d vertalingen zijn gedownload"
+         "%d batches are still being processed by the translation service. Check again in a few minutes.": [
+            "%d batches worden nog verwerkt door de vertaalservice. Probeer het over enkele minuten opnieuw."
          ],
          "Batch sync finished successfully!": [
-            "Batchsynchronisatie succesvol voltooid!"
+            "Batch-synchronisatie succesvol voltooid!"
          ],
          "Batch sync couldn't be finished": [
-            "Batchsynchronisatie kon niet worden voltooid"
+            "Batch-synchronisatie kon niet worden voltooid"
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "Ons vertaalsysteem heeft dit verzoek niet geaccepteerd (het antwoord was %d). Wacht een minuut en probeer het opnieuw. Neem contact op met de WPML-support als dit blijft gebeuren."
          ]
       }
    }

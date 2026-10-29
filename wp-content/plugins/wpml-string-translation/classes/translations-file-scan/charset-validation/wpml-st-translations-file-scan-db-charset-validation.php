@@ -30,7 +30,19 @@ class WPML_ST_Translations_File_Scan_Db_Charset_Validation implements WPML_ST_Tr
 
 
 	private function get_unique_collation_list_from_table( $table ) {
-		$columns = $this->wpdb->get_results( "SHOW FULL COLUMNS FROM `{$table}` WHERE Collation LIKE 'utf8mb4%'" );
+		$wpdb = $this->wpdb;
+
+		if ( $wpdb->prefix . 'icl_strings' === $table ) {
+			$columns = $wpdb->get_results( "SHOW FULL COLUMNS FROM `{$wpdb->prefix}icl_strings` WHERE Collation LIKE 'utf8mb4%'" );
+		} elseif ( $wpdb->prefix . 'icl_string_translations' === $table ) {
+			$columns = $wpdb->get_results( "SHOW FULL COLUMNS FROM `{$wpdb->prefix}icl_string_translations` WHERE Collation LIKE 'utf8mb4%'" );
+		} else {
+			return array();
+		}
+
+		if ( ! is_array( $columns ) ) {
+			return array();
+		}
 
 		return array_unique( wp_list_pluck( $columns, 'Collation' ) );
 	}

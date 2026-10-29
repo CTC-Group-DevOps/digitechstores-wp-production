@@ -2,199 +2,65 @@
 
 class WCML_Languages_Upgrader {
 
+	const LANGUAGES_PAGE = '/menu/languages.php';
 
+	private $url_translation;
 
-	public function __construct() {
+	private $sitepress;
 
-		add_action( 'icl_update_active_languages', [ $this, 'download_woocommerce_translations_for_active_languages' ] );
-		add_filter( 'upgrader_pre_download', [ $this, 'version_update' ], 10, 2 );
-		add_action( 'admin_notices', [ $this, 'translation_upgrade_notice' ] );
-		add_action( 'wp_ajax_hide_wcml_translations_message', [ $this, 'hide_wcml_translations_message' ] );
-
-		$this->load_js();
+	public function __construct( ?WCML_Url_Translation $url_translation = null, ?SitePress $sitepress = null ) {
+		$this->url_translation = $url_translation;
+		$this->sitepress       = $sitepress;
 	}
 
-	public function download_woocommerce_translations( $lang_code, $wc_version ) {
-		global $sitepress;
+	public function add_hooks() {
+		add_action( 'icl_update_active_languages', [ $this, 'update_woocommerce_localization' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'load_js' ] );
+	}
 
-		$locale = $sitepress->get_locale( $lang_code );
+	public function download_woocommerce_translations_for_active_languages() {
+		$this->update_woocommerce_localization();
+	}
 
-		if ( $locale !== 'en_US' && $this->has_available_update( $locale, $wc_version ) ) {
+	public function update_woocommerce_localization() {
+		$this->download_missing_language_packs();
+		$this->get_url_translation()->register_product_and_taxonomy_bases();
+	}
 
-			$wc_version = $wc_version ?: WC_VERSION;
+	private function download_missing_language_packs() {
+		$languages = $this->get_languages_with_missing_pack();
 
-			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			require_once ABSPATH . 'wp-admin/includes/template.php';
+		if ( ! $languages ) {
+			return;
+		}
 
-			$url     = 'update-core.php?action=do-translation-upgrade';
-			$nonce   = 'upgrade-translations';
-			$title   = '';
-			$context = WP_LANG_DIR;
+		$localization = new WPML_Download_Localization( $languages, $this->get_sitepress()->get_default_language() );
+		$localization->download_plugin_translations( plugin_basename( WC_PLUGIN_FILE ) );
+	}
 
-			$upgrader = new Language_Pack_Upgrader( new Automatic_Upgrader_Skin( compact( 'url', 'nonce', 'title', 'context' ) ) );
+	private function get_languages_with_missing_pack() {
+		return array_filter(
+			$this->get_sitepress()->get_active_languages(),
+			function ( $language ) {
+				$locale = $this->get_sitepress()->get_locale( $language['code'] );
 
-			$upgr_object                = [];
-			$upgr_object[0]             = new stdClass();
-			$upgr_object[0]->type       = 'plugin';
-			$upgr_object[0]->slug       = 'woocommerce';
-			$upgr_object[0]->language   = $locale;
-			$upgr_object[0]->version    = $wc_version;
-			$upgr_object[0]->updated    = date( 'Y-m-d H:i:s' );
-			$upgr_object[0]->package    = $this->get_language_pack_uri( $locale, $wc_version );
-			$upgr_object[0]->autoupdate = 1;
-
-			$ob_level_before = ob_get_level();
-
-			$upgrader->bulk_upgrade( $upgr_object );
-
-			$ob_level_after = ob_get_level();
-			if ( $ob_level_after > $ob_level_before ) {
-				ob_end_clean();
+				return 'en_US' !== $locale && ! file_exists( $this->get_mo_file_path( $locale ) );
 			}
-
-			$this->save_translation_version( $locale, false, $wc_version );
-		}
-
+		);
 	}
 
-
-	public function download_woocommerce_translations_for_active_languages( $wc_version = false ) {
-		global $sitepress, $woocommerce_wpml;
-
-		$active_languages = $sitepress->get_active_languages();
-
-		$current_language = $sitepress->get_current_language();
-
-		foreach ( $active_languages as $language ) {
-
-			$this->download_woocommerce_translations( $language['code'], $wc_version );
-
-		}
-
-		$sitepress->switch_lang( $current_language );
-
-		if ( isset( $woocommerce_wpml->url_translation ) ) {
-			$woocommerce_wpml->url_translation->register_product_and_taxonomy_bases();
-		}
-
+	private function get_mo_file_path( $locale ) {
+		return WP_LANG_DIR . '/plugins/woocommerce-' . $locale . '.mo';
 	}
 
-	public function get_language_pack_uri( $locale, $version = false ) {
-
-		if ( ! $version ) {
-			$version = WC_VERSION;
-		}
-
-		$repo = 'https://downloads.wordpress.org/translation/plugin/woocommerce/';
-		return $repo . $version . '/' . $locale . '.zip';
-	}
-
-	public function version_update( $reply, $package ) {
-
-		$notices = maybe_unserialize( get_option( 'wcml_translations_upgrade_notice' ) );
-
-		if ( ! is_array( $notices ) ) {
-			return $reply;
-		}
-
-		foreach ( $notices as $key => $locale ) {
-			if ( strstr( $package, 'woocommerce' ) && strstr( $package, $locale ) ) {
-
-				$this->save_translation_version( $locale, $key );
-
-			}
-		}
-
-		return $reply;
-	}
-
-
-	public function save_translation_version( $locale, $key = false, $wc_version = false ) {
-
-		$notices = maybe_unserialize( get_option( 'wcml_translations_upgrade_notice' ) );
-
-		update_option( 'woocommerce_language_pack_version_' . $locale, [ $wc_version ?: WC_VERSION, $locale ] );
-
-		if ( is_array( $notices ) ) {
-
-			if ( ! $key ) {
-				$key = array_search( $locale, $notices );
-			}
-
-			unset( $notices[ $key ] );
-
-			update_option( 'wcml_translations_upgrade_notice', $notices );
-
-		}
-
-	}
-
-	public function has_available_update( $locale, $wc_version = false ) {
-		$wc_version = $wc_version ?: WC_VERSION;
-
-		$version = get_option( 'woocommerce_language_pack_version_' . $locale, [ '0', $locale ] );
-
-		$is_new_version = ! is_array( $version ) || version_compare( $version[0], $wc_version, '<' ) || $version[1] !== $locale;
-		$mo_file_absent = ! file_exists( sprintf( WP_LANG_DIR . '/plugins/woocommerce-%s.mo', $locale ) );
-
-		$notices = maybe_unserialize( get_option( 'wcml_translations_upgrade_notice', [] ) );
-
-		if ( 'en_US' !== $locale && ( $is_new_version || $mo_file_absent ) ) {
-			if ( $this->check_if_language_pack_exists( $locale, $wc_version ) ) {
-
-				if ( ! $notices || ! in_array( $locale, $notices ) ) {
-					$notices[] = $locale;
-
-					update_option( 'wcml_translations_upgrade_notice', $notices );
-					update_option( 'hide_wcml_translations_message', 0 );
-				}
-
-				return true;
-			} else {
-				update_option( 'woocommerce_language_pack_version_' . $locale, [ $wc_version, $locale ] );
-			}
-		}
-
-		return false;
-	}
-
-
-	public function check_if_language_pack_exists( $locale, $wc_version ) {
-
-		$response = wp_safe_remote_get( $this->get_language_pack_uri( $locale, $wc_version ), [ 'timeout' => 60 ] );
-
-		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 && $response['body'] !== '404 File not found' ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-
-	public function translation_upgrade_notice() {
-		$screen  = get_current_screen();
-		$notices = maybe_unserialize( get_option( 'wcml_translations_upgrade_notice' ) );
-
-		if ( 'update-core' !== $screen->id && ! empty( $notices ) && ! get_option( 'hide_wcml_translations_message' ) ) {
-
-			$lang_notices = new WCML_Languages_Upgrade_Notice( $notices );
-			$lang_notices->show();
-		}
-	}
-
-	public function hide_wcml_translations_message() {
-		$nonce = filter_input( INPUT_POST, 'wcml_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'hide_wcml_translations_message' ) ) {
-			die( 'Invalid nonce' );
-		}
-		update_option( 'hide_wcml_translations_message', true );
-
-		die();
+	private function is_wpml_languages_page() {
+		return WPML_PLUGIN_FOLDER . self::LANGUAGES_PAGE === filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 	}
 
 	public function load_js() {
+		if ( ! $this->is_wpml_languages_page() ) {
+			return;
+		}
 
 		wp_register_script( 'wcml-lang-notice', WCML_PLUGIN_URL . '/res/js/languages_notice' . WCML_JS_MIN . '.js', [ 'jquery' ], WCML_VERSION, true );
 		wp_enqueue_script( 'wcml-lang-notice' );
@@ -203,10 +69,24 @@ class WCML_Languages_Upgrader {
 			'wcml-lang-notice',
 			'wcml_language_upgrade_notices',
 			[
+				/* translators: Message shown while the plugin downloads its own translations in the background. */
 				'dont_close' => esc_html__( "Downloading translations... Please don't close this page.", 'woocommerce-multilingual' ),
 			]
 		);
+	}
+	private function get_url_translation() {
+		if ( ! $this->url_translation ) {
+			$this->url_translation = $GLOBALS['woocommerce_wpml']->url_translation;
+		}
 
+		return $this->url_translation;
 	}
 
+	private function get_sitepress() {
+		if ( ! $this->sitepress ) {
+			$this->sitepress = $GLOBALS['sitepress'];
+		}
+
+		return $this->sitepress;
+	}
 }

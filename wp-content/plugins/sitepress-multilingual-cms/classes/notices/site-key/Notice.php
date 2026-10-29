@@ -3,7 +3,10 @@
 namespace WPML\Notices\SiteKey;
 
 use WPML\Core\WP\App\Resources;
+use WPML\LIB\WP\User;
+use WPML\Notices\BlockEditorNotice;
 use WPML\TM\ATE\ClonedSites\AutoMigration\Handler as AutoMigrationHandler;
+use WPML\TM\ATE\ClonedSites\ReconnectState;
 use WPML\UIPage;
 
 class Notice implements \IWPML_Action, \IWPML_Backend_Action {
@@ -11,7 +14,11 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 	const NOTICE_ID_TRANSLATION = 'wpml-site-key-notice-translation';
 	const NOTICE_GROUP          = 'wpml-site-key-notices';
 
+	const BLOCK_EDITOR_NOTICE_ID = 'wpml-site-key-notice';
+
 	private $notices;
+
+	private $siteKeyDefined = null;
 
 	public function __construct( \WPML_Notices $notices ) {
 		$this->notices = $notices;
@@ -27,10 +34,42 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 			return;
 		}
 
-		if ( ! $this->isSiteKeyDefined() ) {
-			$fn = Resources::enqueueApp( 'notices-site-key' );
-			$fn( $this->getData() );
+		if ( $this->isSiteKeyDefined() ) {
+			return;
 		}
+
+		if ( self::isBlockEditorScreen() ) {
+			BlockEditorNotice::enqueue( $this->getBlockEditorNotice() );
+
+			return;
+		}
+
+		$fn = Resources::enqueueApp( 'notices-site-key' );
+		$fn( $this->getData() );
+	}
+
+	private function getBlockEditorNotice() {
+		return [
+			'id'            => self::BLOCK_EDITOR_NOTICE_ID,
+			'status'        => 'error',
+			/* translators: Title of the notice saying the site needs a new key from wpml.org, and the text of the link that opens the screen where the key is entered. */
+			'text'          => __( 'A New Site Key Is Required', 'sitepress' ) . ' '
+							   . __( 'To continue using WPML features like automatic translation and plugin updates, please register your site again. Don\'t worry, your existing content and translations are safe.', 'sitepress' ),
+			'actions'       => [
+				[
+					/* translators: Button label in the site key notice: hand the key to WPML so the site is known. Verb, imperative. */
+					'label' => __( 'Register', 'sitepress' ),
+					'url'   => admin_url( 'admin.php?page=' . WPML_PLUGIN_FOLDER . '/menu/languages.php' ),
+				],
+			],
+			'isDismissible' => true,
+		];
+	}
+
+	private static function isBlockEditorScreen() {
+		return function_exists( 'get_current_screen' )
+			   && class_exists( 'WPML_Block_Editor_Helper' )
+			   && \WPML_Block_Editor_Helper::is_edit_post();
 	}
 
 	private function getData() {
@@ -38,7 +77,7 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 			'name' => 'wpml_site_key_notice',
 			'data' => [
 				'nonce'   => wp_create_nonce( 'save_site_key_wpml' ),
-				'siteUrl' => get_site_url(),
+				'siteUrl' => RegistrationSiteUrl::get(),
 			],
 		];
 	}
@@ -53,6 +92,7 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 		if ( ! $this->isSiteKeyDefined() ) {
 			$regularNotice = $this->createNotice( self::NOTICE_ID, true );
 			$regularNotice->add_display_callback( [ self::class, 'shouldDisplayRegularNotice' ] );
+			$regularNotice->add_user_restriction( User::getCurrentId() );
 			$this->notices->add_notice( $regularNotice );
 
 			$translationNotice = $this->createNotice( self::NOTICE_ID_TRANSLATION, false );
@@ -66,7 +106,7 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 
 	private function isSuppressedByAutoMigration(): bool {
 		return AutoMigrationHandler::getMigrationData() !== null
-		       || AutoMigrationHandler::hasFailed();
+		       || ( ReconnectState::isReconnecting() && ! ReconnectState::isNoAnswer() );
 	}
 
 	private function isSiteKeyDefined(): bool {
@@ -74,7 +114,21 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 			return true;
 		}
 
-		return (bool) \OTGS_Installer()->get_site_key( 'wpml' );
+		if ( null === $this->siteKeyDefined ) {
+			$this->siteKeyDefined = (bool) \OTGS_Installer()->get_site_key( 'wpml' ) || $this->isSiteKeyStored();
+		}
+
+		return $this->siteKeyDefined;
+	}
+
+	private function isSiteKeyStored(): bool {
+		if ( '' === StoredSiteKey::read() ) {
+			return false;
+		}
+
+		StoredSiteKey::forgetCachedCopies();
+
+		return true;
 	}
 
 	private function createNotice( $noticeId, $allowDismiss ) {
@@ -91,8 +145,15 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 	}
 
 	private function getNoticeText(): string {
-		$notice_id = 'wpml-site-key-notice-wpml-site-key-notice-translation';
-		$site_url  = get_site_url();
+		$notice_id   = 'wpml-site-key-notice-wpml-site-key-notice-translation';
+		$site_url    = RegistrationSiteUrl::get();
+		$account_url = \WPML\OutboundLinks\OutboundLinks::to(
+			'https://app.wpml.org/account/sites?add=%s',
+			array(
+				'medium'   => 'notice',
+				'campaign' => 'account',
+			)
+		);
 
 		return sprintf(
 			'<div id="%s" class="wpml-site-key-notice-container" data-notice-id="wpml-site-key-notice-translation" style="margin-top: 5px;">' .
@@ -106,14 +167,17 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 			'</div>' .
 			'</form>' .
 			'<div class="wpml-notice-help">' .
-			'<a href="https://wpml.org/account/sites/?add=%s" target="_blank" rel="noopener noreferrer">%s</a>' .
+			'<a href="' . $account_url . '" target="_blank" rel="noopener noreferrer">%s</a>' .
 			'</div>' .
 			'</div>',
 			esc_attr( $notice_id ),
+			/* translators: Title of the notice saying the site needs a new key from wpml.org, and the text of the link that opens the screen where the key is entered. */
 			esc_html__( 'A New Site Key Is Required', 'sitepress' ),
 			esc_html__( 'To continue using WPML features like automatic translation and plugin updates, please register your site again. Don\'t worry, your existing content and translations are safe.', 'sitepress' ),
+			/* translators: Label in front of the field where the key from wpml.org is typed. */
 			esc_html__( 'Site key:', 'sitepress' ),
 			esc_attr__( 'Enter your site key here', 'sitepress' ),
+			/* translators: Button label in the site key notice: hand the key to WPML so the site is known. Verb, imperative. */
 			esc_html__( 'Register', 'sitepress' ),
 			esc_url( $site_url ),
 			esc_html__( 'Get a key for this site', 'sitepress' )
@@ -124,11 +188,19 @@ class Notice implements \IWPML_Action, \IWPML_Backend_Action {
 		return UIPage::isTranslationManagement( $_GET ) || UIPage::isTranslationQueue( $_GET );
 	}
 
+	private static function isPageWhereTheKeyIsEntered(): bool {
+		return isset( $GLOBALS['plugin_page'] ) && 'wpml-activate-update' === $GLOBALS['plugin_page'];
+	}
+
+	private static function isPageThatKeepsTheNotice(): bool {
+		return self::isWpmlPageResponsibleForTranslation() || self::isPageWhereTheKeyIsEntered();
+	}
+
 	public static function shouldDisplayRegularNotice() {
-		return ! self::isWpmlPageResponsibleForTranslation();
+		return ! self::isBlockEditorScreen() && ! self::isPageThatKeepsTheNotice();
 	}
 
 	public static function shouldDisplayTranslationNotice() {
-		return self::isWpmlPageResponsibleForTranslation();
+		return ! self::isBlockEditorScreen() && self::isPageThatKeepsTheNotice();
 	}
 }

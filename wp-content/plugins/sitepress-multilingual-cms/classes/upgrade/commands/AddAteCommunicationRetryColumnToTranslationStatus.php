@@ -2,9 +2,11 @@
 
 namespace WPML\TM\Upgrade\Commands;
 
+use WPML\Upgrade\TranslationStatusSchema;
+
 class AddAteCommunicationRetryColumnToTranslationStatus extends \WPML_Upgrade_Add_Column_To_Table {
 	protected function get_table() {
-		return 'icl_translation_status';
+		return TranslationStatusSchema::TABLE;
 	}
 
 	protected function get_column() {
@@ -12,6 +14,6 @@ class AddAteCommunicationRetryColumnToTranslationStatus extends \WPML_Upgrade_Ad
 	}
 
 	protected function get_column_definition() {
-		return "INT(11) UNSIGNED DEFAULT 0";
+		return TranslationStatusSchema::COLUMNS['ate_comm_retry_count'];
 	}
 }

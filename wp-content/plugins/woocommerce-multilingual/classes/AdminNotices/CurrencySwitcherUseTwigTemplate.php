@@ -42,9 +42,12 @@ class CurrencySwitcherUseTwigTemplate implements \IWPML_Backend_Action, \IWPML_D
 			return;
 		}
 
-		$text = '<h2>' . esc_html__( 'Important: Action Needed for Your Currency Switcher', 'woocommerce-multilingual' ) . '</h2>';
-		$text .= '<p>' . esc_html__( 'We detected that your site is using a Currency Switcher built with Twig templates. For security reasons, support for Twig-based templates will be discontinued in the upcoming version of WPML Multilingual & Multicurrency for WooCommerce 5.6.', 'woocommerce-multilingual' ) . '</p>';
-		$text .= '<p>' . esc_html__( 'To ensure your Currency Switcher continues working smoothly:', 'woocommerce-multilingual' ) . '</p>';
+		/* translators: Heading of an admin notice telling the shop owner that Twig currency-switcher templates are going away. Keep the bold tags around the feature name. */
+		$text  = '<h2>' . wcml_bold_names( __( 'Important: Action Needed for Your <b>Currency Switcher</b>', 'woocommerce-multilingual' ) ) . '</h2>';
+		/* translators: First paragraph of the admin notice about Twig currency-switcher templates. Keep the bold tags around the feature name; "Twig" is a template technology and stays in English. */
+		$text .= '<p>' . wcml_bold_names( __( 'We detected that your site is using a <b>Currency Switcher</b> built with Twig templates. For security reasons, support for Twig-based templates will be discontinued in the upcoming version of WPML Multilingual & Multicurrency for WooCommerce 5.6.', 'woocommerce-multilingual' ) ) . '</p>';
+		/* translators: Line that introduces the list of steps in the admin notice about Twig currency-switcher templates. Keep the bold tags around the feature name. */
+		$text .= '<p>' . wcml_bold_names( __( 'To ensure your <b>Currency Switcher</b> continues working smoothly:', 'woocommerce-multilingual' ) ) . '</p>';
 
 		$text .= '<ul>';
 		$text .= '<li>';
@@ -64,7 +67,8 @@ class CurrencySwitcherUseTwigTemplate implements \IWPML_Backend_Action, \IWPML_D
 		);
 		$text .= '</li>';
 		$text .= '</ul>';
-		$text .= '<p>' . esc_html__( 'We recommend updating your Currency Switcher as soon as possible to avoid disruptions when the new version of WPML Multilingual & Multicurrency for WooCommerce is released.', 'woocommerce-multilingual' ) . '</p>';
+		/* translators: Closing paragraph of the admin notice about Twig currency-switcher templates. Keep the bold tags around the feature name. */
+		$text .= '<p>' . wcml_bold_names( __( 'We recommend updating your <b>Currency Switcher</b> as soon as possible to avoid disruptions when the new version of WPML Multilingual & Multicurrency for WooCommerce is released.', 'woocommerce-multilingual' ) ) . '</p>';
 
 		$notice = $this->notices->create_notice( self::NOTICE_ID, $text );
 		$notice->set_css_class_types( 'notice-warning' );

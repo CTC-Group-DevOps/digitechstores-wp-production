@@ -17,4 +17,12 @@ class Result {
 	public $jobs = [];
 
 	public $eta;
+
+	public $ateTransportFailure = false;
+
+	public $ateRefusedLocally = false;
+
+	public $clientRestriction = null;
+
+	public $spendCap = null;
 }

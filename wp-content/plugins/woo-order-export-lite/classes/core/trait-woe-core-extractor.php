@@ -136,6 +136,7 @@ trait WOE_Core_Extractor {
 		return $pair_types;
 	}
 
+	// returns raw keys and values, escape them where SQL is built
 	public static function parse_complex_pairs( $pairs, $valid_types = false, $mode = '' ) {
 		$pair_types = array();
 		$delimiters = array(
@@ -185,14 +186,13 @@ trait WOE_Core_Extractor {
 				continue;
 			}
 
-			$filter_type = addslashes( $filter_type );
 			if ( ! isset( $pair_types[ $op ] ) ) {
 				$pair_types[ $op ] = array();
 			}
 			if ( ! isset( $pair_types[ $op ] [ $filter_type ] ) ) {
 				$pair_types[ $op ] [ $filter_type ] = array();
 			}
-			$pair_types[ $op ][ $filter_type ][] = addslashes( $filter_value );
+			$pair_types[ $op ][ $filter_type ][] = $filter_value;
 		}
 
 		return $pair_types;
@@ -200,8 +200,11 @@ trait WOE_Core_Extractor {
 
 	private static function sql_subset( $arr_values ) {
 		$values = array();
-		foreach ( $arr_values as $s ) {
-			$values[] = "'$s'";
+		foreach ( (array) $arr_values as $s ) {
+			if ( is_array( $s ) || is_object( $s ) ) {
+				continue;
+			}
+			$values[] = "'" . esc_sql( (string) $s ) . "'";
 		}
 
 		return join( ",", $values );
@@ -246,7 +249,7 @@ trait WOE_Core_Extractor {
 				foreach ( $filters as $operator => $fields ) {
 					foreach ( $fields as $field => $values ) {
 						if ( $values ) {
-							$left_join_product_meta[] = "LEFT JOIN {$wpdb->postmeta} AS productmeta_cf_{$pos} ON productmeta_cf_{$pos}.post_id = products.ID AND productmeta_cf_{$pos}.meta_key='$field'";
+							$left_join_product_meta[] = "LEFT JOIN {$wpdb->postmeta} AS productmeta_cf_{$pos} ON productmeta_cf_{$pos}.post_id = products.ID AND productmeta_cf_{$pos}.meta_key='" . esc_sql( $field ) . "'";
 							if ( $operator == 'IN' OR $operator == 'NOT IN' ) {
 								$values               = self::sql_subset( $values );
 								$product_meta_where[] = " productmeta_cf_{$pos}.meta_value $operator ($values) ";
@@ -354,7 +357,7 @@ trait WOE_Core_Extractor {
 					$cat_ids[] = $child_id;
 				}
 			}
-			$cat_ids                = join( ',', $cat_ids );
+			$cat_ids = join(',', array_map('intval', $cat_ids));
 			$product_category_where = "SELECT  DISTINCT object_id FROM {$wpdb->term_relationships} AS product_in_cat
 						LEFT JOIN {$wpdb->term_taxonomy} AS product_category ON product_category.term_taxonomy_id = product_in_cat.term_taxonomy_id
 						WHERE product_category.term_id IN ($cat_ids)
@@ -400,6 +403,10 @@ trait WOE_Core_Extractor {
 	}
 
 	static function operator_compare_field_and_value( $field, $operator, $value, $public_fieldname='' ) {
+		if ( $operator == "LIKE" OR $operator == "NOT LIKE") {
+			// backslash is the escape character of LIKE patterns too, % and _ stay wildcards
+			$value = addcslashes( $value, '\\' );
+		}
 		$value = esc_sql($value);
 		if ( $operator == "LIKE" OR $operator == "NOT LIKE") {
 			$value = (substr($value,0,1)=="^") ? substr($value,1)."%" : "%$value%";

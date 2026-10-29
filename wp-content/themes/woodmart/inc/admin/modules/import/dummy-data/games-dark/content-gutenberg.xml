@@ -1553,7 +1553,94 @@
 <!-- wp:wd/toggle-content {"blockId":"85271125-b184-4da6-9bc6-de4302b3a118"} -->
 <div id="wd-85271125" class="wp-block-wd-toggle-content wd-toggle-content"><div class="wd-toggle-content-inner"><!-- wp:wd/menu-list {"blockId":"6aaad54b-977b-49c9-b02e-b46d23f44607","title":"","blockGap":0,"itemsColorCode":"rgba(255,255,255,0.9)"} -->
 <ul id="wd-6aaad54b" class="wp-block-wd-menu-list wd-sub-menu wd-sub-accented"><li><ul class="sub-sub-menu"><!-- wp:wd/menu-list-item {"blockId":"4f84be8d-2390-40e6-8374-20dc704874da","title":"About Us"} -->
-<li id="wd-4f84be8d" class="wp-block-wd-menu-list-item"><p>Based on <a href="http://woodmart.xtemos.com/" rel="nofollow"><strong>WoodMart</strong></a> theme © 2026 <a href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492" rel="nofollow"><strong>WooCommerce Themes</strong></a></p></p>
+<li id="wd-4f84be8d" class="wp-block-wd-menu-list-item"><a href="https://dummy.xtemos.com/woodmart2/games-gutenberg/about-us/">About Us</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"47ef9251-4f65-45aa-ad6b-ba1688515dc7","title":"Contact Us","labelText":"","labelColor":"green"} -->
+<li id="wd-47ef9251" class="wp-block-wd-menu-list-item"><a href="https://dummy.xtemos.com/woodmart2/games-gutenberg/contact-us-dark/">Contact Us</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"2f4d764b-54f8-47d0-bab1-e6dc377c9733","title":"Blog"} -->
+<li id="wd-2f4d764b" class="wp-block-wd-menu-list-item"><a href="https://dummy.xtemos.com/woodmart2/games-gutenberg/blog/">Blog</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"d02e66c5-28fa-42ea-b811-07db80ab4251","title":"FAQs"} -->
+<li id="wd-d02e66c5" class="wp-block-wd-menu-list-item"><a href="#">FAQs</a></li>
+<!-- /wp:wd/menu-list-item --></ul></li></ul>
+<!-- /wp:wd/menu-list --></div></div>
+<!-- /wp:wd/toggle-content --></div>
+<!-- /wp:wd/toggle --></div>
+<!-- /wp:wd/column -->
+
+<!-- wp:wd/column {"blockId":"7b5c7454-15a1-4617-bdc8-d8da15afce1c","adjacentCount":4} -->
+<div id="wd-7b5c7454" class="wp-block-wd-column"><!-- wp:wd/toggle {"blockId":"45c1c78d-6376-401b-aad1-142c5d92b1b8","state":"static","stateTablet":"static"} -->
+<div id="wd-45c1c78d" class="wp-block-wd-toggle wd-toggle wd-state-static-lg wd-state-static-md-sm wd-state-closed-sm wd-active-lg wd-active-md-sm wd-icon-rotate"><!-- wp:wd/container {"blockId":"cf3152df-ae6e-4c26-a553-554f7b6d3fde","direction":"row","extraClass":"wd-toggle-head","metadata":{"name":"Toggle header"}} -->
+<div id="wd-cf3152df" class="wp-block-wd-container wd-dir-row wd-toggle-head"><!-- wp:wd/title {"blockId":"798fc8e2-98b4-4fd8-bd35-2fa4809e41f9","content":"Games","tpFontSize":"16"} -->
+<h2 id="wd-798fc8e2" class="wp-block-wd-title title">Games</h2>
+<!-- /wp:wd/title -->
+
+<!-- wp:wd/icon {"blockId":"8c97a9b9-06d0-484a-8c62-99f5654cfd83","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewBox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon"} -->
+<div id="wd-8c97a9b9" class="wp-block-wd-icon wd-toggle-icon"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
+<!-- /wp:wd/icon --></div>
+<!-- /wp:wd/container -->
+
+<!-- wp:wd/toggle-content {"blockId":"af5c1e16-31e8-4466-9ccf-480b186e95bb"} -->
+<div id="wd-af5c1e16" class="wp-block-wd-toggle-content wd-toggle-content"><div class="wd-toggle-content-inner"><!-- wp:wd/menu-list {"blockId":"a93b9011-375e-460c-be30-5aebcba58e6e","title":"","blockGap":0,"itemsColorCode":"rgba(255,255,255,0.9)"} -->
+<ul id="wd-a93b9011" class="wp-block-wd-menu-list wd-sub-menu wd-sub-accented"><li><ul class="sub-sub-menu"><!-- wp:wd/menu-list-item {"blockId":"1ae22ae3-5604-41d7-a727-2aff66c92fb9","title":"PC"} -->
+<li id="wd-1ae22ae3" class="wp-block-wd-menu-list-item"><a href="#">PC</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"a29ef7a7-2f94-457b-8dfc-704730508b84","title":"PlayStation 5","labelText":"","labelColor":"green"} -->
+<li id="wd-a29ef7a7" class="wp-block-wd-menu-list-item"><a href="#">PlayStation 5</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"f3e10747-8879-438d-b778-b43e25a54d2d","title":"Xbox Series X|S"} -->
+<li id="wd-f3e10747" class="wp-block-wd-menu-list-item"><a href="#">Xbox Series X|S</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"0aea5616-34e9-403b-bd0c-611f086aadce","title":"Nintendo Switch"} -->
+<li id="wd-0aea5616" class="wp-block-wd-menu-list-item"><a href="#">Nintendo Switch</a></li>
+<!-- /wp:wd/menu-list-item --></ul></li></ul>
+<!-- /wp:wd/menu-list --></div></div>
+<!-- /wp:wd/toggle-content --></div>
+<!-- /wp:wd/toggle --></div>
+<!-- /wp:wd/column -->
+
+<!-- wp:wd/column {"blockId":"ed2a5b8c-065f-452b-a91c-70266e8c3a48","adjacentCount":4} -->
+<div id="wd-ed2a5b8c" class="wp-block-wd-column"><!-- wp:wd/toggle {"blockId":"b0e4c5b4-6235-4c9e-9241-a7fefd747600","state":"static","stateTablet":"static"} -->
+<div id="wd-b0e4c5b4" class="wp-block-wd-toggle wd-toggle wd-state-static-lg wd-state-static-md-sm wd-state-closed-sm wd-active-lg wd-active-md-sm wd-icon-rotate"><!-- wp:wd/container {"blockId":"4cc65ab5-b558-4d8b-aa0c-f57ab62a1124","direction":"row","extraClass":"wd-toggle-head","metadata":{"name":"Toggle header"}} -->
+<div id="wd-4cc65ab5" class="wp-block-wd-container wd-dir-row wd-toggle-head"><!-- wp:wd/title {"blockId":"7b9abdad-51fa-42e3-8f22-f86b237e42cb","content":"Social Links","tpFontSize":"16"} -->
+<h2 id="wd-7b9abdad" class="wp-block-wd-title title">Social Links</h2>
+<!-- /wp:wd/title -->
+
+<!-- wp:wd/icon {"blockId":"bba43a1e-face-449f-be47-48f5a13ddb21","type":"svg","svg":"\u003csvg xmlns=\u0022http://www.w3.org/2000/svg \u0022 width=\u002264\u0022 height=\u002264\u0022 viewBox=\u00220 0 64 64\u0022\u003e\u003cpath d=\u0022M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z\u0022 /\u003e\u003c/svg\u003e","extraClass":"wd-toggle-icon"} -->
+<div id="wd-bba43a1e" class="wp-block-wd-icon wd-toggle-icon"><svg xmlns="http://www.w3.org/2000/svg " width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M59.7678 20.7678C60.2551 20.2804 60.4992 19.6419 60.5 19.0031C60.5008 18.3623 60.2567 17.7212 59.7678 17.2322C59.2796 16.7441 58.6398 16.5 58 16.5C57.3602 16.5 56.7204 16.7441 56.2322 17.2322L32 41.4645L7.76777 17.2322C7.27961 16.7441 6.63981 16.5 6 16.5C5.36019 16.5 4.72039 16.7441 4.23223 17.2322C3.74408 17.7204 3.5 18.3602 3.5 19C3.5 19.6398 3.74408 20.2796 4.23223 20.7678L30.2322 46.7678C30.7204 47.2559 31.3602 47.5 32 47.5C32.6398 47.5 33.2796 47.2559 33.7678 46.7678L59.7678 20.7678Z"></path></svg></div>
+<!-- /wp:wd/icon --></div>
+<!-- /wp:wd/container -->
+
+<!-- wp:wd/toggle-content {"blockId":"ed684731-b615-48b0-a232-b204bd7d9dab"} -->
+<div id="wd-ed684731" class="wp-block-wd-toggle-content wd-toggle-content"><div class="wd-toggle-content-inner"><!-- wp:wd/menu-list {"blockId":"b0763894-8dd3-4172-b0a9-a0d0023519ef","title":"","blockGap":0,"itemsColorCode":"rgba(255,255,255,0.9)"} -->
+<ul id="wd-b0763894" class="wp-block-wd-menu-list wd-sub-menu wd-sub-accented"><li><ul class="sub-sub-menu"><!-- wp:wd/menu-list-item {"blockId":"47cbf543-5817-4e24-9a3b-33f22f7612b4","title":"Instagram"} -->
+<li id="wd-47cbf543" class="wp-block-wd-menu-list-item"><a href="#">Instagram</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"4408ca10-913e-45d3-a349-4451cde7ee20","title":"Twitter","labelText":"","labelColor":"green"} -->
+<li id="wd-4408ca10" class="wp-block-wd-menu-list-item"><a href="#">Twitter</a></li>
+<!-- /wp:wd/menu-list-item -->
+
+<!-- wp:wd/menu-list-item {"blockId":"5eb0708a-61ea-4b58-8228-1d482d6b0a30","title":"Youtube"} -->
+<li id="wd-5eb0708a" class="wp-block-wd-menu-list-item"><a href="#">Youtube</a></li>
+<!-- /wp:wd/menu-list-item --></ul></li></ul>
+<!-- /wp:wd/menu-list --></div></div>
+<!-- /wp:wd/toggle-content --></div>
+<!-- /wp:wd/toggle --></div>
+<!-- /wp:wd/column --></div>
+<!-- /wp:wd/row --></div>
+<!-- /wp:wd/section -->
+
+<!-- wp:wd/container {"blockId":"edd20936-95ae-4e2d-a006-c02d68901f32","direction":"row","justify":"space-between","align":"center","textAlign":"center","colGap":"","rowGap":"10","paddingTop":"20","paddingBottom":"20","directionTablet":"column"} -->
+<div id="wd-edd20936" class="wp-block-wd-container wd-dir-row wd-dir-col-md wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"9a30285f-149d-473e-a7a8-394f9877ee31","tpFontSize":"14","markColorCode":"#000000","flexBasis":"","flexBasisUnits":"%"} -->
+<p id="wd-9a30285f" class="wp-block-wd-paragraph">Based on <a href="http://woodmart.xtemos.com/" rel="nofollow"><strong>WoodMart</strong></a> theme © 2026 <a href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492" rel="nofollow"><strong>WooCommerce Themes</strong></a></p>
 <!-- /wp:wd/paragraph -->
 
 <!-- wp:wd/menu {"blockId":"d84e8ddb-8e72-4f7f-906f-45d5be97fb6f","nav_menu":"41","itemTpFontSize":"13","itemTpTextTransform":"capitalize"} /--></div>
@@ -1561,15 +1648,16 @@
 															<wp:post_id>888</wp:post_id>
 					<wp:post_date><![CDATA[2024-07-29 09:31:57]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-07-29 09:31:57]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-11-19 09:44:59]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-11-19 09:44:59]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-13 12:50:30]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-13 12:50:30]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[footer-games-light-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
 					<wp:post_parent>0</wp:post_parent>
 					<wp:menu_order>0</wp:menu_order>
 					<wp:post_type><![CDATA[cms_block]]></wp:post_type>
-																					<wp:postmeta>
+												<category domain="cms_block_cat" nicename="uncategorized"><![CDATA[Uncategorized]]></category>
+											<wp:postmeta>
 							<wp:meta_key><![CDATA[xts-blocks-530-status]]></wp:meta_key>
 							<wp:meta_value><![CDATA[valid]]></wp:meta_value>
 						</wp:postmeta>

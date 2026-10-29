@@ -1710,6 +1710,12 @@ return apply_filters(
 						'type'    => 'page',
 						'link'    => WOODMART_DEMO_URL . 'vegetables/checkout/',
 					),
+					'vegetables-loop-item'        => array(
+						'title'   => 'Loop item',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'vegetables/product-category/vegetables-fruits/',
+					),
 				),
 			),
 		),
@@ -1734,6 +1740,18 @@ return apply_filters(
 						'type'    => 'page',
 						'link'    => WOODMART_DEMO_URL . 'pottery/pottery-class/',
 					),
+					'pottery-cart'             => array(
+						'title'   => 'Cart',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'pottery/cart/',
+					),
+					'pottery-checkout'         => array(
+						'title'   => 'Checkout',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'pottery/checkout/',
+					),
 				),
 				'layouts' => array(
 					'pottery-single-product'   => array(
@@ -1747,18 +1765,6 @@ return apply_filters(
 						'process' => 'xml',
 						'type'    => 'page',
 						'link'    => WOODMART_DEMO_URL . 'pottery/shop/',
-					),
-					'pottery-cart'             => array(
-						'title'   => 'Cart',
-						'process' => 'xml',
-						'type'    => 'page',
-						'link'    => WOODMART_DEMO_URL . 'pottery/cart/',
-					),
-					'pottery-checkout'         => array(
-						'title'   => 'Checkout',
-						'process' => 'xml',
-						'type'    => 'page',
-						'link'    => WOODMART_DEMO_URL . 'pottery/checkout/',
 					),
 				),
 			),
@@ -1906,6 +1912,18 @@ return apply_filters(
 						'type'    => 'page',
 						'link'    => WOODMART_DEMO_URL . 'kids/contact-us/',
 					),
+					'kids-cart'             => array(
+						'title'   => 'Cart',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'kids/cart/',
+					),
+					'kids-checkout'         => array(
+						'title'   => 'Checkout',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'kids/checkout/',
+					),	
 				),
 				'layouts' => array(
 					'kids-single-product'   => array(
@@ -1956,6 +1974,18 @@ return apply_filters(
 						'type'    => 'page',
 						'link'    => WOODMART_DEMO_URL . 'plants/delivery-return/',
 					),
+					'plants-cart'             => array(
+						'title'   => 'Cart',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'plants/cart/',
+					),
+					'plants-checkout'         => array(
+						'title'   => 'Checkout',
+						'process' => 'xml',
+						'type'    => 'page',
+						'link'    => WOODMART_DEMO_URL . 'plants/checkout/',
+					),
 				),
 				'layouts' => array(
 					'plants-single-product'   => array(
@@ -1969,18 +1999,6 @@ return apply_filters(
 						'process' => 'xml',
 						'type'    => 'page',
 						'link'    => WOODMART_DEMO_URL . 'plants/shop/',
-					),
-					'plants-cart'             => array(
-						'title'   => 'Cart',
-						'process' => 'xml',
-						'type'    => 'page',
-						'link'    => WOODMART_DEMO_URL . 'plants/cart/',
-					),
-					'plants-checkout'         => array(
-						'title'   => 'Checkout',
-						'process' => 'xml',
-						'type'    => 'page',
-						'link'    => WOODMART_DEMO_URL . 'plants/checkout/',
 					),
 				),
 			),

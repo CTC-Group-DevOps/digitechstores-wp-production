@@ -26,7 +26,7 @@ class WPML_Fix_Links_In_Display_As_Translated_Content implements IWPML_Action, I
 		if ( stripos( $content, '<a' ) !== false ) {
 			if ( $this->is_display_as_translated_content_type() ) {
 				list( $content, $encoded_ls_links ) = $this->encode_language_switcher_links( $content );
-				$content                            = $this->translate_link_targets->convert_text( $content );
+				$content                            = $this->translate_link_targets->convert_text_for_display( $content );
 				$content                            = $this->decode_language_switcher_links( $content, $encoded_ls_links );
 			}
 		}
@@ -46,18 +46,30 @@ class WPML_Fix_Links_In_Display_As_Translated_Content implements IWPML_Action, I
 	private function encode_language_switcher_links( $content ) {
 		$encoded_ls_links = array();
 
-		if ( preg_match_all( '/<a\s[^>]*class\s*=\s*"([^"]*)"[^>]*>/', $content, $matches ) ) {
-			foreach ( $matches[1] as $index => $match ) {
-				if ( strpos( $match, WPML_LS_Model_Build::LINK_CSS_CLASS ) !== false ) {
-					$link                              = $matches[0][ $index ];
-					$encoded_link                      = md5( $link );
-					$encoded_ls_links[ $encoded_link ] = $link;
-					$content                           = str_replace( $link, $encoded_link, $content );
+		if ( preg_match_all( '/<a\s[^>]*>/', $content, $matches ) ) {
+			foreach ( $matches[0] as $link ) {
+				if ( ! $this->is_language_switcher_link( $link ) ) {
+					continue;
 				}
+
+				$encoded_link                      = md5( $link );
+				$encoded_ls_links[ $encoded_link ] = $link;
+				$content                           = str_replace( $link, $encoded_link, $content );
 			}
 		}
 
 		return array( $content, $encoded_ls_links );
+	}
+
+	private function is_language_switcher_link( $link ) {
+		if (
+			preg_match( '/class\s*=\s*"([^"]*)"/', $link, $class_attribute )
+			&& strpos( $class_attribute[1], WPML_LS_Model_Build::LINK_CSS_CLASS ) !== false
+		) {
+			return true;
+		}
+
+		return (bool) preg_match( '/\sdata-wpml\s*=\s*"link"/', $link );
 	}
 
 	private function decode_language_switcher_links( $content, $encoded_ls_links ) {

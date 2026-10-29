@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Display {
 
@@ -29,7 +29,7 @@ class WC_PB_Display {
 	/**
 	 * Workaround for $order arg missing from 'woocommerce_order_item_name' filter - set within the 'woocommerce_order_item_class' filter - @see 'order_item_class()'.
 	 *
-	 * @var boolean|WC_Order
+	 * @var WC_Order|false
 	 */
 	private $order_item_order = false;
 
@@ -43,14 +43,14 @@ class WC_PB_Display {
 	/**
 	 * Runtime cache.
 	 *
-	 * @var bool
+	 * @var bool|null
 	 */
 	private $display_cart_prices_incl_tax;
 
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_PB_Display
+	 * @var WC_PB_Display|null
 	 *
 	 * @since 5.0.0
 	 */
@@ -204,16 +204,16 @@ class WC_PB_Display {
 		wp_register_script( 'wc-add-to-cart-bundle', WC_PB()->plugin_url() . '/assets/js/frontend/add-to-cart-bundle' . $suffix . '.js', $dependencies, WC_PB()->version, true );
 		wp_script_add_data( 'wc-add-to-cart-bundle', 'strategy', 'defer' );
 
-		wp_register_style( 'wc-bundle-css', WC_PB()->plugin_url() . '/assets/css/frontend/single-product.css', false, WC_PB()->version );
+		wp_register_style( 'wc-bundle-css', WC_PB()->plugin_url() . '/assets/css/frontend/single-product.css', array(), WC_PB()->version );
 		wp_style_add_data( 'wc-bundle-css', 'rtl', 'replace' );
 
-		wp_register_style( 'wc-bundle-style', WC_PB()->plugin_url() . '/assets/css/frontend/woocommerce.css', false, WC_PB()->version );
+		wp_register_style( 'wc-bundle-style', WC_PB()->plugin_url() . '/assets/css/frontend/woocommerce.css', array(), WC_PB()->version );
 		wp_style_add_data( 'wc-bundle-style', 'rtl', 'replace' );
 
 		wp_enqueue_style( 'wc-bundle-style' );
 
 		if ( wp_is_block_theme() ) {
-			wp_register_style( 'wc-bundle-blocks-style', WC_PB()->plugin_url() . '/assets/css/frontend/blocktheme.css', false, WC_PB()->version );
+			wp_register_style( 'wc-bundle-blocks-style', WC_PB()->plugin_url() . '/assets/css/frontend/blocktheme.css', array(), WC_PB()->version );
 			wp_style_add_data( 'wc-bundle-blocks-style', 'rtl', 'replace' );
 			wp_enqueue_style( 'wc-bundle-blocks-style' );
 		}
@@ -434,6 +434,8 @@ class WC_PB_Display {
 
 	/**
 	 * Display info notice when editing a bundle from the cart.
+	 *
+	 * @return void
 	 */
 	public function add_edit_in_cart_notice() {
 
@@ -533,7 +535,7 @@ class WC_PB_Display {
 	 *
 	 * @since  6.3.2
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	public function display_cart_prices_including_tax() {
 
@@ -547,8 +549,8 @@ class WC_PB_Display {
 	/**
 	 * Outputs a formatted subtotal.
 	 *
-	 * @param  WC_Product $product The product object.
-	 * @param  string     $subtotal The subtotal.
+	 * @param  WC_Product   $product The product object.
+	 * @param  string|float $subtotal The subtotal.
 	 * @return string
 	 */
 	public function format_subtotal( $product, $subtotal ) {
@@ -578,7 +580,7 @@ class WC_PB_Display {
 	/**
 	 * Modify the front-end price of bundled items and container items depending on their pricing setup.
 	 *
-	 * @param  double $price The price.
+	 * @param  string $price The price.
 	 * @param  array  $cart_item The cart item.
 	 * @param  string $cart_item_key The cart item key.
 	 * @return string
@@ -706,7 +708,7 @@ class WC_PB_Display {
 	 *
 	 * @param  array  $cart_item The cart item.
 	 * @param  string $type The price type.
-	 * @return string
+	 * @return float
 	 */
 	public function get_container_cart_item_price_amount( $cart_item, $type ) {
 
@@ -1486,7 +1488,7 @@ class WC_PB_Display {
 	 * @param  string $name The name.
 	 * @param  array  $cart_item The cart item.
 	 * @param  string $cart_item_key The cart item key.
-	 * @return bool
+	 * @return string
 	 */
 	public function cart_widget_container_item_name( $name, $cart_item, $cart_item_key ) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
@@ -1534,7 +1536,7 @@ class WC_PB_Display {
 	 *
 	 * @param  array $cart_item The cart item.
 	 * @param  mixed $arg The argument.
-	 * @return array
+	 * @return array|string
 	 */
 	public function get_bundle_container_cart_item_data( $cart_item, $arg = array() ) {
 
@@ -1611,7 +1613,7 @@ class WC_PB_Display {
 					array(
 						'data' => $data,
 					),
-					false,
+					'',
 					WC_PB()->plugin_path() . '/templates/'
 				);
 

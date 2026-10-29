@@ -2,11 +2,27 @@
     display: none;
 }
 
-.wp-headers-and-footers textarea {
-    width: 35em;
+/* Match CodeMirror chrome so raw textareas don't flash unstyled before init */
+.wp-headers-and-footers #wpheaderandfooter_basics textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+    margin: 0 0 12px;
+    padding: 8px 10px;
+    border: 1px solid #ccd0d4;
+    border-radius: 0;
+    background: #fff;
+    color: #2c3338;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
 }
 
-.wp_header_textarea .CodeMirror, .wp_body_textarea .CodeMirror, .wp_footer_textarea .CodeMirror {
+.wp_header_textarea .CodeMirror,
+.wp_body_textarea .CodeMirror,
+.wp_footer_textarea .CodeMirror {
     border: 1px solid #ccd0d4;
 }
 

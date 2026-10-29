@@ -15,6 +15,10 @@ class WPML_API_Hook_Copy_Post_To_Language implements IWPML_Action {
 	public function copy_post_to_language( $post_id, $target_language, $mark_as_duplicate ) {
 		$duplicate_post_id = $this->post_duplication->make_duplicate( $post_id, $target_language );
 
+		if ( ! is_int( $duplicate_post_id ) ) {
+			return $duplicate_post_id;
+		}
+
 		if( ! $mark_as_duplicate ) {
 			delete_post_meta( $duplicate_post_id, '_icl_lang_duplicate_of' );
 		}

@@ -22,10 +22,10 @@ class Field {
 	}
 
 	public function isMatchingStaticString( WPML_PB_String $string ) {
-		$pattern = '/^' . $this->tagKey . '-.*-' . $this->nodeId . '$/';
+		$pattern = '/^' . preg_quote( $this->tagKey, '/' ) . '-.*-' . preg_quote( $this->nodeId, '/' ) . '$/';
 
 		if ( $this->itemId ) {
-			$pattern = '/^.*-' . $this->tagKey . '-' . $this->nodeId . '-' . $this->itemId . '$/';
+			$pattern = '/^.*-' . preg_quote( $this->tagKey, '/' ) . '-' . preg_quote( $this->nodeId, '/' ) . '-' . preg_quote( $this->itemId, '/' ) . '$/';
 		}
 
 		return (bool) preg_match( $pattern, $string->get_name() );

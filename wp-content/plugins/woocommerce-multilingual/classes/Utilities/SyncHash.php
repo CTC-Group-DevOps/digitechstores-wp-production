@@ -36,7 +36,7 @@ class SyncHash {
 		switch ( $source ) {
 			case self::SOURCE_META:
 				$meta                                                = get_post_meta( $objectId, self::META_KEY, true );
-				$this->hashes[ $objectId ]                           = empty( $meta ) ? $this->getEmpty() : $this->validate( maybe_unserialize( $meta ) );
+				$this->hashes[ $objectId ]                           = empty( $meta ) ? $this->getEmpty() : $this->validate( $meta );
 				$this->hashes[ $objectId ][ self::HAS_CHANGES_FLAG ] = $setChanged;
 				break;
 			case self::SOURCE_EMPTY:
@@ -66,6 +66,16 @@ class SyncHash {
 	public function isNewGroupValue( $objectId, $group, $hashValue ) {
 		$hash = $this->getHash( $objectId );
 		return Obj::propOr( null, $group, $hash ) !== $hashValue;
+	}
+
+	public function markChanged( $objectId ) {
+		$hash                           = $this->getHash( $objectId );
+		$hash[ self::HAS_CHANGES_FLAG ] = true;
+		$this->setHash( $objectId, $hash );
+	}
+
+	public function hasChanges( $objectId ) {
+		return (bool) Obj::propOr( false, self::HAS_CHANGES_FLAG, $this->getHash( $objectId ) );
 	}
 
 	public function saveHash( $objectId, $clear = false ) {

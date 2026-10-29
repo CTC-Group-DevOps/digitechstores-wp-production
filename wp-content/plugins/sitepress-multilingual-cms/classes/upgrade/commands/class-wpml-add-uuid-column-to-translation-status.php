@@ -1,9 +1,11 @@
 <?php
 
+use WPML\Upgrade\TranslationStatusSchema;
+
 class WPML_Add_UUID_Column_To_Translation_Status extends WPML_Upgrade_Add_Column_To_Table {
 
 	protected function get_table() {
-		return 'icl_translation_status';
+		return TranslationStatusSchema::TABLE;
 	}
 
 	protected function get_column() {
@@ -11,6 +13,6 @@ class WPML_Add_UUID_Column_To_Translation_Status extends WPML_Upgrade_Add_Column
 	}
 
 	protected function get_column_definition() {
-		return 'VARCHAR(36) NULL';
+		return TranslationStatusSchema::COLUMNS['uuid'];
 	}
 }

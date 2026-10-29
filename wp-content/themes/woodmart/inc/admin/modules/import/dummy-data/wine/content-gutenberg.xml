@@ -490,11 +490,11 @@
 <div id="wd-1c534047" class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-fade wd-stretched"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="fade" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"c8381dca-f30b-4c81-96bc-d91bfd2cae1f","effect":"fade","colorScheme":"light","bgImage":{"id":21773,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-sleder-bg-1-opt.jpg"},"bgColorCode":"#fefefe","bgImageTablet":{"id":21896,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-slider-1-img-min-1.jpg"},"bgImageSizeTablet":"full","bgPositionTablet":"center center","bgRepeatTablet":"no-repeat","bgDisplaySizeTablet":"cover"} -->
 <div id="wd-c8381dca" class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light"><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"8d43cfa4-395a-4bef-9e61-7b1c1d6fc110","direction":"row","align":"center","colGap":"90","rowGap":"","colGapTablet":"70","colGapMobile":"20"} -->
 <div id="wd-8d43cfa4" class="wp-block-wd-container wd-dir-row wd-align-is-lg-center"><!-- wp:wd/container {"blockId":"dc97b032-a3a1-4a59-80cd-2d76911388a3","rowGap":"0","paddingBottom":"90","displayWidth":"custom","customWidth":"58","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"59","customWidthMobile":"67","customWidthUnits":"%","customWidthUnitsTablet":"%","customWidthUnitsMobile":"%","minHeightUnitsTablet":"%"} -->
-<div id="wd-dc97b032" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"fd7a3bc4-36c5-41b7-9238-a403e87a520b","content":"Wines From The Best u003cspan class=u0022wd-highlightu0022u003eu003cemu003eVineyardsu003c/emu003eu003c/spanu003e.","tpFontSize":"82","tpLineHeight":"1.2","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"200","tpFontSizeTablet":"54","tpFontSizeMobile":"26","tpLineHeightUnits":"em"} -->
+<div id="wd-dc97b032" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"fd7a3bc4-36c5-41b7-9238-a403e87a520b","content":"Wines From The Best \u003cspan class=\u0022wd-highlight\u0022\u003e\u003cem\u003eVineyards\u003c/em\u003e\u003c/span\u003e.","tpFontSize":"82","tpLineHeight":"1.2","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"200","tpFontSizeTablet":"54","tpFontSizeMobile":"26","tpLineHeightUnits":"em"} -->
 <h2 id="wd-fd7a3bc4" class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_200">Wines From The Best <span class="wd-highlight"><em>Vineyards</em></span>.</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/paragraph {"blockId":"a70fe62f-47cc-4bce-be5b-c06c828b9c26","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"40","marginBottom":"30","animation":"slide-from-bottom","animationDelay":"348","tpFontSizeTablet":"30","tpFontSizeMobile":"16","marginBottomMobile":"20"} -->
+<!-- wp:wd/paragraph {"blockId":"a70fe62f-47cc-4bce-be5b-c06c828b9c26","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"40","marginBottom":"30","animation":"slide-from-bottom","animationDelay":"348","tpFontSizeTablet":"30","tpFontSizeMobile":"16","marginBottomMobile":"20"} -->
 <p id="wd-a70fe62f" class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_348">More than 30 varieties of wine.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -514,11 +514,11 @@
 <!-- wp:wd/slider-item {"blockId":"b3196dac-b365-4dd8-85c4-0f6b9dcfdb32","effect":"fade","colorScheme":"light","bgImage":{"id":21775,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-sleder-bg-2-opt.jpg"},"bgColorCode":"#fefefe","bgImageTablet":{"id":21897,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-slider-2-img-min-1.jpg"},"bgImageSizeTablet":"full","bgPositionTablet":"center center","bgRepeatTablet":"no-repeat","bgDisplaySizeTablet":"cover"} -->
 <div id="wd-b3196dac" class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light"><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"a30df21a-f12b-4629-b0c9-4c9a9a501f6c","direction":"row","align":"center","colGap":"80","rowGap":"","colGapTablet":"70","colGapMobile":"20"} -->
 <div id="wd-a30df21a" class="wp-block-wd-container wd-dir-row wd-align-is-lg-center"><!-- wp:wd/container {"blockId":"022669c0-08aa-4711-a9e6-bde8cc57daa4","rowGap":"0","paddingBottom":"90","displayWidth":"custom","customWidth":"58","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"59","customWidthMobile":"67","customWidthUnits":"%","customWidthUnitsTablet":"%","customWidthUnitsMobile":"%","minHeightUnitsTablet":"%"} -->
-<div id="wd-022669c0" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"07562eb9-1fe1-4854-a251-e95f62744f90","content":"Villadoria Barolo u003cemu003eu003cspan class=u0022wd-highlightu0022u003eRiservau003c/spanu003e 2013.u003c/emu003e","tpFontSize":"82","tpLineHeight":"1.2","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"200","tpFontSizeTablet":"54","tpFontSizeMobile":"26","tpLineHeightUnits":"em"} -->
+<div id="wd-022669c0" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"07562eb9-1fe1-4854-a251-e95f62744f90","content":"Villadoria Barolo \u003cem\u003e\u003cspan class=\u0022wd-highlight\u0022\u003eRiserva\u003c/span\u003e 2013.\u003c/em\u003e","tpFontSize":"82","tpLineHeight":"1.2","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"200","tpFontSizeTablet":"54","tpFontSizeMobile":"26","tpLineHeightUnits":"em"} -->
 <h2 id="wd-07562eb9" class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_200">Villadoria Barolo <em><span class="wd-highlight">Riserva</span> 2013.</em></h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/paragraph {"blockId":"ae35e669-eeb9-4aca-959d-153623725bd4","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"40","marginBottom":"30","animation":"slide-from-bottom","animationDelay":"348","tpFontSizeTablet":"30","tpFontSizeMobile":"16","marginBottomMobile":"20"} -->
+<!-- wp:wd/paragraph {"blockId":"ae35e669-eeb9-4aca-959d-153623725bd4","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"40","marginBottom":"30","animation":"slide-from-bottom","animationDelay":"348","tpFontSizeTablet":"30","tpFontSizeMobile":"16","marginBottomMobile":"20"} -->
 <p id="wd-ae35e669" class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_348">More than 30 varieties of wine.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -538,11 +538,11 @@
 <!-- wp:wd/slider-item {"blockId":"bc645ddc-fc90-4eed-a569-36a5d4d697ba","effect":"fade","colorScheme":"light","bgImage":{"id":21777,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-sleder-bg-3-opt.jpg"},"bgColorCode":"#fefefe","bgImageTablet":{"id":21898,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-slider-3-img.jpg"},"bgImageSizeTablet":"full","bgPositionTablet":"center center","bgRepeatTablet":"no-repeat","bgDisplaySizeTablet":"cover"} -->
 <div id="wd-bc645ddc" class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light"><div class="wd-slide-container"><!-- wp:wd/container {"blockId":"e0d85018-6bae-467b-bcec-d895ed618968","direction":"row","align":"center","colGap":"80","rowGap":"","colGapTablet":"70","colGapMobile":"20"} -->
 <div id="wd-e0d85018" class="wp-block-wd-container wd-dir-row wd-align-is-lg-center"><!-- wp:wd/container {"blockId":"6c3dc6ae-67a1-43e0-b1d6-b137556df7a2","rowGap":"0","paddingBottom":"90","displayWidth":"custom","customWidth":"58","displayWidthTablet":"custom","displayWidthMobile":"custom","customWidthTablet":"59","customWidthMobile":"67","customWidthUnits":"%","customWidthUnitsTablet":"%","customWidthUnitsMobile":"%","minHeightUnitsTablet":"%"} -->
-<div id="wd-6c3dc6ae" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"89f01068-90b0-4ad0-b2af-be6f4cddcb59","content":"Matias Riccitelli u003cspan class=u0022wd-highlightu0022u003eu003cemu003eMalbecu003c/emu003eu003c/spanu003e 2012.","tpFontSize":"82","tpLineHeight":"1.2","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"200","tpFontSizeTablet":"54","tpFontSizeMobile":"26","tpLineHeightUnits":"em"} -->
+<div id="wd-6c3dc6ae" class="wp-block-wd-container wd-dir-col wd-custom-width"><!-- wp:wd/title {"blockId":"89f01068-90b0-4ad0-b2af-be6f4cddcb59","content":"Matias Riccitelli \u003cspan class=\u0022wd-highlight\u0022\u003e\u003cem\u003eMalbec\u003c/em\u003e\u003c/span\u003e 2012.","tpFontSize":"82","tpLineHeight":"1.2","marginBottom":"10","animation":"slide-from-bottom","animationDelay":"200","tpFontSizeTablet":"54","tpFontSizeMobile":"26","tpLineHeightUnits":"em"} -->
 <h2 id="wd-89f01068" class="wp-block-wd-title title wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_200">Matias Riccitelli <span class="wd-highlight"><em>Malbec</em></span> 2012.</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/paragraph {"blockId":"59967b0a-59ed-4917-8d2d-efe256e1ab0b","tpFontFamily":"var(u002du002dwd-alternative-font)","tpFontSize":"40","marginBottom":"30","animation":"slide-from-bottom","animationDelay":"348","tpFontSizeTablet":"30","tpFontSizeMobile":"16","marginBottomMobile":"20"} -->
+<!-- wp:wd/paragraph {"blockId":"59967b0a-59ed-4917-8d2d-efe256e1ab0b","tpFontFamily":"var(\u002d\u002dwd-alternative-font)","tpFontSize":"40","marginBottom":"30","animation":"slide-from-bottom","animationDelay":"348","tpFontSizeTablet":"30","tpFontSizeMobile":"16","marginBottomMobile":"20"} -->
 <p id="wd-59967b0a" class="wp-block-wd-paragraph wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_348">More than 30 varieties of wine.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -561,7 +561,7 @@
 <!-- /wp:wd/slider -->
 
 <!-- wp:wd/container {"blockId":"c0dad165-f64d-4c34-bbc0-2bddee1f46c4","align":"center","textAlign":"center","rowGap":"10","bgImage":{"id":21781,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-bg-top.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"contain","paddingTop":"35","marginBottom":"40"} -->
-<div id="wd-c0dad165" class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"aaf64aa1-f04a-4e76-8975-ca4484bc7edd","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"14","tpFontSizeMobile":"12"} -->
+<div id="wd-c0dad165" class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"aaf64aa1-f04a-4e76-8975-ca4484bc7edd","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"14","tpFontSizeMobile":"12"} -->
 <p id="wd-aaf64aa1" class="wp-block-wd-paragraph">WINES THAT OFFER AMAZING QUALITY</p>
 <!-- /wp:wd/paragraph -->
 
@@ -663,7 +663,7 @@
 
 <!-- wp:wd/row {"blockId":"5f0e3424-b6a2-4465-a306-df506a18bdaf","columnsGap":25,"marginBottom":"25"} -->
 <div id="wd-5f0e3424" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"02306641-f535-4d25-b470-38d51d05a6f8","adjacentCount":2,"colWidth":30,"adjacentCountTablet":2,"adjacentCountMobile":2,"colWidthTablet":50,"colWidthMobile":50} -->
-<div id="wd-02306641" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"251009d1-a821-47a2-9c6a-e3142d3c2a45","content":"16.5 %","tpFontSize":"44","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
+<div id="wd-02306641" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"251009d1-a821-47a2-9c6a-e3142d3c2a45","content":"16.5 %","tpFontSize":"44","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
 <h2 id="wd-251009d1" class="wp-block-wd-title title">16.5 %</h2>
 <!-- /wp:wd/title -->
 
@@ -673,7 +673,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"a35a017e-a339-45c1-8a58-90d2aa8835b0","adjacentCount":2,"colWidth":70,"adjacentCountTablet":2,"adjacentCountMobile":2,"colWidthTablet":50,"colWidthMobile":50} -->
-<div id="wd-a35a017e" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"ffa52a25-7cf1-4e71-bea0-08c6d285b815","content":"6 g/L","tpFontSize":"44","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","colorVariable":"u002du002dwd-primary-color","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
+<div id="wd-a35a017e" class="wp-block-wd-column"><!-- wp:wd/title {"blockId":"ffa52a25-7cf1-4e71-bea0-08c6d285b815","content":"6 g/L","tpFontSize":"44","tpLineHeight":"1","tpFontVariant":"600","tpFontWeight":"600","colorVariable":"\u002d\u002dwd-primary-color","tpFontSizeTablet":"36","tpFontSizeMobile":"28","tpLineHeightUnits":"em"} -->
 <h2 id="wd-ffa52a25" class="wp-block-wd-title title">6 g/L</h2>
 <!-- /wp:wd/title -->
 
@@ -696,7 +696,7 @@
 
 <!-- wp:wd/section {"blockId":"05869094-bf2f-4b60-8770-b143d95938d9","blockGap":30,"bgImage":{"id":21789,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/wine-product-bg.jpg"},"bgPosition":"center right","bgRepeat":"no-repeat","marginBottom":"70","marginBottomMobile":"50"} -->
 <div id="wd-05869094" class="wp-block-wd-section"><!-- wp:wd/container {"blockId":"93449ebc-10a3-4a47-a90b-e169ea2c3d45","align":"center","textAlign":"center","rowGap":"10","bgImage":{"id":"","url":""},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"contain"} -->
-<div id="wd-93449ebc" class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"4443f9f3-10bb-43de-a902-b2b945612696","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"14","tpFontSizeMobile":"12"} -->
+<div id="wd-93449ebc" class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"4443f9f3-10bb-43de-a902-b2b945612696","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"14","tpFontSizeMobile":"12"} -->
 <p id="wd-4443f9f3" class="wp-block-wd-paragraph">SAVOR EVERY MOMENT OF THIS WINE</p>
 <!-- /wp:wd/paragraph -->
 
@@ -727,7 +727,7 @@
 <h2 id="wd-6b460db4" class="wp-block-wd-title title">Giorgio Allegro.</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"03966420-f640-4e40-b7e5-2849fb4660f7","content":"u003cemu003eSommelier Of World Renown.u003c/emu003e","tpFontSize":"30","tpLineHeight":"1.2","displayWidth":"","customWidth":"","tpFontSizeTablet":"28","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"03966420-f640-4e40-b7e5-2849fb4660f7","content":"\u003cem\u003eSommelier Of World Renown.\u003c/em\u003e","tpFontSize":"30","tpLineHeight":"1.2","displayWidth":"","customWidth":"","tpFontSizeTablet":"28","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
 <h2 id="wd-03966420" class="wp-block-wd-title title"><em>Sommelier Of World Renown.</em></h2>
 <!-- /wp:wd/title -->
 
@@ -825,7 +825,7 @@
 <h2 id="wd-50de9477" class="wp-block-wd-title title">Herdade Peso.</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"bba231da-07a0-4ee8-a032-c7e71dedd36e","content":"u003cemu003eu003cemu003eShiraz, South Australia 2010.u003c/emu003eu003c/emu003e","tpFontSize":"30","tpLineHeight":"1.2","displayWidth":"","customWidth":"","tpFontSizeTablet":"28","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
+<!-- wp:wd/title {"blockId":"bba231da-07a0-4ee8-a032-c7e71dedd36e","content":"\u003cem\u003e\u003cem\u003eShiraz, South Australia 2010.\u003c/em\u003e\u003c/em\u003e","tpFontSize":"30","tpLineHeight":"1.2","displayWidth":"","customWidth":"","tpFontSizeTablet":"28","tpFontSizeMobile":"22","tpLineHeightUnits":"em"} -->
 <h2 id="wd-bba231da" class="wp-block-wd-title title"><em><em>Shiraz, South Australia 2010.</em></em></h2>
 <!-- /wp:wd/title -->
 
@@ -911,7 +911,7 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"8b543f83-9b2a-456b-a2bb-96f105894f1d","align":"center","textAlign":"center","rowGap":"10","bgImage":{"id":"","url":""},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"contain","marginBottom":"30"} -->
-<div id="wd-8b543f83" class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"028b3300-d2ff-46d0-ac6e-bbf6a735d0c8","colorVariable":"u002du002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"14","tpFontSizeMobile":"12"} -->
+<div id="wd-8b543f83" class="wp-block-wd-container wd-dir-col wd-align-is-lg-center wd-align"><!-- wp:wd/paragraph {"blockId":"028b3300-d2ff-46d0-ac6e-bbf6a735d0c8","colorVariable":"\u002d\u002dwd-primary-color","tpFontVariant":"600","tpFontWeight":"600","tpFontSizeTablet":"14","tpFontSizeMobile":"12"} -->
 <p id="wd-028b3300" class="wp-block-wd-paragraph">CAREFUL WINEMAKING</p>
 <!-- /wp:wd/paragraph -->
 

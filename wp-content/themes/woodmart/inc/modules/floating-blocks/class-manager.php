@@ -30,8 +30,6 @@ class Manager extends Singleton {
 	public function init() {
 		$this->block_types = woodmart_get_config( 'fb-types' );
 
-		add_action( 'elementor/documents/register', array( $this, 'register_elementor_document_type' ) );
-
 		foreach ( $this->block_types as $block_type ) {
 			add_action( 'wp_ajax_' . $block_type['ajax_action'], array( $this, 'create_post' ) );
 		}
@@ -62,22 +60,6 @@ class Manager extends Singleton {
 		}
 
 		return 'gutenberg';
-	}
-
-	/**
-	 * Include required admin files.
-	 *
-	 * @param \Elementor\Core\Documents_Manager $documents_manager Elementor documents manager.
-	 */
-	public function register_elementor_document_type( $documents_manager ) {
-		if ( ! woodmart_is_elementor_installed() ) {
-			return;
-		}
-
-		$documents_manager->register_document_type( 'wd_floating_block', Fb_Document::class );
-		$documents_manager->register_document_type( 'wd_popup', Popup_Document::class );
-
-		add_action( 'elementor/editor/before_enqueue_scripts', 'woodmart_enqueue_admin_scripts' );
 	}
 
 	/**
@@ -226,6 +208,10 @@ class Manager extends Singleton {
 		}
 
 		foreach ( $all_conditions as $block_id => $conditions ) {
+			if ( 'legacy' !== $block_id && (int) apply_filters( 'wpml_object_id', (int) $block_id, $post_type, false ) !== (int) $block_id ) {
+				continue;
+			}
+
 			if ( ! $this->check_conditions( $conditions ) || get_post_type( $block_id ) !== $post_type || ( 'legacy' === $block_id && 'wd_popup' === $post_type ) ) {
 				continue;
 			}
@@ -288,12 +274,16 @@ class Manager extends Singleton {
 					break;
 
 				case 'post_id':
+					$query = $this->get_current_language_post_id( $query );
+
 					if ( $query && ! is_admin() ) {
 						$met = (int) woodmart_get_the_ID() === (int) $query;
 					}
 					break;
 
 				case 'single_posts_term_id':
+					$query = $this->get_current_language_term_id( $query );
+
 					if ( is_singular() ) {
 						$terms = wp_get_post_terms( get_the_ID(), get_taxonomies(), array( 'fields' => 'ids' ) );
 						if ( $terms ) {
@@ -303,6 +293,7 @@ class Manager extends Singleton {
 					break;
 
 				case 'term_id':
+					$query   = $this->get_current_language_term_id( $query );
 					$object  = get_queried_object();
 					$term_id = false;
 
@@ -342,10 +333,10 @@ class Manager extends Singleton {
 							$met = is_search();
 							break;
 						case 'blog':
-							$met = (int) get_the_ID() === (int) get_option( 'page_for_posts' );
+							$met = (int) get_the_ID() === $this->get_current_language_post_id( get_option( 'page_for_posts' ) );
 							break;
 						case 'front':
-							$met = (int) get_the_ID() === (int) get_option( 'page_on_front' );
+							$met = (int) get_the_ID() === $this->get_current_language_post_id( get_option( 'page_on_front' ) );
 							break;
 						case 'archives':
 							$met = is_archive();
@@ -405,6 +396,40 @@ class Manager extends Singleton {
 		$is_excluded = ( ! empty( $excludes_matchs ) && in_array( true, $excludes_matchs, true ) );
 
 		return $is_included && ! $is_excluded;
+	}
+
+	/**
+	 * Get a post ID in the current WPML language.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return int
+	 */
+	private function get_current_language_post_id( $post_id ) {
+		$post_id   = (int) $post_id;
+		$post_type = get_post_type( $post_id );
+
+		if ( ! $post_id || ! $post_type ) {
+			return $post_id;
+		}
+
+		return (int) apply_filters( 'wpml_object_id', $post_id, $post_type, false );
+	}
+
+	/**
+	 * Get a term ID in the current WPML language.
+	 *
+	 * @param int $term_id Term ID.
+	 * @return int
+	 */
+	private function get_current_language_term_id( $term_id ) {
+		$term_id = (int) $term_id;
+		$term    = get_term( $term_id );
+
+		if ( ! $term_id || ! $term || is_wp_error( $term ) ) {
+			return $term_id;
+		}
+
+		return (int) apply_filters( 'wpml_object_id', $term_id, $term->taxonomy, false );
 	}
 
 	/**
@@ -485,7 +510,7 @@ class Manager extends Singleton {
 			$transient_key = $this->get_transient_key( $block_key );
 			$cache         = get_transient( $transient_key );
 
-			if ( $cache ) {
+			if ( false !== $cache ) {
 				$all_conditions += $cache;
 				continue;
 			}
@@ -507,7 +532,7 @@ class Manager extends Singleton {
 				}
 			}
 
-			set_transient( $transient_key, $type_conditions );
+			set_transient( $transient_key, $type_conditions, WEEK_IN_SECONDS );
 			$all_conditions += $type_conditions;
 		}
 

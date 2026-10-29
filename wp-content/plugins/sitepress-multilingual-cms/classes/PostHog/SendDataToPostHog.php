@@ -5,7 +5,7 @@ namespace WPML\PostHog\Event;
 class SendDataToPostHog {
 
 	public function __construct() {
-		add_action( 'wp_ajax_wpml_posthog_capture_data_action', [ $this, 'handle_request' ] );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_posthog_capture_data_action', \WPML\Request\Policy\Policy::authenticated( \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_posthog_capture_data_nonce', 'nonce' ), 'sends a product-analytics event for the caller; no site state' ), [ $this, 'handle_request' ] );
 	}
 
 	public function handle_request() {

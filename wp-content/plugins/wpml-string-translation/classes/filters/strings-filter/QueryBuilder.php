@@ -47,7 +47,9 @@ class QueryBuilder {
 	}
 
 	private function getSQL() {
-		return $this->wpdb->prepare(
+		$wpdb = $this->wpdb;
+
+		return $wpdb->prepare(
 			"
 			SELECT 
 				s.value, 
@@ -55,8 +57,8 @@ class QueryBuilder {
 				s.context as domain, 
 				s.gettext_context as context, 
 				IF(st.status = %d AND st.value IS NOT NULL, st.`value`, st.mo_string) AS `translation`
-			FROM {$this->wpdb->prefix}icl_strings s
-			LEFT JOIN {$this->wpdb->prefix}icl_string_translations st ON st.string_id = s.id AND st.`language` = %s
+			FROM {$wpdb->prefix}icl_strings s
+			LEFT JOIN {$wpdb->prefix}icl_string_translations st ON st.string_id = s.id AND st.`language` = %s
 			",
 			ICL_STRING_TRANSLATION_COMPLETE,
 			$this->language

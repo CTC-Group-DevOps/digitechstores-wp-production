@@ -4610,7 +4610,7 @@ This email is a receipt for your contact form submission on our website ([_site_
 <!-- wp:wd/page-heading {"blockId":"2cad1b2f-e288-4ebe-8c17-925365d6eb25","blockVersion":"2","tpFontSize":"60","tpLineHeight":"1.2","tpFontVariant":"300","tpFontWeight":"300","tpFontSizeTablet":"44","tpFontSizeMobile":"36","tpLineHeightUnits":"em"} /--></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/pa-blog {"blockId":"addffec9-bf3d-4600-b74a-f89cb4b0b0f1","blockVersion":"2","blog_design":"masonry","spacing":"30","parts_meta":false,"parts_published_date":false,"displayWidth":"custom","customWidth":""} /-->
+<!-- wp:wd/pa-blog {"blockId":"addffec9-bf3d-4600-b74a-f89cb4b0b0f1","blockVersion":"2","blog_design":"masonry","spacing":"30","parts_meta":false,"parts_categories":false,"parts_published_date":false,"displayWidth":"custom","customWidth":""} /-->
 
 <!-- wp:wd/container {"blockId":"57523ee9-db20-4ca7-a9b5-d9b2dc24f7ba","blockVersion":"2","displayWidth":"custom","customWidth":"900"} -->
 <div class="wp-block-wd-container wd-dir-col wd-57523ee9 wd-custom-width"></div>
@@ -4618,8 +4618,8 @@ This email is a receipt for your contact form submission on our website ([_site_
 															<wp:post_id>219</wp:post_id>
 					<wp:post_date><![CDATA[2026-05-11 12:07:34]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2026-05-11 12:07:34]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-05-11 12:08:47]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-05-11 12:08:47]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-30 11:56:29]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-30 11:56:29]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[blog-archive-jewellery-2]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

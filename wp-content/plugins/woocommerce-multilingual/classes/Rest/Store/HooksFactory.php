@@ -20,7 +20,6 @@ class HooksFactory implements \IWPML_REST_Action_Loader, IStandAloneAction {
 			}
 
 			if ( wcml_is_multi_currency_on() ) {
-				$hooks[] = new MulticurrencyHooks();
 				$hooks[] = new PriceRangeHooks( $woocommerce_wpml );
 			}
 		}

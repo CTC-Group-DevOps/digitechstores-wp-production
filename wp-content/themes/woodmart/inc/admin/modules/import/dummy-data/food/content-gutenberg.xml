@@ -80,7 +80,7 @@
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_350 wd-8d872b84">Italian Cuisine Tradition</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"f5c12e1b-bfc0-4c5b-bdf7-1c9896d5c760","blockVersion":"2","textAlign":"center","content":"u0026amp; cultural events.","tpFontSize":"92","tpLineHeight":"1.2","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","marginBottom":"50","animation":"slide-from-bottom","animationDelay":"500","tpFontSizeTablet":"62","tpFontSizeMobile":"28","tpLineHeightUnits":"em","marginBottomTablet":"30","marginBottomMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"f5c12e1b-bfc0-4c5b-bdf7-1c9896d5c760","blockVersion":"2","textAlign":"center","content":"\u0026amp; cultural events.","tpFontSize":"92","tpLineHeight":"1.2","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","marginBottom":"50","animation":"slide-from-bottom","animationDelay":"500","tpFontSizeTablet":"62","tpFontSizeMobile":"28","tpLineHeightUnits":"em","marginBottomTablet":"30","marginBottomMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_500 wd-f5c12e1b">&amp; cultural events.</h2>
 <!-- /wp:wd/title -->
 
@@ -98,7 +98,7 @@
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_350 wd-f5fb3e6f">Perfect for Summer</h2>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"0027e24c-55c4-487e-ae94-1218455cdb61","blockVersion":"2","textAlign":"center","content":"u0026amp; lunch menu.","tpFontSize":"92","tpLineHeight":"1.2","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","marginBottom":"50","animation":"slide-from-bottom","animationDelay":"500","tpFontSizeTablet":"62","tpFontSizeMobile":"28","tpLineHeightUnits":"em","marginBottomTablet":"30","marginBottomMobile":"20"} -->
+<!-- wp:wd/title {"blockId":"0027e24c-55c4-487e-ae94-1218455cdb61","blockVersion":"2","textAlign":"center","content":"\u0026amp; lunch menu.","tpFontSize":"92","tpLineHeight":"1.2","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","marginBottom":"50","animation":"slide-from-bottom","animationDelay":"500","tpFontSizeTablet":"62","tpFontSizeMobile":"28","tpLineHeightUnits":"em","marginBottomTablet":"30","marginBottomMobile":"20"} -->
 <h2 class="wp-block-wd-title title wd-align wd-animation wd-transform wd-animation-slide-from-bottom wd_delay_500 wd-0027e24c">&amp; lunch menu.</h2>
 <!-- /wp:wd/title -->
 
@@ -126,11 +126,11 @@
 <div class="wp-block-wd-icon wd-2fd4ad42"><img class="wp-image-24443" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/food-image-rosemary-opt.png" alt="" /></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"c1afbf93-a5d2-4f63-9c8d-76435d62cfba","blockVersion":"2","content":"Welcome to our site","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"u002du002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
+<!-- wp:wd/title {"blockId":"c1afbf93-a5d2-4f63-9c8d-76435d62cfba","blockVersion":"2","content":"Welcome to our site","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"\u002d\u002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-title title wd-c1afbf93">Welcome to our site</p>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"8bb906a2-7b16-4dfc-8c03-01605f1e6ff4","blockVersion":"2","content":"About Our u003cspan class=u0022wd-highlightu0022u003eRestaurantu003c/spanu003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<!-- wp:wd/title {"blockId":"8bb906a2-7b16-4dfc-8c03-01605f1e6ff4","blockVersion":"2","content":"About Our \u003cspan class=\u0022wd-highlight\u0022\u003eRestaurant\u003c/span\u003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-8bb906a2">About Our <span class="wd-highlight">Restaurant</span></h2>
 <!-- /wp:wd/title -->
 
@@ -146,7 +146,7 @@
 
 <!-- wp:wd/row {"blockId":"9b5dcb09-4853-43cf-a778-b5eb0d35f531","blockVersion":"2","marginBottom":"80","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-row wd-9b5dcb09"><!-- wp:wd/column {"blockId":"0b685c02-bac6-4a45-8bce-c5d8e0f58bf1","blockVersion":"2","adjacentCount":2,"blocksGap":10,"justifyContent":"center","textAlign":"center","flexOrderMobile":"2"} -->
-<div class="wp-block-wd-column wd-align wd-0b685c02"><!-- wp:wd/title {"blockId":"bdaae96b-31b2-45a9-a0a0-5102ae25f52f","blockVersion":"2","content":"Video journey u003cbru003eto Italian u003cspan class=u0022wd-highlightu0022u003eClassic cuisineu003c/spanu003e.","tpFontSize":"42","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<div class="wp-block-wd-column wd-align wd-0b685c02"><!-- wp:wd/title {"blockId":"bdaae96b-31b2-45a9-a0a0-5102ae25f52f","blockVersion":"2","content":"Video journey \u003cbr\u003eto Italian \u003cspan class=\u0022wd-highlight\u0022\u003eClassic cuisine\u003c/span\u003e.","tpFontSize":"42","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-bdaae96b">Video journey <br>to Italian <span class="wd-highlight">Classic cuisine</span>.</h2>
 <!-- /wp:wd/title -->
 
@@ -173,11 +173,11 @@
 <!-- /wp:wd/row -->
 
 <!-- wp:wd/container {"blockId":"0f44cf60-43df-43fa-b601-4d18eda50c63","blockVersion":"2","marginBottom":"25","textAlign":"center","rowGap":"0"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-0f44cf60"><!-- wp:wd/title {"blockId":"e3dd58cc-ede7-4006-924a-f72da4c39421","blockVersion":"2","content":"Recommendations","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"u002du002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-0f44cf60"><!-- wp:wd/title {"blockId":"e3dd58cc-ede7-4006-924a-f72da4c39421","blockVersion":"2","content":"Recommendations","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"\u002d\u002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-title title wd-e3dd58cc">Recommendations</p>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"678639f8-0ff0-4572-97d4-5201d9350a7c","blockVersion":"2","content":"Our Featured u003cspan class=u0022wd-highlightu0022u003eMealsu003c/spanu003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<!-- wp:wd/title {"blockId":"678639f8-0ff0-4572-97d4-5201d9350a7c","blockVersion":"2","content":"Our Featured \u003cspan class=\u0022wd-highlight\u0022\u003eMeals\u003c/span\u003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-678639f8">Our Featured <span class="wd-highlight">Meals</span></h2>
 <!-- /wp:wd/title -->
 
@@ -283,11 +283,11 @@
 <!-- /wp:wd/section -->
 
 <!-- wp:wd/container {"blockId":"8165cfa4-75cf-47b2-a235-4ba7da749f15","blockVersion":"2","marginBottom":"25","textAlign":"center","rowGap":"0"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-8165cfa4"><!-- wp:wd/title {"blockId":"75227c1d-34ff-45e2-9e27-26b2ab1b1a16","blockVersion":"2","content":"Dinner menu","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"u002du002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-8165cfa4"><!-- wp:wd/title {"blockId":"75227c1d-34ff-45e2-9e27-26b2ab1b1a16","blockVersion":"2","content":"Dinner menu","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"\u002d\u002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-title title wd-75227c1d">Dinner menu</p>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"db72d8c2-bc37-4aa7-b723-6d01cd5220bf","blockVersion":"2","content":"Our New u003cspan class=u0022wd-highlightu0022u003eOffersu003c/spanu003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<!-- wp:wd/title {"blockId":"db72d8c2-bc37-4aa7-b723-6d01cd5220bf","blockVersion":"2","content":"Our New \u003cspan class=\u0022wd-highlight\u0022\u003eOffers\u003c/span\u003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-db72d8c2">Our New <span class="wd-highlight">Offers</span></h2>
 <!-- /wp:wd/title -->
 
@@ -351,7 +351,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"875b5bfd-bc21-48a0-b6b0-065ff3af253d","blockVersion":"2","direction":"row","extraClass":"wd-menu-price-content","metadata":{"name":"Content"}} -->
-<div class="wp-block-wd-container wd-dir-row wd-menu-price-content wd-875b5bfd"><!-- wp:wd/title {"blockId":"44ae6ccf-d0b2-49ed-b6f8-fbc3b168a363","blockVersion":"2","content":"Buttermilk fried chicken u0026amp; mash","extraClass":"wd-entities-title"} -->
+<div class="wp-block-wd-container wd-dir-row wd-menu-price-content wd-875b5bfd"><!-- wp:wd/title {"blockId":"44ae6ccf-d0b2-49ed-b6f8-fbc3b168a363","blockVersion":"2","content":"Buttermilk fried chicken \u0026amp; mash","extraClass":"wd-entities-title"} -->
 <h2 class="wp-block-wd-title title wd-entities-title wd-44ae6ccf">Buttermilk fried chicken &amp; mash</h2>
 <!-- /wp:wd/title -->
 
@@ -601,7 +601,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"60c579ad-ee92-4f38-9826-ce51eff0bb8e","blockVersion":"2","direction":"row","extraClass":"wd-menu-price-content","metadata":{"name":"Content"}} -->
-<div class="wp-block-wd-container wd-dir-row wd-menu-price-content wd-60c579ad"><!-- wp:wd/title {"blockId":"1f51eace-a20e-4f7e-84b8-afb978c7ef4f","blockVersion":"2","content":"Buttermilk fried chicken u0026amp; mash","extraClass":"wd-entities-title"} -->
+<div class="wp-block-wd-container wd-dir-row wd-menu-price-content wd-60c579ad"><!-- wp:wd/title {"blockId":"1f51eace-a20e-4f7e-84b8-afb978c7ef4f","blockVersion":"2","content":"Buttermilk fried chicken \u0026amp; mash","extraClass":"wd-entities-title"} -->
 <h2 class="wp-block-wd-title title wd-entities-title wd-1f51eace">Buttermilk fried chicken &amp; mash</h2>
 <!-- /wp:wd/title -->
 
@@ -687,7 +687,7 @@
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"c3d9bd5f-ba09-4951-b3b2-574097ad5025","blockVersion":"2","direction":"row","extraClass":"wd-menu-price-content","metadata":{"name":"Content"}} -->
-<div class="wp-block-wd-container wd-dir-row wd-menu-price-content wd-c3d9bd5f"><!-- wp:wd/title {"blockId":"e3023b1b-291e-443b-ba92-027f8e067391","blockVersion":"2","content":"Buttermilk fried chicken u0026amp; mash","extraClass":"wd-entities-title"} -->
+<div class="wp-block-wd-container wd-dir-row wd-menu-price-content wd-c3d9bd5f"><!-- wp:wd/title {"blockId":"e3023b1b-291e-443b-ba92-027f8e067391","blockVersion":"2","content":"Buttermilk fried chicken \u0026amp; mash","extraClass":"wd-entities-title"} -->
 <h2 class="wp-block-wd-title title wd-entities-title wd-e3023b1b">Buttermilk fried chicken &amp; mash</h2>
 <!-- /wp:wd/title -->
 
@@ -814,7 +814,7 @@
 <div class="wp-block-wd-icon wd-097f7830"><img class="wp-image-24443" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/07/food-image-rosemary-opt.png" alt="" /></div>
 <!-- /wp:wd/icon -->
 
-<!-- wp:wd/title {"blockId":"095538e3-fae0-40c3-b13d-a3fee46b541e","blockVersion":"2","content":"We are proud tou003cbru003eitroduce our u003cspan class=u0022wd-highlightu0022u003eVideo Blogu003c/spanu003e.","tpFontSize":"54","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"36","tpFontSizeMobile":"24","displayWidthTablet":"custom"} -->
+<!-- wp:wd/title {"blockId":"095538e3-fae0-40c3-b13d-a3fee46b541e","blockVersion":"2","content":"We are proud to\u003cbr\u003eitroduce our \u003cspan class=\u0022wd-highlight\u0022\u003eVideo Blog\u003c/span\u003e.","tpFontSize":"54","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","marginBottom":"10","displayWidth":"","customWidth":"","tpFontSizeTablet":"36","tpFontSizeMobile":"24","displayWidthTablet":"custom"} -->
 <h2 class="wp-block-wd-title title wd-095538e3 wd-custom-width">We are proud to<br>itroduce our <span class="wd-highlight">Video Blog</span>.</h2>
 <!-- /wp:wd/title -->
 
@@ -845,7 +845,7 @@
 <!-- /wp:wd/row -->
 
 <!-- wp:wd/container {"blockId":"71e055f3-ae17-4a56-9ce3-1b1b9f0b929e","blockVersion":"2","marginBottom":"25","textAlign":"center","rowGap":"0"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-71e055f3"><!-- wp:wd/title {"blockId":"95787925-0132-4613-874c-dfb69f3ab30d","blockVersion":"2","content":"Only for you","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"u002du002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-71e055f3"><!-- wp:wd/title {"blockId":"95787925-0132-4613-874c-dfb69f3ab30d","blockVersion":"2","content":"Only for you","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"\u002d\u002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-title title wd-95787925">Only for you</p>
 <!-- /wp:wd/title -->
 
@@ -874,7 +874,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"d688c283-1bdd-434b-a751-70f66885a05f","blockVersion":"2","adjacentCount":3,"colWidth":50,"blocksGap":0,"justifyContent":"center","adjacentCountMobile":1,"colWidthMobile":100} -->
-<div class="wp-block-wd-column wd-d688c283"><!-- wp:wd/title {"blockId":"ba56f385-23c3-48cf-b338-b17b6069d97d","blockVersion":"2","content":"Delicious, well-prepared u003cspan class=u0022wd-highlightu0022u003eItalian foodu003c/spanu003e.","tpFontSize":"42","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","marginBottom":"10","displayWidth":"custom","customWidth":"430","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<div class="wp-block-wd-column wd-d688c283"><!-- wp:wd/title {"blockId":"ba56f385-23c3-48cf-b338-b17b6069d97d","blockVersion":"2","content":"Delicious, well-prepared \u003cspan class=\u0022wd-highlight\u0022\u003eItalian food\u003c/span\u003e.","tpFontSize":"42","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","marginBottom":"10","displayWidth":"custom","customWidth":"430","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-ba56f385 wd-custom-width">Delicious, well-prepared <span class="wd-highlight">Italian food</span>.</h2>
 <!-- /wp:wd/title -->
 
@@ -896,7 +896,7 @@
 
 <!-- wp:wd/row {"blockId":"6931abcf-1384-4e7f-ac08-d54c7e798690","blockVersion":"2","marginBottom":"80","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-row wd-6931abcf"><!-- wp:wd/column {"blockId":"53f41b46-fb24-4704-892c-75492b1f9b58","blockVersion":"2","adjacentCount":3,"colWidth":50,"blocksGap":0,"justifyContent":"center","textAlign":"end","flexOrderMobile":"3","adjacentCountMobile":1,"colWidthMobile":100,"textAlignMobile":"start"} -->
-<div class="wp-block-wd-column wd-align wd-53f41b46"><!-- wp:wd/title {"blockId":"8788e82b-7a1c-42ce-9588-c87598612108","blockVersion":"2","content":"American cuisine with u003cspan class=u0022wd-highlightu0022u003edijon u0026amp; capersu003c/spanu003e.","tpFontSize":"42","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","marginBottom":"10","displayWidth":"custom","customWidth":"430","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<div class="wp-block-wd-column wd-align wd-53f41b46"><!-- wp:wd/title {"blockId":"8788e82b-7a1c-42ce-9588-c87598612108","blockVersion":"2","content":"American cuisine with \u003cspan class=\u0022wd-highlight\u0022\u003edijon \u0026amp; capers\u003c/span\u003e.","tpFontSize":"42","markFontVariant":"600italic","markFontWeight":"600","markFontStyle":"italic","marginBottom":"10","displayWidth":"custom","customWidth":"430","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-8788e82b wd-custom-width">American cuisine with <span class="wd-highlight">dijon &amp; capers</span>.</h2>
 <!-- /wp:wd/title -->
 
@@ -930,11 +930,11 @@
 
 <!-- wp:wd/section {"blockId":"e9cb411f-4105-4f04-88ad-51d2d48b2b8b","blockVersion":"2","bgColorCode":"#f9f9f9","paddingTop":"80","paddingBottom":"80","marginBottom":"0","paddingTopMobile":"60","paddingBottomMobile":"60"} -->
 <div class="wp-block-wd-section wd-e9cb411f"><!-- wp:wd/container {"blockId":"5638899f-5a32-44a7-9bfe-24a43da4b245","blockVersion":"2","displayWidth":"custom","customWidth":"580","textAlign":"center","rowGap":"0"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-5638899f wd-custom-width"><!-- wp:wd/title {"blockId":"24fe6096-214f-4d0b-a208-4a8bdcaa008d","blockVersion":"2","content":"Testimonials","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"u002du002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-5638899f wd-custom-width"><!-- wp:wd/title {"blockId":"24fe6096-214f-4d0b-a208-4a8bdcaa008d","blockVersion":"2","content":"Testimonials","tpFontSize":"32","tpFontVariant":"400italic","tpFontWeight":"400","tpFontStyle":"italic","colorVariable":"\u002d\u002dwd-primary-color","htmlTag":"p","tpFontSizeTablet":"24","tpFontSizeMobile":"16"} -->
 <p class="wp-block-wd-title title wd-24fe6096">Testimonials</p>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"17b47201-c209-4e2c-a2f5-dff8dc5e684a","blockVersion":"2","content":"From our u003cspan class=u0022wd-highlightu0022u003eVisitorsu003c/spanu003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<!-- wp:wd/title {"blockId":"17b47201-c209-4e2c-a2f5-dff8dc5e684a","blockVersion":"2","content":"From our \u003cspan class=\u0022wd-highlight\u0022\u003eVisitors\u003c/span\u003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-17b47201">From our <span class="wd-highlight">Visitors</span></h2>
 <!-- /wp:wd/title -->
 
@@ -1033,7 +1033,7 @@
 <p class="wp-block-wd-title title wd-6f77a795">Book a Table</p>
 <!-- /wp:wd/title -->
 
-<!-- wp:wd/title {"blockId":"7dcc87e3-6864-41e8-8c04-be519f0fa40b","blockVersion":"2","content":"Make a u003cspan class=u0022wd-highlightu0022u003eReservationu003c/spanu003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
+<!-- wp:wd/title {"blockId":"7dcc87e3-6864-41e8-8c04-be519f0fa40b","blockVersion":"2","content":"Make a \u003cspan class=\u0022wd-highlight\u0022\u003eReservation\u003c/span\u003e","tpFontSize":"42","markFontVariant":"600","markFontWeight":"600","marginBottom":"10","tpFontSizeTablet":"36","tpFontSizeMobile":"24"} -->
 <h2 class="wp-block-wd-title title wd-7dcc87e3">Make a <span class="wd-highlight">Reservation</span></h2>
 <!-- /wp:wd/title -->
 

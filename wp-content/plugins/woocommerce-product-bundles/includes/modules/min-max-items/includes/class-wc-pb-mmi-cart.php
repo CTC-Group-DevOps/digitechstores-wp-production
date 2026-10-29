@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart-related functions and filters.
  *
  * @class    WC_PB_MMI_Cart
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_MMI_Cart {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -57,7 +59,7 @@ class WC_PB_MMI_Cart {
 			$items_selected = 0;
 
 			foreach ( $items as $item ) {
-				$item_id         = isset( $item->bundled_item ) && $item->bundled_item ? $item->bundled_item->item_id : false;
+				$item_id         = ! empty( $item->bundled_item ) ? $item->bundled_item->item_id : false;
 				$item_qty        = $item_id && isset( $configuration[ $item_id ] ) && isset( $configuration[ $item_id ]['quantity'] ) ? $configuration[ $item_id ]['quantity'] : $item->quantity;
 				$items_selected += $item_qty;
 			}

@@ -7,6 +7,8 @@ class WPML_Compatibility_Divi implements \IWPML_DIC_Action, \IWPML_Backend_Actio
 
 	private $sitepress;
 
+	private $pb_shortcode_settings = null;
+
 	public function __construct( SitePress $sitepress ) {
 		$this->sitepress = $sitepress;
 	}
@@ -28,10 +30,9 @@ class WPML_Compatibility_Divi implements \IWPML_DIC_Action, \IWPML_Backend_Actio
 	}
 
 	private function is_standard_editor_used() {
-		$tm_settings = $this->sitepress->get_setting( 'translation-management', [] );
+		$doc_translation_method = wpml_get_tm_sub_setting( 'doc_translation_method', null );
 
-		return ! isset( $tm_settings['doc_translation_method'] ) ||
-			ICL_TM_TMETHOD_MANUAL === $tm_settings['doc_translation_method'];
+		return null === $doc_translation_method || ICL_TM_TMETHOD_MANUAL === $doc_translation_method;
 	}
 
 	public function display_warning_notice() {
@@ -53,7 +54,7 @@ class WPML_Compatibility_Divi implements \IWPML_DIC_Action, \IWPML_Backend_Actio
 	}
 
 	public function load_resources_if_they_are_required() {
-		if ( $this->is_wpml_page() ) {
+		if ( $this->is_wpml_page() || $this->is_translation_request() ) {
 			$this->register_layouts();
 		}
 	}
@@ -78,6 +79,16 @@ class WPML_Compatibility_Divi implements \IWPML_DIC_Action, \IWPML_Backend_Actio
 		}
 
 		return in_array( $_GET['page'], $pages, true );  
+	}
+
+	private function is_translation_request() {
+		if ( ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';
+
+		return in_array( $action, [ 'wpml_action', 'wpml_api_wpml_v1_send-to-translation' ], true );
 	}
 
 	private static function get_translation_dashboard_page() {
@@ -171,14 +182,14 @@ class WPML_Compatibility_Divi implements \IWPML_DIC_Action, \IWPML_Backend_Actio
 	}
 
 	private function get_translatable_shortcode_attributes( $tag ) {
-		$attributes = [ 'et_pb_content_field' ];
-		$settings   = get_option( 'icl_st_settings', [] );
+		$attributes   = [ 'et_pb_content_field' ];
+		$pb_shortcode = $this->get_pb_shortcode_settings();
 
-		if ( ! isset( $settings['pb_shortcode'] ) ) {
+		if ( ! $pb_shortcode ) {
 			return $attributes;
 		}
 
-		foreach ( $settings['pb_shortcode'] as $setting ) {
+		foreach ( $pb_shortcode as $setting ) {
 			if ( $tag === $setting['tag']['value'] ) {
 				foreach ( $setting['attributes'] as $attribute ) {
 					if ( empty( $attribute['type'] ) ) {
@@ -190,6 +201,15 @@ class WPML_Compatibility_Divi implements \IWPML_DIC_Action, \IWPML_Backend_Actio
 		}
 
 		return $attributes;
+	}
+
+	private function get_pb_shortcode_settings() {
+		if ( null === $this->pb_shortcode_settings ) {
+			$settings                    = get_option( 'icl_st_settings', [] );
+			$this->pb_shortcode_settings = isset( $settings['pb_shortcode'] ) ? $settings['pb_shortcode'] : [];
+		}
+
+		return $this->pb_shortcode_settings;
 	}
 
 	public function remove_old_content_from_translation( $fields, $post_id ) {

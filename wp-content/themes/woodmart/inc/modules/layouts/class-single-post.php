@@ -111,8 +111,12 @@ class Single_Post extends Layout_Type {
 	 * @return int
 	 */
 	public static function get_preview_post_id( $type = '' ) {
-		if ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['wd_preview_post'] ) ) { // phpcs:ignore
-			return intval( $_REQUEST['wd_preview_post'] ); // phpcs:ignore
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['wd_preview_post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$preview_post_id = absint( wp_unslash( $_REQUEST['wd_preview_post'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			if ( $preview_post_id && current_user_can( 'edit_post', $preview_post_id ) ) {
+				return $preview_post_id;
+			}
 		}
 
 		$meta_post_id = get_post_meta( get_the_ID(), 'wd_preview_post', true );

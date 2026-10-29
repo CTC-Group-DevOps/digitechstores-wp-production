@@ -16,7 +16,7 @@ class InstalledComponents {
 	public static function isPluginMissing() {
 		return function( WPML_ST_Translations_File_Entry $entry ) {
 			return 'plugin' === $entry->get_component_type()
-			       && ! is_readable( WPML_PLUGINS_DIR . '/' . $entry->get_component_id() );
+			       && false === \WPML_ST_Path_Confinement::resolve_registered_plugin_file( $entry->get_component_id() );
 		};
 	}
 

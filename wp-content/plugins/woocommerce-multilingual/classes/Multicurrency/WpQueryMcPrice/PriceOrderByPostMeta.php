@@ -45,7 +45,16 @@ class PriceOrderByPostMeta extends AbstractPriceByPostMeta implements \IWPML_Bac
 		if ( ! isset( $exchange_rates[ $this->client_currency ] ) ) {
 			return $clauses;
 		}
+
 		$exchange_rate = $exchange_rates[ $this->client_currency ];
+		if ( ! is_numeric( $exchange_rate ) ) {
+			return $clauses;
+		}
+
+		$exchange_rate = (float) $exchange_rate;
+		if ( ! is_finite( $exchange_rate ) || $exchange_rate <= 0 ) {
+			return $clauses;
+		}
 
 		$clauses['join'] = $this->buildWCMLMultiCurrencyQueryJoin( $clauses['join'] );
 

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Divi 3.0+ integration.
  *
- * @version  8.5.4
+ * @version  8.5.16
  */
 class WC_PB_ET_Compatibility {
 
@@ -30,6 +30,8 @@ class WC_PB_ET_Compatibility {
 
 	/**
 	 * Add hooks if the active parent theme is Divi.
+	 *
+	 * @return void
 	 */
 	public static function maybe_add_hooks() {
 

@@ -6,7 +6,7 @@
  */
  
 if(!defined('ABSPATH')) exit();
-$page_bg = get_post_meta(get_the_ID(), 'rs_page_bg_color', true);
+$page_bg = RevSliderGlobals::instance()->get('RevSliderFunctions')->sanitize_css_color(get_post_meta(get_the_ID(), 'rs_page_bg_color', true));
 $page_bg = ($page_bg == '' || $page_bg == 'transparent') ? 'transparent' : $page_bg.";";
 ?>
 <!DOCTYPE html>

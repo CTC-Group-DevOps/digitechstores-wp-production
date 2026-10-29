@@ -480,5 +480,6 @@
     "youtube_link": "#",
     "reviews_location": "tabs",
     "reviews_section_columns": "two-column",
-    "fb_link": "#"
+    "fb_link": "#",
+    "site_viewport": "scalable"
 }

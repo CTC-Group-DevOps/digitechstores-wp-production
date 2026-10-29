@@ -8,103 +8,66 @@
             "lang": "ar"
          },
          "Sending for translation": [
-            "جارٍ الإرسال للترجمة"
+            "جاري الإرسال للترجمة"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "تعذر بدء الترجمة لأن الخادم لم يستجب."
+         ],
+         "This translation cannot be opened right now.": [
+            "لا يمكن فتح هذه الترجمة في الوقت الحالي."
+         ],
+         "Refresh this page": [
+            "تحديث هذه الصفحة"
          ],
          "This content is being automatically translated. If you want to do something different with it cancel translation jobs first.": [
-            "هذا المحتوى قيد الترجمة التلقائية. إذا كنت ترغب في القيام بشيء مختلف به، قم بإلغاء مهام الترجمة أولاً."
-         ],
-         "Connecting to WPML’s Advanced Translation Editor": [
-            "جارٍ الاتصال بمحرر WPML المتقدم للترجمة"
-         ],
-         "Try again": [
-            "حاول مرة أخرى"
+            "يتم ترجمة هذا المحتوى تلقائيًا. إذا كنت ترغب في القيام بشيء مختلف، فقم بإلغاء وظائف الترجمة أولاً."
          ],
          "You don't have the rights to review this language": [
-            "ليس لديك صلاحيات لمراجعة هذه اللغة"
+            "ليس لديك الصلاحيات لمراجعة هذه اللغة"
          ],
-         "translations": [
-            "الترجمات"
+         "%1$s and %2$s": [
+            "%1$s و %2$s"
          ],
-         "left in the queue": [
-            "متبقية في قائمة الانتظار"
+         "Translating your content": [
+            "جاري ترجمة محتواك"
          ],
-         "Translation on hold": [
-            "الترجمة معلقة"
-         ],
-         "No translations in the queue": [
-            "لا توجد ترجمات في قائمة الانتظار"
-         ],
-         "%d translations left": [
-            "تبقى %d ترجمة"
+         "%d translation notice": [
+            "%d إشعارات ترجمة",
+            "%d إشعار ترجمة",
+            "%d إشعاران للترجمة",
+            "%d إشعار ترجمة",
+            "%d إشعار ترجمة",
+            "%d إشعار ترجمة"
          ],
          "%d min remaining": [
-            "تبقى %d دقيقة"
+            "متبقي %d دقائق"
          ],
          "less than 1 min remaining": [
-            "أقل من دقيقة واحدة متبقية"
+            "متبقي أقل من دقيقة واحدة"
          ],
-         "%d translation waiting for review": [
-            "%d ترجمة تنتظر المراجعة",
-            "%d ترجمة تنتظر المراجعة",
-            "%d ترجمة تنتظر المراجعة",
-            "%d ترجمة تنتظر المراجعة",
-            "%d ترجمة تنتظر المراجعة",
-            "%d ترجمة تنتظر المراجعة"
+         "<b>Translate Everything Automatically</b> is temporarily paused": [
+            "<b>ترجم كل شيء تلقائيًا</b> متوقف مؤقتًا بشكل مؤقت"
          ],
-         "Translate Everything Automatically has unresolved jobs": [
-            "لدى ميزة ”ترجمة كل شيء تلقائيًا“ مهام غير محلولة"
+         "Automatic translation is temporarily paused": [
+            "الترجمة التلقائية متوقفة مؤقتًا بشكل مؤقت"
          ],
-         "Automatic translation has unresolved jobs": [
-            "لدى الترجمة التلقائية مهام غير محلولة"
+         "We noticed something unexpected in your recent translation activity and paused automatic translation on your account. Contact support and we’ll review it with you.": [
+            "لاحظنا شيئًا غير متوقع في نشاط الترجمة الأخير الخاص بك وقمنا بإيقاف الترجمة التلقائية في حسابك مؤقتًا. اتصل بالدعم وسنراجع الأمر معك."
          ],
-         "%d job couldn't be completed. Go to Translation Dashboard to review and resolve.": [
-            "تعذر إكمال %d مهمة. انتقل إلى لوحة تحكم الترجمة للمراجعة والحل.",
-            "تعذر إكمال %d مهمة. انتقل إلى لوحة تحكم الترجمة للمراجعة والحل.",
-            "تعذر إكمال %d مهمة. انتقل إلى لوحة تحكم الترجمة للمراجعة والحل.",
-            "تعذر إكمال %d مهمة. انتقل إلى لوحة تحكم الترجمة للمراجعة والحل.",
-            "تعذر إكمال %d مهمة. انتقل إلى لوحة تحكم الترجمة للمراجعة والحل.",
-            "تعذر إكمال %d مهمة. انتقل إلى لوحة تحكم الترجمة للمراجعة والحل."
+         "<b>Translate Everything Automatically</b> is paused: monthly spending cap reached": [
+            "<b>ترجم كل شيء تلقائيًا</b> متوقف مؤقتًا: تم الوصول إلى حد الإنفاق الشهري"
          ],
-         "Automatic translation status": [
-            "حالة الترجمة التلقائية"
+         "Automatic translation is paused: monthly spending cap reached": [
+            "الترجمة التلقائية متوقفة مؤقتًا: تم الوصول إلى حد الإنفاق الشهري"
          ],
-         "Translate Everything Automatically": [
-            "ترجمة كل شيء تلقائيًا"
-         ],
-         "Translate Everything Automatically is active": [
-            "ترجمة كل شيء تلقائيًا نشطة"
-         ],
-         "Translate Everything Automatically is paused — payment required": [
-            "ترجمة كل شيء تلقائيًا متوقفة مؤقتًا — يلزم الدفع"
-         ],
-         "Automatic translation is paused — payment required": [
-            "الترجمة التلقائية متوقفة مؤقتًا — يلزم الدفع"
-         ],
-         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
-            "لم نتمكن من معالجة دفعتك. انقر على ”ادفع الآن“ لإكمال المعاملة واستئناف الترجمة التلقائية."
-         ],
-         "Translate Everything automatically is paused - not enough credits": [
-            "ترجمة كل شيء تلقائيًا متوقفة مؤقتًا - لا توجد أرصدة كافية"
-         ],
-         "Automatic translation is paused — not enough credits": [
-            "الترجمة التلقائية متوقفة مؤقتًا — لا توجد أرصدة كافية"
-         ],
-         "Translation will resume automatically once you assign more credits.": [
-            "ستستأنف الترجمة تلقائيًا بمجرد تخصيص المزيد من الأرصدة."
-         ],
-         "You have %s prepaid translation credit in your WPML account. Assign these credits to this site to resume automatic translation": [
-            "لديك %s رصيد ترجمة مدفوع مسبقًا في حساب WPML الخاص بك. قم بتخصيص هذه الأرصدة لهذا الموقع لاستئناف الترجمة التلقائية",
-            "لديك %s رصيد ترجمة مدفوع مسبقًا في حساب WPML الخاص بك. قم بتخصيص هذه الأرصدة لهذا الموقع لاستئناف الترجمة التلقائية",
-            "لديك %s رصيد ترجمة مدفوع مسبقًا في حساب WPML الخاص بك. قم بتخصيص هذه الأرصدة لهذا الموقع لاستئناف الترجمة التلقائية",
-            "لديك %s رصيد ترجمة مدفوع مسبقًا في حساب WPML الخاص بك. قم بتخصيص هذه الأرصدة لهذا الموقع لاستئناف الترجمة التلقائية",
-            "لديك %s رصيد ترجمة مدفوع مسبقًا في حساب WPML الخاص بك. قم بتخصيص هذه الأرصدة لهذا الموقع لاستئناف الترجمة التلقائية",
-            "لديك %s رصيد ترجمة مدفوع مسبقًا في حساب WPML الخاص بك. قم بتخصيص هذه الأرصدة لهذا الموقع لاستئناف الترجمة التلقائية"
+         "This website reached the monthly spending cap set for it. Translation continues when the cap is raised, or when the cap resets. Only the account owner can do this.": [
+            "وصل هذا الموقع إلى حد الإنفاق الشهري المحدد له. تستمر الترجمة عند رفع الحد، أو عند إعادة تعيين الحد. يمكن لمالك الحساب فقط القيام بذلك."
          ],
          "Preparing content for translation": [
-            "جارٍ إعداد المحتوى للترجمة"
+            "جاري تحضير المحتوى للترجمة"
          ],
          "Preparing more content for translation": [
-            "جارٍ إعداد المزيد من المحتوى للترجمة"
+            "جاري تحضير المزيد من المحتوى للترجمة"
          ],
          "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
             "يجب ربط لغتك الافتراضية، %s، بلغة مدعومة لاستخدام الترجمة التلقائية."
@@ -118,46 +81,96 @@
             "يجب ربط اللغات التالية في موقعك بلغة مدعومة لاستخدام الترجمة التلقائية: %s"
          ],
          "Content in those languages: %s, cannot be automatically translated unless you map them to a language that's different from the default.": [
-            "لا يمكن ترجمة المحتوى بهذه اللغات: %s، تلقائيًا إلا إذا قمت بربطها بلغة مختلفة عن اللغة الافتراضية."
+            "المحتوى بهذه اللغات: %s، لا يمكن ترجمته تلقائيًا إلا إذا قمت بربطه بلغة مختلفة عن اللغة الافتراضية."
          ],
-         "Account credits used": [
-            "تم استخدام أرصدة الحساب"
+         "%d translation waiting for review": [
+            "%d ترجمات في انتظار المراجعة",
+            "%d ترجمة واحدة في انتظار المراجعة",
+            "%d ترجمتان في انتظار المراجعة",
+            "%d ترجمات في انتظار المراجعة",
+            "%d ترجمة في انتظار المراجعة",
+            "%d ترجمة في انتظار المراجعة"
          ],
-         "Once you’ve used all your prepaid credits, we’ll invoice you for any additional credits you use after the end of the month": [
-            "بمجرد استخدام جميع أرصدتك المدفوعة مسبقًا، سنرسل لك فاتورة بأي أرصدة إضافية تستخدمها بعد نهاية الشهر"
+         "<b>Translate Everything Automatically</b> has unresolved jobs": [
+            "هناك وظائف لم يتم حلها في <b>ترجم كل شيء تلقائيًا</b>"
          ],
-         "Payment limit:": [
-            "حد الدفع:"
+         "Automatic translation has unresolved jobs": [
+            "هناك وظائف لم يتم حلها في الترجمة التلقائية"
          ],
-         "%s credits": [
-            "%s رصيد"
+         "%d job couldn't be completed. Go to <b>Translation Dashboard</b> to review and resolve.": [
+            "تعذر إكمال %d وظائف. انتقل إلى <b>لوحة إدارة الترجمة</b> للمراجعة والحل.",
+            "تعذر إكمال وظيفة %d واحدة. انتقل إلى <b>لوحة إدارة الترجمة</b> للمراجعة والحل.",
+            "تعذر إكمال وظيفتين %d. انتقل إلى <b>لوحة إدارة الترجمة</b> للمراجعة والحل.",
+            "تعذر إكمال %d وظائف. انتقل إلى <b>لوحة إدارة الترجمة</b> للمراجعة والحل.",
+            "تعذر إكمال %d وظيفة. انتقل إلى <b>لوحة إدارة الترجمة</b> للمراجعة والحل.",
+            "تعذر إكمال %d وظيفة. انتقل إلى <b>لوحة إدارة الترجمة</b> للمراجعة والحل."
          ],
-         "Credits used:": [
-            "الأرصدة المستخدمة:"
+         "%1$s custom field became translatable (%2$s). Decide what happens to the translations that already exist.": [
+            "أصبح %1$s من الحقول المخصصة قابلاً للترجمة (%2$s). حدد ما سيحدث للترجمات الموجودة بالفعل.",
+            "أصبح %1$s من الحقول المخصصة قابلاً للترجمة (%2$s). حدد ما سيحدث للترجمات الموجودة بالفعل.",
+            "أصبح %1$s من الحقول المخصصة قابلة للترجمة (%2$s). حدد ما سيحدث للترجمات الموجودة بالفعل.",
+            "أصبح %1$s حقلاً مخصصًا قابلة للترجمة (%2$s). حدد ما سيحدث للترجمات الموجودة بالفعل.",
+            "أصبح %1$s حقلاً مخصصًا قابلة للترجمة (%2$s). حدد ما سيحدث للترجمات الموجودة بالفعل.",
+            "أصبح %1$s حقل مخصص قابلة للترجمة (%2$s). حدد ما سيحدث للترجمات الموجودة بالفعل."
          ],
-         "Credits left:": [
-            "الأرصدة المتبقية:"
+         "Review": [
+            "مراجعة"
          ],
-         "The number of credit you will receive an invoice for at the end of the month. View your pay-as-you-go details in your site’s automatic translation settings.": [
-            "عدد الأرصدة التي ستتلقى فاتورة بها في نهاية الشهر. اعرض تفاصيل الدفع أولاً بأول في إعدادات الترجمة التلقائية لموقعك."
+         "Automatic translation status": [
+            "حالة الترجمة التلقائية"
          ],
-         "Calculating": [
-            "جارٍ الحساب"
+         "No translations in the queue": [
+            "لا توجد ترجمات في قائمة الانتظار"
          ],
-         "Remaining prepaid credits that are assigned to this site on WPML.org.": [
-            "الأرصدة المدفوعة مسبقًا المتبقية والمخصصة لهذا الموقع على WPML.org."
+         "Translate Everything Automatically": [
+            "ترجم كل شيء تلقائيًا"
          ],
-         "Prepaid credits left": [
-            "الأرصدة المدفوعة مسبقًا المتبقية"
+         "<b>Translate Everything Automatically</b> is active": [
+            "<b>ترجم كل شيء تلقائيًا</b> نشط"
          ],
-         "Pay-as-you-go credits used": [
-            "الأرصدة المستخدمة بنظام الدفع أولاً بأول"
+         "<b>Translate Everything Automatically</b> is paused — payment required": [
+            "<b>ترجم كل شيء تلقائيًا</b> متوقف مؤقتًا — الدفع مطلوب"
+         ],
+         "Automatic translation is paused — payment required": [
+            "الترجمة التلقائية متوقفة مؤقتًا — الدفع مطلوب"
+         ],
+         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
+            "تعذر علينا معالجة دفعتك. انقر فوق ”ادفع الآن“ لإكمال المعاملة واستئناف الترجمة التلقائية."
+         ],
+         "<b>Translate Everything Automatically</b> is paused — unpaid balance on a linked account": [
+            "تم إيقاف <b>ترجم كل شيء تلقائيًا</b> مؤقتًا — يوجد رصيد غير مدفوع في حساب مرتبط"
+         ],
+         "Automatic translation is paused — unpaid balance on a linked account": [
+            "تم إيقاف الترجمة التلقائية مؤقتًا — يوجد رصيد غير مدفوع في حساب مرتبط"
+         ],
+         "There is an unpaid balance on another account linked to this card. Settle it or contact support.": [
+            "يوجد رصيد غير مدفوع في حساب آخر مرتبط بهذه البطاقة. يُرجى سداده أو التواصل مع الدعم."
+         ],
+         "There is an unpaid balance on another account linked to this billing e-mail. Settle it or contact support.": [
+            "يوجد رصيد غير مدفوع في حساب آخر مرتبط بالبريد الإلكتروني المخصص للفواتير هذا. يُرجى سداده أو التواصل مع الدعم."
+         ],
+         "<b>Translate Everything</b> automatically is paused - not enough words": [
+            "<b>ترجم كل شيء</b> تلقائيًا متوقف مؤقتًا - لا توجد كلمات كافية"
+         ],
+         "Automatic translation is paused — not enough words": [
+            "الترجمة التلقائية متوقفة مؤقتًا — لا توجد كلمات كافية"
+         ],
+         "Translation will resume automatically once you assign more words.": [
+            "ستستأنف الترجمة تلقائيًا بمجرد تعيين المزيد من الكلمات."
+         ],
+         "You have %s prepaid translation words in your WPML account. Assign these words to this site to resume automatic translation": [
+            "لديك %s كلمات ترجمة مسبقة الدفع في حساب WPML الخاص بك. عيّن هذه الكلمات لهذا الموقع لاستئناف الترجمة التلقائية",
+            "لديك كلمة ترجمة مسبقة الدفع %s واحدة في حساب WPML الخاص بك. عيّن هذه الكلمة لهذا الموقع لاستئناف الترجمة التلقائية",
+            "لديك كلمتا ترجمة مسبقتا الدفع %s في حساب WPML الخاص بك. عيّن هاتين الكلمتين لهذا الموقع لاستئناف الترجمة التلقائية",
+            "لديك %s كلمات ترجمة مسبقة الدفع في حساب WPML الخاص بك. عيّن هذه الكلمات لهذا الموقع لاستئناف الترجمة التلقائية",
+            "لديك %s كلمة ترجمة مسبقة الدفع في حساب WPML الخاص بك. عيّن هذه الكلمات لهذا الموقع لاستئناف الترجمة التلقائية",
+            "لديك %s كلمة ترجمة مسبقة الدفع في حساب WPML الخاص بك. عيّن هذه الكلمات لهذا الموقع لاستئناف الترجمة التلقائية"
          ],
          "Your site doesn't meet WPML's minimum requirements": [
-            "موقعك لا يفي بالحد الأدنى من متطلبات WPML"
+            "موقعك لا يلبي الحد الأدنى من متطلبات WPML"
          ],
          "Fix it": [
-            "إصلاحها"
+            "إصلاح الأمر"
          ],
          "Stop": [
             "إيقاف"
@@ -165,50 +178,35 @@
          "Pay now": [
             "ادفع الآن"
          ],
-         "Get more credits": [
-            "احصل على المزيد من الأرصدة"
+         "Get more words": [
+            "احصل على المزيد من الكلمات"
          ],
-         "Assign credits": [
-            "تخصيص الأرصدة"
+         "Assign words": [
+            "عيّن الكلمات"
          ],
          "Go to Translation Jobs": [
-            "انتقل إلى مهام الترجمة"
+            "انتقل إلى وظائف الترجمة"
+         ],
+         "Raise the cap": [
+            "رفع الحد"
+         ],
+         "Contact support": [
+            "اتصل بالدعم"
+         ],
+         "Go to billing": [
+            "الانتقال إلى الفواتير"
          ],
          "Resume": [
             "استئناف"
          ],
+         "Refreshing translation status. Please wait.": [
+            "جارٍ تحديث حالة الترجمة. يُرجى الانتظار."
+         ],
          "This translation couldn't be completed due to an unexpected error. Please try resending it.": [
             "تعذر إكمال هذه الترجمة بسبب خطأ غير متوقع. يرجى محاولة إعادة إرسالها."
          ],
-         "Refreshing translation status": [
-            "تحديث حالة الترجمة"
-         ],
-         "Read more about how to translate your content in the <a>Getting Started Guide</a>": [
-            "اقرأ المزيد حول كيفية ترجمة المحتوى الخاص بك في <a>دليل البدء</a>"
-         ],
-         "Let's Start Translating!": [
-            "لنبدأ الترجمة!"
-         ],
-         "Choose your content from the Translation Dashboard below and create your first translation job!": [
-            "اختر المحتوى الخاص بك من لوحة تحكم الترجمة أدناه وأنشئ أول مهمة ترجمة لك!"
-         ],
-         "Change your <a>automatic translation settings</a> (in-progress translation jobs will be completed with the current settings).": [
-            "غيّر <a>إعدادات الترجمة التلقائية</a> (سيتم إكمال مهام الترجمة قيد التقدم بالإعدادات الحالية)."
-         ],
-         "Read more about translating your site automatically.": [
-            "اقرأ المزيد حول ترجمة موقعك تلقائيًا."
-         ],
-         "Your site is being automatically translated!": [
-            "موقعك قيد الترجمة التلقائية!"
-         ],
-         "Calculating...": [
-            "جارٍ الحساب..."
-         ],
-         "Do not close WP admin!": [
-            "لا تغلق لوحة تحكم WP!"
-         ],
-         "The number of translations": [
-            "عدد الترجمات"
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "لم يقبل نظام الترجمة لدينا هذا الطلب (كان الرد %d). انتظر دقيقة ثم حاول مرة أخرى، واتصل بدعم WPML إذا استمر حدوث ذلك."
          ]
       }
    }

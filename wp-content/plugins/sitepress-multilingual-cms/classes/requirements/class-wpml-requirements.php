@@ -4,6 +4,8 @@ class WPML_Requirements {
 	private $disabled_plugins     = array();
 	private $missing_requirements = array();
 
+	const ACCOUNT_DOWNLOADS_URL = 'https://app.wpml.org/account/downloads';
+
 	private $plugins = array(
 		'wpml-media-translation'      => array(
 			'version' => '2.1.24',
@@ -20,29 +22,25 @@ class WPML_Requirements {
 		'woocommerce-multilingual'    => array(
 			'version' => '4.7.0',
 			'name'    => 'WooCommerce Multilingual',
-			'url'     => 'https://wpml.org/download/woocommerce-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+			'url'     => self::ACCOUNT_DOWNLOADS_URL,
 		),
 		'gravityforms-multilingual'   => array(
 			'name' => 'GravityForms Multilingual',
-			'url'  => 'https://wpml.org/download/gravityforms-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+			'url'  => self::ACCOUNT_DOWNLOADS_URL,
 		),
 		'buddypress-multilingual'     => array(
 			'name' => 'BuddyPress Multilingual',
-			'url'  => 'https://wpml.org/download/buddypress-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+			'url'  => self::ACCOUNT_DOWNLOADS_URL,
 		),
 		'wp-seo-multilingual'         => array(
 			'name' => 'Yoast SEO Multilingual',
-			'url'  => 'https://wpml.org/download/yoast-seo-multilingual/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+			'url'  => self::ACCOUNT_DOWNLOADS_URL,
 		),
 	);
 
 	private $modules = array(
-		WPML_Integrations::SCOPE_WP_CORE => array(
-			'url'                => 'https://wpml.org/?page_id=2909360&utm_source=wpmlplugin&utm_campaign=gutenberg&utm_medium=translation-editor&utm_term=translating-content-created-using-gutenberg-editor',
-			'requirements_class' => 'WPML_Integration_Requirements_Block_Editor',
-		),
 		'page-builders'                  => array(
-			'url'          => 'https://wpml.org/?page_id=1129854',
+			'url'          => '#',
 			'requirements' => array(
 				'wpml-string-translation',
 			),
@@ -81,6 +79,9 @@ class WPML_Requirements {
 	);
 
 	public function __construct() {
+		$this->plugins = $this->tagRequirementUrls( $this->plugins );
+		$this->modules = $this->tagRequirementUrls( $this->modules );
+
 		if ( function_exists( 'get_plugins' ) ) {
 			$installed_plugins = get_plugins();
 			foreach ( $installed_plugins as $plugin_file => $plugin_data ) {
@@ -92,6 +93,22 @@ class WPML_Requirements {
 				}
 			}
 		}
+	}
+
+	private function tagRequirementUrls( array $items ) {
+		foreach ( $items as $key => $item ) {
+			if ( isset( $item['url'] ) && is_string( $item['url'] ) ) {
+				$items[ $key ]['url'] = \WPML\OutboundLinks\OutboundLinks::to(
+					$item['url'],
+					array(
+						'medium'   => 'notice',
+						'campaign' => 'requirements',
+					)
+				);
+			}
+		}
+
+		return $items;
 	}
 
 	public function is_plugin_active( $plugin_slug ) {
@@ -179,13 +196,6 @@ class WPML_Requirements {
 
 		if ( array_key_exists( 'requirements', $components_requirements ) ) {
 			$requirements = $components_requirements['requirements'];
-		} elseif ( array_key_exists( 'requirements_class', $components_requirements ) ) {
-			try {
-				$class = $components_requirements['requirements_class'];
-				$requirement_module = new $class( $this );
-				$requirements       = $requirement_module->get_requirements();
-			} catch ( Exception $e ) {
-			}
 		}
 
 		return $requirements;

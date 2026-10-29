@@ -21,9 +21,9 @@ class WCML_WC_Shipping {
 	}
 
 	public function add_hooks() {
-		add_action( 'wp_ajax_woocommerce_shipping_zone_methods_save_settings', [ $this, 'save_shipping_zone_method_from_ajax' ], 9 );
+		\WCML\Request\Ajax::listen( 'woocommerce_shipping_zone_methods_save_settings', [ $this, 'save_shipping_zone_method_from_ajax' ], 'WooCommerce shipping-zone save: registers the method title string; verifies the WooCommerce nonce and manage_woocommerce itself', 9 );
 		add_action( 'icl_save_term_translation', [ $this, 'sync_class_costs_for_new_shipping_classes' ], 100, 2 );
-		add_action( 'wp_ajax_woocommerce_shipping_zone_methods_save_settings', [ $this, 'update_woocommerce_shipping_settings_for_class_costs_from_ajax' ], 9 );
+		\WCML\Request\Ajax::listen( 'woocommerce_shipping_zone_methods_save_settings', [ $this, 'update_woocommerce_shipping_settings_for_class_costs_from_ajax' ], 'WooCommerce shipping-zone save: syncs class costs; verifies the WooCommerce nonce and manage_woocommerce itself', 9 );
 
 		add_filter( 'woocommerce_package_rates', [ $this, 'translate_shipping_methods_in_package' ] );
 		add_filter( 'pre_update_option_woocommerce_flat_rate_settings', [ $this, 'update_woocommerce_shipping_settings_for_class_costs' ] );

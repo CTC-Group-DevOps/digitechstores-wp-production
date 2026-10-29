@@ -13,12 +13,22 @@ class WPML_ST_Support_Info_Filter implements IWPML_Backend_Action, IWPML_DIC_Act
 	public function filter_blocks(array $blocks) {
 
 		$is_mbstring_extension_loaded      = $this->support_info->is_mbstring_extension_loaded();
+		/* translators: Value in the WPML support information table: the PHP extension is available. Past participle used as a state. */
+		$mbstring_loaded_label             = __( 'Loaded', 'wpml-string-translation' );
+		/* translators: Value in the WPML support information table: the PHP extension is not available. Past participle used as a state. */
+		$mbstring_not_loaded_label         = __( 'Not loaded', 'wpml-string-translation' );
 		$blocks['php']['data']['mbstring'] = array(
 			'label'    => __( 'Multibyte String extension', 'wpml-string-translation' ),
-			'value'    => $is_mbstring_extension_loaded ? __( 'Loaded', 'wpml-string-translation' ) : __( 'Not loaded', 'wpml-string-translation' ),
+			'value'    => $is_mbstring_extension_loaded ? $mbstring_loaded_label : $mbstring_not_loaded_label,
 			'url'      => 'http://php.net/manual/book.mbstring.php',
 			'messages' => array(
-				__( 'Multibyte String extension is required for WPML String Translation.', 'wpml-string-translation' ) => 'https://wpml.org/home/minimum-requirements/',
+				__( 'Multibyte String extension is required for WPML String Translation.', 'wpml-string-translation' ) => \WPML\ST\OutboundLinks\OutboundLinks::to(
+					'https://wpml.org/home/minimum-requirements/',
+					array(
+						'medium'   => 'support',
+						'campaign' => 'requirements',
+					)
+				),
 			),
 			'is_error' => ! $is_mbstring_extension_loaded,
 		);

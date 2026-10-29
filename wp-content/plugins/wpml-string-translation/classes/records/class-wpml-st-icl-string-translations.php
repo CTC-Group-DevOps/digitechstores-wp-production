@@ -2,7 +2,6 @@
 
 class WPML_ST_ICL_String_Translations extends WPML_WPDB_User {
 
-	private $table     = 'icl_string_translations';
 	private $string_id = 0;
 	private $lang_code;
 	private $id;
@@ -22,11 +21,12 @@ class WPML_ST_ICL_String_Translations extends WPML_WPDB_User {
 	}
 
 	public function translator_id() {
+		$wpdb = $this->wpdb;
 
-		return $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		return $wpdb->get_var(
+			$wpdb->prepare(
 				" SELECT translator_id
-									FROM {$this->wpdb->prefix}{$this->table}
+									FROM {$wpdb->prefix}icl_string_translations
 									WHERE id = %d LIMIT 1",
 				$this->id()
 			)
@@ -34,11 +34,12 @@ class WPML_ST_ICL_String_Translations extends WPML_WPDB_User {
 	}
 
 	public function value() {
+		$wpdb = $this->wpdb;
 
-		return $this->wpdb->get_var(
-			$this->wpdb->prepare(
+		return $wpdb->get_var(
+			$wpdb->prepare(
 				" SELECT value
-									FROM {$this->wpdb->prefix}{$this->table}
+									FROM {$wpdb->prefix}icl_string_translations
 									WHERE id = %d LIMIT 1",
 				$this->id()
 			)
@@ -46,13 +47,14 @@ class WPML_ST_ICL_String_Translations extends WPML_WPDB_User {
 	}
 
 	public function id() {
+		$wpdb = $this->wpdb;
 
 		return (int) ( $this->id
 			? $this->id
-			: $this->wpdb->get_var(
-				$this->wpdb->prepare(
+			: $wpdb->get_var(
+				$wpdb->prepare(
 					" SELECT id
-									FROM {$this->wpdb->prefix}{$this->table}
+									FROM {$wpdb->prefix}icl_string_translations
 									WHERE string_id = %d AND language = %s
 									LIMIT 1",
 					$this->string_id,

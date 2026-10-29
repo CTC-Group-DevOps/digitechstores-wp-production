@@ -10,9 +10,15 @@ class WPML_ST_Translations_File_JED implements IWPML_ST_Translations_File {
 
 	private $decoded_eot_char;
 
+	private $plural_forms;
+
 	public function __construct( $filepath ) {
 		$this->filepath         = $filepath;
 		$this->decoded_eot_char = json_decode( self::DECODED_EOT_CHAR );
+	}
+
+	public function get_plural_forms() {
+		return $this->plural_forms;
 	}
 
 	public function get_translations() {
@@ -22,7 +28,20 @@ class WPML_ST_Translations_File_JED implements IWPML_ST_Translations_File {
 		if ( isset( $data->locale_data->messages ) ) {
 
 			$entries = (array) $data->locale_data->messages;
-			unset( $entries[ self::EMPTY_PROPERTY_NAME ] );
+			$header  = array();
+			if ( isset( $entries[''] ) ) {
+				$header = (array) $entries[''];
+			} elseif ( isset( $entries[ self::EMPTY_PROPERTY_NAME ] ) ) {
+				$header = (array) $entries[ self::EMPTY_PROPERTY_NAME ];
+			}
+			unset( $entries[ self::EMPTY_PROPERTY_NAME ], $entries[''] );
+
+			foreach ( array( 'plural-forms', 'plural_forms', 'Plural-Forms' ) as $key ) {
+				if ( isset( $header[ $key ] ) && is_string( $header[ $key ] ) ) {
+					$this->plural_forms = $header[ $key ];
+					break;
+				}
+			}
 
 			foreach ( $entries as $str => $str_data ) {
 				$str_data = (array) $str_data;

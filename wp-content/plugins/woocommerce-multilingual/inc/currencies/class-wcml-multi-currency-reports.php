@@ -22,7 +22,7 @@ class WCML_Multi_Currency_Reports {
 
 		if ( is_admin() ) {
 
-			add_action( 'wp_ajax_wcml_reports_set_currency', [ $this, 'set_reports_currency' ] );
+			\WCML\Request\Ajax::register( 'wcml_reports_set_currency', [ 'authorize' => [ 'WCML_Capabilities', 'canManageWcml' ], 'description' => 'WCML manager (shop manager or administrator role, WCML_Capabilities::canManageWcml)', 'nonce' => [ 'reports_set_currency', 'wcml_nonce' ] ], [ $this, 'set_reports_currency' ] );
 
 			add_action( 'wc_reports_tabs', [ $this, 'reports_currency_selector' ] );
 
@@ -105,7 +105,7 @@ JS;
 		}
 
 		$query['join']  .= " LEFT JOIN {$this->wpdb->postmeta} AS meta_order_currency ON meta_order_currency.post_id = posts.ID ";
-		$query['where'] .= sprintf( " AND meta_order_currency.meta_key='_order_currency' AND meta_order_currency.meta_value = '%s' ",
+		$query['where'] .= $this->wpdb->prepare( " AND meta_order_currency.meta_key = '_order_currency' AND meta_order_currency.meta_value = %s ",
 			$this->reports_currency );
 
 		return $query;
@@ -126,9 +126,12 @@ JS;
 
 		$nonce = filter_input( INPUT_POST, 'wcml_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'reports_set_currency' ) ) {
+			/* translators: Error returned when a request carries an expired or missing security token. */
 			echo json_encode( [ 'error' => __( 'Invalid nonce', 'woocommerce-multilingual' ) ] );
 			die();
 		}
+
+		WCML_Capabilities::requireCanManageWcmlForAjax();
 
 		$cookie_name = '_wcml_reports_currency';
 		setcookie( $cookie_name, filter_input( INPUT_POST, 'currency', FILTER_SANITIZE_FULL_SPECIAL_CHARS ),
@@ -146,11 +149,11 @@ JS;
 		?>
         <select id="dropdown_shop_report_currency" style="margin-left:5px;">
 			<?php if ( empty( $currency_codes ) ): ?>
-                <option value=""><?php _e( 'Currency - no orders found', 'woocommerce-multilingual' ) ?></option>
+				<option value=""><?php /* translators: Only entry of the currency dropdown on the WooCommerce reports, shown when the shop has no orders yet. */ esc_html_e( 'Currency - no orders found', 'woocommerce-multilingual' ); ?></option>
 			<?php else: ?>
 				<?php foreach ( $currency_codes as $currency ): ?>
                     <option value="<?php echo esc_attr( $currency ) ?>" <?php selected( $currency, $this->reports_currency ); ?>>
-						<?php printf( "%s (%s)", $currencies[ $currency ], get_woocommerce_currency_symbol( $currency ) ) ?>
+						<?php printf( "%s (%s)", esc_html( $currencies[ $currency ] ), wp_kses_post( get_woocommerce_currency_symbol( $currency ) ) ) ?>
                     </option>
 				<?php endforeach; ?>
 			<?php endif; ?>

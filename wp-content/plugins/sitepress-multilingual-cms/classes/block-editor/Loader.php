@@ -4,6 +4,7 @@
 namespace WPML\BlockEditor;
 
 use WPML\BlockEditor\Blocks\LanguageSwitcher;
+use WPML\LanguageSwitcher\SwitcherAssetsOptOut;
 use WPML\LIB\WP\Hooks;
 use WPML\Core\WP\App\Resources;
 use function WPML\Container\make;
@@ -21,6 +22,12 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 	private $cssLoaded = [];
 
 	private $keyboard_script_enqueued = false;
+
+	private $assetsOptOut;
+
+	public function __construct( ?SwitcherAssetsOptOut $assetsOptOut = null ) {
+		$this->assetsOptOut = $assetsOptOut ?: new SwitcherAssetsOptOut();
+	}
 
 	public function add_hooks() {
 		if ( \WPML_Block_Editor_Helper::is_active() ) {
@@ -48,7 +55,8 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 			$block_categories,
 			[
 				'slug'  => 'wpml',
-				'title' => __( 'WPML', 'sitepress-multilingual-cms' ),
+				/* translators: The name of the plugin, used as the title of its screens and of its menu. It is a product name and stays as it is. */
+				'title' => __( 'WPML', 'sitepress' ),
 				'icon'  => null,
 			]
 		);
@@ -93,6 +101,7 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 		);
 
 		wp_localize_script( $handle, $localizedScriptData['name'], $localizedScriptData['data'] );
+		wp_localize_script( $handle, 'wpmlOutboundLinks', \WPML\OutboundLinks\OutboundLinks::getJsConfig() );
 		wp_enqueue_script( $handle );
 
 		if ( file_exists( $stylePath ) ) {
@@ -119,11 +128,19 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 			return $content;
 		}
 
-		$css = $this->styleLanguageSwitcher();
-		$this->enqueueLanguageSwitcherKeyboardScript();
+		if ( '' === $content ) {
+			return $content;
+		}
+
+		$cssOptedOut = $this->assetsOptOut->css();
+
+		$css = $cssOptedOut ? '' : $this->styleLanguageSwitcher();
+		if ( ! $this->assetsOptOut->js() ) {
+			$this->enqueueLanguageSwitcherKeyboardScript();
+		}
 
 		if ( self::BLOCK_LANGUAGE_SWITCHER_NAVIGATION === $block['blockName'] ) {
-			$css .= $this->styleLanguageSwitcherNavigation();
+			$css .= $cssOptedOut ? '' : $this->styleLanguageSwitcherNavigation();
 
 			remove_filter(
 				'render_block',
@@ -142,11 +159,8 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 		}
 
 		$this->cssLoaded[] = self::BLOCK_LANGUAGE_SWITCHER;
-		$css               = file_get_contents(
-			WPML_PLUGIN_PATH . '/dist/css/blocks/language-switcher.css'
-		);
 
-		return $css ?: '';
+		return $this->readStylesheet( '/dist/css/blocks/language-switcher.css' );
 	}
 
 	private function enqueueLanguageSwitcherKeyboardScript() {
@@ -176,9 +190,18 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 		}
 
 		$this->cssLoaded[] = self::BLOCK_LANGUAGE_SWITCHER_NAVIGATION;
-		$css               = file_get_contents(
-			WPML_PLUGIN_PATH . '/dist/css/blocks/language-switcher-navigation.css'
-		);
+
+		return $this->readStylesheet( '/dist/css/blocks/language-switcher-navigation.css' );
+	}
+
+	private function readStylesheet( $relativePath ) {
+		$path = WPML_PLUGIN_PATH . $relativePath;
+
+		if ( ! file_exists( $path ) ) {
+			return '';
+		}
+
+		$css = file_get_contents( $path );
 
 		return $css ?: '';
 	}

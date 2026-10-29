@@ -26,7 +26,8 @@ class WPML_Abstract_Job_Collection {
 
 		$max_rev_snippet = '';
 		if ( true !== $single ) {
-			$max_rev_snippet = "JOIN (SELECT rid, MAX(job_id) job_id FROM {$wpdb->prefix}icl_translate_job GROUP BY rid ) jobmax
+			$latest_job_per_rid = \WPML\Core\Component\Translation\Domain\Query\LatestTranslateJobSql::maxJobIdPerRidDerivedTable( $wpdb->prefix );
+			$max_rev_snippet    = "JOIN ({$latest_job_per_rid} ) jobmax
 					ON ( {$icl_translate_job_alias}.revision IS NULL
 	                    AND {$icl_translate_job_alias}.rid = jobmax.rid)
                         OR ( {$icl_translate_job_alias}.job_id = jobmax.job_id
@@ -182,13 +183,14 @@ class WPML_Abstract_Job_Collection {
 				$from_languages   = array_keys( $language_pairs );
 				$where_conditions = array();
 				foreach ( $from_languages as $fl ) {
+					if ( empty( $language_pairs[ $fl ] ) ) {
+						continue;
+					}
 					$prepared_in_values = wpml_prepare_in( array_keys( $language_pairs[ $fl ] ) );
 					$where_conditions[] = ' (' . $this->wpdb->prepare( 't.source_language_code = %s', $fl ) . ' AND t.language_code IN (' . $prepared_in_values . ')) ';
 				}
 
-				if ( ! empty( $where_conditions ) ) {
-					$where .= ' AND ( ' . join( ' OR ', $where_conditions ) . ') ';
-				}
+				$where .= $where_conditions ? ' AND ( ' . join( ' OR ', $where_conditions ) . ') ' : ' AND ( 1 = 0 ) ';
 			}
 		}
 
@@ -201,8 +203,12 @@ class WPML_Abstract_Job_Collection {
 		if ( $overdue ) {
 			$today_date = date( 'Y-m-d' );
 
-			$statusCond = wpml_prepare_in( [ ICL_TM_WAITING_FOR_TRANSLATOR, ICL_TM_IN_PROGRESS ], '%d' );
-			$where     .= $this->wpdb->prepare( " AND j.deadline_date IS NOT NULL AND s.status IN ({$statusCond}) AND j.deadline_date < %s AND j.deadline_date <> '0000-00-00 00:00:00'", $today_date );
+			$where .= $this->wpdb->prepare(
+				" AND j.deadline_date IS NOT NULL AND s.status IN (%d, %d) AND j.deadline_date < %s AND j.deadline_date <> '0000-00-00 00:00:00'",
+				ICL_TM_WAITING_FOR_TRANSLATOR,
+				ICL_TM_IN_PROGRESS,
+				$today_date
+			);
 		}
 
 		return $where;

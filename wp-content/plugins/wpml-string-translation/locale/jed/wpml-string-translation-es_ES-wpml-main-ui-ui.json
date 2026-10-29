@@ -7,14 +7,17 @@
             "plural_forms": "nplurals=2; plural=(n != 1);",
             "lang": "es_ES"
          },
-         "Edit": [
-            "Editar"
+         "Edit %s": [
+            "Editar %s"
          ],
          "Shift+Tab": [
-            "Mayús + Tab"
+            "Mayús+tab"
          ],
          "Tab": [
             "Tab"
+         ],
+         "Original:": [
+            "Original:"
          ],
          "Translation to:": [
             "Traducción a:"
@@ -23,31 +26,25 @@
             "Copiar del original"
          ],
          "Use Shift+Enter to add a new line.": [
-            "Use Mayús + Intro para añadir una nueva línea."
-         ],
-         "Original:": [
-            "Original:"
+            "Use Mayús+Intro para añadir una nueva línea."
          ],
          "Add %s translation": [
-            "Añadir traducción de %s"
+            "Añadir traducción al %s"
          ],
          "Edit %s translation": [
-            "Editar traducción de %s"
+            "Editar traducción al %s"
          ],
          "Add %s translation (the string appears on the site and is not translated)": [
-            "Añadir traducción de %s (la cadena aparece en el sitio y no está traducida)"
+            "Añadir traducción al %s (la cadena aparece en el sitio y no está traducida)"
          ],
          "Original language %s": [
             "Idioma original %s"
          ],
          "Waiting for translator to %s": [
-            "Esperando a que el traductor %s"
+            "Esperando traductor al %s"
          ],
          "Translation in progress to %s": [
-            "Traducción en curso a %s"
-         ],
-         "In basket for translation to %s": [
-            "En la cesta para traducir a %s"
+            "Traducción en curso al %s"
          ],
          "Translation saved.": [
             "Traducción guardada."

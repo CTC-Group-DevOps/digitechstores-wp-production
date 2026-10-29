@@ -895,7 +895,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					$meta = str_replace('%meta:', '', $match);
 					$meta = str_replace('%', '', $meta);
 					$meta = str_replace('_REVSLIDER_', '-', $meta);
-					$meta_val = get_post_meta($post_id, $meta, true);
+					$meta_val = $this->get_post_meta_safe($post_id, $meta);
 					$this->params['seo']['link'] = str_replace($match, $meta_val, $this->params['seo']['link']);
 				}
 			}
@@ -907,7 +907,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					$meta = str_replace('{{meta:', '', $match);
 					$meta = str_replace('}}', '',$meta);
 					$meta = str_replace('_REVSLIDER_', '-', $meta);
-					$meta_val = get_post_meta($post_id, $meta, true);
+					$meta_val = $this->get_post_meta_safe($post_id, $meta);
 					$this->params['seo']['link'] = str_replace($match, $meta_val, $this->params['seo']['link']);
 				}
 			}
@@ -1212,7 +1212,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					$meta = str_replace('%meta:', '', $match);
 					$meta = str_replace('%', '',$meta);
 					$meta = str_replace('_REVSLIDER_', '-', $meta);
-					$metaValue = get_post_meta($post_id, $meta, true);
+					$metaValue = $this->get_post_meta_safe($post_id, $meta);
 					
 					$text = str_replace($match, $metaValue, $text);	
 				}
@@ -1228,7 +1228,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					$meta = str_replace('{{meta:', '', $match);
 					$meta = str_replace('}}', '',$meta);
 					$meta = str_replace('_REVSLIDER_', '-', $meta);
-					$metaValue = get_post_meta($post_id,$meta,true);
+					$metaValue = $this->get_post_meta_safe($post_id, $meta);
 					
 					$text = str_replace($match,$metaValue,$text);	
 				}
@@ -1627,6 +1627,25 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * prepare and fill the stream data
 	 **/
+	/**
+	 * stream fields come from a third party's API: text and image tags are filtered as WordPress filters post content, URLs escaped
+	 * @since: 6.8.0
+	 */
+	public function sanitize_stream_attr($attr){
+		if(!is_array($attr)) return $attr;
+		foreach($attr as $k => $v){
+			if($k === 'img_urls' && is_array($v)){
+				array_walk_recursive($attr[$k], function(&$iv, $ik){
+					if(is_string($iv)) $iv = ($ik === 'url') ? esc_url($iv) : wp_kses_post($iv);
+				});
+			}elseif(is_string($v)){
+				$attr[$k] = ($k === 'link') ? esc_url($v) : wp_kses_post($v);
+			}
+		}
+
+		return $attr;
+	}
+
 	public function set_stream_data($text, $attr, $stream_type, $additions = array(), $is_action = false){
 		$img_sizes = $this->get_all_image_sizes($stream_type);
 		$_img_sizes = $this->get_all_image_sizes();
@@ -1726,7 +1745,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		$this->params	= $this->get_val($a, 'params');
 		$this->layers	= $this->get_val($a, 'layers');
 		$additions['lazyload'] = ($this->get_slider_param($slider_id, array('general', 'lazyLoad'), false) != 'none') ? true : false;
-		$attr			= $this->return_stream_data($stream_type, $additions);
+		$attr			= $this->sanitize_stream_attr($this->return_stream_data($stream_type, $additions));
 		
 		if(!empty($this->layers)){
 			foreach($this->layers as $key => $layer){

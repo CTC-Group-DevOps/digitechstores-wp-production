@@ -67,14 +67,10 @@ class WPML_Users_Languages {
 
 	private function get_language_from_fallbacks() {
 
-		$lang = get_option( 'wpml_user_email_language' );
-		if ( ! $lang ) {
+		$lang = apply_filters( 'wpml_default_language', null );
 
-			$lang = apply_filters( 'wpml_default_language', null );
-
-			if ( $this->WPML_WP_API->is_front_end() ) {
-				$lang = apply_filters( 'wpml_current_language', null );
-			}
+		if ( $this->WPML_WP_API->is_front_end() ) {
+			$lang = apply_filters( 'wpml_current_language', null );
 		}
 
 		return $this->WPML_Language_Code->sanitize( $lang );

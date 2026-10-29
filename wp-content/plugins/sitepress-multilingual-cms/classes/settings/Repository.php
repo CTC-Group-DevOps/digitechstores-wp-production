@@ -2,47 +2,28 @@
 
 namespace WPML\TM\Settings;
 
+use WPML\Core\Component\CustomFieldPreferences\Domain\ElementType;
 
 class Repository {
 
-	public static function getSetting( $indexes ) {
-		$settings     = self::getAllSettings();
-
-		foreach ( $indexes as $index ) {
-			$settings = isset( $settings[ $index ] ) ? $settings[ $index ] : null;
-			if ( ! isset( $settings ) ) {
-				break;
-			}
-		}
-
-		return $settings;
-	}
-
 	public static function getCustomFieldsToTranslate() {
-		return array_values( array_filter( array_keys(
-			self::getSetting( [ 'custom_fields_translation' ] ) ?: [],
-			WPML_TRANSLATE_CUSTOM_FIELD
-		) ) );
+		return array_values( array_filter(
+			PreferenceResolver::namesByMode( ElementType::POST, WPML_TRANSLATE_CUSTOM_FIELD )
+		) );
 	}
 
 	public static function getCustomFields() {
-		return \wpml_collect( self::getSetting( [ 'custom_fields_translation' ] ) ?: [] )
-			->filter( function ( $value, $key ) {
-				return (bool) $key;
-			} )->toArray();
-	}
-
-	private static function getAllSettings() {
-		global $iclTranslationManagement;
-
-		if ( ! $iclTranslationManagement ) {
-			return [];
+		$map = PreferenceResolver::map( ElementType::POST );
+		if ( array_key_exists( '', $map ) || array_key_exists( '0', $map ) ) {
+			$map = array_filter(
+				$map,
+				function ( $key ) {
+					return (bool) $key;
+				},
+				ARRAY_FILTER_USE_KEY
+			);
 		}
 
-		if ( empty( $iclTranslationManagement->settings ) ) {
-			$iclTranslationManagement->init();
-		}
-
-		return $iclTranslationManagement->get_settings();
+		return $map;
 	}
 }

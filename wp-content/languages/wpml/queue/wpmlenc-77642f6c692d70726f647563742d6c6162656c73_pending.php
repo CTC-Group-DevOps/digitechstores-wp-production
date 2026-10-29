@@ -1,0 +1,2 @@
+<?php
+return ['items'=>['vertical'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['orientation'],'urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=9e9a8c8ba3']]],'all'=>['saveStringInDb'=>true,'cmp'=>['wpml-string-translation',1],'names'=>['source'],'urls'=>[['kind'=>9,'url'=>'/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=9e9a8c8ba3']]]]];

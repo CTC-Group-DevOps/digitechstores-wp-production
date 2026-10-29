@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * PB Modules Loader
  *
- * @version  6.21.0
+ * @version  8.5.16
  */
 class WC_PB_Modules {
 
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_PB_Modules
+	 * @var WC_PB_Modules|null
 	 */
 	protected static $_instance = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
@@ -98,6 +98,7 @@ class WC_PB_Modules {
 	 * Loads module functionality associated with a named component.
 	 *
 	 * @param  string $name The component name.
+	 * @return void
 	 */
 	public function load_components( $name ) {
 

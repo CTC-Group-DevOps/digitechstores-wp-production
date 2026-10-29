@@ -1,5 +1,7 @@
 <?php
 
+use WPML\TM\Settings\RequestSettings;
+
 class WPML_TM_Jobs_Summary_Report_Hooks {
 
 	const EVENT_HOOK = 'wpml_tm_send_summary_report';
@@ -27,9 +29,11 @@ class WPML_TM_Jobs_Summary_Report_Hooks {
 			WPML_TM_Emails_Settings::NOTIFY_WEEKLY
 		);
 
-		return isset( $this->tm->settings['notification'][ WPML_TM_Emails_Settings::COMPLETED_JOB_FREQUENCY ] ) &&
+		$notification = RequestSettings::tmNotificationSettings();
+
+		return isset( $notification[ WPML_TM_Emails_Settings::COMPLETED_JOB_FREQUENCY ] ) &&
 		       in_array(
-			       (int) $this->tm->settings['notification'][ WPML_TM_Emails_Settings::COMPLETED_JOB_FREQUENCY ],
+			       (int) $notification[ WPML_TM_Emails_Settings::COMPLETED_JOB_FREQUENCY ],
 			       $schedulable_settings,
 			       true
 		       );

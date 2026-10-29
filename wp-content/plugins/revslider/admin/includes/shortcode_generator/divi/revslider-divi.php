@@ -1,4 +1,5 @@
 <?php
+if(!defined('ABSPATH')) exit();
 
 if ( ! function_exists( 'revslider_initialize_divi_extension' ) ):
 /**

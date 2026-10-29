@@ -13,6 +13,8 @@ abstract class WPML_Request {
 
 	protected $cookieLanguage;
 
+	private $language_from_referer = false;
+
 	public function __construct(
 		WPML_URL_Converter $url_converter,
 		$active_languages,
@@ -51,6 +53,237 @@ abstract class WPML_Request {
 
 	public function get_cookie_lang() {
 		return $this->cookieLanguage->get( $this->get_cookie_name() );
+	}
+
+	public function get_raw_cookie_lang() {
+		return $this->cookieLanguage->getRaw( $this->get_cookie_name() );
+	}
+
+	public function is_language_from_referer() {
+		return $this->language_from_referer;
+	}
+
+	protected function get_referer_lang() {
+		$this->language_from_referer = false;
+
+		$query = $this->get_admin_referer_query();
+		if ( null === $query['path'] ) {
+			return null;
+		}
+
+		$args  = $query['args'];
+		$rules = [
+			function () use ( $args ) {
+				return isset( $args['lang'] ) && is_string( $args['lang'] ) && 'all' !== $args['lang']
+					? \WPML\Language\ActiveLanguagesReadModel::canonical( $args['lang'] )
+					: null;
+			},
+			function () use ( $args, $query ) {
+				return 'post.php' === $query['path'] && isset( $args['action'], $args['post'] ) && 'edit' === $args['action']
+					? $this->get_post_lang( $args['post'] )
+					: null;
+			},
+			function () use ( $args ) {
+				return isset( $args['p'] ) ? $this->get_post_lang( $args['p'] ) : null;
+			},
+		];
+
+		$language = null;
+		foreach ( $rules as $rule ) {
+			$candidate = $rule();
+			if ( is_string( $candidate ) && in_array( $candidate, $this->active_languages, true ) ) {
+				$language = $candidate;
+				break;
+			}
+		}
+
+		if ( null === $language ) {
+			return null;
+		}
+
+		$this->language_from_referer = true;
+
+		return $language;
+	}
+
+	protected function get_frontend_referer_lang() {
+		$this->language_from_referer = false;
+
+		$referer = $this->lowercase_origin( $this->get_absolute_raw_referer() );
+		if ( ! $this->is_frontend_referer( $referer ) || $this->is_bare_home( $referer ) ) {
+			return null;
+		}
+
+		$language = $this->url_converter->get_language_from_url( $referer );
+		if ( ! is_string( $language ) || ! in_array( $language, $this->active_languages, true ) ) {
+			return null;
+		}
+
+		$this->language_from_referer = true;
+
+		return $language;
+	}
+
+	private function get_absolute_raw_referer() {
+		$referer = (string) wp_get_raw_referer();
+
+		if ( ! preg_match( '#^https?://#i', $referer ) && isset( $_SERVER['HTTP_REFERER'] ) ) {
+			$referer = esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) );
+		}
+
+		return $referer;
+	}
+
+	private function is_bare_home( $referer ) {
+		$home = trailingslashit( $this->strip_scheme( strtolower( (string) get_option( 'home' ) ) ) );
+
+		return trailingslashit( $this->strip_scheme( $referer ) ) === $home;
+	}
+
+	private function is_frontend_referer( $referer ) {
+		if ( ! preg_match( '#^https?://#', $referer ) ) {
+			return false;
+		}
+
+		$adminUrl = $this->strip_scheme( $this->lowercase_origin( (string) admin_url() ) );
+		if ( '' !== $adminUrl && 0 === strpos( $this->strip_scheme( $referer ), $adminUrl ) ) {
+			return false;
+		}
+
+		$page = trailingslashit( $this->strip_scheme( (string) preg_replace( '#[?\#].*$#', '', $referer ) ) );
+		if ( $this->is_login_page_path( $page ) ) {
+			return false;
+		}
+		foreach ( $this->get_site_roots() as $root ) {
+			if ( 0 === strpos( $page, $root ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function get_site_roots() {
+		$roots = [ (string) get_option( 'home' ) ];
+
+		if ( WPML_LANGUAGE_NEGOTIATION_TYPE_DOMAIN === (int) apply_filters( 'wpml_setting', 0, 'language_negotiation_type' ) ) {
+			$domains = apply_filters( 'wpml_setting', [], 'language_domains' );
+			$roots   = array_merge( $roots, is_array( $domains ) ? array_values( $domains ) : [] );
+		}
+
+		$roots = array_map(
+			function ( $root ) {
+				return trailingslashit( $this->strip_scheme( strtolower( (string) $root ) ) );
+			},
+			$roots
+		);
+
+		return array_values(
+			array_filter(
+				$roots,
+				function ( $root ) {
+					return '/' !== $root;
+				}
+			)
+		);
+	}
+
+	private function strip_scheme( $url ) {
+		return (string) preg_replace( '#^[a-z][a-z0-9+.\-]*://#i', '', $url );
+	}
+
+	protected function get_admin_referer_query() {
+		$none     = [ 'path' => null, 'args' => [] ];
+		$referer  = $this->lowercase_origin( (string) wp_get_raw_referer() );
+		$adminUrl = $this->lowercase_origin( (string) admin_url() );
+
+		if ( '' === $referer || '' === $adminUrl || 0 !== strpos( $referer, $adminUrl ) ) {
+			return $none;
+		}
+
+		$screen = (string) strtok( substr( $referer, strlen( $adminUrl ) ), '#' );
+		$parts  = explode( '?', $screen, 2 );
+		$args   = [];
+		if ( isset( $parts[1] ) ) {
+			parse_str( $parts[1], $args );
+		}
+
+		return [ 'path' => $parts[0], 'args' => $args ];
+	}
+
+	private function lowercase_origin( $url ) {
+		return (string) preg_replace_callback(
+			'#^[a-z][a-z0-9+.\-]*://[^/?\#]*#i',
+			function ( $origin ) {
+				return strtolower( $origin[0] );
+			},
+			$url
+		);
+	}
+
+	private function get_post_lang( $postId ) {
+		global $wpml_post_translations;
+
+		$postId = filter_var( $postId, FILTER_VALIDATE_INT );
+		if ( ! $postId || $postId < 1 || ! $wpml_post_translations ) {
+			return null;
+		}
+
+		$language = $wpml_post_translations->get_element_lang_code( $postId );
+
+		return is_string( $language ) ? $language : null;
+	}
+
+	public function is_login_request() {
+		if ( $this->is_login_page_request() ) {
+			return true;
+		}
+
+		return ! is_user_logged_in() && $this->is_admin_screen_path( $this->get_request_path() );
+	}
+
+	public function is_login_page_request() {
+		global $pagenow;
+
+		if ( 'wp-login.php' === $pagenow ) {
+			return true;
+		}
+
+		$path = $this->get_request_path();
+		if ( $this->is_login_page_path( $path ) ) {
+			return true;
+		}
+
+		$loginPath = $this->get_url_path( wp_login_url() );
+
+		return '' !== $loginPath && $path === $loginPath;
+	}
+
+	private function is_login_page_path( $path ) {
+		$path = rtrim( (string) $path, '/\\' );
+
+		return 'wp-login.php' === $path || '/wp-login.php' === substr( $path, -13 );
+	}
+
+	private function is_admin_screen_path( $path ) {
+		$adminPath = $this->get_url_path( admin_url() );
+		if ( '' === $adminPath ) {
+			return false;
+		}
+
+		$inAdmin = $path === $adminPath || 0 === strpos( $path, $adminPath . '/' );
+
+		return $inAdmin && ! in_array( basename( $path ), [ 'admin-ajax.php', 'admin-post.php' ], true );
+	}
+
+	private function get_request_path() {
+		return rtrim( (string) preg_replace( '#[?\#].*$#', '', $this->get_request_uri() ), '/\\' );
+	}
+
+	private function get_url_path( $url ) {
+		$path = wp_parse_url( (string) $url, PHP_URL_PATH );
+
+		return is_string( $path ) ? rtrim( $path, '/\\' ) : '';
 	}
 
 	public function show_hidden() {

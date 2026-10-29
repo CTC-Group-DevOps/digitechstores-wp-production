@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 function wc_yotpo_get_default_settings() {
   return array('app_key' => '',
     'secret' => '',
@@ -37,47 +39,46 @@ function wc_yotpo_get_default_settings() {
       'bottom_line_category' => false,
     ),
     'yotpo_language_as_site' => true,
-    'show_submit_past_orders' => true,
+    // v3 widgets in the language of each page. On for new stores; missing for stores upgrading from 1.x,
+    // so it reads as off there and their widgets keep the language set in Yotpo.
+    'widget_language_from_page' => true,
     'yotpo_order_status' => 'wc-completed',
     'disable_native_review_system' => true,
+    'product_sync_enabled' => true,
+    'product_sync_tags' => false,
+    'order_sync_enabled' => true,
     'native_star_ratings_enabled' => 'no',
     'debug_mode' => false
   );
 }
 
-function fatal_error_handler($buffer){
-  $error=error_get_last();
-  if(!is_null($error) && $error['type'] == 1){
-      $newBuffer='<html><header><title>Fatal Error </title></header>
-                  <style>                 
-                  .error_content{                     
-                      background: ghostwhite;
-                      vertical-align: middle;
-                      margin:0 auto;
-                      padding:10px;
-                      width:50%;                              
-                   } 
-                   .error_content label{color: red;font-family: "Ubuntu Mono", Consolas, monospace;font-size: 16pt;font-style: italic;}
-                   .error_content ul li{ background: none repeat scroll 0 0 FloralWhite;                   
-                              border: 1px solid AliceBlue;
-                              display: block;
-                              font-family: "Ubuntu Mono", Consolas, monospace;
-                              padding: 2%;
-                              text-align: left;
-                    }
-                  </style>
-                  <body style="text-align: center;">  
-                    <div class="error_content">
-                        <label >Fatal Error </label>
-                        <ul>
-                          <li><b>Line</b> '.$error['line'].'</li>
-                          <li><b>Message</b> '.$error['message'].'</li>
-                          <li><b>File</b> '.$error['file'].'</li>                             
-                        </ul>
-                        <a href="javascript:history.back()"> Back </a>                          
-                    </div>
-                  </body></html>';
-      return $newBuffer;
+// What a missing key meant before it existed: every switch off, widgets included (a widget added
+// after the settings were last saved stays hidden), and v2 widgets. Settings saved by an older
+// version lack these keys, so they must read as they always did, not as the new-install defaults
+// above. The product and order syncs are the exceptions: they are on for existing stores
+// (Yotpo_Product_Sync::setting_on(), Yotpo_Order_Sync::setting_on()); 1.x always sent orders.
+function wc_yotpo_legacy_missing_settings() {
+  $legacy = wc_yotpo_switches_off( wc_yotpo_get_default_settings() );
+  $legacy['widget_version'] = 'v2';
+  $legacy['product_sync_enabled'] = true;
+  $legacy['order_sync_enabled'] = true;
+  return $legacy;
+}
+
+// The same settings with every true/false value, nested ones included, set to false.
+function wc_yotpo_switches_off( array $settings ) {
+  foreach ( $settings as $key => $value ) {
+    if ( is_array( $value ) ) {
+      $settings[ $key ] = wc_yotpo_switches_off( $value );
+    } elseif ( is_bool( $value ) ) {
+      $settings[ $key ] = false;
+    }
   }
-  return $buffer;
+  return $settings;
+}
+
+// Every read of yotpo_settings gets the keys missing from the saved settings, nested ones included,
+// from wc_yotpo_legacy_missing_settings() (the defaults with every switch off). Saved values win.
+function wc_yotpo_fill_missing_settings( $settings ) {
+  return is_array( $settings ) ? array_replace_recursive( wc_yotpo_legacy_missing_settings(), $settings ) : $settings;
 }

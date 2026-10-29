@@ -1164,8 +1164,8 @@
 															<wp:post_id>86</wp:post_id>
 					<wp:post_date><![CDATA[2024-07-29 11:59:51]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-07-29 11:59:51]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-10-24 13:38:34]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-10-24 13:38:34]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-13 12:07:05]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-13 12:07:05]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[about-us]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -1271,8 +1271,8 @@
 															<wp:post_id>88</wp:post_id>
 					<wp:post_date><![CDATA[2024-07-29 12:00:34]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-07-29 12:00:34]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-02 12:02:47]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-02 12:02:47]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-10-13 12:07:05]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-13 12:07:05]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[contact-us]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
@@ -5579,6 +5579,232 @@ This email is a receipt for your contact form submission on our website ([_site_
 					<wp:post_type><![CDATA[page]]></wp:post_type>
 																			</item>
 								<item>
+					<title><![CDATA[Cart]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/cart/</link>
+					<pubDate>Wed, 24 Jul 2024 15:45:50 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/kids-gutenberg/cart/</guid>
+											<content:encoded><![CDATA[<!-- wp:woocommerce/cart -->
+<div class="wp-block-woocommerce-cart alignwide is-loading"><!-- wp:woocommerce/filled-cart-block -->
+<div class="wp-block-woocommerce-filled-cart-block"><!-- wp:woocommerce/cart-items-block -->
+<div class="wp-block-woocommerce-cart-items-block"><!-- wp:woocommerce/cart-line-items-block -->
+<div class="wp-block-woocommerce-cart-line-items-block"></div>
+<!-- /wp:woocommerce/cart-line-items-block -->
+
+<!-- wp:wd/products {"blockId":"4b58b834-9c22-4be3-9195-f9c8b5b67d89","blockVersion":"2","show_title":true,"layout":"carousel","items_per_page":"8","marginTop":"40","slides_per_view":"3.5","hide_pagination_control":true,"hide_pagination_controlTablet":true,"hide_pagination_controlMobile":true} -->
+<!-- wp:wd/title {"blockId":"a96dd4a2-829d-4908-b71c-e261ee7ccca2","blockVersion":"2","content":"You might also like…","tpFontSize":"22","htmlTag":"h4","tpFontSizeMobile":"20"} -->
+<h4 class="wp-block-wd-title title wd-a96dd4a2">You might also like…</h4>
+<!-- /wp:wd/title -->
+<!-- /wp:wd/products --></div>
+<!-- /wp:woocommerce/cart-items-block -->
+
+<!-- wp:woocommerce/cart-totals-block -->
+<div class="wp-block-woocommerce-cart-totals-block"><!-- wp:woocommerce/cart-order-summary-block -->
+<div class="wp-block-woocommerce-cart-order-summary-block"><!-- wp:woocommerce/cart-order-summary-heading-block -->
+<div class="wp-block-woocommerce-cart-order-summary-heading-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-heading-block -->
+
+<!-- wp:woocommerce/cart-order-summary-coupon-form-block -->
+<div class="wp-block-woocommerce-cart-order-summary-coupon-form-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-coupon-form-block -->
+
+<!-- wp:woocommerce/cart-order-summary-totals-block -->
+<div class="wp-block-woocommerce-cart-order-summary-totals-block"><!-- wp:woocommerce/cart-order-summary-subtotal-block -->
+<div class="wp-block-woocommerce-cart-order-summary-subtotal-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-subtotal-block -->
+
+<!-- wp:woocommerce/cart-order-summary-fee-block -->
+<div class="wp-block-woocommerce-cart-order-summary-fee-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-fee-block -->
+
+<!-- wp:woocommerce/cart-order-summary-discount-block -->
+<div class="wp-block-woocommerce-cart-order-summary-discount-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-discount-block -->
+
+<!-- wp:woocommerce/cart-order-summary-shipping-block -->
+<div class="wp-block-woocommerce-cart-order-summary-shipping-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-shipping-block -->
+
+<!-- wp:woocommerce/cart-order-summary-taxes-block -->
+<div class="wp-block-woocommerce-cart-order-summary-taxes-block"></div>
+<!-- /wp:woocommerce/cart-order-summary-taxes-block --></div>
+<!-- /wp:woocommerce/cart-order-summary-totals-block --></div>
+<!-- /wp:woocommerce/cart-order-summary-block -->
+
+<!-- wp:woocommerce/cart-express-payment-block -->
+<div class="wp-block-woocommerce-cart-express-payment-block"></div>
+<!-- /wp:woocommerce/cart-express-payment-block -->
+
+<!-- wp:woocommerce/proceed-to-checkout-block -->
+<div class="wp-block-woocommerce-proceed-to-checkout-block"></div>
+<!-- /wp:woocommerce/proceed-to-checkout-block -->
+
+<!-- wp:woocommerce/cart-accepted-payment-methods-block -->
+<div class="wp-block-woocommerce-cart-accepted-payment-methods-block"></div>
+<!-- /wp:woocommerce/cart-accepted-payment-methods-block --></div>
+<!-- /wp:woocommerce/cart-totals-block --></div>
+<!-- /wp:woocommerce/filled-cart-block -->
+
+<!-- wp:woocommerce/empty-cart-block -->
+<div class="wp-block-woocommerce-empty-cart-block"><!-- wp:heading {"className":"with-empty-cart-icon wc-block-cart__empty-cart__title"} -->
+<h2 class="wp-block-heading with-empty-cart-icon wc-block-cart__empty-cart__title">Your cart is currently empty!</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"typography":{"textAlign":"center"}}} -->
+<p class="has-text-align-center"><a href="https://woodmart.xtemos.com/kids/shop/">Browse store</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator {"className":"is-style-dots"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-dots"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">New in store</h2>
+<!-- /wp:heading -->
+
+<!-- wp:woocommerce/product-new {"columns":4,"rows":1} /--></div>
+<!-- /wp:woocommerce/empty-cart-block --></div>
+<!-- /wp:woocommerce/cart -->]]></content:encoded>
+															<wp:post_id>7</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-24 15:45:50]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-24 15:45:50]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2026-10-05 12:16:08]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-05 12:16:08]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[cart]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[page]]></wp:post_type>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_woodmart_main_layout]]></wp:meta_key>
+							<wp:meta_value><![CDATA[full-width]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[Checkout]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/checkout/</link>
+					<pubDate>Wed, 24 Jul 2024 15:45:50 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/kids-gutenberg/checkout/</guid>
+											<content:encoded><![CDATA[<!-- wp:wd/container {"blockId":"711d455a-e105-4c1b-a0bd-197723b8c4d9","blockVersion":"2","marginBottom":"40","direction":"row","justify":"space-between","align":"center","wrap":"wrap","marginTopMobile":"-20","marginBottomMobile":"20"} -->
+<div class="wp-block-wd-container wd-dir-row wd-align-is-lg-center wd-711d455a"><!-- wp:wd/image {"blockId":"5932c034-9e9c-4e73-86e6-f2c446d6c68b","blockVersion":"2","image":{"id":244,"url":"https://woodmart.xtemos.com/kids/wp-content/uploads/sites/13/2023/05/w-bcs-logo-black-l-1.svg","width":245,"height":72},"imageData":{"url":"https://woodmart.xtemos.com/kids/wp-content/uploads/sites/13/2023/05/w-bcs-logo-black-l-1.svg","width":245,"height":72},"displayWidth":"custom","customWidth":"193","displayWidthTablet":"custom","customWidthTablet":"150"} -->
+<div class="wp-block-wd-image wd-block-image wd-5932c034 wd-custom-width"><img class="wp-image-244" src="https://woodmart.xtemos.com/kids/wp-content/uploads/sites/13/2023/05/w-bcs-logo-black-l-1.svg" alt=""/></div>
+<!-- /wp:wd/image -->
+
+<!-- wp:wd/woo-checkout-steps {"blockId":"be078318-f8be-45f6-8d45-7b165bc9abf4","blockVersion":"2"} /--></div>
+<!-- /wp:wd/container -->
+
+<!-- wp:woocommerce/checkout -->
+<div class="wp-block-woocommerce-checkout alignwide wc-block-checkout is-loading"><!-- wp:woocommerce/checkout-totals-block -->
+<div class="wp-block-woocommerce-checkout-totals-block"><!-- wp:woocommerce/checkout-order-summary-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-block"><!-- wp:woocommerce/checkout-order-summary-cart-items-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-cart-items-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-cart-items-block -->
+
+<!-- wp:woocommerce/checkout-order-summary-coupon-form-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-coupon-form-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-coupon-form-block -->
+
+<!-- wp:woocommerce/checkout-order-summary-totals-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-totals-block"><!-- wp:woocommerce/checkout-order-summary-subtotal-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-subtotal-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-subtotal-block -->
+
+<!-- wp:woocommerce/checkout-order-summary-fee-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-fee-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-fee-block -->
+
+<!-- wp:woocommerce/checkout-order-summary-discount-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-discount-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-discount-block -->
+
+<!-- wp:woocommerce/checkout-order-summary-shipping-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-shipping-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-shipping-block -->
+
+<!-- wp:woocommerce/checkout-order-summary-taxes-block -->
+<div class="wp-block-woocommerce-checkout-order-summary-taxes-block"></div>
+<!-- /wp:woocommerce/checkout-order-summary-taxes-block --></div>
+<!-- /wp:woocommerce/checkout-order-summary-totals-block --></div>
+<!-- /wp:woocommerce/checkout-order-summary-block --></div>
+<!-- /wp:woocommerce/checkout-totals-block -->
+
+<!-- wp:woocommerce/checkout-fields-block -->
+<div class="wp-block-woocommerce-checkout-fields-block"><!-- wp:woocommerce/checkout-express-payment-block -->
+<div class="wp-block-woocommerce-checkout-express-payment-block"></div>
+<!-- /wp:woocommerce/checkout-express-payment-block -->
+
+<!-- wp:woocommerce/checkout-contact-information-block -->
+<div class="wp-block-woocommerce-checkout-contact-information-block"></div>
+<!-- /wp:woocommerce/checkout-contact-information-block -->
+
+<!-- wp:woocommerce/checkout-shipping-method-block -->
+<div class="wp-block-woocommerce-checkout-shipping-method-block"></div>
+<!-- /wp:woocommerce/checkout-shipping-method-block -->
+
+<!-- wp:woocommerce/checkout-pickup-options-block -->
+<div class="wp-block-woocommerce-checkout-pickup-options-block"></div>
+<!-- /wp:woocommerce/checkout-pickup-options-block -->
+
+<!-- wp:woocommerce/checkout-shipping-address-block -->
+<div class="wp-block-woocommerce-checkout-shipping-address-block"></div>
+<!-- /wp:woocommerce/checkout-shipping-address-block -->
+
+<!-- wp:woocommerce/checkout-billing-address-block -->
+<div class="wp-block-woocommerce-checkout-billing-address-block"></div>
+<!-- /wp:woocommerce/checkout-billing-address-block -->
+
+<!-- wp:woocommerce/checkout-shipping-methods-block -->
+<div class="wp-block-woocommerce-checkout-shipping-methods-block"></div>
+<!-- /wp:woocommerce/checkout-shipping-methods-block -->
+
+<!-- wp:woocommerce/checkout-payment-block -->
+<div class="wp-block-woocommerce-checkout-payment-block"></div>
+<!-- /wp:woocommerce/checkout-payment-block -->
+
+<!-- wp:woocommerce/checkout-additional-information-block -->
+<div class="wp-block-woocommerce-checkout-additional-information-block"></div>
+<!-- /wp:woocommerce/checkout-additional-information-block -->
+
+<!-- wp:woocommerce/checkout-order-note-block -->
+<div class="wp-block-woocommerce-checkout-order-note-block"></div>
+<!-- /wp:woocommerce/checkout-order-note-block -->
+
+<!-- wp:woocommerce/checkout-terms-block -->
+<div class="wp-block-woocommerce-checkout-terms-block"></div>
+<!-- /wp:woocommerce/checkout-terms-block -->
+
+<!-- wp:woocommerce/checkout-actions-block -->
+<div class="wp-block-woocommerce-checkout-actions-block"></div>
+<!-- /wp:woocommerce/checkout-actions-block --></div>
+<!-- /wp:woocommerce/checkout-fields-block --></div>
+<!-- /wp:woocommerce/checkout -->]]></content:encoded>
+															<wp:post_id>8</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-24 15:45:50]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-24 15:45:50]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2026-10-05 12:22:11]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-10-05 12:22:11]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[checkout]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[page]]></wp:post_type>
+																					<wp:postmeta>
+							<wp:meta_key><![CDATA[_woodmart_main_layout]]></wp:meta_key>
+							<wp:meta_value><![CDATA[full-width]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_woodmart_header_off]]></wp:meta_key>
+							<wp:meta_value><![CDATA[on]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_woodmart_title_off]]></wp:meta_key>
+							<wp:meta_value><![CDATA[on]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
 					<title><![CDATA[Zip Growsuit]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/product/zip-growsuit/</link>
 					<pubDate>Wed, 24 Jul 2024 15:57:17 +0000</pubDate>
@@ -6652,126 +6878,6 @@ This email is a receipt for your contact form submission on our website ([_site_
 						</wp:postmeta>
 									</item>
 								<item>
-					<title><![CDATA[]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/2024/07/29/134/</link>
-					<pubDate>Mon, 29 Jul 2024 12:55:05 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/kids-gutenberg/?p=134</guid>
-											<content:encoded><![CDATA[ ]]></content:encoded>
-															<wp:post_id>134</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-29 13:22:07]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-29 12:55:05]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-29 13:22:07]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-29 13:22:07]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-					<wp:post_name><![CDATA[134]]></wp:post_name>
-					<wp:status><![CDATA[publish]]></wp:status>
-					<wp:post_parent>0</wp:post_parent>
-					<wp:menu_order>2</wp:menu_order>
-					<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
-												<category domain="nav_menu" nicename="home-menu-kids-light-icon"><![CDATA[Home menu Kids light icon]]></category>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
-							<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
-							<wp:meta_value><![CDATA[88]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
-							<wp:meta_value><![CDATA[page]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
-							<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_design]]></wp:meta_key>
-							<wp:meta_value><![CDATA[default]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_padding]]></wp:meta_key>
-							<wp:meta_value><![CDATA[]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_image-type]]></wp:meta_key>
-							<wp:meta_value><![CDATA[image]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_style_aside]]></wp:meta_key>
-							<wp:meta_value><![CDATA[default]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_scroll]]></wp:meta_key>
-							<wp:meta_value><![CDATA[no]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
-							<wp:meta_value><![CDATA[155]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
-					<title><![CDATA[]]></title>
-					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/2024/07/29/135/</link>
-					<pubDate>Mon, 29 Jul 2024 12:55:05 +0000</pubDate>
-					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
-					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/kids-gutenberg/?p=135</guid>
-											<content:encoded><![CDATA[ ]]></content:encoded>
-															<wp:post_id>135</wp:post_id>
-					<wp:post_date><![CDATA[2024-07-29 13:22:07]]></wp:post_date>
-					<wp:post_date_gmt><![CDATA[2024-07-29 12:55:05]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-07-29 13:22:07]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-07-29 13:22:07]]></wp:post_modified_gmt>
-					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-					<wp:post_name><![CDATA[135]]></wp:post_name>
-					<wp:status><![CDATA[publish]]></wp:status>
-					<wp:post_parent>0</wp:post_parent>
-					<wp:menu_order>1</wp:menu_order>
-					<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
-												<category domain="nav_menu" nicename="home-menu-kids-light-icon"><![CDATA[Home menu Kids light icon]]></category>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
-							<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
-							<wp:meta_value><![CDATA[86]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
-							<wp:meta_value><![CDATA[page]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
-							<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_design]]></wp:meta_key>
-							<wp:meta_value><![CDATA[default]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_padding]]></wp:meta_key>
-							<wp:meta_value><![CDATA[]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_image-type]]></wp:meta_key>
-							<wp:meta_value><![CDATA[image]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_style_aside]]></wp:meta_key>
-							<wp:meta_value><![CDATA[default]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_menu_item_scroll]]></wp:meta_key>
-							<wp:meta_value><![CDATA[no]]></wp:meta_value>
-						</wp:postmeta>
-											<wp:postmeta>
-							<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
-							<wp:meta_value><![CDATA[153]]></wp:meta_value>
-						</wp:postmeta>
-									</item>
-								<item>
 					<title><![CDATA[Products archive - Kids]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/woodmart_layout/products-archive-kids/</link>
 					<pubDate>Fri, 09 Aug 2024 09:39:17 +0000</pubDate>
@@ -6965,6 +7071,126 @@ This email is a receipt for your contact form submission on our website ([_site_
 											<wp:postmeta>
 							<wp:meta_key><![CDATA[wd_layout_conditions]]></wp:meta_key>
 							<wp:meta_value><![CDATA[a:1:{i:0;a:3:{s:20:"condition_comparison";s:7:"include";s:14:"condition_type";s:3:"all";s:15:"condition_query";s:0:"";}}]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/2024/07/29/134/</link>
+					<pubDate>Mon, 29 Jul 2024 12:55:05 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/kids-gutenberg/?p=134</guid>
+											<content:encoded><![CDATA[ ]]></content:encoded>
+															<wp:post_id>134</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-29 13:22:07]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-29 12:55:05]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-29 13:22:07]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-29 13:22:07]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[134]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>2</wp:menu_order>
+					<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
+												<category domain="nav_menu" nicename="home-menu-kids-light-icon"><![CDATA[Home menu Kids light icon]]></category>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
+							<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
+							<wp:meta_value><![CDATA[88]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
+							<wp:meta_value><![CDATA[page]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_design]]></wp:meta_key>
+							<wp:meta_value><![CDATA[default]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_padding]]></wp:meta_key>
+							<wp:meta_value><![CDATA[]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_image-type]]></wp:meta_key>
+							<wp:meta_value><![CDATA[image]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_style_aside]]></wp:meta_key>
+							<wp:meta_value><![CDATA[default]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_scroll]]></wp:meta_key>
+							<wp:meta_value><![CDATA[no]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+							<wp:meta_value><![CDATA[155]]></wp:meta_value>
+						</wp:postmeta>
+									</item>
+								<item>
+					<title><![CDATA[]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/kids-gutenberg/2024/07/29/135/</link>
+					<pubDate>Mon, 29 Jul 2024 12:55:05 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/kids-gutenberg/?p=135</guid>
+											<content:encoded><![CDATA[ ]]></content:encoded>
+															<wp:post_id>135</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-29 13:22:07]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-29 12:55:05]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-29 13:22:07]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-29 13:22:07]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[135]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>0</wp:post_parent>
+					<wp:menu_order>1</wp:menu_order>
+					<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
+												<category domain="nav_menu" nicename="home-menu-kids-light-icon"><![CDATA[Home menu Kids light icon]]></category>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
+							<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
+							<wp:meta_value><![CDATA[86]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
+							<wp:meta_value><![CDATA[page]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
+							<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_design]]></wp:meta_key>
+							<wp:meta_value><![CDATA[default]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_padding]]></wp:meta_key>
+							<wp:meta_value><![CDATA[]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_image-type]]></wp:meta_key>
+							<wp:meta_value><![CDATA[image]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_style_aside]]></wp:meta_key>
+							<wp:meta_value><![CDATA[default]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_menu_item_scroll]]></wp:meta_key>
+							<wp:meta_value><![CDATA[no]]></wp:meta_value>
+						</wp:postmeta>
+											<wp:postmeta>
+							<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+							<wp:meta_value><![CDATA[153]]></wp:meta_value>
 						</wp:postmeta>
 									</item>
 								<item>

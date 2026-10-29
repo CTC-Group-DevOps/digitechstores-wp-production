@@ -6,7 +6,7 @@ Description: Slider Revolution - More than just a WordPress Slider
 Author: ThemePunch
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.7.58
+Version: 6.8.1
 Author URI: https://themepunch.com/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=info
 */
 
@@ -17,7 +17,7 @@ if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-define('RS_REVISION',			'6.7.58');
+define('RS_REVISION',			'6.8.1');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -64,7 +64,7 @@ $SR_GLOBALS = array(
 		'php', 'php2', 'php3', 'php4', 'php5', 'php6', 'php7', 'phps', 'phps', 'pht', 'phtm', 'phtml', 'pgif', 'shtml', 'htaccess', 'phar', 'inc', 'hphp', 'ctp', 'module',
 		'asp', 'aspx', 'config', 'ashx', 'asmx', 'aspq', 'axd', 'cshtm', 'cshtml', 'rem', 'soap', 'vbhtm', 'vbhtml', 'asa', 'cer', 'shtml',
 		'jsp', 'jspx', 'jsw', 'jsv', 'jspf', 'wss', 'do', 'action',
-		'cfm, .cfml, .cfc, .dbm',
+		'cfm', 'cfml', 'cfc', 'dbm', 'php8', 'phpt', 'svgz', 'xml', 'xsl', 'xslt', 'mht', 'mhtml', 'hta', 'wsf',
 		'swf',
 		'pl', 'cgi',
 		'yaws',

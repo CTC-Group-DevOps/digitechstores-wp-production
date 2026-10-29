@@ -102,6 +102,14 @@ class Main extends Singleton {
 		$post_id = absint( $_REQUEST['post'] );
 		$post    = get_post( $post_id );
 
+		if (
+			! $post ||
+			! in_array( $post->post_type, $this->allowed_post_types, true ) ||
+			! current_user_can( 'edit_post', $post_id )
+		) {
+			wp_die( esc_html__( 'You are not allowed to duplicate this item.', 'woodmart' ) );
+		}
+
 		/*
 		 * If post data exists, create the post duplicate.
 		 */
@@ -184,29 +192,23 @@ class Main extends Singleton {
 	public function duplicate_post_meta( $post_id, $new_post_id ) {
 		global $wpdb;
 
-		$post_meta_infos = $wpdb->get_results( "SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id=$post_id" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		$post_meta_infos = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare( "SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id = %d", $post_id )
+		);
 
-		if ( 0 !== count( $post_meta_infos ) ) {
-			$sql_query = "INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) ";
-
-			foreach ( $post_meta_infos as $meta_info ) {
-				$meta_key = $meta_info->meta_key;
-
-				if ( '_wp_old_slug' === $meta_key ) {
-					continue;
-				}
-
-				$meta_value      = addslashes( $meta_info->meta_value );
-				$sql_query_sel[] = "SELECT $new_post_id, '$meta_key', '$meta_value'";
+		foreach ( $post_meta_infos as $meta_info ) {
+			if ( '_wp_old_slug' === $meta_info->meta_key ) {
+				continue;
 			}
 
-			if ( empty( $sql_query_sel ) ) {
-				return;
-			}
-
-			$sql_query .= implode( ' UNION ALL ', $sql_query_sel );
-
-			$wpdb->query( $sql_query ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				$wpdb->postmeta,
+				array(
+					'post_id'    => $new_post_id,
+					'meta_key'   => $meta_info->meta_key,   // phpcs:ignore WordPress.DB.SlowDBQuery
+					'meta_value' => $meta_info->meta_value, // phpcs:ignore WordPress.DB.SlowDBQuery
+				)
+			);
 		}
 	}
 }

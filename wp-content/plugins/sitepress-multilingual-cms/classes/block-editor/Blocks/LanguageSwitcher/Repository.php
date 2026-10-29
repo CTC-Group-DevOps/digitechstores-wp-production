@@ -18,13 +18,17 @@ class Repository {
 		$this->languageSwitcherModelBuilder = new \WPML_LS_Model_Build( $dependencies->settings(), $sitepress, 'wpml-ls-' );
 	}
 
-	public function getCurrentLanguageSwitcher( ) {
-		$model = $this->languageSwitcherModelBuilder->get( new \WPML_LS_Slot( [
+	public function getModel() {
+		return $this->languageSwitcherModelBuilder->get( new \WPML_LS_Slot( [
 			'display_link_for_current_lang' => true,
 			'display_names_in_native_lang' => true,
 			'display_names_in_current_lang' => true,
 			'display_flags' => true,
 		]) );
+	}
+
+	public function getCurrentLanguageSwitcher( ?array $model = null ) {
+		$model = $model ?? $this->getModel();
 
 		$languages = $model[ 'languages' ];
 		$currentLanguageCode = $model[ 'current_language_code' ];
@@ -34,7 +38,11 @@ class Repository {
 			$languageItems[] = $this->buildLanguageItem( $language );
 		}
 
-		return new LanguageSwitcher( $currentLanguageCode, $languageItems );
+		return new LanguageSwitcher(
+			$currentLanguageCode,
+			$languageItems,
+			isset( $model['has_alternatives'] ) ? (bool) $model['has_alternatives'] : null
+		);
 	}
 
 	private function buildLanguageItem( array $language ) {

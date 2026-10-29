@@ -12,10 +12,12 @@ use WPML\TM\API\Jobs;
 use WPML\FP\Wrapper;
 use WPML\Settings\PostType\Automatic;
 use WPML\Setup\Option;
-use WPML\TM\ATE\JobRecords;
+use WPML\TM\ATE\ClonedSites\ApiCommunication;
+use WPML\TM\ATE\JobCreation\AteCreateReconciler;
+use WPML\TM\ATE\JobCreation\CreateFailureText;
+use WPML\TM\ATE\NothingToTranslateJob;
 use WPML\TM\ATE\Log\Storage;
 use WPML\TM\ATE\Log\Entry;
-use function WPML\FP\partialRight;
 use function WPML\FP\pipe;
 use WPML\TM\API\ATE\LanguageMappings;
 use WPML\Element\API\Languages;
@@ -23,8 +25,15 @@ use WPML\TM\Jobs\JobLog;
 use WPML\Translation\AteSyncOrderingServiceFactory;
 
 class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
+	const ATE_RECORD_SPENT_STATUSES = AteCreateReconciler::ATE_RECORD_SPENT_STATUSES;
+
+	const IN_FLIGHT_MARKER_TTL = 120;
+
+	const IN_FLIGHT_MARKER_REFRESH_BELOW = 90;
+
 	const RESPONSE_ATE_NOT_ACTIVE_ERROR     = 403;
 	const RESPONSE_ATE_DUPLICATED_SOURCE_ID = 417;
+	const RESPONSE_ATE_CLIENT_RESTRICTED    = 428;
 	const RESPONSE_ATE_UNEXPECTED_ERROR     = 500;
 
 	const RESPONSE_ATE_ERROR_NOTICE_ID    = 'ate-update-error';
@@ -42,6 +51,8 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 	private $current_screen;
 
 	private $wp_api;
+
+	private $reconciler;
 
 	public function __construct(
 		WPML_TM_ATE_API $ate_api,
@@ -62,21 +73,19 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 	public function add_hooks() {
 		add_action( 'wpml_added_translation_job', [ $this, 'added_translation_job' ], 10, 2 );
 		add_action( 'wpml_added_translation_jobs', [ $this, 'added_translation_jobs' ], 10, 3 );
-		add_action( 'admin_notices', [ $this, 'handle_messages' ] );
 
-		add_filter( 'wpml_tm_ate_jobs_data', [ $this, 'get_ate_jobs_data_filter' ], 10, 2 );
-		add_filter( 'wpml_tm_ate_jobs_editor_url', [ $this, 'get_editor_url' ], 10, 3 );
+		if ( ! $this->wp_api->is_front_end() ) {
+			add_action( 'admin_notices', [ $this, 'handle_messages' ] );
+
+			add_filter( 'wpml_tm_ate_jobs_data', [ $this, 'get_ate_jobs_data_filter' ], 10, 2 );
+			add_filter( 'wpml_tm_ate_jobs_editor_url', [ $this, 'get_editor_url' ], 10, 3 );
+		}
 	}
 
 	public function handle_messages() {
 		if ( $this->current_screen->id_ends_with( WPML_TM_FOLDER . '/menu/translations-queue' ) ) {
 
 			if ( array_key_exists( 'message', $_GET ) ) {
-				if ( array_key_exists( 'ate_job_id', $_GET ) ) {
-					$ate_job_id = filter_var( $_GET['ate_job_id'], FILTER_SANITIZE_NUMBER_INT );
-
-					$this->resign_job_on_error( $ate_job_id );
-				}
 				$message = Sanitize::stringProp( 'message', $_GET );
 				?>
 
@@ -94,8 +103,23 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 	}
 
 	public function added_translation_jobs( array $jobs, $sentFrom = null, ?\WPML_TM_Translation_Batch $batch = null ) {
+		$inFlightMarkers = [];
+
+		try {
+			$this->send_and_bind_jobs( $jobs, $sentFrom, $batch, $inFlightMarkers );
+		} finally {
+			$this->clear_in_flight_markers( $inFlightMarkers );
+		}
+	}
+
+	private function send_and_bind_jobs( array $jobs, $sentFrom, $batch, array &$inFlightMarkers ) {
 		$additionalErrorMsg            = '';
 		$translationModeSetInDashboard = null;
+		$created_jobs                  = [];
+		$adopted_jobs                  = [];
+		$job_ids                       = [];
+		$job_ids_without_model         = [];
+		$create_error_reported         = false;
 
 		try {
 			$oldEditor = wpml_tm_load_old_jobs_editor();
@@ -105,88 +129,263 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 				return;
 			}
 
-			$applyTranslationMemory = $this->shouldApplyTranslationMemory( $batch );
+			if ( Jobs::SENT_RETRY === $sentFrom ) {
+				$reconciled   = $this->reconciler()->reconcile( $job_ids );
+				$adopted_jobs = $reconciled['adopted'];
 
-			$jobs = Fns::map(
-				function ( $jobId ) use ( $applyTranslationMemory ) {
-					return wpml_tm_create_ATE_job_creation_model( $jobId, $applyTranslationMemory );
-				},
-				$job_ids
-			);
+				if ( AteCreateReconciler::OUTCOME_NO_ANSWER === $reconciled['outcome'] ) {
+					$this->count_failed_retries( $job_ids );
+					$job_ids = [];
+				} else {
+					$job_ids = array_values( array_diff( $job_ids, array_keys( $adopted_jobs ) ) );
+				}
 
-			$translationModeSetInDashboard = $this->getTranslationModeFromBatch( $batch );
-			$responses                     = Fns::map(
-				Fns::unary( partialRight( [ $this, 'create_jobs' ], $sentFrom ) ),
-				$this->getChunkedJobs( $jobs, $translationModeSetInDashboard )
-			);
-			$created_jobs                  = $this->getResponsesJobs( $responses, $jobs );
+				if ( $adopted_jobs ) {
+					ApiCommunication::noteCreateConfirmed();
+				}
+			}
+
+			$this->write_in_flight_markers( $job_ids, $inFlightMarkers );
+
+			if ( $job_ids ) {
+				$applyTranslationMemory = $this->shouldApplyTranslationMemory( $batch );
+
+				$jobs = [];
+				foreach ( $job_ids as $jobId ) {
+					$model = wpml_tm_create_ATE_job_creation_model( $jobId, $applyTranslationMemory );
+					if ( $model ) {
+						$jobs[] = $model;
+					} else {
+						$job_ids_without_model[] = (int) $jobId;
+					}
+				}
+
+				list( $jobsWithNothingToTranslate, $jobs ) = Lst::partition(
+					[ NothingToTranslateJob::class, 'isJobModel' ],
+					$jobs
+				);
+
+				if ( $jobsWithNothingToTranslate ) {
+					$emptyJobIds = [];
+					foreach ( $jobsWithNothingToTranslate as $emptyJobModel ) {
+						$this->complete_job_with_nothing_to_translate( (int) $emptyJobModel->id );
+						$emptyJobIds[] = $emptyJobModel->id;
+					}
+
+					$job_ids = array_values( array_diff( $job_ids, $emptyJobIds ) );
+
+					if ( ! $jobs ) {
+						if ( ! $adopted_jobs ) {
+							return;
+						}
+
+						$job_ids = [];
+					}
+				}
+			}
+
+			if ( $job_ids ) {
+				$translationModeSetInDashboard = $this->getTranslationModeFromBatch( $batch );
+				$reviewMode                    = $batch && $batch->getReviewMode() ? $batch->getReviewMode() : Option::getReviewMode();
+				$chunks                        = array_values( $this->getChunkedJobs( $jobs, $translationModeSetInDashboard ) );
+				$responses                     = [];
+				foreach ( $chunks as $index => $chunk ) {
+					$this->refresh_in_flight_markers( $this->job_ids_of_chunks( array_slice( $chunks, $index ) ), $inFlightMarkers );
+					$responses[] = $this->create_jobs( $chunk, $sentFrom, $reviewMode );
+				}
+				$created_jobs = $this->getResponsesJobs( $responses, $chunks, $create_error_reported );
+			}
 		} catch ( \Throwable $throwable ) {
 			$created_jobs       = [];
 			$additionalErrorMsg = $this->getErrorMessage( $throwable );
 			$this->maybeLogRuntimeError( $additionalErrorMsg );
 
-			if ( empty( $oldEditor ) || empty( $job_ids ) ) {
+			if ( empty( $oldEditor ) || ( empty( $job_ids ) && empty( $adopted_jobs ) ) ) {
 				return;
 			}
 		}
 
-		if ( $created_jobs ) {
+		$bound_jobs = $adopted_jobs + ( $created_jobs ? $this->map_response_jobs( $created_jobs ) : [] );
 
-			$created_jobs = $this->map_response_jobs( $created_jobs );
-
-			$this->ate_jobs->warm_cache( array_keys( $created_jobs ) );
-
-			foreach ( $created_jobs as $wpml_job_id => $ate_job_id ) {
-				$this->ate_jobs->store( $wpml_job_id, [ JobRecords::FIELD_ATE_JOB_ID => $ate_job_id ] );
-				$oldEditor->set( $wpml_job_id, WPML_TM_Editors::ATE );
-				$translationJob = wpml_tm_load_job_factory()->get_translation_job( $wpml_job_id, false, 0, true );
-                if ( $translationJob ) {
-	                $jobType = $this->getJobType( $translationJob, $translationModeSetInDashboard );
-	                Jobs::setAutomaticStatus( $wpml_job_id, $jobType === 'auto' );
-                }
-
-				JobLog::add( 'ate_job_bound', [
-					'job_id'              => (int) $wpml_job_id,
-					'ate_job_id'          => (int) $ate_job_id,
-					'sent_from'           => $sentFrom,
-					'target_lang'         => JobLog::safeCall( $translationJob, 'get_language_code' ),
-					'original_element_id' => JobLog::safeCall( $translationJob, 'get_original_element_id' ),
-				] );
-
-				if ( $sentFrom === Jobs::SENT_RETRY ) {
-					Jobs::setStatus( $wpml_job_id, ICL_TM_WAITING_FOR_TRANSLATOR );
+		if ( $bound_jobs ) {
+			$modeByJobId = $this->mode_by_job_id( array_keys( $bound_jobs ), $translationModeSetInDashboard );
+			foreach ( array_keys( $adopted_jobs ) as $adopted_job_id ) {
+				if ( AteCreateReconciler::markedByClone( $adopted_job_id ) ) {
+					$modeByJobId[ (int) $adopted_job_id ] = 'manual';
 				}
 			}
 
-			$message = __( '%1$s jobs added to the Advanced Translation Editor.', 'sitepress' );
-			$this->add_message( 'updated', sprintf( $message, count( $created_jobs ) ), 'wpml_tm_ate_create_job' );
+			$this->reconciler()->bind( $bound_jobs, $modeByJobId, $sentFrom );
 
-			do_action( 'wpml_tm_ate_jobs_created', $created_jobs );
-		} else {
-			if ( Lst::includes( $sentFrom, [ Jobs::SENT_AUTOMATICALLY, Jobs::SENT_RETRY ] ) ) {
-				if ( $sentFrom === Jobs::SENT_RETRY ) {
-					$updateJob = function ( $jobId ) {
-						Jobs::incrementRetryCount( $jobId );
-						$this->logRetryError( $jobId );
-					};
-				} else {
-					$updateJob = function ( $jobId ) use ( $oldEditor, $translationModeSetInDashboard, $additionalErrorMsg ) {
-						$this->logError( $jobId, $additionalErrorMsg );
-
-						$translationJob = wpml_tm_load_job_factory()->get_translation_job( $jobId, false, 0, true );
-						if ( $translationJob ) {
-                            $jobType = $this->getJobType( $translationJob, $translationModeSetInDashboard );
-                            if ( $jobType === 'auto' ) {
-                                Jobs::setStatus( $jobId, ICL_TM_ATE_NEEDS_RETRY );
-                                $oldEditor->set( $jobId, WPML_TM_Editors::ATE );
-                                wpml_tm_load_job_factory()->update_job_data( $jobId, [ 'automatic' => 1 ] );
-                            }
-                        }
-					};
+			if ( $sentFrom === Jobs::SENT_RETRY ) {
+				foreach ( array_keys( $bound_jobs ) as $wpml_job_id ) {
+					$isAutomatic = isset( $modeByJobId[ $wpml_job_id ] ) && 'auto' === $modeByJobId[ $wpml_job_id ];
+					Jobs::setStatus(
+						$wpml_job_id,
+						$isAutomatic ? ICL_TM_IN_PROGRESS : ICL_TM_WAITING_FOR_TRANSLATOR
+					);
 				}
-
-				wpml_collect( $job_ids )->map( $updateJob );
 			}
+		}
+
+		$held_back = $this->held_back_job_ids( $job_ids_without_model );
+		if ( $held_back ) {
+			do_action( 'wpml_tm_ate_create_held_back', $held_back, $sentFrom );
+		}
+
+		$not_created = array_values(
+			array_diff( array_map( 'intval', $job_ids ), array_map( 'intval', array_keys( $bound_jobs ) ), $held_back )
+		);
+		if ( $not_created ) {
+			if ( Jobs::SENT_VIA_DASHBOARD === (int) $sentFrom ) {
+				$modeByJobId = $this->mode_by_job_id( $not_created, $translationModeSetInDashboard );
+				foreach ( $not_created as $not_created_job_id ) {
+					update_option(
+						AteCreateReconciler::UNCONFIRMED_OPTION_PREFIX . $not_created_job_id,
+						[
+							'at'   => time(),
+							'mode' => isset( $modeByJobId[ $not_created_job_id ] ) ? $modeByJobId[ $not_created_job_id ] : '',
+						],
+						false
+					);
+				}
+			}
+
+			do_action( 'wpml_tm_ate_create_failed', $not_created, $sentFrom );
+
+			if (
+				Jobs::SENT_VIA_DASHBOARD === (int) $sentFrom
+				&& ! $create_error_reported
+				&& array_diff( $not_created, $job_ids_without_model )
+			) {
+				do_action(
+					'wpml_tm_add_message',
+					'error',
+					/* translators: The reason shown in the dialog that reports what was sent for translation, for items whose sending WPML could not confirm. */
+					__( 'WPML could not confirm that these items reached the translation server.', 'sitepress' )
+				);
+			}
+		}
+
+		$unbound = array_values(
+			array_diff( array_map( 'intval', $job_ids ), array_map( 'intval', array_keys( $bound_jobs ) ) )
+		);
+		if ( $unbound && Lst::includes( $sentFrom, [ Jobs::SENT_AUTOMATICALLY, Jobs::SENT_RETRY ] ) ) {
+			if ( $sentFrom === Jobs::SENT_RETRY ) {
+				$updateJob = function ( $jobId ) {
+					Jobs::incrementRetryCount( $jobId );
+					$this->logRetryError( $jobId );
+				};
+			} else {
+				$updateJob = function ( $jobId ) use ( $oldEditor, $additionalErrorMsg ) {
+					$this->logError( $jobId, $additionalErrorMsg );
+
+					Jobs::setStatus( $jobId, ICL_TM_ATE_NEEDS_RETRY );
+					$oldEditor->set( $jobId, WPML_TM_Editors::ATE );
+					wpml_tm_load_job_factory()->update_job_data( $jobId, [ 'automatic' => 1 ] );
+				};
+			}
+
+			wpml_collect( $unbound )->map( $updateJob );
+		}
+	}
+
+	private function held_back_job_ids( array $jobIdsWithoutModel ) {
+		if ( ! $jobIdsWithoutModel ) {
+			return [];
+		}
+
+		$failures = get_option( 'wpml_words_to_translate_failures', [] );
+		if ( ! is_array( $failures ) ) {
+			return [];
+		}
+
+		return array_values(
+			array_filter(
+				array_map( 'intval', $jobIdsWithoutModel ),
+				function ( $jobId ) use ( $failures ) {
+					return isset( $failures[ $jobId ] );
+				}
+			)
+		);
+	}
+
+	private function reconciler() {
+		if ( ! $this->reconciler ) {
+			$this->reconciler = new AteCreateReconciler( $this->ate_api, $this->ate_jobs );
+		}
+
+		return $this->reconciler;
+	}
+
+	private function count_failed_retries( array $job_ids ) {
+		foreach ( $job_ids as $job_id ) {
+			Jobs::incrementRetryCount( $job_id );
+			$this->logRetryError( $job_id );
+		}
+	}
+
+	private function mode_by_job_id( array $wpml_job_ids, $translationModeSetInDashboard ) {
+		$modes = [];
+		foreach ( $wpml_job_ids as $wpml_job_id ) {
+			$translationJob = wpml_tm_load_job_factory()->get_translation_job( $wpml_job_id, false, 0, true );
+			if ( $translationJob ) {
+				$modes[ (int) $wpml_job_id ] = AteCreateReconciler::jobTypeOf( $translationJob, $translationModeSetInDashboard );
+			}
+		}
+
+		return $modes;
+	}
+
+	private function write_in_flight_markers( array $job_ids, array &$inFlightMarkers ) {
+		$expiry = time() + self::IN_FLIGHT_MARKER_TTL;
+		foreach ( $job_ids as $job_id ) {
+			$job_id = (int) $job_id;
+			$name   = AteCreateReconciler::IN_FLIGHT_OPTION_PREFIX . $job_id;
+			wp_cache_delete( $name, 'options' );
+			update_option( $name, $expiry, false );
+			$inFlightMarkers[ $job_id ] = $expiry;
+		}
+	}
+
+	private function refresh_in_flight_markers( array $job_ids, array &$inFlightMarkers ) {
+		$writeBelow = time() + self::IN_FLIGHT_MARKER_REFRESH_BELOW;
+		$due        = [];
+		foreach ( $job_ids as $job_id ) {
+			$job_id = (int) $job_id;
+			if ( ! isset( $inFlightMarkers[ $job_id ] ) || $inFlightMarkers[ $job_id ] < $writeBelow ) {
+				$due[] = $job_id;
+			}
+		}
+
+		$this->write_in_flight_markers( $due, $inFlightMarkers );
+	}
+
+	private function clear_in_flight_markers( array $inFlightMarkers ) {
+		foreach ( array_keys( $inFlightMarkers ) as $job_id ) {
+			delete_option( AteCreateReconciler::IN_FLIGHT_OPTION_PREFIX . $job_id );
+		}
+	}
+
+	private function job_ids_of_chunks( array $chunks ) {
+		$job_ids = [];
+		foreach ( $chunks as $chunk ) {
+			foreach ( $chunk['jobs'] as $job ) {
+				$job_id = is_object( $job ) ? ( $job->id ?? null ) : ( $job['id'] ?? null );
+				if ( $job_id ) {
+					$job_ids[] = (int) $job_id;
+				}
+			}
+		}
+
+		return $job_ids;
+	}
+
+	private function complete_job_with_nothing_to_translate( $jobId ) {
+		try {
+			NothingToTranslateJob::completeJob( $jobId );
+		} catch ( \Throwable $throwable ) {
+			$this->maybeLogRuntimeError( $this->getErrorMessage( $throwable ) );
 		}
 	}
 
@@ -202,11 +401,7 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 		return $result;
 	}
 
-	private function add_message( $type, $message, $id = null ) {
-		do_action( 'wpml_tm_basket_add_message', $type, $message, $id );
-	}
-
-	public function create_jobs( array $jobsData, $sentFrom  ) {
+	public function create_jobs( array $jobsData, $sentFrom, $reviewMode = null ) {
 		$setJobType = Logic::ifElse( Fns::always( $sentFrom ), Obj::assoc( 'job_type', $sentFrom ), Fns::identity() );
 
 		list( $existing, $new ) = Lst::partition(
@@ -220,7 +415,7 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 
 		return Wrapper::of( [ 'jobs' => $new, 'existing_jobs' => Lst::pluck( 'existing_ate_id', $existing ) ] )
 			->map( Obj::assoc( 'auto_translate', $isAuto ) )
-			->map( Obj::assoc( 'preview', $isAuto && Option::shouldBeReviewed() ) )
+			->map( Obj::assoc( 'preview', $isAuto && Option::NO_REVIEW !== ( $reviewMode ?: Option::getReviewMode() ) ) )
 			->map( $setJobType )
 			->map( $this->addOrderingToPayload( $ordering ) )
 			->map( 'wp_json_encode' )
@@ -308,18 +503,24 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 	public function get_editor_url( $default_url, $job_id, $return_url = null ) {
 		$isUserActivated = $this->translator_activation_records->is_current_user_activated();
 
-		if ( $isUserActivated || is_admin() ) {
+		$canUseAutomatic = \WPML\TM\Jobs\EditAccess\AutomaticTranslationPermission::isAllowedForCurrentUser();
+
+		if ( ( $isUserActivated && $canUseAutomatic ) || is_admin() ) {
 			$ate_job_id = $this->ate_jobs->get_ate_job_id( $job_id );
 			if ( $ate_job_id ) {
 				if ( ! $return_url ) {
 					$return_url = add_query_arg(
 						array(
-							'page'           => WPML_TM_FOLDER . '/menu/translations-queue.php',
-							'ate-return-job' => $job_id,
+							'page' => WPML_TM_FOLDER . '/menu/main.php',
+							'tab'  => 'tasks',
 						),
 						admin_url( '/admin.php' )
 					);
 				}
+
+				$return_url = add_query_arg( 'ate-return-job', $job_id, $return_url );
+
+				$return_url  = \WPML\TM\ATE\ReturnToken::sign( $return_url, $job_id );
 				$ate_job_url = $this->ate_api->get_editor_url( $ate_job_id, $return_url );
 				if ( $ate_job_url && ! is_wp_error( $ate_job_url ) ) {
 					return $ate_job_url;
@@ -340,45 +541,9 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 
 	protected function check_response_error( $response ) {
 		if ( is_wp_error( $response ) ) {
-			$code    = 0;
-			$message = $response->get_error_message();
-			if ( $response->error_data && is_array( $response->error_data ) ) {
-				foreach ( $response->error_data as $error_data ) {
-					$code    = (int) Obj::pathOr( 0, [ 0, 'status' ], $error_data );
-					$message = ( $code ? $code . ' ' : '' ) . Obj::pathOr( '', [ 0, 'message' ], $error_data ) . "\n\n";
-
-					switch ( $code ) {
-						case self::RESPONSE_ATE_NOT_ACTIVE_ERROR:
-							$wp_admin_url  = admin_url( 'admin.php' );
-							$mcsetup_page  = add_query_arg(
-								array(
-									'page' => WPML_TM_FOLDER . WPML_Translation_Management::PAGE_SLUG_SETTINGS,
-									'sm'   => 'mcsetup',
-								),
-								$wp_admin_url
-							);
-							$mcsetup_page .= '#ml-content-setup-sec-1';
-							$message      .= __( 'WPML cannot send these documents to translation because the Advanced Translation Editor is not fully set-up yet.', 'wpml-translation-management' )
-											. "\n\n"
-											. __( 'Please open the confirmation email that you received and click on the link inside it to confirm your email.', 'wpml-translation-management' )
-											. "\n\n"
-											. '<a href="' . esc_attr( $mcsetup_page ) . '">' . esc_html__( 'Resend that email.', 'wpml-translation-management' ) . '</a>';
-							break;
-						case self::RESPONSE_ATE_DUPLICATED_SOURCE_ID:
-						case self::RESPONSE_ATE_UNEXPECTED_ERROR:
-						default:
-							$message .= __( 'Advanced Translation Editor error.', 'wpml-translation-management' );
-					}
-				}
-			}
+			$message = CreateFailureText::from( $response );
+			$code    = CreateFailureText::statusOf( $response );
 			throw new RuntimeException( $message, $code );
-		}
-	}
-
-	private function resign_job_on_error( $ate_job_id ) {
-		$job_id = $this->ate_jobs->get_wpml_job_id( $ate_job_id );
-		if ( $job_id ) {
-			wpml_load_core_tm()->resign_translator( $job_id );
 		}
 	}
 
@@ -387,29 +552,33 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 			   && WPML_TM_Editors::ATE === $translation_job->editor;
 	}
 
-	private function getResponsesJobs( $responses, $sentJobs ) {
-		$jobs = [];
+	private function getResponsesJobs( $responses, $chunks, &$errorReported = false ) {
+		$jobs     = [];
+		$existing = [];
 
-		foreach ( $responses as $response ) {
+		foreach ( $responses as $index => $response ) {
 			try {
 				$this->check_response_error( $response );
-
-				if ( $response && isset( $response->jobs ) ) {
-					$jobs = $jobs + (array) $response->jobs;
-				}
 			} catch ( RuntimeException $ex ) {
-				do_action( 'wpml_tm_basket_add_message', 'error', $ex->getMessage() );
+				do_action( 'wpml_tm_add_message', 'error', $ex->getMessage() );
+				$errorReported = true;
+
+				continue;
 			}
+
+			if ( $response && isset( $response->jobs ) ) {
+				$jobs = $jobs + (array) $response->jobs;
+			}
+
+			$existing = $existing + wpml_collect( isset( $chunks[ $index ]['jobs'] ) ? $chunks[ $index ]['jobs'] : [] )
+				->filter( Obj::prop( 'existing_ate_id' ) )
+				->map( Obj::pick( [ 'source_id', 'existing_ate_id' ] ) )
+				->keyBy( 'source_id' )
+				->map( Obj::prop( 'existing_ate_id' ) )
+				->toArray();
 		}
 
-		$existingJobs = wpml_collect( $sentJobs )
-			->filter( Obj::prop( 'existing_ate_id' ) )
-			->map( Obj::pick( [ 'source_id', 'existing_ate_id' ] ) )
-			->keyBy( 'source_id' )
-			->map( Obj::prop( 'existing_ate_id' ) )
-			->toArray();
-
-		return $jobs + $existingJobs;
+		return $jobs + $existing;
 	}
 
 	private function getChunkedJobs( $jobs, $translationModeSetInDashboard ) {
@@ -451,17 +620,24 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 			$translationJob = wpml_tm_load_job_factory()->get_translation_job( $job->id, false, 0, true );
 			if ( $translationJob ) {
 
-				if ( ! Obj::prop( 'existing_ate_id', $job ) ) {
-					$currentWordCount += $translationJob->estimate_word_count();
-				}
+				$jobWords = Obj::prop( 'existing_ate_id', $job )
+					? 0
+					: $this->getJobSizeInWords( $translationJob );
 
-				$jobType = $this->getJobType( $translationJob, $translationModeSetInDashboard );
+				$currentWordCount += $jobWords;
+
+				$jobType = AteCreateReconciler::jobTypeOf( $translationJob, $translationModeSetInDashboard );
 				if ( $jobType !== $chunkType ) {
 					$chunkType = $jobType;
 					$newChunk( $chunkType );
+					$currentWordCount = $jobWords;
 				}
-				if ( $currentWordCount > self::CREATE_ATE_JOB_CHUNK_WORDS_LIMIT && count( $chunkedJobs[ $currentChunk ] ) > 0 ) {
+				if (
+					$currentWordCount > self::CREATE_ATE_JOB_CHUNK_WORDS_LIMIT
+					&& count( $chunkedJobs[ $currentChunk ]['jobs'] ) > 0
+				) {
 					$newChunk( $chunkType );
+					$currentWordCount = $jobWords;
 				}
 			}
 
@@ -472,6 +648,10 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 		$hasJobs = pipe( Obj::prop( 'jobs' ), Lst::length() );
 
 		return Fns::filter( $hasJobs, $chunkedJobs );
+	}
+
+	private function getJobSizeInWords( $translationJob ) {
+		return (int) $translationJob->estimate_word_count();
 	}
 
 	private function logRetryError( $jobId ) {
@@ -498,18 +678,6 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 			}
 
 			Storage::add( Entry::retryJob( $jobId, $extraData ) );
-		}
-	}
-
-	private function getJobType( $translationJob, $translationModeSetInDashboard ) {
-		$document = $translationJob->get_original_document();
-		if ( ! $document ) {
-			return 'manual';
-		} elseif ( $translationModeSetInDashboard ) {
-			return $translationModeSetInDashboard;
-		} else {
-			return $translationJob->get_source_language_code() === Languages::getDefaultCode() &&
-				   Jobs::isEligibleForAutomaticTranslations( $translationJob->get_id() ) ? 'auto' : 'manual';
 		}
 	}
 

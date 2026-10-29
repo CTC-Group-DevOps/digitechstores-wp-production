@@ -22,6 +22,8 @@ class WPML_Adjacent_Links_Hooks implements IWPML_Action {
 	}
 
 	function get_adjacent_post_join( $join_clause ) {
+		$wpdb = $this->wpdb;
+
 		$post_type = $this->get_current_post_type();
 
 		$cache_key   = md5( (string) wp_json_encode( array( $post_type, $join_clause ) ) );
@@ -34,7 +36,7 @@ class WPML_Adjacent_Links_Hooks implements IWPML_Action {
 
 		if ( $this->sitepress->is_translated_post_type( $post_type ) ) {
 			$join_clause .= $this->wpdb->prepare(
-				" JOIN {$this->wpdb->prefix}icl_translations wpml_translations ON wpml_translations.element_id = p.ID AND wpml_translations.element_type = %s",
+				" JOIN {$wpdb->prefix}icl_translations wpml_translations ON wpml_translations.element_id = p.ID AND wpml_translations.element_type = %s",
 				'post_' . $post_type
 			);
 		}

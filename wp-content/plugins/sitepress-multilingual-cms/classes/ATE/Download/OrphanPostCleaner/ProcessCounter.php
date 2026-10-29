@@ -2,6 +2,10 @@
 
 namespace WPML\TM\ATE\Download\OrphanPostCleaner;
 
+use WPML\Utilities\AdvisoryLockFactory;
+
+use function WPML\Container\make;
+
 class ProcessCounter {
 
 	const OPTION_NAME = 'wpml_ate_download_process_counter';
@@ -56,37 +60,22 @@ class ProcessCounter {
 	}
 
 	private function withLock( callable $callback ) {
-		$lockAcquired = $this->acquireLock();
+		$lock         = make( AdvisoryLockFactory::class )->create( self::LOCK_NAME );
+		$lockAcquired = $lock->acquire( self::LOCK_TIMEOUT_SECONDS );
 
 		try {
 			$callback();
 		} finally {
 			if ( $lockAcquired ) {
-				$this->releaseLock();
+				$lock->release();
 			}
 		}
 	}
 
-	private function acquireLock() {
-		$result = $this->wpdb->get_var( $this->wpdb->prepare(
-			"SELECT GET_LOCK(%s, %d)",
-			self::LOCK_NAME,
-			self::LOCK_TIMEOUT_SECONDS
-		) );
-
-		return $result === '1';
-	}
-
-	private function releaseLock() {
-		$this->wpdb->query( $this->wpdb->prepare(
-			"SELECT RELEASE_LOCK(%s)",
-			self::LOCK_NAME
-		) );
-	}
-
 	private function getData() {
-		$row = $this->wpdb->get_var( $this->wpdb->prepare(
-			"SELECT option_value FROM {$this->wpdb->options} WHERE option_name = %s",
+		$wpdb = $this->wpdb;
+		$row  = $wpdb->get_var( $wpdb->prepare(
+			"SELECT option_value FROM {$wpdb->options} WHERE option_name = %s",
 			self::OPTION_NAME
 		) );
 
@@ -99,10 +88,11 @@ class ProcessCounter {
 	}
 
 	private function saveData( array $data ) {
+		$wpdb  = $this->wpdb;
 		$value = maybe_serialize( $data );
 
-		$this->wpdb->query( $this->wpdb->prepare(
-			"INSERT INTO {$this->wpdb->options} (option_name, option_value, autoload)
+		$wpdb->query( $wpdb->prepare(
+			"INSERT INTO {$wpdb->options} (option_name, option_value, autoload)
 			 VALUES (%s, %s, 'no')
 			 ON DUPLICATE KEY UPDATE option_value = %s",
 			self::OPTION_NAME,

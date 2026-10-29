@@ -56,7 +56,7 @@ class WPML_Elementor_URLs implements IWPML_Action {
 		if (
 			$post
 			&& WPML_Elementor_Data_Settings::is_edited_with_elementor( $post->ID )
-			&& preg_match_all( "/{$post->post_name}\/\?lang=([a-zA-Z_-]*)\/([\d]*)\/$/", $link )
+			&& preg_match_all( '/' . preg_quote( $post->post_name, '/' ) . "\/\?lang=([a-zA-Z_-]*)\/([\d]*)\/$/", $link )
 		) {
 			$link = $this->language_converter->convert_url_string(
 				preg_replace( "/\?lang=([a-zA-Z_-]*)\//", '', $link ),

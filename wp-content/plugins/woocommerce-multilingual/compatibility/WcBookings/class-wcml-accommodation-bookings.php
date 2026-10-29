@@ -53,11 +53,13 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
             echo '<div class="wcml_custom_costs">';
 
             echo '<input type="radio" name="_wcml_custom_costs" id="wcml_custom_costs_auto" value="0" class="wcml_custom_costs_input" '. $checked .' />';
+			/* translators: Label of the first radio button on a bookable product: WPML converts the booking costs using the exchange rate. */
             echo '<label for="wcml_custom_costs_auto">'. __('Calculate costs in other currencies automatically', 'woocommerce-multilingual') .'</label>';
 
             $checked = $custom_costs_status == 1 ? 'checked="checked"' : ' ';
 
             echo '<input type="radio" name="_wcml_custom_costs" value="1" id="wcml_custom_costs_manually" class="wcml_custom_costs_input" '. $checked .' />';
+			/* translators: Label of the second radio button on a bookable product: the shop owner types each currency's booking costs. */
             echo '<label for="wcml_custom_costs_manually">'. __('Set costs in other currencies manually', 'woocommerce-multilingual') .'</label>';
 
             wp_nonce_field( 'wcml_save_accommodation_bookings_custom_costs', '_wcml_custom_costs_nonce' );
@@ -95,8 +97,8 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
                         }
 
                         echo '<div class="wcml_bookings_range_block" >';
-                        echo '<label>'. get_woocommerce_currency_symbol($currency_code) .'</label>';
-                        echo '<input type="number" step="0.01" name="wcml_wc_accommodation_booking_pricing_override_block_cost['.$currency_code.']" class="wcml_bookings_custom_price" value="'. $value .'" placeholder="0" />';
+                        echo '<label>'. esc_html( get_woocommerce_currency_symbol($currency_code) ) .'</label>';
+                        echo '<input type="number" step="0.01" name="wcml_wc_accommodation_booking_pricing_override_block_cost['. esc_attr( $currency_code ) .']" class="wcml_bookings_custom_price" value="'. esc_attr( $value ) .'" placeholder="0" />';
                         echo '</div>';
                         break;
 
@@ -118,15 +120,16 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
 
         if( isset( $_POST['_wcml_custom_costs'] ) && isset( $nonce ) && wp_verify_nonce( $nonce, 'wcml_save_accommodation_bookings_custom_costs' ) ){
 
-            update_post_meta( $post_id, Prices::CUSTOM_COSTS_STATUS_KEY, $_POST['_wcml_custom_costs'] );
+            $custom_costs_status = (int) $_POST['_wcml_custom_costs'];
+            update_post_meta( $post_id, Prices::CUSTOM_COSTS_STATUS_KEY, $custom_costs_status );
 
-            if( $_POST['_wcml_custom_costs'] == 1 ){
+            if( $custom_costs_status === 1 ){
 
                 $currencies = $this->woocommerce_wpml->multi_currency->get_currencies();
 
                 foreach( $currencies as $code => $currency ){
 
-                    $wc_booking_base_cost = $_POST[ 'wcml_wc_accommodation_booking_base_cost' ][ $code ];
+                    $wc_booking_base_cost = self::sanitize_cost( $_POST[ 'wcml_wc_accommodation_booking_base_cost' ][ $code ] ?? '' );
                     update_post_meta( $post_id, '_wc_booking_base_cost_'.$code, $wc_booking_base_cost  );
                     update_post_meta( $post_id, '_price_'.$code, $wc_booking_base_cost  );
 
@@ -141,7 +144,7 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
 
                     foreach ( $currencies as $code => $currency ) {
 
-                        $updated_meta[ $key ][ 'override_block_'.$code ] = $_POST[ 'wcml_wc_accommodation_booking_pricing_override_block_cost' ][ $code ];
+                        $updated_meta[ $key ][ 'override_block_'.$code ] = self::sanitize_cost( $_POST[ 'wcml_wc_accommodation_booking_pricing_override_block_cost' ][ $code ] ?? '' );
 
                     }
 
@@ -152,6 +155,15 @@ class WCML_Accommodation_Bookings implements \IWPML_Action {
             }
         }
 
+    }
+
+    public static function sanitize_cost( $value ) {
+        if ( ! is_scalar( $value ) ) {
+            return '';
+        }
+        $value = trim( (string) $value );
+
+        return is_numeric( $value ) ? $value : '';
     }
 
     public function product_price_filter( $value, $object_id, $meta_key, $single ){

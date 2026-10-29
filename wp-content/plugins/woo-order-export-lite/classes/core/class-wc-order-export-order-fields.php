@@ -526,11 +526,12 @@ class WC_Order_Export_Order_Fields {
             $row[$field] = (float)$this->order->get_discount_total() + (float)$this->order->get_discount_tax();
         } elseif ($field == 'cart_discount_tax') {
             $row[$field] = $this->order->get_discount_tax();
+        } elseif(  $this->order_type == 'shop_order_refund' AND $this->parent_order AND method_exists( $this->parent_order, 'get_' . $field ) ) { //use main order details for refund
+			$row[$field] = $this->parent_order->{'get_' . $field}();
+			if( empty($row[$field]) AND method_exists( $this->order, 'get_' . $field ) ) // probably we have data in refund itself ?
+				$row[$field] = $this->order->{'get_' . $field}();
         } elseif( method_exists( $this->order, 'get_' . $field ) ) {  // order_date...
-				if ( $this->order_type == 'shop_order_refund' AND $this->parent_order )
-					$row[$field] = $this->parent_order->{'get_' . $field}(); //use main order details for refund
-				else
-					$row[$field] = $this->order->{'get_' . $field}();
+			$row[$field] = $this->order->{'get_' . $field}();
 		} elseif ( isset( $this->order_meta[ $field ] ) ) {
 			$field_data = array();
 			do_action( 'woocommerce_order_export_add_field_data', $field_data, $this->order_meta[ $field ], $field );

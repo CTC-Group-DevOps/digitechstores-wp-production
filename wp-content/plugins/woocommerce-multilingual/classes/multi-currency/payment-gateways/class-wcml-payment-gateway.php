@@ -24,6 +24,35 @@ abstract class WCML_Payment_Gateway {
 
 	abstract public function get_output_model();
 
+	public function add_order_hooks() {
+	}
+
+	protected function record_the_payment( $order, $settlement_currency, $settled_total = null ) {
+		if ( ! $order instanceof WC_Order ) {
+			return;
+		}
+
+		$record = [ WCML_Pinned_Refund::SETTLEMENT_CURRENCY_META => $settlement_currency ];
+
+		if ( null !== $settled_total ) {
+			$record[ WCML_Pinned_Refund::SETTLED_TOTAL_META ] = (string) $settled_total;
+		}
+
+		$changed = false;
+
+		foreach ( $record as $key => $value ) {
+			if ( $value !== $order->get_meta( $key ) ) {
+				$order->update_meta_data( $key, $value );
+
+				$changed = true;
+			}
+		}
+
+		if ( $changed ) {
+			$order->save();
+		}
+	}
+
 	public function get_gateway() {
 		return $this->gateway;
 	}

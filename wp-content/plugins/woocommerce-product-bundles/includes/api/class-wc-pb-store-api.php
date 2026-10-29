@@ -18,7 +18,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
 /**
  * Extends the store public API with bundle related data for each bundle parent and child item.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Store_API {
 
@@ -32,14 +32,14 @@ class WC_PB_Store_API {
 	/**
 	 * Stores the cart item key of the last bundled item.
 	 *
-	 * @var string
+	 * @var string|false|null
 	 */
 	private static $last_bundled_item_key;
 
 	/**
 	 * Stores the cart item key of the last bundled item.
 	 *
-	 * @var string
+	 * @var string|false|null
 	 */
 	private static $faked_parent_bundled_item_key;
 
@@ -101,12 +101,14 @@ class WC_PB_Store_API {
 	/**
 	 * Cache to store Store API product schema extension, as it's called multiple times in each request.
 	 *
-	 * @var array
+	 * @var array|null
 	 */
 	private static $product_item_schema_cache;
 
 	/**
 	 * Bootstraps the class and hooks required data.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -136,6 +138,8 @@ class WC_PB_Store_API {
 
 	/**
 	 * Registers the actual data into each endpoint.
+	 *
+	 * @return void
 	 */
 	public static function extend_store() {
 
@@ -240,7 +244,7 @@ class WC_PB_Store_API {
 			$item_data['bundled_items'] = $cart_item['bundled_items'];
 			$item_data['bundle_data']   = array(
 				'configuration'             => $cart_item['stamp'],
-				'is_editable'               => $bundle->is_editable_in_cart(),
+				'is_editable'               => $bundle->is_editable_in_cart( $cart_item ),
 				'is_price_hidden'           => ! $is_price_visible,
 				'is_subtotal_hidden'        => ! $is_subtotal_visible,
 				'is_hidden'                 => ! $is_visible,
@@ -395,6 +399,7 @@ class WC_PB_Store_API {
 	 *
 	 * @param array $item_data Cart item data.
 	 * @param array $cart_item Cart item.
+	 * @return void
 	 */
 	private static function filter_container_cart_item_prices( &$item_data, $cart_item ) {
 
@@ -436,6 +441,7 @@ class WC_PB_Store_API {
 	 *
 	 * @param array $item_data Cart item data.
 	 * @param array $cart_item Cart item.
+	 * @return void
 	 */
 	private static function filter_container_cart_item_totals( &$item_data, $cart_item ) {
 
@@ -460,6 +466,7 @@ class WC_PB_Store_API {
 	 *
 	 * @param array $item_data Cart item data.
 	 * @param array $cart_item Cart item.
+	 * @return void
 	 */
 	private static function filter_container_cart_item_quantity_limits( &$item_data, $cart_item ) {
 
@@ -478,7 +485,7 @@ class WC_PB_Store_API {
 
 					$max_bundled_item_stock_quantity = $bundled_cart_item['data']->get_stock_quantity();
 
-					if ( $max_bundled_item_stock_quantity > 0 && ! is_null( $max_bundled_item_stock_quantity ) ) {
+					if ( $max_bundled_item_stock_quantity > 0 ) {
 						// Limit container max quantity based on child item stock quantity.
 						$item_data['quantity_limits']->maximum = min( $item_data['quantity_limits']->maximum, floor( $max_bundled_item_stock_quantity / $bundled_cart_item['quantity'] ) * $bundle_quantity );
 					}
@@ -492,6 +499,7 @@ class WC_PB_Store_API {
 	 *
 	 * @param array $item_data Cart item data.
 	 * @param array $cart_item Cart item.
+	 * @return void
 	 */
 	private static function filter_container_cart_item_permalink( &$item_data, $cart_item ) {
 

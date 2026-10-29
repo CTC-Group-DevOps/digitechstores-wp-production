@@ -14,7 +14,11 @@ class UI implements \IWPML_Backend_Action_Loader {
 	public function create() {
 		$isAdminTextsPage = isset( $_GET['trop'] );
 
-		if ( Relation::propEq( 'page', WPML_ST_FOLDER . '/menu/string-translation.php', $_GET ) && ! $isAdminTextsPage ) {
+		if (
+			Relation::propEq( 'page', WPML_ST_FOLDER . '/menu/string-translation.php', $_GET )
+			&& ! $isAdminTextsPage
+			&& ! \WPML_PO_Import_Strings::is_review_render_request()
+		) {
 
 			return function () {
 				WPHooks::onAction( 'admin_enqueue_scripts' )

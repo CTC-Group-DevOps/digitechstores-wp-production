@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Shipstation Integration.
  *
- * @version  5.5.0
+ * @version  8.5.16
  */
 class WC_PB_Shipstation_Compatibility {
 
 	/**
 	 * Modify the returned order items and products to return the correct items/weights/values for shipping.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		// Shipstation compatibility.
@@ -28,6 +30,8 @@ class WC_PB_Shipstation_Compatibility {
 
 	/**
 	 * Modify the returned order items and products to return the correct items/weights/values for shipping.
+	 *
+	 * @return void
 	 */
 	public static function add_filters() {
 		add_filter( 'woocommerce_order_get_items', array( WC_PB()->order, 'get_order_items' ), 10, 2 );

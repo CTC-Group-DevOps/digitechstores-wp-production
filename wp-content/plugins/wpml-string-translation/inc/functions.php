@@ -4,6 +4,7 @@ use WPML\ST\Gettext\Hooks;
 use WPML\ST\Gettext\HooksFactory;
 use function WPML\Container\make;
 use WPML\Element\API\Languages;
+use WPML\StringTranslation\Infrastructure\TranslateEverything\EnglishSourceLanguage;
 
 add_action( 'plugins_loaded', 'icl_st_init' );
 
@@ -14,7 +15,7 @@ function icl_st_init() {
 		return;
 	}
 
-	add_action( 'icl_update_active_languages', 'icl_update_string_status_all' );
+	add_action( 'icl_update_active_languages', 'icl_st_recompute_string_statuses_on_language_change', 20 );
 	add_action( 'update_option_blogname', 'icl_st_update_blogname_actions', 5, 2 );
 	add_action( 'update_option_blogdescription', 'icl_st_update_blogdescription_actions', 5, 2 );
 
@@ -25,13 +26,9 @@ function icl_st_init() {
 	if ( ! isset( $sitepress_settings['st']['strings_per_page'] ) ) {
 		$sitepress_settings['st']['strings_per_page'] = WPML_ST_DEFAULT_STRINGS_PER_PAGE;
 		$sitepress->save_settings( $sitepress_settings );
-	} elseif (
-		isset( $_GET['strings_per_page'] )
-		&& (int) $_GET['strings_per_page'] > 0
-		&& ( current_user_can( 'wpml_manage_string_translation' ) || current_user_can( 'manage_translations' ) )
-	) {
-		$sitepress_settings['st']['strings_per_page'] = (int) $_GET['strings_per_page'];
-		$sitepress->save_settings( $sitepress_settings );
+	}
+	if ( is_admin() ) {
+		WPML_ST_Strings_Per_Page_Command::register();
 	}
 	if ( ! isset( $sitepress_settings['st']['icl_st_auto_reg'] ) ) {
 		$sitepress_settings['st']['icl_st_auto_reg'] = 'disable';
@@ -40,7 +37,7 @@ function icl_st_init() {
 		do_action( 'wpml_st_auto_register_default' );
 	}
 	if ( empty( $sitepress_settings['st']['strings_language'] ) ) {
-		$iclsettings['st']['strings_language'] = $sitepress_settings['st']['strings_language'] = 'en';
+		$iclsettings['st']['strings_language'] = $sitepress_settings['st']['strings_language'] = EnglishSourceLanguage::resolveForSite();
 		$sitepress->save_settings( $iclsettings );
 	}
 
@@ -53,16 +50,17 @@ function icl_st_init() {
 	$po_import_strings = WPML\Container\make( WPML_PO_Import_Strings::class );
 	$po_import_strings->maybe_import_po_add_strings();
 
-	if ( isset( $_POST['icl_st_pie_e'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'icl_po_export' ) ) {
+	$po_export_nonce = isset( $_POST['_wpnonce'] ) ? (string) \WPML\API\Sanitize::string( $_POST['_wpnonce'] ) : '';
+	if ( isset( $_POST['icl_st_pie_e'] ) && wp_verify_nonce( $po_export_nonce, 'icl_po_export' ) ) {
 		if ( isset( $_GET['status'] ) ) {
 			unset( $_GET['status'] );
 		}
 		$_GET['show_results'] = 'all';
-		if ( $_POST['icl_st_e_context'] ) {
+		if ( ! empty( $_POST['icl_st_e_context'] ) ) {
 			$_GET['context'] = (string) \WPML\API\Sanitize::string( $_POST['icl_st_e_context'] );
 		}
 
-		$_GET['translation_language'] = (string) \WPML\API\Sanitize::string( $_POST['icl_st_e_language'] );
+		$_GET['translation_language'] = isset( $_POST['icl_st_e_language'] ) ? (string) \WPML\API\Sanitize::string( $_POST['icl_st_e_language'] ) : '';
 		$strings                      = icl_get_string_translations();
 		if ( ! empty( $strings ) ) {
 			$po = icl_st_generate_po_file( $strings );
@@ -71,7 +69,7 @@ function icl_st_init() {
 		}
 		if ( ! isset( $_POST['icl_st_pe_translations'] ) ) {
 			$popot  = 'pot';
-			$poname = $_POST['icl_st_e_context'] ? (string) \WPML\API\Sanitize::string( urlencode( $_POST['icl_st_e_context'] )) : 'all_context';
+			$poname = ! empty( $_POST['icl_st_e_context'] ) ? (string) \WPML\API\Sanitize::string( urlencode( $_POST['icl_st_e_context'] ) ) : 'all_context';
 		} else {
 			$popot  = 'po';
 			$poname = \WPML\API\Sanitize::string( $_GET['context'] ?? '' ) . '-' . \WPML\API\Sanitize::string( $_GET['translation_language'] ?? '' );
@@ -196,7 +194,6 @@ function icl_register_string( $context, $name, $value, $allow_empty_value = fals
 
 add_filter( 'register_string_for_translation', 'icl_register_string', 10, 4 );
 
-
 function wpml_register_single_string_action( $context, $name, $value, $allow_empty_value = false, $source_lang_code = '' ) {
 	icl_register_string( $context, $name, $value, $allow_empty_value, $source_lang_code );
 }
@@ -258,7 +255,8 @@ function icl_st_is_registered_string( $context, $name ) {
 
 function icl_st_string_has_translations( $context, $name ) {
 	global $wpdb;
-	$sql = $wpdb->prepare(
+
+	return $wpdb->get_var( $wpdb->prepare(
 		"
         SELECT COUNT(st.id)
         FROM {$wpdb->prefix}icl_string_translations st
@@ -266,9 +264,7 @@ function icl_st_string_has_translations( $context, $name ) {
         WHERE s.context = %s AND s.name = %s",
 		$context,
 		$name
-	);
-
-	return $wpdb->get_var( $sql );
+	) );
 }
 
 function icl_update_string_status( $string_id ) {
@@ -284,6 +280,20 @@ function icl_update_string_status_all() {
 
 	$updater = new WPML_ST_Bulk_Update_Strings_Status( $wpdb, array_keys( $sitepress->get_active_languages() ) );
 	$updater->run();
+}
+
+function icl_st_recompute_string_statuses_on_language_change() {
+	if ( \WPML\ST\BackgroundTask\LoadExistingTranslationsTask::ownsFollowUpStatusRecompute() ) {
+		return;
+	}
+
+	if ( \WPML\ST\BackgroundTask\UpdateStringsStatusTask::canBeEnqueued() ) {
+		\WPML\ST\BackgroundTask\UpdateStringsStatusTask::enqueue();
+
+		return;
+	}
+
+	icl_update_string_status_all();
 }
 
 function icl_unregister_string( $context, $name ) {
@@ -336,15 +346,22 @@ function wpml_unregister_string_multi( array $string_ids ) {
 
 	wpml_st_flush_string_cache_for_ids( $string_ids );
 
-	$str = wpml_prepare_in( $string_ids, '%d' );
 	$wpdb->query(
-		"
+		$wpdb->prepare(
+			"
 		DELETE s.*, t.* FROM {$wpdb->prefix}icl_strings s
 		LEFT JOIN {$wpdb->prefix}icl_string_translations t ON s.id = t.string_id
-        WHERE s.id IN ({$str})
-    "
+		WHERE s.id IN (" . implode( ', ', array_fill( 0, count( $string_ids ), '%d' ) ) . ')
+		',
+			$string_ids
+		)
 	);
-	$wpdb->query( "DELETE FROM {$wpdb->prefix}icl_string_positions WHERE string_id IN ({$str})" );
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM {$wpdb->prefix}icl_string_positions WHERE string_id IN (" . implode( ', ', array_fill( 0, count( $string_ids ), '%d' ) ) . ')',
+			$string_ids
+		)
+	);
 
 	do_action( 'icl_st_unregister_string_multi', $string_ids );
 
@@ -367,6 +384,14 @@ function wpml_st_flush_string_cache_for_ids( array $string_ids ) {
 		$group = 'WPML_Register_String_Filter--' . $context;
 		$cache = new WPML_WP_Cache( $group );
 		$cache->flush_group_cache();
+	}
+
+	$keys = $wpdb->get_col(
+		"SELECT domain_name_context_md5 FROM {$wpdb->prefix}icl_strings WHERE id IN ( {$str} )"
+	);
+
+	foreach ( $keys as $key ) {
+		wp_cache_delete( $key, WPML_Register_String_Filter::CACHE_GROUP );
 	}
 }
 
@@ -419,6 +444,39 @@ function icl_add_string_translation( $string_id, $language, $value = null, $stat
 	$translated_string_id = $string->set_translation( $language, $value, $status, $translator_id, $translation_service, $batch_id );
 
 	return $translated_string_id;
+}
+
+function wpml_st_set_authorized_object_translation( $string_id, $language, $value, array $provenance ) {
+	if ( ! $string_id || ! is_string( $language ) || '' === $language ) {
+		return false;
+	}
+
+	if ( ! apply_filters( 'wpml_language_is_active', false, $language ) ) {
+		return false;
+	}
+
+	if ( empty( $provenance['principal'] ) || empty( $provenance['source'] ) ) {
+		return false;
+	}
+
+	$allowed = apply_filters( 'wpml_st_object_string_translation_authorized', false, $string_id, $language, $provenance );
+	if ( true !== $allowed ) {
+		return false;
+	}
+
+	return icl_add_string_translation( $string_id, $language, $value, ICL_TM_COMPLETE );
+}
+
+function wpml_st_set_trusted_string_translation( $string_id, $language, $value, $status = ICL_TM_COMPLETE ) {
+	if ( ! $string_id || ! is_string( $language ) || '' === $language ) {
+		return false;
+	}
+
+	if ( ! apply_filters( 'wpml_language_is_active', false, $language ) ) {
+		return false;
+	}
+
+	return icl_add_string_translation( $string_id, $language, $value, $status );
 }
 
 function icl_update_string_translation(
@@ -513,9 +571,12 @@ function icl_get_strings_tracked_in_pages( $string_translations ) {
 	}
 	if ( $found_strings ) {
 		$res = $wpdb->get_results(
-			"
-            SELECT kind, string_id  FROM {$wpdb->prefix}icl_string_positions
-            WHERE string_id IN (" . wpml_prepare_in( $found_strings, '%d' ) . ')'
+			$wpdb->prepare(
+				"
+	            SELECT kind, string_id  FROM {$wpdb->prefix}icl_string_positions
+	            WHERE string_id IN (" . implode( ', ', array_fill( 0, count( $found_strings ), '%d' ) ) . ')',
+				array_map( 'intval', $found_strings )
+			)
 		);
 		foreach ( $res as $row ) {
 			$strings_in_page[ $row->kind ][ $row->string_id ] = true;
@@ -691,6 +752,27 @@ function icl_st_get_contexts( $status ) {
 	return $wpml_strings->get_per_domain_counts( $status );
 }
 
+function icl_st_normalize_context_filter( $context_filter, $listed_contexts ) {
+	if ( ! $context_filter ) {
+		return $context_filter;
+	}
+
+	$options = array_map(
+		function ( $context ) {
+			return filter_var( $context ? $context : WPML_ST_Strings::EMPTY_CONTEXT_LABEL, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		},
+		$listed_contexts
+	);
+
+	if ( in_array( $context_filter, $options, true ) ) {
+		return $context_filter;
+	}
+
+	unset( $_GET['context'] );
+
+	return false;
+}
+
 function icl_st_generate_po_file( $strings ) {
 
 	require_once WPML_ST_PATH . '/inc/gettext/wpml-po-parser.class.php';
@@ -698,54 +780,6 @@ function icl_st_generate_po_file( $strings ) {
 	$po = WPML_PO_Parser::create_po( $strings );
 
 	return $po;
-}
-
-function _icl_st_get_options_writes( $path ) {
-	static $found_writes = array();
-	if ( is_dir( $path ) ) {
-		$dh = opendir( $path );
-		if ( ! $dh ) {
-			return $found_writes;
-		}
-		while ( $file = readdir( $dh ) ) {
-			if ( $file == '.' || $file == '..' ) {
-				continue;
-			}
-			if ( is_dir( $path . '/' . $file ) ) {
-				_icl_st_get_options_writes( $path . '/' . $file );
-			} elseif ( preg_match( '#(\.php|\.inc)$#i', $file ) ) {
-				$content = (string) file_get_contents( $path . '/' . $file );
-				$int     = preg_match_all( '#(add|update)_option\(([^,]+),([^)]+)\)#im', $content, $matches );
-				if ( $int ) {
-					foreach ( $matches[2] as $m ) {
-						$option_name = trim( $m );
-						if ( 0 === strpos( $option_name, '"' ) || 0 === strpos( $option_name, "'" ) ) {
-							$option_name = trim( $option_name, "\"'" );
-						} elseif ( false === strpos( $option_name, '$' ) ) {
-							if ( false !== strpos( $option_name, '::' ) ) {
-								$cexp = explode( '::', $option_name );
-								if ( class_exists( $cexp[0] ) ) {
-									if ( defined( $cexp[0] . '::' . $cexp[1] ) ) {
-										$option_name = constant( $cexp[0] . '::' . $cexp[1] );
-									}
-								}
-							} else {
-								if ( defined( $option_name ) ) {
-									$option_name = constant( $option_name );
-								}
-							}
-						} else {
-							$option_name = false;
-						}
-						if ( $option_name ) {
-							$found_writes[] = $option_name;
-						}
-					}
-				}
-			}
-		}
-	}
-	return $found_writes;
 }
 
 if ( ! function_exists( 'array_unique_recursive' ) ) {
@@ -784,7 +818,7 @@ function _icl_st_filter_empty_options_out( $array ) {
 
 function wpml_register_admin_strings( $serialized_array ) {
 	try {
-		wpml_st_load_admin_texts()->icl_register_admin_options( unserialize( $serialized_array ) );
+		wpml_st_load_admin_texts()->icl_register_admin_options( unserialize( $serialized_array, [ 'allowed_classes' => false ] ) );
 	} catch ( Exception $e ) {
 		trigger_error( $e->getMessage(), E_USER_WARNING );
 	}

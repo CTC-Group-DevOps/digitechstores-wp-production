@@ -34,12 +34,13 @@ class WPML_ST_Settings {
 
 	public function delete_settings() {
 		delete_option( self::SETTINGS_KEY );
+		delete_option( 'wpml_pb_has_shortcode_settings' );
 	}
 
 	public function save_settings() {
 		$settings = $this->get_settings();
 
-		update_option( self::SETTINGS_KEY, $settings );
+		update_option( self::SETTINGS_KEY, $settings, false );
 		do_action( 'icl_save_settings', $this->updated_settings );
 
 		$this->updated_settings = array();

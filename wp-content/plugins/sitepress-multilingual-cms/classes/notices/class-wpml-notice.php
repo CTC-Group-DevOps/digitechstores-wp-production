@@ -206,6 +206,10 @@ class WPML_Notice {
 		$this->dismissible = $dismissible;
 	}
 
+	public function set_dismissible_for_different_text( $dismissible_for_different_text ) {
+		$this->dismissible_for_different_text = $dismissible_for_different_text;
+	}
+
 	public function set_exclude_from_pages( array $pages ) {
 		$this->exclude_from_pages = $pages;
 	}
@@ -273,5 +277,88 @@ class WPML_Notice {
 
 	public static function make( $id, $text, $group = 'default' ) {
 		return new WPML_Notice( $id, $text, $group );
+	}
+
+	public function __serialize(): array {
+		$data = (array) $this;
+
+		foreach ( $data as $key => $value ) {
+			if ( 'display_callbacks' !== self::property_name_of( $key ) ) {
+				continue;
+			}
+
+			$kept = [];
+
+			foreach ( is_array( $value ) ? $value : [] as $callback ) {
+				if ( \WPML\Notices\NoticeStoreRepair::isStorableCallback( $callback ) ) {
+					$kept[] = $callback;
+					continue;
+				}
+
+				if ( function_exists( '_doing_it_wrong' ) ) {
+					_doing_it_wrong(
+						esc_html( __METHOD__ ),
+						'A display callback that is not a string or a [class, method] array cannot be stored and was dropped: ' . esc_html( self::describe_callback( $callback ) ),
+						'5.0.0'
+					);
+				}
+			}
+
+			$data[ $key ] = $kept;
+		}
+
+		return $data;
+	}
+
+	private static function describe_callback( $callback ) {
+		if ( $callback instanceof Closure ) {
+			return 'a closure';
+		}
+
+		if ( is_object( $callback ) ) {
+			return 'an instance of ' . get_class( $callback );
+		}
+
+		if ( is_array( $callback ) && isset( $callback[0] ) && is_object( $callback[0] ) ) {
+			return 'a method of an instance of ' . get_class( $callback[0] );
+		}
+
+		return gettype( $callback );
+	}
+
+	public function __unserialize( array $data ): void {
+		foreach ( $data as $key => $value ) {
+			$this->restore_property( $key, $value );
+		}
+	}
+
+	private static function property_name_of( $key ) {
+		$parts = explode( "\0", (string) $key );
+
+		return (string) end( $parts );
+	}
+
+	private function restore_property( $key, $value ) {
+		$name     = self::property_name_of( $key );
+		$property = $this->reflect_property( $name );
+
+		if ( $property ) {
+			$property->setAccessible( true );
+			$property->setValue( $this, $value );
+
+			return;
+		}
+
+		$this->$name = $value;
+	}
+
+	private function reflect_property( $name ) {
+		for ( $class = new ReflectionClass( $this ); $class; $class = $class->getParentClass() ) {
+			if ( $class->hasProperty( $name ) ) {
+				return $class->getProperty( $name );
+			}
+		}
+
+		return null;
 	}
 }

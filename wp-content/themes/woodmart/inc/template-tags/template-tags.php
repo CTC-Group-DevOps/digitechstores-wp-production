@@ -1287,7 +1287,7 @@ if ( ! function_exists( 'woodmart_get_carousel_attributes' ) ) {
 		}
 
 		if ( $style_attr ) {
-			$output[] = 'style="' . $style_attr . '"';
+			$output[] = 'style="' . esc_attr( $style_attr ) . '"';
 		}
 
 		return implode( ' ', $output );
@@ -1549,6 +1549,10 @@ if ( ! function_exists( 'woodmart_page_title' ) ) {
 			if ( woodmart_woocommerce_installed() && is_wc_endpoint_url( 'lost-password' ) ) {
 				$title = esc_html__( 'Lost password', 'woocommerce' );
 			}
+
+			if ( is_search() ) {
+				$title = esc_html__( 'Search Results for: ', 'woodmart' ) . get_search_query();
+			}
 			?>
 				<div class="wd-page-title page-title <?php echo esc_attr( $title_class ); ?>" style="<?php echo esc_attr( $style ); ?>">
 					<div class="wd-page-title-bg wd-fill">
@@ -1566,7 +1570,7 @@ if ( ! function_exists( 'woodmart_page_title' ) ) {
 								<?php do_action( 'woodmart_page_title_after_title' ); ?>
 							<?php endif; ?>
 
-							<?php if ( $breadcrumbs ) : ?>
+							<?php if ( $breadcrumbs && ! is_search() ) : ?>
 								<?php woodmart_current_breadcrumbs( 'pages' ); ?>
 							<?php endif; ?>
 						<?php endif; ?>
@@ -1695,11 +1699,11 @@ if ( ! function_exists( 'woodmart_page_title' ) ) {
 			}
 
 			if ( is_author() ) {
-				the_post();
+				$author_data = get_queried_object();
 
-				$title = esc_html__( 'Posts by ', 'woodmart' ) . '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>';
-
-				rewind_posts();
+				if ( $author_data instanceof WP_User ) {
+					$title = esc_html__( 'Posts by ', 'woodmart' ) . '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( $author_data->ID ) ) . '" title="' . esc_attr( $author_data->display_name ) . '" rel="me">' . esc_html( $author_data->display_name ) . '</a></span>';
+				}
 			}
 
 			if ( is_search() ) {

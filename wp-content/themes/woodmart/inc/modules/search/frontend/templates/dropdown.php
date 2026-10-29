@@ -13,7 +13,7 @@
 		<input type="text" class="s" placeholder="<?php echo esc_attr( $placeholder ); ?>" value="<?php echo get_search_query(); ?>" name="s" aria-label="<?php esc_attr_e( 'Search', 'woodmart' ); ?>" title="<?php echo esc_attr( $placeholder ); ?>"<?php echo esc_attr( apply_filters( 'woodmart_show_required_in_search_form', true ) ? ' required' : '' ); ?>/>
 		<input type="hidden" name="post_type" value="<?php echo esc_attr( $args['post_type'] ); ?>">
 
-		<span tabindex="0" aria-label="<?php esc_attr_e( 'Clear search', 'woodmart' ); ?>" class="wd-clear-search wd-deferred wd-role-btn<?php echo get_search_query() ? '' : ' wd-hide'; ?>"></span>
+		<span tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Clear search', 'woodmart' ); ?>" class="wd-clear-search wd-deferred wd-role-btn<?php echo get_search_query() ? '' : ' wd-hide'; ?>"></span>
 
 		<?php if ( $args['show_categories'] && 'product' === $args['post_type'] ) : ?>
 			<?php $this->show_categories_dropdown(); ?>

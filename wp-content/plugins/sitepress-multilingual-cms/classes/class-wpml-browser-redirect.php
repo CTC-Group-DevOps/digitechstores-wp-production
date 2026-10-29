@@ -28,6 +28,8 @@ class WPML_Browser_Redirect {
 
 		$languages     = $this->sitepress->get_ls_languages( $args );
 		$language_urls = [];
+		$countries           = \WPML\LanguageEditor\ActiveLanguages::countryByCode();
+		$language_identities = [];
 		foreach ( $languages as $language ) {
 			if ( isset( $language['default_locale'] ) && $language['default_locale'] ) {
 				$default_locale                   = strtolower( $language['default_locale'] );
@@ -42,8 +44,17 @@ class WPML_Browser_Redirect {
 				}
 			}
 			$language_urls[ $language['language_code'] ] = $language['url'];
+
+			$code                  = $language['language_code'];
+			$language_identities[] = [
+				'code'     => $code,
+				'language' => \WPML\LanguageEditor\LanguageCodeResolution::publishedIdentity( $code )['language'],
+				'country'  => isset( $countries[ $code ] ) ? $countries[ $code ] : null,
+				'locale'   => isset( $language['default_locale'] ) ? strtolower( (string) $language['default_locale'] ) : '',
+				'url'      => $language['url'],
+			];
 		}
-		$http_host = $_SERVER['HTTP_HOST'] == 'localhost' ? '' : $_SERVER['HTTP_HOST'];
+		$http_host = \WPML\Cookie\CookieHost::get();
 		$cookie    = array(
 			'name'       => '_icl_visitor_lang_js',
 			'domain'     => ( defined( 'COOKIE_DOMAIN' ) && COOKIE_DOMAIN ? COOKIE_DOMAIN : $http_host ),
@@ -54,6 +65,7 @@ class WPML_Browser_Redirect {
 		$params = array(
 			'pageLanguage' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_bloginfo( 'language' ),
 			'languageUrls' => $language_urls,
+			'languages'    => $language_identities,
 			'cookie'       => $cookie,
 		);
 
@@ -69,7 +81,7 @@ class WPML_Browser_Redirect {
 		if ( $params && isset( $params['pageLanguage'], $params['languageUrls'] ) ) {
 			wp_localize_script( 'wpml-browser-redirect', 'wpml_browser_redirect_params', $params );
 
-			$enqueue = apply_filters( 'wpml_enqueue_browser_redirect_language', true );
+			$enqueue = apply_filters( 'wpml_enqueue_browser_redirect_language', ! is_404() );
 			if ( $enqueue ) {
 				wp_enqueue_script( 'wpml-browser-redirect' );
 			}

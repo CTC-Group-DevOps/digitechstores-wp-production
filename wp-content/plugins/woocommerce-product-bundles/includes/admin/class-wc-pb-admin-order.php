@@ -15,19 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles edit-order functions and filters.
  *
  * @class    WC_PB_Admin_Order
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_Admin_Order {
 
 	/**
 	 * Order object to use in 'display_edit_button'.
 	 *
-	 * @var WC_Order
+	 * @var WC_Order|null
 	 */
 	protected static $order;
 
 	/**
 	 * Setup Admin class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -258,7 +260,7 @@ class WC_PB_Admin_Order {
 
 						if ( ! empty( $order_notes ) ) {
 							/* translators: %s: List of added items */
-							$order->add_order_note( sprintf( __( 'Added bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $order_notes ) ), false, true );
+							$order->add_order_note( sprintf( __( 'Added bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $order_notes ) ), 0, true );
 						}
 
 						$order->remove_item( $item_id );
@@ -275,6 +277,7 @@ class WC_PB_Admin_Order {
 	 * Although the order object can be retrieved via 'WC_Order_Item::get_order', we've seen a significant performance hit when using that method.
 	 *
 	 * @param WC_Order $order Order object.
+	 * @return void
 	 */
 	public static function set_order( $order ) {
 		self::$order = $order;
@@ -283,9 +286,9 @@ class WC_PB_Admin_Order {
 	/**
 	 * Display "Configure/Edit" button next to configurable bundle container items in the edit-order screen.
 	 *
-	 * @param int           $item_id Order item ID.
-	 * @param WC_Order_Item $item    Order item object.
-	 * @param WC_Product    $product Product object.
+	 * @param int                   $item_id Order item ID.
+	 * @param WC_Order_Item         $item    Order item object.
+	 * @param WC_Product|false|null $product Product object.
 	 *
 	 * @return void
 	 */
@@ -335,6 +338,8 @@ class WC_PB_Admin_Order {
 
 	/**
 	 * JS template of modal for configuring/editing bundles.
+	 *
+	 * @return void
 	 */
 	public static function add_js_template() {
 

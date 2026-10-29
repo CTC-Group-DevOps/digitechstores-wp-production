@@ -34,10 +34,13 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 		$this->query_factory    = $query_factory;
 
 		$this->custom_field_options = array(
-			WPML_IGNORE_CUSTOM_FIELD    => __( "Don't translate", 'wpml-translation-management' ),
-			WPML_COPY_CUSTOM_FIELD      => __( 'Copy from original to translation', 'wpml-translation-management' ),
-			WPML_COPY_ONCE_CUSTOM_FIELD => __( 'Copy once', 'wpml-translation-management' ),
-			WPML_TRANSLATE_CUSTOM_FIELD => __( 'Translate', 'wpml-translation-management' ),
+			/* translators: Option in the dropdown that says what happens to a field: leave it out of the translation. Verb phrase, imperative. */
+			WPML_IGNORE_CUSTOM_FIELD    => __( "Don't translate", 'sitepress' ),
+			WPML_COPY_CUSTOM_FIELD      => __( 'Copy from original to translation', 'sitepress' ),
+			/* translators: Option in the dropdown that says what happens to a field: put the value in the translation once, and leave it alone afterwards. Verb phrase, imperative. */
+			WPML_COPY_ONCE_CUSTOM_FIELD => __( 'Copy once', 'sitepress' ),
+			/* translators: Option in the dropdown that says what happens to a field, and the heading of the column of the post editing screen where a translation is started: the text is translated. Verb, imperative. */
+			WPML_TRANSLATE_CUSTOM_FIELD => __( 'Translate', 'sitepress' ),
 		);
 	}
 
@@ -56,7 +59,7 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 			$this->load_all_fields     = (int) $args['page'] < 0;
 			$this->highest_page_loaded = (int) $args['highest_page_loaded'];
 
-			$this->custom_fields_keys = $this->get_query()->get( array_merge( $args, [ 'items_per_page' => $args['items_per_page'] + 1 ] ) );
+			$this->custom_fields_keys = $this->get_query()->get( array_merge( $args, [ 'one_more' => true ] ) );
 
 			$this->has_more = $this->load_all_fields
 				? false
@@ -66,7 +69,6 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 				array_pop( $this->custom_fields_keys );
 			}
 
-			natcasesort( $this->custom_fields_keys );
 		}
 	}
 
@@ -76,7 +78,6 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 		<div class="wpml-section wpml-section-<?php echo esc_attr( $this->kind_shorthand() ); ?>-translation"
 			 id="ml-content-setup-sec-<?php echo esc_attr( $this->kind_shorthand() ); ?>">
 			<div class="wpml-section-header">
-				<h3><?php echo esc_html( $this->get_title() ); ?></h3>
 				<p>
 					<?php
 					$toggle_system_fields = array(
@@ -85,12 +86,13 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 								array(
 									'show_system_fields' => ! $this->settings_factory->show_system_fields,
 								),
-								admin_url( 'admin.php?page=' . WPML_TM_FOLDER . WPML_Translation_Management::PAGE_SLUG_SETTINGS ) . '#ml-content-setup-sec-' . $this->kind_shorthand()
+								// `WPML_TM_FOLDER` ('tm') is undefined under a blog license (TM not
+								admin_url( 'admin.php?page=' . ( defined( 'WPML_TM_FOLDER' ) ? WPML_TM_FOLDER : 'tm' ) . WPML_Translation_Management::PAGE_SLUG_SETTINGS ) . '#ml-content-setup-sec-' . $this->kind_shorthand()
 							)
 						),
 						'text' => $this->settings_factory->show_system_fields ?
-							__( 'Hide system fields', 'wpml-translation-management' ) :
-							__( 'Show system fields', 'wpml-translation-management' ),
+							__( 'Hide system fields', 'sitepress' ) :
+							__( 'Show system fields', 'sitepress' ),
 					);
 					?>
 					<a href="<?php echo esc_url( $toggle_system_fields['url'] ); ?>"><?php echo esc_html( $toggle_system_fields['text'] ); ?></a>
@@ -103,7 +105,7 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 						data-type="<?php echo esc_attr( $this->kind_shorthand() ); ?>"
 						name="icl_<?php echo esc_attr( $this->kind_shorthand() ); ?>_translation"
 						class="wpml-custom-fields-settings" action="">
-				<?php wp_nonce_field( 'icl_' . $this->kind_shorthand() . '_translation_nonce', '_icl_nonce' ); ?>
+				<?php wpml_nonce_field_with_id( 'icl_' . $this->kind_shorthand() . '_translation_nonce', '_icl_nonce', 'icl_' . $this->kind_shorthand() . '_translation_nonce' ); ?>
 					<?php
 					if ( empty( $this->custom_fields_keys ) ) {
 						?>
@@ -121,7 +123,11 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 							<?php
 						}
 						?>
-                        <div class="wpml-flex-table wpml-translation-setup-table wpml-margin-top-sm">
+						<?php if ( 'cf' === $this->kind_shorthand() ) : ?>
+							<?php  ?>
+							<div id="wpml_cf_pending_rulings"></div>
+						<?php endif; ?>
+                        <div class="wpml-flex-table wpml-translation-setup-table wpml-custom-fields-table wpml-margin-top-sm">
 
 							<?php echo $this->render_heading(); ?>
 
@@ -139,8 +145,13 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 						<p class="buttons-wrap">
 							<span class="icl_ajx_response"
 								  id="icl_ajx_response_<?php echo esc_attr( $this->kind_shorthand() ); ?>"></span>
-							<input type="submit" class="button-primary wpml-button base-btn"
-								   value="<?php echo esc_attr__( 'Save', 'wpml-translation-management' ); ?>"/>
+							<input type="submit"
+								   id="wpml_<?php echo esc_attr( $this->kind_shorthand() ); ?>_translation_save_legacy"
+								   class="button-primary wpml-button base-btn"
+								   value="<?php echo /* translators: Button label that keeps what was entered. Verb, imperative. */ esc_attr__( 'Save', 'sitepress' ); ?>"
+								   style="display:none"
+							/>
+							<span id="wpml_<?php echo esc_attr( $this->kind_shorthand() ); ?>_translation_save" style="display:inline-block"></span>
 						</p>
 						<?php
 					}
@@ -155,6 +166,12 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 	}
 
 	abstract protected function kind_shorthand();
+
+	private function outcome_kind() {
+		return 'tcf' === $this->kind_shorthand()
+			? \WPML\TM\Settings\PreferenceOutcomeSentences::KIND_TERM
+			: \WPML\TM\Settings\PreferenceOutcomeSentences::KIND_POST;
+	}
 
 	abstract protected function get_title();
 
@@ -187,6 +204,7 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 	}
 
 	private function render_heading() {
+		$outcomes = \WPML\TM\Settings\PreferenceOutcomeSentences::all( $this->outcome_kind() );
 		ob_start();
 		?>
 		<div class="wpml-flex-table-header wpml-flex-table-sticky">
@@ -197,23 +215,27 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 				</div>
 				<div class="wpml-flex-table-cell text-center">
 					<span id="do_not_translate">
-						<?php echo esc_html__( "Don't translate", 'wpml-translation-management' ); ?>
+						<?php echo /* translators: Option in the dropdown that says what happens to a field: leave it out of the translation. Verb phrase, imperative. */ esc_html__( "Don't translate", 'sitepress' ); ?>
 					</span>
+					<?php $this->render_outcome( $outcomes[ WPML_IGNORE_CUSTOM_FIELD ] ); ?>
 				</div>
 				<div class="wpml-flex-table-cell text-center">
 					<span id="copy_from_original">
-						<?php echo esc_html_x( 'Copy', 'Verb', 'wpml-translation-management' ); ?>
+						<?php echo esc_html_x( 'Copy', 'Verb', 'sitepress' ); ?>
 					</span>
+					<?php $this->render_outcome( $outcomes[ WPML_COPY_CUSTOM_FIELD ] ); ?>
 				</div>
 				<div class="wpml-flex-table-cell text-center">
 					<span id="copy_once">
-						<?php echo esc_html__( 'Copy once', 'wpml-translation-management' ); ?>
+						<?php echo /* translators: Option in the dropdown that says what happens to a field: put the value in the translation once, and leave it alone afterwards. Verb phrase, imperative. */ esc_html__( 'Copy once', 'sitepress' ); ?>
 					</span>
+					<?php $this->render_outcome( $outcomes[ WPML_COPY_ONCE_CUSTOM_FIELD ] ); ?>
 				</div>
 				<div class="wpml-flex-table-cell text-center">
 					<span id="translate">
-						<?php echo esc_html__( 'Translate', 'wpml-translation-management' ); ?>
+						<?php echo /* translators: Option in the dropdown that says what happens to a field, and the heading of the column of the post editing screen where a translation is started: the text is translated. Verb, imperative. */ esc_html__( 'Translate', 'sitepress' ); ?>
 					</span>
+					<?php $this->render_outcome( $outcomes[ WPML_TRANSLATE_CUSTOM_FIELD ] ); ?>
 				</div>
 			</div>
 		</div>
@@ -222,12 +244,29 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 		return ob_get_clean();
 	}
 
+	private function render_outcome( $sentence ) {
+		?>
+		<p class="wpml-flex-table-outcome"><?php echo esc_html( $sentence ); ?></p>
+		<?php
+	}
+
+	private function get_cell_header( $title, $sentence ) {
+		return sprintf(
+			/* translators: Label a cell of the custom-field preference table shows on a narrow screen. %1$s: the option ("Copy once"); %2$s: the sentence saying what a visitor sees with it. */
+			__( '%1$s — %2$s', 'sitepress' ),
+			$title,
+			$sentence
+		);
+	}
+
 	public function render_search( $search_string = '' ) {
 		$search = new WPML_TM_MCS_Search_Factory();
 		echo $search->create( $search_string )->render();
 	}
 
 	public function render_body() {
+		$outcomes = \WPML\TM\Settings\PreferenceOutcomeSentences::all( $this->outcome_kind() );
+
 		foreach ( $this->custom_fields_keys as $cf_key ) {
 			$setting       = $this->get_setting( $cf_key );
 			$status        = $setting->status();
@@ -248,7 +287,7 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 				<?php
 				foreach ( $this->custom_field_options as $ref_status => $title ) {
 					?>
-					<div class="wpml-flex-table-cell text-center">
+					<div class="wpml-flex-table-cell text-center" data-header="<?php echo esc_attr( $this->get_cell_header( $title, $outcomes[ $ref_status ] ) ); ?>">
 						<?php
 						echo $this->render_radio( $cf_key, $html_disabled, $status, $ref_status );
 						?>
@@ -270,9 +309,9 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 		}
 
 		$current_fields_count = count( $this->custom_fields_keys );
-		$total_items_so_far   = 1 === $current_page && $current_fields_count < $items_per_page
-			? $current_fields_count
-			: $items_per_page * $this->highest_page_loaded + ( $this->has_more ? 1 : 0 );
+		$total_items_so_far   = $current_page < $this->highest_page_loaded
+			? $items_per_page * $this->highest_page_loaded
+			: $items_per_page * ( $current_page - 1 ) + $current_fields_count + ( $this->has_more ? 1 : 0 );
 
 		echo $pagination->create( $total_items_so_far, $current_page )->render();
 	}

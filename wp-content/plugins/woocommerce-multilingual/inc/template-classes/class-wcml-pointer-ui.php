@@ -17,6 +17,7 @@ class WCML_Pointer_UI extends WCML_Templates_Factory {
     ) {
         parent::__construct();
 
+		/* translators: Default link text of the help bubble shown next to a setting that WPML translates; "this" is the setting the bubble sits on. */
         $this->anchor           = $anchor ?: __( 'How to translate this?', 'woocommerce-multilingual' );
 				$this->selector         = $selector;
         $this->method           = $method;
@@ -34,6 +35,7 @@ class WCML_Pointer_UI extends WCML_Templates_Factory {
                 'content'       => $this->content,
                 'trnsl_title'   => $this->anchor,
                 'doc_link'      => $this->documentationUrl,
+				/* translators: Link text that opens the WPML documentation. Verb phrase, imperative. */
                 'doc_link_text' => __( 'Learn more', 'woocommerce-multilingual' ),
             ],
         ];

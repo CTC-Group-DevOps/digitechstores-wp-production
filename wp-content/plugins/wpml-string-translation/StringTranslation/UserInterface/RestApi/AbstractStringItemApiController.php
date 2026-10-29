@@ -26,11 +26,6 @@ abstract class AbstractStringItemApiController extends AbstractItemApiController
 					'type'    => 'string',
 					'default' => null,
 				],
-				'translationPriority' => [
-					'type'              => 'string',
-					'sanitize_callback' => [ 'WPML_REST_Arguments_Sanitation', 'string' ],
-					'default'           => null,
-				],
 			]
 		);
 	}

@@ -8,13 +8,35 @@ class WPML_PB_Factory {
 	private $sitepress;
 	private $string_translations = [];
 
+	private $packages = [];
+
+	private $forgets_on_removal = false;
+
 	public function __construct( wpdb $wpdb, SitePress $sitepress ) {
 		$this->wpdb      = $wpdb;
 		$this->sitepress = $sitepress;
 	}
 
 	public function get_wpml_package( $package_id ) {
-		return new WPML_Package( $package_id );
+		if ( ! is_numeric( $package_id ) ) {
+			return new WPML_Package( $package_id );
+		}
+
+		$package_id = (int) $package_id;
+		if ( ! isset( $this->packages[ $package_id ] ) ) {
+			if ( ! $this->forgets_on_removal ) {
+				$this->forgets_on_removal = true;
+				add_action( 'wpml_delete_package', [ $this, 'forget_packages' ] );
+				add_action( 'deleted_post', [ $this, 'forget_packages' ] );
+			}
+			$this->packages[ $package_id ] = new WPML_Package( $package_id );
+		}
+
+		return clone $this->packages[ $package_id ];
+	}
+
+	public function forget_packages() {
+		$this->packages = [];
 	}
 
 	public function get_string_translations( IWPML_PB_Strategy $strategy ) {
@@ -63,14 +85,15 @@ class WPML_PB_Factory {
 	}
 
 	public function get_package_strings_resave() {
-		return new WPML_PB_Package_Strings_Resave( new WPML_ST_String_Factory( $this->wpdb ) );
+		return new WPML_PB_Package_Strings_Resave();
 	}
 
 	public function get_handle_post_body() {
 		return new WPML_PB_Handle_Post_Body(
 			new WPML_Page_Builders_Page_Built(
 				new WPML_Config_Built_With_Page_Builders()
-			)
+			),
+			$this->get_element_factory()
 		);
 	}
 
@@ -79,7 +102,10 @@ class WPML_PB_Factory {
 	}
 
 	public function get_post_element( $post_id ) {
-		$factory = new WPML_Translation_Element_Factory( $this->sitepress );
-		return $factory->create_post( $post_id );
+		return $this->get_element_factory()->create_post( $post_id );
+	}
+
+	private function get_element_factory() {
+		return new WPML_Translation_Element_Factory( $this->sitepress );
 	}
 }

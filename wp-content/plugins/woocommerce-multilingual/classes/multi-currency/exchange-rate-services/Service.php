@@ -98,6 +98,7 @@ abstract class Service {
 
 		return $formattedError
 			? strip_tags( $formattedError )
+			/* translators: Error shown on the multicurrency screen when the exchange-rate service could not be reached. */
 			: esc_html__( 'Cannot get exchange rates. Connection failed.', 'woocommerce-multilingual' );
 	}
 

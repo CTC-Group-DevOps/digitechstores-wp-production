@@ -198,7 +198,10 @@ class Manager extends Singleton {
 			$query      = isset( $condition['query'] ) ? $condition['query'] : '';
 			$comparison = isset( $condition['comparison'] ) ? $condition['comparison'] : 'include';
 
-			if ( $query ) {
+			// The 'products' case holds a comma-separated id list and translates each
+			// id itself below; running the generic single-id filter on the raw string
+			// here with the invalid 'products' element type would risk dropping ids.
+			if ( $query && 'products' !== $type ) {
 				$query = apply_filters( 'wpml_object_id', $query, $type, true, apply_filters( 'wpml_current_language', null ) ); // phpcs:ignore.
 			}
 
@@ -212,7 +215,13 @@ class Manager extends Singleton {
 					break;
 
 				case 'products':
-					$query              = array_map( 'intval', explode( ',', (string) $query ) );
+					$current_language   = apply_filters( 'wpml_current_language', null );
+					$query              = array_map(
+						function ( $product_query_id ) use ( $current_language ) {
+							return (int) apply_filters( 'wpml_object_id', (int) $product_query_id, 'product', true, $current_language );
+						},
+						explode( ',', (string) $query )
+					);
 					$is_needed_products = $product_id && in_array( (int) $product_id, $query, true );
 
 					if ( $is_needed_products ) {

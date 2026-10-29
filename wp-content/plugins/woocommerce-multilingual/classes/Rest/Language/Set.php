@@ -7,11 +7,26 @@ use WPML\FP\Obj;
 
 class Set {
 
+	const PRIORITY_AFTER_THE_REQUEST = PHP_INT_MAX;
+
+	private static $requestScopeIsOpen = false;
+
+	private static $callbackScopes = [];
+
 	public static function fromUrlQueryVar() {
 		$lang = self::sanitize( Obj::prop( 'lang', $_GET ) );
 
-		if ( $lang ) {
+		if ( ! self::$requestScopeIsOpen && self::opensAScopeFor( $lang ) ) {
+			self::$requestScopeIsOpen = true;
 			wpml_switch_language_action( $lang );
+			add_action( 'shutdown', [ __CLASS__, 'closeRequestScope' ], self::PRIORITY_AFTER_THE_REQUEST );
+		}
+	}
+
+	public static function closeRequestScope() {
+		if ( self::$requestScopeIsOpen ) {
+			self::$requestScopeIsOpen = false;
+			wpml_switch_language_action();
 		}
 	}
 
@@ -19,8 +34,20 @@ class Set {
 		$lang = self::getFromRequestParams( $request )
 			?: self::getFromProduct( $handler, $request );
 
-		if ( $lang ) {
+		$opened = self::opensAScopeFor( $lang );
+
+		if ( $opened ) {
 			wpml_switch_language_action( $lang );
+		}
+
+		self::$callbackScopes[] = $opened;
+
+		return $response;
+	}
+
+	public static function afterCallbacks( $response ) {
+		if ( array_pop( self::$callbackScopes ) ) {
+			wpml_switch_language_action();
 		}
 
 		return $response;
@@ -45,6 +72,12 @@ class Set {
 		}
 
 		return '';
+	}
+
+	private static function opensAScopeFor( $lang ) {
+		$currentLanguage = (string) apply_filters( 'wpml_current_language', null );
+
+		return (bool) $lang && $currentLanguage !== $lang;
 	}
 
 	private static function sanitize( $lang ) {

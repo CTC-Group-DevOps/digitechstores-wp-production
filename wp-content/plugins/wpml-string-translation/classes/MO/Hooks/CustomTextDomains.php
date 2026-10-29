@@ -91,7 +91,7 @@ class CustomTextDomains implements \IWPML_Action {
 		} else {
 			$cache_update_required = true;
 
-			$domains = \wpml_collect( $this->domains->getCustomMODomains() );
+			$domains = \wpml_collect( $this->domains->getCustomMODomains( $locale ) );
 		}
 
 		$files = $domains->map( $getDomainPathTuple )

@@ -8,14 +8,23 @@ class WCML_Setup_Multi_Currency_UI extends WCML_Setup_Step {
 		return [
 			'strings'           => [
 				'step_id'     => 'currency_step',
+				/* translators: Heading of the setup-wizard step about multicurrency. */
 				'heading'     => __( 'Do you want to add more currencies to your store?', 'woocommerce-multilingual' ),
+				/* translators: Line above the list of what multicurrency offers, in the setup wizard; the list follows the colon. */
 				'description' => __( 'You will be able to:', 'woocommerce-multilingual' ),
+				/* translators: Item in the list of what multicurrency offers, in the setup wizard. Verb phrase, imperative. */
 				'bullet1'     => __( 'Add a currency switcher to your store', 'woocommerce-multilingual' ),
+				/* translators: Item in the list of what multicurrency offers, in the setup wizard. Verb phrase, imperative. */
 				'bullet2'     => __( 'Set exchange rates', 'woocommerce-multilingual' ),
+				/* translators: Item in the list of what multicurrency offers, in the setup wizard. Verb phrase, imperative. */
 				'bullet3'     => __( 'Create custom pricing in each currency', 'woocommerce-multilingual' ),
+				/* translators: Last item in the list of what multicurrency offers, in the setup wizard. */
 				'bullet4'     => __( 'And more!', 'woocommerce-multilingual' ),
+				/* translators: Button in the setup wizard that turns multicurrency on. */
 				'enable'      => __( 'Yes, enable multicurrency mode', 'woocommerce-multilingual' ),
+				/* translators: Button in the setup wizard that leaves the shop on one currency. */
 				'continue'    => __( 'No, use only one currency', 'woocommerce-multilingual' ),
+				/* translators: Button label that returns the setup wizard to the previous step. Verb phrase, imperative. */
 				'go_back'     => __( 'Go back', 'woocommerce-multilingual' ),
 			],
 			'documentation_url' => WCML_Tracking_Link::getWcmlMultiCurrencyDoc( false, [ 'utm_term' => WCML_Tracking_Link::UTM_TERM_WIZARD ] ),

@@ -5,7 +5,7 @@ namespace WPML\PB\Gutenberg\StringsInBlock\DOMHandler;
 class ListBlock extends DOMHandle {
 
 	protected function getInnerHTMLFromChildNodes( \DOMNode $element, $context ) {
-		$innerHTML  = "";
+		$innerHTML  = '';
 		$is_partial = self::INNER_HTML_PARTIAL === $context;
 		$children   = $element->childNodes;
 
@@ -24,11 +24,11 @@ class ListBlock extends DOMHandle {
 		return $innerHTML;
 	}
 
-	protected function appendExtraChildNodes( \DOMNode $clone, \DOMNode $element ) {
+	protected function appendExtraChildNodes( \DOMNode $clonedElement, \DOMNode $element ) {
 		$child_list = $this->getChildList( $element );
 
 		if ( $child_list ) {
-			$clone->appendChild( $child_list );
+			$clonedElement->appendChild( $child_list );
 		}
 	}
 

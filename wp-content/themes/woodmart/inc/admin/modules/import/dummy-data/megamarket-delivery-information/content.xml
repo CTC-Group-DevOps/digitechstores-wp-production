@@ -35,22 +35,22 @@
 <tr>
 <td width="214">FedEx</td>
 <td width="214">10% of order value</td>
-<td width="214"><strong><span style="color: #1246ab;">$299</span></strong></td>
+<td width="214"><strong><span style="color: #1246ab">$299</span></strong></td>
 </tr>
 <tr>
 <td width="214">FedEx, Signature Required</td>
 <td width="214">10% of order value + $20</td>
-<td width="214"><strong><span style="color: #1246ab;">$299 + $20</span></strong></td>
+<td width="214"><strong><span style="color: #1246ab">$299 + $20</span></strong></td>
 </tr>
 <tr>
 <td width="214">In-Home Delivery</td>
 <td width="214">$299 per trip</td>
-<td width="214"><strong><span style="color: #1246ab;">$299</span></strong></td>
+<td width="214"><strong><span style="color: #1246ab">$299</span></strong></td>
 </tr>
 <tr>
 <td width="214">In-Home Delivery, Time-Specific</td>
 <td width="214">$399 per trip</td>
-<td width="214"><strong><span style="color: #1246ab;">$299</span></strong></td>
+<td width="214"><strong><span style="color: #1246ab">$299</span></strong></td>
 </tr>
 </tbody>
 </table>
@@ -58,8 +58,8 @@
 															<wp:post_id>1039</wp:post_id>
 					<wp:post_date><![CDATA[2022-06-02 07:15:43]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2022-06-02 07:15:43]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-07-22 13:20:36]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-07-22 13:20:36]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-23 09:53:52]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-23 09:53:52]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[payment-and-delivery]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

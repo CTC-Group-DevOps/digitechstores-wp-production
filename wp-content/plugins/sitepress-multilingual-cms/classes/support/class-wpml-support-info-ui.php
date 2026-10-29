@@ -29,24 +29,29 @@ class WPML_Support_Info_UI {
 		$blocks = array(
 			'php' => array(
 				'strings' => array(
+					/* translators: Heading of the section about the PHP settings of the server, on the Support screen. */
 					'title' => __( 'PHP', 'sitepress' ),
 				),
 				'data'    => array(
 					'version'            => array(
+						/* translators: Label of the row that gives the version number of a piece of software, on the Support screen. */
 						'label'      => __( 'Version', 'sitepress' ),
 						'value'      => $php_version,
 						'url'        => 'http://php.net/supported-versions.php',
 						'messages'   => array(
-							sprintf( __( 'PHP %1$s and above are recommended.', 'sitepress' ), RequirementsConfig::MINIMUM_PHP_VERSION ) => 'https://wpml.org/home/minimum-requirements/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+							/* translators: Note under the PHP version on the Support screen. %1$s: the lowest PHP version WPML advises, for example 7.4. */
+							sprintf( __( 'PHP %1$s and above are recommended.', 'sitepress' ), RequirementsConfig::MINIMUM_PHP_VERSION ) => \WPML\OutboundLinks\OutboundLinks::to( 'https://wpml.org/home/minimum-requirements/', array( 'medium' => 'support', 'campaign' => 'requirements' ) ),
 							__( 'Find how you can update PHP.', 'sitepress' )                                                                                                                                   => 'https://wordpress.org/support/update-php/',
 						),
 					),
 					'memory_limit'       => array(
+						/* translators: Label of the row that gives how much memory the server allows, on the Support screen. */
 						'label'    => __( 'Memory limit', 'sitepress' ),
 						'value'    => $php_memory_limit,
 						'url'      => 'http://php.net/manual/ini.core.php#ini.memory-limit',
 					),
 					'memory_usage'       => array(
+						/* translators: Label of the row that gives how much memory is being used, on the Support screen. */
 						'label' => __( 'Memory usage', 'sitepress' ),
 						'value' => $memory_usage,
 						'url'   => 'http://php.net/memory-get-usage',
@@ -62,11 +67,18 @@ class WPML_Support_Info_UI {
 						'url'   => 'http://php.net/manual/info.configuration.php#ini.max-input-vars',
 					),
 					'utf8mb4_charset'    => array(
+						/* translators: Label of the row that says whether the database can hold every character, on the Support screen. Utf8mb4 is a technical name and stays as it is. */
 						'label'    => __( 'Utf8mb4 charset', 'sitepress' ),
-						'value'    => $this->support_info->is_utf8mb4_charset_supported() ? __( 'Yes' ) : __( 'No' ),
+						'value'    => $this->support_info->is_utf8mb4_charset_supported() ? /* translators: Option in a dropdown, and the value shown in a table cell, meaning that the setting is turned on. */ __( 'Yes', 'sitepress' ) : /* translators: Option in a dropdown, and the value shown in a table cell, meaning that the setting is turned off. */ __( 'No', 'sitepress' ),
 						'url'      => 'https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html',
 						'messages' => array(
-							__( 'Some WPML String Translation features may not work correctly without utf8mb4 character support.', 'sitepress' ) => 'https://wpml.org/home/minimum-requirements/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+							__( 'Some WPML String Translation features may not work correctly without utf8mb4 character support.', 'sitepress' ) => \WPML\OutboundLinks\OutboundLinks::to(
+								'https://wpml.org/home/minimum-requirements/',
+								array(
+									'medium'   => 'support',
+									'campaign' => 'requirements',
+								)
+							),
 
 						),
 						'is_error' => ! $this->support_info->is_utf8mb4_charset_supported(),
@@ -75,19 +87,23 @@ class WPML_Support_Info_UI {
 			),
 			'wp'  => array(
 				'strings' => array(
+					/* translators: Heading of the section about WordPress itself, on the Support screen. */
 					'title' => __( 'WordPress', 'sitepress' ),
 				),
 				'data'    => array(
 					'wp_version'       => array(
+						/* translators: Label of the row that gives the version number of a piece of software, on the Support screen. */
 						'label'    => __( 'Version', 'sitepress' ),
 						'value'    => $this->support_info->get_wp_version(),
 						'messages' => array(
-							sprintf( __( 'WordPress %s or later is required.', 'sitepress' ), RequirementsConfig::MINIMUM_WP_VERSION ) => 'https://wpml.org/home/minimum-requirements/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore',
+							/* translators: Note under the WordPress version on the Support screen. %s: the lowest WordPress version WPML needs, for example 6.0. */
+							sprintf( __( 'WordPress %s or later is required.', 'sitepress' ), RequirementsConfig::MINIMUM_WP_VERSION ) => \WPML\OutboundLinks\OutboundLinks::to( 'https://wpml.org/home/minimum-requirements/', array( 'medium' => 'support', 'campaign' => 'requirements' ) ),
 						)
 					),
 					'multisite'        => array(
+						/* translators: Label of the row that says whether this is a network of several sites, on the Support screen. */
 						'label' => __( 'Multisite', 'sitepress' ),
-						'value' => $this->support_info->get_wp_multisite() ? __( 'Yes' ) : __( 'No' ),
+						'value' => $this->support_info->get_wp_multisite() ? /* translators: Option in a dropdown, and the value shown in a table cell, meaning that the setting is turned on. */ __( 'Yes', 'sitepress' ) : /* translators: Option in a dropdown, and the value shown in a table cell, meaning that the setting is turned off. */ __( 'No', 'sitepress' ),
 					),
 					'WP_MEMORY_LIMIT'     => array(
 						'label'    =>'WP_MEMORY_LIMIT',
@@ -98,8 +114,9 @@ class WPML_Support_Info_UI {
 						'value'    => $this->support_info->get_wp_max_memory_limit(),
 					),
 					'rest_enabled'     => array(
+						/* translators: Label of the row that says whether the site answers requests from other programs, on the Support screen. REST is a technical name and stays as it is. */
 						'label'    => __( 'REST enabled', 'sitepress' ),
-						'value'    => wpml_is_rest_enabled(false) ? __( 'Yes' ) : __( 'No' ),
+						'value'    => wpml_is_rest_enabled() ? /* translators: Option in a dropdown, and the value shown in a table cell, meaning that the setting is turned on. */ __( 'Yes', 'sitepress' ) : /* translators: Option in a dropdown, and the value shown in a table cell, meaning that the setting is turned off. */ __( 'No', 'sitepress' ),
 					),
 				),
 			),
@@ -107,8 +124,9 @@ class WPML_Support_Info_UI {
 
 		if ( $this->support_info->is_suhosin_active() ) {
 			$blocks['php']['data']['eval_suhosin'] = array(
+				/* translators: Label of a row on the Support screen. It starts in lower case because eval() is the name of a function in PHP; Suhosin is the name of a security extension. Both stay as they are. */
 				'label'    => __( 'eval() availability from Suhosin', 'sitepress' ),
-				'value'    => $this->support_info->eval_disabled_by_suhosin() ? __( 'Not available', 'sitepress' ) : __( 'Available', 'sitepress' ),
+				'value'    => $this->support_info->eval_disabled_by_suhosin() ? /* translators: Value of a row on the Support screen: the thing the row is about is missing on this server. */ __( 'Not available', 'sitepress' ) : /* translators: Value of a row on the Support screen: the thing the row is about is there on this server. */ __( 'Available', 'sitepress' ),
 			);
 		}
 		if ( version_compare( PHP_VERSION, '8.3', '>=' ) ) {
@@ -124,8 +142,7 @@ class WPML_Support_Info_UI {
 
 			$messages = array();
 			if ( $available_stack_too_low ) {
-				$messages[__( 'WPML needs at least 208 KB of Available stack size on PHP 8.3+; please set "zend.max_allowed_stack_size" to at least 256 KB and "zend.reserved_stack_size" to at least 48 KB in your php.ini file. After these changes, restart your web server.', 'sitepress')] =
-					'https://wpml.org/home/minimum-requirements/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore';
+				$messages[__( 'WPML needs at least 208 KB of Available stack size on PHP 8.3+; please set "zend.max_allowed_stack_size" to at least 256 KB and "zend.reserved_stack_size" to at least 48 KB in your php.ini file. After these changes, restart your web server.', 'sitepress')] = '';
 			}
 
 			$new_data = [];
@@ -150,6 +167,7 @@ class WPML_Support_Info_UI {
 		$this->set_has_messages( $blocks, 'is_warning' );
 
 		$model = array(
+			/* translators: Heading of the section that lists facts about the site, on the Support screen. */
 			'title'  => __( 'Info', 'sitepress' ),
 			'blocks' => $blocks,
 		);
@@ -166,6 +184,7 @@ class WPML_Support_Info_UI {
 		$reserved_stack_unlimited = $reserved_stack_bytes === 0;
 
 		if ( $max_stack_unlimited ) {
+			/* translators: Value of a row on the Support screen: WPML picks this by itself, nobody set it. */
 			$available_stack_display = __( 'Automatic', 'sitepress' );
 			$available_stack_too_low = false;
 		} else {

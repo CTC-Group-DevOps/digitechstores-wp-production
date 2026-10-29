@@ -67,7 +67,7 @@ if ( ! function_exists( 'whb_enqueue_header_style' ) ) {
 			woodmart_enqueue_inline_style( 'header-opt-scroll-stick' );
 		}
 
-		if ( wp_is_mobile() && woodmart_get_opt( 'mobile_optimization', 0 ) ) {
+		if ( woodmart_is_mobile() && woodmart_get_opt( 'mobile_optimization', 0 ) ) {
 			woodmart_enqueue_inline_style( 'opt-is-mobile' );
 		}
 	}

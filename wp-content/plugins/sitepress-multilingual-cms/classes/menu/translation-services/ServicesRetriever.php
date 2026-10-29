@@ -26,12 +26,12 @@ class ServicesRetriever {
 
 		$services[] = $otherSection(
 			$servicesAPI->get_translation_services( false ),
-			__( 'Other Translation Services', 'wpml-translation-management' )
+			__( 'Other Translation Services', 'sitepress' )
 		);
 
 		$services[] = $otherSection(
 			$servicesAPI->get_translation_management_systems(),
-			__( 'Translation Management System', 'wpml-translation-management' )
+			__( 'Translation Management System', 'sitepress' )
 		);
 
 		return $services;
@@ -41,6 +41,7 @@ class ServicesRetriever {
 		$headers = [
 			'regular'        => __( 'Partner Translation Services', 'sitepress' ),
 			'inCountry'      => sprintf(
+				/* translators: Heading above the list of translation services near the user. %s: the name of the country. */
 				__( 'Partner Translation Services in %s', 'sitepress' ),
 				isset( $userCountry['name'] ) ? $userCountry['name'] : ''
 			),

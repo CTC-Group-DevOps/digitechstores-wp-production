@@ -17,8 +17,12 @@ class WPML_ST_Admin_String extends WPML_ST_String {
 
 	private function fetch_name_and_value() {
 		if ( is_null( $this->name ) || is_null( $this->value ) ) {
-			$res         = $this->wpdb->get_row(
-				'SELECT name, value  ' . $this->from_where_snippet()
+			$wpdb = $this->wpdb;
+			$res  = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT name, value FROM {$wpdb->prefix}icl_strings WHERE id = %d",
+					$this->string_id()
+				)
 			);
 			$this->name  = $res->name;
 			$this->value = $res->value;

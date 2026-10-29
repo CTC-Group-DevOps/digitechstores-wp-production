@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_BS_Display {
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -63,6 +65,8 @@ class WC_PB_BS_Display {
 
 	/**
 	 * Add hooks necessary to display Bundle-Sells in single-product templates.
+	 *
+	 * @return void
 	 */
 	public static function add_bundle_sells_display_hooks() {
 
@@ -124,7 +128,7 @@ class WC_PB_BS_Display {
 						'wrap'  => $bundle_sells_title_proc === $bundle_sells_title,
 						'title' => $bundle_sells_title_proc === $bundle_sells_title ? $bundle_sells_title_proc : wpautop( $bundle_sells_title_proc ),
 					),
-					false,
+					'',
 					WC_PB()->plugin_path() . '/includes/modules/bundle-sells/templates/'
 				);
 			}
@@ -159,7 +163,7 @@ class WC_PB_BS_Display {
 			}
 
 			?>
-				<div class="bundle_data bundle_data_<?php echo esc_attr( $bundle->get_id() ); ?>" data-bundle_form_data="<?php echo wc_esc_json( wp_json_encode( $bundle->get_bundle_form_data() ) ); ?>" data-bundle_id="<?php echo esc_attr( $bundle->get_id() ); ?>">
+				<div class="bundle_data bundle_data_<?php echo esc_attr( (string) $bundle->get_id() ); ?>" data-bundle_form_data="<?php echo wc_esc_json( wp_json_encode( $bundle->get_bundle_form_data() ) ); ?>" data-bundle_id="<?php echo esc_attr( (string) $bundle->get_id() ); ?>">
 					<div class="bundle_wrap">
 						<div class="bundle_error" style="display:none">
 							<?php

@@ -2,14 +2,12 @@
 
 namespace WPML\TM\Upgrade\Commands;
 
-use WPML\TM\ATE\ClonedSites\Lock;
-
 class ResetClonedSiteLock implements \IWPML_Upgrade_Command {
 
 	private $result = false;
 
 	public function run_admin() {
-		delete_option( Lock::CLONED_SITE_OPTION );
+		delete_option( ReleaseClonedSiteLockIntoRetry::LEGACY_LOCK_OPTION );
 		$this->result = true;
 
 		return $this->result;

@@ -75,9 +75,6 @@ if ( ! function_exists( 'woodmart_shortcode_google_map' ) ) {
 						$marker['marker_icon_size'] = array( $thumbnail['width'], $thumbnail['height'] );
 					}
 
-					$marker['marker_title']       = esc_html( $marker['marker_title'] );
-					$marker['marker_description'] = esc_html( $marker['marker_description'] );
-
 					return $marker;
 				},
 				vc_param_group_parse_atts( $atts['marker_list'] )
@@ -167,7 +164,8 @@ if ( ! function_exists( 'woodmart_shortcode_google_map' ) ) {
 			'marker_icon'        => WOODMART_ASSETS_IMAGES . '/google-icon.png',
 			'marker_icon_size'   => '',
 			'marker_text_needed' => $marker_text || $title ? 'yes' : 'no',
-			'marker_text'        => '<h3 style="min-width:300px; text-align:center; margin:15px;">' . $title . '</h3>' . esc_html( $marker_text ),
+			'marker_title'       => $title,
+			'marker_text'        => $marker_text,
 			'selector'           => 'wd-map-id-' . $uniqid,
 			'markers'            => ! empty( $markers ) ? $markers : '',
 			'center'             => ! empty( $coords ) ? implode( ',', woodmart_get_center_coords( $coords ) ) : '',

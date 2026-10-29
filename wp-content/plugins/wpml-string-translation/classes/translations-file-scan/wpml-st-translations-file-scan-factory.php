@@ -136,7 +136,8 @@ class WPML_ST_Translations_File_Scan_Factory {
 
 	private function get_wpml_file() {
 		if ( ! $this->wpml_file ) {
-			$this->wpml_file = new WPML_File( $this->get_wpml_wp_api(), new WP_Filesystem_Direct( null ) );
+			$wp_api          = $this->get_wpml_wp_api();
+			$this->wpml_file = new WPML_File( $wp_api, $wp_api->get_wp_filesystem() );
 		}
 
 		return $this->wpml_file;

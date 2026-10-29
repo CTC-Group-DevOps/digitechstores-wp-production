@@ -21,6 +21,8 @@ class Manager {
 	}
 
 	public function create( \stdClass $service ) {
+		$this->assertSettingsAreWritable();
+
 		$project = $this->projectStorage->getByService( $service ) ?: $this->fromTranslationProxy( $service );
 
 		$project->extraFields = $this->projectApi->get_extra_fields( $project );
@@ -32,6 +34,8 @@ class Manager {
 	}
 
 	public function updateCredentials( \stdClass $service, \stdClass $credentials ) {
+		$this->assertSettingsAreWritable();
+
 		$project = $this->projectStorage->getByService( $service );
 		if ( ! $project ) {
 			throw new \RuntimeException( 'Project does not exist' );
@@ -39,7 +43,10 @@ class Manager {
 		$this->projectApi->update_project_credentials( $project, $credentials );
 
 		$project->extraFields = $this->projectApi->get_extra_fields( $project );
-		$this->projectStorage->save( $this->createServiceWithNewCredentials( $service, $credentials ), $project );
+		$updatedService       = $this->createServiceWithNewCredentials( $service, $credentials );
+		$this->projectStorage->save( $updatedService, $project );
+
+		do_action( 'wpml_tp_project_created', $updatedService, $project, $this->projectStorage->getProjects()->toArray() );
 
 		return $project;
 	}
@@ -55,5 +62,13 @@ class Manager {
 		$updatedService->custom_fields_data = $credentials;
 
 		return $updatedService;
+	}
+
+	private function assertSettingsAreWritable() {
+		if ( \WPML_Settings_Failsafe_Loader::isUnrecoverable() ) {
+			throw new \RuntimeException(
+				'WPML cannot create or reconnect a Translation Proxy project while its settings are unrecoverable.'
+			);
+		}
 	}
 }

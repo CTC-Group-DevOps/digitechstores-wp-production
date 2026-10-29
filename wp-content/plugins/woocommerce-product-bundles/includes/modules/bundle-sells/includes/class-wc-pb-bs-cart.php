@@ -15,19 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart-related functions and filters.
  *
  * @class    WC_PB_BS_Cart
- * @version  8.5.13
+ * @version  8.5.16
  */
 class WC_PB_BS_Cart {
 
 	/**
 	 * Internal flag for bypassing filters.
 	 *
-	 * @var array
+	 * @var array<string, int>
 	 */
 	private static $bypass_filters = array();
 
 	/**
 	 * Setup hooks.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -59,7 +61,7 @@ class WC_PB_BS_Cart {
 	/**
 	 * Get the posted bundle-sells configuration of a product.
 	 *
-	 * @param  WC_Product $product Product instance.
+	 * @param  WC_Product|int|string|false $product Product instance or ID.
 	 * @return array
 	 */
 	public static function get_posted_bundle_sells_configuration( $product ) {

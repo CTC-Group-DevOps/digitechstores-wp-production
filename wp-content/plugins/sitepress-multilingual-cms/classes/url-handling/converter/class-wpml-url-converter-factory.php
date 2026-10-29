@@ -11,8 +11,14 @@ class WPML_URL_Converter_Factory {
 
 	private static $previous_url_converter;
 
+	private static $previous_filters = [];
+
+	private static $built_from;
+
 	const SUBDIR = 1;
 	const DOMAIN = 2;
+
+	const URL_SETTINGS = [ 'language_negotiation_type', 'language_domains', 'urls', 'xdomain_data', 'default_language' ];
 
 	public function __construct( $settings, $default_lang_code, $active_language_codes ) {
 		$this->settings              = $settings;
@@ -24,6 +30,31 @@ class WPML_URL_Converter_Factory {
 		if ( self::$previous_url_converter ) {
 			self::$previous_url_converter->get_strategy()->remove_hooks();
 		}
+		foreach ( self::$previous_filters as $filters ) {
+			$filters->remove_hooks();
+		}
+		self::$previous_filters = [];
+	}
+
+	public static function urlSettings( $settings ) {
+		$read = [];
+		foreach ( self::URL_SETTINGS as $key ) {
+			$read[ $key ] = is_array( $settings ) && array_key_exists( $key, $settings ) ? $settings[ $key ] : null;
+		}
+		$read[ WPML_URL_Format::SETTING ] = WPML_URL_Format::of( $settings );
+
+		return $read;
+	}
+
+	public static function follow_settings( $settings ) {
+		if ( null === self::$built_from || self::urlSettings( $settings ) === self::$built_from ) {
+			return false;
+		}
+
+		$default_lang_code = isset( $settings['default_language'] ) ? $settings['default_language'] : false;
+		load_wpml_url_converter( $settings, false, $default_lang_code );
+
+		return true;
 	}
 
 	public function get_object_url_helper_factory() {
@@ -55,6 +86,7 @@ class WPML_URL_Converter_Factory {
 		$wpml_url_converter->get_strategy()->add_hooks();
 
 		self::$previous_url_converter = $wpml_url_converter;
+		self::$built_from             = self::urlSettings( $this->settings );
 
 		return $wpml_url_converter;
 	}
@@ -100,6 +132,9 @@ class WPML_URL_Converter_Factory {
 		$xdomain_data_parser = new WPML_XDomain_Data_Parser( $this->settings, new WPML_Data_Encryptor() );
 		$xdomain_data_parser->init_hooks();
 
+		self::$previous_filters[] = $wpml_fix_url_domain;
+		self::$previous_filters[] = $xdomain_data_parser;
+
 		return $wpml_url_converter;
 	}
 
@@ -114,6 +149,8 @@ class WPML_URL_Converter_Factory {
 
 		$filters = new WPML_Lang_Parameter_Filters();
 		$filters->add_hooks();
+
+		self::$previous_filters[] = $filters;
 
 		return $wpml_url_converter;
 	}

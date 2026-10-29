@@ -24,6 +24,8 @@ class WPML_TM_Jobs_Search_Params {
 
 	private $local_job_ids;
 
+	private $translate_job_ids = array();
+
 	private $limit;
 
 	private $offset;
@@ -85,6 +87,7 @@ class WPML_TM_Jobs_Search_Params {
 			'scope',
 			'job_types',
 			'local_job_id',
+			'translate_job_id',
 			'id',
 			'ids',
 			'title',
@@ -154,6 +157,7 @@ class WPML_TM_Jobs_Search_Params {
 			WPML_TM_Job_Entity::PACKAGE_TYPE,
 			WPML_TM_Job_Entity::STRING_TYPE,
 			WPML_TM_Job_Entity::STRING_BATCH,
+			WPML_TM_Job_Entity::TAXONOMY_TYPE,
 		];
 
 		if ( ! is_array( $job_types ) ) {
@@ -186,6 +190,16 @@ class WPML_TM_Jobs_Search_Params {
 
 	public function set_local_job_ids( array $local_job_ids ) {
 		$this->local_job_ids = array_map( 'intval', $local_job_ids );
+
+		return $this;
+	}
+
+	public function get_translate_job_ids() {
+		return $this->translate_job_ids;
+	}
+
+	public function set_translate_job_id( $translate_job_id ) {
+		$this->translate_job_ids[] = (int) $translate_job_id;
 
 		return $this;
 	}

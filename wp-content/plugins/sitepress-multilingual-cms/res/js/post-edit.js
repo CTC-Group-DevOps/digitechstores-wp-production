@@ -1,4 +1,4 @@
-/* globals icl_ajx_url */
+/* globals ajaxurl */
 
 /**
  * Created by andrea.
@@ -17,6 +17,22 @@ jQuery( function ( $ ) {
     postEdit.$posts_found_container = postEdit.$connect_translations_dialog.find( '.js-posts-found' )
     postEdit.$ajax_loader = postEdit.$connect_translations_dialog.find( '.js-ajax-loader' )
     postEdit.$connect_translations_dialog_confirm = $( '#connect_translations_dialog_confirm' )
+    postEdit.$connect_translations_error = postEdit.$connect_translations_dialog_confirm.find( '.js-connect-translations-error' )
+
+    // wpmldev-7963: the server refuses a connect it cannot carry out (the
+    // group changed since this dialog opened, or the request named a group
+    // the post cannot join) with {code, message, params}, as the request gate
+    // does. Show the message and stay on the page: a reload would look like
+    // the connect worked. A refusal with no message falls back to the
+    // sentence shipped with the screen.
+    postEdit.connect_translations_failed = function ( refusal, $confirmButton ) {
+      const message = refusal && 'object' === typeof refusal ? refusal.message : null
+
+      $confirmButton.find( '.spinner' ).remove()
+      postEdit.$connect_translations_error
+        .text( message ? message : postEdit.$connect_translations_dialog_confirm.data( 'connect-failed-text' ) )
+        .prop( 'hidden', false )
+    }
 
     postEdit.connect_element_translations_open = function ( event ) {
       if ( typeof ( event.preventDefault ) !== 'undefined' ) {
@@ -38,13 +54,13 @@ jQuery( function ( $ ) {
       const post_type = $( '#icl_connect_translations_post_type' ).val()
       const source_language = $( '#icl_connect_translations_language' ).val()
       const nonce = $( '#_icl_nonce_get_orphan_posts' ).val()
-      const data = 'icl_ajx_action=get_orphan_posts&source_language=' + source_language + '&trid=' + trid + '&post_type=' + post_type + '&_icl_nonce=' + nonce
+      const data = 'action=wpml_ajx_get_orphan_posts&source_language=' + source_language + '&trid=' + trid + '&post_type=' + post_type + '&_icl_nonce=' + nonce
 
       postEdit.$ajax_loader.show()
 
       const request = $.ajax( {
         type: 'POST',
-        url: icl_ajx_url,
+        url: ajaxurl,
         dataType: 'json',
         data: data
       } )
@@ -175,11 +191,11 @@ jQuery( function ( $ ) {
       const post_id = $( '#icl_connect_translations_post_id' ).val()
       const nonce = $( '#_icl_nonce_get_posts_from_trid' ).val()
 
-      const data = 'icl_ajx_action=get_posts_from_trid&trid=' + trid + '&post_type=' + post_type + '&_icl_nonce=' + nonce
+      const data = 'action=wpml_ajx_get_posts_from_trid&trid=' + trid + '&post_type=' + post_type + '&_icl_nonce=' + nonce
 
       const request = $.ajax( {
         type: 'POST',
-        url: icl_ajx_url,
+        url: ajaxurl,
         dataType: 'json',
         data: data
       } )
@@ -212,6 +228,8 @@ jQuery( function ( $ ) {
           const action = $( '<label>' ).append( set_as_source_checkbox ).append( postEdit.$connect_translations_dialog.data( 'set_as_source-text' ) )
           action.appendTo( $list )
 
+          postEdit.$connect_translations_error.empty().prop( 'hidden', true )
+
           postEdit.$connect_translations_dialog_confirm.dialog(
             {
               dialogClass: 'wpml-dialog otgs-ui-dialog',
@@ -239,7 +257,7 @@ jQuery( function ( $ ) {
                     const nonce = $( '#_icl_nonce_connect_translations' ).val()
 
                     const data_object = {
-                      icl_ajx_action: 'connect_translations',
+                      action: 'wpml_ajx_connect_translations',
                       post_id: post_id,
                       post_type: post_type,
                       new_trid: trid,
@@ -250,7 +268,7 @@ jQuery( function ( $ ) {
                     const request = $.ajax(
                       {
                         type: 'POST',
-                        url: icl_ajx_url,
+                        url: ajaxurl,
                         dataType: 'json',
                         data: data_object
                       }
@@ -258,10 +276,23 @@ jQuery( function ( $ ) {
 
                     request.done(
                       function ( result ) {
-                        if ( result ) {
+                        // Only the exact answer `true` is a connect. A 2xx
+                        // {success:false,…} is a refusal too.
+                        if ( true === result ) {
                           postEdit.$connect_translations_dialog.dialog( 'close' )
                           location.reload()
+                          return
                         }
+                        postEdit.connect_translations_failed( result ? result.data : null, $confirmButton )
+                      }
+                    )
+
+                    // A refused connect is answered 400 or 409, which jQuery
+                    // routes here and never to done(); so are a body that is
+                    // not JSON and a network error.
+                    request.fail(
+                      function ( xhr ) {
+                        postEdit.connect_translations_failed( xhr && xhr.responseJSON ? xhr.responseJSON.data : null, $confirmButton )
                       }
                     )
                   }
@@ -379,8 +410,8 @@ function setupCopyButtons () {
     jQuery( this ).attr( 'disabled', 'disabled' ).after( icl_ajxloaderimg )
     jQuery.ajax( {
       type: 'POST',
-      url: icl_ajx_url,
-      data: 'icl_ajx_action=reset_duplication&post_id=' + jQuery( '#post_ID' ).val() + '&_icl_nonce=' + jQuery( '#_icl_nonce_rd' ).val(),
+      url: ajaxurl,
+      data: 'action=wpml_ajx_reset_duplication&post_id=' + jQuery( '#post_ID' ).val() + '&_icl_nonce=' + jQuery( '#_icl_nonce_rd' ).val(),
       success: function ( msg ) {
         location.reload( true )
       }
@@ -394,9 +425,29 @@ function setupCopyButtons () {
       const post_lang = icl_set_duplicate.data( 'post_lang' )
       jQuery.ajax( {
         type: 'POST',
-        url: icl_ajx_url,
-        data: 'icl_ajx_action=set_duplication&wpml_original_post_id=' + wpml_original_post_id + '&_icl_nonce=' + jQuery( '#_icl_nonce_sd' ).val() + '&post_lang=' + post_lang,
+        url: ajaxurl,
+        data: 'action=wpml_ajx_set_duplication&wpml_original_post_id=' + wpml_original_post_id + '&_icl_nonce=' + jQuery( '#_icl_nonce_sd' ).val() + '&post_lang=' + post_lang,
         success: function ( msg ) {
+          // Two answers reach here without a post to open, and both used to
+          // navigate to `&post=undefined` / `&post=0` and land the editor on
+          // nothing:
+          //
+          //  - the paused refusal (wpmldev-8026): the server answers
+          //    wp_send_json_error with a reason instead of an id. The button is
+          //    not rendered for a paused language, so this is the stale page;
+          //  - id 0 - set_duplicate()'s long-standing "nothing to do" answer,
+          //    reported as a SUCCESS carrying id 0. That case is not new and is
+          //    not about pausing; it is swallowed here for the same reason,
+          //    because 0 is not a post to open either.
+          //
+          // Neither says anything to the user beyond putting the button back:
+          // no new string is minted on this branch, and a refusal the user
+          // cannot have triggered from a current page needs no sentence.
+          if ( !msg || !msg.success || !msg.data || !msg.data.id ) {
+            icl_set_duplicate.next( 'img' ).remove()
+            icl_set_duplicate.removeAttr( 'disabled' )
+            return
+          }
           location.replace(
             location.href.replace( 'post-new.php', 'post.php' ).replace( /&trid=([0-9]+)/, '' ) + '&post=' + msg.data.id + '&action=edit' )
         }

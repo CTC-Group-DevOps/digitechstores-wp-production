@@ -11,13 +11,13 @@
             "ทั้งหมด"
          ],
          "To display this Custom HTML block in a specific language, first place it inside a Group block.": [
-            "หากต้องการแสดงบล็อก HTML ที่กำหนดเองนี้ในภาษาที่ต้องการ ให้วางไว้ในบล็อกกลุ่มก่อน"
+            "หากต้องการแสดงบล็อก HTML ที่กำหนดเองนี้ในภาษาใดภาษาหนึ่ง โปรดวางบล็อกนี้ไว้ในบล็อกกลุ่มก่อน"
          ],
          "Place inside Group block": [
-            "วางในบล็อกกลุ่ม"
+            "วางไว้ในบล็อกกลุ่ม"
          ],
          "Display on language": [
-            "แสดงผลตามภาษา"
+            "แสดงในภาษา"
          ]
       }
    }

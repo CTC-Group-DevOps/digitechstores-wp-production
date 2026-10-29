@@ -61,6 +61,10 @@ class LoadTranslationFile
 		}
 		$defaultPathDirectory =  $wp_textdomain_registry->get( $domain, $locale );
 
+		if ( ! $defaultPathDirectory ) {
+			return null;
+		}
+
 		$defaultPathFile =  "{$defaultPathDirectory}{$domain}-{$locale}.mo";
 
 		$template_directory   = trailingslashit( get_template_directory() );

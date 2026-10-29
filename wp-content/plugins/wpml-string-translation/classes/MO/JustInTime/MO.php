@@ -6,6 +6,7 @@ use NOOP_Translations;
 use WPML\LIB\WP\WordPress;
 use WPML\ST\MO\Hooks\LoadTranslationFile;
 use WPML\ST\MO\LoadedMODictionary;
+use WPML\ST\TranslationFile\PluralForms;
 
 class MO extends \MO {
 
@@ -33,15 +34,25 @@ class MO extends \MO {
 		}
 
 		$this->load();
+
+		if ( null === $context ) {
+			return __( $singular, $this->domain );
+		}
+
 		return _x( $singular, $context, $this->domain );
 	}
 
 	public function translate_plural( $singular, $plural, $count, $context = null ) {
 		if ( $this->isLoading ) {
-			return $count > 1 ? $plural : $singular;
+			return PluralForms::selectOriginal( $singular, $plural, $count );
 		}
 
 		$this->load();
+
+		if ( null === $context ) {
+			return _n( $singular, $plural, $count, $this->domain );
+		}
+
 		return _nx( $singular, $plural, $count, $context, $this->domain );
 	}
 
@@ -51,7 +62,12 @@ class MO extends \MO {
 		}
 
 		$this->isLoading = true;
-		$this->loadTextDomain();
+		$controllerLocale = self::getTranslationControllerLocale();
+		try {
+			$this->loadTextDomain();
+		} finally {
+			self::restoreTranslationControllerLocale( $controllerLocale );
+		}
 
 		if ( ! $this->isLoaded() ) {
 			$GLOBALS['l10n'][ $this->domain ] = new NOOP_Translations();
@@ -60,18 +76,44 @@ class MO extends \MO {
 		$this->isLoading = false;
 	}
 
-	protected function loadTextDomain() {
-		$this->loaded_mo_dictionary
-			->getFiles( $this->domain, $this->locale )
-			->each( function( $mofile ) {
-				$defaultTranslationPath =
-					LoadTranslationFile::getDefaultWordPressTranslationPath( $this->domain, $this->locale );
+	private static function getTranslationControllerLocale() {
+		return class_exists( \WP_Translation_Controller::class )
+			? \WP_Translation_Controller::get_instance()->get_locale()
+			: null;
+	}
 
-				load_textdomain( $this->domain, $mofile, $this->locale );
-				if ( $defaultTranslationPath ) {
-					load_textdomain( $this->domain, $defaultTranslationPath, $this->locale );
-				}
-			} );
+	private static function restoreTranslationControllerLocale( $locale ) {
+		if ( ! $locale ) {
+			return;
+		}
+
+		$controller = \WP_Translation_Controller::get_instance();
+		if ( $controller->get_locale() !== $locale ) {
+			$controller->set_locale( $locale );
+		}
+	}
+
+	protected function loadTextDomain() {
+		$mofiles = $this->loaded_mo_dictionary
+			->getFiles( $this->domain, $this->locale )
+			->toArray();
+
+		if ( count( $mofiles ) === 0 ) {
+			return;
+		}
+
+		$defaultTranslationPath =
+			LoadTranslationFile::getDefaultWordPressTranslationPath( $this->domain, $this->locale );
+
+		$files = [ reset( $mofiles ) ];
+		if ( $defaultTranslationPath ) {
+			$files[] = $defaultTranslationPath;
+		}
+		$files = array_unique( array_merge( $files, $mofiles ) );
+
+		foreach ( $files as $mofile ) {
+			load_textdomain( $this->domain, $mofile, $this->locale );
+		}
 	}
 
 	private function isLoaded() {

@@ -15,21 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions for WC core back-compatibility.
  *
  * @class    WC_PB_Core_Compatibility
- * @version  8.5.10
+ * @version  8.5.16
  */
 class WC_PB_Core_Compatibility {
 
 	/**
 	 * Cache 'gte' comparison results.
 	 *
-	 * @var array
+	 * @var array<string, bool>
 	 */
 	private static $is_wc_version_gte = array();
 
 	/**
 	 * Cache 'gt' comparison results.
 	 *
-	 * @var array
+	 * @var array<string, bool>
 	 */
 	private static $is_wc_version_gt = array();
 
@@ -37,7 +37,7 @@ class WC_PB_Core_Compatibility {
 	 * Cache 'gt' comparison results for WP version.
 	 *
 	 * @since  5.13.3
-	 * @var    array
+	 * @var    array<string, bool>
 	 */
 	private static $is_wp_version_gt = array();
 
@@ -45,7 +45,7 @@ class WC_PB_Core_Compatibility {
 	 * Cache 'gte' comparison results for WP version.
 	 *
 	 * @since  5.13.3
-	 * @var    array
+	 * @var    array<string, bool>
 	 */
 	private static $is_wp_version_gte = array();
 
@@ -53,7 +53,7 @@ class WC_PB_Core_Compatibility {
 	 * Cache 'is_wc_admin_active' result.
 	 *
 	 * @since 6.3.1
-	 * @var   bool
+	 * @var bool|null
 	 */
 	private static $is_wc_admin_active;
 
@@ -63,7 +63,7 @@ class WC_PB_Core_Compatibility {
 	 *
 	 * @since 7.1.0
 	 *
-	 * @var array
+	 * @var WP_REST_Request[]
 	 */
 	private static $requests = array();
 
@@ -72,12 +72,14 @@ class WC_PB_Core_Compatibility {
 	 *
 	 * @since  6.18.3
 	 *
-	 * @var bool
+	 * @var bool|null
 	 */
 	private static $is_hpos_enabled = null;
 
 	/**
 	 * Constructor.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		// Save current rest request. Is there a better way to get it?
@@ -102,7 +104,7 @@ class WC_PB_Core_Compatibility {
 	 * @return mixed
 	 */
 	public static function pop_rest_request( $response ) {
-		if ( ! empty( self::$requests ) && is_array( self::$requests ) ) {
+		if ( ! empty( self::$requests ) ) {
 			array_pop( self::$requests );
 		}
 
@@ -119,10 +121,6 @@ class WC_PB_Core_Compatibility {
 	 * @return mixed
 	 */
 	public static function save_hydration_request( $result, $request ) {
-		if ( ! is_array( self::$requests ) ) {
-			self::$requests = array();
-		}
-
 		self::$requests[] = $request;
 		return $result;
 	}
@@ -138,10 +136,6 @@ class WC_PB_Core_Compatibility {
 	 * @return mixed
 	 */
 	public static function save_rest_request( $result, $server, $request ) {
-		if ( ! is_array( self::$requests ) ) {
-			self::$requests = array();
-		}
-
 		self::$requests[] = $request;
 		return $result;
 	}
@@ -244,7 +238,7 @@ class WC_PB_Core_Compatibility {
 	 * @return WP_REST_Request|false
 	 */
 	public static function get_api_request() {
-		if ( empty( self::$requests ) || ! is_array( self::$requests ) ) {
+		if ( empty( self::$requests ) ) {
 			return false;
 		}
 
@@ -287,6 +281,7 @@ class WC_PB_Core_Compatibility {
 	 * @param  string $message The message to log.
 	 * @param  string $level  The log level.
 	 * @param  string $context The log context.
+	 * @return void
 	 */
 	public static function log( $message, $level, $context ) {
 
@@ -365,7 +360,7 @@ class WC_PB_Core_Compatibility {
 
 		if ( ! isset( self::$is_wc_admin_active ) ) {
 
-			$enabled = defined( 'WC_ADMIN_VERSION_NUMBER' ) && version_compare( WC_ADMIN_VERSION_NUMBER, '1.0.0', '>=' );
+			$enabled = defined( 'WC_ADMIN_VERSION_NUMBER' );
 			/**
 			 * Filter to disable WooCommerce Admin.
 			 *
@@ -373,7 +368,7 @@ class WC_PB_Core_Compatibility {
 			 *
 			 * @param bool $enabled True if WooCommerce Admin is enabled.
 			 */
-			if ( $enabled && version_compare( WC_ADMIN_VERSION_NUMBER, '2.3.0', '>=' ) && true === apply_filters( 'woocommerce_admin_disabled', false ) ) {
+			if ( $enabled && true === apply_filters( 'woocommerce_admin_disabled', false ) ) {
 				$enabled = false;
 			}
 

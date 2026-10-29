@@ -9,6 +9,11 @@ class WPML_Locale extends WP_Locale {
 
 	public function __construct() {
 
+		$this->number_format = [
+			'thousands_sep' => ',',
+			'decimal_point' => '.',
+		];
+
 		add_action( 'in_admin_header', [ $this, 'make_sure_it_is_initialized_before_render' ] );
 	}
 

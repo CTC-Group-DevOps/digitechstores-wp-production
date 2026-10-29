@@ -129,10 +129,13 @@ class WPML_Canonicals {
 		if ( $source_element ) {
 			$source_element_id    = $source_element->get_id();
 			$source_language_code = $source_element->get_language_code();
-			$current_language     = $this->sitepress->get_current_language();
 			$this->sitepress->switch_lang( $source_language_code );
-			$new_link = get_permalink( $source_element_id );
-			$this->sitepress->switch_lang( $current_language );
+
+			try {
+				$new_link = get_permalink( $source_element_id );
+			} finally {
+				$this->sitepress->switch_lang();
+			}
 		} else {
 			$new_link = get_permalink( $post_element->get_id() );
 		}

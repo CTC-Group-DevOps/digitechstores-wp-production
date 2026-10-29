@@ -632,7 +632,7 @@
 <p class="wp-block-wd-paragraph wd-55341bed">Effect if in up no depend</p>
 <!-- /wp:wd/paragraph -->
 
-<!-- wp:wd/title {"blockId":"9b424554-c5af-4690-8f9d-411b91a37966","blockVersion":"2","content":"Style too ownu003cbru003ecivil out along tips","tpFontSize":"48","tpFontVariant":"300","tpFontWeight":"300","displayWidth":"custom","customWidth":"382","tpFontSizeTablet":"34","tpFontSizeMobile":"28"} -->
+<!-- wp:wd/title {"blockId":"9b424554-c5af-4690-8f9d-411b91a37966","blockVersion":"2","content":"Style too own\u003cbr\u003ecivil out along tips","tpFontSize":"48","tpFontVariant":"300","tpFontWeight":"300","displayWidth":"custom","customWidth":"382","tpFontSizeTablet":"34","tpFontSizeMobile":"28"} -->
 <h2 class="wp-block-wd-title title wd-9b424554 wd-custom-width">Style too own<br>civil out along tips</h2>
 <!-- /wp:wd/title -->
 
@@ -752,7 +752,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"b83bea6a-5a63-4802-81cb-ca4344818c6b","blockVersion":"2","displayWidthTablet":"custom","customWidthTablet":"296"} -->
-<div class="wp-block-wd-container wd-dir-col wd-b83bea6a wd-custom-width"><!-- wp:wd/title {"blockId":"92e10a59-19ca-47e9-9e6a-83a653b42f42","blockVersion":"2","content":"Safe u0026amp; Secure","tpFontSize":"18"} -->
+<div class="wp-block-wd-container wd-dir-col wd-b83bea6a wd-custom-width"><!-- wp:wd/title {"blockId":"92e10a59-19ca-47e9-9e6a-83a653b42f42","blockVersion":"2","content":"Safe \u0026amp; Secure","tpFontSize":"18"} -->
 <h2 class="wp-block-wd-title title wd-92e10a59">Safe &amp; Secure</h2>
 <!-- /wp:wd/title -->
 
@@ -1743,15 +1743,16 @@
 															<wp:post_id>13266</wp:post_id>
 					<wp:post_date><![CDATA[2024-05-29 12:23:12]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-05-29 12:23:12]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2024-09-17 12:01:54]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2024-09-17 12:01:54]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 14:55:59]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 14:55:59]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[fashion-minimalism-contact-us-map-content]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>
 					<wp:post_parent>0</wp:post_parent>
 					<wp:menu_order>0</wp:menu_order>
 					<wp:post_type><![CDATA[cms_block]]></wp:post_type>
-																			</item>
+												<category domain="cms_block_cat" nicename="uncategorized"><![CDATA[Uncategorized]]></category>
+									</item>
 								<item>
 					<title><![CDATA[Promo popup Fashion Minimalism]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/gutenberg/?cms_block=promo-popup-fashion-minimalism</link>

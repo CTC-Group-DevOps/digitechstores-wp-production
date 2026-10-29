@@ -21,14 +21,18 @@ class WPML_Post_Edit_Terms_Hooks implements IWPML_Action {
 		$tag_names = $this->get_tags_from_tax_input();
 
 		if ( $tag_names ) {
-			$sql = "SELECT t.name, t.term_id FROM {$this->wpdb->terms} AS t
-				LEFT JOIN {$this->wpdb->term_taxonomy} AS tt
-					ON tt.term_id = t.term_id
-				LEFT JOIN {$this->wpdb->prefix}icl_translations AS tr
-					ON tr.element_id = tt.term_taxonomy_id AND tr.element_type = 'tax_post_tag'
-				WHERE tr.language_code = %s AND t.name IN(" . wpml_prepare_in( $tag_names ) . ")";
-
-			$tags = $this->wpdb->get_results( $this->wpdb->prepare( $sql, $this->language->get_current_language() ) );
+			$wpdb = $this->wpdb;
+			$tags = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT t.name, t.term_id FROM {$wpdb->terms} AS t
+					LEFT JOIN {$wpdb->term_taxonomy} AS tt
+						ON tt.term_id = t.term_id
+					LEFT JOIN {$wpdb->prefix}icl_translations AS tr
+						ON tr.element_id = tt.term_taxonomy_id AND tr.element_type = 'tax_post_tag'
+					WHERE tr.language_code = %s AND t.name IN(" . implode( ', ', array_fill( 0, count( $tag_names ), '%s' ) ) . ')',
+					array_merge( array( $this->language->get_current_language() ), $tag_names )
+				)
+			);
 
 			foreach ( $tags as $tag ) {
 				$_POST['tags_input'][] = (int) $tag->term_id;

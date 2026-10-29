@@ -11,10 +11,9 @@ class WPML_Term_Element extends WPML_Translation_Element {
 	public function get_wp_object() {
 		$has_filter = remove_filter( 'get_term', array( $this->sitepress, 'get_term_adjust_id' ), 1 );
 
-		$term = get_term( $this->id, $this->taxonomy );
-		if ( ! $term || is_wp_error( $term ) ) {
-			$term = get_term_by( 'term_taxonomy_id', $this->id, $this->taxonomy );
-			$term = $term ?: null;
+		$term = $this->get_term_by_term_taxonomy_id();
+		if ( ! $term ) {
+			$term = $this->term_or_null( get_term( $this->id, $this->taxonomy ) );
 		}
 
 		if ( $has_filter ) {
@@ -22,6 +21,20 @@ class WPML_Term_Element extends WPML_Translation_Element {
 		}
 
 		return $term;
+	}
+
+	private function get_term_by_term_taxonomy_id() {
+		$term = $this->term_or_null( get_term_by( 'term_taxonomy_id', $this->id, $this->taxonomy ) );
+
+		if ( $term && $this->taxonomy && $this->taxonomy !== $term->taxonomy ) {
+			return null;
+		}
+
+		return $term;
+	}
+
+	protected function term_or_null( $term ) {
+		return is_object( $term ) && ! is_wp_error( $term ) ? $term : null;
 	}
 
 	public function get_type( $term = null ) {
@@ -49,7 +62,7 @@ class WPML_Term_Element extends WPML_Translation_Element {
 		$element_id = null;
 		$term       = $this->get_wp_object();
 
-		if ( $term && ! is_wp_error( $term ) ) {
+		if ( $term ) {
 			$element_id = $term->term_taxonomy_id;
 		}
 

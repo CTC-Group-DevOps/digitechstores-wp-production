@@ -7,6 +7,11 @@ class WPML_Config_Update {
 
 	const CONFIG_KEY_GLOBAL_NOTICES        = 'global-wpml-notices';
 	const OPTION_KEY_GLOBAL_NOTICES_CONFIG = 'wpml_global_notices_config';
+	const OPTION_KEY_IMPORT_STATE          = 'wpml_config_import_state';
+	const STATE_DOWNLOADED                 = 'downloaded';
+	const STATE_ATTEMPTED                  = 'attempted';
+	const STATE_LOCAL                      = 'local';
+	const STATE_LOCAL_ATTEMPTED            = 'local_attempted';
 	const HTTP_REQUEST_ARGS                = [
 		'timeout' => 45,
 	];
@@ -19,6 +24,10 @@ class WPML_Config_Update {
 
 	private $active_plugin_provider;
 
+	private $importer;
+
+	private $local_signature;
+
 	public function __construct( $sitepress, $http, ?WPML_Log $log = null ) {
 		$this->sitepress = $sitepress;
 		$this->http      = $http;
@@ -27,6 +36,110 @@ class WPML_Config_Update {
 
 	public function set_active_plugin_provider( WPML_Active_Plugin_Provider $active_plugin_provider ) {
 		$this->active_plugin_provider = $active_plugin_provider;
+	}
+
+	public function set_importer( $importer ) {
+		$this->importer = $importer;
+	}
+
+	public function set_local_signature( $local_signature ) {
+		$this->local_signature = $local_signature;
+	}
+
+	private function import_config() {
+		$importer = $this->importer ? $this->importer : array( 'WPML_Config', 'import_now' );
+
+		call_user_func( $importer );
+	}
+
+	private function defer_import() {
+		$state = get_option( self::OPTION_KEY_IMPORT_STATE, array() );
+		$state = is_array( $state ) ? $state : array();
+
+		$state[ self::STATE_DOWNLOADED ] = WPML_Config::config_files_signature();
+
+		update_option( self::OPTION_KEY_IMPORT_STATE, $state, true );
+	}
+
+	public function defer_local_config_import( array $deactivated_plugins = array() ) {
+		$local_signature = $this->local_signature ? $this->local_signature : array( 'WPML_Config', 'local_config_files_signature' );
+		$signature       = call_user_func( $local_signature, $deactivated_plugins );
+
+		$state = get_option( self::OPTION_KEY_IMPORT_STATE, array() );
+		$state = is_array( $state ) ? $state : array();
+
+		if ( ( $state[ self::STATE_LOCAL ] ?? null ) === $signature ) {
+			return;
+		}
+
+		$state[ self::STATE_LOCAL ] = $signature;
+
+		update_option( self::OPTION_KEY_IMPORT_STATE, $state, true );
+	}
+
+	public function run_deferred_import() {
+		if ( ! $this->has_pending_import() ) {
+			return;
+		}
+
+		$lock_factory = \WPML\Container\make( \WPML\Utilities\AdvisoryLockFactory::class );
+		if ( ! $lock_factory ) {
+			return;
+		}
+
+		global $wpdb;
+		$lock = $lock_factory->create( 'wpml_config_import_' . md5( ( defined( 'DB_NAME' ) ? DB_NAME : '' ) . $wpdb->prefix ) );
+		if ( ! $lock->acquire( 0 ) ) {
+			return;
+		}
+
+		try {
+			$state = $this->read_import_state_uncached();
+
+			if ( self::is_import_pending( $state ) && WPML_Config::can_import() ) {
+				if ( isset( $state[ self::STATE_DOWNLOADED ] ) ) {
+					$state[ self::STATE_ATTEMPTED ] = $state[ self::STATE_DOWNLOADED ];
+				}
+				if ( isset( $state[ self::STATE_LOCAL ] ) ) {
+					$state[ self::STATE_LOCAL_ATTEMPTED ] = $state[ self::STATE_LOCAL ];
+				}
+				update_option( self::OPTION_KEY_IMPORT_STATE, $state, true );
+				$this->import_config();
+			}
+		} finally {
+			$lock->release();
+		}
+	}
+
+	private function has_pending_import() {
+		$state = get_option( self::OPTION_KEY_IMPORT_STATE, array() );
+
+		return self::is_import_pending( is_array( $state ) ? $state : array() );
+	}
+
+	private static function is_import_pending( array $state ) {
+		$keys = array(
+			self::STATE_DOWNLOADED => self::STATE_ATTEMPTED,
+			self::STATE_LOCAL      => self::STATE_LOCAL_ATTEMPTED,
+		);
+		foreach ( $keys as $changed_key => $attempted_key ) {
+			$changed   = $state[ $changed_key ] ?? null;
+			$attempted = $state[ $attempted_key ] ?? null;
+
+			if ( $changed && $changed !== $attempted ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function read_import_state_uncached() {
+		global $wpdb;
+
+		$row = $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", self::OPTION_KEY_IMPORT_STATE ) );
+
+		return $row ? (array) maybe_unserialize( $row ) : array();
 	}
 
 	public function get_active_plugin_provider() {
@@ -61,8 +174,7 @@ class WPML_Config_Update {
 					update_option( 'wpml_config_index', $arr, false );
 					update_option( 'wpml_config_index_updated', time() + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS, false );
 
-					$config_files_original = get_option( 'wpml_config_files_arr', null );
-					$config_files          = maybe_unserialize( $config_files_original );
+					$config_files = get_option( 'wpml_config_files_arr', null );
 
 					$config_files_for_themes     = array();
 					$deleted_configs_for_themes  = array();
@@ -142,7 +254,7 @@ class WPML_Config_Update {
 					$config_files->themes  = $config_files_for_themes;
 					$config_files->plugins = $config_files_for_plugins;
 
-					update_option( 'wpml_config_files_arr', $config_files, false );
+					$stored_index_changed = update_option( 'wpml_config_files_arr', $config_files, false );
 
 					$remote_notices_config_index = Lst::find( Relation::propEq( 'name', self::CONFIG_KEY_GLOBAL_NOTICES ), $global );
 
@@ -157,10 +269,18 @@ class WPML_Config_Update {
 							}
 						}
 					}
+
+					if ( $stored_index_changed ) {
+						if ( doing_action( 'activated_plugin' ) ) {
+							$this->defer_import();
+						} else {
+							$this->import_config();
+						}
+					}
 				}
 			}
 
-			$wpml_config_files_arr = maybe_unserialize( get_option( 'wpml_config_files_arr', null ) );
+			$wpml_config_files_arr = get_option( 'wpml_config_files_arr', null );
 			if ( ! $wpml_config_files_arr ) {
 				$this->log_response( 'Missing data', 'get_option', 'wpml_config_files_arr' );
 			}

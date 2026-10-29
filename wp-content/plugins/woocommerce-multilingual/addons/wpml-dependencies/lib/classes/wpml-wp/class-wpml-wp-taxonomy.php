@@ -6,7 +6,7 @@ class WPML_WP_Taxonomy implements IWPML_WP_Element_Type {
 		global $wp_taxonomies;
 
 		$post_types = array();
-		if ( isset( $wp_taxonomies[ $taxonomy ] ) && isset( $wp_taxonomies[ $taxonomy ]->object_type ) ) {
+		if ( isset( $wp_taxonomies[ $taxonomy ]->object_type ) ) {
 			$post_types = $wp_taxonomies[ $taxonomy ]->object_type;
 		}
 

@@ -5,8 +5,8 @@ use WPML\Core\Component\PostHog\Application\Service\Event\EventInstanceService;
 class WPML_Taxonomy_Translation_Sync_Display {
 
 	public function __construct() {
-		add_action( 'wp_ajax_wpml_tt_sync_hierarchy_preview', array( $this, 'ajax_sync_preview' ) );
-		add_action( 'wp_ajax_wpml_tt_sync_hierarchy_save', array( $this, 'ajax_sync_save' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tt_sync_hierarchy_preview', \WPML\Request\Policy\Policy::capability( [ 'wpml_manage_taxonomy_translation', 'manage_translations' ], \WPML\Request\Policy\Authenticity::wpmlActionNonce( 'wpml_tt_sync_hierarchy' ) ), array( $this, 'ajax_sync_preview' ) );
+		\WPML\Request\Adapter\Ajax::register( 'wpml_tt_sync_hierarchy_save', \WPML\Request\Policy\Policy::capability( [ 'wpml_manage_taxonomy_translation', 'manage_translations' ], \WPML\Request\Policy\Authenticity::wpmlActionNonce( 'wpml_tt_sync_hierarchy' ) ), array( $this, 'ajax_sync_save' ) );
 	}
 
 	private function get_req_data() {

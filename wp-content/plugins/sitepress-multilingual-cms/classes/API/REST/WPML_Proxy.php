@@ -3,6 +3,8 @@
 declare( strict_types=1 );
 
 use WPML\ATE\Proxies\ProxyRoutingRules;
+use WPML\Remote\TrustedDestinations;
+use WPML\Remote\UntrustedDestinationException;
 
 final class WPML_Proxy {
 	const TIMEOUT         = 30;
@@ -28,6 +30,11 @@ final class WPML_Proxy {
 		if ( ! self::routeMatches( $rest_route ) ) {
 			return;
 		}
+		if ( \WPML\Setup\Initializer::settingsAreUnrecoverable() ) {
+			$error = \WPML\Setup\Initializer::getSettingsRecoveryError();
+			self::error( 409, $error['code'], $error['message'] );
+			exit;
+		}
 
 		$nonce = self::getWPNonce();
 		if ( empty( $nonce ) ) {
@@ -40,6 +47,11 @@ final class WPML_Proxy {
 		}
 		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			self::error( 401, 'invalid_wp_nonce', 'the wp nonce is invalid' );
+			exit;
+		}
+
+		if ( ! self::policy()->permits() ) {
+			self::error( 403, 'insufficient_permissions', 'You are not allowed to use the WPML proxy.' );
 			exit;
 		}
 
@@ -79,20 +91,36 @@ final class WPML_Proxy {
 
 		try {
 			$self->validate( $p );
-			$url     = $self->buildUrl( (string) $p['url'], $p['query'] );
+			$url = self::destinations()->assert( $self->buildUrl( (string) $p['url'], $p['query'] ) );
+
+			if ( ! $self->isStaticAssetRelay( $url, (string) $p['method'] ) ) {
+				try {
+					$lock = \WPML\Container\make( \WPML\TM\ATE\ClonedSites\ApiCommunication::class )->checkCloneSiteLock( $url );
+				} catch ( Throwable $t ) {
+					$lock = \WPML\TM\ATE\ClonedSites\ReconnectState::get()
+						? \WPML\TM\ATE\ClonedSites\ApiCommunication::reconnectingError()
+						: null;
+				}
+				if ( is_wp_error( $lock ) ) {
+					self::error( 503, (string) $lock->get_error_code(), $lock->get_error_message() );
+					exit;
+				}
+			}
+
 			$headers = $self->parseHeaders( $p['headers'], isset( $p['content_type'] ) ? (string) $p['content_type'] : null );
 
 			if ( ! isset( $headers['Accept'] ) && ! isset( $headers['accept'] ) ) {
 				$headers['Accept'] = '*/*';
 			}
-			$args = [
-				'method'      => (string) $p['method'],
-				'headers'     => $headers,
-				'timeout'     => self::TIMEOUT,
-				'redirection' => 0,
-			];
+			$args = TrustedDestinations::requestArgs(
+				[
+					'method'  => (string) $p['method'],
+					'headers' => $headers,
+					'timeout' => self::TIMEOUT,
+				]
+			);
 			if ( strtoupper( (string) $p['method'] ) !== 'GET' && $p['body'] !== null ) {
-				$args['body'] = is_array( $p['body'] ) ? http_build_query( $p['body'] ) : (string) $p['body'];
+				$args['body'] = is_array( $p['body'] ) ? \wpml_http_build_query( $p['body'] ) : (string) $p['body'];
 			}
 
 			$result = wp_remote_request( $url, $args );
@@ -120,8 +148,11 @@ final class WPML_Proxy {
 			}
 
 			$self->sendCleanResponse( $respHeaders, (string) $body );
+		} catch ( UntrustedDestinationException $e ) {
+			self::error( 400, 'invalid_url', 'The URL is not a trusted ATE/AMS destination (' . $e->reason() . ').' );
+			exit;
 		} catch ( Throwable $e ) {
-			self::error( 500, 'internal_error', $e->getMessage() );
+			self::error( 500, 'internal_error', \WPML\WordPress\ClientSafeError::message( 'ATE proxy', $e ) );
 			exit;
 		}
 	}
@@ -164,6 +195,17 @@ final class WPML_Proxy {
 		exit;
 	}
 
+	public static function policy() {
+		return \WPML\Request\Policy\Registry::declare(
+			\WPML\Request\Policy\Registry::PSEUDO_ROUTE,
+			self::ROUTE,
+			\WPML\Request\Policy\Policy::capability(
+				[ 'translate', 'manage_translations' ],
+				\WPML\Request\Policy\Authenticity::restNonce()
+			)
+		);
+	}
+
 	public static function getRestRoute() {
 		$rest_route = isset( $_GET['rest_route'] ) ? (string) $_GET['rest_route'] : null;
 		if ( ! $rest_route ) {
@@ -196,39 +238,17 @@ final class WPML_Proxy {
 		if ( $url === '' || $method === '' ) {
 			throw new InvalidArgumentException( 'Required parameters missing.' );
 		}
-		$parts   = parse_url( $url );
-		$host    = isset( $parts['host'] ) ? strtolower( (string) $parts['host'] ) : '';
-		$allowed = $this->allowedHosts();
-		if ( $host === '' || ! $this->isAllowedHost( $host, $allowed ) ) {
-			throw new InvalidArgumentException( 'Invalid URL. Host is not allowed.' );
-		}
+
+		self::destinations()->assert( $url );
 	}
 
-
-	private function isAllowedHost( string $host, array $allowed ) {
-		foreach ( $allowed as $pattern ) {
-			$pattern = strtolower( trim( (string) $pattern ) );
-			if ( $pattern === '' ) {
-				continue;
-			}
-			if ( strpos( $pattern, '*.' ) === 0 ) {
-				$base   = substr( $pattern, 2 );
-				$suffix = '.' . $base;
-				if ( $host === $base || ( strlen( $host ) > strlen( $suffix ) && substr( $host, - strlen( $suffix ) ) === $suffix ) ) {
-					return true;
-				}
-			}
-			if ( $host === $pattern ) {
-				return true;
-			}
-		}
-
-		return false;
+	public static function destinations() {
+		return TrustedDestinations::forAteAndAms();
 	}
 
 	private function buildUrl( string $url, $query ) {
 		if ( is_array( $query ) ) {
-			$query = http_build_query( $query );
+			$query = \wpml_http_build_query( $query );
 		}
 		if ( is_string( $query ) && $query !== '' ) {
 			$parts = parse_url( $url );
@@ -313,6 +333,19 @@ final class WPML_Proxy {
 		}
 
 		return $headers;
+	}
+
+	private function isStaticAssetRelay( $url, $method ) {
+		if ( strtoupper( $method ) !== 'GET' ) {
+			return false;
+		}
+
+		$path = (string) parse_url( $url, PHP_URL_PATH );
+		$ext  = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+
+		$assetExtensions = [ 'js', 'mjs', 'css', 'map', 'svg', 'png', 'jpg', 'jpeg', 'gif', 'webp', 'ico', 'woff', 'woff2', 'ttf', 'wasm' ];
+
+		return in_array( $ext, $assetExtensions, true );
 	}
 
 	private function readRawBody() {

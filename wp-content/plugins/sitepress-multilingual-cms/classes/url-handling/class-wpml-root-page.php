@@ -5,8 +5,7 @@ class WPML_Root_Page {
 	public static function init() {
 		if ( self::uses_html_root()
 			 || self::get_root_id() > 0
-			 || strpos( (string) filter_var( $_SERVER['REQUEST_URI'] ), 'wpml_root_page=1' ) !== false
-			 || (bool) filter_input( INPUT_POST, '_wpml_root_page' ) === true
+			 || self::is_root_page_in_setup( icl_get_setting( 'urls' ) )
 		) {
 			global $wpml_root_page_actions;
 
@@ -18,18 +17,33 @@ class WPML_Root_Page {
 			add_filter( 'page_attributes_dropdown_pages_args', array( $wpml_root_page_actions, 'wpml_home_url_exclude_root_page2' ) );
 			add_filter( 'get_pages', array( $wpml_root_page_actions, 'wpml_home_url_get_pages' ) );
 			add_action( 'save_post', array( $wpml_root_page_actions, 'wpml_home_url_save_post_actions' ), 0, 2 );
+			add_action( 'deleted_post', array( $wpml_root_page_actions, 'forget_deleted_root_page' ), 10, 1 );
+			add_action( 'admin_init', array( $wpml_root_page_actions, 'forget_missing_root_page' ), 0 );
 
 			if ( self::get_root_id() > 0 ) {
 				add_filter( 'template_include', array( 'WPML_Root_Page', 'wpml_home_url_template_include' ) );
 				add_filter( 'the_preview', array( 'WPML_Root_Page', 'front_page_id_filter' ) );
+				add_filter( 'rocket_current_url', array( 'WPML_Root_Page', 'current_url_on_root_request' ) );
 			}
 			$root_page_actions = wpml_get_root_page_actions_obj();
 			add_action( 'icl_set_element_language', array( $root_page_actions, 'delete_root_page_lang' ), 10, 0 );
 		}
 	}
 
+	public static function is_root_page_in_setup( $urls ) {
+		return (bool) filter_input( INPUT_GET, 'wpml_root_page' )
+			|| \WPML\UrlHandling\RootPage\RootPageCommand::isRequested()
+			|| WPML_Root_Page_Actions::pending_root_page_id( $urls ) > 0;
+	}
+
 	public static function is_current_request_root() {
 		return self::is_root_page( $_SERVER['REQUEST_URI'] );
+	}
+
+	public static function is_configured_root_request() {
+		return isset( $_SERVER['REQUEST_URI'] )
+			&& ( self::uses_html_root() || self::get_root_id() )
+			&& self::is_current_request_root();
 	}
 
 	public static function is_root_page( $requested_url ) {
@@ -58,10 +72,26 @@ class WPML_Root_Page {
 		return $result;
 	}
 
+	private static function serves_a_root_url() {
+		$urls = icl_get_setting( 'urls' );
+
+		return 1 === (int) icl_get_setting( 'language_negotiation_type' )
+			&& ! empty( $urls['directory_for_default_language'] );
+	}
+
 	public static function uses_html_root() {
 		$urls = icl_get_setting( 'urls' );
 
-		return isset( $urls['root_page'] ) && isset( $urls['show_on_root'] ) && $urls['directory_for_default_language'] && 'html_file' === $urls['show_on_root'];
+		return self::serves_a_root_url()
+			&& isset( $urls['root_page'] ) && isset( $urls['show_on_root'] )
+			&& 'html_file' === $urls['show_on_root'];
+	}
+
+	public static function uses_page_root() {
+		$urls = icl_get_setting( 'urls' );
+
+		return self::serves_a_root_url()
+			&& isset( $urls['show_on_root'] ) && 'page' === $urls['show_on_root'];
 	}
 
 	public static function get_root_id() {
@@ -194,6 +224,18 @@ class WPML_Root_Page {
 		}
 
 		return $post;
+	}
+
+	public static function current_url_on_root_request( $current_url ) {
+		global $wp, $wpml_url_converter;
+
+		if ( ! is_object( $wpml_url_converter ) || ! self::is_configured_root_request() ) {
+			return $current_url;
+		}
+
+		$request = isset( $wp->request ) ? trim( (string) $wp->request, '/' ) : '';
+
+		return trailingslashit( $wpml_url_converter->get_abs_home() ) . $request;
 	}
 
 	public static function wpml_home_url_template_include( $template ) {

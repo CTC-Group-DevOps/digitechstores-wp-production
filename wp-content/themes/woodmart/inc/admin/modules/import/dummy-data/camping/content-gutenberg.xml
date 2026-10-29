@@ -970,7 +970,7 @@
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=14281</guid>
 											<content:encoded><![CDATA[<!-- wp:wd/slider {"blockId":"012f12b5-3a42-43ca-8427-27c2125e9a0a","blockVersion":"2","arrowsColorScheme":"light","paginationColorScheme":"light","autoplay":true,"autoplaySpeed":"25000","stretch":true,"height":"760","arrowsCustomSettings":true,"arrowsHoverStyle":"1","marginBottom":"0","paginationAlignTablet":"center","heightTablet":"500"} -->
-<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-stretched wd-autoplay-on wd-012f12b5"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"c0b9cc0b-f05d-40c6-ac8c-d80bd1e291ec","blockVersion":"2","justify":"flex-end","colorScheme":"light","aspectRatio":"","image":{"id":14289,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-1.jpg","width":1920,"height":740},"bgImage":{"id":"","url":""},"bgColorCode":"#3f412e","paddingTop":"120","paddingBottom":"80"} -->
+<div class="wp-block-wd-slider wd-slider wd-carousel-container wd-anim-slide wd-stretched wd-autoplay-on wd-012f12b5"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" data-effect="slide" data-wrap="yes" data-autoheight="yes" data-sliding_speed="700" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1" data-autoplay="yes" data-speed="25000"><div class="wd-carousel-wrap"><!-- wp:wd/slider-item {"blockId":"c0b9cc0b-f05d-40c6-ac8c-d80bd1e291ec","blockVersion":"2","justify":"flex-end","colorScheme":"light","aspectRatio":"","image":{"id":14289,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-1.jpg","width":1920,"height":740},"bgImage":{"id":"","url":""},"bgColorCode":"#3f412e","paddingTop":"120","paddingBottom":"80"} -->
 <div class="wp-block-wd-slider-item wd-slide wd-carousel-item color-scheme-light wd-c0b9cc0b"><div class="wd-slide-container"><!-- wp:wd/row {"blockId":"e21cbabf-3763-472f-a0b9-afb7548a3fca","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-e21cbabf"><!-- wp:wd/column {"blockId":"ca18ead9-596a-45f5-bf85-ee8819ef636f","blockVersion":"2","adjacentCount":2,"colWidth":42,"blocksGap":10,"justifyContent":"center","animation":"slide-from-left","animationDelay":"300","textAlignMobile":"center","flexOrderMobile":"2"} -->
 <div class="wp-block-wd-column wd-align wd-animation wd-transform wd-animation-slide-from-left wd_delay_300 wd-ca18ead9"><!-- wp:wd/title {"blockId":"1e249d1e-5785-49c6-bf58-ebba26a6346a","blockVersion":"2","content":"Camping Windproof","tpFontSize":"80","tpLineHeight":"1.2","displayWidth":"custom","customWidth":"420","tpFontSizeTablet":"60","tpFontSizeMobile":"42","tpLineHeightTablet":"70","tpLineHeightUnits":"em","alignSelfMobile":"center"} -->
@@ -994,10 +994,10 @@
 
 <!-- wp:wd/column {"blockId":"05887d56-93e5-4245-9a4f-ec31444ad7a6","blockVersion":"2","adjacentCount":2,"colWidth":58,"textAlign":"center","flexOrderMobile":"1"} -->
 <div class="wp-block-wd-column wd-align wd-05887d56"><!-- wp:wd/image {"blockId":"08bf1e1b-e237-4905-8b4c-d99f7b1c17c7","blockVersion":"2","image":{"id":14292,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-1.png"},"imageData":{"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-1.png","width":633,"height":440},"animation":"zoom-in","animationDelay":"150"} -->
-<div class="wp-block-wd-image wd-block-image wd-animation wd-transform wd-animation-zoom-in wd_delay_150 wd-08bf1e1b"><img class="wp-image-14292" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-1.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-animation wd-transform wd-animation-zoom-in wd_delay_150 wd-08bf1e1b"><img class="wp-image-14292" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-1.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
-<!-- /wp:wd/row --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-1.jpg" class="wp-image-14289" alt=""/></div></div>
+<!-- /wp:wd/row --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-1.jpg" class="wp-image-14289" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"18fe176f-0761-4761-8efd-cf3ffc6aa5ca","blockVersion":"2","justify":"flex-end","colorScheme":"light","aspectRatio":"","image":{"id":14303,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-2.jpg","width":1920,"height":740},"bgImage":{"id":"","url":""},"bgColorCode":"#3f412e","paddingTop":"120","paddingBottom":"80"} -->
@@ -1024,10 +1024,10 @@
 
 <!-- wp:wd/column {"blockId":"4836680a-08bf-42ab-96c3-6b035ea3ba2f","blockVersion":"2","adjacentCount":2,"colWidth":58,"textAlign":"center","flexOrderMobile":"1"} -->
 <div class="wp-block-wd-column wd-align wd-4836680a"><!-- wp:wd/image {"blockId":"fde75528-56ac-4b42-a86c-7c472428dd26","blockVersion":"2","image":{"id":14305,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-2.png"},"animation":"zoom-in","animationDelay":"150"} -->
-<div class="wp-block-wd-image wd-block-image wd-animation wd-transform wd-animation-zoom-in wd_delay_150 wd-fde75528"><img class="wp-image-14305" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-2.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-animation wd-transform wd-animation-zoom-in wd_delay_150 wd-fde75528"><img class="wp-image-14305" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-2.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
-<!-- /wp:wd/row --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-2.jpg" class="wp-image-14303" alt=""/></div></div>
+<!-- /wp:wd/row --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-2.jpg" class="wp-image-14303" alt="" /></div></div>
 <!-- /wp:wd/slider-item -->
 
 <!-- wp:wd/slider-item {"blockId":"0054c1fc-bcf5-4180-8713-e886e9e0303c","blockVersion":"2","justify":"flex-end","colorScheme":"light","aspectRatio":"","image":{"id":14308,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-3.jpg","width":1920,"height":740},"bgImage":{"id":"","url":""},"bgColorCode":"#3f412e","paddingTop":"120","paddingBottom":"80"} -->
@@ -1054,17 +1054,17 @@
 
 <!-- wp:wd/column {"blockId":"44385de2-7e5e-486b-a8b7-c45de94f189a","blockVersion":"2","adjacentCount":2,"colWidth":58,"textAlign":"center","flexOrderMobile":"1"} -->
 <div class="wp-block-wd-column wd-align wd-44385de2"><!-- wp:wd/image {"blockId":"9f02232c-7f90-4626-9965-f326ab1ad605","blockVersion":"2","image":{"id":14309,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-3.png"},"animation":"zoom-in","animationDelay":"150"} -->
-<div class="wp-block-wd-image wd-block-image wd-animation wd-transform wd-animation-zoom-in wd_delay_150 wd-9f02232c"><img class="wp-image-14309" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-3.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-animation wd-transform wd-animation-zoom-in wd_delay_150 wd-9f02232c"><img class="wp-image-14309" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-3.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
-<!-- /wp:wd/row --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-3.jpg" class="wp-image-14308" alt=""/></div></div>
+<!-- /wp:wd/row --></div><div class="wd-slide-bg wd-fill"><img src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-slider-bg-3.jpg" class="wp-image-14308" alt="" /></div></div>
 <!-- /wp:wd/slider-item --></div></div><div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-pos-sep wd-style-1 color-scheme-light wd-hover-1"><div class="wd-btn-arrow wd-prev"><div class="wd-arrow-inner"></div></div><div class="wd-btn-arrow wd-next"><div class="wd-arrow-inner"></div></div></div></div><div class="wd-nav-pagin-wrap wd-slider-pagin wd-custom-style wd-style-shape-1 wd-align color-scheme-light"><ul class="wd-nav-pagin"></ul></div></div>
 <!-- /wp:wd/slider -->
 
 <!-- wp:wd/section {"blockId":"7e4aa7a6-2940-4758-b0cd-0bb1717a6c65","blockVersion":"2","bgImage":{"id":"","url":""},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingRight":"0","paddingLeft":"0","marginBottom":"80","displayWidth":"","customWidth":"","marginBottomMobile":"60"} -->
 <div class="wp-block-wd-section wd-7e4aa7a6"><!-- wp:wd/container {"blockId":"6f7dfaf2-6453-4d93-a17c-b062224f3ebf","blockVersion":"2","textAlign":"center","rowGap":"10","bgImage":{"id":14320,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-category-background.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"100","paddingRight":"35","paddingBottom":"70","paddingLeft":"35","displayWidth":"","customWidth":"","paddingTopTablet":"80","paddingTopMobile":"60","paddingRightTablet":"15","paddingBottomMobile":"60","paddingLeftTablet":"15"} -->
 <div class="wp-block-wd-container wd-dir-col wd-align wd-6f7dfaf2"><!-- wp:wd/icon {"blockId":"e4161793-bca3-439a-aa51-ad479a537993","blockVersion":"2","svg":"         ","image":{"id":16272,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-category-icon.svg"},"width":"241"} -->
-<div class="wp-block-wd-icon wd-e4161793"><img class="wp-image-16272" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-category-icon.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-e4161793"><img class="wp-image-16272" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-category-icon.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/title {"blockId":"a89a4690-1cf2-4f6a-9203-8ac82cc7a08b","blockVersion":"2","content":"Welcome In Our Store!","tpFontSize":"42","alignSelf":"center","tpFontSizeTablet":"32","tpFontSizeMobile":"26"} -->
@@ -1079,7 +1079,7 @@
 <!-- /wp:wd/container --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/paragraph {"blockId":"24fe5130-a486-4118-845d-1ff09812fe67","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14","tpFontVariant":"700","tpFontWeight":"700","marginBottom":"10","alignSelf":"center"} -->
+<!-- wp:wd/paragraph {"blockId":"24fe5130-a486-4118-845d-1ff09812fe67","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14","tpFontVariant":"700","tpFontWeight":"700","marginBottom":"10","alignSelf":"center"} -->
 <p class="wp-block-wd-paragraph wd-align wd-24fe5130 wd-align-s-center">CAMPING ACCESSORIES</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1114,7 +1114,7 @@
 <div class="wp-block-wd-row wd-48c78510"><!-- wp:wd/column {"blockId":"3ddc2cd6-9c81-4dfe-aea4-650c1a3cfbf4","blockVersion":"2","adjacentCount":3,"borderType":"solid","borderColorCode":"rgba(129,129,129,0.2)","borderWidthRight":"1","borderWidthLock":false,"borderWidthRightMobile":"0","borderWidthLockMobile":false} -->
 <div class="wp-block-wd-column wd-3ddc2cd6"><!-- wp:wd/infobox {"blockId":"fea743b9-a825-4ff6-a6a9-f01667fe6855","blockVersion":"2","align":"center","paddingRight":"15","paddingLeft":"15","paddingUnits":"%"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-align wd-icon-top wd-fea743b9"><!-- wp:wd/icon {"blockId":"c0b7f4ea-2dff-41b3-b836-2449691a2785","blockVersion":"2","image":{"id":16285,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-1.svg"},"width":"60","lock":{"move":false,"remove":true}} -->
-<div class="wp-block-wd-icon wd-c0b7f4ea"><img class="wp-image-16285" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-1.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-c0b7f4ea"><img class="wp-image-16285" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-1.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"678d9f30-1a44-4747-9fd9-4b0632bc6bf7","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -1136,7 +1136,7 @@
 <!-- wp:wd/column {"blockId":"8eb9328d-460d-432d-8b66-d5d59648e14a","blockVersion":"2","adjacentCount":3,"borderType":"solid","borderColorCode":"rgba(129,129,129,0.2)","borderWidthRight":"1","borderWidthLock":false,"borderWidthRightMobile":"0","borderWidthLockMobile":false} -->
 <div class="wp-block-wd-column wd-8eb9328d"><!-- wp:wd/infobox {"blockId":"7eb91828-8440-486e-ae63-72c2cff70def","blockVersion":"2","align":"center","paddingRight":"15","paddingLeft":"15","paddingUnits":"%"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-align wd-icon-top wd-7eb91828"><!-- wp:wd/icon {"blockId":"2fd2db7b-f689-44ab-9338-c75fa03f2350","blockVersion":"2","image":{"id":16293,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-2.svg"},"width":"60","lock":{"move":false,"remove":true}} -->
-<div class="wp-block-wd-icon wd-2fd2db7b"><img class="wp-image-16293" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-2.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-2fd2db7b"><img class="wp-image-16293" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-2.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"498dded7-74a1-4830-9e4e-084247afb9be","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -1158,7 +1158,7 @@
 <!-- wp:wd/column {"blockId":"71a5b7fa-0f84-4d1d-8e06-b454f1466a23","blockVersion":"2","adjacentCount":3} -->
 <div class="wp-block-wd-column wd-71a5b7fa"><!-- wp:wd/infobox {"blockId":"6e06018e-5e5b-4e65-84e2-dc74535d3ee2","blockVersion":"2","align":"center","paddingRight":"15","paddingLeft":"15","paddingUnits":"%"} -->
 <div class="wp-block-wd-infobox wd-hover-parent wd-align wd-icon-top wd-6e06018e"><!-- wp:wd/icon {"blockId":"76a09a59-1ce4-40e3-87a1-f1249a871fae","blockVersion":"2","image":{"id":16294,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-3.svg"},"width":"60","lock":{"move":false,"remove":true}} -->
-<div class="wp-block-wd-icon wd-76a09a59"><img class="wp-image-16294" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-3.svg" alt=""/></div>
+<div class="wp-block-wd-icon wd-76a09a59"><img class="wp-image-16294" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-infobox-3.svg" alt="" /></div>
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"b25552f3-5eee-4825-9fae-788e0cf6e29b","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
@@ -1181,7 +1181,7 @@
 
 <!-- wp:wd/row {"blockId":"a9dfeb6b-418d-4db7-8796-820a16fd213a","blockVersion":"2","marginBottom":"80","columnsGapMobile":40,"marginBottomMobile":"60"} -->
 <div class="wp-block-wd-row wd-a9dfeb6b"><!-- wp:wd/column {"blockId":"c38329e8-43af-41b2-9054-8f51fb8df8ad","blockVersion":"2","adjacentCount":2,"colWidth":42,"blocksGap":10,"textAlign":"end","textAlignMobile":"start"} -->
-<div class="wp-block-wd-column wd-align wd-c38329e8"><!-- wp:wd/paragraph {"blockId":"89d4f7ca-0708-45b4-93ef-cff19f38ffce","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"60","tpLineHeightUnits":"em","alignSelfMobile":"start"} -->
+<div class="wp-block-wd-column wd-align wd-c38329e8"><!-- wp:wd/paragraph {"blockId":"89d4f7ca-0708-45b4-93ef-cff19f38ffce","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"60","tpLineHeightUnits":"em","alignSelfMobile":"start"} -->
 <p class="wp-block-wd-paragraph wd-89d4f7ca wd-align-s-start-sm">01.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1210,7 +1210,7 @@
 
 <!-- wp:wd/column {"blockId":"febae65c-67cd-4179-8fcb-697ce5c4bd0b","blockVersion":"2","adjacentCount":2,"colWidth":58,"justifyContent":"center"} -->
 <div class="wp-block-wd-column wd-febae65c"><!-- wp:wd/image {"blockId":"cfa6cb4e-a71c-4a30-a55a-eb4ac7d43e8f","blockVersion":"2","image":{"id":14376,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-map-img.jpg"},"alignSelf":"center"} -->
-<div class="wp-block-wd-image wd-block-image wd-cfa6cb4e wd-align-s-center"><img class="wp-image-14376" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-map-img.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-cfa6cb4e wd-align-s-center"><img class="wp-image-14376" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-map-img.jpg" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
@@ -1221,12 +1221,12 @@
 <div class="wp-block-wd-section wd-3f19f595"><!-- wp:wd/row {"blockId":"d95392c2-17cb-461e-9e10-25ce1948bc98","blockVersion":"2","bgType":"gradient","bgGradient":"linear-gradient(180deg,rgba(245,239,233,0) 0%,rgb(245,239,233) 100%)","paddingRight":"35","paddingBottom":"70","paddingLeft":"35","displayWidth":"","customWidth":"","columnsGapMobile":40,"paddingRightTablet":"15","paddingBottomMobile":"40","paddingLeftTablet":"15"} -->
 <div class="wp-block-wd-row wd-d95392c2"><!-- wp:wd/column {"blockId":"fae184dd-8ebb-45b9-916e-9393844fcd7c","blockVersion":"2","adjacentCount":2,"justifyContent":"center"} -->
 <div class="wp-block-wd-column wd-fae184dd"><!-- wp:wd/image {"blockId":"15ad2116-594d-4820-9280-d279aa717238","blockVersion":"2","image":{"id":14401,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-left-img.png"},"alignSelf":"center"} -->
-<div class="wp-block-wd-image wd-block-image wd-15ad2116 wd-align-s-center"><img class="wp-image-14401" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-left-img.png" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-15ad2116 wd-align-s-center"><img class="wp-image-14401" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-left-img.png" alt="" /></div>
 <!-- /wp:wd/image --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"43c19773-f81a-45e5-9850-a5e5cdae37c8","blockVersion":"2","adjacentCount":2,"blocksGap":10} -->
-<div class="wp-block-wd-column wd-43c19773"><!-- wp:wd/paragraph {"blockId":"fcd846f4-f924-4bc0-a09e-5a58b321293f","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"60","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-43c19773"><!-- wp:wd/paragraph {"blockId":"fcd846f4-f924-4bc0-a09e-5a58b321293f","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"80","tpLineHeight":"1","tpFontVariant":"700","tpFontWeight":"700","tpFontSizeTablet":"60","tpLineHeightUnits":"em"} -->
 <p class="wp-block-wd-paragraph wd-fcd846f4">02.</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1241,13 +1241,13 @@
 <!-- wp:wd/row {"blockId":"311bb6af-7f84-4a1e-ac0b-b7aff9e988df","blockVersion":"2","columnsGap":20,"marginTop":"20"} -->
 <div class="wp-block-wd-row wd-311bb6af"><!-- wp:wd/column {"blockId":"aa5d4edd-0a10-45a6-87cb-72de58bb1150","blockVersion":"2","adjacentCount":2} -->
 <div class="wp-block-wd-column wd-aa5d4edd"><!-- wp:wd/video {"blockId":"5745881f-0db4-40e7-bb08-e788281ee2a4","blockVersion":"2","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=XHOmBV4js_E","videoActionButton":"overlay","videoOverlayLightbox":true,"videoImageOverlay":{"id":14406,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-1.jpg"},"videoSize":"aspect_ratio","playBtnIconSize":"80"} -->
-<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-with-aspect-ratio wd-5745881f"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-1.jpg" alt="" class="wp-image-14406"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=XHOmBV4js_E" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
+<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-with-aspect-ratio wd-5745881f"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-1.jpg" alt="" class="wp-image-14406" /></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=XHOmBV4js_E" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"a151bf84-b6c1-434b-a2f9-9155057ce6ba","blockVersion":"2","adjacentCount":2} -->
 <div class="wp-block-wd-column wd-a151bf84"><!-- wp:wd/video {"blockId":"2f1b0e6e-602e-463f-a86e-4bbb4c5d3479","blockVersion":"2","videoType":"external","externalUrl":"https://www.youtube.com/watch?v=XHOmBV4js_E","videoActionButton":"overlay","videoOverlayLightbox":true,"videoImageOverlay":{"id":14407,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-2.jpg"},"videoSize":"aspect_ratio","playBtnIconSize":"80"} -->
-<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-with-aspect-ratio wd-2f1b0e6e"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-2.jpg" alt="" class="wp-image-14407"/></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=XHOmBV4js_E" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
+<div class="wp-block-wd-video wd-el-video wd-action-overlay wd-video-external wd-lightbox wd-with-aspect-ratio wd-2f1b0e6e"><div class="wd-el-video-overlay wd-fill"><img src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-video-2.jpg" alt="" class="wp-image-14407" /></div><div class="wd-el-video-control color-scheme-light wd-fill"><span class="wd-el-video-play-btn"></span></div><a href="https://www.youtube.com/watch?v=XHOmBV4js_E" class="wd-el-video-link wd-el-video-btn-overlay wd-fill wd-el-video-lightbox"></a></div>
 <!-- /wp:wd/video --></div>
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row --></div>
@@ -1255,7 +1255,7 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/paragraph {"blockId":"1aa031c5-1c78-4e1f-a83e-c9d759ff7971","blockVersion":"2","textAlign":"center","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14","tpFontVariant":"700","tpFontWeight":"700","marginBottom":"10","alignSelf":"center"} -->
+<!-- wp:wd/paragraph {"blockId":"1aa031c5-1c78-4e1f-a83e-c9d759ff7971","blockVersion":"2","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14","tpFontVariant":"700","tpFontWeight":"700","marginBottom":"10","alignSelf":"center"} -->
 <p class="wp-block-wd-paragraph wd-align wd-1aa031c5 wd-align-s-center">SHARE BEST NEWS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1271,7 +1271,7 @@
 
 <!-- wp:wd/section {"blockId":"d22a10bf-c947-4844-9473-fea6865502ea","blockVersion":"2","blockGap":0,"paddingRight":"0","paddingLeft":"0","marginBottom":"-40"} -->
 <div class="wp-block-wd-section wd-d22a10bf"><!-- wp:wd/container {"blockId":"61a3d622-ea79-470d-a461-3c945e4079c8","blockVersion":"2","textAlign":"center","rowGap":"10","bgImage":{"id":14422,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-bg.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingRight":"35","paddingBottom":"60","paddingLeft":"35","displayWidth":"","customWidth":"","paddingRightTablet":"15","paddingBottomMobile":"40","paddingLeftTablet":"15"} -->
-<div class="wp-block-wd-container wd-dir-col wd-align wd-61a3d622"><!-- wp:wd/paragraph {"blockId":"43854d00-bd00-449b-bce2-b1acbd20d4a3","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"14","tpFontVariant":"700","tpFontWeight":"700"} -->
+<div class="wp-block-wd-container wd-dir-col wd-align wd-61a3d622"><!-- wp:wd/paragraph {"blockId":"43854d00-bd00-449b-bce2-b1acbd20d4a3","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"14","tpFontVariant":"700","tpFontWeight":"700"} -->
 <p class="wp-block-wd-paragraph wd-43854d00">SHARE BEST NEWS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -1284,11 +1284,11 @@
 <!-- /wp:wd/paragraph -->
 
 <!-- wp:wd/carousel {"blockId":"ecbc7dc8-a8c1-4d3f-a621-fcd471aef308","blockVersion":"2","currentSlide":3,"spacing":"30","paginationControl":false,"paginationControlTablet":false,"paginationControlMobile":false,"syncParentId":"wd_ecbc7dc8","marginTop":"10","slidesPerViewTablet":"2","slidesPerViewMobile":"1"} -->
-<div class="wp-block-wd-carousel wd-carousel-container wd-ecbc7dc8"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:3;--wd-col-md:2;--wd-col-sm:1;--wd-gap-lg:30px;--wd-gap-sm:10px;" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"8162a615-b37e-4af1-92fe-a670b22e00c9","blockVersion":"2"} -->
+<div class="wp-block-wd-carousel wd-carousel-container wd-ecbc7dc8"><div class="wd-carousel-inner"><div class="wd-carousel wd-grid" style="--wd-col-lg:3;--wd-col-md:2;--wd-col-sm:1;--wd-gap-lg:30px;--wd-gap-sm:10px" data-scroll_per_page="yes"><div class="wd-carousel-wrap"><!-- wp:wd/carousel-item {"blockId":"8162a615-b37e-4af1-92fe-a670b22e00c9","blockVersion":"2"} -->
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-8162a615"><!-- wp:wd/testimonial {"blockId":"4a8880e0-c98a-4188-9b6f-7f8647f490aa","blockVersion":"2","design":"2","alignment":"center"} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-4a8880e0"><!-- wp:wd/container {"blockId":"12457528-6a7c-47d9-ba8b-17476b4bbb72","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-12457528"><!-- wp:wd/image {"blockId":"e71192cf-f3a1-4abe-9c4d-1016b10e7430","blockVersion":"2","image":{"id":14425,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-1.jpg"}} -->
-<div class="wp-block-wd-image wd-block-image wd-e71192cf"><img class="wp-image-14425" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-1.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-e71192cf"><img class="wp-image-14425" src="https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-1.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"3b6f382e-64a8-4e35-93a3-98525db961e8","blockVersion":"2"} -->
@@ -1312,7 +1312,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-8d1125a8"><!-- wp:wd/testimonial {"blockId":"c9b2d3e0-48cc-4208-8d9b-37bdefe94df4","blockVersion":"2","design":"2","alignment":"center"} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-c9b2d3e0"><!-- wp:wd/container {"blockId":"2ed112d3-0c8c-4fa0-b0c9-9210fa6685ec","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-2ed112d3"><!-- wp:wd/image {"blockId":"8eff319e-17cf-4202-9b2d-567c2e30de5d","blockVersion":"2","image":{"id":14430,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-2.jpg"}} -->
-<div class="wp-block-wd-image wd-block-image wd-8eff319e"><img class="wp-image-14430" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-2.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-8eff319e"><img class="wp-image-14430" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-2.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"39e35fbc-4c48-4f34-9d5d-040a1b06f76a","blockVersion":"2"} -->
@@ -1336,7 +1336,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-315c5c6f"><!-- wp:wd/testimonial {"blockId":"ee5d9fe6-295b-4a19-b1ac-aee28a03aa58","blockVersion":"2","design":"2","alignment":"center"} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-ee5d9fe6"><!-- wp:wd/container {"blockId":"184af771-2ab6-4e05-8fb8-bfecb904ed71","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-184af771"><!-- wp:wd/image {"blockId":"25984ca6-00e9-4c9b-bddf-e4e679ebabeb","blockVersion":"2","image":{"id":14431,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-3.jpg"}} -->
-<div class="wp-block-wd-image wd-block-image wd-25984ca6"><img class="wp-image-14431" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-3.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-25984ca6"><img class="wp-image-14431" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/camping-testimonials-3.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"4f2d9bd4-f7f7-4cc5-ad84-4c7fc483bc5a","blockVersion":"2"} -->
@@ -1360,7 +1360,7 @@
 <div class="wp-block-wd-carousel-item wd-carousel-item wd-68cf7698"><!-- wp:wd/testimonial {"blockId":"69cefe45-b48e-4e81-837d-338de66ffb33","blockVersion":"2","design":"2","alignment":"center"} -->
 <div class="wp-block-wd-testimonial wd-align wd-design-2 wd-69cefe45"><!-- wp:wd/container {"blockId":"571ae41f-d0fd-46ad-b120-5761dd7a3c86","blockVersion":"2","extraClass":"wd-testimonial-heading"} -->
 <div class="wp-block-wd-container wd-dir-col wd-testimonial-heading wd-571ae41f"><!-- wp:wd/image {"blockId":"f3a1a5a2-025b-4adc-9fb7-c27fc2ff367d","blockVersion":"2","image":{"id":14432,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/v-toy-testimonials-portrait-2.jpg"}} -->
-<div class="wp-block-wd-image wd-block-image wd-f3a1a5a2"><img class="wp-image-14432" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/v-toy-testimonials-portrait-2.jpg" alt=""/></div>
+<div class="wp-block-wd-image wd-block-image wd-f3a1a5a2"><img class="wp-image-14432" src="http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/v-toy-testimonials-portrait-2.jpg" alt="" /></div>
 <!-- /wp:wd/image -->
 
 <!-- wp:wd/container {"blockId":"c0f1d9c4-5a8f-4617-b848-bff66785e66b","blockVersion":"2"} -->
@@ -1401,8 +1401,8 @@
 															<wp:post_id>14281</wp:post_id>
 					<wp:post_date><![CDATA[2024-06-04 12:20:33]]></wp:post_date>
 					<wp:post_date_gmt><![CDATA[2024-06-04 12:20:33]]></wp:post_date_gmt>
-					<wp:post_modified><![CDATA[2026-09-10 12:31:58]]></wp:post_modified>
-					<wp:post_modified_gmt><![CDATA[2026-09-10 12:31:58]]></wp:post_modified_gmt>
+					<wp:post_modified><![CDATA[2026-09-15 13:05:39]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2026-09-15 13:05:39]]></wp:post_modified_gmt>
 					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 					<wp:post_name><![CDATA[home-camping]]></wp:post_name>
 					<wp:status><![CDATA[publish]]></wp:status>

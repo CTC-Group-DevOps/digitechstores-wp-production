@@ -146,4 +146,4 @@ if ( ! class_exists( 'WPHeaderAndFooter_Notification' ) ) :
 		}
 	}
 endif;
-new WPHeaderAndFooter_Notification();
+$wp_header_and_footer_notification = new WPHeaderAndFooter_Notification();

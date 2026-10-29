@@ -74,21 +74,19 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 	}
 
 	private function getAllowedPostTypes() {
-		$allowedTypes = [
-			'post',
-			'page',
-			'product',
-			'portfolio',
-			'project',
-			'elementor_library',
-			'vc_templates',
-			'so_panels',
-			'gallery',
-			'slides',
-			'slider'
-		];
+		$types = \WPML\API\PostTypes::getTranslatable();
+		if ( ! is_array( $types ) ) {
+			return [];
+		}
 
-		return $allowedTypes;
+		return array_values(
+			array_filter(
+				$types,
+				function ( $type ) {
+					return is_string( $type ) && '' !== $type && 'attachment' !== $type;
+				}
+			)
+		);
 	}
 
 	private function getPosts( $page ) {
@@ -96,19 +94,22 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 		if ( count( $postTypes ) === 0 ) {
 			return [];
 		}
+		$wpdb = $this->wpdb;
 
-		return $this->wpdb->get_col(
-			$this->wpdb->prepare(
+		return $wpdb->get_col(
+			$wpdb->prepare(
 				"SELECT DISTINCT p.ID
-						FROM {$this->wpdb->posts} AS p
-						INNER JOIN {$this->wpdb->prefix}icl_translations t ON t.element_id = p.ID
+						FROM {$wpdb->posts} AS p
+						INNER JOIN {$wpdb->prefix}icl_translations t ON t.element_id = p.ID
 						WHERE t.source_language_code IS NULL
 						AND p.post_status NOT IN ('auto-draft', 'trash', 'inherit')
-						AND p.post_type IN (" . wpml_prepare_in( $postTypes, '%s' ) . ")
+						AND p.post_type IN (" . implode( ', ', array_fill( 0, count( $postTypes ), '%s' ) ) . ")
 						ORDER BY p.ID ASC
 						LIMIT %d OFFSET %d",
-				$this->postsPerRequest,
-				($page-1)*$this->postsPerRequest
+				...array_merge(
+					array_values( $postTypes ),
+					[ $this->postsPerRequest, ( $page - 1 ) * $this->postsPerRequest ]
+				)
 			)
 		);
 	}
@@ -119,13 +120,18 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 			return 0;
 		}
 
-		return (int) $this->wpdb->get_var(
-			"SELECT COUNT(DISTINCT(p.ID))
-					FROM {$this->wpdb->posts} AS p
-					INNER JOIN {$this->wpdb->prefix}icl_translations t ON t.element_id = p.ID
+		$wpdb = $this->wpdb;
+
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(DISTINCT(p.ID))
+					FROM {$wpdb->posts} AS p
+					INNER JOIN {$wpdb->prefix}icl_translations t ON t.element_id = p.ID
 					WHERE t.source_language_code IS NULL
 					AND p.post_status NOT IN ('auto-draft', 'trash', 'inherit')
-					AND p.post_type IN (" . wpml_prepare_in( $postTypes, '%s' ) . ")"
+					AND p.post_type IN (" . implode( ', ', array_fill( 0, count( $postTypes ), '%s' ) ) . ')',
+				...array_values( $postTypes )
+			)
 		);
 	}
 
@@ -211,7 +217,7 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 			) {
 				continue;
 			}
-			$urls[] = Attachment::extractSrcFromAttributes( $media_file_id );
+			$urls[] = \WPML_Media_Attachment_By_URL::normalizeUrl( Attachment::extractSrcFromAttributes( $media_file_id ) );
 		}
 	}
 
@@ -221,7 +227,9 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 				array_key_exists( 'attachment_id', $media_file_id ) &&
 				is_null( $media_file_id['attachment_id'] )
 			) {
-				$media_file_id['attachment_id'] = Attachment::idFromUrlCache( Attachment::extractSrcFromAttributes( $media_file_id ) );
+				$media_file_id['attachment_id'] = Attachment::idFromUrlCache(
+					\WPML_Media_Attachment_By_URL::normalizeUrl( Attachment::extractSrcFromAttributes( $media_file_id ) )
+				);
 			}
 		}
 	}
@@ -245,7 +253,6 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 		];
 
 		$values       = [];
-		$placeholders = [];
 		$all_post_ids = [];
 
 		foreach ( $batch as $post_id => $data ) {
@@ -257,13 +264,13 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 			$copied     = maybe_serialize( $copied );
 			$referenced = maybe_serialize( $referenced );
 
-			$placeholders[] = "(%d,'" . $meta_keys[0] . "',%s)";
-			$values[]       = $post_id;
-			$values[]       = $copied;
+			$values[] = $post_id;
+			$values[] = $meta_keys[0];
+			$values[] = $copied;
 
-			$placeholders[] = "(%d,'" . $meta_keys[1] . "',%s)";
-			$values[]       = $post_id;
-			$values[]       = $referenced;
+			$values[] = $post_id;
+			$values[] = $meta_keys[1];
+			$values[] = $referenced;
 
 			$all_post_ids[] = $post_id;
 		}
@@ -273,25 +280,46 @@ class ProcessExistingMediaInPosts extends AbstractTaskEndpoint {
 				return is_array( $arr ) ? array_map( 'intval', $arr ) : $arr;
 			}, $usages_in_posts );
 
-			$placeholders[] = "(%d,'" . $meta_keys[2] . "',%s)";
 			$values[]       = $media_file_id;
+			$values[]       = $meta_keys[2];
 			$values[]       = maybe_serialize( $usages_in_posts );
 			$all_post_ids[] = $media_file_id;
 		}
 
-		$sql = "
-            DELETE FROM {$this->wpdb->postmeta}
-            WHERE post_id IN (" . wpml_prepare_in( $all_post_ids, '%d' ) . ")
-            AND meta_key IN (" . wpml_prepare_in( $meta_keys, '%s' ) . ")
-        ";
-		$this->wpdb->query( $sql );
+		$wpdb          = $this->wpdb;
+		$all_post_ids = array_values( array_unique( array_map( 'intval', $all_post_ids ) ) );
 
-		if ( ! empty( $values ) ) {
-			$sql = "INSERT INTO {$this->wpdb->postmeta} (post_id, meta_key, meta_value) VALUES " . implode( ',', $placeholders );
-			$this->wpdb->query( $this->wpdb->prepare( $sql, $values ) );
+		if ( $all_post_ids ) {
+			$wpdb->query(
+				$wpdb->prepare(
+					"DELETE FROM {$wpdb->postmeta}
+					WHERE post_id IN (" . implode( ', ', array_fill( 0, count( $all_post_ids ), '%d' ) ) . ')
+					AND meta_key IN (' . implode( ', ', array_fill( 0, count( $meta_keys ), '%s' ) ) . ')',
+					array_merge( $all_post_ids, $meta_keys )
+				)
+			);
 		}
 
-		$all_post_ids = array_values( array_unique( $all_post_ids ) );
+		if ( ! empty( $values ) ) {
+			$insert_rows = array();
+			$insert_args = array();
+			foreach ( array_chunk( $values, 3 ) as $row ) {
+				$insert_rows[] = '(%d, %s, %s)';
+				$insert_args[] = (int) $row[0];
+				$insert_args[] = (string) $row[1];
+				$insert_args[] = (string) $row[2];
+			}
+
+			$wpdb->query(
+				$wpdb->prepare(
+					"INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES "
+					. implode( ', ', array_fill( 0, count( $insert_rows ), '(%d, %s, %s)' ) ),
+					$insert_args[0],
+					$insert_args[1],
+					...array_slice( $insert_args, 2 )
+				)
+			);
+		}
 
 		foreach ( $all_post_ids as $post_id ) {
 			wp_cache_delete( $post_id, 'post_meta' );

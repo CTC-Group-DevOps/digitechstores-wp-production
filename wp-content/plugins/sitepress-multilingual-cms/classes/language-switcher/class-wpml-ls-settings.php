@@ -27,6 +27,8 @@ class WPML_LS_Settings {
 
 	private $sanitizer;
 
+	private $assets_opt_out;
+
 	private $strings;
 
 	private $color_presets;
@@ -145,6 +147,7 @@ class WPML_LS_Settings {
 			'show'                          => 0,
 			'display_names_in_current_lang' => 1,
 			'display_before_content'        => 1,
+			/* translators: Default text shown above the links to the other translations of a post; the site owner can edit it. %s: the list of links to the other languages. */
 			'availability_text'             => esc_html__( 'This post is also available in: %s', 'sitepress' ),
 			'template'                      => $core_templates['post-translations'],
 			'slot_group'                    => 'statics',
@@ -222,10 +225,43 @@ class WPML_LS_Settings {
 				$this->persist_settings( $this->settings );
 			}
 
+			$this->restore_missing_static_slots();
+			$this->normalise_stored_slots();
+
 			$this->init_shared_settings();
 
 			if ( ! $this->sitepress->get_wp_api()->is_admin() ) {
 				$this->settings = $this->strings->translate_all( $this->settings );
+			}
+		}
+	}
+
+	private function restore_missing_static_slots() {
+		$statics = isset( $this->settings['statics'] ) && is_array( $this->settings['statics'] )
+			? $this->settings['statics']
+			: array();
+
+		if ( isset( $statics['footer'], $statics['post_translations'], $statics['shortcode_actions'] ) ) {
+			return;
+		}
+
+		$default_settings          = $this->get_default_settings();
+		$this->settings['statics'] = $statics + $default_settings['statics'];
+	}
+
+	private function normalise_stored_slots() {
+		foreach ( array( 'menus', 'sidebars', 'statics' ) as $group ) {
+			if ( empty( $this->settings[ $group ] ) || ! is_array( $this->settings[ $group ] ) ) {
+				continue;
+			}
+			foreach ( $this->settings[ $group ] as $slot ) {
+				if ( ! $slot instanceof WPML_LS_Slot ) {
+					continue;
+				}
+				if ( null !== $slot->template_string() ) {
+					$slot->set( 'template_string', null );
+				}
+				$slot->keep_something_to_display();
 			}
 		}
 	}
@@ -598,25 +634,39 @@ class WPML_LS_Settings {
 	}
 
 	public function can_load_styles( $template_slug = null ) {
+		$opted_out = $this->assets_opt_out()->css();
+
 		if ( $template_slug ) {
 			$template = $this->templates->get_template( $template_slug );
-			$can_load = ! ( $template->is_core() && $this->sitepress->get_wp_api()->constant( 'ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS' ) );
+			$can_load = ! ( $template->is_core() && $opted_out );
 		} else {
-			$can_load = ! $this->sitepress->get_wp_api()->constant( 'ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS' );
+			$can_load = ! $opted_out;
 		}
 
 		return $can_load;
 	}
 
 	public function can_load_script( $template_slug = null ) {
+		$opted_out = $this->assets_opt_out()->js();
+
 		if ( $template_slug ) {
 			$template = $this->templates->get_template( $template_slug );
-			$can_load = ! ( $template->is_core() && $this->sitepress->get_wp_api()->constant( 'ICL_DONT_LOAD_LANGUAGES_JS' ) );
+			$can_load = ! ( $template->is_core() && $opted_out );
 		} else {
-			$can_load = ! $this->sitepress->get_wp_api()->constant( 'ICL_DONT_LOAD_LANGUAGES_JS' );
+			$can_load = ! $opted_out;
 		}
 
 		return $can_load;
+	}
+
+	private function assets_opt_out() {
+		if ( ! $this->assets_opt_out ) {
+			$this->assets_opt_out = new \WPML\LanguageSwitcher\SwitcherAssetsOptOut(
+				$this->sitepress->get_wp_api()
+			);
+		}
+
+		return $this->assets_opt_out;
 	}
 
 	private function migration() {

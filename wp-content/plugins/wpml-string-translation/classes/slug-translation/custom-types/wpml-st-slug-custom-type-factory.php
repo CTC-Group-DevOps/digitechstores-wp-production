@@ -20,14 +20,16 @@ class WPML_ST_Slug_Custom_Type_Factory {
 	}
 
 
-	public function create( $name, $display_as_translated ) {
+	public function create( $name, $display_as_translated, $registered_slug = '' ) {
 		$slug = $this->slug_records->get_slug( $name );
 
 		return new WPML_ST_Slug_Custom_Type(
 			$name,
 			$display_as_translated,
 			$slug->get_original_value(),
-			$this->slug_translations->get( $slug, $display_as_translated )
+			$this->slug_translations->get( $slug, $display_as_translated ),
+			(array) $slug->get_translation_values(),
+			$registered_slug
 		);
 	}
 

@@ -26,6 +26,13 @@ class WPML_WP_Cache_Item {
 		return $this->cache->get( $this->key, $found );
 	}
 
+	public function get_with_found() {
+		$found = false;
+		$value = $this->cache->get( $this->key, $found );
+
+		return array( $value, $found );
+	}
+
 	public function set( $value ) {
 		$this->cache->set( $this->key, $value );
 	}

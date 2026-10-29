@@ -95,6 +95,7 @@ class WCML_Adventure_Tours implements \IWPML_Action {
 
 		if ( $tour_tabs_meta = get_post_meta( $product_id, 'tour_tabs_meta', true ) ) {
 
+			/* translators: Heading of the group of tour fields in WPML's translation editor for a product. */
 			$tour_section = new WPML_Editor_UI_Field_Section( __( 'Tour Data', 'woocommerce-multilingual' ) );
 
 			$divider = true;
@@ -102,8 +103,10 @@ class WCML_Adventure_Tours implements \IWPML_Action {
 			foreach ( $tour_tabs_meta['tabs'] as $tour_tab_id => $tour_tab_meta ) {
 
 				$group           = new WPML_Editor_UI_Field_Group( '', $divider );
+				/* translators: Label of the title field of an item in WPML's translation editor for a product. Noun. */
 				$composite_field = new WPML_Editor_UI_Single_Line_Field( 'adventure_tour_' . $tour_tab_id . '_title', __( 'Title', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $composite_field );
+				/* translators: Label of the body-text field of a tour tab in WPML's translation editor for a product. Noun. */
 				$composite_field = new WPML_Editor_UI_Single_Line_Field( 'adventure_tour_' . $tour_tab_id . '_content', __( 'Content', 'woocommerce-multilingual' ), $data, false );
 				$group->add_field( $composite_field );
 				$tour_section->add_field( $group );

@@ -16,9 +16,10 @@ class Overrides implements \IWPML_Page_Builders_Module {
 	const OVERRIDE_VALUE_FIELD_NAME   = 'override_value';
 	const OVERRIDE_VALUE_TYPE_STRING  = 'string';
 	const OVERRIDE_VALUE_TYPE_HTML_V3 = 'html-v3';
-	const OVERRIDE_VALUE_TYPE_LINK    = 'link';
-	const EDITOR_TYPE_LINE            = 'LINE';
-	const EDITOR_TYPE_LINK            = \WPML_TM_Page_Builders::FIELD_STYLE_LINK;
+	const OVERRIDE_VALUE_TYPE_ESCAPED_HTML = 'escaped-html';
+	const OVERRIDE_VALUE_TYPE_LINK         = 'link';
+	const EDITOR_TYPE_LINE                 = 'LINE';
+	const EDITOR_TYPE_LINK                 = \WPML_TM_Page_Builders::FIELD_STYLE_LINK;
 
 	public function get( $node_id, $element, $strings ) {
 		foreach ( $this->get_items( $element ) as $item ) {
@@ -31,6 +32,7 @@ class Overrides implements \IWPML_Page_Builders_Module {
 			$strings[] = new \WPML_PB_String(
 				$value,
 				$this->get_string_name( $node_id, $item, $element ),
+				/* translators: Field label in WPML's translation editor for a page built with Elementor. Before the colon is the name Elementor gives the widget on its own canvas, after it the field inside that widget; keep both halves and the colon. */
 				__( 'Component: Property override', 'sitepress' ),
 				$this->get_editor_type( $item )
 			);
@@ -68,7 +70,9 @@ class Overrides implements \IWPML_Page_Builders_Module {
 	}
 
 	private function isStringOverride( $item ) {
-		return self::OVERRIDE_VALUE_TYPE_STRING === Obj::path( self::OVERRIDE_VALUE_TYPE_PATH, $item )
+		$type = Obj::path( self::OVERRIDE_VALUE_TYPE_PATH, $item );
+
+		return in_array( $type, [ self::OVERRIDE_VALUE_TYPE_STRING, self::OVERRIDE_VALUE_TYPE_ESCAPED_HTML ], true )
 			&& is_string( Obj::path( self::OVERRIDE_STRING_VALUE_PATH, $item ) );
 	}
 

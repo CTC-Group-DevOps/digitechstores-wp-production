@@ -24,20 +24,20 @@ class Factory implements \IWPML_Backend_Action_Loader, \IWPML_Deferred_Action_Lo
 			global $sitepress;
 			$wp_api = $sitepress->get_wp_api();
 
-			$pre_gen_dissmissed = self::isDismissed();
-			$st_page            = $wp_api->is_core_page( 'theme-localization.php' ) || $wp_api->is_string_translation_page();
+			$localization_page = $wp_api->is_theme_plugin_localization_page();
+			$st_page           = $localization_page || $wp_api->is_string_translation_page();
 
-			if (
-				( $st_page || ( ! $st_page && ! $pre_gen_dissmissed ) )
-				&& ( DomainsAndLanguagesRepository::hasTranslationFilesTable() || is_network_admin() )
-			) {
-				$files_to_import               = $st_page ? $this->getFilesToImport() : wpml_collect( [] );
+			if ( ! $st_page ) {
+				return null;
+			}
+
+			if ( DomainsAndLanguagesRepository::hasTranslationFilesTable() || is_network_admin() ) {
+				$files_to_import               = $localization_page ? $this->getFilesToImport() : wpml_collect( [] );
 				$domains_to_pre_generate_count = self::getDomainsToPreGenerateCount();
 				if ( $files_to_import->count() || $domains_to_pre_generate_count || isset( $_GET['search'] ) ) {
 					return partial(
 						[ UI::class, 'add_hooks' ],
-						Model::provider( $files_to_import, $domains_to_pre_generate_count, $st_page, is_network_admin() ),
-						$st_page
+						Model::provider( $files_to_import, $domains_to_pre_generate_count, $st_page, is_network_admin() )
 					);
 				}
 			}

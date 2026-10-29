@@ -11,7 +11,7 @@
             "Obtenir une clé pour ce site"
          ],
          "Site key:": [
-            "Clé de site :"
+            "Clé du site :"
          ],
          "Enter your site key here": [
             "Saisissez votre clé de site ici"
@@ -20,13 +20,13 @@
             "Enregistrement..."
          ],
          "Register": [
-            "Enregistrer"
+            "S'enregistrer"
          ],
          "A New Site Key Is Required": [
             "Une nouvelle clé de site est requise"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "Pour continuer à utiliser les fonctionnalités de WPML telles que la traduction automatique et les mises à jour de plugins, veuillez enregistrer votre site à nouveau. Ne vous inquiétez pas, votre contenu et vos traductions existants sont en sécurité."
+            "Pour continuer à utiliser les fonctionnalités de WPML telles que la traduction automatique et les mises à jour d'extensions, veuillez enregistrer à nouveau votre site. Ne vous inquiétez pas, votre contenu et vos traductions existants sont en sécurité."
          ],
          "Site key registered successfully!": [
             "Clé de site enregistrée avec succès !"
@@ -35,7 +35,7 @@
             "La page se rechargera dans %d secondes..."
          ],
          "Registration failed. Please try again.": [
-            "L’enregistrement a échoué. Veuillez réessayer."
+            "L'enregistrement a échoué. Veuillez réessayer."
          ]
       }
    }

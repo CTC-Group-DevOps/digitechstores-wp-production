@@ -13,14 +13,14 @@ class SaveProcessedStringsPhpCommand implements SaveProcessedStringsCommandInter
 
 	public function __construct(
 		FilesystemRepositoryInterface $filesystemRepository,
-		CreatePhpFileCommand          $createPhpFile
+		CreatePhpFileCommand $createPhpFile
 	) {
 		$this->filesystemRepository = $filesystemRepository;
 		$this->createPhpFile        = $createPhpFile;
 	}
 
-	public function run( string $domain, array $strings ) {
-		$this->createPhpFile->run(
+	public function run( string $domain, array $strings ) : bool {
+		return $this->createPhpFile->run(
 			$strings,
 			$this->filesystemRepository->getProcessedStringsFilepath( $domain, 'php' )
 		);

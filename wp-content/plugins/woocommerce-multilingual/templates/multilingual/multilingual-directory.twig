@@ -1,0 +1,35 @@
+{#
+    M11 directory layout — renders on `WooCommerce → WCML` when bonded
+    mode is active. Three sections (Translation / Settings / Support),
+    each with link-card items pointing into WPML's M11 surfaces.
+
+    Intentionally NOT styled with Tailwind: WCML's admin pages use the
+    legacy WP-admin look (`postbox`, `widefat`, ...), so the directory
+    matches that visual register. See mockup `wcml-legacy.html`.
+#}
+<style>
+    .wcml-directory-page  { background: #fff; border: 1px solid #c3c4c7; padding: 20px 24px; font-size: 13px; color: #1d2327; margin-bottom: 1rem; }
+    .wcml-directory-page h2 { font-size: 1.2em; font-weight: 600; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+    .wcml-directory-card  { border: 1px solid #c3c4c7; background: #f6f7f7; padding: 1rem; margin-bottom: 1rem; }
+    .wcml-directory-card:last-child { margin-bottom: 0; }
+    .wcml-directory-card h3 { font-size: 1em; font-weight: 600; margin: 0 0 4px; }
+    .wcml-directory-card p  { color: #50575e; margin: 0 0 12px; }
+    .wcml-directory-intro   { color: #50575e; margin-bottom: 1rem; }
+</style>
+
+<p class="wcml-directory-intro">{{ intro }}</p>
+
+{% for section in sections %}
+    <div class="wcml-directory-page">
+        <h2>{{ section.title }}</h2>
+        {% for item in section.items %}
+            <div class="wcml-directory-card">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+                {% if item.url %}
+                    <a href="{{ item.url|e }}" class="button button-secondary">{{ item.label }}</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}

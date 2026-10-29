@@ -47,7 +47,7 @@
 					<pubDate>Fri, 29 Nov 2024 14:46:55 +0000</pubDate>
 					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
 					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/gutenberg/?page_id=35675</guid>
-											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+											<content:encoded><![CDATA[<!-- wp:wd/paragraph {"blockId":"c4b0820c-8a7d-48a8-8d86-c1ce8c583e26","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-c4b0820c" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -89,7 +89,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"2485bf8c-4454-4198-91f5-0407cd7d31f5","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"2485bf8c-4454-4198-91f5-0407cd7d31f5","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-2485bf8c" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -137,7 +137,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"b6c5a577-9ff7-407e-b503-a042c2d4d6d8","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"b6c5a577-9ff7-407e-b503-a042c2d4d6d8","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-b6c5a577" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -149,11 +149,11 @@
 
 <!-- wp:wd/row {"blockId":"7aebd639-0109-45d8-afdd-842e7bcb1a0b","marginBottom":"80","marginBottomTablet":"60","marginBottomMobile":"40"} -->
 <div id="wd-7aebd639" class="wp-block-wd-row"><!-- wp:wd/column {"blockId":"9145dad6-ced3-4a1b-a716-86e9ff7973ab","adjacentCount":3,"blocksGap":10,"justifyContent":"center","textAlign":"center"} -->
-<div id="wd-9145dad6" class="wp-block-wd-column wd-align"><!-- wp:wd/animated-counter {"blockId":"e58d9b56-e233-4b4d-9456-de08227651bc","value":"324","startValue":"224","valueTpFontSize":"44","valueTpFontVariant":"600","valueTpFontWeight":"600","colorVariable":"u002du002dwd-primary-color"} -->
+<div id="wd-9145dad6" class="wp-block-wd-column wd-align"><!-- wp:wd/animated-counter {"blockId":"e58d9b56-e233-4b4d-9456-de08227651bc","value":"324","startValue":"224","valueTpFontSize":"44","valueTpFontVariant":"600","valueTpFontWeight":"600","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <div id="wd-e58d9b56" class="wp-block-wd-animated-counter"><span data-state="new" data-final="324">224</span></div>
 <!-- /wp:wd/animated-counter -->
 
-<!-- wp:wd/paragraph {"blockId":"bcbd5984-f71a-4807-b579-2763ed3a9093","colorVariable":"u002du002dwd-primary-color"} -->
+<!-- wp:wd/paragraph {"blockId":"bcbd5984-f71a-4807-b579-2763ed3a9093","colorVariable":"\u002d\u002dwd-primary-color"} -->
 <p id="wd-bcbd5984" class="wp-block-wd-paragraph">COUNTER LABEL</p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/column -->
@@ -179,7 +179,7 @@
 <!-- /wp:wd/column --></div>
 <!-- /wp:wd/row -->
 
-<!-- wp:wd/paragraph {"blockId":"bccaa162-049f-43ea-b574-c0162706092a","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"bccaa162-049f-43ea-b574-c0162706092a","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-bccaa162" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -235,7 +235,7 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/container -->
 
-<!-- wp:wd/paragraph {"blockId":"532534e9-848c-4968-b6e8-1f61348011dc","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"532534e9-848c-4968-b6e8-1f61348011dc","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-532534e9" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -279,7 +279,7 @@
 <!-- /wp:wd/row --></div>
 <!-- /wp:wd/section -->
 
-<!-- wp:wd/paragraph {"blockId":"1faa1781-d1bb-49e9-bcbe-cd146ffc9df4","textAlign":"center","colorVariable":"u002du002dwd-primary-color","marginBottom":"10"} -->
+<!-- wp:wd/paragraph {"blockId":"1faa1781-d1bb-49e9-bcbe-cd146ffc9df4","textAlign":"center","colorVariable":"\u002d\u002dwd-primary-color","marginBottom":"10"} -->
 <p id="wd-1faa1781" class="wp-block-wd-paragraph wd-align">XTEMOS ELEMENT</p>
 <!-- /wp:wd/paragraph -->
 
@@ -289,7 +289,7 @@
 <!-- /wp:wd/title --></div></div>
 <!-- /wp:wd/divider -->
 
-<!-- wp:wd/section {"blockId":"b213c189-cfb5-4ecd-9f43-a1acc2c00333","colorScheme":"light","bgColorVariable":"u002du002dwd-primary-color","paddingRight":"0","paddingLeft":"0","marginBottom":"-40"} -->
+<!-- wp:wd/section {"blockId":"b213c189-cfb5-4ecd-9f43-a1acc2c00333","colorScheme":"light","bgColorVariable":"\u002d\u002dwd-primary-color","paddingRight":"0","paddingLeft":"0","marginBottom":"-40"} -->
 <div id="wd-b213c189" class="wp-block-wd-section color-scheme-light"><!-- wp:wd/row {"blockId":"24ff851f-6089-4290-82d7-3a7c9fa05239","columnsGap":0,"displayWidth":"full-width"} -->
 <div id="wd-24ff851f" class="wp-block-wd-row wd-custom-width"><!-- wp:wd/column {"blockId":"616f32c0-26c8-4df1-87f8-665c52640777","adjacentCount":4,"blocksGap":10,"justifyContent":"center","textAlign":"center","bgImage":{"id":35703,"url":"https://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/11/corp_sec_200_right.png"},"bgPosition":"bottom right","bgCustomPositionY":"50","bgRepeat":"no-repeat","bgDisplaySize":"contain","bgCustomDisplaySize":"133","bgColorCode":"#83b735","paddingTop":"40","paddingRight":"15","paddingBottom":"40","paddingLeft":"15"} -->
 <div id="wd-616f32c0" class="wp-block-wd-column wd-align"><!-- wp:wd/animated-counter {"blockId":"1259c1c5-2bcf-4de4-8c67-a2b3a17b9472","value":"324","startValue":"224","valueTpFontSize":"44","valueTpFontVariant":"600","valueTpFontWeight":"600"} -->

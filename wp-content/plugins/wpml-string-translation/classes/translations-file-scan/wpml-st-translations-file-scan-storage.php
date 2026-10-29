@@ -26,9 +26,11 @@ class WPML_ST_Translations_File_Scan_Storage {
 	private function build_string_collection( array $translations, $domain ) {
 		$result = array();
 
+		$english = \WPML\StringTranslation\Infrastructure\TranslateEverything\EnglishSourceLanguage::resolveForSite();
+
 		foreach ( $translations as $translation ) {
 			$result[] = new WPML_ST_Models_String(
-				'en',
+				$english,
 				$domain,
 				$translation->get_context(),
 				$translation->get_original(),
@@ -40,12 +42,14 @@ class WPML_ST_Translations_File_Scan_Storage {
 	}
 
 	private function get_string_maps( $domain ) {
-		$sql = "
-			SELECT id, value, gettext_context FROM {$this->wpdb->prefix}icl_strings
-			WHERE context = %s
-		";
-
-		$rowset = $this->wpdb->get_results( $this->wpdb->prepare( $sql, $domain ) );
+		$wpdb   = $this->wpdb;
+		$rowset = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT id, value, gettext_context FROM {$wpdb->prefix}icl_strings
+				 WHERE context = %s",
+				$domain
+			)
+		);
 		$result = array();
 
 		foreach ( $rowset as $row ) {

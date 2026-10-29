@@ -383,17 +383,6 @@ class Content extends Singleton {
 
 			case 'current_year':
 				return gmdate( 'Y' );
-
-			case 'custom-option':
-				$option_name = isset( $settings['custom_option_key'] ) ? $settings['custom_option_key'] : '';
-
-				$content = get_option( $option_name, '' );
-
-				if ( is_array( $content ) ) {
-					return '';
-				}
-
-				return $content;
 		}
 
 		return '';

@@ -5,7 +5,6 @@ namespace WCML\Block\Convert;
 use WCML\Block\Convert\Converter\ProductsByAttributes;
 use WPML\PB\Gutenberg\ConvertIdsInBlock\Base;
 use WPML\PB\Gutenberg\ConvertIdsInBlock\Composite;
-use WPML\PB\Gutenberg\ConvertIdsInBlock\NullConvert;
 use WPML\PB\Gutenberg\ConvertIdsInBlock\BlockAttributes;
 use WPML\PB\Gutenberg\ConvertIdsInBlock\TagAttributes;
 

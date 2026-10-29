@@ -54,26 +54,14 @@
 					var errorMessage = getTgmpaErrorMessage(responseHtml);
 
 					if (errorMessage) {
-						woodmartAdminModule.woodmartAdmin.addNotice($('.xts-plugin-response').first(), 'warning', errorMessage);
-						removeLinkClasses($link);
-						changeLinkAction('install', 'activate', $link);
-
-						$page.removeClass('xts-loading').removeClass('xts-all-loading');
-
-						if (callback) {
-							callback({
-								status : 'error',
-								message: errorMessage
-							});
-						}
-
+						handlePluginActionError($link, errorMessage, callback);
 						return;
 					}
 
 					checkPlugin($link, function(response) {
 						if ('success' === response.status) {
 							if ('activate' === response.data.status) {
-								activatePlugin($link, callback);
+								handlePluginActionError($link, 'Plugin activation failed. Please try again or activate the plugin from the Plugins page.', callback);
 							} else {
 								removeLinkClasses($link);
 								changeLinkAction('activate', 'deactivate', $link, response);
@@ -83,39 +71,44 @@
 							}
 						}
 					});
+				},
+				error: function(xhr) {
+					var errorMessage = getTgmpaErrorMessage(xhr.responseText) || 'Failed to activate plugin.';
+
+					handlePluginActionError($link, errorMessage, callback);
 				}
 			});
 		};
 
 		var deactivatePlugin = function($link) {
 			$.ajax({
-				url    : woodmartConfig.ajaxUrl,
-				method : 'POST',
-				data   : {
+				url     : woodmartConfig.ajaxUrl,
+				method  : 'POST',
+				dataType: 'json',
+				cache   : false,
+				data    : {
 					action     : 'woodmart_deactivate_plugin',
 					xts_plugin : $link.data('plugin'),
 					xts_builder: $link.data('builder'),
 					security   : woodmartConfig.deactivate_plugin_nonce
 				},
 				success: function(response) {
-					if ('error' === response.status) {
-						woodmartAdminModule.woodmartAdmin.addNotice($('.xts-plugin-response').first(), 'warning', response.message);
-						removeLinkClasses($link);
-						woodmartAdminModule.woodmartAdmin.hideNotice();
+					if ('success' !== response.status) {
+						handlePluginActionError($link, response.message || 'Failed to deactivate plugin.', null, 'deactivate');
 						return;
 					}
 
-					checkPlugin($link, function(response) {
-						if ('success' === response.status) {
-							if ('activate' === response.data.status) {
-								removeLinkClasses($link);
-								changeLinkAction('deactivate', 'activate', $link, response);
-								reloadPage($link);
-							} else {
-								deactivatePlugin($link);
-							}
-						}
-					});
+					$('.xts-plugin-response .xts-notice').remove();
+					changeButtonsStatus(response.data.required_plugins);
+					removeLinkClasses($link);
+					changeLinkAction('deactivate', 'activate', $link, response);
+					$page.removeClass('xts-loading').removeClass('xts-all-loading');
+					reloadPage($link);
+				},
+				error: function(xhr) {
+					var errorMessage = xhr.responseJSON?.message || 'Failed to deactivate plugin.';
+
+					handlePluginActionError($link, errorMessage, null, 'deactivate');
 				}
 			});
 		};
@@ -135,6 +128,20 @@
 			return $errorMessage.length ? $.trim($errorMessage.text()) : '';
 		}
 
+		function handlePluginActionError($link, errorMessage, callback, action = 'activate') {
+			woodmartAdminModule.woodmartAdmin.addNotice($('.xts-plugin-response').first(), 'warning', errorMessage);
+			removeLinkClasses($link);
+			changeLinkAction($link.data('action'), action, $link);
+			$page.removeClass('xts-loading').removeClass('xts-all-loading');
+
+			if (callback) {
+				callback({
+					status : 'error',
+					message: errorMessage
+				});
+			}
+		}
+
 		function parsePlugins($link, callback) {
 			$.ajax({
 				url    : $link.attr('href'),
@@ -149,7 +156,7 @@
 						woodmartAdminModule.woodmartAdmin.addNotice($('.xts-plugin-response').first(), 'warning', errorMessage);
 						removeLinkClasses($link);
 						$link.text(woodmartConfig[$link.data('action') + '_plugin_btn_text']);
-						
+
 						$page.removeClass('xts-loading').removeClass('xts-all-loading');
 
 						if (callback) {

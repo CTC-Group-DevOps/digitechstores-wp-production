@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_PB_Query_Bundles_Ability ability definition.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\AbilityDefinition {
 
@@ -331,7 +331,7 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 	 * Get bundle IDs containing a product.
 	 *
 	 * @param  int $product_id Product ID.
-	 * @return array
+	 * @return int[]
 	 */
 	private static function get_bundle_ids_containing_product( $product_id ) {
 		$product = wc_get_product( $product_id );
@@ -820,7 +820,7 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 	/**
 	 * Get product status values.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	private static function get_product_status_values() {
 		$statuses = get_post_stati( array(), 'names' );
@@ -831,7 +831,7 @@ class WC_PB_Query_Bundles_Ability implements \Automattic\WooCommerce\Abilities\A
 	/**
 	 * Get bundle stock status values.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	private static function get_bundle_stock_status_values() {
 		return array_values( array_unique( array_merge( array_keys( wc_get_product_stock_status_options() ), array( 'insufficientstock' ) ) ) );

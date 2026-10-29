@@ -21,14 +21,21 @@ class InProgressJobsCanceller {
 	}
 
 	public function cancel(): int {
-		$jobsInProgress = $this->ateJobsRepository->get_jobs_to_sync();
+		$jobsInProgress = $this->ateJobsRepository->get_jobs_to_sync()->filter(
+			function ( $job ) {
+				return (bool) $job->get_editor_job_id() && ! $this->isCompletedRecord( $job );
+			}
+		);
 
 		foreach ( $jobsInProgress as $jobInProgress ) {
-			$jobInProgress->set_status( ICL_TM_NOT_TRANSLATED );
-			$this->updateJobs->update_state( $jobInProgress );
+			$this->updateJobs->cancel( $jobInProgress );
 			$this->translationJobFactory->delete_job_data( $jobInProgress->get_translate_job_id() );
 		}
 
 		return count( $jobsInProgress );
+	}
+
+	private function isCompletedRecord( $job ) {
+		return \WPML\TM\Jobs\TranslationRecord::isCompletedJobId( (int) $job->get_translate_job_id() );
 	}
 }

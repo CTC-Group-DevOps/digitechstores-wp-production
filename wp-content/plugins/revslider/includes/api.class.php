@@ -10,7 +10,7 @@ if(!defined('ABSPATH')) exit();
 class RevSliderApi extends RevSliderFunctions {
 	private $global_settings	= array();
 	public $demo_allowed		= array('get_template_information_short', 'import_template_slider', 'install_template_slide', 'get_list_of', 'get_global_settings', 'get_full_slider_object', 'subscribe_to_newsletter', 'check_system', 'load_module', 'get_addon_list', 'get_layers_by_slide', 'silent_slider_update', 'get_help_directory', 'set_tooltip_preference', 'load_builder', 'load_library_object', 'get_tooltips');
-	public $user_allowed		= array('get_full_slider_object_v7', 'load_google_font', 'close_deregister_popup', 'dismiss_dynamic_notice', 'check_for_updates', 'getSliderImage', 'getSliderSizeLayout', 'get_list_of', 'load_wordpress_object', 'get_global_settings', 'get_slides_by_slider_id', 'get_full_slider_object', 'load_builder', 'preview_slider', 'subscribe_to_newsletter', 'check_system', 'load_module', 'load_library_object', 'get_addon_list', 'get_layers_by_slide', 'silent_slider_update', 'load_wordpress_image', 'load_library_image', 'get_help_directory', 'get_tooltips', 'set_tooltip_preference', 'get_facebook_photosets', 'get_flickr_photosets', 'get_youtube_playlists', 'get_same_aspect_ratio', 'get_addons_sizes');
+	public $user_allowed		= array('get_full_slider_object_v7', 'load_google_font', 'getSliderImage', 'getSliderSizeLayout', 'get_list_of', 'get_slides_by_slider_id', 'get_full_slider_object', 'load_module', 'load_library_object', 'get_layers_by_slide', 'load_library_image');
 	public $no_cache			= array('get_template_information_short', 'export_slider', 'export_slider_html', 'getSliderImage', 'getSliderSizeLayout', 'get_list_of', 'load_wordpress_object', 'get_global_settings', 'get_slides_by_slider_id', 'get_full_slider_object', 'load_builder', 'subscribe_to_newsletter', 'check_system', 'get_layers_by_slide', 'export_layer_group', 'load_wordpress_image', 'load_library_image', 'get_help_directory', 'get_tooltips', 'get_addons_sizes', 'get_v5_slider_list');
 	public $REST				= false;
 
@@ -140,7 +140,12 @@ class RevSliderApi extends RevSliderFunctions {
 			
 			$sr_admin = RevSliderGlobals::instance()->get('RevSliderAdmin');
 			
-			if(!current_user_can($sr_admin->get_user_role()) && apply_filters('revslider_restrict_role', true)){
+			if($this->current_user_can_not()){
+				// the limited list serves the shortcode builders in the post editor only
+				if(!current_user_can('edit_posts') && !current_user_can('edit_pages')){
+					$this->ajax_response_error(__('Function only available for administrators', 'revslider'));
+					exit;
+				}
 				if(!in_array($action, $this->user_allowed)){
 					$return = apply_filters('revslider_admin_onAjaxAction_user_restriction', false, $action, $data, $slider, $slide);
 					if($return === false){
@@ -176,6 +181,15 @@ class RevSliderApi extends RevSliderFunctions {
 				break;
 				case 'get_full_slider_object_v7':
 					$this->get_full_slider_object(false, false);
+				break;
+				case 'save_connect_code':
+					//the free account's connection code: no licence, kept apart from revslider-code and revslider-valid
+					$connect = $this->get_val($data, 'code', '');
+					if(!current_user_can('manage_options') || !is_string($connect) || !preg_match('/^tpc_[A-Za-z0-9]{32}$/', $connect)) $this->ajax_response_error(__('Bad Request', 'revslider'));
+					update_option('revslider-connect-code', $connect, false);
+					//asking about the code once marks it as this plugin's, so a later registration of the same site by someone else cannot push it out
+					wp_remote_post($this->account_url().'/portal/connect/status', array('timeout' => 5, 'body' => array('code' => $connect)));
+					$this->ajax_response_success(__('Connected', 'revslider'));
 				break;
 
 				/**
@@ -965,7 +979,7 @@ class RevSliderApi extends RevSliderFunctions {
 					if(!empty($uid)){
 						$templates		= new RevSliderTemplate();
 						$rslb			= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
-						$temp_url		= $rslb->get_url('templates', 0, true).'/'.$templates->templates_server_path;
+						$temp_url		= $rslb->get_url('templates').'/'.$templates->templates_server_path;
 						$defaults		= $this->get_addition(array('templates', 'guide'));
 						$updir			= wp_upload_dir();
 						$updurl			= $this->get_val($updir, 'baseurl');
@@ -991,6 +1005,7 @@ class RevSliderApi extends RevSliderFunctions {
 						}
 					}
 
+					if($this->current_user_can_not()) $obj = $slider->modify_slider_data($obj);
 					$this->ajax_response_data($obj);
 				break;
 				case 'load_builder':
@@ -1763,6 +1778,7 @@ class RevSliderApi extends RevSliderFunctions {
 	public function do_front_ajax_action(){
 		global $SR_GLOBALS;
 		$error = false;
+		$this->enforce_front_ajax_rate_limit();
 
 		$action	= $this->get_request_var('client_action', false);
 		$nonce	= $this->get_request_var('nonce');
@@ -2052,6 +2068,49 @@ class RevSliderApi extends RevSliderFunctions {
 	}
 
 
+	/**
+	 * per IP fixed window for anonymous front AJAX, which returns whole sliders: 429 and exit when exceeded.
+	 * Logged-in users are never throttled; tune or switch off with revslider_front_ajax_rate_limit
+	 * @since: 6.8.0
+	 */
+	private function enforce_front_ajax_rate_limit(){
+		$cfg = apply_filters('revslider_front_ajax_rate_limit', array('enabled' => true, 'limit' => 120, 'window' => 60));
+		if(empty($cfg['enabled']) || is_user_logged_in()) return;
+
+		$limit	= max(1, (int)$this->get_val($cfg, 'limit', 120));
+		$window	= max(1, (int)$this->get_val($cfg, 'window', 60));
+		$ip		= $this->get_client_ip();
+		if($ip === '') return; //fail open when the caller cannot be identified
+
+		$key	= 'rs_frl_' . md5($ip . '|' . $window);
+		$now	= time();
+		$bucket	= get_transient($key);
+		if(!is_array($bucket) || ($now - (int)$this->get_val($bucket, 'start', 0)) >= $window){
+			set_transient($key, array('start' => $now, 'count' => 1), $window);
+			return;
+		}
+
+		$bucket['count'] = (int)$this->get_val($bucket, 'count', 0) + 1;
+		set_transient($key, $bucket, $window);
+
+		if($bucket['count'] > $limit){
+			if(!headers_sent()) header('Retry-After: ' . max(1, $window - ($now - (int)$this->get_val($bucket, 'start', $now))));
+			wp_send_json(array('success' => false, 'message' => __('Too many requests. Please slow down and try again in a moment.', 'revslider')), 429);
+		}
+	}
+
+	/**
+	 * REMOTE_ADDR, which cannot be spoofed; a site behind a trusted proxy or CDN passes the visitor IP through revslider_client_ip
+	 * @since: 6.8.0
+	 */
+	public function get_client_ip(){
+		$ip = isset($_SERVER['REMOTE_ADDR']) ? wp_unslash($_SERVER['REMOTE_ADDR']) : '';
+		$ip = apply_filters('revslider_client_ip', $ip);
+		$ip = is_string($ip) ? trim($ip) : '';
+
+		return (filter_var($ip, FILTER_VALIDATE_IP) !== false) ? $ip : '';
+	}
+
 	public function get_full_slider_object($data = false, $modify = true){
 		global $SR_GLOBALS;
 
@@ -2113,6 +2172,7 @@ class RevSliderApi extends RevSliderFunctions {
 			}
 		}
 
+		if($this->current_user_can_not()) $modify = true; //stream logins stay with the plugin role
 		$JSON = $slider->get_full_slider_JSON(false, true, $slide_ids, array(), $raw, $modify);
 		
 		return $this->ajax_response_data(apply_filters('sr_get_full_slider_object', $JSON, $slider));

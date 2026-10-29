@@ -73,7 +73,7 @@ class WOE_Formatter_PDF extends WOE_Formatter_Plain_Format {
 		parent::__construct( $mode, $filename, $settings, $format, $labels, $field_formats, $date_format, $offset );
 
 		if ( $this->mode != 'preview' && !$this->summary_report_products && !$this->summary_report_customers ) {
-			$storage_filename = str_replace( '.csv', '', $filename ) . ".storage";
+            $storage_filename = WC_Order_Export_Engine::get_storage_filename($filename);
 			$this->storage = new WOE_Formatter_Storage_Csv($storage_filename);
 			$this->storage->load();
 		}

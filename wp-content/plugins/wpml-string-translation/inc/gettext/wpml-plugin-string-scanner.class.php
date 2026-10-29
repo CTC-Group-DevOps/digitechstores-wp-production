@@ -6,6 +6,10 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 
 	private $current_plugin_file;
 
+	private $current_plugin_id;
+
+	private $mu_plugin_scan_paths;
+
 	public function scan() {
 		$plugin_post = array_key_exists( 'plugin', $_POST ) ? $_POST['plugin'] : '';
 		$plugin_file = (string) Sanitize::string( $plugin_post );
@@ -17,6 +21,9 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 		}
 
 		$this->current_plugin_file = $plugin_path;
+		$this->current_plugin_id   = $plugin_file;
+		$mu_plugin_scan_paths       = WPML_ST_Path_Confinement::resolve_mu_plugin_scan_paths( $plugin_file );
+		$this->mu_plugin_scan_paths = false !== $mu_plugin_scan_paths && $mu_plugin_scan_paths['file'] === $plugin_path ? $mu_plugin_scan_paths : null;
 		$this->current_type        = 'plugin';
 		$this->current_path        = dirname( $this->current_plugin_file );
 		$this->text_domain         = $this->get_plugin_text_domain();
@@ -30,26 +37,7 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 	}
 
 	private function resolve_plugin_path( $plugin_file ) {
-		if ( '' === $plugin_file ) {
-			return false;
-		}
-
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		$plugins = (array) get_plugins();
-		if ( ! array_key_exists( $plugin_file, $plugins ) ) {
-			return false;
-		}
-
-		$plugin_path = WPML_ST_Path_Confinement::resolve_contained( WPML_PLUGINS_DIR . '/' . $plugin_file, WPML_PLUGINS_DIR );
-
-		if ( false === $plugin_path || ! is_file( $plugin_path ) ) {
-			return false;
-		}
-
-		return $plugin_path;
+		return WPML_ST_Path_Confinement::resolve_registered_plugin_file( $plugin_file );
 	}
 
 	private function scan_plugin_files( $dir_or_file = false, $recursion = 0 ) {
@@ -63,8 +51,7 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 			}
 
 			if ( $this->is_js_file( $file ) ) {
-				$jsScanner = new \WPML\ST\StringsScanning\JS\Scanner();
-				$jsScanner->scan( $file, $this->text_domain, [ $this, 'store_results' ] );
+				$this->scan_js_file( $file );
 				$this->add_scanned_file( $file );
 			} else {
 				_potx_process_file( $file, 0, array( $this, 'store_results' ), '_potx_save_version', $this->get_default_domain() );
@@ -76,7 +63,13 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 	private function confine_scanned_file( $file ) {
 		$file = (string) Sanitize::string( $file );
 
-		if ( $this->is_single_file_plugin() ) {
+		if ( null !== $this->mu_plugin_scan_paths ) {
+			$confined = WPML_ST_Path_Confinement::resolve_mu_plugin_scan_file( $file, $this->mu_plugin_scan_paths );
+
+			if ( false === $confined ) {
+				return false;
+			}
+		} elseif ( $this->is_single_file_plugin() ) {
 			$confined = realpath( $file );
 
 			if ( false === $confined || $confined !== $this->current_plugin_file ) {
@@ -98,7 +91,7 @@ class WPML_Plugin_String_Scanner extends WPML_String_Scanner implements IWPML_ST
 	}
 
 	private function is_single_file_plugin() {
-		return dirname( $this->current_plugin_file ) === realpath( WPML_PLUGINS_DIR );
+		return '.' === dirname( $this->current_plugin_id );
 	}
 
 	private function get_plugin_text_domain() {

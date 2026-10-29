@@ -6,6 +6,31 @@ use WCML\Utilities\DB;
 
 abstract class SynchronizerForMeta extends Synchronizer {
 
+	private const DEADLOCK_ATTEMPTS = 3;
+
+	private const DEADLOCK_RETRY_DELAY = 20000;
+
+	protected function retryOnDeadlock( callable $write ) {
+		for ( $attempt = 1; $attempt <= self::DEADLOCK_ATTEMPTS; $attempt++ ) {
+			$write();
+
+			if ( ! $this->isDeadlockError( $this->wpdb->last_error ) ) {
+				return;
+			}
+
+			if ( $attempt < self::DEADLOCK_ATTEMPTS ) {
+				usleep( self::DEADLOCK_RETRY_DELAY * $attempt );
+			}
+		}
+	}
+
+	private function isDeadlockError( $error ) {
+		$error = (string) $error;
+
+		return false !== stripos( $error, 'deadlock' )
+			|| false !== stripos( $error, 'lock wait timeout' );
+	}
+
 	protected function getMeta( $metaKey, $itemIds ) {
 		$storedRawData = $this->wpdb->get_results(
 			$this->wpdb->prepare(
@@ -53,6 +78,8 @@ abstract class SynchronizerForMeta extends Synchronizer {
 		if ( empty( $metaValues ) ) {
 			return;
 		}
+		ksort( $metaValues, SORT_NUMERIC );
+
 		foreach ( $metaValues as $idToUpdate => $valueToUpdate ) {
 			$this->wpdb->update(
 				$this->wpdb->postmeta,
@@ -66,6 +93,9 @@ abstract class SynchronizerForMeta extends Synchronizer {
 		if ( empty( $metaIds ) ) {
 			return;
 		}
+
+		sort( $metaIds, SORT_NUMERIC );
+
 		$this->wpdb->query(
 			$this->wpdb->prepare(
 				"
@@ -82,6 +112,9 @@ abstract class SynchronizerForMeta extends Synchronizer {
 		if ( empty( $idsToUnify ) ) {
 			return;
 		}
+
+		sort( $idsToUnify, SORT_NUMERIC );
+
 		$this->wpdb->query(
 			$this->wpdb->prepare(
 				"UPDATE {$this->wpdb->postmeta}
@@ -99,7 +132,7 @@ abstract class SynchronizerForMeta extends Synchronizer {
 		$storedMeta  = $this->getMeta( $metaKey, $productsIds );
 		$productMeta = $storedMeta[ $productId ] ?? null;
 		if ( null === $productMeta ) {
-			return;
+			return [];
 		}
 
 		$metaToInsert = [];
@@ -117,6 +150,8 @@ abstract class SynchronizerForMeta extends Synchronizer {
 
 		$this->insertMeta( $metaKey, $metaToInsert );
 		$this->unifyMeta( $metaKey, $productMeta, $idsToUpdate );
+
+		return array_merge( array_keys( $metaToInsert ), $idsToUpdate );
 	}
 
 	protected function spreadEmptyValue( $translationsIds, $storedData, $metaKey ) {
@@ -141,6 +176,9 @@ abstract class SynchronizerForMeta extends Synchronizer {
 		if ( empty( $translationsIds ) ) {
 			return;
 		}
+
+		sort( $translationsIds, SORT_NUMERIC );
+
 		$this->wpdb->query(
 			$this->wpdb->prepare(
 				"

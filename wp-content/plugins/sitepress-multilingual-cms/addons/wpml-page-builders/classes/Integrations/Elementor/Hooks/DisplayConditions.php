@@ -2,6 +2,8 @@
 
 namespace WPML\PB\Elementor\Hooks;
 
+use WPML\PB\Elementor\Helper\ElementTree;
+
 class DisplayConditions implements \IWPML_Frontend_Action {
 
 	private $conditionConfig;
@@ -42,18 +44,16 @@ class DisplayConditions implements \IWPML_Frontend_Action {
 		return $this->conditionConfig;
 	}
 
-	public function convertDisplayConditions( $dataArray, $postId ) {
-		foreach ( $dataArray as &$data ) {
-			if ( isset( $data['settings']['e_display_conditions'] ) && is_array( $data['settings']['e_display_conditions'] ) ) {
-				$data['settings']['e_display_conditions'] = $this->processDisplayConditions( $data['settings']['e_display_conditions'] );
-			}
+	public function convertDisplayConditions( $dataArray, $postId = null ) {
+		return ElementTree::map( $dataArray, [ $this, 'convertDisplayConditionsInElement' ] );
+	}
 
-			if ( isset( $data['elements'] ) && is_array( $data['elements'] ) ) {
-				$data['elements'] = $this->convertDisplayConditions( $data['elements'], $postId );
-			}
+	public function convertDisplayConditionsInElement( $element ) {
+		if ( isset( $element['settings']['e_display_conditions'] ) && is_array( $element['settings']['e_display_conditions'] ) ) {
+			$element['settings']['e_display_conditions'] = $this->processDisplayConditions( $element['settings']['e_display_conditions'] );
 		}
 
-		return $dataArray;
+		return $element;
 	}
 
 	private function processDisplayConditions( $conditions ) {

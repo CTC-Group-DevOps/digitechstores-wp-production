@@ -20,7 +20,10 @@ class InsertStringPositionsCommand extends BulkActionBaseCommand implements Inse
 
 			$query .= implode( ',', array_map( array( $this, 'buildStringPositionRow' ), $chunk ) );
 
-			$this->runBulkQuery( $query );
+			$this->runCheckedBulkQuery(
+				$query,
+				'Could not persist String Translation string positions.'
+			);
 		}
 	}
 

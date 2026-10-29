@@ -21,7 +21,7 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 		add_action( 'in_widget_form', array( $this, 'language_selector' ), 10, 3 );
 		add_filter( 'widget_update_callback', array( $this, 'update' ), 10, 4 );
 		if ( User::getCurrent() && User::getCurrent()->has_cap('wpml_manage_languages') ) {
-			add_action( 'wp_ajax_wpml_change_selected_language_for_legacy_widget', array( $this, 'set_selected_language_for_legacy_widget' ) );
+			\WPML\Request\Adapter\Ajax::register( 'wpml_change_selected_language_for_legacy_widget', \WPML\Request\Policy\Policy::capability( 'wpml_manage_languages', \WPML\Request\Policy\Authenticity::actionNonce( 'wpml_change_selected_language_for_legacy_widget', 'nonce' ) ), array( $this, 'set_selected_language_for_legacy_widget' ) );
 		}
 		if ( $this->is_widgets_page() ) {
 			add_action('enqueue_block_editor_assets', array($this, 'enqueue_scripts'));
@@ -50,6 +50,7 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 		$languages        = $this->active_languages;
 		$languages['all'] = array(
 			'code'        => 'all',
+			/* translators: First option in the language dropdown of the widgets screen: the widget is shown in every language. */
 			'native_name' => __( 'All Languages', 'sitepress' ),
 		);
 
@@ -72,6 +73,18 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 			if ( 'all' === $new_language || array_key_exists( $new_language, $this->active_languages ) ) {
 				$instance['wpml_language'] = $new_language;
 			}
+		}
+
+		return $this->preserve_stored_language( $instance, $old_instance );
+	}
+
+	private function preserve_stored_language( $instance, $old_instance ) {
+		if ( ! is_array( $instance ) || isset( $instance['wpml_language'] ) ) {
+			return $instance;
+		}
+
+		if ( is_array( $old_instance ) && isset( $old_instance['wpml_language'] ) ) {
+			$instance['wpml_language'] = $old_instance['wpml_language'];
 		}
 
 		return $instance;
@@ -118,6 +131,7 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 
 			Option::update( $widget_option_name, $widgets_by_type );
 		} else {
+			/* translators: Error message returned when a request from the browser cannot be trusted and is turned away. */
 			wp_send_json_error( esc_html__( 'Invalid request!', 'sitepress' ) );
 		}
 	}

@@ -14,8 +14,17 @@ interface QueueRepositoryInterface {
 	public function canTrackString( string $text, string $domain, ?string $context = null ): bool;
 	public function trackString( string $text, string $domain, string $requestUrl, ?string $context = null );
 	public function savePendingStringsQueue();
-	public function loadPendingStrings(): array;
-	public function markPendingStringsAsProcessed();
+	public function hasPendingStrings(): bool;
+	public function getPendingStringDomainNames(): array;
+	public function claimPendingStringsByDomain( string $domain ): array;
+	public function getPendingStringsClaimProgress( string $claimId ): array;
+	public function savePendingStringsClaimProgress( string $claimId, array $progress ): bool;
+	public function acknowledgePendingStringsClaim( string $domain, string $claimId, array $pendingStrings ): bool;
+	public function releasePendingStringsClaim( string $claimId );
+	public function hasUnfinishedPendingStringsClaimAttempt( string $claimId ): bool;
+	public function startPendingStringsClaimAttempt( string $claimId ): bool;
+	public function finishPendingStringsClaimAttempt( string $claimId );
+	public function setAsidePendingStringsClaim( string $claimId ): bool;
 	public function getPendingStringsByDomain( string $domain ): array;
 	public function removeProcessedStrings( array $strings );
 }

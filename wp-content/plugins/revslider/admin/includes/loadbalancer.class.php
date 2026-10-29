@@ -65,18 +65,21 @@ class RevSliderLoadBalancer extends RevSliderFunctions {
 	public function refresh_server_list($force = false){
 		global $wp_version;
 		
-		$rs_rsl		= (isset($_GET['rs_refresh_server'])) ? true : false;
+		//runs before WordPress knows the user: a forced refresh from the URL waits for init and the manage_options check
+		if($force === false && isset($_GET['rs_refresh_server'])){
+			add_action('init', function(){ if(current_user_can('manage_options')) $this->refresh_server_list(true); });
+		}
 		$last_check	= get_option('revslider_server_refresh', false);
 		if($last_check === false || empty($last_check)) update_option('revslider_server_refresh', time());
 
-		if($force === true || $rs_rsl === true || ($last_check !== false && time() - $last_check > 60 * 60 * 24 * 30)){
+		if($force === true || ($last_check !== false && time() - $last_check > 60 * 60 * 24 * 30)){
 			$data = [
 				'item'    => urlencode( RS_PLUGIN_SLUG ),
 				'version' => urlencode( RS_REVISION )
 			];
 			$request = $this->call_url('https://updates.themepunch.tools/get_server_list.php', $data);
 			if(!is_wp_error($request)){
-				if($response = maybe_unserialize($request['body'])){
+				if($response = $this->maybe_unserialize_safe($request['body'])){
 					$list = json_decode($response, true);
 					if(json_last_error() === JSON_ERROR_NONE && is_array($list)) {
 						update_option('revslider_servers', $list);

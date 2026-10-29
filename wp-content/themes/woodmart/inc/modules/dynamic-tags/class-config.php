@@ -238,16 +238,6 @@ class Config {
 			$options['acf'] = $raw_options['acf'];
 		}
 
-		$options['custom'] = array(
-			'label'   => esc_html__( 'Custom option', 'woodmart' ),
-			'options' => array(
-				array(
-					'label' => esc_html__( 'Custom option', 'woodmart' ),
-					'value' => 'custom-option',
-				),
-			),
-		);
-
 		return $options;
 	}
 

@@ -66,7 +66,8 @@ class RevSliderExtension {
 			}
 		}
 		
-		return ($slider_source === '') ? false : ' data-ajaxtype="'.$handle.'" data-ajaxsource="'.$slider_source.'"';
+		$slider_source = intval($slider_source); //a slider id, written by anyone who may edit the post
+		return ($slider_source === 0) ? false : ' data-ajaxtype="'.$handle.'" data-ajaxsource="'.$slider_source.'"';
 	}
 	
 	
@@ -102,7 +103,7 @@ class RevSliderExtension {
 				<?php
 				foreach($shortcodes ?? [] as $id => $name){
 					?>
-					<option value="<?php echo $id; ?>"<?php selected($selected_slider[0], $id); ?>><?php echo $name; ?></option>
+					<option value="<?php echo esc_attr($id); ?>"<?php selected($selected_slider[0], $id); ?>><?php echo esc_html($name); ?></option>
 					<?php
 				}
 				?>
@@ -115,7 +116,7 @@ class RevSliderExtension {
 	 * Adds custom meta field into the essential grid meta box for post/pages
 	 */
 	public function save_eg_additional_meta_field($metas, $post_id){
-		if(isset($metas['eg_sources_revslider'])) update_post_meta($post_id, 'eg_sources_revslider', $metas['eg_sources_revslider']);
+		if(isset($metas['eg_sources_revslider'])) update_post_meta($post_id, 'eg_sources_revslider', (intval($metas['eg_sources_revslider']) > 0) ? intval($metas['eg_sources_revslider']) : '');
 	}
 	
 	

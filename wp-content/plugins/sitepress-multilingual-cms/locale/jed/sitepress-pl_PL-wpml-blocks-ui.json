@@ -14,7 +14,7 @@
             "Kotwica HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "Dodaj skrót do tego bloku podczas ładowania strony, używając adresu URL „#anchor”."
+            "Dodaj skrót do tego bloku podczas ładowania strony przy użyciu adresu URL „#anchor”."
          ],
          "Additional CSS class(es)": [
             "Dodatkowe klasy CSS"
@@ -41,19 +41,19 @@
             "Margines bloku"
          ],
          "Block padding": [
-            "Wypełnienie bloku"
+            "Dopełnienie bloku"
          ],
          "LANGUAGE": [
             "JĘZYK"
          ],
          "Language spacing": [
-            "Odstępy języka"
+            "Odstępy między językami"
          ],
          "Language padding": [
-            "Wypełnienie języka"
+            "Dopełnienie języka"
          ],
          "Display": [
-            "Wyświetl"
+            "Widok"
          ],
          "Show flag": [
             "Pokaż flagę"
@@ -86,7 +86,7 @@
             "Dostępne języki"
          ],
          "Allow wrapping to multiple lines": [
-            "Zezwalaj na zawijanie do wielu wierszy"
+            "Zezwalaj na zawijanie do wielu linii"
          ],
          "Open on click": [
             "Otwórz po kliknięciu"
@@ -104,10 +104,10 @@
             "Orientacja"
          ],
          "Language Switcher": [
-            "Przełącznik języka"
+            "Przełącznik języków"
          ],
          "Language switcher, press tab to navigate to other languages": [
-            "Przełącznik języka, naciśnij tab, aby przejść do innych języków"
+            "Przełącznik języków, naciśnij tab, aby przejść do innych języków"
          ],
          "Typography": [
             "Typografia"
@@ -137,19 +137,19 @@
             "Wyrównaj elementy do lewej"
          ],
          "Justify items center": [
-            "Wyśrodkuj elementy"
+            "Wyrównaj elementy do środka"
          ],
          "Justify items right": [
             "Wyrównaj elementy do prawej"
          ],
          "Justify items space between": [
-            "Wyrównaj elementy z odstępami"
+            "Rozmieść elementy równomiernie"
          ],
          "Horizontal": [
-            "Poziomo"
+            "Pozioma"
          ],
          "Vertical": [
-            "Pionowo"
+            "Pionowa"
          ],
          "Normal": [
             "Normalny"
@@ -176,19 +176,16 @@
             "Mały"
          ],
          "Displays the WPML Language Switcher.": [
-            "Wyświetla przełącznik języka WPML."
+            "Wyświetla przełącznik języków WPML."
          ],
          "displays the WPML Language Switcher": [
-            "wyświetla przełącznik języka WPML"
-         ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "Wyświetla przełącznik języka WPML. <br/> Dowiedz się, <a>jak przetłumaczyć ten blok</a>."
+            "wyświetla przełącznik języków WPML"
          ],
          "Navigation Language Switcher": [
-            "Przełącznik języka nawigacji"
+            "Nawigacyjny przełącznik języków"
          ],
          "Reset all": [
-            "Zresetuj wszystko"
+            "Resetuj wszystko"
          ]
       }
    }

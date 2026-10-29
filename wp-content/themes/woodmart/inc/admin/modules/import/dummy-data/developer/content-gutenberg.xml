@@ -35,7 +35,7 @@
 <!-- wp:wd/section {"blockId":"93a82df4-2ea6-4d00-afd5-161dc2fdabd0","blockVersion":"2","blockGap":160,"colorScheme":"light","bgImage":{"id":19119,"url":"http://dummy.xtemos.com/woodmart2/gutenberg/wp-content/uploads/sites/24/2024/06/w-developer-top-bg.jpg"},"bgPosition":"center center","bgRepeat":"no-repeat","bgDisplaySize":"cover","paddingTop":"170","paddingBottom":"80","marginBottom":"0","blockGapTablet":70,"paddingTopTablet":"110","paddingBottomTablet":"70","paddingBottomMobile":"50"} -->
 <div class="wp-block-wd-section color-scheme-light wd-93a82df4"><!-- wp:wd/row {"blockId":"0ca51a24-10bc-44b9-a946-a551dda3ed5b","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-0ca51a24"><!-- wp:wd/column {"blockId":"c0628ef6-1d4b-4a69-a713-a154d1005ec9","blockVersion":"2","adjacentCount":2,"colWidth":60,"marginTop":"80","adjacentCountTablet":2,"colWidthTablet":65,"marginTopMobile":"40"} -->
-<div class="wp-block-wd-column wd-c0628ef6"><!-- wp:wd/title {"blockId":"69658e37-afa4-4b58-b888-87e9ed33311b","blockVersion":"2","content":"I Create u003cspan class=u0022wd-highlightu0022u003eUser-friendlyu003c/spanu003e Mobile Applications and Web Experiences ❤️","tpFontSize":"60","tpLineHeight":"1.2","markColorVariable":"u002du002dwd-primary-color","positionZIndex":"100","displayWidth":"","tpFontSizeTablet":"42","tpFontSizeMobile":"32","tpLineHeightUnits":"em"} -->
+<div class="wp-block-wd-column wd-c0628ef6"><!-- wp:wd/title {"blockId":"69658e37-afa4-4b58-b888-87e9ed33311b","blockVersion":"2","content":"I Create \u003cspan class=\u0022wd-highlight\u0022\u003eUser-friendly\u003c/span\u003e Mobile Applications and Web Experiences ❤️","tpFontSize":"60","tpLineHeight":"1.2","markColorVariable":"\u002d\u002dwd-primary-color","positionZIndex":"100","displayWidth":"","tpFontSizeTablet":"42","tpFontSizeMobile":"32","tpLineHeightUnits":"em"} -->
 <h2 class="wp-block-wd-title title wd-69658e37">I Create <span class="wd-highlight">User-friendly</span> Mobile Applications and Web Experiences ❤️</h2>
 <!-- /wp:wd/title -->
 
@@ -59,7 +59,7 @@
 <!-- wp:wd/section {"blockId":"c47ffdf1-9bf4-45d1-80b2-a7e3944fe303","blockVersion":"2","colorScheme":"light","bgType":"gradient","bgGradient":"linear-gradient(180deg,rgb(15,15,15) 0%,rgb(36,96,135) 100%)","paddingTop":"100","paddingBottom":"120","marginBottom":"100","paddingTopTablet":"70","paddingTopMobile":"50","paddingBottomMobile":"80","marginBottomMobile":"80"} -->
 <div class="wp-block-wd-section color-scheme-light wd-c47ffdf1"><!-- wp:wd/row {"blockId":"90f1982c-d6ed-4ac5-9563-5937c6eb9f61","blockVersion":"2"} -->
 <div class="wp-block-wd-row wd-90f1982c"><!-- wp:wd/column {"blockId":"f20d5bc9-9db3-42ab-96da-17b4beb2143d","blockVersion":"2","adjacentCount":2,"colWidth":24,"blocksGap":10,"justifyContent":"center","adjacentCountTablet":1,"colWidthTablet":100} -->
-<div class="wp-block-wd-column wd-f20d5bc9"><!-- wp:wd/paragraph {"blockId":"6edf68bf-e1ea-4cc3-b496-ed00444b4449","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"15","tpFontVariant":"500","tpFontWeight":"500"} -->
+<div class="wp-block-wd-column wd-f20d5bc9"><!-- wp:wd/paragraph {"blockId":"6edf68bf-e1ea-4cc3-b496-ed00444b4449","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"15","tpFontVariant":"500","tpFontWeight":"500"} -->
 <p class="wp-block-wd-paragraph wd-6edf68bf">IN FREELANCING FOR 6 YEARS</p>
 <!-- /wp:wd/paragraph -->
 
@@ -177,7 +177,7 @@
 <!-- /wp:wd/icon -->
 
 <!-- wp:wd/container {"blockId":"4777f7ad-c9b2-4391-ab29-4d389a49f9a5","blockVersion":"2","metadata":{"name":"Infobox content"}} -->
-<div class="wp-block-wd-container wd-dir-col wd-4777f7ad"><!-- wp:wd/paragraph {"blockId":"b5a9333f-0093-406f-9afd-e0d798c22768","blockVersion":"2","colorVariable":"u002du002dwd-primary-color","tpFontSize":"18","tpFontVariant":"500","tpFontWeight":"500"} -->
+<div class="wp-block-wd-container wd-dir-col wd-4777f7ad"><!-- wp:wd/paragraph {"blockId":"b5a9333f-0093-406f-9afd-e0d798c22768","blockVersion":"2","colorVariable":"\u002d\u002dwd-primary-color","tpFontSize":"18","tpFontVariant":"500","tpFontWeight":"500"} -->
 <p class="wp-block-wd-paragraph wd-b5a9333f">NICE TO MEET YOU</p>
 <!-- /wp:wd/paragraph -->
 
@@ -207,7 +207,7 @@
 <!-- /wp:wd/column -->
 
 <!-- wp:wd/column {"blockId":"5744010e-c376-4a57-ba1e-092a3cf5aa80","blockVersion":"2","adjacentCount":2,"colWidth":42,"adjacentCountTablet":2,"colWidthTablet":50,"blocksGapTablet":10} -->
-<div class="wp-block-wd-column wd-5744010e"><!-- wp:wd/title {"blockId":"13da554f-1c7a-4926-b8dc-c725ed4b93f9","blockVersion":"2","content":"u003cstrongu003eFrequently Asked Questionsu003c/strongu003e","tpFontSize":"26","tpFontSizeTablet":"22"} -->
+<div class="wp-block-wd-column wd-5744010e"><!-- wp:wd/title {"blockId":"13da554f-1c7a-4926-b8dc-c725ed4b93f9","blockVersion":"2","content":"\u003cstrong\u003eFrequently Asked Questions\u003c/strong\u003e","tpFontSize":"26","tpFontSizeTablet":"22"} -->
 <h2 class="wp-block-wd-title title wd-13da554f"><strong>Frequently Asked Questions</strong></h2>
 <!-- /wp:wd/title -->
 

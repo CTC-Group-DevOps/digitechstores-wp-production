@@ -16,7 +16,7 @@ class Factory implements \IWPML_Backend_Action_Loader, \IWPML_Deferred_Action_Lo
 	public function create() {
 		global $woocommerce_wpml;
 
-		if ( AdminPages::isMultiCurrency() && make( \WCML_Dependencies::class )->check() ) {
+		if ( AdminPages::rendersMultiCurrencyBody() && make( \WCML_Dependencies::class )->check() ) {
 			return make(
 				Hooks::class,
 				[

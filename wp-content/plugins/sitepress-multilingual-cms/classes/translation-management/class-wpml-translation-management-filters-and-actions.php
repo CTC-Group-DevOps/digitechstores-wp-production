@@ -22,7 +22,7 @@ class WPML_Translation_Management_Filters_And_Actions {
 
 	private function add_filters_for_translating_link_targets( &$tm_instance, &$wp_api ) {
 		$this->absolute_links                         = new AbsoluteLinks();
-		$this->permalinks_converter                   = new WPML_Absolute_To_Permalinks( $this->sitepress );
+		$this->permalinks_converter                   = new WPML_Absolute_To_Permalinks( $this->sitepress, null, false, true );
 		$this->translate_links_in_custom_fields       = new WPML_Translate_Link_Targets_In_Custom_Fields(
 			$tm_instance,
 			$wp_api,

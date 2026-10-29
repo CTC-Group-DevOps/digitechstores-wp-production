@@ -490,6 +490,23 @@ class Wishlist {
 	}
 
 	/**
+	 * Check whether a wishlist group belongs to the current wishlist user.
+	 *
+	 * @param integer $group_id Wishlist group ID.
+	 *
+	 * @return boolean
+	 */
+	public function is_group_owner( $group_id ) {
+		$group_id = absint( $group_id );
+
+		if ( ! $group_id || ! $this->get_user_id() ) {
+			return false;
+		}
+
+		return $group_id === (int) $this->get_wishlist_id_by_current_user( $group_id );
+	}
+
+	/**
 	 * Get wishlist groups by user id.
 	 *
 	 * @return array|object|null

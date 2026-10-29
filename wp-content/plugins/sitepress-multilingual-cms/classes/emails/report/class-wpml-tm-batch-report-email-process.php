@@ -12,16 +12,15 @@ class WPML_TM_Batch_Report_Email_Process {
 	}
 
 	public function process_emails() {
-		$this->batch_report->process_jobs_with_delay();
 		$batch_jobs = $this->batch_report->get_jobs();
 
 		$this->email_builder->prepare_assigned_jobs_emails( $batch_jobs );
 		$this->email_builder->prepare_unassigned_jobs_emails( $batch_jobs );
 
-		$this->send_emails();
+		$this->send_emails( $batch_jobs );
 	}
 
-	private function send_emails() {
+	private function send_emails( array $batch_jobs ) {
 		$this->batch_report->clean_batch_jobs();
 
 		$headers         = array();
@@ -42,6 +41,6 @@ class WPML_TM_Batch_Report_Email_Process {
 		$dnd_translators_ids      = $this->email_builder->get_dnd_translators_ids();
 		$translators_ids          = array_merge( $translators_ids, $orphaned_translators_ids, $dnd_translators_ids );
 
-		$this->batch_report->reset_batch_report_for_translators( $translators_ids );
+		$this->batch_report->remove_emailed_jobs( $batch_jobs, $translators_ids );
 	}
 }

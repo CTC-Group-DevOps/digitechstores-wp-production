@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads admin scripts, includes admin classes and adds admin hooks.
  *
  * @class    WC_PB_Admin
- * @version  8.5.12
+ * @version  8.5.16
  */
 class WC_PB_Admin {
 
@@ -30,6 +30,8 @@ class WC_PB_Admin {
 
 	/**
 	 * Setup Admin class.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 
@@ -62,6 +64,8 @@ class WC_PB_Admin {
 
 	/**
 	 * Admin init.
+	 *
+	 * @return void
 	 */
 	public static function admin_init() {
 		self::includes();
@@ -69,6 +73,8 @@ class WC_PB_Admin {
 
 	/**
 	 * Inclusions.
+	 *
+	 * @return void
 	 */
 	public static function includes() {
 
@@ -93,6 +99,7 @@ class WC_PB_Admin {
 	 * Register own version of select2 library.
 	 *
 	 * @since 5.1.0
+	 * @return void
 	 */
 	public static function maybe_register_selectsw() {
 
@@ -117,6 +124,7 @@ class WC_PB_Admin {
 	 * Load own version of select2 library.
 	 *
 	 * @since 5.1.0
+	 * @return void
 	 */
 	public static function maybe_load_selectsw() {
 
@@ -138,6 +146,7 @@ class WC_PB_Admin {
 	 * Display notice when selectSW library is unsupported.
 	 *
 	 * @since 5.1.0
+	 * @return void
 	 */
 	public static function maybe_display_selectsw_notice() {
 
@@ -198,6 +207,7 @@ class WC_PB_Admin {
 	 * Add a message in the WP Privacy Policy Guide page.
 	 *
 	 * @since  5.7.10
+	 * @return void
 	 */
 	public static function add_privacy_policy_guide_content() {
 		wp_add_privacy_policy_content( 'WooCommerce Product Bundles', self::get_privacy_policy_guide_message() );
@@ -205,6 +215,8 @@ class WC_PB_Admin {
 
 	/**
 	 * Admin writepanel scripts.
+	 *
+	 * @return void
 	 */
 	public static function admin_scripts() {
 
@@ -402,6 +414,7 @@ class WC_PB_Admin {
 	 * Add PB debug data in the system status.
 	 *
 	 * @since  5.7.9
+	 * @return void
 	 */
 	public static function render_system_status_items() {
 
@@ -419,7 +432,7 @@ class WC_PB_Admin {
 	 *
 	 * @since  5.7.9
 	 *
-	 * @return array
+	 * @return array<int, array{file: string, version: string, core_version: string, is_outdated: bool}>
 	 */
 	private static function get_template_overrides() {
 
@@ -525,6 +538,11 @@ class WC_PB_Admin {
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$bundle = wc_get_product( absint( $_GET['bundle_id'] ) );
+
+		if ( ! ( $bundle instanceof WC_Product ) ) {
+			return;
+		}
+
 		/* translators: %1$s: Product title, %2$s: Product "clear filter" link */
 		$notice = sprintf( __( 'You are currently viewing a filtered version of this report for <strong>%1$s</strong>. <a href="%2$s" class="wc_pb_forward">Clear Filter</a>', 'woocommerce-product-bundles' ), $bundle->get_title(), admin_url( 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock' ) );
 		WC_PB_Admin_Notices::add_notice( $notice, 'info' );

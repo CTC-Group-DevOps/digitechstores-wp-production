@@ -6,6 +6,7 @@ use WPML\StringTranslation\Application\StringCore\Domain\StringItem;
 use WPML\StringTranslation\Application\StringCore\Query\Criteria\SearchCriteria;
 use WPML\StringTranslation\Application\StringCore\Query\Criteria\FetchFiltersCriteria;
 use WPML\StringTranslation\Application\StringCore\Query\Criteria\SearchSelectCriteria;
+use WPML\StringTranslation\Infrastructure\TranslateEverything\EnglishSourceLanguage;
 use WPML\StringTranslation\Infrastructure\Translation\TranslationStatusesParser;
 
 abstract class QueryBuilder {
@@ -15,18 +16,15 @@ abstract class QueryBuilder {
 		return $wpdb->prefix;
 	}
 
-	protected function prepare( $sql, ...$args ): string {
-		global $wpdb;
-		return $wpdb->prepare( $sql, $args );
-	}
-
 	protected function prepareLike( $value ): string {
 		global $wpdb;
 		return $wpdb->esc_like( $value );
 	}
 
 	protected function buildPagination( SearchCriteria $criteria ): string {
-		return $this->prepare( ' LIMIT %d OFFSET %d', $criteria->getLimit(), $criteria->getOffset() );
+		global $wpdb;
+
+		return $wpdb->prepare( ' LIMIT %d OFFSET %d', $criteria->getLimit(), $criteria->getOffset() );
 	}
 
 	protected function buildWhereSql( $criteria ): string {
@@ -62,9 +60,6 @@ abstract class QueryBuilder {
 		}
 		if ( $dto->shouldSelect( 'status' ) ) {
 			$sql[] = 'strings.status';
-		}
-		if ( $dto->shouldSelect( 'translation_priority' ) ) {
-			$sql[] = 'strings.translation_priority';
 		}
 		if ( $dto->shouldSelect( 'string_type' ) ) {
 			$sql[] = 'strings.string_type';
@@ -152,22 +147,11 @@ abstract class QueryBuilder {
         ';
 	}
 
-	protected function buildHavingSql( $criteria ): string {
-		$sqlParts = [];
-		foreach ( $criteria->getTranslationStatuses() as $status ) {
-			$sqlParts[] = "translation_statuses LIKE '%status:" . $this->prepareLike( $status ) . ",%'";
-		}
-
-		if ( count( $sqlParts ) === 0 ) {
-			return '';
-		}
-
-		return ' HAVING (' . implode( ' OR ', $sqlParts ) . ')';
-	}
-
 	protected function buildLanguagesCrossJoin( $criteria ): string {
 		$buildLanguageSelect = function ( string $code ): string {
-			return $this->prepare(
+			global $wpdb;
+
+			return $wpdb->prepare(
 				'SELECT %s AS language_code',
 				$code
 			);
@@ -205,6 +189,8 @@ abstract class QueryBuilder {
 	}
 
 	protected function getWhereSqlParts( $criteria ): array {
+		global $wpdb;
+
 		$selectOnlyAutoregistered    = $this->shouldSelectOnlyAutoregistered( $criteria );
 		$selectOnlyNotAutoregistered = $this->shouldSelectOnlyNotAutoregistered( $criteria );
 
@@ -214,19 +200,19 @@ abstract class QueryBuilder {
 
 		if ( $selectOnlyAutoregistered || $selectOnlyNotAutoregistered ) {
 			$kind       = $selectOnlyAutoregistered ? StringItem::STRING_TYPE_AUTOREGISTER : StringItem::STRING_TYPE_DEFAULT;
-			$sqlParts[] = $this->prepare( 'strings.string_type = %d', $kind );
+			$sqlParts[] = $wpdb->prepare( 'strings.string_type = %d', $kind );
 		}
 
 		if ( $criteria->getType() && $selectOnlyAutoregistered ) {
-			$sqlParts[] = $this->prepare( 'strings.component_type = %d', $criteria->getType() );
+			$sqlParts[] = $wpdb->prepare( 'strings.component_type = %d', $criteria->getType() );
 		}
 
 		if ( $criteria->getSource() && $selectOnlyAutoregistered ) {
 			$like = '%' . $this->prepareLike( ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_FRONTEND ) . '%';
 			if ( $criteria->getSource() === ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_FRONTEND ) {
-				$sqlParts[] = '(' . $this->prepare( 'string_positions.sources IS NOT NULL AND string_positions.sources LIKE %s', $like ) . ')';
+				$sqlParts[] = '(' . $wpdb->prepare( 'string_positions.sources IS NOT NULL AND string_positions.sources LIKE %s', $like ) . ')';
 			} else {
-				$sqlParts[] = '(' . $this->prepare( 'string_positions.sources IS NULL OR string_positions.sources NOT LIKE %s', $like ) . ')';
+				$sqlParts[] = '(' . $wpdb->prepare( 'string_positions.sources IS NULL OR string_positions.sources NOT LIKE %s', $like ) . ')';
 			}
 		}
 		if ( $criteria->getDomain() ) {
@@ -234,9 +220,9 @@ abstract class QueryBuilder {
 			$escDomain = esc_html( $criteria->getDomain() );
 
 			if ( $domain === $escDomain ) {
-				$sqlParts[] = $this->prepare('strings.context = %s', $domain );
+				$sqlParts[] = $wpdb->prepare('strings.context = %s', $domain );
 			} else {
-				$sqlParts[] = $this->prepare('strings.context = %s OR strings.context = %s', $domain, $escDomain );
+				$sqlParts[] = '(' . $wpdb->prepare('strings.context = %s OR strings.context = %s', $domain, $escDomain ) . ')';
 			}
 		}
 		if ( $criteria->getTitle() ) {
@@ -244,31 +230,31 @@ abstract class QueryBuilder {
 			$escTitle = '%' . $this->prepareLike( esc_html( $criteria->getTitle() ) ) . '%';
 
 			if ( $title === $escTitle ) {
-				$sqlParts[] = $this->prepare(
+				$sqlParts[] = '(' . $wpdb->prepare(
 					'strings.value LIKE %s OR strings.name LIKE %s',
 					$title,
 					$title
-				);
+				) . ')';
 			} else {
-				$sqlParts[] = $this->prepare(
+				$sqlParts[] = '(' . $wpdb->prepare(
 					'strings.value LIKE %s OR strings.value LIKE %s OR strings.name LIKE %s OR strings.name LIKE %s',
 					$title,
 					$escTitle,
 					$title,
 					$escTitle
-				);
+				) . ')';
 			}
 		}
-		if ( $criteria->getTranslationPriority() ) {
-			$sqlParts[] = $this->prepare( 'strings.translation_priority = %s', $criteria->getTranslationPriority() );
-		}
-
-		$defaultLanguageCode = $this->settingsRepository->getDefaultLanguageCode();
-		$isDefaultLanguageEn = $defaultLanguageCode === 'en';
-		$sourceLanguageCode = $criteria->getSourceLanguageCode();
-		$langCodesToShow = $sourceLanguageCode ? [ $sourceLanguageCode ] : [];
-		if ( ! $isDefaultLanguageEn && $sourceLanguageCode === $defaultLanguageCode ) {
-			$langCodesToShow[] = 'en';
+		$defaultLanguageCode      = $this->settingsRepository->getDefaultLanguageCode();
+		$englishSourceLanguage    = EnglishSourceLanguage::resolve(
+			$this->settingsRepository->getActiveLanguageCodes(),
+			$defaultLanguageCode
+		);
+		$isDefaultLanguageEnglish = $defaultLanguageCode === $englishSourceLanguage;
+		$sourceLanguageCode       = $criteria->getSourceLanguageCode();
+		$langCodesToShow          = $sourceLanguageCode ? [ $sourceLanguageCode ] : [];
+		if ( ! $isDefaultLanguageEnglish && $sourceLanguageCode === $defaultLanguageCode ) {
+			$langCodesToShow[] = $englishSourceLanguage;
 		}
 
 		if ( $langCodesToShow ) {

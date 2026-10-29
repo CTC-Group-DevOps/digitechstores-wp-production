@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_PB_Analytics_Revenue_Query class.
  *
- * @version 8.5.13
+ * @version 8.5.16
  */
 class WC_PB_Analytics_Revenue_Query extends Automattic\WooCommerce\Admin\API\Reports\GenericQuery {
 
@@ -49,8 +49,8 @@ class WC_PB_Analytics_Revenue_Query extends Automattic\WooCommerce\Admin\API\Rep
 		 * Filters the query results for the revenue query.
 		 *
 		 * @since 6.9.0
-		 * @param array $results Query results.
-		 * @param array $args    Query args.
+		 * @param stdClass|WP_Error $results Query results.
+		 * @param array             $args    Query args.
 		 */
 		return apply_filters( 'woocommerce_analytics_bundles_select_query', $results, $args );
 	}

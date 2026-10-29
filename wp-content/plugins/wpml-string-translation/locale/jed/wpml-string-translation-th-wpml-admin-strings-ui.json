@@ -11,7 +11,7 @@
             "ไม่รวมอยู่ในการแปลสตริง"
          ],
          "Registered and locked": [
-            "ลงทะเบียนและล็อก"
+            "ลงทะเบียนและล็อกแล้ว"
          ],
          "Text": [
             "ข้อความ"
@@ -62,16 +62,16 @@
             "ยกเลิก"
          ],
          "Save the following to a wpml-config.xml in the root of your theme or plugin.": [
-            "บันทึกสิ่งต่อไปนี้ลงใน wpml-config.xml ในรูทของธีมหรือปลั๊กอินของคุณ"
+            "บันทึกสิ่งต่อไปนี้ลงในไฟล์ wpml-config.xml ในรูทของธีมหรือปลั๊กอินของคุณ"
          ],
          "No options found.": [
             "ไม่พบตัวเลือก"
          ],
          "Make sure you saved your theme options at least once. Some themes only add these to the wp_options table after the user explicitly saves changes to the theme defaults.": [
-            "ตรวจสอบให้แน่ใจว่าคุณได้บันทึกตัวเลือกธีมของคุณอย่างน้อยหนึ่งครั้ง ธีมบางธีมจะเพิ่มสิ่งเหล่านี้ลงในตาราง wp_options หลังจากที่ผู้ใช้บันทึกการเปลี่ยนแปลงค่าเริ่มต้นของธีมอย่างชัดเจนเท่านั้น"
+            "ตรวจสอบให้แน่ใจว่าคุณได้บันทึกตัวเลือกธีมของคุณอย่างน้อยหนึ่งครั้ง บางธีมจะเพิ่มตัวเลือกเหล่านี้ลงในตาราง wp_options หลังจากที่ผู้ใช้บันทึกการเปลี่ยนแปลงค่าเริ่มต้นของธีมแล้วเท่านั้น"
          ],
          "Add to String Translation": [
-            "เพิ่มในการแปลสตริง"
+            "เพิ่มไปยังการแปลสตริง"
          ],
          "Remove from String Translation": [
             "ลบออกจากการแปลสตริง"

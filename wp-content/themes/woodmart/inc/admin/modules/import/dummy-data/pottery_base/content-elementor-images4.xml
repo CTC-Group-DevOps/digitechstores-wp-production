@@ -19,6 +19,25 @@
 	<wp:base_uploads_url>https://dummy.xtemos.com/woodmart2/pottery-elementor/wp-content/uploads/sites/34/</wp:base_uploads_url>
 
 								<item>
+					<title><![CDATA[overpass;italic;400;100%;U+0-10FFFF]]></title>
+					<link>https://dummy.xtemos.com/woodmart2/pottery-elementor/2024/07/17/overpassitalic400100u0-10ffff/</link>
+					<pubDate>Wed, 17 Jul 2024 13:23:45 +0000</pubDate>
+					<dc:creator><![CDATA[Mr. Mackay]]></dc:creator>
+					<guid isPermaLink="false">https://dummy.xtemos.com/woodmart2/pottery-elementor/2024/07/17/overpassitalic400100u0-10ffff/</guid>
+											<content:encoded><![CDATA[{"fontFamily":"Overpass","fontStyle":"italic","fontWeight":"400","src":"http://dummy.xtemos.com/woodmart2/pottery-elementor/wp-content/uploads/sites/34/fonts/qFdU35WCmI96Ajtm81GgSdXCNs-VMF0vNLADepqKl8Kuosgz.woff2","preview":"https://s.w.org/images/fonts/17.7/previews/overpass/overpass-400-italic.svg"}]]></content:encoded>
+															<wp:post_id>33</wp:post_id>
+					<wp:post_date><![CDATA[2024-07-17 13:23:45]]></wp:post_date>
+					<wp:post_date_gmt><![CDATA[2024-07-17 13:23:45]]></wp:post_date_gmt>
+					<wp:post_modified><![CDATA[2024-07-17 13:23:45]]></wp:post_modified>
+					<wp:post_modified_gmt><![CDATA[2024-07-17 13:23:45]]></wp:post_modified_gmt>
+					<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+					<wp:post_name><![CDATA[overpassitalic400100u0-10ffff]]></wp:post_name>
+					<wp:status><![CDATA[publish]]></wp:status>
+					<wp:post_parent>15</wp:post_parent>
+					<wp:menu_order>0</wp:menu_order>
+					<wp:post_type><![CDATA[wp_font_face]]></wp:post_type>
+																			</item>
+								<item>
 					<title><![CDATA[w-hmp-map-point]]></title>
 					<link>https://dummy.xtemos.com/woodmart2/pottery-elementor/w-hmp-map-point/</link>
 					<pubDate>Thu, 18 Jul 2024 07:47:27 +0000</pubDate>

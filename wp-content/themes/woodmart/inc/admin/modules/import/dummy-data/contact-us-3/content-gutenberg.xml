@@ -251,7 +251,7 @@ This e-mail was sent from a contact form on [_site_title] ([_site_url])";s:18:"a
 <div class="wp-block-wd-divider wd-style-line wd-pos-start wd-cf836453"></div>
 <!-- /wp:wd/divider -->
 
-<!-- wp:wd/paragraph {"blockId":"46b19c73-a5ef-4808-9d1b-31df6f35ee16","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600","markColorVariable":"u002du002dwd-primary-color","displayWidth":"custom","customWidth":"430"} -->
+<!-- wp:wd/paragraph {"blockId":"46b19c73-a5ef-4808-9d1b-31df6f35ee16","blockVersion":"2","colorCode":"#333333","tpFontVariant":"600","tpFontWeight":"600","markColorVariable":"\u002d\u002dwd-primary-color","displayWidth":"custom","customWidth":"430"} -->
 <p class="wp-block-wd-paragraph wd-46b19c73 wd-custom-width">Do you have questions about how we can help your company? <a href="#"><span class="wd-highlight">Send us an email and we’ll get in touch shortly.</span></a></p>
 <!-- /wp:wd/paragraph --></div>
 <!-- /wp:wd/column --></div>

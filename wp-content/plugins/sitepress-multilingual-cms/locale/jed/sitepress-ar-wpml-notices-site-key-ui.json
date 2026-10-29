@@ -17,22 +17,22 @@
             "أدخل مفتاح موقعك هنا"
          ],
          "Registering...": [
-            "جارٍ التسجيل..."
+            "جاري التسجيل..."
          ],
          "Register": [
             "تسجيل"
          ],
          "A New Site Key Is Required": [
-            "مفتاح موقع جديد مطلوب"
+            "مطلوب مفتاح موقع جديد"
          ],
          "To continue using WPML features like automatic translation and plugin updates, please register your site again. Don’t worry, your existing content and translations are safe.": [
-            "للمتابعة في استخدام ميزات WPML مثل الترجمة التلقائية وتحديثات المكونات الإضافية، يرجى تسجيل موقعك مرة أخرى. لا تقلق، فمحتواك وترجماتك الحالية آمنة."
+            "لمواصلة استخدام ميزات WPML مثل الترجمة التلقائية وتحديثات الإضافات، يرجى تسجيل موقعك مرة أخرى. لا تقلق، فمحتواك وترجماتك الحالية في أمان."
          ],
          "Site key registered successfully!": [
             "تم تسجيل مفتاح الموقع بنجاح!"
          ],
          "Page will reload in %d seconds...": [
-            "ستتم إعادة تحميل الصفحة في %d ثوانٍ..."
+            "ستتم إعادة تحميل الصفحة خلال %d ثوانٍ..."
          ],
          "Registration failed. Please try again.": [
             "فشل التسجيل. يرجى المحاولة مرة أخرى."

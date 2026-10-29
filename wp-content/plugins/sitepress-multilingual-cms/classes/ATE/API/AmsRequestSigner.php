@@ -20,7 +20,7 @@ class AmsRequestSigner {
 		$this->fingerprintGenerator = $fingerprintGenerator;
 	}
 
-	public function send( string $url, string $method, array $queryParams = [] ) {
+	public function send( string $url, string $method, array $queryParams = [], ?string $secret = null ) {
 		$headers = [
 			'Accept'                                          => 'application/json',
 			'Content-Type'                                    => 'application/json',
@@ -31,10 +31,10 @@ class AmsRequestSigner {
 
 		$query          = [ 'token' => uuid_v5( wp_generate_uuid4(), $url ) ];
 		$query          = array_merge( $queryParams, $query );
-		$url_parts['query'] = http_build_query( $query );
+		$url_parts['query'] = \wpml_http_build_query( $query );
 
 		$url        = http_build_url( $url_parts );
-		$signed_url = $this->auth->signUrl( $method, $url );
+		$signed_url = $this->auth->signUrl( $method, $url, null, $secret );
 
 		return $this->wpHttp->request( $signed_url, [
 			'method'  => $method,
@@ -47,6 +47,6 @@ class AmsRequestSigner {
 		$max_execution_time = ini_get( 'max_execution_time' );
 		$timeout = $max_execution_time ? (int) $max_execution_time / 2 : 1;
 
-		return max( $timeout, 10 );
+		return max( $timeout, IdentityRequestTimeout::seconds() );
 	}
 }

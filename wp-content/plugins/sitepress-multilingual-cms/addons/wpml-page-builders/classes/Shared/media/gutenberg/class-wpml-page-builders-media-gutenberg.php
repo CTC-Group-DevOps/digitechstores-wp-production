@@ -58,15 +58,25 @@ class WPML_Page_Builders_Media_Gutenberg {
 		$current_key = reset( $path );
 		$next_path   = array_slice( $path, 1 );
 
-		if ( $current_key && isset( $attrs[ $current_key ] ) ) {
-			if ( $next_path ) {
-				$attrs[ $current_key ] = $this->translate_by_path( $attrs[ $current_key ], $next_path, $type );
-			} else {
-				$attrs[ $current_key ] = $this->translate_value( $attrs[ $current_key ], $type );
+		if ( ! $current_key || ! is_array( $attrs ) ) {
+			return $attrs;
+		}
+
+		if ( '*' === $current_key ) {
+			foreach ( $attrs as $key => $value ) {
+				$attrs[ $key ] = $this->translate_at_path( $value, $next_path, $type );
 			}
+		} elseif ( isset( $attrs[ $current_key ] ) ) {
+			$attrs[ $current_key ] = $this->translate_at_path( $attrs[ $current_key ], $next_path, $type );
 		}
 
 		return $attrs;
+	}
+
+	private function translate_at_path( $value, $next_path, $type ) {
+		return $next_path
+			? $this->translate_by_path( $value, $next_path, $type )
+			: $this->translate_value( $value, $type );
 	}
 
 	private function translate_value( $value, $type ) {
@@ -86,6 +96,10 @@ class WPML_Page_Builders_Media_Gutenberg {
 	}
 
 	private function translate_ids( $value ) {
+		if ( ! \WPML\PB\Media\MediaIds::isList( $value ) ) {
+			return $value;
+		}
+
 		$ids = explode( ',', $value );
 
 		foreach ( $ids as &$id ) {

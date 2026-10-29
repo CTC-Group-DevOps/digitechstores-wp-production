@@ -19,20 +19,29 @@ class AmsCredentialsStorage {
 
 	private function updateRegistrationData( array $responseBody ): bool {
 		$registrationData = get_option( \WPML_TM_ATE_Authentication::AMS_DATA_KEY, [] );
+		$registrationData = is_array( $registrationData ) ? $registrationData : [];
 
 		$registrationData['secret'] = $responseBody['new_secret_key'];
 		$registrationData['shared'] = $responseBody['new_shared_key'];
 
-		return update_option( \WPML_TM_ATE_Authentication::AMS_DATA_KEY, $registrationData );
+		return $this->persist( \WPML_TM_ATE_Authentication::AMS_DATA_KEY, $registrationData );
 	}
 
 	private function updateSiteUuId( array $responseBody ): bool {
 		$this->auth->override_site_id( $responseBody['new_website_uuid'] );
 
-		return update_option(
+		return $this->persist(
 			\WPML_Site_ID::SITE_ID_KEY . ':ate',
 			$responseBody['new_website_uuid'],
 			false
 		);
+	}
+
+	private function persist( string $option, $value, $autoload = null ): bool {
+		if ( get_option( $option ) === $value ) {
+			return true;
+		}
+
+		return update_option( $option, $value, $autoload );
 	}
 }

@@ -22,9 +22,12 @@ class OldPlugin {
 	}
 
 	private static function addNotice() {
-		$text = '<h2>' . __( 'Update needed for WPML Page Builders plugin', 'wpml-page-builders' ) . '</h2>';
-		$text .= '<p>' . __( 'To prevent conflicts with WPML, we have deactivated your outdated WPML Page Builders plugin. Please update and reactivate it to continue receiving compatibility updates for your page builders as they become available.', 'wpml-page-builders' ) . '</p>';
-		$text .= '<p>' . __( 'You can still receive compatibility updates without WPML Page Builders as part of the WPML core plugin. However, keeping the standalone plugin allows you to receive these updates sooner and more often.', 'wpml-page-builders' ) . '</p>';
+		/* translators: Heading of the admin notice shown when the separate WPML Page Builders plugin is too old and WPML has switched it off. It is a product name and stays in English. */
+		$text = '<h2>' . __( 'Update needed for WPML Page Builders plugin', 'sitepress' ) . '</h2>';
+		/* translators: First paragraph of that notice. */
+		$text .= '<p>' . __( 'To prevent conflicts with WPML, we have deactivated your outdated WPML Page Builders plugin. Please update and reactivate it to continue receiving compatibility updates for your page builders as they become available.', 'sitepress' ) . '</p>';
+		/* translators: Second paragraph of that notice. */
+		$text .= '<p>' . __( 'You can still receive compatibility updates without WPML Page Builders as part of the WPML core plugin. However, keeping the standalone plugin allows you to receive these updates sooner and more often.', 'sitepress' ) . '</p>';
 
 		$notices = wpml_get_admin_notices();
 		$notice  = $notices->create_notice( 'deactivated-notice', $text, __CLASS__ );

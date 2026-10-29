@@ -1,5 +1,41 @@
 *** WooCommerce Product Bundles ***
 
+= 8.5.16 - 2026-10-21 =
+* Fix - Fixed bundled item discounts not applying to the cart totals calculated when reordering with Order Again.
+* Fix - Stopped bundle stock emails from removing a store's own transactional email deferral filter.
+* Fix - Fixed background updates running one task per request on hosts with an unlimited PHP memory limit.
+* Fix - Fixed a fatal error on product pages and add-to-cart when bundle-sell IDs were imported as comma-separated text.
+* Fix - Accounted for refunds in revenue analytics and regenerated historical refund data.
+* Fix - Fixed a fatal error when opening the Insufficient Stock report filtered by a deleted bundle.
+* Dev - Updated the release deployment to WooCommerce.com.
+* Dev - Raised the PHPStan analysis level to 3.
+* Dev - Fixed PHPStan level 3 findings that needed small code changes.
+* Dev - Raised the PHPStan analysis level to 4.
+* Dev - Fixed PHPStan level 4 findings that needed behavior changes.
+* Dev - Raised the PHPStan analysis level to 5.
+* Dev - Fixed PHPStan level 5 findings that needed behavior changes.
+* Dev - Raised the PHPStan analysis level to 6.
+* Dev - Fixed PHPStan level 6 findings that needed behavior changes.
+* Dev - Raised the PHPStan analysis level to 7.
+* Dev - Fixed PHPStan level 7 findings that needed behavior changes.
+
+= 8.5.15 - 2026-10-14 =
+* Dev - Updated the end-to-end test environment.
+
+= 8.5.14 - 2026-10-14 =
+* Fix - Preserved filtered variation mappings when exporting and importing bundles.
+* Fix - Kept required variation selectors visible when a hidden bundled product changes type.
+* Fix - Made AJAX add-to-cart work for bundles that require customer input.
+* Fix - Stopped sharing bundled item caches between different instances of the same bundle product.
+* Fix - Enabled cart and order editing for bundles with add-ons on the bundle or its included products.
+* Tweak - Added an admin notice when required Product Bundles tables are missing or inaccessible.
+* Tweak - Clarified the Form Location tooltip for Elementor product templates.
+* Tweak - Raised minimum requirements to WordPress 7.0 and WooCommerce 11.1.
+* Tweak - Loaded Cart, Checkout and Mini-Cart block styles only when the blocks render.
+* Dev - Added end-to-end coverage for Bulk Discounts quantity tiers and cart updates.
+* Dev - Updated @wordpress/scripts to 36.1.
+* Dev - Updated development dependencies to address security advisories.
+
 = 8.5.13 - 2026-10-07 =
 * Fix - Prevented crafted cart edit requests from removing mandatory bundled items.
 * Fix - Omitted unauthorized products from bundle ability collection responses.

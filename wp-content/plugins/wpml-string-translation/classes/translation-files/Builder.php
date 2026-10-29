@@ -3,7 +3,7 @@
 namespace WPML\ST\TranslationFile;
 
 abstract class Builder {
-	protected $plural_form = 'nplurals=2; plural=n != 1;';
+	protected $plural_form = PluralForms::TWO_FORMS;
 	protected $language;
 
 	public function set_language( $language ) {

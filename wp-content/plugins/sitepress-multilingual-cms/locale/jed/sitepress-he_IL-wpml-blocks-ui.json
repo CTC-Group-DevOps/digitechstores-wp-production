@@ -14,7 +14,7 @@
             "עוגן HTML"
          ],
          "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
-            "הוסף קיצור דרך לבלוק זה בעת טעינת הדף באמצעות כתובת ה-URL \"#anchor\"."
+            "הוסף קיצור דרך לבלוק זה בעת טעינת העמוד באמצעות כתובת ה-URL ”#anchor“."
          ],
          "Additional CSS class(es)": [
             "מחלקות CSS נוספות"
@@ -26,7 +26,7 @@
             "צבע"
          ],
          "px": [
-            "פיקסלים"
+            "px"
          ],
          "%": [
             "%"
@@ -38,19 +38,19 @@
             "בלוק"
          ],
          "Block margin": [
-            "שולי בלוק"
+            "שולי הבלוק (Margin)"
          ],
          "Block padding": [
-            "ריפוד בלוק"
+            "ריווח הבלוק (Padding)"
          ],
          "LANGUAGE": [
             "שפה"
          ],
          "Language spacing": [
-            "מרווח שפה"
+            "מרווח בין שפות"
          ],
          "Language padding": [
-            "ריפוד שפה"
+            "ריווח שפה (Padding)"
          ],
          "Display": [
             "תצוגה"
@@ -80,13 +80,13 @@
             "מרווח"
          ],
          "Switch to %s": [
-            "החלף ל-%s"
+            "עבור אל %s"
          ],
          "Available languages": [
             "שפות זמינות"
          ],
          "Allow wrapping to multiple lines": [
-            "אפשר גלישה למספר שורות"
+            "אפשר גלישת טקסט לשורות מרובות"
          ],
          "Open on click": [
             "פתח בלחיצה"
@@ -134,16 +134,16 @@
             "קוד"
          ],
          "Justify items left": [
-            "יישר פריטים לשמאל"
+            "יישור פריטים לשמאל"
          ],
          "Justify items center": [
-            "יישר פריטים למרכז"
+            "יישור פריטים למרכז"
          ],
          "Justify items right": [
-            "יישר פריטים לימין"
+            "יישור פריטים לימין"
          ],
          "Justify items space between": [
-            "יישר פריטים עם רווח שווה ביניהם"
+            "יישור פריטים עם מרווח ביניהם"
          ],
          "Horizontal": [
             "אופקי"
@@ -161,7 +161,7 @@
             "גדול"
          ],
          "X-Large": [
-            "אקסטרה גדול"
+            "גדול מאוד"
          ],
          "Ab": [
             "אב"
@@ -181,11 +181,8 @@
          "displays the WPML Language Switcher": [
             "מציג את בורר השפות של WPML"
          ],
-         "Displays the WPML Language Switcher. <br/> Learn <a>how to translate this block</a>.": [
-            "מציג את בורר השפות של WPML. <br/> למד <a>כיצד לתרגם בלוק זה</a>."
-         ],
          "Navigation Language Switcher": [
-            "בורר שפות ניווט"
+            "בורר שפות לתפריט ניווט"
          ],
          "Reset all": [
             "אפס הכל"

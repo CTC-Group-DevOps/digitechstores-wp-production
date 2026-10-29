@@ -34,7 +34,7 @@ class WPML_Translation_Jobs_Migration_Ajax {
 		try {
 			$this->jobs_migration->migrate_jobs( $jobs_chunk );
 		} catch ( Exception $e ) {
-			wp_send_json_error( $e->getMessage(), 500 );
+			wp_send_json_error( \WPML\WordPress\ClientSafeError::message( 'Jobs migration AJAX', $e ), 500 );
 
 			return;
 		}

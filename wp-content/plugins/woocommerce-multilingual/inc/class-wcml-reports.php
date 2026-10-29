@@ -85,7 +85,7 @@ class WCML_Reports{
                     $query[ 'where' ] = str_replace( "order_item_meta__product_id.meta_value = '{$product_id}'", "order_item_meta__product_id.meta_value IN (" . DB::prepareIn( array_filter( $product_ids ), '%d' ) . ")", $query[ 'where' ] );
                 }
 
-                $query[ 'select' ] .= ', translations.language_code AS language_code_' . esc_sql( str_replace('-', '_', $current_language)  );
+                $query[ 'select' ] .= ', translations.language_code AS language_code_' . preg_replace( '/[^a-z0-9_]/i', '', str_replace('-', '_', $current_language)  );
 
             }elseif(
                 $query[ 'select' ]==='SELECT SUM( order_item_meta__line_total.meta_value) as order_item_amount' ||
@@ -258,7 +258,7 @@ class WCML_Reports{
                 ON posts.ID = t.element_id
                 WHERE", $query_from);
 
-            $query_from .= " AND t.element_type IN ( 'post_product', 'post_product_variation' ) AND t.language_code = '".$current_language."'";
+            $query_from .= $wpdb->prepare( " AND t.element_type IN ( 'post_product', 'post_product_variation' ) AND t.language_code = %s", $current_language );
         }
 
 

@@ -122,6 +122,15 @@ class Slider extends Widget_Base {
 		);
 
 		$this->add_control(
+			'extra_width_classes',
+			array(
+				'type'         => 'wd_css_class',
+				'default'      => 'wd-width-100',
+				'prefix_class' => '',
+			)
+		);
+
+		$this->add_control(
 			'slider',
 			array(
 				'label'   => esc_html__( 'Slider', 'woodmart' ),

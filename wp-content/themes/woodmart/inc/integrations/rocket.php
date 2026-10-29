@@ -146,11 +146,18 @@ if ( ! function_exists( 'woodmart_rocket_fix_wp_is_mobile_client_hint_mismatch' 
 	 * @return bool
 	 */
 	function woodmart_rocket_fix_wp_is_mobile_client_hint_mismatch( $is_mobile ) {
-		if ( ! class_exists( 'WP_Rocket_Mobile_Detect' ) ) {
-			return $is_mobile;
+		$detect = null;
+
+		// In version 3.23, the WP Rocket plugin renamed the WP_Rocket_Mobile_Detect class to MobileDetect.
+		if ( class_exists( 'WP_Rocket\Dependencies\Detection\MobileDetect' ) ) {
+			$detect = new \WP_Rocket\Dependencies\Detection\MobileDetect();
+		} elseif ( class_exists( 'WP_Rocket_Mobile_Detect' ) ) {
+			$detect = new WP_Rocket_Mobile_Detect();
 		}
 
-		$detect = new WP_Rocket_Mobile_Detect();
+		if ( ! is_object( $detect ) ) {
+			return $is_mobile;
+		}
 
 		// WP Rocket can be configured to treat tablets as desktop or as mobile; mirror that setting.
 		$rocket_cache_mobile_files_tablet = apply_filters( 'rocket_cache_mobile_files_tablet', 'desktop' );

@@ -44,9 +44,17 @@ class FetchTranslationMemory implements IHandler {
 		$gettext_context = Obj::prop( 'gettext_context', $data );
 
 		if ( $string && $source && $target ) {
+			if ( ! self::isTranslationMemoryEnabled() ) {
+				return [];
+			}
+
 			return $this->records->get( [ $string ], $source, $target, $context, $gettext_context );
 		} else {
 			return false;
 		}
+	}
+
+	private static function isTranslationMemoryEnabled() {
+		return defined( 'WPML_USE_ST_TRANSLATION_MEMORY' ) && WPML_USE_ST_TRANSLATION_MEMORY;
 	}
 }

@@ -3,14 +3,10 @@ global $sitepress, $sitepress_settings;
 ?>
 <div class="wpml-section" id="ml-content-setup-sec-2">
 
-	<div class="wpml-section-header">
-		<h3><?php esc_html_e( 'Posts and pages synchronization', 'sitepress' ); ?></h3>
-	</div>
-
 	<div class="wpml-section-content">
 
 		<form id="icl_page_sync_options" name="icl_page_sync_options" action="">
-			<?php wp_nonce_field( 'icl_page_sync_options_nonce', '_icl_nonce' ); ?>
+			<?php wpml_nonce_field_with_id( 'icl_page_sync_options_nonce', '_icl_nonce', 'icl_page_sync_options_nonce' ); ?>
 
 			<div class="wpml-section-content-inner">
 				<p>
@@ -51,16 +47,8 @@ global $sitepress, $sitepress_settings;
 				</p>
 			</div>
 
-			<div class="wpml-section-content-inner">
-				<p>
-					<label><input class="wpml-checkbox-native" type="checkbox" name="icl_sync_delete" <?php checked( $sitepress_settings['sync_delete'] ) ?> value="1" />
-					<?php esc_html_e( 'When deleting a post, delete translations as well', 'sitepress' ) ?></label>
-				</p>
-				<p>
-					<label><input class="wpml-checkbox-native" type="checkbox" name="icl_sync_delete_tax" <?php checked( $sitepress_settings['sync_delete_tax'] ) ?> value="1" />
-					<?php esc_html_e( 'When deleting a taxonomy (category, tag or custom), delete translations as well', 'sitepress' ) ?></label>
-				</p>
-			</div>
+			<?php
+			?>
 
 			<div class="wpml-section-content-inner">
 				<p>
@@ -93,6 +81,7 @@ global $sitepress, $sitepress_settings;
 			<div class="wpml-section-content-inner">
 				<p class="buttons-wrap">
 					<span class="icl_ajx_response" id="icl_ajx_response_mo"></span>
+					<?php /* translators: Button label that keeps what was entered. Verb, imperative. */ ?>
 					<input class="button-primary wpml-button base-btn" name="save" value="<?php esc_attr_e( 'Save', 'sitepress' ) ?>" type="submit" />
 				</p>
 			</div>

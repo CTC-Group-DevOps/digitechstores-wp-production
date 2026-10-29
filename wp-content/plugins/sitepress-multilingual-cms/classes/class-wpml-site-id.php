@@ -16,7 +16,7 @@ class WPML_Site_ID {
 	}
 
 	private function generate_site_id( $scope ) {
-		$site_url  = get_site_url();
+		$site_url  = WPML_Default_Site_Url::get();
 		$site_uuid = uuid_v5( $site_url, wp_generate_uuid4() );
 		$time_uuid = uuid_v5( time(), wp_generate_uuid4() );
 

@@ -18,9 +18,12 @@ class WpmlSavePostHooks {
 		add_action( 'woocommerce_after_product_object_save', array( $this, 'on_product_save' ), 100, 1 );
 	}
 
-	public function on_product_save( $post ) {
-		$post = get_post( $post );
-		$this->process_post_save( $post, false, null, true );
+	public function on_product_save( $product ) {
+		if ( ! is_object( $product ) || ! method_exists( $product, 'get_id' ) ) {
+			return;
+		}
+
+		$this->process_post_save( (int) $product->get_id(), false, null, true );
 	}
 
 	private function is_original_post( $post ) {

@@ -8,49 +8,49 @@
             "lang": "he_IL"
          },
          "Accepted": [
-            "אושר"
+            "התקבל"
          ],
          "Approved!": [
             "אושר!"
          ],
          "Loading the next translation for review...": [
-            "טוען את התרגום הבא לבדיקה..."
+            "טוען את התרגום הבא לסקירה..."
          ],
          "Back": [
             "חזור"
          ],
          "Turn off to not automatically load the next translation after finishing this review.": [
-            "כבה כדי לא לטעון אוטומטית את התרגום הבא לאחר סיום הבדיקה הזו."
+            "כבה כדי לא לטעון אוטומטית את התרגום הבא לאחר סיום סקירה זו."
          ],
          "Turn on to automatically load the next translation after finishing this  .": [
-            "הפעל כדי לטעון אוטומטית את התרגום הבא לאחר סיום הבדיקה הזו."
+            "הפעל כדי לטעון אוטומטית את התרגום הבא לאחר סיום סקירה זו."
          ],
          "Edit": [
-            "ערוך"
+            "עריכה"
          ],
          "Edit translation": [
-            "ערוך תרגום"
+            "עריכת תרגום"
          ],
          "Next review": [
-            "בדיקה הבאה"
+            "הסקירה הבאה"
          ],
          "Publish this translation": [
             "פרסם תרגום זה"
          ],
          "Accept this translation": [
-            "אשר תרגום זה"
+            "קבל תרגום זה"
          ],
          "Published!": [
             "פורסם!"
          ],
          "Please wait, applying translation..": [
-            "אנא המתן, התרגום מיושם.."
+            "אנא המתן, מחיל את התרגום..."
          ],
          "There was an error in applying translation.": [
-            "אירעה שגיאה ביישום התרגום."
+            "אירעה שגיאה בהחלת התרגום."
          ],
          "Someone is already reviewing this translation. Please try again later.": [
-            "מישהו כבר בודק את התרגום הזה. אנא נסה שוב מאוחר יותר."
+            "מישהו כבר סוקר את התרגום הזה. אנא נסה שוב מאוחר יותר."
          ]
       }
    }

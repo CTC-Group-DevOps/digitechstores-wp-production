@@ -3,7 +3,7 @@ Contributors: sammartin,zoe7633,q3ahmed
 Tags: Microsoft, Clarity, behavioral analytics
 Requires at least: 4.0
 Tested up to: 7.0
-Stable tag: 0.10.36
+Stable tag: 0.10.37
 License: MIT
 License URI: https://docs.opensource.microsoft.com/content/releasing/license.html
 
@@ -93,7 +93,14 @@ Visit [Clarity homepage](https://clarity.microsoft.com?utm_medium=wordpressInsta
 
 Check out more [frequently asked questions](https://docs.microsoft.com/en-us/clarity/faq) and our [documentation](https://docs.microsoft.com/en-us/clarity/faq).
 
+= How do I recover a Housecall Pro connection? =
+
+Reconnect using a valid Housecall Pro API key with write access. The plugin verifies authorization before saving service durations or product names. If authorization succeeds but service configuration fails, you can retry saving the configuration without entering the key again. If the connector is disconnected, reconnect before saving configuration.
+
 == Changelog ==
+= 0.10.37 =
+* Bugfix.
+
 = 0.10.36 =
 * Bugfix.
 

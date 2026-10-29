@@ -114,7 +114,7 @@ class Cart extends Layout_Type {
 		}
 
 		if ( ! is_object( WC()->cart ) ) {
-			if ( wp_is_serving_rest_request() || wp_doing_ajax() ) {
+			if ( wp_is_rest_endpoint() || wp_doing_ajax() ) {
 				wc_load_cart();
 				wc_clear_notices();
 			}

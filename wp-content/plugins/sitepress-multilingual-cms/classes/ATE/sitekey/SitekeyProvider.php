@@ -2,6 +2,8 @@
 
 namespace WPML\TM\ATE\Sitekey;
 
+use WPML\Notices\SiteKey\StoredSiteKey;
+
 class SitekeyProvider {
 
 	public function hasSitekey(): bool {
@@ -13,7 +15,10 @@ class SitekeyProvider {
 			return null;
 		}
 
-		return \OTGS_Installer()->get_site_key( 'wpml' );
+		$read = \OTGS_Installer()->get_site_key( 'wpml' );
+		$key  = StoredSiteKey::orStored( $read );
+
+		return '' !== $key ? $key : $read;
 	}
 
 	private function isInstallerAvailable() {

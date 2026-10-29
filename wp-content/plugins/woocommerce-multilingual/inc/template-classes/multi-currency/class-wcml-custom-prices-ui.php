@@ -23,7 +23,9 @@ class WCML_Custom_Prices_UI extends WCML_Templates_Factory {
 		$this->custom_prices_fields_labels = apply_filters(
 			'wcml_custom_prices_fields_labels',
 			[
+				/* translators: Label of the normal price field in the per-currency prices of a product. */
 				'_regular_price' => __( 'Regular Price', 'woocommerce-multilingual' ),
+				/* translators: Label of the reduced price field in the per-currency prices of a product. */
 				'_sale_price'    => __( 'Sale Price', 'woocommerce-multilingual' ),
 			],
 			$product_id
@@ -51,22 +53,39 @@ class WCML_Custom_Prices_UI extends WCML_Templates_Factory {
 						'<a href="' . \WCML\Utilities\AdminUrl::getMultiCurrencyTab() . '">',
 						'</a>'
 					),
+					/* translators: Label of the first radio button of the per-currency price settings: WPML converts the price using the exchange rate. */
 					'calc_auto'      => __( 'Calculate prices in other currencies automatically', 'woocommerce-multilingual' ),
+					/* translators: Tooltip of the link that opens the per-currency prices of a product. */
 					'see_prices'     => __( 'Click to see the prices in the other currencies as they are currently shown on the front end.', 'woocommerce-multilingual' ),
+					/* translators: Link that opens the per-currency prices of a product. Verb, imperative: reveal them; it is the counterpart of "Hide". */
 					'show'           => __( 'Show', 'woocommerce-multilingual' ),
+					/* translators: Link that closes the per-currency prices of a product. Verb, imperative; it is the counterpart of "Show". */
 					'hide'           => __( 'Hide', 'woocommerce-multilingual' ),
+					/* translators: Label of the second radio button of the per-currency price settings: the shop owner types each currency's price. */
 					'set_manually'   => __( 'Set prices in other currencies manually', 'woocommerce-multilingual' ),
+					/* translators: Heading above the fields where the shop owner types a product's price in each currency. */
 					'enter_prices'   => __( 'Enter prices in other currencies', 'woocommerce-multilingual' ),
+					/* translators: Link that closes the per-currency price fields of a product. Verb phrase, imperative. */
 					'hide_prices'    => __( 'Hide prices in other currencies', 'woocommerce-multilingual' ),
+					/* translators: Text shown in place of a price field when the price is converted from the default currency. */
 					'det_auto'       => __( 'Determined automatically based on exchange rate', 'woocommerce-multilingual' ),
+					/* translators: Label of the normal price field in the per-currency prices of a product. */
 					'_regular_price' => __( 'Regular Price', 'woocommerce-multilingual' ),
+					/* translators: Label of the reduced price field in the per-currency prices of a product. */
 					'_sale_price'    => __( 'Sale Price', 'woocommerce-multilingual' ),
+					/* translators: Label of the sale-price date range of a product in one currency. Noun: the dates the sale price runs. */
 					'schedule'       => __( 'Schedule', 'woocommerce-multilingual' ),
+					/* translators: Option for the sale dates of a product in one currency: use the same dates as the shop's default currency. */
 					'same_as_def'    => __( 'Same as default currency', 'woocommerce-multilingual' ),
+					/* translators: Link that opens the sale start and end date fields of a product in one currency. Verb phrase, imperative. */
 					'set_dates'      => __( 'Set dates', 'woocommerce-multilingual' ),
+					/* translators: Link that closes the sale date fields again. Verb, imperative. */
 					'collapse'       => __( 'Collapse', 'woocommerce-multilingual' ),
+					/* translators: Placeholder text in the sale start-date field. Keep the three dots: they say a date is expected. */
 					'from'           => __( 'From&hellip;', 'woocommerce-multilingual' ),
+					/* translators: Placeholder text in the sale end-date field. Keep the three dots: they say a date is expected. */
 					'to'             => __( 'To&hellip;', 'woocommerce-multilingual' ),
+					/* translators: Error shown under a sale-price field when the sale price is not lower than the normal price. */
 					'enter_price'    => __( 'Please enter in a value less than the regular price', 'woocommerce-multilingual' ),
 				],
 				$this->product_id

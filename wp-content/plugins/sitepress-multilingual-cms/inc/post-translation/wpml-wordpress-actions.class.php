@@ -17,6 +17,25 @@ class WPML_WordPress_Actions {
             return false;
         }
     }
+
+	public static function bulk_untrash_ids() {
+		if ( ! self::is_untrash_action() ) {
+			return array();
+		}
+
+		$ids = array();
+
+		if ( isset( $_GET['post'] ) && is_array( $_GET['post'] ) ) {
+			$ids = array_merge( $ids, array_map( 'intval', $_GET['post'] ) );
+		}
+
+		if ( isset( $_GET['ids'] ) && is_string( $_GET['ids'] ) ) {
+			$list = sanitize_text_field( wp_unslash( $_GET['ids'] ) );
+			$ids  = array_merge( $ids, array_map( 'intval', explode( ',', $list ) ) );
+		}
+
+		return array_values( array_unique( array_filter( $ids ) ) );
+	}
 	
 	public static function is_heartbeat( ) {
         return self::is_action( 'heartbeat', 'post' );

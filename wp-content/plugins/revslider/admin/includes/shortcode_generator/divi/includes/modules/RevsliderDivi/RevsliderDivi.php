@@ -1,4 +1,5 @@
 <?php
+if(!defined('ABSPATH')) exit();
 
 class RevsliderDiviModule extends ET_Builder_Module {
 

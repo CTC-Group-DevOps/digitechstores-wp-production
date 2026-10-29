@@ -32,7 +32,13 @@ class ConvertFlags {
 			return Either::left( 'There is no flags in DB. Your data are corrupted' );
 		}
 
+		$written = 0;
+
 		foreach ( $flags as $flag ) {
+			if ( false !== strpos( (string) $flag->flag, '/' ) ) {
+				continue;
+			}
+
 			$flagName = pathinfo( $flag->flag, PATHINFO_FILENAME );
 			if ( empty( $flagName ) ) {
 				continue;
@@ -41,10 +47,15 @@ class ConvertFlags {
 			$flagFilename = $flagName . '.' . $targetExt;
 			if ( file_exists( WPML_PLUGIN_PATH . '/res/flags/' . $flagFilename ) ) {
 				$this->updateFlagFile( $flagFilename, $flag );
+				++$written;
 			}
 		}
 
-		icl_cache_clear();
+		if ( $written ) {
+			\WPML_Flags::invalidate();
+		}
+
+		icl_cache_clear_preserving_language_names();
 
 		return Either::of( $targetExt );
 	}

@@ -545,10 +545,12 @@ class WCML_Bookings implements \IWPML_Action {
 			return;
 		}
 
+		/* translators: Heading of the group of booking fields in WPML's translation editor for a product. */
 		$bookings_section = new WPML_Editor_UI_Field_Section( __( 'Bookings', 'woocommerce-multilingual' ) );
 
 		if ( 'yes' === get_post_meta( $product_id, '_wc_booking_has_resources', true ) ) {
 			$group         = new WPML_Editor_UI_Field_Group( '', true );
+			/* translators: Label of the field holding the word a bookable product uses for its resources, in WPML's translation editor. */
 			$booking_field = new WPML_Editor_UI_Single_Line_Field( '_wc_booking_resouce_label', __( 'Resources Label', 'woocommerce-multilingual' ), $data, true );
 			$group->add_field( $booking_field );
 			$bookings_section->add_field( $group );
@@ -557,7 +559,9 @@ class WCML_Bookings implements \IWPML_Action {
 		$orig_resources = maybe_unserialize( get_post_meta( $product_id, '_resource_base_costs', true ) );
 
 		if ( $orig_resources ) {
+			/* translators: Heading of the group of booking-resource fields in WPML's translation editor for a product. Noun, plural. */
 			$group       = new WPML_Editor_UI_Field_Group( __( 'Resources', 'woocommerce-multilingual' ) );
+			/* translators: Heading of the group of booking-resource fields in WPML's translation editor for a product. Noun, plural. */
 			$group_title = __( 'Resources', 'woocommerce-multilingual' );
 			foreach ( $orig_resources as $resource_id => $cost ) {
 
@@ -568,6 +572,7 @@ class WCML_Bookings implements \IWPML_Action {
 				$group       = new WPML_Editor_UI_Field_Group( $group_title );
 				$group_title = '';
 
+				/* translators: Label of the title field of an item in WPML's translation editor for a product. Noun. */
 				$resource_field = new WPML_Editor_UI_Single_Line_Field( 'bookings-resource_' . $resource_id . '_title', __( 'Title', 'woocommerce-multilingual' ), $data, true );
 				$group->add_field( $resource_field );
 				$bookings_section->add_field( $group );
@@ -578,6 +583,7 @@ class WCML_Bookings implements \IWPML_Action {
 		end( $original_persons );
 		$last_key    = key( $original_persons );
 		$divider     = true;
+		/* translators: Heading of the group of person-type fields of a bookable product in WPML's translation editor. */
 		$group_title = __( 'Person Types', 'woocommerce-multilingual' );
 		foreach ( $original_persons as $person_id ) {
 			if ( $person_id === $last_key ) {
@@ -586,8 +592,10 @@ class WCML_Bookings implements \IWPML_Action {
 			$group       = new WPML_Editor_UI_Field_Group( $group_title, $divider );
 			$group_title = '';
 
+			/* translators: Label of the field holding the name of one person type of a bookable product, in WPML's translation editor. */
 			$person_field = new WPML_Editor_UI_Single_Line_Field( 'bookings-person_' . $person_id . '_title', __( 'Person Type Name', 'woocommerce-multilingual' ), $data, false );
 			$group->add_field( $person_field );
+			/* translators: Label of a description field in WPML's translation editor for a product. Noun. */
 			$person_field = new WPML_Editor_UI_Single_Line_Field( 'bookings-person_' . $person_id . '_description', __( 'Description', 'woocommerce-multilingual' ), $data, false );
 			$group->add_field( $person_field );
 			$bookings_section->add_field( $group );
@@ -680,6 +688,7 @@ class WCML_Bookings implements \IWPML_Action {
 
 	public function product_content_resource_label( $meta_key ) {
 		if ( '_wc_booking_resouce_label' === $meta_key ) {
+			/* translators: Name shown for the resources-label field in the list of a product's translatable fields. */
 			return __( 'Resources label', 'woocommerce-multilingual' );
 		}
 

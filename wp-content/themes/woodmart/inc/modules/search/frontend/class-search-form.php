@@ -492,7 +492,7 @@ class Search_Form {
 			?>
 			<div class="wd-search-cat wd-event-click wd-scroll">
 				<input type="hidden" name="product_cat" value="0" disabled>
-				<div tabindex="0" class="wd-search-cat-btn wd-role-btn" aria-label="<?php esc_attr_e( 'Select category', 'woodmart' ); ?>" rel="nofollow" data-val="0">
+				<div tabindex="0" class="wd-search-cat-btn wd-role-btn" rel="nofollow" data-val="0">
 					<span><?php esc_html_e( 'Select category', 'woodmart' ); ?></span>
 				</div>
 				<div class="wd-dropdown wd-dropdown-search-cat wd-dropdown-menu wd-scroll-content wd-design-default<?php echo esc_attr( $dropdown_classes ); ?>">

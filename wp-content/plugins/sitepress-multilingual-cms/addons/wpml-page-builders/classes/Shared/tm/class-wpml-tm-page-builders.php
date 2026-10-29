@@ -3,6 +3,7 @@
 use WPML\FP\Obj;
 use WPML\FP\Str;
 use WPML\PB\TranslationJob\Groups;
+use WPML\PB\TranslationJob\LabelResolver;
 use WPML\PB\TranslationJob\Labels;
 
 class WPML_TM_Page_Builders {
@@ -21,9 +22,21 @@ class WPML_TM_Page_Builders {
 	private $wpmlPbIntegration;
 
 	private $attachments = [];
-	public function __construct( SitePress $sitepress, ?\WPML_PB_Integration $wpmlPbIntegration = null ) {
-		$this->sitepress         = $sitepress;
-		$this->wpmlPbIntegration = $wpmlPbIntegration;
+
+	private $labelResolver;
+
+	private $elementTranslations;
+
+	private $packageKinds = [];
+
+	public function __construct(
+		SitePress $sitepress,
+		?\WPML_PB_Integration $wpmlPbIntegration = null,
+		?\WPML_TM_Element_Translations $elementTranslations = null
+	) {
+		$this->sitepress           = $sitepress;
+		$this->wpmlPbIntegration   = $wpmlPbIntegration;
+		$this->elementTranslations = $elementTranslations;
 	}
 
 	public function translation_job_data_filter( array $translation_package, $post, $isOriginal = false ) {
@@ -132,16 +145,22 @@ class WPML_TM_Page_Builders {
 
 			$string_package_id = $wrapper->get_package_id();
 
-			if ( $string_package_id && Groups::isGroupLabel( $field['title'] ) ) {
-				list( $groups, $title ) = Groups::parseGroupLabel( $field['title'] );
+			if ( $string_package_id && isset( $field['title'] ) && Groups::isGroupLabel( $field['title'] ) ) {
+				$label = $this->get_label_resolver()->resolve(
+					$field['title'],
+					function () use ( $wrapper, $string_package_id ) {
+						return $this->get_package_kind( $wrapper, $string_package_id );
+					}
+				);
 
-				$field['title'] = Labels::convertToHuman( $title );
+				$field['title'] = $label['title'];
 				$field['group'] = [ self::TOP_LEVEL_GROUP_ID => self::TOP_LEVEL_GROUP_DESCRIPTION ];
-				foreach ( $groups as $group ) {
-					$field['group'][ $group ] = Labels::convertToHuman( $group );
+				foreach ( $label['groups'] as $group => $groupLabel ) {
+					$field['group'][ $group ] = $groupLabel;
 				}
 
-				$field = $this->set_image_url( $field, end( $groups ) );
+				$groupIds = array_keys( $label['groups'] );
+				$field    = $this->set_image_url( $field, (string) end( $groupIds ) );
 			}
 
 			$field = $this->group_media_texts( $field );
@@ -236,6 +255,28 @@ class WPML_TM_Page_Builders {
 		return $field;
 	}
 
+	public function xliffUnitPlaceholdersFilter( array $patterns, $element ) {
+		$placeholderPatterns = apply_filters( 'wpml_pb_string_placeholder_patterns', [] );
+
+		if ( ! $placeholderPatterns ) {
+			return $patterns;
+		}
+
+		$name = $this->create_field_wrapper( $element->field_type )->getStringName();
+
+		if ( ! $name ) {
+			return $patterns;
+		}
+
+		foreach ( $placeholderPatterns as $namePattern => $placeholders ) {
+			if ( preg_match( $namePattern, $name ) ) {
+				$patterns = array_merge( $patterns, (array) $placeholders );
+			}
+		}
+
+		return $patterns;
+	}
+
 	public function adjust_translation_job_filter( $elements ) {
 		return Groups::flattenHierarchy( $elements );
 	}
@@ -253,7 +294,7 @@ class WPML_TM_Page_Builders {
 		}
 
 		foreach ( $string_groups as $string_package_id => $fields ) {
-			$string_package = apply_filters( 'wpml_st_get_string_package', false, $string_package_id );
+			$string_package = apply_filters( 'wpml_st_get_string_package', null, $string_package_id );
 
 			$section  = [
 				'field_type'    => 'tm-section',
@@ -270,11 +311,7 @@ class WPML_TM_Page_Builders {
 	}
 
 	public function link_to_translation_filter( $link, $post_id, $lang, $trid ) {
-		global $wpml_tm_translation_status;
-
-		$status = $wpml_tm_translation_status->filter_translation_status( null, $trid, $lang );
-
-		if ( $link && ICL_TM_NEEDS_UPDATE === $status ) {
+		if ( $link && $trid && $this->getElementTranslations()->is_update_needed( $trid, $lang ) ) {
 			$args = [
 				'update_needed' => 1,
 				'trid'          => $trid,
@@ -287,6 +324,24 @@ class WPML_TM_Page_Builders {
 		return $link;
 	}
 
+	protected function get_label_resolver() {
+		if ( ! $this->labelResolver ) {
+			$this->labelResolver = new LabelResolver();
+		}
+
+		return $this->labelResolver;
+	}
+
+	private function get_package_kind( WPML_TM_Page_Builders_Field_Wrapper $wrapper, $packageId ) {
+		if ( ! array_key_exists( $packageId, $this->packageKinds ) ) {
+			$package = $wrapper->get_package();
+
+			$this->packageKinds[ $packageId ] = is_object( $package ) && isset( $package->kind_slug ) ? (string) $package->kind_slug : null;
+		}
+
+		return $this->packageKinds[ $packageId ];
+	}
+
 	public function create_field_wrapper( $field_slug ) {
 		return new WPML_TM_Page_Builders_Field_Wrapper( $field_slug );
 	}
@@ -296,5 +351,12 @@ class WPML_TM_Page_Builders {
 			$this->wpmlPbIntegration = \WPML\Container\make( \WPML_PB_Integration::class );
 		}
 		return $this->wpmlPbIntegration;
+	}
+
+	private function getElementTranslations() {
+		if ( null === $this->elementTranslations ) {
+			$this->elementTranslations = wpml_tm_load_element_translations();
+		}
+		return $this->elementTranslations;
 	}
 }

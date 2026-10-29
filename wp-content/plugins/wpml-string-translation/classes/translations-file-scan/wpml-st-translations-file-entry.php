@@ -33,17 +33,58 @@ class WPML_ST_Translations_File_Entry {
 			throw new InvalidArgumentException( 'MO File domain must be string type' );
 		}
 
-		$this->path   = $this->convert_to_relative_path( $path );
+		$this->path   = self::to_stored_path( $path );
 		$this->domain = $domain;
 
 		$this->validate_status( $status );
 		$this->status = $status;
 	}
 
-	private function convert_to_relative_path( $path ) {
-		$parts = explode( DIRECTORY_SEPARATOR, $this->fix_dir_separator( WP_CONTENT_DIR ) );
+	public static function to_stored_path( $path, $abspath = null, $content_dir = null ) {
+		list( $abspath, $content_dir ) = self::get_roots( $abspath, $content_dir );
 
-		return str_replace( WP_CONTENT_DIR, end( $parts ), $path );
+		$path = self::fix_dir_separator( $path );
+		if ( DIRECTORY_SEPARATOR === $abspath ) {
+			return $path;
+		}
+		if ( 0 === strpos( $path, $abspath ) ) {
+			return (string) substr( $path, strlen( $abspath ) );
+		}
+		if ( 0 === strpos( $path, $content_dir . DIRECTORY_SEPARATOR ) ) {
+			return basename( $content_dir ) . substr( $path, strlen( $content_dir ) );
+		}
+
+		return $path;
+	}
+
+	public static function resolve_stored_path( $path, $abspath = null, $content_dir = null ) {
+		list( $abspath, $content_dir ) = self::get_roots( $abspath, $content_dir );
+
+		$path = self::fix_dir_separator( $path );
+		if ( self::is_absolute_path( $path ) ) {
+			return $path;
+		}
+
+		$content_prefix = basename( $content_dir ) . DIRECTORY_SEPARATOR;
+		if ( 0 !== strpos( $content_dir, $abspath ) && 0 === strpos( $path, $content_prefix ) ) {
+			return $content_dir . DIRECTORY_SEPARATOR . substr( $path, strlen( $content_prefix ) );
+		}
+
+		return $abspath . $path;
+	}
+
+	private static function get_roots( $abspath, $content_dir ) {
+		$abspath     = self::fix_dir_separator( null === $abspath ? ABSPATH : $abspath );
+		$content_dir = self::fix_dir_separator( null === $content_dir ? WP_CONTENT_DIR : $content_dir );
+
+		return array(
+			rtrim( $abspath, '/\\' ) . DIRECTORY_SEPARATOR,
+			rtrim( $content_dir, '/\\' ),
+		);
+	}
+
+	private static function is_absolute_path( $path ) {
+		return 0 === strpos( $path, '/' ) || 0 === strpos( $path, '\\' ) || 1 === preg_match( '#^[A-Za-z]:[\\\\/]#', $path );
 	}
 
 	public function get_path() {
@@ -51,10 +92,7 @@ class WPML_ST_Translations_File_Entry {
 	}
 
 	public function get_full_path() {
-		$wp_content_dir = $this->fix_dir_separator( WP_CONTENT_DIR );
-		$parts          = explode( DIRECTORY_SEPARATOR, $wp_content_dir );
-
-		return str_replace( end( $parts ), $wp_content_dir, $this->path );
+		return self::resolve_stored_path( $this->path );
 	}
 
 	public function get_path_hash() {
@@ -135,7 +173,7 @@ class WPML_ST_Translations_File_Entry {
 		}
 	}
 
-	private function fix_dir_separator( $path ) {
+	private static function fix_dir_separator( $path ) {
 		return ( '\\' === DIRECTORY_SEPARATOR ) ? str_replace( '/', '\\', $path ) : str_replace( '\\', '/', $path );
 	}
 
